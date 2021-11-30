@@ -1,0 +1,7 @@
+$--header-height: 70;
+$--footer-height: 50;
+$--main-offset: $--header-height + $--footer-height + 2;
+
+:export {
+  mainOffset: $--main-offset;
+}

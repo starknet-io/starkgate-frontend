@@ -1,0 +1,9 @@
+@import '../../../../index';
+
+$error-color: $--color-error;
+
+.modalHeader {
+  &.error {
+    color: $error-color;
+  }
+}

@@ -1,0 +1,35 @@
+@import '../../../index';
+
+$color: $--color-white;
+$network-color: $--color-beta;
+
+.selectToken {
+  padding: 0 20px;
+  position: relative;
+  min-height: 400px;
+
+  .background {
+    content: '';
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .title {
+    font-size: 26px;
+    font-weight: bold;
+    color: $color;
+    margin: 20px 0;
+
+    span {
+      color: $network-color;
+      text-transform: capitalize;
+    }
+  }
+}

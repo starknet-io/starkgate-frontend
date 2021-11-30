@@ -1,0 +1,23 @@
+@import '../../../../index';
+
+$background-color: $--color-alpha-2;
+$error-color: $--color-error;
+
+.tokenInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: $background-color;
+  height: 50px;
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 7px;
+  transition: 0.3s ease-in-out;
+
+  &.hasError {
+    margin: 20px 0 10px 0;
+    border-color: $error-color;
+    border-style: solid;
+    border-width: 1px;
+  }
+}

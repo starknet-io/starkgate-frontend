@@ -1,0 +1,15 @@
+$border-color: rgba(255, 255, 255, 0.05);
+
+.searchToken {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 15px 0 10px 0;
+  padding: 0 10px;
+  border: 1px solid $border-color;
+  border-radius: 7px;
+
+  svg {
+    margin-right: 5px;
+  }
+}

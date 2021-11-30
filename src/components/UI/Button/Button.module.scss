@@ -1,0 +1,27 @@
+.button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
+  border: 1px solid;
+  box-sizing: border-box;
+  border-radius: 7px;
+  margin: 10px 0;
+  padding: 20px 15px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &.isDisabled {
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  img,
+  svg {
+    margin-right: 10px;
+  }
+}

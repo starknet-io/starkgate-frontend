@@ -1,0 +1,25 @@
+@import '../../../../index';
+
+$color: $--color-alpha-6;
+$background-color: $--color-alpha-5;
+$color-hover: $--color-alpha-6-hover;
+$background-color-hover: $--color-alpha-5-hover;
+
+.tokenSelector {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 15px;
+  color: $color;
+  text-transform: capitalize;
+  cursor: pointer;
+  padding: 10px 5px 10px 15px;
+  background: $background-color;
+  border-radius: 7px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $color-hover;
+    background: $background-color-hover;
+  }
+}

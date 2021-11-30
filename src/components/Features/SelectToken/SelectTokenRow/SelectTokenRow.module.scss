@@ -1,0 +1,79 @@
+@import '../../../../index';
+
+$hr-color: rgba(255, 255, 255, 0.05);
+$symbol-color: $--color-white;
+$name-color: $--color-alpha-6-hover;
+$balance-color: $--color-alpha-6-hover;
+$name-color-hover: $--color-white;
+$balance-color-hover: $--color-white;
+
+.selectTokenRow {
+  cursor: pointer;
+
+  &:first-child {
+    hr {
+      display: none;
+    }
+  }
+
+  hr {
+    border-color: $hr-color;
+  }
+
+  .data {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    .left {
+      display: flex;
+      align-items: center;
+
+      .symbol {
+        color: $symbol-color;
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+        transition: 0.4s ease-in-out;
+        margin: 3px 0;
+      }
+
+      .name {
+        font-size: 16px;
+        color: $name-color;
+        text-transform: capitalize;
+        transition: 0.4s ease-in-out;
+      }
+    }
+
+    .right {
+      .balance {
+        float: right;
+        font-size: 18px;
+        color: $balance-color;
+        text-transform: uppercase;
+        transition: 0.4s ease-in-out;
+        margin: 0 10px;
+      }
+    }
+  }
+
+  &:hover {
+    .data {
+      .left {
+        .name {
+          color: $name-color-hover;
+        }
+      }
+
+      .right {
+        .balance {
+          color: $balance-color-hover;
+        }
+      }
+    }
+  }
+}

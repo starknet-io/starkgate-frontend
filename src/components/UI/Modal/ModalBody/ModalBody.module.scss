@@ -1,0 +1,17 @@
+@import '../../../../index';
+
+$color: $--color-omega;
+$error-color: $--color-error;
+
+.modalBody {
+  padding: 10px 0;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0.01em;
+  color: $color;
+  white-space: break-spaces;
+
+  &.error {
+    color: $error-color;
+  }
+}

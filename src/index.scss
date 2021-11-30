@@ -1,0 +1,63 @@
+@import './styles/variables.module';
+@import './styles/colors.module';
+@import './styles/fonts.module';
+
+@font-face {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-style: normal;
+  src: url('assets/fonts/Inter/Inter-Regular.ttf') format('truetype');
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: $--primary-font;
+  background-color: $--color-alpha-3;
+  background-image: url('assets/img/light-accent.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transition: 0.3s;
+}
+
+header,
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.center {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 7px;
+  box-shadow: inset 0 0 30px $--color-alpha;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background: $--color-alpha-6;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar {
+  max-width: 7px;
+  max-height: 7px;
+}

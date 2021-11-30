@@ -1,0 +1,76 @@
+{
+  "name": "starknet-bridge",
+  "version": "0.0.1",
+  "homepage": "./",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "prebuild": "npm run clean",
+    "build": "react-scripts build",
+    "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|scss|css|md)\"",
+    "release": "standard-version",
+    "release:dry": "standard-version --dry-run",
+    "pre-release": "standard-version --prerelease --skip.changelog",
+    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
+    "publish": "bash ./scripts/npm-publish.bash"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.+(json|scss|css|md)": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@argent/get-starknet": "^0.1.1",
+    "@metamask/onboarding": "^1.0.1",
+    "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.24.0",
+    "js-logger": "^1.6.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "react-scripts": "4.0.3",
+    "starknet": "^1.6.0",
+    "use-wallet": "^0.13.1",
+    "web3": "^1.6.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-hooks": "^0.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
+    "node-sass": "^6.0.1",
+    "prettier": "^2.3.2",
+    "prop-types": "^15.7.2",
+    "sass-loader": "^12.1.0",
+    "standard-version": "^9.3.1"
+  }
+}

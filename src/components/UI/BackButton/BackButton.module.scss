@@ -1,0 +1,30 @@
+@import '../../../index';
+
+$color: $--color-alpha-6;
+$hover-color: $--color-alpha-6-hover;
+$svg-hover-fill-color: $--color-alpha-6-hover;
+
+.backButton {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  text-transform: capitalize;
+  color: $color;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  svg {
+    margin-right: 7px;
+  }
+
+  &:hover {
+    color: $hover-color;
+
+    svg {
+      path {
+        fill: $svg-hover-fill-color;
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+@import '../../../../index';
+
+$text-color: $--color-white;
+$background-color-hover: $--color-alpha-1;
+
+.walletLogin {
+  display: flex;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+
+    .text {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        line-height: 150%;
+        color: $text-color;
+      }
+
+      .description {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        color: $text-color;
+        opacity: 0.5;
+        line-height: 150%;
+      }
+    }
+  }
+
+  svg {
+    transition: 0.3s ease-in-out;
+  }
+
+  &:hover {
+    background: $background-color-hover;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    svg {
+      transform: scale(2) scale3d(1, -1, -2);
+    }
+  }
+}
+
+.separator {
+  display: none;
+
+  &:not(:last-child) {
+    display: block;
+    height: 1px;
+    width: 100%;
+    background: $--color-alpha-3;
+  }
+}

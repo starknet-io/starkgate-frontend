@@ -1,0 +1,25 @@
+$--color-white: #ffffff;
+$--color-white-1: #eaf2ff;
+$--color-black: #000000;
+$--color-alpha: #15174e;
+$--color-alpha-1: #1c1e52;
+$--color-alpha-2: #23255b;
+$--color-alpha-3: #292c6c;
+$--color-alpha-4: rgba(59, 62, 118, 0.56);
+$--color-alpha-5: #3e4080;
+$--color-alpha-5-hover: #494a81;
+$--color-alpha-6: #8b8dc2;
+$--color-alpha-6-hover: #999bc5;
+$--color-beta: #f6643c;
+$--color-gamma: #69b7f9;
+$--color-gamma-1: #1595ff;
+$--color-omega: #5f666c;
+$--color-success: #039855;
+$--color-error: #da4646;
+
+:export {
+  colorBlack: $--color-black;
+  colorWhite: $--color-white;
+  colorBeta: $--color-beta;
+  colorAlpha5: $--color-alpha-5;
+}

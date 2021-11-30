@@ -1,0 +1,10 @@
+@import '../../../index';
+
+$default-background-color: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+  $--color-white;
+
+.circle {
+  margin: 0 10px 0 0;
+  background: $default-background-color;
+  border-radius: 50%;
+}
