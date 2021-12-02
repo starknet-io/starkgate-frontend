@@ -59,7 +59,7 @@ export const Login = () => {
     }
     const {config} = walletHandler;
     setSelectedWalletName(config.name);
-    return connectWallet(walletHandler);
+    return connectWallet(config);
   };
 
   const onDownloadClick = () => {
