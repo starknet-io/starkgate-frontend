@@ -12,24 +12,20 @@ import {
 } from './Transfer.selectors';
 import {resetAction, selectTokenAction, setAmountAction, setTransferAction} from './Transfer.slice';
 
-export const useTransferActions = () => {
-  return {
-    setAmount: useSetAmount(),
-    setActionType: useSetActionType(),
-    selectToken: useSelectToken(),
-    resetTransfer: useResetTransfer()
-  };
-};
+export const useTransferActions = () => ({
+  setAmount: useSetAmount(),
+  setActionType: useSetActionType(),
+  selectToken: useSelectToken(),
+  resetTransfer: useResetTransfer()
+});
 
-export const useTransferData = () => {
-  return {
-    ...useSelector(selectTransfer),
-    isEthereum: useSelector(toStarknetSelector),
-    isStarknet: useSelector(fromStarknetSelector),
-    fromNetwork: useSelector(fromNetworkSelector),
-    toNetwork: useSelector(toNetworkSelector)
-  };
-};
+export const useTransferData = () => ({
+  ...useSelector(selectTransfer),
+  isEthereum: useSelector(toStarknetSelector),
+  isStarknet: useSelector(fromStarknetSelector),
+  fromNetwork: useSelector(fromNetworkSelector),
+  toNetwork: useSelector(toNetworkSelector)
+});
 
 export const useAmount = () => {
   const amount = useSelector(getCurrentAmountSelector);

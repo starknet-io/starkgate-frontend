@@ -1,6 +1,4 @@
-export const formatBalance = balance => {
-  return parseFloat(balance.toFixed(5));
-};
+export const formatBalance = balance => parseFloat(balance.toFixed(5));
 
 export const formatAddress = account => {
   if (account) {

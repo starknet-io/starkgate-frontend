@@ -6,8 +6,8 @@ import {DynamicIcon} from '../DynamicIcon/DynamicIcon';
 import {CIRCLE_LOGO_SIZE_DIFF} from './CryptoLogo.constants';
 import styles from './CryptoLogo.module.scss';
 
-export const CryptoLogo = ({symbol, color, size}) => {
-  return symbol ? (
+export const CryptoLogo = ({symbol, color, size}) =>
+  symbol ? (
     <Circle color={color} size={size}>
       <div className={styles.cryptoLogo}>
         <DynamicIcon
@@ -17,7 +17,6 @@ export const CryptoLogo = ({symbol, color, size}) => {
       </div>
     </Circle>
   ) : null;
-};
 
 CryptoLogo.propTypes = {
   symbol: PropTypes.string,

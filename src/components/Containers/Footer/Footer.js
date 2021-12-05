@@ -5,12 +5,10 @@ import {toClasses} from '../../../utils';
 import styles from './Footer.module.scss';
 import {FOOTER_TXT} from './Footer.strings';
 
-export const Footer = () => {
-  return (
-    <footer className={styles.footer}>
-      <div className={toClasses(styles.copyright, 'row')}>
-        <StarkWareLogo /> {FOOTER_TXT}
-      </div>
-    </footer>
-  );
-};
+export const Footer = () => (
+  <footer className={styles.footer}>
+    <div className={toClasses(styles.copyright, 'row')}>
+      <StarkWareLogo /> {FOOTER_TXT}
+    </div>
+  </footer>
+);

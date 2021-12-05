@@ -15,24 +15,22 @@ export const TokenInput = ({
   onMaxClick,
   onTokenSelect,
   onInputChange
-}) => {
-  return (
-    <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
-      <Input
-        placeholder={INPUT_PLACEHOLDER}
-        style={{
-          fontSize: '24px',
-          fontWeight: '600'
-        }}
-        type="number"
-        value={value}
-        onChange={onInputChange}
-      />
-      <MaxButton onClick={onMaxClick} />
-      <TokenSelector tokenData={selectedToken} onClick={onTokenSelect} />
-    </div>
-  );
-};
+}) => (
+  <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
+    <Input
+      placeholder={INPUT_PLACEHOLDER}
+      style={{
+        fontSize: '24px',
+        fontWeight: '600'
+      }}
+      type="number"
+      value={value}
+      onChange={onInputChange}
+    />
+    <MaxButton onClick={onMaxClick} />
+    <TokenSelector tokenData={selectedToken} onClick={onTokenSelect} />
+  </div>
+);
 
 TokenInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

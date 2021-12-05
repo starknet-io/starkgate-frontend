@@ -3,9 +3,7 @@ import React from 'react';
 
 import styles from './Badge.module.scss';
 
-export const Badge = ({text}) => {
-  return <div className={styles.badge}>{text}</div>;
-};
+export const Badge = ({text}) => <div className={styles.badge}>{text}</div>;
 
 Badge.propTypes = {
   text: PropTypes.string

@@ -5,9 +5,9 @@ import {toClasses} from '../../../../utils';
 import {ModalType} from '../Modal/Modal.constants';
 import styles from './ModalBody.module.scss';
 
-export const ModalBody = ({type = ModalType.INFO, children}) => {
-  return <div className={toClasses(styles.modalBody, styles[type])}>{children}</div>;
-};
+export const ModalBody = ({type = ModalType.INFO, children}) => (
+  <div className={toClasses(styles.modalBody, styles[type])}>{children}</div>
+);
 
 ModalBody.propTypes = {
   type: PropTypes.string,

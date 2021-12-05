@@ -9,9 +9,7 @@ const getLogger = name => {
   return jsLogger.get(name);
 };
 
-const getLogLevel = name => {
-  return getLogger(name).getLevel();
-};
+const getLogLevel = name => getLogger(name).getLevel();
 
 const setLogLevel = (level, name) => {
   getLogger(name).setLevel(level);

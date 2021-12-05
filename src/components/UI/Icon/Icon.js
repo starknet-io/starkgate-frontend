@@ -4,20 +4,18 @@ import React from 'react';
 import {toClasses} from '../../../utils';
 import styles from './Icon.module.scss';
 
-export const Icon = ({isClickable, onClick, style, className, children}) => {
-  return (
-    <div
-      className={toClasses(styles.icon, className)}
-      style={{
-        cursor: isClickable ? 'pointer' : 'default',
-        ...style
-      }}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-};
+export const Icon = ({isClickable, onClick, style, className, children}) => (
+  <div
+    className={toClasses(styles.icon, className)}
+    style={{
+      cursor: isClickable ? 'pointer' : 'default',
+      ...style
+    }}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+);
 
 Icon.propTypes = {
   isClickable: PropTypes.bool,

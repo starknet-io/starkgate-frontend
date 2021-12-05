@@ -6,23 +6,21 @@ import {capitalize} from '../../../../utils';
 import {DynamicIcon} from '../../../UI';
 import styles from './WalletLogin.module.scss';
 
-export const WalletLogin = ({name, description, logoPath, onClick}) => {
-  return (
-    <>
-      <div className={styles.walletLogin} onClick={onClick}>
-        <div className={styles.left}>
-          <DynamicIcon path={logoPath} size={41} />
-          <div className={styles.text}>
-            <div className={styles.title}>{capitalize(name)}</div>
-            <div className={styles.description}>{capitalize(description)}</div>
-          </div>
+export const WalletLogin = ({name, description, logoPath, onClick}) => (
+  <>
+    <div className={styles.walletLogin} onClick={onClick}>
+      <div className={styles.left}>
+        <DynamicIcon path={logoPath} size={41} />
+        <div className={styles.text}>
+          <div className={styles.title}>{capitalize(name)}</div>
+          <div className={styles.description}>{capitalize(description)}</div>
         </div>
-        <ForwardIcon />
       </div>
-      <div className={styles.separator} />
-    </>
-  );
-};
+      <ForwardIcon />
+    </div>
+    <div className={styles.separator} />
+  </>
+);
 
 WalletLogin.propTypes = {
   name: PropTypes.string,

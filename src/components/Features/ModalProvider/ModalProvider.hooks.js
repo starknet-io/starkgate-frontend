@@ -5,11 +5,9 @@ import {ModalType} from '../../UI/Modal/Modal/Modal.constants';
 import {selectModal} from './ModalProvider.selectors';
 import {hideModalAction, showModalAction} from './ModalProvider.slice';
 
-export const useModal = () => {
-  return {
-    modal: useSelector(selectModal)
-  };
-};
+export const useModal = () => ({
+  modal: useSelector(selectModal)
+});
 
 export const useHideModal = () => {
   const dispatch = useDispatch();
