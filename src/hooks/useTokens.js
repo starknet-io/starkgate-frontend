@@ -22,8 +22,7 @@ export const useTokens = () => {
         tokens = await getL1Tokens();
         readBalances(tokens, getL1TokenBalance);
       } else {
-        tokens = await getL2Tokens();
-        readBalances(tokens, getL2TokenBalance);
+        // TODO
       }
       setTokensData(tokens);
     } catch (err) {
@@ -39,10 +38,6 @@ export const useTokens = () => {
     return [NetworkType.ETHEREUM, ...(await import(`../config/tokens/${fileName}`)).default];
   };
 
-  const getL2Tokens = () => {
-    return Promise.resolve([]);
-  };
-
   const getL1TokenBalance = async tokens => {
     let balance;
     const {symbol, address} = tokens;
@@ -54,8 +49,6 @@ export const useTokens = () => {
     }
     return formatBalance(balance);
   };
-
-  const getL2TokenBalance = async tokens => {};
 
   const formatBalance = balance => Number(web3.utils.fromWei(balance));
 
