@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import EthereumLogo from '../../../assets/svg/tokens/eth.svg';
 import StarkNetLogo from '../../../assets/svg/tokens/starknet.svg';
 import {useColors} from '../../../hooks';
+import {useTokens} from '../../../hooks/useTokens';
 import {BackButton, Loading, Menu, MenuTitle} from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
@@ -13,8 +14,7 @@ import {TITLE_TXT} from './SelectToken.strings';
 import {SelectTokenList} from './SelectTokenList/SelectTokenList';
 
 export const SelectToken = () => {
-  const isLoading = true;
-  const tokensData = [];
+  const {isLoading, tokensData} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useBridgeActions();
   const {isEthereum, fromNetwork} = useTransferData();
@@ -36,9 +36,9 @@ export const SelectToken = () => {
         <BackButton onClick={showTransferMenu} />
         <MenuTitle text={TITLE_TXT} />
         <MenuTitle color={colorBeta} text={fromNetwork.name} />
-        <div>
+        <>
           {isLoading && (
-            <div className="center">
+            <div className={styles.loadingContainer}>
               <Loading size={LoadingSize.EXTRA_LARGE} />
             </div>
           )}
@@ -51,7 +51,7 @@ export const SelectToken = () => {
               <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
             </>
           )}
-        </div>
+        </>
         <div
           className={styles.background}
           style={{

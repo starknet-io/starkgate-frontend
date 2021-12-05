@@ -6,21 +6,26 @@ import {UseWalletProvider} from 'use-wallet';
 import {App} from './App';
 import {ModalProvider} from './components/Features';
 import {WalletsProvider} from './components/Features/Wallet/WalletsProvider';
-import supportedChains from './config/supported-chains.json';
+import {
+  autoConnect,
+  pollBalanceInterval,
+  pollBlockNumberInterval,
+  supportedChainIds
+} from './config/config.json';
 import './index.scss';
 import {store} from './store/store';
 
 ReactDOM.render(
   <Provider store={store}>
     <UseWalletProvider
-      autoConnect={false}
+      autoConnect={autoConnect}
       connectors={{
         injected: {
-          chainId: supportedChains
+          chainId: supportedChainIds
         }
       }}
-      pollBalanceInterval={2000}
-      pollBlockNumberInterval={5000}
+      pollBalanceInterval={pollBalanceInterval}
+      pollBlockNumberInterval={pollBlockNumberInterval}
     >
       <WalletsProvider>
         <App />
