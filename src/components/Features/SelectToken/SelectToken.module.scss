@@ -6,7 +6,8 @@ $network-color: $--color-beta;
 .selectToken {
   padding: 0 20px;
   position: relative;
-  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 
   .background {
     content: '';
@@ -21,15 +22,7 @@ $network-color: $--color-beta;
     pointer-events: none;
   }
 
-  .title {
-    font-size: 26px;
-    font-weight: bold;
-    color: $color;
-    margin: 20px 0;
-
-    span {
-      color: $network-color;
-      text-transform: capitalize;
-    }
+  .loadingContainer {
+    margin: 50px auto;
   }
 }

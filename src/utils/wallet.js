@@ -1,5 +1,5 @@
 export const formatBalance = balance => {
-  return !Math.ceil(balance) ? 0 : balance.toFixed(5);
+  return parseFloat(balance.toFixed(5));
 };
 
 export const formatAddress = account => {

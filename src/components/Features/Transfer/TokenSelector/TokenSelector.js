@@ -9,7 +9,7 @@ import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './TokenSelector.module.scss';
 
 export const TokenSelector = ({tokenData, onClick}) => {
-  const {colorAlpha5} = useColors();
+  const {colorAlpha3} = useColors();
   const isLoading = useIsLoading(tokenData.symbol);
 
   return (
@@ -17,7 +17,7 @@ export const TokenSelector = ({tokenData, onClick}) => {
       {isLoading && <Loading size={LoadingSize.SMALL} />}
       {!isLoading && (
         <>
-          <CryptoLogo color={colorAlpha5} size={CryptoLogoSize.SMALL} symbol={tokenData?.symbol} />
+          <CryptoLogo color={colorAlpha3} size={CryptoLogoSize.SMALL} symbol={tokenData?.symbol} />
           {tokenData.symbol}
         </>
       )}

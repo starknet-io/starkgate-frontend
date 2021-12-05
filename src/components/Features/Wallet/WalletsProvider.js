@@ -135,7 +135,6 @@ export const WalletsProvider = ({children}) => {
   };
 
   // Dispatchers
-
   const setActiveWallet = walletData => {
     dispatch({
       type: actions.SET_ACTIVE_WALLET_ACTION,
@@ -163,7 +162,6 @@ export const WalletsProvider = ({children}) => {
   };
 
   // context
-
   const context = {
     ...activeWallet(),
     connectWallet,

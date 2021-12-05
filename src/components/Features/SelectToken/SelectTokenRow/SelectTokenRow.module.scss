@@ -50,13 +50,14 @@ $balance-color-hover: $--color-white;
     }
 
     .right {
+      margin: 0 10px;
+
       .balance {
         float: right;
         font-size: 18px;
         color: $balance-color;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
-        margin: 0 10px;
       }
     }
   }
