@@ -113,7 +113,7 @@
     "@web3-react/types" "^6.0.7"
     tiny-warning "^1.0.3"
 
-"@argent/get-starknet@^0.1.1":
+"@argent/get-starknet@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@argent/get-starknet/-/get-starknet-0.1.3.tgz#c4f4599f5701c35d7ea1a20c16710f57daa3cd4d"
   integrity sha512-OqnklHJlFFYx4vbGH6z9Xqchhw/Ryb7xV9L1XlJ3V+lWSjCmv0FsFgNH9J9WgEePem0gc28fFTk+Vpt5M5Xl7g==
@@ -15224,10 +15224,10 @@ standard-version@^9.3.1:
     stringify-package "^1.0.1"
     yargs "^16.0.0"
 
-starknet@^1.6.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/starknet/-/starknet-1.7.0.tgz#100e53dedab6531f5e000e2f5c2042c0e38f6579"
-  integrity sha512-qf8l9AC2xff5mNbgkbiOCPqBASjmHASnhrTwS9FNUiJZhBMnYH3OgEOfM4GdXzxh8vINKWnX/Kor7wuQZbUZsw==
+starknet@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/starknet/-/starknet-2.3.1.tgz#6c4ff1d74b2f20f8372fbb616587687756debd30"
+  integrity sha512-A5/POnt1s5gocVTx4NdrJDekhguLLvLQtgALV2w6sVNiCN8/yT2OIcUHjg1F82FB+vfE8usf2X8ccGyMwQteHw==
   dependencies:
     axios "^0.23.0"
     bn.js "^5.2.0"
@@ -15237,6 +15237,7 @@ starknet@^1.6.0:
     json-bigint "^1.0.0"
     minimalistic-assert "^1.0.1"
     pako "^2.0.4"
+    url-join "^4.0.1"
 
 static-extend@^0.1.1:
   version "0.1.2"
@@ -16281,6 +16282,11 @@ urix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/urix/-/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
+
+url-join@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
+  integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
 
 url-loader@4.1.1:
   version "4.1.1"

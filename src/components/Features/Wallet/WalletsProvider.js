@@ -126,7 +126,7 @@ export const WalletsProvider = ({children}) => {
 
   const activeWallet = () => {
     const config = walletConfigMap[state.activeWallet.type];
-    const {name, buttonLogoPath: logoPath} = config || {};
+    const {name, logoPath} = config || {};
     return {
       ...state.activeWallet,
       name,

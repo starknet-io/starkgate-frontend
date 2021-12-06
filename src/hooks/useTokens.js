@@ -1,8 +1,11 @@
+import {getStarknet} from '@argent/get-starknet';
 import {useEffect, useState} from 'react';
+import {Contract, uint256} from 'starknet';
 
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
 import {useWallets} from '../components/Features/Wallet/Wallet.hooks';
 import {createERC20Contract} from '../contracts';
+import {abi} from '../contracts/ERC20/ERC20_STARKNET.json';
 import {ChainType, NetworkType} from '../enums';
 import {web3} from '../web3';
 
@@ -22,7 +25,8 @@ export const useTokens = () => {
         tokens = await getL1Tokens();
         readBalances(tokens, getL1TokenBalance);
       } else {
-        // TODO
+        tokens = await getL2Tokens();
+        readBalances(tokens, getL2TokenBalance);
       }
       setTokensData(tokens);
     } catch (err) {
@@ -38,9 +42,15 @@ export const useTokens = () => {
     return [NetworkType.ETHEREUM, ...(await import(`../config/tokens/${fileName}`)).default];
   };
 
-  const getL1TokenBalance = async tokens => {
+  const getL2Tokens = async () => {
+    const fileName =
+      chainName === ChainType.MAIN.name ? 'starknet.json' : `starknet.${chainName}.json`;
+    return [...(await import(`../config/tokens/${fileName}`)).default];
+  };
+
+  const getL1TokenBalance = async token => {
     let balance;
-    const {symbol, address} = tokens;
+    const {symbol, address} = token;
     if (symbol === NetworkType.ETHEREUM.symbol) {
       balance = await web3.eth.getBalance(account);
     } else {
@@ -48,6 +58,16 @@ export const useTokens = () => {
       balance = await contract.methods.balanceOf(account).call();
     }
     return formatBalance(balance);
+  };
+
+  const getL2TokenBalance = async token => {
+    const {address} = token;
+    const starknet = getStarknet();
+    const contract = new Contract(abi, address, starknet.provider);
+    const response = await contract.call('balance_of', {account});
+    const {balance} = response;
+    const balanceAsBN = uint256.uint256ToBN(balance);
+    return balanceAsBN.toNumber();
   };
 
   const formatBalance = balance => Number(web3.utils.fromWei(balance));

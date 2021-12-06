@@ -97,13 +97,13 @@ export const Login = () => {
   const renderLoginWallets = () => {
     return getWalletHandlers(walletType).map(walletHandler => {
       const {
-        config: {id, description, name, loginLogoPath}
+        config: {id, description, name, logoPath}
       } = walletHandler;
       return (
         <WalletLogin
           key={id}
           description={description}
-          logoPath={loginLogoPath}
+          logoPath={logoPath}
           name={name}
           onClick={() => onWalletConnect(walletHandler)}
         />

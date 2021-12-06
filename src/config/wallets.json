@@ -5,15 +5,13 @@
     "connectorId": "injected",
     "type": 1,
     "description": "Login using a browser wallet",
-    "loginLogoPath": "wallets/metamask/metamask-login.svg",
-    "buttonLogoPath": "wallets/metamask/metamask-button.svg"
+    "logoPath": "wallets/metamask/logo.svg"
   },
   {
     "id": "argent",
     "name": "Argent X",
     "type": 2,
     "description": "Login using a browser wallet",
-    "loginLogoPath": "wallets/argent/argent-button.svg",
-    "buttonLogoPath": "wallets/argent/argent-button.svg"
+    "logoPath": "wallets/argent/logo.svg"
   }
 ]
