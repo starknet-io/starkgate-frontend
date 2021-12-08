@@ -1,18 +1,18 @@
 import React from 'react';
 
-import {AccountAddress, LogoutButton, TransferLogContainer} from '.';
-import {BackButton, Menu, MenuTitle} from '../../UI';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {useTransferData} from '../Transfer/Transfer.hooks';
-import {useWallets} from '../Wallet/Wallet.hooks';
+import {useCombineWallets} from '../../../../providers/CombineWalletsProvider/hooks';
+import {BackButton, Menu, MenuTitle} from '../../../UI';
+import {useBridgeActions} from '../../Bridge/Bridge.hooks';
+import {useTransferData} from '../../Transfer/Transfer/Transfer.hooks';
+import {LinkButton} from '../LinkButton/LinkButton';
+import {AccountAddress, LogoutButton, TransferLogContainer} from '../index';
 import {LINKS} from './Account.constants';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
-import {LinkButton} from './LinkButton/LinkButton';
 
 export const Account = () => {
   const {showTransferMenu} = useBridgeActions();
-  const {account, chainName, resetWallet} = useWallets();
+  const {account, chainName, resetWallet} = useCombineWallets();
   const {isEthereum, isStarknet} = useTransferData();
 
   return (

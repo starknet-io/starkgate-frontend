@@ -2,15 +2,17 @@ import React from 'react';
 
 import StarkNetLogoPath from '../../../assets/img/starknet.png';
 import {ChainType} from '../../../enums';
+import {useCombineWallets} from '../../../providers/CombineWalletsProvider/hooks';
 import {toClasses} from '../../../utils';
-import {WalletButton} from '../../Features';
-import {useWallets} from '../../Features/Wallet/Wallet.hooks';
+import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
+import {WalletButton} from '../../UI';
 import {STARKNET_LOGO_SIZE} from './Header.constants';
 import styles from './Header.module.scss';
 import {CHAIN_TXT} from './Header.strings';
 
 export const Header = () => {
-  const {chainName} = useWallets();
+  const {chainName, account, isConnected, config} = useCombineWallets();
+  const {showAccountMenu} = useBridgeActions();
 
   return (
     <div className={toClasses(styles.header, 'row')}>
@@ -23,7 +25,9 @@ export const Header = () => {
         )}
       </div>
       <div className={toClasses(styles.right, 'row')}>
-        <WalletButton />
+        {isConnected && (
+          <WalletButton account={account} logoPath={config?.logoPath} onClick={showAccountMenu} />
+        )}
       </div>
     </div>
   );

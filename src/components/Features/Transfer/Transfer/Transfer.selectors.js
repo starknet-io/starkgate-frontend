@@ -1,6 +1,6 @@
 import {createSelector} from '@reduxjs/toolkit';
 
-import {ActionType, NetworkType} from '../../../enums';
+import {ActionType, NetworkType} from '../../../../enums';
 
 export const selectTransfer = state => state.transfer;
 

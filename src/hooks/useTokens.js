@@ -2,16 +2,16 @@ import {getStarknet} from '@argent/get-starknet';
 import {useEffect, useState} from 'react';
 import {Contract, uint256} from 'starknet';
 
-import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {useWallets} from '../components/Features/Wallet/Wallet.hooks';
+import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
 import {createERC20Contract} from '../contracts';
 import {abi} from '../contracts/ERC20/ERC20_STARKNET.json';
 import {ChainType, NetworkType} from '../enums';
+import {useCombineWallets} from '../providers/CombineWalletsProvider/hooks';
 import {web3} from '../web3';
 
 export const useTokens = () => {
   const {action, isEthereum} = useTransferData();
-  const {account, chainName} = useWallets();
+  const {account, chainName} = useCombineWallets();
   const [tokensData, setTokensData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);

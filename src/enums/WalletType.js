@@ -1,4 +1,4 @@
 export const WalletType = {
-  L1: 1,
-  L2: 2
+  ETHEREUM: 'ethereum',
+  STARKNET: 'starknet'
 };

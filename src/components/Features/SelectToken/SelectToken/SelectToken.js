@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
-import EthereumLogo from '../../../assets/svg/tokens/eth.svg';
-import StarkNetLogo from '../../../assets/svg/tokens/starknet.svg';
-import {useColors} from '../../../hooks';
-import {useTokens} from '../../../hooks/useTokens';
-import {BackButton, Loading, Menu, MenuTitle} from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {useTransferActions, useTransferData} from '../Transfer/Transfer.hooks';
-import {SearchToken} from './SearchToken/SearchToken';
+import EthereumLogo from '../../../../assets/svg/tokens/eth.svg';
+import StarkNetLogo from '../../../../assets/svg/tokens/starknet.svg';
+import {useColors, useTokens} from '../../../../hooks';
+import {BackButton, Loading, Menu, MenuTitle} from '../../../UI';
+import {LoadingSize} from '../../../UI/Loading/Loading.enums';
+import {useBridgeActions} from '../../Bridge/Bridge.hooks';
+import {useTransferActions, useTransferData} from '../../Transfer/Transfer/Transfer.hooks';
+import {SearchToken} from '../SearchToken/SearchToken';
+import {SelectTokenList} from '../SelectTokenList/SelectTokenList';
 import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
-import {SelectTokenList} from './SelectTokenList/SelectTokenList';
 
 export const SelectToken = () => {
   const {isLoading, tokensData} = useTokens();

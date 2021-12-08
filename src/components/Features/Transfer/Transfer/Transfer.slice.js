@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {ActionType, NetworkType} from '../../../enums';
+import {ActionType, NetworkType} from '../../../../enums';
 
 const initialState = {
   selectedToken: {balance: 0, name: NetworkType.ETHEREUM.name, symbol: NetworkType.ETHEREUM.symbol},

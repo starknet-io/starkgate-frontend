@@ -1,28 +1,32 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {ChainUnsupportedError} from 'use-wallet';
 
-import {NetworkType, toChainName, WalletType} from '../../../enums';
-import {useWalletHandlerProvider} from '../../../hooks';
-import {capitalize, toClasses} from '../../../utils';
-import {BackButton, Menu} from '../../UI';
-import {useHideModal, useWalletConnectionModal} from '../ModalProvider/ModalProvider.hooks';
-import {useTransferData} from '../Transfer/Transfer.hooks';
-import {WalletStatus} from '../Wallet/Wallet.enums';
-import {useWallets} from '../Wallet/Wallet.hooks';
-import {MODAL_TIMEOUT_DURATION} from '../Wallet/WalletButton/WalletButton.constants';
-import {WalletLogin} from '../Wallet/WalletLogin/WalletLogin';
+import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../../enums';
+import {useWalletHandlerProvider} from '../../../../hooks';
+import {useCombineWallets} from '../../../../providers/CombineWalletsProvider/hooks';
+import {capitalize, toClasses} from '../../../../utils';
+import {BackButton, Menu} from '../../../UI';
+import {
+  useHideModal,
+  useWalletConnectionModal
+} from '../../ModalProvider/ModalProvider/ModalProvider.hooks';
+import {useTransferData} from '../../Transfer/Transfer/Transfer.hooks';
+import {WalletLogin} from '../WalletLogin/WalletLogin';
+import {MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
 import {DOWNLOAD_TEXT, SUBTITLE_TXT, TITLE_TXT} from './Login.strings';
 
 export const Login = () => {
   const {isEthereum, isStarknet} = useTransferData();
-  const [walletType, setWalletType] = useState(isEthereum ? WalletType.L1 : WalletType.L2);
+  const [walletType, setWalletType] = useState(
+    isEthereum ? WalletType.ETHEREUM : WalletType.STARKNET
+  );
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showWalletConnectionModal = useWalletConnectionModal();
-  const {status, error, connectWallet, swapWallets} = useWallets();
+  const {status, error, connectWallet, swapWallets} = useCombineWallets();
   const {getWalletHandlers} = useWalletHandlerProvider();
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export const Login = () => {
   }, [error]);
 
   useEffect(() => {
-    setWalletType(isEthereum ? WalletType.L1 : WalletType.L2);
+    setWalletType(isEthereum ? WalletType.ETHEREUM : WalletType.STARKNET);
   }, [isEthereum]);
 
   useEffect(() => {
@@ -119,7 +123,9 @@ export const Login = () => {
           <div className={styles.title}>{TITLE_TXT}</div>
           <p>
             {SUBTITLE_TXT(
-              walletType === WalletType.L1 ? NetworkType.ETHEREUM.name : NetworkType.STARKNET.name
+              walletType === WalletType.ETHEREUM
+                ? NetworkType.ETHEREUM.name
+                : NetworkType.STARKNET.name
             )}
           </p>
           <div className={styles.container}>{renderLoginWallets()}</div>
