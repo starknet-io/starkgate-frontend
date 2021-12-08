@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ModalType} from '../../UI/Modal/Modal/Modal.constants';
+import {ModalType} from '../../../UI/Modal/Modal/Modal.constants';
 import {selectModal} from './ModalProvider.selectors';
 import {hideModalAction, showModalAction} from './ModalProvider.slice';
 

@@ -1,3 +1,4 @@
+export * from './Transfer/Transfer';
 export * from './MaxButton/MaxButton';
 export * from './NetworkMenu/NetworkMenu';
 export * from './NetworkSwap/NetworkSwap';

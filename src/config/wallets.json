@@ -3,14 +3,14 @@
     "id": "metamask",
     "name": "MetaMask",
     "connectorId": "injected",
-    "type": 1,
+    "type": "ethereum",
     "description": "Login using a browser wallet",
     "logoPath": "wallets/metamask/logo.svg"
   },
   {
     "id": "argent",
     "name": "Argent X",
-    "type": 2,
+    "type": "starknet",
     "description": "Login using a browser wallet",
     "logoPath": "wallets/argent/logo.svg"
   }

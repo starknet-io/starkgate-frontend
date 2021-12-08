@@ -1,7 +1,7 @@
 import React, {lazy, Suspense} from 'react';
 
-import {Loading, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle} from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
+import {Loading, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle} from '../../../UI';
+import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import {useHideModal, useModal} from './ModalProvider.hooks';
 
 export const ModalProvider = () => {

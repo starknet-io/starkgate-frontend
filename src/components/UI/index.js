@@ -15,3 +15,4 @@ export * from './Modal/ModalBody/ModalBody';
 export * from './Modal/ModalTitle/ModalTitle';
 export * from './Modal/ModalFooter/ModalFooter';
 export * from './Input/Input';
+export * from './WalletButton/WalletButton';

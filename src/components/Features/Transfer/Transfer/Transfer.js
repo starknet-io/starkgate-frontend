@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
-import {NetworkMenu, NetworkSwap, TokenInput, TransferButton} from '.';
-import {ActionType, NetworkType} from '../../../enums';
-import {Menu} from '../../UI';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
+import {ActionType, NetworkType} from '../../../../enums';
+import {Menu} from '../../../UI';
+import {useBridgeActions} from '../../Bridge/Bridge.hooks';
+import {TransferMenuTab} from '../TransferMenuTab/TransferMenuTab';
+import {NetworkMenu, NetworkSwap, TokenInput, TransferButton} from '../index';
 import {useAmount, useIsEthereum, useIsStarknet, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
 import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings.js';
-import {TransferMenuTab} from './TransferMenuTab/TransferMenuTab';
 
 export const Transfer = () => {
   const [hasError, setHasError] = useState(false);
