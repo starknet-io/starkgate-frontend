@@ -7,15 +7,7 @@ import styles from './SelectTokenList.module.scss';
 export const SelectTokenList = ({tokens, onClick}) => (
   <div className={styles.selectTokenList}>
     {tokens.map((tokenData, index) => {
-      return (
-        <SelectTokenRow
-          key={index}
-          balance={tokenData.balance}
-          name={tokenData.name}
-          symbol={tokenData.symbol}
-          onClick={() => onClick(tokenData)}
-        />
-      );
+      return <SelectTokenRow key={index} tokenData={tokenData} onClick={onClick} />;
     })}
   </div>
 );

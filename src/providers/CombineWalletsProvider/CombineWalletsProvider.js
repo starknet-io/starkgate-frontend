@@ -8,6 +8,7 @@ import {
   useIsStarknet
 } from '../../components/Features/Transfer/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
+import {web3} from '../../web3';
 import {CombineWalletsContext} from './context';
 import {actions, initialState, reducer} from './reducer';
 
@@ -82,7 +83,8 @@ export const CombineWalletsProvider = ({children}) => {
       chainId,
       error: serialError,
       chainName: networkName,
-      isConnected: isConnected()
+      isConnected: isConnected(),
+      library: web3
     });
   };
 
@@ -102,7 +104,8 @@ export const CombineWalletsProvider = ({children}) => {
         error,
         isConnected: isStarknetConnected,
         account: selectedAddress,
-        chainName: networkName
+        chainName: networkName,
+        library: getStarknet()
       });
     }
   };
