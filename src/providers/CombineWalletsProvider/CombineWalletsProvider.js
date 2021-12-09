@@ -94,8 +94,8 @@ export const CombineWalletsProvider = ({children}) => {
     try {
       await enable();
       status = WalletStatus.CONNECTED;
-    } catch (err) {
-      error = err;
+    } catch (ex) {
+      error = ex;
       status = WalletStatus.ERROR;
     } finally {
       updateStarknetWallet({

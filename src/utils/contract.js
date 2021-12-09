@@ -5,9 +5,17 @@ import {web3} from '../web3';
 
 export const getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
 
-export const callContract = async (contract, method, args, isStarknet) => {
+export const callContract = async (contract, method, args) => {
   try {
     return await contract.methods?.[method](...args).call();
+  } catch (ex) {
+    return ex;
+  }
+};
+
+export const sendTransaction = async (contract, method, args, account) => {
+  try {
+    return contract.methods?.[method](...args).send({from: account});
   } catch (ex) {
     return ex;
   }

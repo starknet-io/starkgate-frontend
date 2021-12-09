@@ -26,7 +26,7 @@ export const useContract = (addressOrAddressMap, ABI) => {
     if (!address) return null;
     try {
       return getContract(address, ABI);
-    } catch (error) {
+    } catch (ex) {
       return null;
     }
   }, [addressOrAddressMap, ABI, chainId]);
@@ -46,7 +46,7 @@ export const useStarknetContract = (addressOrAddressMap, ABI) => {
     if (!address) return null;
     try {
       return getStarknetContract(address, ABI);
-    } catch (error) {
+    } catch (ex) {
       return null;
     }
   }, [addressOrAddressMap, ABI, chainId]);

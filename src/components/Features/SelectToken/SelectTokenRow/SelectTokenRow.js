@@ -62,5 +62,6 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
 
 SelectTokenRow.propTypes = {
   name: PropTypes.string,
-  tokenData: PropTypes.object
+  tokenData: PropTypes.object,
+  onClick: PropTypes.func
 };

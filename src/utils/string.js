@@ -13,7 +13,7 @@ export const evaluate = (template, model) => {
       res = res.replace(reg, value);
     }
     return res;
-  } catch (e) {
+  } catch (ex) {
     return '';
   }
 };
