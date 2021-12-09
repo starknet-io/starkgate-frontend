@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-import wallets from '../config/wallets.json';
+import WalletsConfig from '../config/wallets.js';
 import {ArgentHandler, MetaMaskHandler} from '../services';
 
 const SUPPORTED_HANDLERS_REGISTRY = {
@@ -13,7 +13,7 @@ export const useWalletHandlerProvider = () => {
 
   useEffect(() => {
     const walletHandlers = [];
-    wallets.forEach(walletConfig => {
+    WalletsConfig.forEach(walletConfig => {
       const {id} = walletConfig;
       const WalletHandler = SUPPORTED_HANDLERS_REGISTRY[id];
       if (WalletHandler) {

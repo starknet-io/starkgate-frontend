@@ -12,7 +12,7 @@ export const StorageManager = {
       if (item) {
         try {
           return JSON.parse(item);
-        } catch (e) {
+        } catch (ex) {
           return item;
         }
       }

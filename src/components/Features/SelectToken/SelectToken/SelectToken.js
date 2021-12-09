@@ -3,8 +3,7 @@ import React, {useEffect, useState} from 'react';
 import EthereumLogo from '../../../../assets/svg/tokens/eth.svg';
 import StarkNetLogo from '../../../../assets/svg/tokens/starknet.svg';
 import {useColors, useTokens} from '../../../../hooks';
-import {BackButton, Loading, Menu, MenuTitle} from '../../../UI';
-import {LoadingSize} from '../../../UI/Loading/Loading.enums';
+import {BackButton, Menu, MenuTitle} from '../../../UI';
 import {useBridgeActions} from '../../Bridge/Bridge.hooks';
 import {useTransferActions, useTransferData} from '../../Transfer/Transfer/Transfer.hooks';
 import {SearchToken} from '../SearchToken/SearchToken';
@@ -13,16 +12,16 @@ import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
 
 export const SelectToken = () => {
-  const {isLoading, tokensData} = useTokens();
+  const tokens = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useBridgeActions();
   const {isEthereum, fromNetwork} = useTransferData();
   const {selectToken} = useTransferActions();
-  const [searchTokens, setSearchTokens] = useState(tokensData);
+  const [searchTokens, setSearchTokens] = useState(tokens);
 
   useEffect(() => {
-    setSearchTokens(tokensData);
-  }, [tokensData]);
+    setSearchTokens(tokens);
+  }, [tokens]);
 
   const onTokenSelect = tokenData => {
     selectToken(tokenData);
@@ -35,22 +34,11 @@ export const SelectToken = () => {
         <BackButton onClick={showTransferMenu} />
         <MenuTitle text={TITLE_TXT} />
         <MenuTitle color={colorBeta} text={fromNetwork.name} />
-        <>
-          {isLoading && (
-            <div className={styles.loadingContainer}>
-              <Loading size={LoadingSize.EXTRA_LARGE} />
-            </div>
-          )}
-          {!isLoading && (
-            <>
-              <SearchToken
-                tokens={tokensData}
-                onSearchResults={searchResult => setSearchTokens(searchResult)}
-              />
-              <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
-            </>
-          )}
-        </>
+        <SearchToken
+          tokens={tokens}
+          onSearchResults={searchResult => setSearchTokens(searchResult)}
+        />
+        <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
         <div
           className={styles.background}
           style={{
