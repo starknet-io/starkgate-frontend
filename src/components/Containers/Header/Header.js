@@ -17,13 +17,17 @@ export const Header = () => {
   return (
     <div className={toClasses(styles.header, 'row')}>
       <div className={toClasses(styles.left, 'row')}>
-        <img alt="" height={STARKNET_LOGO_SIZE} src={StarkNetLogoPath} />
+        <div className={toClasses(styles.logo, 'row')}>
+          <img alt="" height={STARKNET_LOGO_SIZE} src={StarkNetLogoPath} />
+          <div className={styles.bridge}>Bridge</div>
+        </div>
         {chainName && (
-          <div className={styles.chain}>
+          <div className={toClasses(styles.chain, 'row')}>
             {chainName !== ChainType.MAIN.name && CHAIN_TXT(chainName)}
           </div>
         )}
       </div>
+
       <div className={toClasses(styles.right, 'row')}>
         {isConnected && (
           <WalletButton account={account} logoPath={config?.logoPath} onClick={showAccountMenu} />

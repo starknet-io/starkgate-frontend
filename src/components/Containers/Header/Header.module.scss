@@ -2,7 +2,8 @@
 
 $height: $--header-height;
 $background-color: $--color-alpha-5;
-$chain-color: $--color-beta;
+$chain-color: $--color-white-1;
+$bridge-color: $--color-beta;
 
 .header {
   height: #{$height}px;
@@ -11,17 +12,34 @@ $chain-color: $--color-beta;
   padding: 0 40px;
   background: $background-color;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-
-  .chain {
-    color: $chain-color;
-    margin: 5px 10px 0 10px;
-    font-size: 15px;
-    font-weight: 500;
-    opacity: 0.8;
-    text-transform: capitalize;
-  }
+  transition: 0.3s ease-in-out;
 
   .left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .logo {
+      transition: 0.3s ease-in-out;
+      .bridge {
+        transition: 0.3s ease-in-out;
+        font-family: $--primary-font;
+        margin-left: 8px;
+        font-weight: bold;
+        font-size: 26px;
+        line-height: 1;
+        color: $bridge-color;
+      }
+    }
+
+    .chain {
+      transition: 0.3s ease-in-out;
+      color: $chain-color;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.6;
+      text-transform: capitalize;
+    }
   }
 
   .right {
