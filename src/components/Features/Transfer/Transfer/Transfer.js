@@ -39,7 +39,8 @@ export const Transfer = () => {
 
   useEffect(() => {
     if (isTransferring) {
-      showProgressModal(TRANSFER_TO_STARKNET_MODAL_TITLE, transferProgress.message);
+      transferProgress &&
+        showProgressModal(TRANSFER_TO_STARKNET_MODAL_TITLE, transferProgress.message);
     } else if (transferError) {
       // TODO: show error modal
     } else if (transferData) {

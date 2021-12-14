@@ -25,9 +25,8 @@ $bridge-color: $--color-beta;
       .bridge {
         transition: 0.3s ease-in-out;
         font-family: $--primary-font;
-        margin-left: 8px;
-        font-weight: bold;
-        font-size: 26px;
+        margin-left: 5px;
+        font-size: 25px;
         line-height: 1;
         color: $bridge-color;
       }

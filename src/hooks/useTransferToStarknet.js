@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 
 import {depositEth, depositToken} from '../api/bridge';
 import {approve} from '../api/erc20';
-import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
+import {useEthereumWallet, useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
 import {listenOnce} from '../utils/contract';
 import {
   useEthBridgeContract,
@@ -35,6 +35,16 @@ export const useTransferToStarknet = tokenData => {
   const ethBridgeContract = useEthBridgeContract();
   const messagingContract = useMessagingContract();
 
+  const transferEthToStarknet = useCallback(
+    async amount => transferToStarknet(amount, depositEth, ethBridgeContract, false),
+    [ethereumAccount, starknetAccount, tokenContract]
+  );
+
+  const transferTokenToStarknet = useCallback(
+    async amount => transferToStarknet(amount, depositToken, tokenBridgeContract, true),
+    [ethereumAccount, starknetAccount, tokenContract]
+  );
+
   const waitForLogMessageToL2 = () => {
     return new Promise((resolve, reject) => {
       listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
@@ -46,19 +56,12 @@ export const useTransferToStarknet = tokenData => {
     });
   };
 
-  const transferEthToStarknet = useCallback(
-    async amount => transferToStarknet(amount, depositEth, ethBridgeContract, false),
-    [ethereumAccount, starknetAccount, tokenContract]
-  );
-
-  const transferTokenToStarknet = useCallback(
-    async amount => transferToStarknet(amount, depositToken, tokenBridgeContract, true),
-    [ethereumAccount, starknetAccount, tokenContract]
-  );
-
   const transferToStarknet = async (amount, depositHandler, bridgeContract, withApproval) => {
+    setError(null);
+    setData(null);
+    setProgress(null);
+    setIsLoading(false);
     try {
-      resetState();
       setIsLoading(true);
       let approvalPromise = Promise.resolve();
       if (withApproval) {
@@ -83,13 +86,6 @@ export const useTransferToStarknet = tokenData => {
       setProgress(null);
       setError(ex);
     }
-  };
-
-  const resetState = () => {
-    setError(null);
-    setData(null);
-    setProgress(null);
-    setIsLoading(false);
   };
 
   return {
