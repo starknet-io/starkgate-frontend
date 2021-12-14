@@ -10,13 +10,13 @@ import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {
+  const {name, symbol, tokenAddress} = tokenData;
   const [mounted, setMounted] = useState(true);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [balance, setBalance] = useState(null);
-  const {name, symbol, address} = tokenData;
   const {account} = useWallets();
-  const getBalance = useTokenBalance(address);
+  const getBalance = useTokenBalance(tokenAddress);
 
   useEffect(async () => {
     setIsLoading(true);

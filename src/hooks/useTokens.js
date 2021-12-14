@@ -1,15 +1,17 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import TokensEthereum from '../config/tokens/tokens.ethereum';
-import TokensStarknet from '../config/tokens/tokens.starknet';
+import {EthereumTokens, StarknetTokens} from '../config/addresses';
+import {NetworkType} from '../enums';
 
 export const useTokens = () => {
   const {action, isEthereum} = useTransferData();
   const [tokens, setTokens] = useState([]);
+  const memoizedStarknetTokens = useMemo(() => StarknetTokens, []);
+  const memoizedEthereumTokens = useMemo(() => [NetworkType.ETHEREUM, ...EthereumTokens], []);
 
   useEffect(() => {
-    setTokens(isEthereum ? TokensEthereum : TokensStarknet);
+    setTokens(isEthereum ? memoizedEthereumTokens : memoizedStarknetTokens);
   }, [action]);
 
   return tokens;

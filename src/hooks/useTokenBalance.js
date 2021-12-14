@@ -1,9 +1,7 @@
 import {useCallback} from 'react';
-import {uint256} from 'starknet';
 
+import {getEthBalance, getTokenBalance} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import {callContract, callStarknetContract} from '../utils/contract';
-import {web3} from '../web3';
 import {useTokenContract} from './useContract';
 
 export const useTokenBalance = tokenAddresses => {
@@ -11,14 +9,10 @@ export const useTokenBalance = tokenAddresses => {
   const {isEthereum} = useTransferData();
 
   return useCallback(
-    async account => {
-      if (isEthereum) {
-        const balance = await callContract(contract, 'balanceOf', [account]);
-        return Number(web3.utils.fromWei(balance));
-      }
-      const {balance} = await callStarknetContract(contract, 'balanceOf', [{account}]);
-      return uint256.uint256ToBN(balance).toNumber();
-    },
+    async account =>
+      !tokenAddresses && isEthereum
+        ? await getEthBalance(account)
+        : await getTokenBalance(account, contract, isEthereum),
     [isEthereum]
   );
 };

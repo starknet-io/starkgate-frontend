@@ -3,7 +3,7 @@ import {getLogger, getLogLevel, setLogLevel} from '../services';
 export * from './wallet';
 export * from './browser';
 export * from './string';
-export * from './hash';
+export * from './token';
 
 export const printPackageInfo = (name, version, color) => {
   const currentLogLevel = getLogLevel();

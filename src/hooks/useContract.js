@@ -1,14 +1,9 @@
 import {useMemo} from 'react';
 
 import {ERC20_ABI, ERC20_BRIDGE_ABI, ETH_BRIDGE_ABI, MESSAGING_ABI} from '../abis/ethereum';
-import {STARKNET_ERC20_ABI, STARKNET_ERC20_BRIDGE_ABI} from '../abis/starknet';
+import {STARKNET_ERC20_ABI, STARKNET_BRIDGE_ABI} from '../abis/starknet';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import {
-  ERC20_BRIDGE_CONTRACT_ADDRESS,
-  ETH_BRIDGE_CONTRACT_ADDRESS,
-  MESSAGING_CONTRACT_ADDRESS
-} from '../config/contracts/contracts.ethereum';
-import {STARKNET_ERC20_BRIDGE_CONTRACT_ADDRESS} from '../config/contracts/contracts.starknet';
+import {ETH_BRIDGE_CONTRACT_ADDRESS, MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
 import {useWallets} from '../providers/WalletsProvider/hooks';
 import {getContract, getStarknetContract} from '../utils/contract';
 
@@ -59,12 +54,9 @@ export const useTokenContract = tokenAddresses => {
   return useMemo(() => (isEthereum ? tokenContract : starknetTokenContract), [isEthereum]);
 };
 
-export const useTokenBridgeContract = () => {
-  const tokenBridgeContract = useContract(ERC20_BRIDGE_CONTRACT_ADDRESS, ERC20_BRIDGE_ABI);
-  const starknetTokenBridgeContract = useContract(
-    STARKNET_ERC20_BRIDGE_CONTRACT_ADDRESS,
-    STARKNET_ERC20_BRIDGE_ABI
-  );
+export const useTokenBridgeContract = bridgeAddress => {
+  const tokenBridgeContract = useContract(bridgeAddress, ERC20_BRIDGE_ABI);
+  const starknetTokenBridgeContract = useContract(bridgeAddress, STARKNET_BRIDGE_ABI);
   const {isEthereum} = useTransferData();
   return useMemo(
     () => (isEthereum ? tokenBridgeContract : starknetTokenBridgeContract),
@@ -72,10 +64,6 @@ export const useTokenBridgeContract = () => {
   );
 };
 
-export const useEthBridgeContract = () => {
-  return useContract(ETH_BRIDGE_CONTRACT_ADDRESS, ETH_BRIDGE_ABI);
-};
+export const useEthBridgeContract = () => useContract(ETH_BRIDGE_CONTRACT_ADDRESS, ETH_BRIDGE_ABI);
 
-export const useMessagingContract = () => {
-  return useContract(MESSAGING_CONTRACT_ADDRESS, MESSAGING_ABI);
-};
+export const useMessagingContract = () => useContract(MESSAGING_CONTRACT_ADDRESS, MESSAGING_ABI);

@@ -79,7 +79,7 @@
         "type": "uint256"
       }
     ],
-    "name": "LogSetL2TokenContract",
+    "name": "LogSetL2TokenBridge",
     "type": "event"
   },
   {
@@ -170,11 +170,11 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "l2TokenContract_",
+        "name": "l2TokenBridge_",
         "type": "uint256"
       }
     ],
-    "name": "setL2TokenContract",
+    "name": "setL2TokenBridge",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

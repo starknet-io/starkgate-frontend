@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../../enums';
 import {useTransferToStarknet} from '../../../../hooks';
+import {isEth} from '../../../../utils';
 import {Menu} from '../../../UI';
 import {useBridgeActions} from '../../Bridge/Bridge.hooks';
 import {
@@ -25,8 +26,14 @@ export const Transfer = () => {
   const [amount, setAmount, clearAmount] = useAmount();
   const {action, selectedToken, fromNetwork, toNetwork} = useTransferData();
   const {showSelectTokenMenu} = useBridgeActions();
-  const {transferData, transferToStarknet, transferError, isTransferring, transferProgress} =
-    useTransferToStarknet(selectedToken);
+  const {
+    transferData,
+    transferEthToStarknet,
+    transferTokenToStarknet,
+    transferError,
+    isTransferring,
+    transferProgress
+  } = useTransferToStarknet(selectedToken);
   const showProgressModal = useProgressModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
 
@@ -75,7 +82,7 @@ export const Transfer = () => {
 
   const onTransferClick = async () => {
     if (isEthereum) {
-      return transferToStarknet(amount);
+      return isEth(selectedToken) ? transferEthToStarknet(amount) : transferTokenToStarknet(amount);
     }
   };
 
