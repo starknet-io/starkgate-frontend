@@ -3,7 +3,11 @@ import {createSlice} from '@reduxjs/toolkit';
 import {ActionType, NetworkType} from '../../../../enums';
 
 const initialState = {
-  selectedToken: {balance: 0, name: NetworkType.ETHEREUM.name, symbol: NetworkType.ETHEREUM.symbol},
+  selectedToken: {
+    balance: null,
+    name: NetworkType.ETHEREUM.name,
+    symbol: NetworkType.ETHEREUM.symbol
+  },
   action: ActionType.TRANSFER_TO_STARKNET,
   depositAmount: '',
   withdrawAmount: ''

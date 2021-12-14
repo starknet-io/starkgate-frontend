@@ -28,19 +28,19 @@ const TransactionSubmittedModal = ({transactionHash}) => {
         colorBackground={colorWhite}
         colorBorder={colorAlpha3}
         colorText={colorAlpha3}
-        text={BTN_TEXT}
         icon={
-          <Circle size={40} color={colorWhite1}>
+          <Circle color={colorWhite1} size={40}>
             <EtherscanLogo style={{margin: 'auto'}} />
           </Circle>
         }
-        onClick={onClick}
         style={{
           borderRadius: '7px',
           borderWidth: '2px',
           fontSize: '16px',
           height: '60px'
         }}
+        text={BTN_TEXT}
+        onClick={onClick}
       />
     </div>
   );

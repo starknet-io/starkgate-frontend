@@ -12,17 +12,17 @@ import styles from './SelectTokenRow.module.scss';
 export const SelectTokenRow = ({tokenData, onClick}) => {
   const {name, symbol, tokenAddress} = tokenData;
   const [mounted, setMounted] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [balance, setBalance] = useState(null);
   const {account} = useWallets();
-  const getBalance = useTokenBalance(tokenAddress);
+  const getBalance = useTokenBalance(tokenAddress, account);
 
   useEffect(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const tokenBalance = await getBalance(account);
+      const tokenBalance = await getBalance();
       if (!mounted) return;
       setBalance(tokenBalance);
     } catch (ex) {

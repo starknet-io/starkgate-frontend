@@ -5,14 +5,30 @@ import {EthereumTokens, StarknetTokens} from '../config/addresses';
 import {NetworkType} from '../enums';
 
 export const useTokens = () => {
-  const {action, isEthereum} = useTransferData();
+  const {isEthereum} = useTransferData();
   const [tokens, setTokens] = useState([]);
-  const memoizedStarknetTokens = useMemo(() => StarknetTokens, []);
-  const memoizedEthereumTokens = useMemo(() => [NetworkType.ETHEREUM, ...EthereumTokens], []);
+  const ethereumTokens = useEthereumTokens();
+  const starknetTokens = useStarknetTokens();
 
   useEffect(() => {
-    setTokens(isEthereum ? memoizedEthereumTokens : memoizedStarknetTokens);
-  }, [action]);
+    setTokens(isEthereum ? ethereumTokens : starknetTokens);
+  }, [isEthereum]);
 
   return tokens;
+};
+
+export const useStarknetTokens = () => useMemo(() => StarknetTokens, []);
+
+export const useEthereumTokens = () => useMemo(() => [NetworkType.ETHEREUM, ...EthereumTokens], []);
+
+export const useStarknetToken = symbol => {
+  const starknetTokens = useStarknetTokens();
+
+  return useMemo(() => starknetTokens.find(token => token.symbol === symbol), [symbol]);
+};
+
+export const useEthereumToken = symbol => {
+  const ethereumTokens = useEthereumTokens();
+
+  return useMemo(() => ethereumTokens.find(token => token.symbol === symbol), [symbol]);
 };

@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 
 import {depositEth, depositToken} from '../api/bridge';
 import {approve} from '../api/erc20';
-import {useEthereumWallet, useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
+import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
 import {listenOnce} from '../utils/contract';
 import {
   useEthBridgeContract,
@@ -76,11 +76,11 @@ export const useTransferToStarknet = tokenData => {
         bridgeContract,
         ethereumAccount
       );
-      const depositEvent = await waitForLogMessageToL2();
-      const depositReceipt = await depositPromise;
+      const depositEventPromise = waitForLogMessageToL2();
+      const results = await Promise.all([depositPromise, depositEventPromise]);
       setIsLoading(false);
       setProgress(null);
-      setData([depositReceipt, depositEvent]);
+      setData(results);
     } catch (ex) {
       setIsLoading(false);
       setProgress(null);
@@ -89,10 +89,10 @@ export const useTransferToStarknet = tokenData => {
   };
 
   return {
-    isTransferring: isLoading,
-    transferProgress: progress,
-    transferError: error,
-    transferData: data,
+    isLoading,
+    progress,
+    error,
+    data,
     transferTokenToStarknet,
     transferEthToStarknet
   };

@@ -8,19 +8,25 @@ import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './TokenBalance.module.scss';
 import {TITLE_TXT} from './TokenBalance.strings';
 
-export const TokenBalance = ({symbol, balance}) => {
-  const isLoading = useIsLoading(symbol);
+export const TokenBalance = ({balance, symbol}) => {
+  const isLoading = useIsLoading(balance);
 
   return (
     <div className={styles.tokenBalance}>
-      {isLoading && <Loading size={LoadingSize.SMALL} />}
-      {!isLoading && (
+      <span>{TITLE_TXT}</span>
+
+      {isLoading && (
         <>
-          <span>{TITLE_TXT}</span>
-          <div className={styles.balance}>
-            {formatBalance(balance)} {symbol}
-          </div>
+          <br />
+          <center>
+            <Loading size={LoadingSize.SMALL} />
+          </center>
         </>
+      )}
+      {!isLoading && (
+        <div className={styles.balance}>
+          {formatBalance(balance)} {symbol}
+        </div>
       )}
     </div>
   );

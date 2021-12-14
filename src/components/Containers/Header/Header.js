@@ -1,7 +1,7 @@
 import React from 'react';
 
 import StarkNetLogoPath from '../../../assets/img/starknet.png';
-import {ChainType, NetworkType} from '../../../enums';
+import {ChainType} from '../../../enums';
 import {
   useWallets,
   useEthereumWallet,

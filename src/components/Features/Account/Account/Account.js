@@ -42,7 +42,7 @@ export const Account = () => {
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.url(chainName, account)} />
         )}
         <TransferLogContainer>{renderTransactions()}</TransferLogContainer>
-        {isEthereum && <LogoutButton onClick={resetWallet} />}
+        <LogoutButton isDisabled={isStarknet} onClick={resetWallet} />
       </div>
     </Menu>
   );

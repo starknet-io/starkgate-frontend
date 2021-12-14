@@ -1,7 +1,6 @@
 @import '../../../../index';
 
 $background-color: $--color-alpha-1;
-$error-msg-color: $--color-error;
 
 .transfer {
   .tabsContainer {
@@ -9,18 +8,5 @@ $error-msg-color: $--color-error;
     background: $background-color;
     border-radius: 10px;
     padding: 10px;
-  }
-
-  .container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s ease-in-out;
-
-    .errorMsg {
-      font-size: 12px;
-      line-height: 24px;
-      color: $error-msg-color;
-    }
   }
 }

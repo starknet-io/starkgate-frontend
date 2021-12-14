@@ -1,6 +1,6 @@
 import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {

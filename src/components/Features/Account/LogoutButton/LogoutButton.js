@@ -5,7 +5,7 @@ import {useColors} from '../../../../hooks';
 import {Button} from '../../../UI';
 import {BTN_TXT} from './LogoutButton.strings';
 
-export const LogoutButton = ({onClick}) => {
+export const LogoutButton = ({onClick, isDisabled}) => {
   const {colorAlpha5, colorWhite} = useColors();
 
   return (
@@ -14,6 +14,7 @@ export const LogoutButton = ({onClick}) => {
       colorBorder={colorAlpha5}
       colorText={colorWhite}
       height={50}
+      isDisabled={isDisabled}
       style={{
         marginTop: '25px',
         width: '100%',
@@ -27,5 +28,6 @@ export const LogoutButton = ({onClick}) => {
 };
 
 LogoutButton.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  isDisabled: PropTypes.bool
 };

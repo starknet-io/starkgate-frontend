@@ -21,7 +21,7 @@ const ProgressModal = ({message}) => {
 };
 
 ProgressModal.propTypes = {
-  walletName: PropTypes.string
+  message: PropTypes.string
 };
 
 export default ProgressModal;

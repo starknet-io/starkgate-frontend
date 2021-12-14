@@ -8,7 +8,7 @@ export const useIsLoading = deps => {
   useEffect(() => {
     if (!isConnected()) {
       setIsLoading(false);
-    } else if (deps) {
+    } else if (deps != null) {
       setIsLoading(false);
     } else {
       setIsLoading(true);

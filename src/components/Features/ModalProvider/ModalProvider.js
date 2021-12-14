@@ -11,7 +11,7 @@ export const ModalProvider = () => {
 
   return (
     <Modal show={modal.show} size={modal.size} type={modal.type}>
-      <ModalHeader type={modal.type} isClosable={modal.isClosable} onClose={handleOnClose}>
+      <ModalHeader isClosable={modal.isClosable} type={modal.type} onClose={handleOnClose}>
         {modal.title && <ModalTitle>{modal.title}</ModalTitle>}
       </ModalHeader>
       <ModalBody type={modal.type}>
