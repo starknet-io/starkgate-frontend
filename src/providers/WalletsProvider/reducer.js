@@ -7,26 +7,23 @@ export const actions = {
   SET_STARKNET_WALLET_CONFIG: 'CombineWallets/SET_STARKNET_WALLET_CONFIG'
 };
 
+const initialWalletState = {
+  library: null,
+  account: '',
+  isConnected: false,
+  status: WalletStatus.DISCONNECTED,
+  chainName: '',
+  chainId: -1,
+  error: null,
+  config: null
+};
+
 export const initialState = {
   ethereumWallet: {
-    library: null,
-    account: '',
-    isConnected: false,
-    status: WalletStatus.DISCONNECTED,
-    chainName: '',
-    chainId: -1,
-    error: null,
-    config: null
+    ...initialWalletState
   },
   starknetWallet: {
-    library: null,
-    account: '',
-    isConnected: false,
-    status: WalletStatus.DISCONNECTED,
-    chainName: '',
-    chainId: -1,
-    error: null,
-    config: null
+    ...initialWalletState
   }
 };
 

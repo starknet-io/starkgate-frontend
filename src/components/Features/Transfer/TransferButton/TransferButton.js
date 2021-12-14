@@ -5,7 +5,7 @@ import {useColors} from '../../../../hooks';
 import {Button} from '../../../UI';
 import {BTN_TXT} from './TransferButton.strings';
 
-export const TransferButton = ({onClick, isDisabled}) => {
+export const TransferButton = props => {
   const {colorBeta, colorWhite} = useColors();
 
   return (
@@ -14,19 +14,19 @@ export const TransferButton = ({onClick, isDisabled}) => {
       colorBorder={colorBeta}
       colorText={colorWhite}
       height={50}
-      isDisabled={isDisabled}
       style={{
         width: '100%',
         borderRadius: '7px',
         fontSize: '16px'
       }}
       text={BTN_TXT}
-      onClick={onClick}
+      {...props}
     />
   );
 };
 
 TransferButton.propTypes = {
   onClick: PropTypes.func,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool
 };

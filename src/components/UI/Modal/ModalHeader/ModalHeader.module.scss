@@ -3,6 +3,14 @@
 $error-color: $--color-error;
 
 .modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  svg {
+    cursor: pointer;
+  }
+
   &.error {
     color: $error-color;
   }

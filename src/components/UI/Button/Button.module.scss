@@ -20,6 +20,10 @@
     opacity: 0.3;
   }
 
+  &.isLoading {
+    pointer-events: none;
+  }
+
   img,
   svg {
     margin-right: 10px;

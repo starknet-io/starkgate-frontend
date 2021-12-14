@@ -5,6 +5,7 @@ const initialState = {
   componentPath: '',
   componentProps: null,
   withButtons: false,
+  isClosable: false,
   body: ''
 };
 

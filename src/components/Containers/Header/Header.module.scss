@@ -21,6 +21,7 @@ $bridge-color: $--color-beta;
 
     .logo {
       transition: 0.3s ease-in-out;
+
       .bridge {
         transition: 0.3s ease-in-out;
         font-family: $--primary-font;
@@ -38,10 +39,16 @@ $bridge-color: $--color-beta;
       font-size: 13px;
       font-weight: 500;
       opacity: 0.6;
+      margin-top: 2px;
       text-transform: capitalize;
     }
   }
 
   .right {
+    button {
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
   }
 }

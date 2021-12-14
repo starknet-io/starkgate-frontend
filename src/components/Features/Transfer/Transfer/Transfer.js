@@ -1,39 +1,61 @@
 import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../../enums';
+import {useTransferToStarknet} from '../../../../hooks';
 import {Menu} from '../../../UI';
 import {useBridgeActions} from '../../Bridge/Bridge.hooks';
+import {
+  useProgressModal,
+  useTransactionSubmittedModal
+} from '../../ModalProvider/ModalProvider.hooks';
 import {TransferMenuTab} from '../TransferMenuTab/TransferMenuTab';
 import {NetworkMenu, NetworkSwap, TokenInput, TransferButton} from '../index';
 import {useAmount, useIsEthereum, useIsStarknet, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings.js';
+import {
+  INSUFFICIENT_BALANCE_ERROR_MSG,
+  TRANSFER_TO_STARKNET_MODAL_TITLE
+} from './Transfer.strings.js';
 
 export const Transfer = () => {
-  const [hasError, setHasError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [errorMsg, setErrorMsg] = useState('');
-  const {action, selectedToken, fromNetwork, toNetwork} = useTransferData();
-  const {showSelectTokenMenu} = useBridgeActions();
+  const [error, setError] = useState(null);
   const [isEthereum, setEthereum] = useIsEthereum();
   const [isStarknet, setStarknet] = useIsStarknet();
-  const [amount, setAmount] = useAmount();
+  const [amount, setAmount, clearAmount] = useAmount();
+  const {action, selectedToken, fromNetwork, toNetwork} = useTransferData();
+  const {showSelectTokenMenu} = useBridgeActions();
+  const {transferData, transferToStarknet, transferError, isTransferring, transferProgress} =
+    useTransferToStarknet(selectedToken);
+  const showProgressModal = useProgressModal();
+  const showTransactionSubmittedModal = useTransactionSubmittedModal();
 
   useEffect(() => {
-    setAmount('');
+    if (isTransferring) {
+      showProgressModal(TRANSFER_TO_STARKNET_MODAL_TITLE, transferProgress.message);
+    } else if (transferError) {
+      // TODO: show error modal
+    } else if (transferData) {
+      const [receipt, event] = transferData;
+      clearAmount();
+      showTransactionSubmittedModal(receipt.transactionHash);
+      // TODO: add tx store and calc tx hash from msg hash
+    }
+  }, [transferProgress, transferData, transferError, isTransferring, amount]);
+
+  useEffect(() => {
+    clearAmount();
   }, [selectedToken]);
 
   useEffect(() => {
+    setError(null);
     if (Math.ceil(amount) === 0) {
-      setHasError(false);
       setIsButtonDisabled(true);
     } else {
       if (amount > selectedToken.balance) {
-        setHasError(true);
+        setError(INSUFFICIENT_BALANCE_ERROR_MSG);
         setIsButtonDisabled(true);
-        setErrorMsg(INSUFFICIENT_BALANCE_ERROR_MSG);
       } else {
-        setHasError(false);
         setIsButtonDisabled(false);
       }
     }
@@ -49,6 +71,12 @@ export const Transfer = () => {
 
   const onSwapClick = () => {
     isEthereum ? setStarknet() : setEthereum();
+  };
+
+  const onTransferClick = async () => {
+    if (isEthereum) {
+      return transferToStarknet(amount);
+    }
   };
 
   const renderTabs = () => {
@@ -75,15 +103,19 @@ export const Transfer = () => {
         <div className={styles.container}>
           <NetworkMenu networkData={fromNetwork} title="from" tokenData={selectedToken}>
             <TokenInput
-              hasError={hasError}
+              hasError={!!error}
               selectedToken={selectedToken}
               value={amount}
               onInputChange={onInputChange}
               onMaxClick={onMaxClick}
               onTokenSelect={showSelectTokenMenu}
             />
-            {hasError && <div className={styles.errorMsg}>{errorMsg}</div>}
-            <TransferButton isDisabled={isButtonDisabled} onClick={() => {}} />
+            {error && <div className={styles.errorMsg}>{error}</div>}
+            <TransferButton
+              isDisabled={isButtonDisabled}
+              isLoading={isTransferring}
+              onClick={onTransferClick}
+            />
             <NetworkSwap isFlipped={isStarknet} onClick={onSwapClick} />
           </NetworkMenu>
           <NetworkMenu networkData={toNetwork} title="to" tokenData={selectedToken} />

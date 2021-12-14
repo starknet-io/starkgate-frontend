@@ -21,6 +21,18 @@ export const sendTransaction = async (contract, method, args, account) => {
   }
 };
 
+export const listen = async (contract, event, callback) => {
+  try {
+    contract.events?.[event]({}, (error, event) => callback(error, event));
+  } catch (ex) {
+    callback(ex);
+  }
+};
+
+export const listenOnce = async (contract, event, callback) => {
+  contract.once(event, null, (error, event) => callback(error, event));
+};
+
 export const getStarknetContract = (address, ABI) =>
   new Contract(ABI, address, getStarknet().provider);
 

@@ -27,5 +27,5 @@ export const ChainType = {
 
 export const toChainName = id => {
   const key = Object.keys(ChainType).find(key => ChainType[key].id === id);
-  return key && ChainType[key].name;
+  return ChainType[key].name === ChainType.MAIN.name ? '' : ChainType[key].name;
 };

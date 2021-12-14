@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from 'react';
 
 import {useVars, useWindowSize} from '../../../hooks';
-import {useCombineWallets} from '../../../providers/CombineWalletsProvider/hooks';
+import {useEthereumWallet, useStarknetWallet} from '../../../providers/WalletsProvider/hooks';
 import {Bridge} from '../../Features';
-import {Login} from '../../Features/Login/Login/Login';
+import {Login} from '../../Features/Login';
 import styles from './Main.module.scss';
 
 export const Main = () => {
   const windowSize = useWindowSize();
   const {mainOffset} = useVars();
-  const {isConnected} = useCombineWallets();
+  const {isConnected: isEthereumConnected} = useEthereumWallet();
+  const {isConnected: isStarknetConnected} = useStarknetWallet();
   const [height, setHeight] = useState(null);
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export const Main = () => {
 
   return (
     <main className={styles.main} style={{height}}>
-      {isConnected ? <Bridge /> : <Login />}
+      {isEthereumConnected && isStarknetConnected ? <Bridge /> : <Login />}
     </main>
   );
 };

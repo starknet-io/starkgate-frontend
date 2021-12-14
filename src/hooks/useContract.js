@@ -9,11 +9,11 @@ import {
   MESSAGING_CONTRACT_ADDRESS
 } from '../config/contracts/contracts.ethereum';
 import {STARKNET_ERC20_BRIDGE_CONTRACT_ADDRESS} from '../config/contracts/contracts.starknet';
-import {useCombineWallets} from '../providers/CombineWalletsProvider/hooks';
+import {useWallets} from '../providers/WalletsProvider/hooks';
 import {getContract, getStarknetContract} from '../utils/contract';
 
 export const useContract = (addressOrAddressMap, ABI) => {
-  const {chainId} = useCombineWallets();
+  const {chainId} = useWallets();
 
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !chainId) return null;
@@ -33,7 +33,7 @@ export const useContract = (addressOrAddressMap, ABI) => {
 };
 
 export const useStarknetContract = (addressOrAddressMap, ABI) => {
-  const {chainId} = useCombineWallets();
+  const {chainId} = useWallets();
 
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !chainId) return null;

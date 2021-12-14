@@ -16,7 +16,7 @@ export const useTokenBalance = tokenAddresses => {
         const balance = await callContract(contract, 'balanceOf', [account]);
         return Number(web3.utils.fromWei(balance));
       }
-      const {balance} = await callStarknetContract(contract, 'balance_of', [{account}]);
+      const {balance} = await callStarknetContract(contract, 'balanceOf', [{account}]);
       return uint256.uint256ToBN(balance).toNumber();
     },
     [isEthereum]

@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {ModalType} from '../../../UI/Modal/Modal/Modal.constants';
+import {ModalType} from '../../UI/Modal/Modal/Modal.constants';
 import {selectModal} from './ModalProvider.selectors';
 import {hideModalAction, showModalAction} from './ModalProvider.slice';
 
@@ -16,17 +16,18 @@ export const useHideModal = () => {
   }, [dispatch]);
 };
 
-export const useWalletConnectionModal = () => {
+export const useProgressModal = () => {
   const dispatch = useDispatch();
   return useCallback(
-    walletName => {
+    (title, message, type = ModalType.INFO) => {
       dispatch(
         showModalAction({
-          componentPath: 'Features/ModalProvider/WalletConnectionModal/WalletConnectionModal',
+          componentPath: 'UI/ProgressModal/ProgressModal',
           componentProps: {
-            walletName
+            message
           },
-          title: walletName
+          title,
+          type
         })
       );
     },
@@ -34,15 +35,18 @@ export const useWalletConnectionModal = () => {
   );
 };
 
-export const useErrorModal = () => {
+export const useTransactionSubmittedModal = () => {
   const dispatch = useDispatch();
   return useCallback(
-    error => {
+    transactionHash => {
       dispatch(
         showModalAction({
-          title: error.name,
-          body: error.message,
-          type: ModalType.ERROR
+          componentPath: 'UI/TransactionSubmittedModal/TransactionSubmittedModal',
+          componentProps: {
+            transactionHash
+          },
+          title: 'Transaction submitted',
+          isClosable: true
         })
       );
     },

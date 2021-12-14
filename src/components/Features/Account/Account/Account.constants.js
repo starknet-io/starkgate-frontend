@@ -4,10 +4,11 @@ export const LINKS = {
   ETHERSCAN: {
     text: 'etherscan',
     url: (chainName, account) =>
-      evaluate('https://{{chainName}}.etherscan.io/address/{{account}}', {chainName, account})
+      evaluate('https://{{chainName}}etherscan.io/address/{{account}}', {chainName, account})
   },
   VOYAGER: {
     text: 'voyager',
-    url: account => evaluate('https://voyager.online/contract/{{account}}', {account})
+    url: (chainName, account) =>
+      evaluate('https://{{chainName}}voyager.online/contract/{{account}}', {account})
   }
 };

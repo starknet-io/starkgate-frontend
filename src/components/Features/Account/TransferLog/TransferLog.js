@@ -18,14 +18,14 @@ export const TransferLog = ({name, symbol, amount, timestamp}) => (
       <div className={styles.amount}>
         {amount} {symbol.toUpperCase()}
       </div>
-      <hr />
     </div>
+    <hr />
   </>
 );
 
 TransferLog.propTypes = {
   name: PropTypes.string,
   symbol: PropTypes.string,
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   timestamp: PropTypes.number
 };

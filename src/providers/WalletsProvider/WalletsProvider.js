@@ -9,13 +9,11 @@ import {
 } from '../../components/Features/Transfer/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
 import {web3} from '../../web3';
-import {CombineWalletsContext} from './context';
+import {WalletsContext} from './context';
 import {actions, initialState, reducer} from './reducer';
 
-export const CombineWalletsProvider = ({children}) => {
+export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [ethereumPendingWalletConfig, setEthereumPendingWalletConfig] = useState({});
-  const [starknetPendingWalletConfig, setStarknetPendingWalletConfig] = useState({});
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
   const {selectedAddress, isConnected: isStarknetConnected, enable} = getStarknet();
   const [isEthereum, setEthereum] = useIsEthereum();
@@ -23,45 +21,47 @@ export const CombineWalletsProvider = ({children}) => {
 
   // Handles starknet wallet changes
   useEffect(async () => {
-    if (isStarknet) {
-      if (isStarknetConnected && !state.starknetWallet.config) {
-        setStarknetWalletConfig(starknetPendingWalletConfig);
-      }
-      await maybeUpdateStarknetWallet();
-    }
+    (isStarknet || state.starknetWallet.config) && (await maybeUpdateStarknetWallet());
   }, [selectedAddress, isStarknetConnected]);
 
   // Handles ethereum wallet changes
   useEffect(async () => {
-    if (isEthereum) {
-      if (isConnected() && !state.ethereumWallet.config) {
-        setEthereumWalletConfig(ethereumPendingWalletConfig);
-      }
-      maybeUpdateEthereumWallet();
-    }
+    (isEthereum || state.ethereumWallet.config) && maybeUpdateEthereumWallet();
   }, [status, error, account, chainId, networkName]);
 
   const connectWallet = async walletConfig => {
     if (isEthereum) {
-      setEthereumPendingWalletConfig(walletConfig);
-      const {connectorId} = walletConfig;
-      await connect(connectorId);
-      maybeUpdateEthereumWallet();
-    } else {
-      setStarknetPendingWalletConfig(walletConfig);
-      await getStarknet({showModal: true}).enable();
-      await maybeUpdateStarknetWallet();
+      return connectEthereumWallet(walletConfig);
     }
+    return connectStarknetWallet(walletConfig);
+  };
+
+  const connectEthereumWallet = async walletConfig => {
+    const {connectorId} = walletConfig;
+    await connect(connectorId);
+    setEthereumWalletConfig(walletConfig);
+  };
+
+  const connectStarknetWallet = async walletConfig => {
+    await getStarknet({showModal: true}).enable();
+    setStarknetWalletConfig(walletConfig);
   };
 
   const resetWallet = () => {
     if (isEthereum) {
-      setEthereumWalletConfig(null);
-      return reset();
-    } else {
-      setStarknetWalletConfig(null);
-      return null;
+      return resetEthereumWallet();
     }
+    return resetStarknetWallet();
+  };
+
+  const resetEthereumWallet = () => {
+    setEthereumWalletConfig(null);
+    return reset();
+  };
+
+  const resetStarknetWallet = () => {
+    setStarknetWalletConfig(null);
+    return null;
   };
 
   const swapWallets = async () => {
@@ -143,15 +143,17 @@ export const CombineWalletsProvider = ({children}) => {
   const context = {
     ...state,
     connectWallet,
+    connectEthereumWallet,
+    connectStarknetWallet,
     resetWallet,
+    resetEthereumWallet,
+    resetStarknetWallet,
     swapWallets
   };
 
-  return (
-    <CombineWalletsContext.Provider value={context}>{children}</CombineWalletsContext.Provider>
-  );
+  return <WalletsContext.Provider value={context}>{children}</WalletsContext.Provider>;
 };
 
-CombineWalletsProvider.propTypes = {
+WalletsProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

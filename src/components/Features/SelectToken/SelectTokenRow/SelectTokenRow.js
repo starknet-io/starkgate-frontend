@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {useTokenBalance} from '../../../../hooks/useTokenBalance';
-import {useCombineWallets} from '../../../../providers/CombineWalletsProvider/hooks';
+import {useWallets} from '../../../../providers/WalletsProvider/hooks';
 import {formatBalance, toClasses} from '../../../../utils';
 import {CryptoLogo, Loading} from '../../../UI';
 import {CryptoLogoSize} from '../../../UI/CryptoLogo/CryptoLogo.enums';
@@ -10,24 +10,27 @@ import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {
-  const {name, symbol, address} = tokenData;
-  const {account} = useCombineWallets();
-  const [, setError] = useState(null);
+  const [mounted, setMounted] = useState(true);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [balance, setBalance] = useState(null);
+  const {name, symbol, address} = tokenData;
+  const {account} = useWallets();
   const getBalance = useTokenBalance(address);
 
   useEffect(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const bal = await getBalance(account);
-      setBalance(bal);
+      const tokenBalance = await getBalance(account);
+      if (!mounted) return;
+      setBalance(tokenBalance);
     } catch (ex) {
       setError(ex);
     } finally {
       setIsLoading(false);
     }
+    return () => setMounted(false);
   }, []);
 
   return (

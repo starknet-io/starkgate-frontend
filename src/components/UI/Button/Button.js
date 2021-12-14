@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {toClasses} from '../../../utils';
+import {Loading} from '../Loading/Loading';
+import {LoadingSize} from '../Loading/Loading.enums';
 import styles from './Button.module.scss';
 
 export const Button = ({
@@ -18,6 +20,7 @@ export const Button = ({
   colorBorderHover,
   style,
   isDisabled,
+  isLoading,
   onClick
 }) => {
   const [isHover, setIsHover] = useState(false);
@@ -32,14 +35,18 @@ export const Button = ({
 
   return (
     <button
-      className={toClasses(styles.button, isDisabled && styles.isDisabled)}
+      className={toClasses(
+        styles.button,
+        isDisabled && styles.isDisabled,
+        isLoading && styles.isLoading
+      )}
       style={styleObj}
       onClick={onClick}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
       {iconAlign === 'left' && icon}
-      {text}
+      {isLoading ? <Loading size={LoadingSize.SMALL} /> : text}
       {iconAlign === 'right' && icon}
     </button>
   );
@@ -59,6 +66,7 @@ Button.propTypes = {
   icon: PropTypes.object,
   iconAlign: PropTypes.string,
   isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
   onClick: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };

@@ -5,4 +5,7 @@ export * from './useVars';
 export * from './useColors';
 export * from './useTokens';
 export * from './useContract';
+export * from './useLogger';
+export * from './useTransferToStarknet';
 export * from './useWalletHandlerProvider';
+export * from './useTransferToStarknet';

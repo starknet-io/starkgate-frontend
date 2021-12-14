@@ -16,3 +16,5 @@ export * from './Modal/ModalTitle/ModalTitle';
 export * from './Modal/ModalFooter/ModalFooter';
 export * from './Input/Input';
 export * from './WalletButton/WalletButton';
+export * from './ProgressModal/ProgressModal';
+export * from './TransactionSubmittedModal/TransactionSubmittedModal';

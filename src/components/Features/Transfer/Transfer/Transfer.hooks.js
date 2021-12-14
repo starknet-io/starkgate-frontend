@@ -30,7 +30,8 @@ export const useTransferData = () => ({
 export const useAmount = () => {
   const amount = useSelector(getCurrentAmountSelector);
   const setAmount = useSetAmount();
-  return [amount, setAmount];
+  const clearAmount = () => setAmount('');
+  return [amount, setAmount, clearAmount];
 };
 
 export const useIsEthereum = () => {
