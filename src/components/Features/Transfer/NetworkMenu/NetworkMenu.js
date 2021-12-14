@@ -45,20 +45,18 @@ export const NetworkMenu = ({
   }, [action]);
 
   useEffect(() => {
-    if (!isTarget) {
-      setError(null);
-      if (Math.ceil(amount) === 0) {
+    setError(null);
+    if (Math.ceil(amount) === 0) {
+      setIsButtonDisabled(true);
+    } else {
+      if (amount > selectedToken.balance) {
+        setError(INSUFFICIENT_BALANCE_ERROR_MSG);
         setIsButtonDisabled(true);
       } else {
-        if (amount > selectedToken.balance) {
-          setError(INSUFFICIENT_BALANCE_ERROR_MSG);
-          setIsButtonDisabled(true);
-        } else {
-          setIsButtonDisabled(false);
-        }
+        setIsButtonDisabled(false);
       }
     }
-  }, [amount, action]);
+  }, [amount]);
 
   const onMaxClick = () => {
     setAmount(selectedToken.balance);
