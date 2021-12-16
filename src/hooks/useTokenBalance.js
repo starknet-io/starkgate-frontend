@@ -2,7 +2,12 @@ import {useCallback} from 'react';
 
 import {getEthBalance, getTokenBalance} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import {useEthereumTokenContract, useStarknetTokenContract} from './useContract';
+import {
+  useEthereumTokenContract,
+  useEthereumTokenContracts,
+  useStarknetTokenContract,
+  useStarknetTokenContracts
+} from './useContract';
 
 export const useTokenBalance = (tokenAddresses, account) => {
   const getStarknetBalanceCallback = useStarknetTokenBalance(tokenAddresses, account);
@@ -34,4 +39,39 @@ export const useEthereumTokenBalance = (tokenAddresses, account) => {
         : await getEthBalance(account),
     [tokenAddresses, account]
   );
+};
+
+export const useEthereumTokensBalances = (tokensAddresses, account) => {
+  const contracts = useEthereumTokenContracts(tokensAddresses);
+
+  const callbacks = [];
+
+  contracts.forEach(contract => {
+    callbacks.push(
+      useCallback(
+        async () =>
+          contract ? await getTokenBalance(account, contract, true) : await getEthBalance(account),
+        [tokensAddresses, account]
+      )
+    );
+  });
+
+  return callbacks;
+};
+
+export const useStarknetTokensBalances = (tokensAddresses, account) => {
+  const contracts = useStarknetTokenContracts(tokensAddresses);
+
+  const callbacks = [];
+
+  contracts.forEach(contract => {
+    callbacks.push(
+      useCallback(
+        async () => await getTokenBalance(account, contract, false),
+        [tokensAddresses, account]
+      )
+    );
+  });
+
+  return callbacks;
 };

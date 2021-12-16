@@ -1,4 +1,4 @@
-import {uint256} from 'starknet';
+import {number, uint256} from 'starknet';
 
 import {callContract, callStarknetContract, sendTransaction} from '../utils/contract';
 import {web3} from '../web3';
@@ -20,7 +20,10 @@ export const getTokenBalance = async (account, contract, isEthereum = true) => {
       return Number(web3.utils.fromWei(balance));
     } else {
       const {balance} = await callStarknetContract(contract, 'balanceOf', [{account}]);
-      return uint256.uint256ToBN(balance).toNumber();
+      const {decimals} = await callStarknetContract(contract, 'decimals');
+      const decimalsNumber = number.toBN(decimals).toNumber();
+      const bnString = uint256.uint256ToBN(balance).toString();
+      return bnString / Math.pow(10, decimalsNumber);
     }
   } catch (ex) {
     return Promise.reject(ex);

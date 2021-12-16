@@ -20,12 +20,12 @@ export const WalletsProvider = ({children}) => {
   const [isStarknet, setStarknet] = useIsStarknet();
 
   // Handles starknet wallet changes
-  useEffect(async () => {
-    (isStarknet || state.starknetWallet.config) && (await maybeUpdateStarknetWallet());
+  useEffect(() => {
+    (isStarknet || state.starknetWallet.config) && maybeUpdateStarknetWallet();
   }, [selectedAddress, isStarknetConnected]);
 
   // Handles ethereum wallet changes
-  useEffect(async () => {
+  useEffect(() => {
     (isEthereum || state.ethereumWallet.config) && maybeUpdateEthereumWallet();
   }, [status, error, account, chainId, networkName]);
 

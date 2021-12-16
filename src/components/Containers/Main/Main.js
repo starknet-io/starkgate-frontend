@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {useVars, useWindowSize} from '../../../hooks';
+import {TokensProvider} from '../../../providers/TokensProvider/TokensProvider';
 import {useEthereumWallet, useStarknetWallet} from '../../../providers/WalletsProvider/hooks';
 import {Bridge} from '../../Features';
 import {Login} from '../../Features/Login';
@@ -19,7 +20,13 @@ export const Main = () => {
 
   return (
     <main className={styles.main} style={{height}}>
-      {isEthereumConnected && isStarknetConnected ? <Bridge /> : <Login />}
+      {isEthereumConnected && isStarknetConnected ? (
+        <TokensProvider>
+          <Bridge />
+        </TokensProvider>
+      ) : (
+        <Login />
+      )}
     </main>
   );
 };

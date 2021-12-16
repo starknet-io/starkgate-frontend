@@ -1,20 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useIsLoading} from '../../../../hooks';
 import {formatBalance} from '../../../../utils';
 import {Loading} from '../../../UI';
 import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './TokenBalance.module.scss';
 import {TITLE_TXT} from './TokenBalance.strings';
 
-export const TokenBalance = ({balance, symbol}) => {
-  const isLoading = useIsLoading(balance);
+export const TokenBalance = ({tokenData}) => {
+  const {symbol, isLoading, balance} = tokenData;
 
   return (
     <div className={styles.tokenBalance}>
       <span>{TITLE_TXT}</span>
-
       {isLoading && (
         <>
           <br />
@@ -33,6 +31,5 @@ export const TokenBalance = ({balance, symbol}) => {
 };
 
 TokenBalance.propTypes = {
-  symbol: PropTypes.string,
-  balance: PropTypes.number
+  tokenData: PropTypes.object
 };

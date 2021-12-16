@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
 import {useEthereumTokensBalances, useStarknetTokensBalances} from '../../hooks/useTokenBalance';
@@ -19,51 +20,43 @@ export const TokensProvider = ({children}) => {
   );
 
   useEffect(() => {
-    fetchEthereumTokensBalances();
-    fetchStarknetTokensBalances();
+    fetchEthereumBalances();
+    fetchStarknetBalances();
   }, []);
 
-  const fetchEthereumTokensBalances = () => {
-    for (let index = 0; index < state.ethereumTokens.length; index++) {
-      const getBalance = getEthereumBalances[index];
-      updateEthereumTokenState(index, {isLoading: true});
-      getBalance()
-        .then(balance => {
-          updateEthereumTokenState(index, {balance, isLoading: false});
-        })
-        .catch(() => {
-          updateEthereumTokenState(index, {balance: null, isLoading: false});
-        });
-    }
+  const fetchEthereumBalances = () => {
+    fetchTokensBalances(state.ethereumTokens, getEthereumBalances, updateEthereumTokenState);
   };
 
-  const fetchStarknetTokensBalances = () => {
-    for (let index = 0; index < state.starknetTokens.length; index++) {
-      const getBalance = getStarknetBalances[index];
-      updateStarknetTokenState(index, {isLoading: true});
+  const fetchStarknetBalances = () => {
+    fetchTokensBalances(state.starknetTokens, getStarknetBalances, updateStarknetTokenState);
+  };
+
+  const fetchTokensBalances = (tokens, getBalances, updateState) => {
+    for (let index = 0; index < tokens.length; index++) {
+      const getBalance = getBalances[index];
+      updateState(index, {isLoading: true});
       getBalance()
         .then(balance => {
-          updateStarknetTokenState(index, {balance, isLoading: false});
+          updateState(index, {balance, isLoading: false});
         })
         .catch(() => {
-          updateStarknetTokenState(index, {balance: null, isLoading: false});
+          updateState(index, {balance: null, isLoading: false});
         });
     }
   };
 
   const updateEthereumTokenState = (index, args) => {
-    dispatch({
-      type: actions.UPDATE_ETHEREUM_TOKEN_STATE,
-      payload: {
-        index,
-        args
-      }
-    });
+    updateTokenState(actions.UPDATE_ETHEREUM_TOKEN_STATE, index, args);
   };
 
   const updateStarknetTokenState = (index, args) => {
+    updateTokenState(actions.UPDATE_STARKNET_TOKEN_STATE, index, args);
+  };
+
+  const updateTokenState = (type, index, args) => {
     dispatch({
-      type: actions.UPDATE_STARKNET_TOKEN_STATE,
+      type,
       payload: {
         index,
         args
@@ -72,8 +65,14 @@ export const TokensProvider = ({children}) => {
   };
 
   const context = {
-    ...state
+    ...state,
+    fetchEthereumBalances,
+    fetchStarknetBalances
   };
 
   return <TokensContext.Provider value={context}>{children}</TokensContext.Provider>;
+};
+
+TokensProvider.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

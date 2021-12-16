@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
-import {useTokenBalance} from '../../../../hooks/useTokenBalance';
-import {useWallets} from '../../../../providers/WalletsProvider/hooks';
 import {formatBalance, toClasses} from '../../../../utils';
 import {CryptoLogo, Loading} from '../../../UI';
 import {CryptoLogoSize} from '../../../UI/CryptoLogo/CryptoLogo.enums';
@@ -10,33 +8,12 @@ import {LoadingSize} from '../../../UI/Loading/Loading.enums';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {
-  const {name, symbol, tokenAddress} = tokenData;
-  const [mounted, setMounted] = useState(true);
-  const [, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [balance, setBalance] = useState(null);
-  const {account} = useWallets();
-  const getBalance = useTokenBalance(tokenAddress, account);
-
-  useEffect(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const tokenBalance = await getBalance();
-      if (!mounted) return;
-      setBalance(tokenBalance);
-    } catch (ex) {
-      setError(ex);
-    } finally {
-      setIsLoading(false);
-    }
-    return () => setMounted(false);
-  }, []);
+  const {name, symbol, balance, isLoading} = tokenData;
 
   return (
     <div
       className={toClasses(styles.selectTokenRow, isLoading && styles.isLoading)}
-      onClick={() => onClick({...tokenData, balance})}
+      onClick={() => onClick(tokenData)}
     >
       <hr />
       <div className={styles.data}>

@@ -1,26 +1,19 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
+
+import {useFetchData} from '../../../hooks';
 
 export const DynamicIcon = ({path, size}) => {
-  const [loading, setLoading] = useState(false);
-  const [, setError] = useState(null);
   const ImportedIconRef = useRef(null);
+  const {data, isLoading} = useFetchData(() => import(`../../../assets/svg/${path}`), [path]);
 
-  useEffect(async () => {
-    setLoading(true);
-    const importIcon = async () => {
-      try {
-        ImportedIconRef.current = (await import(`../../../assets/svg/${path}`)).default;
-      } catch (ex) {
-        setError(ex);
-      } finally {
-        setLoading(false);
-      }
-    };
-    await importIcon();
-  }, [path]);
+  useEffect(() => {
+    if (data) {
+      ImportedIconRef.current = data.default;
+    }
+  }, [data]);
 
-  if (!loading && ImportedIconRef.current) {
+  if (!isLoading && ImportedIconRef.current) {
     const {current: ImportedIcon} = ImportedIconRef;
     return <img alt="" height={size} src={ImportedIcon} width={size} />;
   }

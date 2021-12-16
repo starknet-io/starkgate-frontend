@@ -11,7 +11,7 @@ import {INPUT_PLACEHOLDER} from './TokenInput.strings';
 export const TokenInput = ({
   value,
   hasError,
-  selectedToken,
+  tokenData,
   onMaxClick,
   onTokenSelect,
   onInputChange
@@ -28,14 +28,14 @@ export const TokenInput = ({
       onChange={onInputChange}
     />
     <MaxButton onClick={onMaxClick} />
-    <TokenSelector tokenData={selectedToken} onClick={onTokenSelect} />
+    <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
   </div>
 );
 
 TokenInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   hasError: PropTypes.bool,
-  selectedToken: PropTypes.object,
+  tokenData: PropTypes.object,
   onMaxClick: PropTypes.func,
   onTokenSelect: PropTypes.func,
   onInputChange: PropTypes.func

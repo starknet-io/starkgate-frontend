@@ -6,6 +6,7 @@ import {
   fromNetworkSelector,
   fromStarknetSelector,
   getCurrentAmountSelector,
+  getCurrentSelectedTokenSelector,
   selectTransfer,
   toNetworkSelector,
   toStarknetSelector
@@ -21,6 +22,7 @@ export const useTransferActions = () => ({
 
 export const useTransferData = () => ({
   ...useSelector(selectTransfer),
+  selectedToken: useSelector(getCurrentSelectedTokenSelector),
   isEthereum: useSelector(toStarknetSelector),
   isStarknet: useSelector(fromStarknetSelector),
   fromNetwork: useSelector(fromNetworkSelector),

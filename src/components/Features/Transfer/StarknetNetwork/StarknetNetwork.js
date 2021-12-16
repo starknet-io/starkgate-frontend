@@ -1,30 +1,26 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {NetworkType} from '../../../../enums';
-import {useStarknetToken} from '../../../../hooks';
-import {useStarknetTokenBalance} from '../../../../hooks/useTokenBalance';
-import {useEthereumWallet} from '../../../../providers/WalletsProvider/hooks';
+import {useTokens} from '../../../../providers/TokensProvider/hooks';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import {NetworkMenu} from '../index';
 
-export const StarknetNetwork = ({isTarget}) => {
-  const {selectedToken} = useTransferData();
-  const {account} = useEthereumWallet();
-  const starknetTokenData = useStarknetToken(selectedToken.symbol);
-  const getStarknetBalance = useStarknetTokenBalance(starknetTokenData.tokenAddress, account);
+export const StarknetNetwork = () => {
+  const {isStarknet, selectedStarknetToken} = useTransferData();
+  const {starknetTokens} = useTokens();
+  const [tokenData, setTokenData] = useState(selectedStarknetToken || starknetTokens[0]);
+
+  useEffect(() => {
+    setTokenData(selectedStarknetToken || starknetTokens[0]);
+  }, [starknetTokens]);
 
   return (
     <NetworkMenu
-      getBalance={getStarknetBalance}
-      isTarget={isTarget}
+      isTarget={!isStarknet}
       isTransferring={false}
       networkData={NetworkType.STARKNET}
+      tokenData={tokenData}
       onTransferClick={() => {}}
     />
   );
-};
-
-StarknetNetwork.propTypes = {
-  isTarget: PropTypes.bool
 };

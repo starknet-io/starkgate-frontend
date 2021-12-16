@@ -1,4 +1,5 @@
-export const formatBalance = balance => parseFloat(balance.toFixed(5));
+export const formatBalance = balance =>
+  typeof balance === 'number' ? parseFloat(balance.toFixed(5)) : 'N/A';
 
 export const shortenAddress = account => {
   if (account) {

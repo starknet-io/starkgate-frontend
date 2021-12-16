@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import EthereumLogo from '../../../../assets/svg/tokens/eth.svg';
 import StarkNetLogo from '../../../../assets/svg/tokens/starknet.svg';
-import {useColors, useTokens} from '../../../../hooks';
+import {useColors} from '../../../../hooks';
+import {useTokens} from '../../../../providers/TokensProvider/hooks';
 import {BackButton, Menu, MenuTitle} from '../../../UI';
 import {useBridgeActions} from '../../Bridge/Bridge.hooks';
 import {useTransferActions, useTransferData} from '../../Transfer/Transfer/Transfer.hooks';
@@ -12,7 +13,7 @@ import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
 
 export const SelectToken = () => {
-  const tokens = useTokens();
+  const {tokens} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useBridgeActions();
   const {isEthereum, fromNetwork} = useTransferData();

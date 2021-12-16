@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {ActionType, NetworkType} from '../../../../enums';
 import {Menu} from '../../../UI';
@@ -6,18 +6,13 @@ import {EthereumNetwork} from '../EthereumNetwork/EthereumNetwork';
 import {NetworkSwap} from '../NetworkSwap/NetworkSwap';
 import {StarknetNetwork} from '../StarknetNetwork/StarknetNetwork';
 import {TransferMenuTab} from '../TransferMenuTab/TransferMenuTab';
-import {useIsEthereum, useIsStarknet, useTransferActions, useTransferData} from './Transfer.hooks';
+import {useIsEthereum, useIsStarknet, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
 
 export const Transfer = () => {
   const [isEthereum, setEthereum] = useIsEthereum();
   const [isStarknet, setStarknet] = useIsStarknet();
-  const {action, selectedToken} = useTransferData();
-  const {selectToken} = useTransferActions();
-
-  useEffect(() => {
-    selectToken({...selectedToken, balance: null});
-  }, [action]);
+  const {action} = useTransferData();
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -40,9 +35,9 @@ export const Transfer = () => {
     !isEthereum ? setEthereum() : setStarknet();
   };
 
-  const renderEthereumNetwork = isTarget => <EthereumNetwork isTarget={isTarget} />;
+  const renderEthereumNetwork = () => <EthereumNetwork />;
 
-  const renderStarknetNetwork = isTarget => <StarknetNetwork isTarget={isTarget} />;
+  const renderStarknetNetwork = () => <StarknetNetwork />;
 
   return (
     <Menu>
@@ -50,7 +45,7 @@ export const Transfer = () => {
         <div className={styles.tabsContainer}>{renderTabs()}</div>
         {isEthereum ? renderEthereumNetwork() : renderStarknetNetwork()}
         <NetworkSwap isFlipped={isStarknet} onClick={onSwapClick} />
-        {isEthereum ? renderStarknetNetwork(true) : renderEthereumNetwork(true)}
+        {isEthereum ? renderStarknetNetwork() : renderEthereumNetwork()}
       </div>
     </Menu>
   );

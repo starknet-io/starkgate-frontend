@@ -1,14 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-import {ActionType, NetworkType} from '../../../../enums';
+import {ActionType} from '../../../../enums';
 
 const initialState = {
-  selectedToken: {
-    balance: null,
-    name: NetworkType.ETHEREUM.name,
-    symbol: NetworkType.ETHEREUM.symbol
-  },
   action: ActionType.TRANSFER_TO_STARKNET,
+  selectedEthereumToken: null,
+  selectedStarknetToken: null,
   depositAmount: '',
   withdrawAmount: ''
 };
@@ -17,11 +14,15 @@ const transferSlice = createSlice({
   name: 'transfer',
   initialState,
   reducers: {
-    selectTokenAction(state, action) {
-      state.selectedToken = action.payload;
-    },
     setTransferAction(state, action) {
       state.action = action.payload;
+    },
+    selectTokenAction(state, action) {
+      if (state.action === ActionType.TRANSFER_TO_STARKNET) {
+        state.selectedEthereumToken = action.payload;
+      } else {
+        state.selectedStarknetToken = action.payload;
+      }
     },
     setAmountAction(state, action) {
       if (state.action === ActionType.TRANSFER_TO_STARKNET) {
