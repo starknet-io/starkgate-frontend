@@ -58,7 +58,7 @@ const TransferContainer = ({tokenData, isTransferring, onTransferClick}) => {
 
   useEffect(() => {
     setHasInputError(false);
-    if (Math.ceil(amount) === 0) {
+    if (tokenData.isLoading || Math.ceil(amount) === 0) {
       setIsButtonDisabled(true);
     } else {
       if (amount > balance) {

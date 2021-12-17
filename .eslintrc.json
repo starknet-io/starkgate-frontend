@@ -41,7 +41,7 @@
       }
     ],
     "prefer-destructuring": [
-      "error",
+      "warn",
       {
         "object": true,
         "array": false

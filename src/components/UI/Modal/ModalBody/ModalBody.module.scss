@@ -10,6 +10,8 @@ $error-color: $--color-error;
   letter-spacing: 0.01em;
   color: $color;
   white-space: break-spaces;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &.error {
     color: $error-color;

@@ -2,6 +2,7 @@ import {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {ActionType} from '../../../../enums';
+import {useEthereumToken, useStarknetToken} from '../../../../providers/TokensProvider/hooks';
 import {
   fromNetworkSelector,
   fromStarknetSelector,
@@ -67,9 +68,16 @@ const useSetActionType = action => {
 
 const useSelectToken = () => {
   const dispatch = useDispatch();
+  const setStarknetToken = useStarknetToken();
+  const getEthereumToken = useEthereumToken();
   return useCallback(
     token => {
-      dispatch(selectTokenAction(token));
+      dispatch(
+        selectTokenAction({
+          selectedStarknetToken: setStarknetToken(token.symbol),
+          selectedEthereumToken: getEthereumToken(token.symbol)
+        })
+      );
     },
     [dispatch]
   );

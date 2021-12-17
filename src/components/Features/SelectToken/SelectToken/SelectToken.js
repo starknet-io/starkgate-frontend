@@ -13,7 +13,7 @@ import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
 
 export const SelectToken = () => {
-  const {tokens} = useTokens();
+  const tokens = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useBridgeActions();
   const {isEthereum, fromNetwork} = useTransferData();

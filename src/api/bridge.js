@@ -1,24 +1,49 @@
-import {sendTransaction} from '../utils/contract';
-import {web3} from '../web3';
+import {toFelt, toUint256, toWei} from '../utils';
+import {invokeStarknetTransaction, sendTransaction} from '../utils/contract';
+import {decimals} from './erc20';
 
-export const depositToken = async (l2Recipient, amount, bridgeContract, from) => {
+export const depositToken = async (recipient, amount, tokenBridgeContract, from) => {
   try {
-    return await sendTransaction(
-      bridgeContract,
-      'deposit',
-      [web3.utils.toWei(amount, 'ether'), l2Recipient],
-      {from}
-    );
+    return await sendTransaction(tokenBridgeContract, 'deposit', [toWei(amount), recipient], {
+      from
+    });
   } catch (ex) {
     return Promise.reject(ex);
   }
 };
 
-export const depositEth = async (l2Recipient, value, ethBridgeContract, from) => {
+export const depositEth = async (recipient, amount, ethBridgeContract, from) => {
   try {
-    return await sendTransaction(ethBridgeContract, 'deposit', [l2Recipient], {
+    return await sendTransaction(ethBridgeContract, 'deposit', [recipient], {
       from,
-      value: web3.utils.toWei(value, 'ether')
+      value: toWei(amount)
+    });
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
+};
+
+export const initiateWithdrawToken = async (
+  recipient,
+  amount,
+  tokenBridgeContract,
+  tokenContract
+) => {
+  try {
+    const tokenDecimals = await decimals(tokenContract, false);
+    return await invokeStarknetTransaction(tokenBridgeContract, 'initiate_withdraw', {
+      l1Recipient: toFelt(recipient),
+      amount: toUint256(amount, tokenDecimals)
+    });
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
+};
+
+export const withdrawToken = async (recipient, amount, tokenBridgeContract) => {
+  try {
+    return await sendTransaction(tokenBridgeContract, 'withdraw', [toWei(amount), recipient], {
+      from: recipient
     });
   } catch (ex) {
     return Promise.reject(ex);

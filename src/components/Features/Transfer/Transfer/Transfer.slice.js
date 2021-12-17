@@ -18,11 +18,9 @@ const transferSlice = createSlice({
       state.action = action.payload;
     },
     selectTokenAction(state, action) {
-      if (state.action === ActionType.TRANSFER_TO_STARKNET) {
-        state.selectedEthereumToken = action.payload;
-      } else {
-        state.selectedStarknetToken = action.payload;
-      }
+      const {selectedStarknetToken, selectedEthereumToken} = action.payload;
+      state.selectedEthereumToken = selectedEthereumToken;
+      state.selectedStarknetToken = selectedStarknetToken;
     },
     setAmountAction(state, action) {
       if (state.action === ActionType.TRANSFER_TO_STARKNET) {

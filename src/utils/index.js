@@ -4,6 +4,7 @@ export * from './wallet';
 export * from './browser';
 export * from './string';
 export * from './token';
+export * from './number';
 
 export const printPackageInfo = (name, version, color) => {
   const currentLogLevel = getLogLevel();

@@ -54,7 +54,7 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
-    "starknet": "^2.3.1",
+    "starknet": "^2.5.0",
     "use-wallet": "^0.13.1",
     "web3": "^1.6.0"
   },

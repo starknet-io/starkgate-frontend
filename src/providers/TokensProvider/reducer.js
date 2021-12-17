@@ -1,4 +1,4 @@
-import {EthereumTokens, StarknetTokens} from '../../config/addresses';
+import {ETH_BRIDGE_CONTRACT_ADDRESS, EthereumTokens, StarknetTokens} from '../../config/addresses';
 import {NetworkType} from '../../enums';
 
 export const actions = {
@@ -15,7 +15,10 @@ function getUpdatedTokens(tokens, payload) {
 }
 
 export const initialState = {
-  ethereumTokens: [NetworkType.ETHEREUM, ...EthereumTokens],
+  ethereumTokens: [
+    {...NetworkType.ETHEREUM, bridgeAddress: ETH_BRIDGE_CONTRACT_ADDRESS},
+    ...EthereumTokens
+  ],
   starknetTokens: StarknetTokens
 };
 

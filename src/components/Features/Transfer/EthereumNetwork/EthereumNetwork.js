@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import {NetworkType} from '../../../../enums';
 import {useTransferToStarknet} from '../../../../hooks';
-import {useTokens} from '../../../../providers/TokensProvider/hooks';
+import {useEthereumToken} from '../../../../providers/TokensProvider/hooks';
 import {isEth} from '../../../../utils';
 import {
   useHideModal,
@@ -14,17 +14,13 @@ import {NetworkMenu} from '../index';
 import {TRANSFER_TO_STARKNET_MODAL_TITLE} from './EthereumNetwork.strings';
 
 export const EthereumNetwork = () => {
-  const {isEthereum, selectedEthereumToken} = useTransferData();
-  const {ethereumTokens} = useTokens();
-  const [tokenData, setTokenData] = useState(selectedEthereumToken || ethereumTokens[0]);
   const [amount, , clearAmount] = useAmount();
+  const {isEthereum, selectedToken} = useTransferData();
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
-
-  useEffect(() => {
-    setTokenData(selectedEthereumToken || ethereumTokens[0]);
-  }, [ethereumTokens]);
+  const getEthereumToken = useEthereumToken();
+  const tokenData = getEthereumToken(selectedToken.symbol);
 
   const {transferEthToStarknet, transferTokenToStarknet, data, error, isLoading, progress} =
     useTransferToStarknet(tokenData);
