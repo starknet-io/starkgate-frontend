@@ -1,9 +1,9 @@
 import {useCallback, useState} from 'react';
 
-import {depositEth, depositToken} from '../api/bridge';
+import {eth_depositEth, eth_deposit} from '../api/bridge';
 import {approve} from '../api/erc20';
 import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
-import {listenOnce} from '../utils/contract';
+import {eth_listenOnce} from '../utils/contract';
 import {
   useEthBridgeContract,
   useMessagingContract,
@@ -36,18 +36,18 @@ export const useTransferToStarknet = tokenData => {
   const messagingContract = useMessagingContract();
 
   const transferEthToStarknet = useCallback(
-    async amount => transferToStarknet(amount, depositEth, ethBridgeContract, false),
+    async amount => transferToStarknet(amount, eth_depositEth, ethBridgeContract, false),
     [ethereumAccount, starknetAccount, tokenContract]
   );
 
   const transferTokenToStarknet = useCallback(
-    async amount => transferToStarknet(amount, depositToken, tokenBridgeContract, true),
+    async amount => transferToStarknet(amount, eth_deposit, tokenBridgeContract, true),
     [ethereumAccount, starknetAccount, tokenContract]
   );
 
   const waitForLogMessageToL2 = () => {
     return new Promise((resolve, reject) => {
-      listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
+      eth_listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
         if (error) {
           reject(error);
         }

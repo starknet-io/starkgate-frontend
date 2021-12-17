@@ -3,9 +3,9 @@ import {compileCalldata, Contract, stark} from 'starknet';
 
 import {web3} from '../web3';
 
-export const getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
+export const eth_getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
 
-export const callContract = async (contract, method, args = []) => {
+export const eth_callContract = async (contract, method, args = []) => {
   try {
     return await contract.methods?.[method](...args).call();
   } catch (ex) {
@@ -13,7 +13,7 @@ export const callContract = async (contract, method, args = []) => {
   }
 };
 
-export const sendTransaction = async (contract, method, args = [], options = {}) => {
+export const eth_sendTransaction = async (contract, method, args = [], options = {}) => {
   try {
     return contract.methods?.[method](...args).send(options);
   } catch (ex) {
@@ -21,22 +21,14 @@ export const sendTransaction = async (contract, method, args = [], options = {})
   }
 };
 
-export const listen = async (contract, event, callback) => {
-  try {
-    contract.events?.[event]({}, (error, event) => callback(error, event));
-  } catch (ex) {
-    callback(ex);
-  }
-};
-
-export const listenOnce = async (contract, event, callback) => {
+export const eth_listenOnce = async (contract, event, callback) => {
   contract.once(event, null, (error, event) => callback(error, event));
 };
 
-export const getStarknetContract = (address, ABI) =>
+export const starknet_getContract = (address, ABI) =>
   new Contract(ABI, address, getStarknet().provider);
 
-export const callStarknetContract = async (contract, method, args = []) => {
+export const starknet_callContract = async (contract, method, args = []) => {
   try {
     return await contract.call(method, ...args);
   } catch (ex) {
@@ -44,7 +36,7 @@ export const callStarknetContract = async (contract, method, args = []) => {
   }
 };
 
-export const invokeStarknetTransaction = async (contract, method, args = {}) => {
+export const starknet_sendTransaction = async (contract, method, args = {}) => {
   try {
     const methodSelector = stark.getSelectorFromName(method);
     const compiledCalldata = compileCalldata(args);
@@ -58,5 +50,5 @@ export const invokeStarknetTransaction = async (contract, method, args = {}) => 
   }
 };
 
-export const waitForStarknetTransaction = async hash =>
+export const starknet_waitForTransaction = async hash =>
   await getStarknet().provider.waitForTx(hash);

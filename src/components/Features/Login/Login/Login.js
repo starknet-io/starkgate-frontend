@@ -24,7 +24,7 @@ export const Login = () => {
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const {status, error} = useWallets();
-  const {getWalletHandlers} = useWalletHandlerProvider();
+  const getWalletHandlers = useWalletHandlerProvider();
   const {connectWallet: connectEthereumWallet, isConnected} = useEthereumWallet();
   const {connectWallet: connectStarknetWallet} = useStarknetWallet();
 

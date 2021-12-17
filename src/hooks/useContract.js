@@ -5,9 +5,9 @@ import {STARKNET_BRIDGE_ABI, STARKNET_ERC20_ABI} from '../abis/starknet';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
 import {ETH_BRIDGE_CONTRACT_ADDRESS, MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
 import {useWallets} from '../providers/WalletsProvider/hooks';
-import {getContract, getStarknetContract} from '../utils/contract';
+import {eth_getContract, starknet_getContract} from '../utils/contract';
 
-export const useContracts = (tokensAddresses, ABI, getContractHandler = getContract) => {
+export const useContracts = (tokensAddresses, ABI, getContractHandler = eth_getContract) => {
   const {chainId} = useWallets();
   return useMemo(() => {
     return tokensAddresses.map(tokenAddresses => {
@@ -25,7 +25,7 @@ export const useContracts = (tokensAddresses, ABI, getContractHandler = getContr
   }, [tokensAddresses, ABI, chainId]);
 };
 
-export const useContract = (addresses, ABI, getContractHandler = getContract) => {
+export const useContract = (addresses, ABI, getContractHandler = eth_getContract) => {
   const {chainId} = useWallets();
   return useMemo(() => {
     try {
@@ -56,10 +56,10 @@ export const useTokenBridgeContract = bridgeAddress => {
 };
 
 export const useStarknetTokenContract = tokenAddresses =>
-  useContract(tokenAddresses, STARKNET_ERC20_ABI, getStarknetContract);
+  useContract(tokenAddresses, STARKNET_ERC20_ABI, starknet_getContract);
 
 export const useStarknetTokenContracts = tokensAddresses =>
-  useContracts(tokensAddresses, STARKNET_ERC20_ABI, getStarknetContract);
+  useContracts(tokensAddresses, STARKNET_ERC20_ABI, starknet_getContract);
 
 export const useEthereumTokenContract = tokenAddresses => useContract(tokenAddresses, ERC20_ABI);
 
@@ -71,7 +71,7 @@ export const useEthBridgeContract = () => useContract(ETH_BRIDGE_CONTRACT_ADDRES
 export const useMessagingContract = () => useContract(MESSAGING_CONTRACT_ADDRESS, MESSAGING_ABI);
 
 export const useStarknetTokenBridgeContract = bridgeAddress =>
-  useContract(bridgeAddress, STARKNET_BRIDGE_ABI, getStarknetContract);
+  useContract(bridgeAddress, STARKNET_BRIDGE_ABI, starknet_getContract);
 
 export const useEthereumTokenBridgeContract = bridgeAddress =>
   useContract(bridgeAddress, ERC20_BRIDGE_ABI);

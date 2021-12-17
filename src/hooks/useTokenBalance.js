@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 
-import {getEthBalance, getTokenBalance} from '../api/erc20';
+import {eth_ethBalanceOf, balanceOf} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
 import {
   useEthereumTokenContract,
@@ -22,7 +22,7 @@ export const useTokenBalance = (tokenAddresses, account) => {
 export const useStarknetTokenBalance = (tokenAddresses, account) => {
   const contract = useStarknetTokenContract(tokenAddresses);
   return useCallback(
-    async () => await getTokenBalance(account, contract, false),
+    async () => await balanceOf(account, contract, false),
     [tokenAddresses, account]
   );
 };
@@ -31,9 +31,7 @@ export const useEthereumTokenBalance = (tokenAddresses, account) => {
   const contract = useEthereumTokenContract(tokenAddresses);
   return useCallback(
     async () =>
-      tokenAddresses
-        ? await getTokenBalance(account, contract, true)
-        : await getEthBalance(account),
+      tokenAddresses ? await balanceOf(account, contract, true) : await eth_ethBalanceOf(account),
     [tokenAddresses, account]
   );
 };
@@ -43,7 +41,7 @@ export const useEthereumTokensBalances = (tokensAddresses, account) => {
   return contracts.map(contract =>
     useCallback(
       async () =>
-        contract ? await getTokenBalance(account, contract, true) : await getEthBalance(account),
+        contract ? await balanceOf(account, contract, true) : await eth_ethBalanceOf(account),
       [tokensAddresses, account]
     )
   );
@@ -52,9 +50,6 @@ export const useEthereumTokensBalances = (tokensAddresses, account) => {
 export const useStarknetTokensBalances = (tokensAddresses, account) => {
   const contracts = useStarknetTokenContracts(tokensAddresses);
   return contracts.map(contract =>
-    useCallback(
-      async () => await getTokenBalance(account, contract, false),
-      [tokensAddresses, account]
-    )
+    useCallback(async () => await balanceOf(account, contract, false), [tokensAddresses, account])
   );
 };

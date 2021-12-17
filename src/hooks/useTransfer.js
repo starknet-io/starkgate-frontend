@@ -1,11 +1,11 @@
 import {useCallback, useState} from 'react';
 
-import {depositEth, depositToken, initiateWithdrawToken, withdrawToken} from '../api/bridge';
+import {eth_depositEth, eth_deposit, starknet_initiateWithdraw, eth_withdraw} from '../api/bridge';
 import {approve} from '../api/erc20';
 import {useEthereumToken} from '../providers/TokensProvider/hooks';
 import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
 import {isEth} from '../utils';
-import {listenOnce, waitForStarknetTransaction} from '../utils/contract';
+import {eth_listenOnce, starknet_waitForTransaction} from '../utils/contract';
 import {
   useEthBridgeContract,
   useEthereumTokenBridgeContract,
@@ -64,7 +64,7 @@ export const useTransfer = () => {
 
   const waitForLogMessageToL2 = () => {
     return new Promise((resolve, reject) => {
-      listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
+      eth_listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
         if (error) {
           reject(error);
         }
@@ -75,7 +75,7 @@ export const useTransfer = () => {
 
   const waitForLogMessageToL1 = () => {
     return new Promise((resolve, reject) => {
-      listenOnce(messagingContract, 'LogMessageToL1', (error, event) => {
+      eth_listenOnce(messagingContract, 'LogMessageToL1', (error, event) => {
         if (error) {
           reject(error);
         }
@@ -133,13 +133,13 @@ export const useTransfer = () => {
     try {
       setIsLoading(true);
       setProgress(PROGRESS.initiateWithdraw(amount, symbol, starknetAccount));
-      const initiateWithdrawTxResponse = await initiateWithdrawToken(
+      const initiateWithdrawTxResponse = await starknet_initiateWithdraw(
         ethereumAccount,
         amount,
         bridgeContract,
         tokenContract
       );
-      const waitForAcceptPromise = waitForStarknetTransaction(
+      const waitForAcceptPromise = starknet_waitForTransaction(
         initiateWithdrawTxResponse.transaction_hash
       );
       const waitForMsgPromise = waitForLogMessageToL1();
@@ -148,7 +148,7 @@ export const useTransfer = () => {
       setProgress(PROGRESS.waitForEvent());
       await waitForMsgPromise;
       setProgress(PROGRESS.withdraw(amount, symbol, ethereumAccount));
-      const withdrawReceipt = await withdrawToken(
+      const withdrawReceipt = await eth_withdraw(
         ethereumAccount,
         amount,
         ethereumBridgeContract,
@@ -187,7 +187,7 @@ export const useTransfer = () => {
   const transferEthToStarknet = useCallback(
     async (tokenData, amount) => {
       if (!isEth(tokenData)) return;
-      return await transferToStarknet(amount, depositEth, ethBridgeContract, null, false);
+      return await transferToStarknet(amount, eth_depositEth, ethBridgeContract, null, false);
     },
     [ethereumAccount, starknetAccount]
   );
@@ -200,7 +200,7 @@ export const useTransfer = () => {
       return await transferToStarknet(
         tokenData,
         amount,
-        depositToken,
+        eth_deposit,
         tokenBridgeContract,
         tokenContract,
         true
