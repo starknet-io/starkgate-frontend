@@ -40,29 +40,21 @@ export const useEthereumTokenBalance = (tokenAddresses, account) => {
 
 export const useEthereumTokensBalances = (tokensAddresses, account) => {
   const contracts = useEthereumTokenContracts(tokensAddresses);
-  const callbacks = [];
-  contracts.forEach(contract => {
-    callbacks.push(
-      useCallback(
-        async () =>
-          contract ? await getTokenBalance(account, contract, true) : await getEthBalance(account),
-        [tokensAddresses, account]
-      )
-    );
-  });
-  return callbacks;
+  return contracts.map(contract =>
+    useCallback(
+      async () =>
+        contract ? await getTokenBalance(account, contract, true) : await getEthBalance(account),
+      [tokensAddresses, account]
+    )
+  );
 };
 
 export const useStarknetTokensBalances = (tokensAddresses, account) => {
   const contracts = useStarknetTokenContracts(tokensAddresses);
-  const callbacks = [];
-  contracts.forEach(contract => {
-    callbacks.push(
-      useCallback(
-        async () => await getTokenBalance(account, contract, false),
-        [tokensAddresses, account]
-      )
-    );
-  });
-  return callbacks;
+  return contracts.map(contract =>
+    useCallback(
+      async () => await getTokenBalance(account, contract, false),
+      [tokensAddresses, account]
+    )
+  );
 };

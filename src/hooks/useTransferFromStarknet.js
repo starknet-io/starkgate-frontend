@@ -39,8 +39,9 @@ export const useTransferFromStarknet = tokenData => {
   const {account: starknetAccount} = useWallets();
   const {account: ethereumAccount} = useEthereumWallet();
   const tokenContract = useTokenContract(tokenAddress);
-  const ethereumToken = useEthereumToken(symbol);
   const starknetTokenBridgeContract = useTokenBridgeContract(bridgeAddress);
+  const getEthereumToken = useEthereumToken();
+  const ethereumToken = getEthereumToken(symbol);
   const ethereumTokenBridgeContract = useEthereumTokenBridgeContract(ethereumToken.bridgeAddress);
   const messagingContract = useMessagingContract();
 

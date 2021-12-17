@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import WalletsConfig from '../config/wallets.js';
 import {ArgentHandler, MetaMaskHandler} from '../services';
@@ -10,7 +10,6 @@ const SUPPORTED_HANDLERS_REGISTRY = {
 
 export const useWalletHandlerProvider = () => {
   const [handlers, setHandlers] = useState([]);
-
   useEffect(() => {
     const walletHandlers = [];
     WalletsConfig.forEach(walletConfig => {
@@ -22,12 +21,9 @@ export const useWalletHandlerProvider = () => {
     });
     setHandlers(walletHandlers);
   }, []);
-
-  const getWalletHandlers = type => {
-    return type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers;
-  };
-
-  return {
-    getWalletHandlers
-  };
+  return useCallback(
+    type =>
+      type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers,
+    [handlers]
+  );
 };

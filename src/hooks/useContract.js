@@ -9,53 +9,39 @@ import {getContract, getStarknetContract} from '../utils/contract';
 
 export const useContracts = (tokensAddresses, ABI, getContractHandler = getContract) => {
   const {chainId} = useWallets();
-
   return useMemo(() => {
-    const contracts = [];
-    if (!tokensAddresses || !ABI || !chainId) return null;
-    tokensAddresses.forEach(tokenAddress => {
-      let contract;
-      if (tokenAddress) {
-        const address = tokenAddress[chainId];
+    return tokensAddresses.map(tokenAddresses => {
+      if (tokenAddresses) {
         try {
-          contract = getContractHandler(address, ABI);
+          const address = tokenAddresses[chainId];
+          if (!address) return null;
+          return getContractHandler(address, ABI);
         } catch (ex) {
-          contract = null;
+          return null;
         }
-      } else {
-        contract = null;
       }
-      contracts.push(contract);
+      return null;
     });
-    return contracts;
   }, [tokensAddresses, ABI, chainId]);
 };
 
-export const useContract = (addressOrAddressMap, ABI, getContractHandler = getContract) => {
+export const useContract = (addresses, ABI, getContractHandler = getContract) => {
   const {chainId} = useWallets();
-
   return useMemo(() => {
-    if (!addressOrAddressMap || !ABI || !chainId) return null;
-    let address;
-    if (typeof addressOrAddressMap === 'string') {
-      address = addressOrAddressMap;
-    } else {
-      address = addressOrAddressMap[chainId];
-    }
-    if (!address) return null;
     try {
+      let address = addresses[chainId];
+      if (!address) return null;
       return getContractHandler(address, ABI);
     } catch (ex) {
       return null;
     }
-  }, [addressOrAddressMap, ABI, chainId]);
+  }, [addresses, ABI, chainId]);
 };
 
 export const useTokenContract = tokenAddresses => {
   const tokenContract = useEthereumTokenContract(tokenAddresses);
   const starknetTokenContract = useStarknetTokenContract(tokenAddresses);
   const {isEthereum} = useTransferData();
-
   return useMemo(() => (isEthereum ? tokenContract : starknetTokenContract), [isEthereum]);
 };
 
@@ -63,7 +49,6 @@ export const useTokenBridgeContract = bridgeAddress => {
   const tokenBridgeContract = useEthereumTokenBridgeContract(bridgeAddress);
   const starknetTokenBridgeContract = useStarknetTokenBridgeContract(bridgeAddress);
   const {isEthereum} = useTransferData();
-
   return useMemo(
     () => (isEthereum ? tokenBridgeContract : starknetTokenBridgeContract),
     [isEthereum]
