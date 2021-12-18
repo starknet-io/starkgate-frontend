@@ -1,55 +1,37 @@
 import {useCallback} from 'react';
 
-import {eth_ethBalanceOf, balanceOf} from '../api/erc20';
+import {balanceOf, eth_ethBalanceOf} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import {
-  useEthereumTokenContract,
-  useEthereumTokenContracts,
-  useStarknetTokenContract,
-  useStarknetTokenContracts
-} from './useContract';
+import {useEthereumTokenContract, useStarknetTokenContract} from './useContract';
 
-export const useTokenBalance = (tokenAddresses, account) => {
-  const getStarknetBalanceCallback = useStarknetTokenBalance(tokenAddresses, account);
-  const getEthereumBalanceCallback = useEthereumTokenBalance(tokenAddresses, account);
+export const useTokenBalance = account => {
+  const getStarknetTokenBalance = useStarknetTokenBalance(account);
+  const getEthereumTokenBalance = useEthereumTokenBalance(account);
   const {isEthereum} = useTransferData();
   return useCallback(
-    () => (isEthereum ? getEthereumBalanceCallback() : getStarknetBalanceCallback()),
-    [isEthereum, tokenAddresses, account]
+    tokenAddresses =>
+      isEthereum
+        ? getEthereumTokenBalance(tokenAddresses)
+        : getStarknetTokenBalance(tokenAddresses),
+    [isEthereum, account]
   );
 };
 
-export const useStarknetTokenBalance = (tokenAddresses, account) => {
-  const contract = useStarknetTokenContract(tokenAddresses);
+export const useStarknetTokenBalance = account => {
+  const getContract = useStarknetTokenContract();
   return useCallback(
-    async () => await balanceOf(account, contract, false),
-    [tokenAddresses, account]
+    async tokenAddresses => await balanceOf(account, getContract(tokenAddresses), false),
+    [account]
   );
 };
 
-export const useEthereumTokenBalance = (tokenAddresses, account) => {
-  const contract = useEthereumTokenContract(tokenAddresses);
+export const useEthereumTokenBalance = account => {
+  const getContract = useEthereumTokenContract();
   return useCallback(
-    async () =>
-      tokenAddresses ? await balanceOf(account, contract, true) : await eth_ethBalanceOf(account),
-    [tokenAddresses, account]
-  );
-};
-
-export const useEthereumTokensBalances = (tokensAddresses, account) => {
-  const contracts = useEthereumTokenContracts(tokensAddresses);
-  return contracts.map(contract =>
-    useCallback(
-      async () =>
-        contract ? await balanceOf(account, contract, true) : await eth_ethBalanceOf(account),
-      [tokensAddresses, account]
-    )
-  );
-};
-
-export const useStarknetTokensBalances = (tokensAddresses, account) => {
-  const contracts = useStarknetTokenContracts(tokensAddresses);
-  return contracts.map(contract =>
-    useCallback(async () => await balanceOf(account, contract, false), [tokensAddresses, account])
+    async tokenAddresses =>
+      tokenAddresses
+        ? await balanceOf(account, getContract(tokenAddresses), true)
+        : await eth_ethBalanceOf(account),
+    [account]
   );
 };

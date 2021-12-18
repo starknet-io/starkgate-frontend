@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
-import {useEthereumTokensBalances, useStarknetTokensBalances} from '../../hooks/useTokenBalance';
+import {useEthereumTokenBalance, useStarknetTokenBalance} from '../../hooks/useTokenBalance';
 import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider/hooks';
 import {TokensContext} from './context';
 import {actions, initialState, reducer} from './reducer';
@@ -10,14 +10,8 @@ export const TokensProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {account: ethereumAccount} = useEthereumWallet();
   const {account: starknetAccount} = useStarknetWallet();
-  const getEthereumBalances = useEthereumTokensBalances(
-    state.ethereumTokens.map(token => token.tokenAddress),
-    ethereumAccount
-  );
-  const getStarknetBalances = useStarknetTokensBalances(
-    state.starknetTokens.map(token => token.tokenAddress),
-    starknetAccount
-  );
+  const getEthereumTokenBalance = useEthereumTokenBalance(ethereumAccount);
+  const getStarknetTokenBalance = useStarknetTokenBalance(starknetAccount);
 
   useEffect(() => {
     fetchEthereumBalances();
@@ -25,18 +19,17 @@ export const TokensProvider = ({children}) => {
   }, []);
 
   const fetchEthereumBalances = () => {
-    fetchTokensBalances(state.ethereumTokens, getEthereumBalances, updateEthereumTokenState);
+    fetchTokensBalances(state.ethereumTokens, getEthereumTokenBalance, updateEthereumTokenState);
   };
 
   const fetchStarknetBalances = () => {
-    fetchTokensBalances(state.starknetTokens, getStarknetBalances, updateStarknetTokenState);
+    fetchTokensBalances(state.starknetTokens, getStarknetTokenBalance, updateStarknetTokenState);
   };
 
-  const fetchTokensBalances = (tokens, getBalances, updateState) => {
+  const fetchTokensBalances = (tokens, getBalance, updateState) => {
     for (let index = 0; index < tokens.length; index++) {
-      const getBalance = getBalances[index];
       updateState(index, {isLoading: true});
-      getBalance()
+      getBalance(tokens[index].tokenAddress)
         .then(balance => {
           updateState(index, {balance, isLoading: false});
         })

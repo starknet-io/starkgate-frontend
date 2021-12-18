@@ -8,5 +8,3 @@ export * from './TokenInput/TokenInput';
 export * from './TokenSelector/TokenSelector';
 export * from './TransferButton/TransferButton';
 export * from './TransferMenuTab/TransferMenuTab';
-export * from './StarknetNetwork/StarknetNetwork';
-export * from './EthereumNetwork/EthereumNetwork';

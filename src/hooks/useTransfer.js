@@ -1,7 +1,8 @@
 import {useCallback, useState} from 'react';
 
-import {eth_depositEth, eth_deposit, starknet_initiateWithdraw, eth_withdraw} from '../api/bridge';
+import {eth_deposit, eth_depositEth, eth_withdraw, starknet_initiateWithdraw} from '../api/bridge';
 import {approve} from '../api/erc20';
+import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
 import {useEthereumToken} from '../providers/TokensProvider/hooks';
 import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
 import {isEth} from '../utils';
@@ -23,9 +24,9 @@ const PROGRESS = {
     type: 'Deposit in progress',
     message: `Depositing ${amount} ${symbol} to StarkNet`
   }),
-  initiateWithdraw: (amount, symbol, sender) => ({
+  initiateWithdraw: (amount, symbol) => ({
     type: 'Initiate withdrawal',
-    message: `Initiating withdrawal of ${amount} ${symbol} from ${sender}`
+    message: `Initiating withdrawal of ${amount} ${symbol}`
   }),
   waitForAccept: () => ({
     type: 'Transaction received',
@@ -48,6 +49,7 @@ export const useTransfer = () => {
   const [error, setError] = useState(null);
   const {account: ethereumAccount, chainId} = useWallets();
   const {account: starknetAccount} = useStarknetWallet();
+  const {selectedToken} = useTransferData();
   const ethBridgeContract = useEthBridgeContract();
   const messagingContract = useMessagingContract();
   const getTokenContract = useTokenContract();
@@ -85,14 +87,13 @@ export const useTransfer = () => {
   };
 
   const transferToStarknet = async (
-    tokenData,
     amount,
     depositHandler,
     bridgeContract,
     tokenContract,
     withApproval
   ) => {
-    const {bridgeAddress, symbol} = tokenData;
+    const {bridgeAddress, symbol} = selectedToken;
     resetState();
     try {
       setIsLoading(true);
@@ -122,17 +123,16 @@ export const useTransfer = () => {
   };
 
   const transferFromStarknet = async (
-    tokenData,
     amount,
     bridgeContract,
     tokenContract,
     ethereumBridgeContract
   ) => {
-    const {symbol} = tokenData;
+    const {symbol} = selectedToken;
     resetState();
     try {
       setIsLoading(true);
-      setProgress(PROGRESS.initiateWithdraw(amount, symbol, starknetAccount));
+      setProgress(PROGRESS.initiateWithdraw(amount, symbol));
       const initiateWithdrawTxResponse = await starknet_initiateWithdraw(
         ethereumAccount,
         amount,
@@ -165,8 +165,8 @@ export const useTransfer = () => {
   };
 
   const transferTokenFromStarknet = useCallback(
-    async (tokenData, amount) => {
-      const {tokenAddress, bridgeAddress, symbol} = tokenData;
+    async amount => {
+      const {tokenAddress, bridgeAddress, symbol} = selectedToken;
       const ethereumToken = getEthereumToken(symbol);
       const tokenContract = getTokenContract(tokenAddress);
       const tokenBridgeContract = getTokenBridgeContract(bridgeAddress);
@@ -174,7 +174,6 @@ export const useTransfer = () => {
         ethereumToken.bridgeAddress
       );
       return await transferFromStarknet(
-        tokenData,
         amount,
         tokenBridgeContract,
         tokenContract,
@@ -184,34 +183,27 @@ export const useTransfer = () => {
     [ethereumAccount, starknetAccount]
   );
 
-  const transferEthToStarknet = useCallback(
-    async (tokenData, amount) => {
-      if (!isEth(tokenData)) return;
+  const transferTokenToStarknet = useCallback(
+    async amount => {
+      if (!isEth(selectedToken)) {
+        const {tokenAddress, bridgeAddress} = selectedToken;
+        const tokenContract = getTokenContract(tokenAddress);
+        const tokenBridgeContract = getTokenBridgeContract(bridgeAddress);
+        return await transferToStarknet(
+          amount,
+          eth_deposit,
+          tokenBridgeContract,
+          tokenContract,
+          true
+        );
+      }
       return await transferToStarknet(amount, eth_depositEth, ethBridgeContract, null, false);
     },
-    [ethereumAccount, starknetAccount]
-  );
-
-  const transferTokenToStarknet = useCallback(
-    async (tokenData, amount) => {
-      const {tokenAddress, bridgeAddress} = tokenData;
-      const tokenContract = getTokenContract(tokenAddress);
-      const tokenBridgeContract = getTokenBridgeContract(bridgeAddress);
-      return await transferToStarknet(
-        tokenData,
-        amount,
-        eth_deposit,
-        tokenBridgeContract,
-        tokenContract,
-        true
-      );
-    },
-    [ethereumAccount, starknetAccount]
+    [ethereumAccount, starknetAccount, selectedToken]
   );
 
   return {
     transferTokenToStarknet,
-    transferEthToStarknet,
     transferTokenFromStarknet,
     isLoading,
     progress,
