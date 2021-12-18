@@ -1,4 +1,4 @@
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {ActionType} from '../../../../enums';
@@ -7,7 +7,7 @@ import {
   fromNetworkSelector,
   fromStarknetSelector,
   getCurrentAmountSelector,
-  getCurrentSelectedTokenSelector,
+  selectSymbol,
   selectTransfer,
   toNetworkSelector,
   toStarknetSelector
@@ -21,14 +21,27 @@ export const useTransferActions = () => ({
   resetTransfer: useResetTransfer()
 });
 
-export const useTransferData = () => ({
-  ...useSelector(selectTransfer),
-  selectedToken: useSelector(getCurrentSelectedTokenSelector),
-  isEthereum: useSelector(toStarknetSelector),
-  isStarknet: useSelector(fromStarknetSelector),
-  fromNetwork: useSelector(fromNetworkSelector),
-  toNetwork: useSelector(toNetworkSelector)
-});
+export const useTransferData = () => {
+  return {
+    ...useSelector(selectTransfer),
+    selectedToken: useSelectedToken(),
+    isEthereum: useSelector(toStarknetSelector),
+    isStarknet: useSelector(fromStarknetSelector),
+    fromNetwork: useSelector(fromNetworkSelector),
+    toNetwork: useSelector(toNetworkSelector)
+  };
+};
+
+export const useSelectedToken = () => {
+  const symbol = useSelector(selectSymbol);
+  const isEthereum = useSelector(toStarknetSelector);
+  const getEthereumToken = useEthereumToken();
+  const getStarknetToken = useStarknetToken();
+  return useMemo(
+    () => (isEthereum ? getEthereumToken(symbol) : getStarknetToken(symbol)),
+    [symbol, isEthereum]
+  );
+};
 
 export const useAmount = () => {
   const amount = useSelector(getCurrentAmountSelector);
@@ -68,16 +81,9 @@ const useSetActionType = action => {
 
 const useSelectToken = () => {
   const dispatch = useDispatch();
-  const setStarknetToken = useStarknetToken();
-  const getEthereumToken = useEthereumToken();
   return useCallback(
-    token => {
-      dispatch(
-        selectTokenAction({
-          selectedStarknetToken: setStarknetToken(token.symbol),
-          selectedEthereumToken: getEthereumToken(token.symbol)
-        })
-      );
+    symbol => {
+      dispatch(selectTokenAction(symbol));
     },
     [dispatch]
   );

@@ -4,8 +4,7 @@ import {ActionType} from '../../../../enums';
 
 const initialState = {
   action: ActionType.TRANSFER_TO_STARKNET,
-  selectedEthereumToken: null,
-  selectedStarknetToken: null,
+  symbol: '',
   depositAmount: '',
   withdrawAmount: ''
 };
@@ -18,9 +17,7 @@ const transferSlice = createSlice({
       state.action = action.payload;
     },
     selectTokenAction(state, action) {
-      const {selectedStarknetToken, selectedEthereumToken} = action.payload;
-      state.selectedEthereumToken = selectedEthereumToken;
-      state.selectedStarknetToken = selectedStarknetToken;
+      state.symbol = action.payload;
     },
     setAmountAction(state, action) {
       if (state.action === ActionType.TRANSFER_TO_STARKNET) {

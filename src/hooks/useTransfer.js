@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 
 import {eth_deposit, eth_depositEth, eth_withdraw, starknet_initiateWithdraw} from '../api/bridge';
 import {approve} from '../api/erc20';
-import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
+import {useSelectedToken} from '../components/Features/Transfer/Transfer/Transfer.hooks';
 import {useEthereumToken} from '../providers/TokensProvider/hooks';
 import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
 import {isEth} from '../utils';
@@ -49,7 +49,7 @@ export const useTransfer = () => {
   const [error, setError] = useState(null);
   const {account: ethereumAccount, chainId} = useWallets();
   const {account: starknetAccount} = useStarknetWallet();
-  const {selectedToken} = useTransferData();
+  const selectedToken = useSelectedToken();
   const ethBridgeContract = useEthBridgeContract();
   const messagingContract = useMessagingContract();
   const getTokenContract = useTokenContract();

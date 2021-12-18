@@ -6,9 +6,7 @@ export const selectTransfer = state => state.transfer;
 
 export const selectTransferAction = state => state.transfer.action;
 
-export const selectEthereumToken = state => state.transfer.selectedEthereumToken;
-
-export const selectStarknetToken = state => state.transfer.selectedStarknetToken;
+export const selectSymbol = state => state.transfer.symbol;
 
 export const selectWithdrawAmount = state => state.transfer.withdrawAmount;
 
@@ -39,15 +37,5 @@ export const getCurrentAmountSelector = createSelector(
       return depositAmount;
     }
     return withdrawAmount;
-  }
-);
-
-export const getCurrentSelectedTokenSelector = createSelector(
-  [selectTransferAction, selectEthereumToken, selectStarknetToken],
-  (action, ethereumToken, starknetToken) => {
-    if (action === ActionType.TRANSFER_TO_STARKNET) {
-      return ethereumToken;
-    }
-    return starknetToken;
   }
 );

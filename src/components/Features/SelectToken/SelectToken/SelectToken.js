@@ -25,7 +25,8 @@ export const SelectToken = () => {
   }, [tokens]);
 
   const onTokenSelect = tokenData => {
-    selectToken(tokenData);
+    const {symbol} = tokenData;
+    selectToken(symbol);
     showTransferMenu();
   };
 

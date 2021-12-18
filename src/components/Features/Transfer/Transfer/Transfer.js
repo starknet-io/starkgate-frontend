@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../../enums';
 import {useTransfer} from '../../../../hooks';
@@ -9,6 +9,7 @@ import {
 } from '../../../../providers/TokensProvider/hooks';
 import {Loading, Menu} from '../../../UI';
 import {LoadingSize} from '../../../UI/Loading/Loading.enums';
+import {useBridgeActions} from '../../Bridge/Bridge.hooks';
 import {
   useHideModal,
   useProgressModal,
@@ -16,6 +17,8 @@ import {
 } from '../../ModalProvider/ModalProvider.hooks';
 import {NetworkMenu} from '../NetworkMenu/NetworkMenu';
 import {NetworkSwap} from '../NetworkSwap/NetworkSwap';
+import {TokenInput} from '../TokenInput/TokenInput';
+import {TransferButton} from '../TransferButton/TransferButton';
 import {TransferMenuTab} from '../TransferMenuTab/TransferMenuTab';
 import {
   useAmount,
@@ -25,24 +28,30 @@ import {
   useTransferData
 } from './Transfer.hooks';
 import styles from './Transfer.module.scss';
+import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isEthereum, setEthereum] = useIsEthereum();
   const [isStarknet, setStarknet] = useIsStarknet();
-  const [amount, , clearAmount] = useAmount();
+  const [amount, setAmount, clearAmount] = useAmount();
+  const [hasInputError, setHasInputError] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const {showSelectTokenMenu} = useBridgeActions();
   const {selectedToken, action} = useTransferData();
   const {selectToken} = useTransferActions();
+  const {transferTokenToStarknet, transferTokenFromStarknet, data, error, isLoading, progress} =
+    useTransfer();
   const tokens = useTokens();
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
   const getEthereumToken = useEthereumToken();
   const getStarknetToken = useStarknetToken();
-  const {transferTokenToStarknet, transferTokenFromStarknet, data, error, isLoading, progress} =
-    useTransfer();
 
   useEffect(() => {
-    !selectedToken && selectToken(tokens[0]);
+    if (!selectedToken) {
+      selectToken(tokens[0].symbol);
+    }
   }, []);
 
   useEffect(() => {
@@ -52,11 +61,43 @@ export const Transfer = () => {
       // TODO: show error modal
       hideModal();
     } else if (data) {
+      // TODO: save tx in local storage
       const [receipt, event] = data;
       clearAmount();
       showTransactionSubmittedModal(receipt.transactionHash);
     }
   }, [progress, data, error, isLoading, amount]);
+
+  useEffect(() => {
+    if (selectedToken) {
+      setHasInputError(false);
+      if (selectedToken.isLoading || Math.ceil(amount) === 0) {
+        setIsButtonDisabled(true);
+      } else {
+        if (amount > selectedToken.balance) {
+          setHasInputError(true);
+          setIsButtonDisabled(true);
+        } else {
+          setIsButtonDisabled(false);
+        }
+      }
+    }
+  }, [amount, selectedToken]);
+
+  const onMaxClick = () => {
+    setAmount(selectedToken.balance);
+  };
+
+  const onInputChange = event => {
+    setAmount(event.target.value);
+  };
+
+  const onSwapClick = () => {
+    isStarknet ? setEthereum() : setStarknet();
+  };
+
+  const onTransferClick = async () =>
+    isEthereum ? transferTokenToStarknet(amount) : transferTokenFromStarknet(amount);
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -75,38 +116,42 @@ export const Transfer = () => {
     });
   };
 
-  const onSwapClick = () => {
-    isStarknet ? setEthereum() : setStarknet();
-  };
-
-  const onTransferClick = async () => {
-    debugger;
-    return isEthereum ? transferTokenToStarknet(amount) : transferTokenFromStarknet(amount);
-  };
-
   const renderEthereumNetwork = () => {
     const tokenData = getEthereumToken(selectedToken.symbol);
     return (
-      <NetworkMenu
-        isTarget={!isEthereum}
-        isTransferring={isLoading}
-        networkData={NetworkType.ETHEREUM}
-        tokenData={tokenData}
-        onTransferClick={onTransferClick}
-      />
+      <NetworkMenu isTarget={!isEthereum} networkData={NetworkType.ETHEREUM} tokenData={tokenData}>
+        {isEthereum && renderTransferInput()}
+      </NetworkMenu>
     );
   };
 
   const renderStarknetNetwork = () => {
     const tokenData = getStarknetToken(selectedToken.symbol);
     return (
-      <NetworkMenu
-        isTarget={!isStarknet}
-        isTransferring={isLoading}
-        networkData={NetworkType.STARKNET}
-        tokenData={tokenData}
-        onTransferClick={onTransferClick}
-      />
+      <NetworkMenu isTarget={!isStarknet} networkData={NetworkType.STARKNET} tokenData={tokenData}>
+        {isStarknet && renderTransferInput()}
+      </NetworkMenu>
+    );
+  };
+
+  const renderTransferInput = () => {
+    return (
+      <>
+        <TokenInput
+          hasError={hasInputError}
+          tokenData={selectedToken}
+          value={amount}
+          onInputChange={onInputChange}
+          onMaxClick={onMaxClick}
+          onTokenSelect={showSelectTokenMenu}
+        />
+        {hasInputError && <div className={styles.errorMsg}>{INSUFFICIENT_BALANCE_ERROR_MSG}</div>}
+        <TransferButton
+          isDisabled={isButtonDisabled}
+          isLoading={isLoading}
+          onClick={onTransferClick}
+        />
+      </>
     );
   };
 
