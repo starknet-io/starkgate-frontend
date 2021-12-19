@@ -17,6 +17,14 @@ $hr-color: $--color-alpha-3;
 
   .left {
     display: flex;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
   }
 
   .data {

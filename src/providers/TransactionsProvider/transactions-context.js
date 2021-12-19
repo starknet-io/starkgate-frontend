@@ -4,5 +4,5 @@ import {initialState} from './transactions-reducer';
 
 export const TransactionsContext = createContext({
   ...initialState,
-  setTransactions: () => {}
+  addTransaction: tx => tx
 });

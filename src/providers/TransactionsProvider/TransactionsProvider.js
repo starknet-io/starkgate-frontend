@@ -1,21 +1,70 @@
+import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
+import {LOCAL_STORAGE_TXS_KEY} from '../../constants';
+import {TransactionStatus} from '../../enums';
 import {StorageManager} from '../../services';
+import {useBlockHash} from '../BlockHashProvider';
 import {TransactionsContext} from './transactions-context';
 import {actions, initialState, reducer} from './transactions-reducer';
 
-const LOCAL_STORAGE_KEY = 'STARKNET_BRIDGE_TXS';
-
 export const TransactionsProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [transactions, dispatch] = useReducer(reducer, initialState);
+  const blockHash = useBlockHash();
 
   useEffect(() => {
-    const storedTxs = StorageManager.getItem(LOCAL_STORAGE_KEY);
+    const storedTxs = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
     if (storedTxs) {
       setTransactions(storedTxs);
     }
   }, []);
+
+  useDeepCompareEffect(() => {
+    const updateTransactions = async () => {
+      if (!blockHash) {
+        return;
+      }
+      const checkTransaction = async tx => {
+        console.log(`checking tx status ${tx.starknet_hash}`);
+        if ([TransactionStatus.REJECTED, TransactionStatus.ACCEPTED_ON_L1].includes(tx.status)) {
+          return tx;
+        }
+        if (tx.lastChecked === blockHash) {
+          return tx;
+        }
+        try {
+          const newStatus = await getStarknet().provider.getTransactionStatus(tx.starknet_hash);
+          console.log(`new status ${newStatus.tx_status}`);
+          return {
+            ...tx,
+            status: newStatus.tx_status,
+            lastChecked: blockHash
+          };
+        } catch (error) {
+          console.error(`failed to check transaction status: ${tx.hash}`);
+        }
+        return tx;
+      };
+
+      const newTransactions = [];
+      for (const tx of transactions) {
+        const newTransaction = await checkTransaction(tx);
+        newTransactions.push(newTransaction);
+      }
+      StorageManager.setItem(LOCAL_STORAGE_TXS_KEY, transactions);
+      setTransactions(newTransactions);
+    };
+    updateTransactions();
+  }, [blockHash, transactions]);
+
+  const addTransaction = tx => {
+    dispatch({
+      type: actions.ADD_TRANSACTION,
+      payload: {...tx, timestamp: new Date().getTime()}
+    });
+  };
 
   const setTransactions = payload => {
     dispatch({
@@ -25,8 +74,8 @@ export const TransactionsProvider = ({children}) => {
   };
 
   const context = {
-    transactions: state,
-    setTransactions
+    transactions,
+    addTransaction
   };
 
   return <TransactionsContext.Provider value={context}>{children}</TransactionsContext.Provider>;

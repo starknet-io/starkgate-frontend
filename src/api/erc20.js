@@ -1,6 +1,5 @@
 import {
   eth_fromWei,
-  eth_toWei,
   starknet_fromFelt,
   starknet_fromUint256,
   starknet_toFelt,
@@ -17,13 +16,24 @@ import {web3} from '../web3';
 export const approve = async (spender, value, contract, from, isEthereum = true) => {
   try {
     if (isEthereum) {
-      return await eth_sendTransaction(contract, 'approve', [spender, eth_toWei(value)], {from});
+      return await eth_sendTransaction(contract, 'approve', [spender, value], {from});
     } else {
       const tokenDecimals = await decimals(contract, false);
       return await starknet_sendTransaction(contract, 'approve', {
         spender: starknet_toFelt(spender),
         amount: starknet_toUint256(value, tokenDecimals)
       });
+    }
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
+};
+
+export const allowance = async (owner, spender, contract, isEthereum = true) => {
+  try {
+    if (isEthereum) {
+      const allow = await eth_callContract(contract, 'allowance', [owner, spender]);
+      return eth_fromWei(allow);
     }
   } catch (ex) {
     return Promise.reject(ex);

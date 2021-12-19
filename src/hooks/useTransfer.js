@@ -1,11 +1,13 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
+import {constants, stark} from 'starknet';
 
 import {eth_deposit, eth_depositEth, eth_withdraw, starknet_initiateWithdraw} from '../api/bridge';
-import {approve} from '../api/erc20';
-import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
-import {useEthereumToken} from '../providers/TokensProvider';
+import {allowance, approve} from '../api/erc20';
+import {useSelectedToken, useTransferData} from '../components/Features/Transfer/Transfer.hooks';
+import {ActionType} from '../enums';
+import {useEthereumToken, useStarknetToken} from '../providers/TokensProvider';
 import {useStarknetWallet, useWallets} from '../providers/WalletsProvider';
-import {isEth} from '../utils';
+import {hashEquals, isEth, txHash} from '../utils';
 import {eth_listenOnce, starknet_waitForTransaction} from '../utils/contract';
 import {
   useEthBridgeContract,
@@ -49,28 +51,43 @@ export const useTransfer = () => {
   const [error, setError] = useState(null);
   const {account: ethereumAccount, chainId} = useWallets();
   const {account: starknetAccount} = useStarknetWallet();
+  const {action} = useTransferData();
   const selectedToken = useSelectedToken();
   const ethBridgeContract = useEthBridgeContract();
   const messagingContract = useMessagingContract();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const getEthereumToken = useEthereumToken();
+  const getStarknetToken = useStarknetToken();
   const getEthereumTokenBridgeContract = useEthereumTokenBridgeContract();
 
   const resetState = () => {
-    setError(null);
     setData(null);
+    setError(null);
     setProgress(null);
     setIsLoading(false);
   };
 
   const waitForLogMessageToL2 = () => {
+    const {symbol} = selectedToken;
+    const snBridgeAddress = getStarknetToken(symbol).bridgeAddress[chainId];
+    const ethBridgeAddress = getEthereumToken(symbol).bridgeAddress[chainId];
     return new Promise((resolve, reject) => {
       eth_listenOnce(messagingContract, 'LogMessageToL2', (error, event) => {
-        if (error) {
-          reject(error);
+        const {
+          returnValues: {to_address, from_address, selector, payload}
+        } = event;
+        if (
+          hashEquals(
+            [to_address, from_address, selector],
+            [snBridgeAddress, ethBridgeAddress, stark.getSelectorFromName('handle_deposit')]
+          )
+        ) {
+          if (error) {
+            reject(error);
+          }
+          resolve(txHash(from_address, to_address, selector, payload, chainId));
         }
-        resolve(event);
       });
     });
   };
@@ -86,23 +103,18 @@ export const useTransfer = () => {
     });
   };
 
-  const transferToStarknet = async (
-    amount,
-    depositHandler,
-    bridgeContract,
-    tokenContract,
-    withApproval
-  ) => {
-    const {bridgeAddress, symbol} = selectedToken;
+  const transferToStarknet = async (amount, depositHandler, bridgeContract, tokenContract) => {
+    const {bridgeAddress, symbol, name} = selectedToken;
     resetState();
     try {
       setIsLoading(true);
-      let approvalPromise = Promise.resolve();
-      if (withApproval) {
+      if (!isEth(symbol)) {
         setProgress(PROGRESS.approval(symbol));
-        approvalPromise = approve(bridgeAddress[chainId], amount, tokenContract, ethereumAccount);
+        const allow = await allowance(ethereumAccount, bridgeAddress[chainId], tokenContract);
+        if (allow < amount) {
+          await approve(bridgeAddress[chainId], constants.MASK_250, tokenContract, ethereumAccount);
+        }
       }
-      await approvalPromise;
       setProgress(PROGRESS.deposit(amount, symbol));
       const depositPromise = depositHandler(
         starknetAccount,
@@ -110,14 +122,22 @@ export const useTransfer = () => {
         bridgeContract,
         ethereumAccount
       );
-      const depositEventPromise = waitForLogMessageToL2();
-      const results = await Promise.all([depositPromise, depositEventPromise]);
+      const depositEventPromise = waitForLogMessageToL2(bridgeContract.options.address);
+      const [{transactionHash}, starknetTxHash] = await Promise.all([
+        depositPromise,
+        depositEventPromise
+      ]);
       setIsLoading(false);
-      setProgress(null);
-      setData(results);
+      setData({
+        type: ActionType.TRANSFER_TO_STARKNET,
+        name,
+        symbol,
+        amount,
+        eth_hash: transactionHash,
+        starknet_hash: starknetTxHash
+      });
     } catch (ex) {
       setIsLoading(false);
-      setProgress(null);
       setError(ex);
     }
   };
@@ -189,18 +209,16 @@ export const useTransfer = () => {
         const {tokenAddress, bridgeAddress} = selectedToken;
         const tokenContract = getTokenContract(tokenAddress);
         const tokenBridgeContract = getTokenBridgeContract(bridgeAddress);
-        return await transferToStarknet(
-          amount,
-          eth_deposit,
-          tokenBridgeContract,
-          tokenContract,
-          true
-        );
+        return await transferToStarknet(amount, eth_deposit, tokenBridgeContract, tokenContract);
       }
-      return await transferToStarknet(amount, eth_depositEth, ethBridgeContract, null, false);
+      return await transferToStarknet(amount, eth_depositEth, ethBridgeContract, null);
     },
     [ethereumAccount, starknetAccount, selectedToken]
   );
+
+  useEffect(() => {
+    resetState();
+  }, [action]);
 
   return {
     transferTokenToStarknet,

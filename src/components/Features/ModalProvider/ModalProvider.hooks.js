@@ -53,3 +53,20 @@ export const useTransactionSubmittedModal = () => {
     [dispatch]
   );
 };
+
+export const useErrorModal = title => {
+  const dispatch = useDispatch();
+  return useCallback(
+    body => {
+      dispatch(
+        showModalAction({
+          title,
+          body,
+          isClosable: true,
+          type: ModalType.ERROR
+        })
+      );
+    },
+    [dispatch]
+  );
+};

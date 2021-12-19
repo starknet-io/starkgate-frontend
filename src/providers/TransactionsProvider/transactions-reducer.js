@@ -11,7 +11,7 @@ export const reducer = (state, action) => {
       return action.payload;
 
     case actions.ADD_TRANSACTION:
-      return [...state.transactions, action.payload];
+      return [action.payload, ...state];
 
     default:
       return state;

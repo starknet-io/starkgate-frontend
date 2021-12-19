@@ -1,3 +1,4 @@
+import {BlockHashProvider} from './BlockHashProvider';
 import {StoreProvider} from './StoreProvider/StoreProvider';
 import {TransactionsProvider} from './TransactionsProvider';
 import {WalletProvider} from './WalletProvider/WalletProvider';
@@ -8,5 +9,6 @@ export const Providers = combineProviders([
   StoreProvider,
   WalletProvider,
   WalletsProvider,
+  BlockHashProvider,
   TransactionsProvider
 ]);

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {Keyframes} from '../KeyFrames/KeyFrames';
-import './Loading.scss';
+import styles from './Loading.module.scss';
 
 export const Loading = ({size, color}) => {
   const [keyFrameSize, setKeyFrameSize] = useState(size - size / 10);
@@ -14,7 +14,7 @@ export const Loading = ({size, color}) => {
   return (
     <>
       <div
-        className="lds-ripple"
+        className={styles.loading}
         style={{width: `${size}px`, height: `${size}px`, borderColor: color}}
       >
         <div style={{borderColor: color}} />
@@ -35,7 +35,7 @@ export const Loading = ({size, color}) => {
           height: `${keyFrameSize}px`,
           opacity: 0
         }}
-        name="lds-ripple"
+        name={styles.loading}
       />
     </>
   );

@@ -35,11 +35,11 @@ export const useTransferData = () => {
 export const useSelectedToken = () => {
   const symbol = useSelector(selectSymbol);
   const isEthereum = useSelector(toStarknetSelector);
-  const getEthereumToken = useEthereumToken();
-  const getStarknetToken = useStarknetToken();
+  const ethereumToken = useEthereumToken()(symbol);
+  const starknetToken = useStarknetToken()(symbol);
   return useMemo(
-    () => (isEthereum ? getEthereumToken(symbol) : getStarknetToken(symbol)),
-    [symbol, isEthereum]
+    () => (isEthereum ? ethereumToken : starknetToken),
+    [symbol, isEthereum, ethereumToken, starknetToken]
   );
 };
 
