@@ -15,9 +15,9 @@ export const TransactionsProvider = ({children}) => {
   const blockHash = useBlockHash();
 
   useEffect(() => {
-    const storedTxs = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
-    if (storedTxs) {
-      setTransactions(storedTxs);
+    const storedTransactions = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
+    if (storedTransactions) {
+      setTransactions(storedTransactions);
     }
   }, []);
 
@@ -53,7 +53,7 @@ export const TransactionsProvider = ({children}) => {
         const newTransaction = await checkTransaction(tx);
         newTransactions.push(newTransaction);
       }
-      StorageManager.setItem(LOCAL_STORAGE_TXS_KEY, transactions);
+      StorageManager.setItem(LOCAL_STORAGE_TXS_KEY, newTransactions);
       setTransactions(newTransactions);
     };
     updateTransactions();
