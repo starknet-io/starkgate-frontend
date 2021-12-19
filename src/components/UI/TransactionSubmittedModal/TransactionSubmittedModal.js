@@ -4,7 +4,7 @@ import React from 'react';
 import {ReactComponent as EtherscanLogo} from '../../../assets/svg/etherscan.svg';
 import {toChainName} from '../../../enums';
 import {useColors} from '../../../hooks';
-import {useWallets} from '../../../providers/WalletsProvider/hooks';
+import {useWallets} from '../../../providers/WalletsProvider';
 import {openInNewTab} from '../../../utils';
 import {Button} from '../Button/Button';
 import {Circle} from '../Circle/Circle';

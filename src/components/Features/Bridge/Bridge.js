@@ -1,9 +1,7 @@
 import React from 'react';
 
+import {Account, SelectToken, Transfer} from '..';
 import {MenuType} from '../../../enums';
-import {Account} from '../Account';
-import {SelectToken} from '../SelectToken';
-import {Transfer} from '../Transfer';
 import {useBridgeData} from './Bridge.hooks';
 import styles from './Bridge.module.scss';
 

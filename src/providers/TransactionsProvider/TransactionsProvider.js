@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
 import {StorageManager} from '../../services';
-import {TransactionsContext} from './context';
-import {actions, initialState, reducer} from './reducer';
+import {TransactionsContext} from './transactions-context';
+import {actions, initialState, reducer} from './transactions-reducer';
 
 const LOCAL_STORAGE_KEY = 'STARKNET_BRIDGE_TXS';
 

@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
-import {
-  useIsEthereum,
-  useIsStarknet
-} from '../../components/Features/Transfer/Transfer/Transfer.hooks';
+import {useIsEthereum, useIsStarknet} from '../../components/Features/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
 import {web3} from '../../web3';
-import {WalletsContext} from './context';
-import {actions, initialState, reducer} from './reducer';
+import {WalletsContext} from './wallets-context';
+import {actions, initialState, reducer} from './wallets-reducer';
 
 export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);

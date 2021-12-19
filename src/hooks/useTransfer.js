@@ -2,9 +2,9 @@ import {useCallback, useState} from 'react';
 
 import {eth_deposit, eth_depositEth, eth_withdraw, starknet_initiateWithdraw} from '../api/bridge';
 import {approve} from '../api/erc20';
-import {useSelectedToken} from '../components/Features/Transfer/Transfer/Transfer.hooks';
-import {useEthereumToken} from '../providers/TokensProvider/hooks';
-import {useStarknetWallet, useWallets} from '../providers/WalletsProvider/hooks';
+import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
+import {useEthereumToken} from '../providers/TokensProvider';
+import {useStarknetWallet, useWallets} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
 import {eth_listenOnce, starknet_waitForTransaction} from '../utils/contract';
 import {

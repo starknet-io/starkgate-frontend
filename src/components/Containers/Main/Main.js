@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 
 import {useVars, useWindowSize} from '../../../hooks';
-import {TokensProvider} from '../../../providers/TokensProvider/TokensProvider';
-import {useEthereumWallet, useStarknetWallet} from '../../../providers/WalletsProvider/hooks';
-import {Bridge} from '../../Features';
-import {Login} from '../../Features/Login';
+import {TokensProvider} from '../../../providers/TokensProvider';
+import {useEthereumWallet, useStarknetWallet} from '../../../providers/WalletsProvider';
+import {Bridge, Login} from '../../Features';
 import styles from './Main.module.scss';
 
 export const Main = () => {

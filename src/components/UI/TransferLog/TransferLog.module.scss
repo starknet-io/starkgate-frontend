@@ -1,0 +1,39 @@
+@import '../../../index';
+
+$color: $--color-alpha-6;
+$hr-color: $--color-alpha-3;
+
+.transferLog {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 15px;
+  line-height: 21px;
+  margin: 10px 5px;
+
+  &:nth-child(2) {
+    margin-top: 20px;
+  }
+
+  .left {
+    display: flex;
+  }
+
+  .data {
+    font-size: 13px;
+    color: $color;
+  }
+
+  .amount {
+    font-weight: bold;
+  }
+}
+
+hr {
+  display: none;
+
+  &:not(:last-child) {
+    display: block;
+    border: 1px solid $hr-color;
+  }
+}

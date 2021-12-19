@@ -1,0 +1,54 @@
+@import '../../../index';
+
+$color: $--color-white;
+$border-color: $--color-alpha-3;
+$empty-msg-color: $--color-white-1;
+$view-more-color: $--color-gamma-1;
+
+.transferLogContainer {
+  color: $color;
+  padding: 13px;
+  border-radius: 7px;
+  border-color: $border-color;
+  border-style: solid;
+  border-width: 2px;
+  margin: 10px 0;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+
+    &.showChildren {
+      svg {
+        transform: scale(1, -1);
+      }
+    }
+
+    svg {
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+    }
+  }
+
+  .empty {
+    color: $empty-msg-color;
+    font-size: 12px;
+    opacity: 0.3;
+  }
+
+  .viewMore {
+    font-size: 12px;
+
+    span {
+      cursor: pointer;
+      text-transform: capitalize;
+      color: $view-more-color;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 
 import {balanceOf, eth_ethBalanceOf} from '../api/erc20';
-import {useTransferData} from '../components/Features/Transfer/Transfer/Transfer.hooks';
+import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
 import {useEthereumTokenContract, useStarknetTokenContract} from './useContract';
 
 export const useTokenBalance = account => {

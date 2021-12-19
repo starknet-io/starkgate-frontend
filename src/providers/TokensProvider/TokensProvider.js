@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
 import {useEthereumTokenBalance, useStarknetTokenBalance} from '../../hooks/useTokenBalance';
-import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider/hooks';
-import {TokensContext} from './context';
-import {actions, initialState, reducer} from './reducer';
+import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider';
+import {TokensContext} from './tokens-context';
+import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
