@@ -9,11 +9,11 @@ import {
   LogoutButton,
   Menu,
   MenuTitle,
-  TransferLog,
-  TransferLogContainer
+  TransactionLogContainer
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
+import {TransactionLog} from '../TransactionLog/TransactionLog';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
@@ -22,11 +22,11 @@ export const Account = () => {
   const {transactions} = useTransactions();
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
-  const {isEthereum, isStarknet} = useTransferData();
+  const {isEthereum, isStarknet, fromNetwork} = useTransferData();
 
   const renderTransactions = () => {
     return transactions.length
-      ? transactions.map((tx, index) => <TransferLog key={index} tx={tx} />)
+      ? transactions.map((tx, index) => <TransactionLog key={index} tx={tx} />)
       : null;
   };
 
@@ -34,7 +34,7 @@ export const Account = () => {
     <Menu>
       <div className={styles.account}>
         <BackButton onClick={showTransferMenu} />
-        <MenuTitle text={TITLE_TXT} />
+        <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
         <AccountAddress address={account} />
         {isEthereum && (
           <LinkButton
@@ -45,7 +45,7 @@ export const Account = () => {
         {isStarknet && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer>{renderTransactions()}</TransferLogContainer>
+        <TransactionLogContainer>{renderTransactions()}</TransactionLogContainer>
         <LogoutButton isDisabled={isStarknet} onClick={resetWallet} />
       </div>
     </Menu>

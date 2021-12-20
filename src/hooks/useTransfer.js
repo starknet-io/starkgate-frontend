@@ -19,19 +19,19 @@ import {
 
 const PROGRESS = {
   approval: symbol => ({
-    type: 'Approval required',
+    type: 'Approval Required',
     message: `Requesting permission to access your ${symbol} funds`
   }),
   deposit: (amount, symbol) => ({
-    type: 'Deposit in progress',
+    type: 'Deposit in Progress',
     message: `Depositing ${amount} ${symbol} to StarkNet`
   }),
   initiateWithdraw: (amount, symbol) => ({
-    type: 'Initiate withdrawal',
+    type: 'Initiate Withdrawal',
     message: `Initiating withdrawal of ${amount} ${symbol}`
   }),
   waitForAccept: () => ({
-    type: 'Transaction received',
+    type: 'Transaction Received',
     message: `Waiting for transaction to be accepted on StarkNet`
   }),
   waitForEvent: () => ({
@@ -39,7 +39,7 @@ const PROGRESS = {
     message: 'Waiting for message to be received on Ethereum'
   }),
   withdraw: (amount, symbol, recipient) => ({
-    type: 'Withdrawal in progress',
+    type: 'Withdrawal in Progress',
     message: `Withdrawing ${amount} ${symbol} to ${recipient}`
   })
 };

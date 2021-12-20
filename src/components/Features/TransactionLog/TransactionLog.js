@@ -4,13 +4,14 @@ import React, {useEffect, useState} from 'react';
 import {LINKS} from '../../../constants';
 import {TransactionStatus} from '../../../enums';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {useTransferData} from '../../Features/Transfer/Transfer.hooks';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo.enums';
-import {LinkButton} from '../LinkButton/LinkButton';
-import {CryptoLogo} from '../index';
-import styles from './TransferLog.module.scss';
+import {get24Time, getDate} from '../../../utils';
+import {CryptoLogo} from '../../UI';
+import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
+import {LinkButton} from '../../UI/LinkButton/LinkButton';
+import {useTransferData} from '../Transfer/Transfer.hooks';
+import styles from './TransactionLog.module.scss';
 
-export const TransferLog = ({tx}) => {
+export const TransactionLog = ({tx}) => {
   const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = tx;
   const [sign, setSign] = useState('');
   const {action} = useTransferData();
@@ -22,12 +23,12 @@ export const TransferLog = ({tx}) => {
 
   return (
     <>
-      <div className={styles.transferLog}>
+      <div className={styles.transactionLog}>
         <div className={styles.left}>
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
             {name}
-            <div className={styles.data}>{new Date(timestamp).toLocaleString()}</div>
+            <div className={styles.data}>{`${getDate(timestamp)}, ${get24Time(timestamp)}`}</div>
           </div>
         </div>
         <div className={styles.right}>
@@ -35,7 +36,7 @@ export const TransferLog = ({tx}) => {
             {sign} {amount} {symbol.toUpperCase()}
           </div>
           {status !== TransactionStatus.ACCEPTED_ON_L1 ? (
-            <div className={styles.data}>{status.replace('_', ' ')}</div>
+            <div className={styles.data}>{status.replaceAll('_', ' ')}</div>
           ) : (
             <div>
               <LinkButton
@@ -55,6 +56,6 @@ export const TransferLog = ({tx}) => {
   );
 };
 
-TransferLog.propTypes = {
+TransactionLog.propTypes = {
   tx: PropTypes.object
 };

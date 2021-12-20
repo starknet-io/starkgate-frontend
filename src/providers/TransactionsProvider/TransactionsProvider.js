@@ -5,24 +5,27 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {LOCAL_STORAGE_TXS_KEY} from '../../constants';
 import {TransactionStatus} from '../../enums';
+import {useLogger} from '../../hooks';
 import {StorageManager} from '../../services';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransactionsContext} from './transactions-context';
 import {actions, initialState, reducer} from './transactions-reducer';
 
 export const TransactionsProvider = ({children}) => {
+  const logger = useLogger(TransactionsProvider.displayName);
   const [transactions, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
 
   useEffect(() => {
     const storedTransactions = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
-    if (storedTransactions) {
+    if (Array.isArray(storedTransactions)) {
       setTransactions(storedTransactions);
     }
   }, []);
 
   useDeepCompareEffect(() => {
     const updateTransactions = async () => {
+      logger.log(`It's time to update transactions!`);
       if (!blockHash) {
         return;
       }
@@ -34,16 +37,16 @@ export const TransactionsProvider = ({children}) => {
           return tx;
         }
         try {
-          console.log(`checking tx status ${tx.starknet_hash}`);
+          logger.log(`Checking tx status ${tx.starknet_hash}`);
           const newStatus = await getStarknet().provider.getTransactionStatus(tx.starknet_hash);
-          console.log(`new status ${newStatus.tx_status}`);
+          logger.log(`New status ${newStatus.tx_status}`);
           return {
             ...tx,
             status: newStatus.tx_status,
             lastChecked: blockHash
           };
         } catch (error) {
-          console.error(`failed to check transaction status: ${tx.hash}`);
+          logger.error(`Failed to check transaction status: ${tx.starknet_hash}`);
         }
         return tx;
       };
@@ -53,8 +56,11 @@ export const TransactionsProvider = ({children}) => {
         const newTransaction = await checkTransaction(tx);
         newTransactions.push(newTransaction);
       }
-      StorageManager.setItem(LOCAL_STORAGE_TXS_KEY, newTransactions);
-      setTransactions(newTransactions);
+      logger.log(`Done update transactions`, {newTransactions});
+      if (newTransactions.length) {
+        setTransactions(newTransactions);
+        StorageManager.setItem(LOCAL_STORAGE_TXS_KEY, newTransactions);
+      }
     };
     updateTransactions();
   }, [blockHash, transactions]);
@@ -80,6 +86,8 @@ export const TransactionsProvider = ({children}) => {
 
   return <TransactionsContext.Provider value={context}>{children}</TransactionsContext.Provider>;
 };
+
+TransactionsProvider.displayName = 'TransactionsProvider';
 
 TransactionsProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])

@@ -1,4 +1,4 @@
-import {ChainType} from '../../enums';
+import {ChainType} from '../../../enums';
 
 export const EthereumTokens = [
   {

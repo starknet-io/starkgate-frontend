@@ -3,15 +3,15 @@ import React, {useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {toClasses} from '../../../utils';
-import styles from './TransferLogContainer.module.scss';
+import styles from './TransactionLogContainer.module.scss';
 import {
   EMPTY_MSG_TXT,
   OVERVIEW_TXT,
   TITLE_TXT,
   VIEW_MORE_TXT
-} from './TransferLogContainer.strings';
+} from './TransactionLogContainer.strings';
 
-export const TransferLogContainer = ({children}) => {
+export const TransactionLogContainer = ({children}) => {
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
@@ -34,7 +34,7 @@ export const TransferLogContainer = ({children}) => {
   };
 
   return (
-    <div className={styles.transferLogContainer}>
+    <div className={styles.transactionLogContainer}>
       <div className={toClasses(styles.title, showChildren && styles.showChildren)}>
         {TITLE_TXT}
         {children && (
@@ -48,6 +48,6 @@ export const TransferLogContainer = ({children}) => {
   );
 };
 
-TransferLogContainer.propTypes = {
+TransactionLogContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };

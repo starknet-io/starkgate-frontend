@@ -31,7 +31,6 @@ export * from './SearchToken/SearchToken';
 export * from './SelectTokenList/SelectTokenList';
 export * from './SelectTokenRow/SelectTokenRow';
 export * from './WalletLogin/WalletLogin';
-export * from './TransferLog/TransferLog';
-export * from './TransferLogContainer/TransferLogContainer';
+export * from './TransactionLogContainer/TransactionLogContainer';
 export * from './LogoutButton/LogoutButton';
 export * from './AccountAddress/AccountAddress';

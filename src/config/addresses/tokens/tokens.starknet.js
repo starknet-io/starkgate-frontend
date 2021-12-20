@@ -1,4 +1,4 @@
-import {ChainType, NetworkType} from '../../enums';
+import {ChainType, NetworkType} from '../../../enums';
 
 export const StarknetTokens = [
   {

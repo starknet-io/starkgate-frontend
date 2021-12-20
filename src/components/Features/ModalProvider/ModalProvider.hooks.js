@@ -38,12 +38,12 @@ export const useProgressModal = () => {
 export const useTransactionSubmittedModal = () => {
   const dispatch = useDispatch();
   return useCallback(
-    transactionHash => {
+    tx => {
       dispatch(
         showModalAction({
           componentPath: 'UI/TransactionSubmittedModal/TransactionSubmittedModal',
           componentProps: {
-            transactionHash
+            tx
           },
           title: 'Transaction submitted',
           isClosable: true

@@ -6,6 +6,7 @@ export * from './string';
 export * from './token';
 export * from './number';
 export * from './hash';
+export * from './date';
 
 export const printPackageInfo = (name, version, color) => {
   const currentLogLevel = getLogLevel();

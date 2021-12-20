@@ -1,1 +1,1 @@
-export const TITLE_TXT = 'Account';
+export const TITLE_TXT = network => `${network} Account`;

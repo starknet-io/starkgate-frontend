@@ -22,21 +22,17 @@ Storage.prototype.getObjectHash = function (key) {
 export const StorageManager = {
   setItem: (key, item) => {
     if (localStorage) {
-      localStorage.setObjectHash(key, JSON.stringify(item));
+      localStorage.setItem(key, JSON.stringify(item));
       return true;
     }
     return false;
   },
   getItem: key => {
     if (localStorage) {
-      const item = localStorage.getObjectHash(key);
+      const item = localStorage.getItem(key);
       if (item) {
         try {
-          return JSON.parse(
-            Object.entries(item)
-              .map(c => c[1])
-              .join('')
-          );
+          return JSON.parse(item);
         } catch (ex) {
           return item;
         }
