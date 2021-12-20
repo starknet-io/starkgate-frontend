@@ -14,7 +14,7 @@ export const useWallets = () => {
 
   useEffect(() => {
     setActiveWallet(isEthereum ? wallets.ethereumWallet : wallets.starknetWallet);
-  }, [isEthereum]);
+  }, [isEthereum, wallets]);
 
   return {
     ...activeWallet,

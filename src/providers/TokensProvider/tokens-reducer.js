@@ -2,40 +2,29 @@ import {ETH_BRIDGE_CONTRACT_ADDRESS, EthereumTokens, StarknetTokens} from '../..
 import {NetworkType} from '../../enums';
 
 export const actions = {
-  UPDATE_ETHEREUM_TOKEN_STATE: 'Tokens/UPDATE_ETHEREUM_TOKEN_STATE',
-  UPDATE_STARKNET_TOKEN_STATE: 'Tokens/UPDATE_STARKNET_TOKEN_STATE'
+  UPDATE_TOKEN_STATE: 'Tokens/UPDATE_TOKEN_STATE'
 };
 
-export const initialState = {
-  ethereumTokens: [
-    {...NetworkType.ETHEREUM, bridgeAddress: ETH_BRIDGE_CONTRACT_ADDRESS},
-    ...EthereumTokens
-  ],
-  starknetTokens: StarknetTokens
-};
+const ethereumTokens = [
+  {
+    ...NetworkType.ETHEREUM,
+    bridgeAddress: ETH_BRIDGE_CONTRACT_ADDRESS
+  },
+  ...EthereumTokens
+].map(t => ({...t, isEthereum: true}));
 
-const updateTokens = (tokens, payload) => {
-  const {index, args} = payload;
-  const tokenData = {...tokens[index], ...args};
-  const tokensCopy = [...tokens];
-  tokensCopy[index] = tokenData;
-  return tokensCopy;
-};
+const starknetTokens = StarknetTokens.map(t => ({...t, isStarknet: true}));
+
+export const initialState = [...ethereumTokens, ...starknetTokens];
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.UPDATE_ETHEREUM_TOKEN_STATE: {
-      return {
-        ...state,
-        ethereumTokens: updateTokens(state.ethereumTokens, action.payload)
-      };
-    }
-
-    case actions.UPDATE_STARKNET_TOKEN_STATE: {
-      return {
-        ...state,
-        starknetTokens: updateTokens(state.starknetTokens, action.payload)
-      };
+    case actions.UPDATE_TOKEN_STATE: {
+      const {index, args} = action.payload;
+      const token = {...state[index], ...args};
+      const tokens = [...state];
+      tokens[index] = token;
+      return tokens;
     }
 
     default:

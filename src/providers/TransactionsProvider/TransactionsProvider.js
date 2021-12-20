@@ -27,7 +27,6 @@ export const TransactionsProvider = ({children}) => {
         return;
       }
       const checkTransaction = async tx => {
-        console.log(`checking tx status ${tx.starknet_hash}`);
         if ([TransactionStatus.REJECTED, TransactionStatus.ACCEPTED_ON_L1].includes(tx.status)) {
           return tx;
         }
@@ -35,6 +34,7 @@ export const TransactionsProvider = ({children}) => {
           return tx;
         }
         try {
+          console.log(`checking tx status ${tx.starknet_hash}`);
           const newStatus = await getStarknet().provider.getTransactionStatus(tx.starknet_hash);
           console.log(`new status ${newStatus.tx_status}`);
           return {

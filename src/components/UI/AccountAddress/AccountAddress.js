@@ -14,7 +14,7 @@ export const AccountAddress = ({address}) => {
 
   const onCopyClick = async () => {
     const cb = navigator.clipboard;
-    await cb.writeText(ref.current.innerText);
+    await cb.writeText(address);
     startAnimation();
   };
 

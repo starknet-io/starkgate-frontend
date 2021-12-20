@@ -5,22 +5,24 @@ import {TokensContext} from './tokens-context';
 
 export const useTokens = () => {
   const {isEthereum} = useTransferData();
-  const {starknetTokens, ethereumTokens} = useContext(TokensContext);
+  const starknetTokens = useStarknetTokens();
+  const ethereumTokens = useEthereumTokens();
+  const {updateTokens} = useContext(TokensContext);
   const [tokens, setTokens] = useState(isEthereum ? ethereumTokens : starknetTokens);
   useEffect(() => {
     setTokens(isEthereum ? ethereumTokens : starknetTokens);
   }, [isEthereum, starknetTokens, ethereumTokens]);
-  return tokens;
+  return {tokens, updateTokens};
 };
 
 export const useStarknetTokens = () => {
-  const {starknetTokens} = useContext(TokensContext);
-  return useMemo(() => starknetTokens, [starknetTokens]);
+  const {tokens} = useContext(TokensContext);
+  return useMemo(() => tokens.filter(t => t.isStarknet), [tokens]);
 };
 
 export const useEthereumTokens = () => {
-  const {ethereumTokens} = useContext(TokensContext);
-  return useMemo(() => ethereumTokens, [ethereumTokens]);
+  const {tokens} = useContext(TokensContext);
+  return useMemo(() => tokens.filter(t => t.isEthereum), [tokens]);
 };
 
 export const useStarknetToken = () => {

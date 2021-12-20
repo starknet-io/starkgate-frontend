@@ -6,15 +6,13 @@ const {uint256ToBN, bnToUint256} = uint256;
 const {toBN, toHex} = number;
 
 const TEN = toBN(10);
-const DEFAULT_DECIMALS = 18;
+export const DEFAULT_DECIMALS = 18;
 
 export const powerOf = (decimals = DEFAULT_DECIMALS) => TEN.pow(toBN(decimals));
 
-export const toDecimals = (value, decimals = DEFAULT_DECIMALS) =>
-  toBN(value).mul(powerOf(decimals));
+export const toDecimals = (value, decimals) => toBN(value).mul(powerOf(decimals));
 
-export const fromDecimals = (value, decimals = DEFAULT_DECIMALS) =>
-  toBN(value).div(powerOf(decimals));
+export const fromDecimals = (value, decimals) => toBN(value).div(powerOf(decimals));
 
 export const decimalsToHexString = decimals => toHex(toBN(decimals));
 
@@ -33,7 +31,7 @@ export const starknet_toUint256 = (value, decimals) => {
 
 export const starknet_fromUint256 = (value, decimals) => {
   const bnString = uint256ToBN(value).toString();
-  return fromDecimals(bnString, decimals);
+  return fromDecimals(bnString, decimals).toNumber();
 };
 
 export const eth_toWei = value => web3.utils.toWei(value, 'ether');

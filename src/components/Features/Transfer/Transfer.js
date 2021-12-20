@@ -43,7 +43,7 @@ export const Transfer = () => {
   const {addTransaction} = useTransactions();
   const {transferTokenToStarknet, transferTokenFromStarknet, data, error, isLoading, progress} =
     useTransfer();
-  const tokens = useTokens();
+  const {tokens, updateTokens} = useTokens();
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const showErrorModal = useErrorModal(ERROR_MODAL_TITLE);
@@ -64,6 +64,7 @@ export const Transfer = () => {
       hideModal();
       showErrorModal(error.message);
     } else if (data) {
+      updateTokens();
       clearAmount();
       addTransaction(data);
       showTransactionSubmittedModal(data);

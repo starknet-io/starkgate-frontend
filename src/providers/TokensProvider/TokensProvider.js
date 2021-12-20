@@ -7,49 +7,34 @@ import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: ethereumAccount} = useEthereumWallet();
   const {account: starknetAccount} = useStarknetWallet();
   const getEthereumTokenBalance = useEthereumTokenBalance(ethereumAccount);
   const getStarknetTokenBalance = useStarknetTokenBalance(starknetAccount);
 
   useEffect(() => {
-    fetchEthereumBalances();
-    fetchStarknetBalances();
+    updateTokens();
   }, []);
 
-  const fetchEthereumBalances = () => {
-    fetchTokensBalances(state.ethereumTokens, getEthereumTokenBalance, updateEthereumTokenState);
-  };
-
-  const fetchStarknetBalances = () => {
-    fetchTokensBalances(state.starknetTokens, getStarknetTokenBalance, updateStarknetTokenState);
-  };
-
-  const fetchTokensBalances = (tokens, getBalance, updateState) => {
+  const updateTokens = () => {
     for (let index = 0; index < tokens.length; index++) {
-      updateState(index, {isLoading: true});
+      const token = tokens[index];
+      const getBalance = token.isEthereum ? getEthereumTokenBalance : getStarknetTokenBalance;
+      updateTokenState(index, {isLoading: true});
       getBalance(tokens[index].tokenAddress)
         .then(balance => {
-          updateState(index, {balance, isLoading: false});
+          updateTokenState(index, {balance, isLoading: false});
         })
         .catch(() => {
-          updateState(index, {balance: null, isLoading: false});
+          updateTokenState(index, {balance: null, isLoading: false});
         });
     }
   };
 
-  const updateEthereumTokenState = (index, args) => {
-    updateTokenState(actions.UPDATE_ETHEREUM_TOKEN_STATE, index, args);
-  };
-
-  const updateStarknetTokenState = (index, args) => {
-    updateTokenState(actions.UPDATE_STARKNET_TOKEN_STATE, index, args);
-  };
-
-  const updateTokenState = (type, index, args) => {
+  const updateTokenState = (index, args) => {
     dispatch({
-      type,
+      type: actions.UPDATE_TOKEN_STATE,
       payload: {
         index,
         args
@@ -58,9 +43,8 @@ export const TokensProvider = ({children}) => {
   };
 
   const context = {
-    ...state,
-    fetchEthereumBalances,
-    fetchStarknetBalances
+    tokens,
+    updateTokens
   };
 
   return <TokensContext.Provider value={context}>{children}</TokensContext.Provider>;

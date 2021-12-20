@@ -1,7 +1,6 @@
 import React from 'react';
 
 import StarkNetLogoPath from '../../../assets/img/starknet.png';
-import {ChainType} from '../../../enums';
 import {useEthereumWallet, useStarknetWallet, useWallets} from '../../../providers/WalletsProvider';
 import {toClasses} from '../../../utils';
 import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
@@ -12,7 +11,7 @@ import styles from './Header.module.scss';
 import {CHAIN_TXT} from './Header.strings';
 
 export const Header = () => {
-  const {chainName} = useWallets();
+  const {chainName, isConnected} = useWallets();
   const {showAccountMenu} = useBridgeActions();
   const [, setEthereum] = useIsEthereum();
   const [, setStarknet] = useIsStarknet();
@@ -44,10 +43,8 @@ export const Header = () => {
           <img alt="" height={STARKNET_LOGO_SIZE} src={StarkNetLogoPath} />
           <div className={styles.bridge}>Bridge</div>
         </div>
-        {chainName && (
-          <div className={toClasses(styles.chain, 'row')}>
-            {chainName !== ChainType.MAIN.name && CHAIN_TXT(chainName)}
-          </div>
+        {isConnected && (
+          <div className={toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
         )}
       </div>
 

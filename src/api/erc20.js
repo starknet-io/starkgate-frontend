@@ -18,10 +18,10 @@ export const approve = async (spender, value, contract, from, isEthereum = true)
     if (isEthereum) {
       return await eth_sendTransaction(contract, 'approve', [spender, value], {from});
     } else {
-      const tokenDecimals = await decimals(contract, false);
+      const dec = await decimals(contract, false);
       return await starknet_sendTransaction(contract, 'approve', {
         spender: starknet_toFelt(spender),
-        amount: starknet_toUint256(value, tokenDecimals)
+        amount: starknet_toUint256(value, dec)
       });
     }
   } catch (ex) {
@@ -46,9 +46,11 @@ export const balanceOf = async (account, contract, isEthereum = true) => {
       const balance = await eth_callContract(contract, 'balanceOf', [account]);
       return eth_fromWei(balance);
     } else {
-      const {balance} = await starknet_callContract(contract, 'balanceOf', [{account}]);
-      const tokenDecimals = await decimals(contract, false);
-      return starknet_fromUint256(balance, tokenDecimals);
+      const [{balance}, dec] = await Promise.all([
+        starknet_callContract(contract, 'balanceOf', [{account}]),
+        decimals(contract, false)
+      ]);
+      return starknet_fromUint256(balance, dec);
     }
   } catch (ex) {
     return Promise.reject(ex);
@@ -58,7 +60,7 @@ export const balanceOf = async (account, contract, isEthereum = true) => {
 export const decimals = async (contract, isEthereum = true) => {
   try {
     if (isEthereum) {
-      // TODO: call ethereum contract decimals
+      return await eth_callContract(contract, 'decimals');
     } else {
       const {decimals} = await starknet_callContract(contract, 'decimals');
       return starknet_fromFelt(decimals);

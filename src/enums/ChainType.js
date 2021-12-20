@@ -26,5 +26,8 @@ export const byChainId = id => {
 
 export const toChainName = id => {
   const chainData = byChainId(id);
-  return chainData.name === ChainType.MAIN.name ? '' : chainData.name;
+  if (chainData) {
+    return chainData.name === ChainType.MAIN.name ? '' : chainData.name;
+  }
+  return '';
 };
