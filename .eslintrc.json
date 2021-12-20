@@ -15,23 +15,9 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "prettier", "hooks"],
+  "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
     "prettier/prettier": "error",
-    "hooks/sort": [
-      2,
-      {
-        "groups": [
-          "useReducer",
-          "useContext",
-          "useState",
-          "useRef",
-          "useDispatch",
-          "useCallback",
-          "useEffect"
-        ]
-      }
-    ],
     "react/jsx-sort-props": [
       2,
       {
