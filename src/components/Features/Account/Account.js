@@ -1,8 +1,10 @@
 import React from 'react';
 
 import {LINKS} from '../../../constants';
-import {useTransactions} from '../../../providers/TransactionsProvider';
+import {useStrings, useTransfer} from '../../../hooks';
+import {useAccountTransactions} from '../../../providers/TransactionsProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
+import {evaluate} from '../../../utils';
 import {
   AccountAddress,
   BackButton,
@@ -19,14 +21,21 @@ import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
 export const Account = () => {
-  const {transactions} = useTransactions();
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
+  const transactions = useAccountTransactions(account);
   const {isEthereum, isStarknet, fromNetwork} = useTransferData();
+  const {finalizeTransferFromStarknet} = useTransfer();
 
   const renderTransactions = () => {
     return transactions.length
-      ? transactions.map((tx, index) => <TransactionLog key={index} tx={tx} />)
+      ? transactions.map((tx, index) => (
+          <TransactionLog
+            key={index}
+            tx={tx}
+            onWithdrawClick={() => finalizeTransferFromStarknet(tx)}
+          />
+        ))
       : null;
   };
 

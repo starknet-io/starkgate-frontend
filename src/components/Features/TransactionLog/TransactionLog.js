@@ -3,18 +3,20 @@ import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
 import {TransactionStatus} from '../../../enums';
+import {useColors, useStrings} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {get24Time, getDate} from '../../../utils';
-import {CryptoLogo} from '../../UI';
+import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransactionLog.module.scss';
+import {WITHDRAW_BTN_TXT} from './TransactionLog.strings';
 
-export const TransactionLog = ({tx}) => {
+export const TransactionLog = ({tx, onWithdrawClick}) => {
   const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = tx;
   const [sign, setSign] = useState('');
-  const {action} = useTransferData();
+  const {action, isEthereum} = useTransferData();
   const {chainId} = useWallets();
 
   useEffect(() => {
@@ -38,11 +40,14 @@ export const TransactionLog = ({tx}) => {
           {status !== TransactionStatus.ACCEPTED_ON_L1 ? (
             <div className={styles.data}>{status.replaceAll('_', ' ')}</div>
           ) : (
-            <div>
-              <LinkButton
-                text={LINKS.ETHERSCAN.text}
-                url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
-              />
+            <div className={styles.links}>
+              {eth_hash && (
+                <LinkButton
+                  text={LINKS.ETHERSCAN.text}
+                  url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
+                />
+              )}
+              {!eth_hash && isEthereum && <WithdrawButton onClick={onWithdrawClick} />}
               <LinkButton
                 text={LINKS.VOYAGER.text}
                 url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
@@ -56,6 +61,28 @@ export const TransactionLog = ({tx}) => {
   );
 };
 
+const WithdrawButton = ({onClick}) => {
+  const {colorBeta, colorAlpha3} = useColors();
+  return (
+    <Button
+      colorBackground={colorAlpha3}
+      colorBorder={colorBeta}
+      colorText={colorBeta}
+      height={10}
+      style={{
+        padding: '14px'
+      }}
+      text={WITHDRAW_BTN_TXT}
+      onClick={onClick}
+    />
+  );
+};
+
+WithdrawButton.propTypes = {
+  onClick: PropTypes.func
+};
+
 TransactionLog.propTypes = {
-  tx: PropTypes.object
+  tx: PropTypes.object,
+  onWithdrawClick: PropTypes.func
 };

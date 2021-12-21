@@ -17,13 +17,10 @@ $path-fill-color-hover: $--color-gamma;
   text-transform: capitalize;
   display: inline-block;
   cursor: pointer;
+  margin: 10px 0 10px 10px;
 
   svg {
     margin-left: 5px;
-  }
-
-  &:not(:last-child) {
-    margin: 10px 10px 10px 0;
   }
 
   &:hover {

@@ -1,3 +1,8 @@
+import strings from '../../../config/strings.json';
 import {evaluate} from '../../../utils';
 
-export const BTN_TXT = address => evaluate('Account | {{address}}', {address});
+const {
+  walletButton: {btn_txt}
+} = strings;
+
+export const BTN_TXT = address => evaluate(btn_txt, {address});

@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {ActionType, NetworkType} from '../../../enums';
 import {useTransfer} from '../../../hooks';
 import {useEthereumToken, useStarknetToken, useTokens} from '../../../providers/TokensProvider';
-import {useTransactions} from '../../../providers/TransactionsProvider';
 import {
   Loading,
   Menu,
@@ -16,12 +15,6 @@ import {
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
 import {
-  useErrorModal,
-  useHideModal,
-  useProgressModal,
-  useTransactionSubmittedModal
-} from '../ModalProvider/ModalProvider.hooks';
-import {
   useAmount,
   useIsEthereum,
   useIsStarknet,
@@ -29,25 +22,19 @@ import {
   useTransferData
 } from './Transfer.hooks';
 import styles from './Transfer.module.scss';
-import {ERROR_MODAL_TITLE, INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
+import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isEthereum, setEthereum] = useIsEthereum();
   const [isStarknet, setStarknet] = useIsStarknet();
-  const [amount, setAmount, clearAmount] = useAmount();
+  const [amount, setAmount] = useAmount();
   const [hasInputError, setHasInputError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useBridgeActions();
   const {selectedToken, action} = useTransferData();
   const {selectToken} = useTransferActions();
-  const {addTransaction} = useTransactions();
-  const {transferTokenToStarknet, transferTokenFromStarknet, data, error, isLoading, progress} =
-    useTransfer();
-  const {tokens, updateTokens} = useTokens();
-  const hideModal = useHideModal();
-  const showProgressModal = useProgressModal();
-  const showErrorModal = useErrorModal(ERROR_MODAL_TITLE);
-  const showTransactionSubmittedModal = useTransactionSubmittedModal();
+  const {transferTokenToStarknet, transferTokenFromStarknet, isLoading} = useTransfer();
+  const {tokens} = useTokens();
   const getEthereumToken = useEthereumToken();
   const getStarknetToken = useStarknetToken();
 
@@ -56,20 +43,6 @@ export const Transfer = () => {
       selectToken(tokens[0].symbol);
     }
   }, []);
-
-  useEffect(() => {
-    if (isLoading) {
-      progress && showProgressModal(progress.type, progress.message);
-    } else if (error) {
-      hideModal();
-      showErrorModal(error.message);
-    } else if (data) {
-      updateTokens();
-      clearAmount();
-      addTransaction(data);
-      showTransactionSubmittedModal(data);
-    }
-  }, [progress, data, error, isLoading]);
 
   useEffect(() => {
     if (selectedToken) {

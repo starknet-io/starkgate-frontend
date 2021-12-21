@@ -1,3 +1,8 @@
+import strings from '../../../config/strings.json';
 import {capitalize, evaluate} from '../../../utils';
 
-export const CHAIN_TXT = chainName => capitalize(evaluate('{{chainName}} testnet', {chainName}));
+const {
+  header: {chain_txt}
+} = strings;
+
+export const CHAIN_TXT = chainName => capitalize(evaluate(chain_txt, {chainName}));

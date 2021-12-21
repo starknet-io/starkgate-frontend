@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect, useMemo, useState} from 'react';
 
 import {TransactionsContext} from './transactions-context';
 
@@ -14,4 +14,12 @@ export const useTransaction = hash => {
     }
   }, [transactions, hash]);
   return transaction;
+};
+
+export const useAccountTransactions = account => {
+  const {transactions} = useTransactions();
+  return useMemo(
+    () => transactions.filter(tx => tx.sender === account || tx.recipient === account),
+    [account]
+  );
 };

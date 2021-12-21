@@ -1,4 +1,11 @@
-export const TITLE_TXT = 'Transaction log';
-export const OVERVIEW_TXT = 'recent transactions';
-export const EMPTY_MSG_TXT = 'Transactions will appear here...';
-export const VIEW_MORE_TXT = 'view more';
+import strings from '../../../config/strings.json';
+
+const {
+  transactionLogContainer: {title_txt, overview_txt, empty_msg_txt, view_more_txt}
+} = strings;
+
+debugger;
+export const TITLE_TXT = title_txt;
+export const OVERVIEW_TXT = overview_txt;
+export const EMPTY_MSG_TXT = empty_msg_txt;
+export const VIEW_MORE_TXT = view_more_txt;

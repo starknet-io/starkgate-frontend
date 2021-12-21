@@ -2,6 +2,7 @@ import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import {v4 as uuidv4} from 'uuid';
 
 import {LOCAL_STORAGE_TXS_KEY} from '../../constants';
 import {TransactionStatus} from '../../enums';
@@ -68,7 +69,7 @@ export const TransactionsProvider = ({children}) => {
   const addTransaction = tx => {
     dispatch({
       type: actions.ADD_TRANSACTION,
-      payload: {...tx, timestamp: new Date().getTime()}
+      payload: {...tx, id: uuidv4(), timestamp: new Date().getTime()}
     });
   };
 

@@ -3,37 +3,42 @@ import {number, uint256} from 'starknet';
 import {web3} from '../web3';
 
 const {uint256ToBN, bnToUint256} = uint256;
-const {toBN, toHex} = number;
+const {toBN} = number;
 
-const TEN = toBN(10);
-export const DEFAULT_DECIMALS = 18;
+const TEN = 10;
+const DEFAULT_DECIMALS = 18;
+const UNIT_MAP = {};
 
-export const powerOf = (decimals = DEFAULT_DECIMALS) => TEN.pow(toBN(decimals));
+for (let key in web3.utils.unitMap) {
+  UNIT_MAP[web3.utils.unitMap[key]] = key;
+}
 
-export const toDecimals = (value, decimals) => toBN(value).mul(powerOf(decimals));
+export const parseToDecimals = (value, decimals = DEFAULT_DECIMALS) => {
+  return web3.utils.toWei(value, UNIT_MAP[Math.pow(TEN, decimals)]);
+};
 
-export const fromDecimals = (value, decimals) => toBN(value).div(powerOf(decimals));
+export const parseFromDecimals = (value, decimals = DEFAULT_DECIMALS) => {
+  return Number(web3.utils.fromWei(value, UNIT_MAP[Math.pow(TEN, decimals)]));
+};
 
-export const decimalsToHexString = decimals => toHex(toBN(decimals));
+export const parseFromFelt = value => {
+  return toBN(value).toNumber();
+};
 
-export const starknet_fromFelt = value => toBN(value).toNumber();
+export const parseToFelt = value => {
+  return toBN(value).toString();
+};
 
-export const starknet_toFelt = value => toBN(value).toString();
-
-export const starknet_toUint256 = (value, decimals) => {
-  const bn = toDecimals(value, decimals);
-  const uint256 = bnToUint256(bn);
+export const parseToUint256 = (value, decimals = DEFAULT_DECIMALS) => {
+  const decimalsValue = parseToDecimals(value, decimals);
+  const uint256 = bnToUint256(toBN(decimalsValue));
   return {
     type: 'struct',
     ...uint256
   };
 };
 
-export const starknet_fromUint256 = (value, decimals) => {
+export const parseFromUint256 = (value, decimals = DEFAULT_DECIMALS) => {
   const bnString = uint256ToBN(value).toString();
-  return fromDecimals(bnString, decimals).toNumber();
+  return parseFromDecimals(bnString, decimals);
 };
-
-export const eth_toWei = value => web3.utils.toWei(value, 'ether');
-
-export const eth_fromWei = value => Number(web3.utils.fromWei(value));
