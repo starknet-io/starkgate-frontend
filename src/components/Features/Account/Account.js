@@ -1,10 +1,9 @@
 import React from 'react';
 
 import {LINKS} from '../../../constants';
-import {useStrings, useTransfer} from '../../../hooks';
+import {useTransfer} from '../../../hooks';
 import {useAccountTransactions} from '../../../providers/TransactionsProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {evaluate} from '../../../utils';
 import {
   AccountAddress,
   BackButton,

@@ -1,7 +1,7 @@
 import strings from '../../../config/strings.json';
 
 const {
-  footer: {footer_txt}
+  footer: {rights_txt}
 } = strings;
 
-export const FOOTER_TXT = footer_txt;
+export const RIGHTS_TXT = rights_txt;

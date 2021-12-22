@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
 import {TransactionStatus} from '../../../enums';
-import {useColors, useStrings} from '../../../hooks';
+import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {get24Time, getDate} from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';

@@ -10,7 +10,7 @@ export const reducer = (state, action) => {
     case actions.SET_TRANSACTIONS:
       return action.payload;
 
-    case actions.ADD_TRANSACTION:
+    case actions.ADD_TRANSACTION: {
       const tx = action.payload;
       const index = state.findIndex(t => t.id === tx.id);
       if (index > -1) {
@@ -19,6 +19,7 @@ export const reducer = (state, action) => {
         return txs;
       }
       return [action.payload, ...state];
+    }
 
     default:
       return state;

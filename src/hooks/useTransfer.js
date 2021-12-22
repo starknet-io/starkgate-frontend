@@ -59,25 +59,25 @@ export const useTransfer = () => {
   const getEthereumTokenBridgeContract = useEthereumTokenBridgeContract();
   const progressOptions = {
     approval: symbol => {
-     const message = evaluate(approval.message, {symbol});
-     return {
-       type: approval.type,
-       message
-     }
+      const message = evaluate(approval.message, {symbol});
+      return {
+        type: approval.type,
+        message
+      };
     },
     deposit: (amount, symbol) => {
       const message = evaluate(deposit.message, {amount, symbol});
       return {
         type: deposit.type,
         message
-      }
+      };
     },
     initiateWithdraw: (amount, symbol) => {
       const message = evaluate(initiateWithdraw, {amount, symbol});
       return {
         type: initiateWithdraw.type,
         message
-      }
+      };
     },
     waitForAccept: () => ({
       type: waitForAccept.type,
@@ -88,7 +88,7 @@ export const useTransfer = () => {
       return {
         type: withdraw.type,
         message
-      }
+      };
     }
   };
 

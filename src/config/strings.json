@@ -3,7 +3,7 @@
     "chain_txt": "{{chainName}} testnet"
   },
   "footer": {
-    "footer_txt": "© 2022 StarkWare Industries Ltd. All Rights Reserved"
+    "rights_txt": "© 2022 StarkWare Industries Ltd. All Rights Reserved"
   },
   "transfer": {
     "insufficient_balance_error_msg": "Insufficient balance"
@@ -17,10 +17,7 @@
   "login": {
     "title_txt": "Login",
     "subtitle_txt": "Please select {{networkName}} wallet to connect with this dApp:",
-    "download_txt": [
-      "Don’t have a wallet?",
-      "Download Here"
-    ],
+    "download_txt": ["Don’t have a wallet?", "Download Here"],
     "modal_txt": "Waiting for confirmation from {{walletName}}"
   },
   "selectToken": {
