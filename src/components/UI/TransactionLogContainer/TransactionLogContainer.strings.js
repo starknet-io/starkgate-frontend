@@ -4,7 +4,6 @@ const {
   transactionLogContainer: {title_txt, overview_txt, empty_msg_txt, view_more_txt}
 } = strings;
 
-debugger;
 export const TITLE_TXT = title_txt;
 export const OVERVIEW_TXT = overview_txt;
 export const EMPTY_MSG_TXT = empty_msg_txt;

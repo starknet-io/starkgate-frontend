@@ -57,28 +57,39 @@ export const useTransfer = () => {
   const getEthereumToken = useEthereumToken();
   const getStarknetToken = useStarknetToken();
   const getEthereumTokenBridgeContract = useEthereumTokenBridgeContract();
-
-  const PROGRESS = {
-    approval: symbol => ({
-      type: approval.type,
-      message: evaluate(approval.message, {symbol})
-    }),
-    deposit: (amount, symbol) => ({
-      type: deposit.type,
-      message: evaluate(deposit.message, {amount, symbol})
-    }),
-    initiateWithdraw: (amount, symbol) => ({
-      type: initiateWithdraw.type,
-      message: evaluate(initiateWithdraw, {amount, symbol})
-    }),
+  const progressOptions = {
+    approval: symbol => {
+     const message = evaluate(approval.message, {symbol});
+     return {
+       type: approval.type,
+       message
+     }
+    },
+    deposit: (amount, symbol) => {
+      const message = evaluate(deposit.message, {amount, symbol});
+      return {
+        type: deposit.type,
+        message
+      }
+    },
+    initiateWithdraw: (amount, symbol) => {
+      const message = evaluate(initiateWithdraw, {amount, symbol});
+      return {
+        type: initiateWithdraw.type,
+        message
+      }
+    },
     waitForAccept: () => ({
       type: waitForAccept.type,
       message: waitForAccept.message
     }),
-    withdraw: (amount, symbol) => ({
-      type: withdraw.type,
-      message: evaluate(withdraw.message, {amount, symbol})
-    })
+    withdraw: (amount, symbol) => {
+      const message = evaluate(withdraw.message, {amount, symbol});
+      return {
+        type: withdraw.type,
+        message
+      }
+    }
   };
 
   useEffect(() => {
@@ -135,13 +146,13 @@ export const useTransfer = () => {
     try {
       setIsLoading(true);
       if (!isEth(symbol)) {
-        setProgress(PROGRESS.approval(symbol));
+        setProgress(progressOptions.approval(symbol));
         const allow = await allowance(ethereumAccount, bridgeAddress[chainId], tokenContract);
         if (allow < amount) {
           await approve(bridgeAddress[chainId], constants.MASK_250, tokenContract, ethereumAccount);
         }
       }
-      setProgress(PROGRESS.deposit(amount, symbol));
+      setProgress(progressOptions.deposit(amount, symbol));
       const depositPromise = depositHandler(
         starknetAccount,
         amount,
@@ -177,14 +188,14 @@ export const useTransfer = () => {
     try {
       const {name, symbol} = selectedToken;
       setIsLoading(true);
-      setProgress(PROGRESS.initiateWithdraw(amount, symbol));
+      setProgress(progressOptions.initiateWithdraw(amount, symbol));
       const {transaction_hash} = await starknet_initiateWithdraw(
         ethereumAccount,
         amount,
         bridgeContract,
         tokenContract
       );
-      setProgress(PROGRESS.waitForAccept());
+      setProgress(progressOptions.waitForAccept());
       await starknet_waitForTransaction(transaction_hash);
       setIsLoading(false);
       setData({
@@ -217,7 +228,7 @@ export const useTransfer = () => {
         } else {
           tokenBridgeContract = getEthereumTokenBridgeContract(ethereumToken.bridgeAddress);
         }
-        setProgress(PROGRESS.withdraw(amount, symbol));
+        setProgress(progressOptions.withdraw(amount, symbol));
         const {transactionHash} = await eth_withdraw(ethereumAccount, amount, tokenBridgeContract);
         setIsLoading(false);
         setData({...tx, eth_hash: transactionHash});
