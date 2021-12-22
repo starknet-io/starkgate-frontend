@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as CloseIcon} from '../../../../assets/svg/icons/close.svg';
@@ -14,4 +15,10 @@ export const ToastHeader = ({title, onClose, withClose}) => {
       )}
     </div>
   );
+};
+
+ToastHeader.propTypes = {
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+  withClose: PropTypes.bool
 };

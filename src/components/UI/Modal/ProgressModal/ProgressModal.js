@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
-import {LoadingSize} from '../Loading/Loading.enums';
-import {Loading} from '../index';
+import {useColors} from '../../../../hooks';
+import {LoadingSize} from '../../Loading/Loading.enums';
+import {Loading} from '../../index';
 import styles from './ProgressModal.module.scss';
 
 const ProgressModal = ({message}) => {

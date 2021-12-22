@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './ToastButton.module.scss';
@@ -8,8 +9,18 @@ export const ToastButtons = ({children}) => {
 
 export const ToastButton = ({text, color, onClick}) => {
   return (
-    <div style={{color}} className={styles.toastButton} onClick={onClick}>
+    <div className={styles.toastButton} style={{color}} onClick={onClick}>
       {text}
     </div>
   );
+};
+
+ToastButtons.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+ToastButton.propTypes = {
+  text: PropTypes.string,
+  color: PropTypes.string,
+  onClick: PropTypes.func
 };

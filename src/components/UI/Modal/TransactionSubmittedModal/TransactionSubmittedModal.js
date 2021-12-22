@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ReactComponent as EtherscanLogo} from '../../../assets/svg/etherscan.svg';
-import {ReactComponent as StarknetLogo} from '../../../assets/svg/tokens/starknet.svg';
-import {LINKS} from '../../../constants';
-import {ActionType} from '../../../enums';
-import {useColors} from '../../../hooks';
-import {useWallets} from '../../../providers/WalletsProvider';
-import {openInNewTab} from '../../../utils';
-import {Button} from '../Button/Button';
-import {Circle} from '../Circle/Circle';
+import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
+import {ReactComponent as StarknetLogo} from '../../../../assets/svg/tokens/starknet.svg';
+import {LINKS} from '../../../../constants';
+import {ActionType} from '../../../../enums';
+import {useColors} from '../../../../hooks';
+import {useWallets} from '../../../../providers/WalletsProvider';
+import {openInNewTab} from '../../../../utils';
+import {Button} from '../../Button/Button';
+import {Circle} from '../../Circle/Circle';
 import {BODY_TXT_PARTS, BTN_TEXT} from './TransactionSubmittedModal.strings';
 
 const TransactionSubmittedModal = ({tx}) => {

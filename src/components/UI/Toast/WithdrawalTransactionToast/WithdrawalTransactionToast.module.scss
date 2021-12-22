@@ -1,15 +1,7 @@
-@import '../../../index';
+@import '../../../../index';
 
 $background-color: $--color-white;
 $left-background-color: $--color-white-2;
-
-.transactionToastContainer {
-  margin-top: #{$--header-height}px;
-}
-
-.pendingTransactionToast {
-  padding: 0 10px;
-}
 
 .withdrawalTransactionToast {
   width: 400px;

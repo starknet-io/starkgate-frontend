@@ -1,5 +1,5 @@
-import strings from '../../../config/strings.json';
-import {evaluate} from '../../../utils';
+import strings from '../../../../config/strings.json';
+import {evaluate} from '../../../../utils';
 
 const {
   transactionSubmittedModal: {btn_txt, body_txt}

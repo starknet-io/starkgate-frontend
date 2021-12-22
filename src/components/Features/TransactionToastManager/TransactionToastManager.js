@@ -1,19 +1,21 @@
+import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ReactComponent as EthereumLogo} from '../../../assets/svg/tokens/eth.svg';
 import {ActionType, NetworkType, TransactionStatus} from '../../../enums';
-import {useColors, usePrevious} from '../../../hooks';
+import {usePrevious, useTransfer} from '../../../hooks';
 import {useTransactions} from '../../../providers/TransactionsProvider';
 import {getFullTime} from '../../../utils';
-import {ToastBody, ToastButton, ToastButtons, ToastHeader, ToastSeparator} from '../../UI';
-import styles from './Notifications.module.scss';
+import {PendingTransactionToast, ToastBody, WithdrawalTransactionToast} from '../../UI';
+import styles from './TransactionToastManager.module.scss';
 
-export const Notifications = () => {
+export const TransactionToastManager = () => {
   const {transactions} = useTransactions();
   const prevTransactions = usePrevious(transactions);
   const toastsMap = useRef({});
+  const toastsDismissed = useRef({});
+  const {finalizeTransferFromStarknet} = useTransfer();
   const pendingStatuses = [
     TransactionStatus.NOT_RECEIVED,
     TransactionStatus.RECEIVED,
@@ -55,42 +57,60 @@ export const Notifications = () => {
   const showPendingTransactionToast = tx => {
     let toastId = getToastId(tx);
     if (!toastId) {
-      toastId = toast.loading(renderPendingTransactionToast({tx, isLoading: true}));
+      toastId = toast.loading(renderPendingTransactionToast(tx, true));
       toastsMap.current[tx.id] = toastId;
     }
   };
 
   const showConsumedTransactionToast = tx => {
     const toastId = getToastId(tx);
-    toastsMap.current[tx.id] = toast.success(renderPendingTransactionToast({tx}), {
+    toastsMap.current[tx.id] = toast.success(renderPendingTransactionToast(tx), {
       id: toastId
     });
   };
 
   const showWithdrawalToast = tx => {
     const toastId = getToastId(tx);
-    if (!toastId) {
-      toastsMap.current[tx.id] = toast.custom(<WithdrawalTransactionToast tx={tx} />, {
+    if (!toastId && !isToastDismissed(toastId)) {
+      toastsMap.current[tx.id] = toast.custom(t => renderWithdrawalTransactionToast(t, tx), {
         id: toastId
       });
     }
   };
 
-  const renderPendingTransactionToast = props => (
-    <PendingTransactionToast {...props} onClose={() => onToastClose(props.tx)} />
+  const renderPendingTransactionToast = (tx, isLoading) => (
+    <PendingTransactionToast tx={tx} isLoading={isLoading} onClose={() => dismissToast(tx)} />
+  );
+
+  const renderWithdrawalTransactionToast = (t, tx) => (
+    <WithdrawalTransactionToast
+      t={t}
+      tx={tx}
+      onClose={() => dismissToast(tx)}
+      onDismiss={() => dismissToast(tx)}
+      onWithdrawal={() => onWithdrawalClick(tx)}
+    />
   );
 
   const getToastId = tx => toastsMap.current[tx.id];
 
-  const onToastClose = tx => {
+  const isToastDismissed = id => !!toastsDismissed[id];
+
+  const dismissToast = tx => {
     const toastId = getToastId(tx);
     toast.dismiss(toastId);
+    toastsDismissed.current[toastId] = true;
+  };
+
+  const onWithdrawalClick = async tx => {
+    await finalizeTransferFromStarknet(tx);
+    dismissToast(tx);
   };
 
   return (
     <Toaster
-      position="top-right"
       containerClassName={styles.transactionToastContainer}
+      position="top-right"
       toastOptions={{
         duration: Infinity
       }}
@@ -98,67 +118,24 @@ export const Notifications = () => {
   );
 };
 
-export const WithdrawalTransactionToast = ({tx, onDismiss, onWithdrawal, onClose}) => {
-  const {colorBeta, colorOmega1} = useColors();
-  return (
-    <div className={styles.withdrawalTransactionToast}>
-      <div className={styles.container}>
-        <div className={styles.left}>
-          <EthereumLogo style={{opacity: 0.5}} />
-        </div>
-        <div className={styles.right}>
-          <ToastHeader
-            title="StarkNet finished to process your withdrawal!"
-            withClose={true}
-            onClose={onClose}
-          />
-          <ToastBody
-            style={{paddingRight: '20px'}}
-            body="Click on Withdrawal to transfer the funds from StarkNet Bridge to your Ethereum address."
-          />
-          <ToastButtons>
-            <ToastButton color={colorOmega1} text="dismiss" onClick={onDismiss} />
-            <ToastButton color={colorBeta} text="withdrawal" onClick={onWithdrawal} />
-          </ToastButtons>
-          <ToastSeparator />
-          <TransactionData tx={tx} style={{fontSize: '10px'}} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export const PendingTransactionToast = ({tx, isLoading, onClose}) => {
-  return (
-    <div className={styles.pendingTransactionToast}>
-      <ToastHeader
-        title={
-          tx.status === TransactionStatus.ACCEPTED_ON_L2
-            ? 'Transaction consumed on StarkNet successfully'
-            : 'Waiting for transaction to be consumed on StarkNet'
-        }
-        withClose={!isLoading}
-        onClose={onClose}
-      />
-      <ToastSeparator />
-      <TransactionData tx={tx} style={{fontSize: '12px'}} />
-    </div>
-  );
-};
-
 export const TransactionData = ({tx, style}) => {
   return (
     <>
       <ToastBody
-        style={style}
         body={
           tx.type === ActionType.TRANSFER_TO_STARKNET
             ? `${NetworkType.ETHEREUM.name} -> ${NetworkType.STARKNET.name}`
             : `${NetworkType.STARKNET.name} -> ${NetworkType.ETHEREUM.name}`
         }
+        style={style}
       />
-      <ToastBody style={style} body={`${tx.amount} ${tx.symbol}`} />
-      <ToastBody style={style} body={getFullTime(tx.timestamp)} />
+      <ToastBody body={`${tx.amount} ${tx.symbol}`} style={style} />
+      <ToastBody body={getFullTime(tx.timestamp)} style={style} />
     </>
   );
+};
+
+TransactionData.propTypes = {
+  tx: PropTypes.object,
+  style: PropTypes.object
 };

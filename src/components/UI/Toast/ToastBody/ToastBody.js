@@ -1,11 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './ToastBody.module.scss';
 
 export const ToastBody = ({body, style}) => {
   return (
-    <div style={style} className={styles.toastBody}>
+    <div className={styles.toastBody} style={style}>
       {body}
     </div>
   );
+};
+
+ToastBody.propTypes = {
+  body: PropTypes.string,
+  style: PropTypes.object
 };

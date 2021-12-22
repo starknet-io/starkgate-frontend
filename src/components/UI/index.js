@@ -11,8 +11,6 @@ export * from './Menu/Menu';
 export * from './MenuTitle/MenuTitle';
 export * from './Input/Input';
 export * from './WalletButton/WalletButton';
-export * from './ProgressModal/ProgressModal';
-export * from './TransactionSubmittedModal/TransactionSubmittedModal';
 export * from './MaxButton/MaxButton';
 export * from './NetworkMenu/NetworkMenu';
 export * from './NetworkSwap/NetworkSwap';
