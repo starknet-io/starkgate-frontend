@@ -16,6 +16,7 @@ export const TransactionsProvider = ({children}) => {
   const logger = useLogger(TransactionsProvider.displayName);
   const [transactions, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
+  const completedStatuses = [TransactionStatus.ACCEPTED_ON_L1, TransactionStatus.REJECTED];
 
   useEffect(() => {
     const storedTransactions = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
@@ -31,7 +32,7 @@ export const TransactionsProvider = ({children}) => {
         return;
       }
       const checkTransaction = async tx => {
-        if ([TransactionStatus.REJECTED, TransactionStatus.ACCEPTED_ON_L1].includes(tx.status)) {
+        if (completedStatuses.includes(tx.status)) {
           return tx;
         }
         if (tx.lastChecked === blockHash) {
@@ -40,7 +41,13 @@ export const TransactionsProvider = ({children}) => {
         try {
           logger.log(`Checking tx status ${tx.starknet_hash}`);
           const newStatus = await getStarknet().provider.getTransactionStatus(tx.starknet_hash);
-          logger.log(`New status ${newStatus.tx_status}`);
+          if (tx.status !== newStatus.tx_status) {
+            logger.log(
+              !tx.status
+                ? `New status ${newStatus.tx_status}`
+                : `Status changed from ${tx.status}->${newStatus.tx_status}`
+            );
+          }
           return {
             ...tx,
             status: newStatus.tx_status,

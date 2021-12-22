@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Account, SelectToken, Transfer} from '..';
 import {MenuType} from '../../../enums';
+import {Notifications} from '../Notifications/Notifications';
 import {useBridgeData} from './Bridge.hooks';
 import styles from './Bridge.module.scss';
 
@@ -19,5 +20,10 @@ export const Bridge = () => {
     }
   };
 
-  return <div className={styles.bridge}>{renderMenu()}</div>;
+  return (
+    <div className={styles.bridge}>
+      <Notifications />
+      {renderMenu()}
+    </div>
+  );
 };

@@ -1,6 +1,6 @@
 {
   "autoConnect": false,
   "pollBalanceInterval": 120000,
-  "pollBlockNumberInterval": 30000,
+  "pollBlockNumberInterval": 5000,
   "supportedChainIds": [5]
 }

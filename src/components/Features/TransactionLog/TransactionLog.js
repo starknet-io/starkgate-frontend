@@ -5,13 +5,13 @@ import {LINKS} from '../../../constants';
 import {TransactionStatus} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {get24Time, getDate} from '../../../utils';
+import {getFullTime} from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransactionLog.module.scss';
-import {WITHDRAW_BTN_TXT} from './TransactionLog.strings';
+import {WITHDRAWAL_BTN_TXT} from './TransactionLog.strings';
 
 export const TransactionLog = ({tx, onWithdrawClick}) => {
   const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = tx;
@@ -30,7 +30,7 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
             {name}
-            <div className={styles.data}>{`${getDate(timestamp)}, ${get24Time(timestamp)}`}</div>
+            <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>
           </div>
         </div>
         <div className={styles.right}>
@@ -38,7 +38,7 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
             {sign} {amount} {symbol.toUpperCase()}
           </div>
           {status !== TransactionStatus.ACCEPTED_ON_L1 ? (
-            <div className={styles.data}>{status.replaceAll('_', ' ')}</div>
+            <div className={styles.data}>{status && status.replaceAll('_', ' ')}</div>
           ) : (
             <div className={styles.links}>
               {eth_hash && (
@@ -47,7 +47,7 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
                   url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
                 />
               )}
-              {!eth_hash && isEthereum && <WithdrawButton onClick={onWithdrawClick} />}
+              {!eth_hash && isEthereum && <WithdrawalButton onClick={onWithdrawClick} />}
               <LinkButton
                 text={LINKS.VOYAGER.text}
                 url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
@@ -61,25 +61,25 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
   );
 };
 
-const WithdrawButton = ({onClick}) => {
+const WithdrawalButton = ({onClick}) => {
   const {colorBeta} = useColors();
   return (
     <Button
-      colorBackground='transparent'
+      colorBackground="transparent"
       colorBorder={colorBeta}
       colorText={colorBeta}
       height={10}
       style={{
-        fontSize:'12px',
+        fontSize: '12px',
         padding: '14px'
       }}
-      text={WITHDRAW_BTN_TXT}
+      text={WITHDRAWAL_BTN_TXT}
       onClick={onClick}
     />
   );
 };
 
-WithdrawButton.propTypes = {
+WithdrawalButton.propTypes = {
   onClick: PropTypes.func
 };
 

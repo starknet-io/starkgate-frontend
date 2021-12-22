@@ -73,7 +73,7 @@ export const useTransfer = () => {
       };
     },
     initiateWithdraw: (amount, symbol) => {
-      const message = evaluate(initiateWithdraw, {amount, symbol});
+      const message = evaluate(initiateWithdraw.message, {amount, symbol});
       return {
         type: initiateWithdraw.type,
         message
@@ -195,8 +195,8 @@ export const useTransfer = () => {
         bridgeContract,
         tokenContract
       );
-      setProgress(progressOptions.waitForAccept());
-      await starknet_waitForTransaction(transaction_hash);
+      // setProgress(progressOptions.waitForAccept());
+      // await starknet_waitForTransaction(transaction_hash);
       setIsLoading(false);
       setData({
         type: ActionType.TRANSFER_FROM_STARKNET,

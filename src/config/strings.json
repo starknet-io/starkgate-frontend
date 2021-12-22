@@ -27,7 +27,7 @@
     "search_placeholder": "Token name, symbol, or address"
   },
   "transactionLog": {
-    "withdraw_btn_txt": "withdraw"
+    "withdrawal_btn_txt": "withdrawal"
   },
   "accountAddress": {
     "copied_msg_txt": "copied!"
@@ -78,7 +78,7 @@
     },
     "initiateWithdraw": {
       "type": "Initiate withdrawal",
-      "message": "Initiating withdrawal of {{amount} {{symbol}} from StarkNet"
+      "message": "Initiating withdrawal of {{amount}} {{symbol}} from StarkNet"
     },
     "waitForAccept": {
       "type": "Transaction sent",
