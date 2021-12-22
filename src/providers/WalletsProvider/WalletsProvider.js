@@ -5,11 +5,13 @@ import {useWallet} from 'use-wallet';
 
 import {useIsEthereum, useIsStarknet} from '../../components/Features/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
+import {useConfig} from '../../hooks';
 import {web3} from '../../web3';
 import {WalletsContext} from './wallets-context';
 import {actions, initialState, reducer} from './wallets-reducer';
 
 export const WalletsProvider = ({children}) => {
+  const {autoConnect} = useConfig();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
   const {selectedAddress, isConnected: isStarknetConnected, enable} = getStarknet();
@@ -40,7 +42,7 @@ export const WalletsProvider = ({children}) => {
   };
 
   const connectStarknetWallet = async walletConfig => {
-    await getStarknet({showModal: true}).enable();
+    await getStarknet(!autoConnect && {showModal: true}).enable();
     setStarknetWalletConfig(walletConfig);
   };
 

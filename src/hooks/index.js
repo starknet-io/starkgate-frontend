@@ -9,3 +9,4 @@ export * from './useWalletHandlerProvider';
 export * from './useFetchData';
 export * from './usePrevious';
 export * from './useTransfer';
+export * from './useConfig';

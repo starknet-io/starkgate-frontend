@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ChainUnsupportedError} from 'use-wallet';
 
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
-import {useWalletHandlerProvider} from '../../../hooks';
+import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useEthereumWallet, useStarknetWallet, useWallets} from '../../../providers/WalletsProvider';
 import {capitalize, toClasses} from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
@@ -12,6 +12,7 @@ import styles from './Login.module.scss';
 import {DOWNLOAD_TEXT, MODAL_TXT, SUBTITLE_TXT, TITLE_TXT} from './Login.strings';
 
 export const Login = () => {
+  const {autoConnect} = useConfig();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [walletType, setWalletType] = useState(WalletType.ETHEREUM);
@@ -22,6 +23,13 @@ export const Login = () => {
   const getWalletHandlers = useWalletHandlerProvider();
   const {connectWallet: connectEthereumWallet, isConnected} = useEthereumWallet();
   const {connectWallet: connectStarknetWallet} = useStarknetWallet();
+
+  useEffect(() => {
+    if (autoConnect && walletType === WalletType.STARKNET) {
+      const handlers = getWalletHandlers(walletType);
+      return onWalletConnect(handlers[0]);
+    }
+  }, [walletType]);
 
   useEffect(() => {
     isConnected && setWalletType(WalletType.STARKNET);
