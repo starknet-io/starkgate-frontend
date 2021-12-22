@@ -62,14 +62,15 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
 };
 
 const WithdrawButton = ({onClick}) => {
-  const {colorBeta, colorAlpha3} = useColors();
+  const {colorBeta} = useColors();
   return (
     <Button
-      colorBackground={colorAlpha3}
+      colorBackground='transparent'
       colorBorder={colorBeta}
       colorText={colorBeta}
       height={10}
       style={{
+        fontSize:'12px',
         padding: '14px'
       }}
       text={WITHDRAW_BTN_TXT}
