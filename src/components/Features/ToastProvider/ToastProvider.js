@@ -8,9 +8,9 @@ import {usePrevious, useTransfer} from '../../../hooks';
 import {useTransactions} from '../../../providers/TransactionsProvider';
 import {getFullTime} from '../../../utils';
 import {PendingTransactionToast, ToastBody, WithdrawalTransactionToast} from '../../UI';
-import styles from './TransactionToastManager.module.scss';
+import styles from './ToastProvider.module.scss';
 
-export const TransactionToastManager = () => {
+export const ToastProvider = () => {
   const {transactions} = useTransactions();
   const prevTransactions = usePrevious(transactions);
   const toastsMap = useRef({});
@@ -109,7 +109,7 @@ export const TransactionToastManager = () => {
 
   return (
     <Toaster
-      containerClassName={styles.transactionToastContainer}
+      containerClassName={styles.toastProvider}
       position="top-right"
       toastOptions={{
         duration: Infinity

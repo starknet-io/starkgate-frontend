@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {TransactionStatus} from '../../../../enums';
-import {TransactionData} from '../../../Features/TransactionToastManager/TransactionToastManager';
+import {TransactionData} from '../../../Features';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import styles from './PendingTransactionToast.module.scss';

@@ -25,11 +25,13 @@ export const Login = () => {
   const {connectWallet: connectStarknetWallet} = useStarknetWallet();
 
   useEffect(() => {
-    if (autoConnect && walletType === WalletType.STARKNET) {
+    if (autoConnect) {
       const handlers = getWalletHandlers(walletType);
-      return onWalletConnect(handlers[0]);
+      if (handlers.length > 0) {
+        return onWalletConnect(handlers[0]);
+      }
     }
-  }, [walletType]);
+  }, [walletType, getWalletHandlers]);
 
   useEffect(() => {
     isConnected && setWalletType(WalletType.STARKNET);

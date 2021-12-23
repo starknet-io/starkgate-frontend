@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Account, SelectToken, TransactionToastManager, Transfer} from '..';
+import {Account, SelectToken, ToastProvider, Transfer} from '..';
 import {MenuType} from '../../../enums';
 import {useBridgeData} from './Bridge.hooks';
 import styles from './Bridge.module.scss';
@@ -21,7 +21,7 @@ export const Bridge = () => {
 
   return (
     <div className={styles.bridge}>
-      <TransactionToastManager />
+      <ToastProvider />
       {renderMenu()}
     </div>
   );

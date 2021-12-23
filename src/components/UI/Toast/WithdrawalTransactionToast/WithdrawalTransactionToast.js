@@ -4,7 +4,7 @@ import React from 'react';
 
 import {ReactComponent as EthereumLogo} from '../../../../assets/svg/tokens/eth.svg';
 import {useColors} from '../../../../hooks';
-import {TransactionData} from '../../../Features/TransactionToastManager/TransactionToastManager';
+import {TransactionData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
