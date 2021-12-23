@@ -2,7 +2,6 @@ import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import {v4 as uuidv4} from 'uuid';
 
 import {LOCAL_STORAGE_TXS_KEY} from '../../constants';
 import {TransactionStatus} from '../../enums';

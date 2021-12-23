@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as StarknetLogo} from '../../../../assets/svg/tokens/starknet.svg';
@@ -15,24 +15,26 @@ import {BODY_TXT_PARTS, BTN_TEXT} from './TransactionSubmittedModal.strings';
 const TransactionSubmittedModal = ({tx}) => {
   const {colorAlpha3, colorWhite, colorWhite1} = useColors();
   const {chainId} = useWallets();
+  const [networkData, setNetworkData] = useState({});
 
-  const getExplorerName = () => {
-    return tx.type === ActionType.TRANSFER_TO_STARKNET ? LINKS.ETHERSCAN.text : LINKS.VOYAGER.text;
-  };
-
-  const getExplorerUrl = () => {
-    return tx.type === ActionType.TRANSFER_TO_STARKNET
-      ? LINKS.ETHERSCAN.txUrl(chainId, tx.eth_hash)
-      : LINKS.VOYAGER.txUrl(chainId, tx.starknet_hash);
-  };
-
-  const getExplorerLogo = () => {
-    const Logo = tx.type === ActionType.TRANSFER_TO_STARKNET ? EtherscanLogo : StarknetLogo;
-    return <Logo style={{margin: 'auto'}} />;
-  };
+  useEffect(() => {
+    if (tx.type === ActionType.TRANSFER_TO_STARKNET || (tx.eth_hash && tx.starknet_hash)) {
+      setNetworkData({
+        explorerName: LINKS.ETHERSCAN.text,
+        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, tx.eth_hash),
+        explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
+      });
+    } else {
+      setNetworkData({
+        explorerName: LINKS.VOYAGER.text,
+        explorerUrl: LINKS.VOYAGER.txUrl(chainId, tx.starknet_hash),
+        explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
+      });
+    }
+  }, []);
 
   const onClick = () => {
-    openInNewTab(getExplorerUrl());
+    openInNewTab(networkData.explorerUrl);
   };
 
   return (
@@ -48,7 +50,7 @@ const TransactionSubmittedModal = ({tx}) => {
           colorText={colorAlpha3}
           icon={
             <Circle color={colorWhite1} size={40}>
-              {getExplorerLogo()}
+              {networkData.explorerLogo}
             </Circle>
           }
           style={{
@@ -58,7 +60,7 @@ const TransactionSubmittedModal = ({tx}) => {
             marginTop: '25px',
             height: '50px'
           }}
-          text={BTN_TEXT(getExplorerName())}
+          text={BTN_TEXT(networkData.explorerName)}
           onClick={onClick}
         />
       </center>

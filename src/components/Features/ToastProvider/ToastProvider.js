@@ -16,11 +16,8 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const {finalizeTransferFromStarknet} = useTransfer();
-  const pendingStatuses = [
-    TransactionStatus.NOT_RECEIVED,
-    TransactionStatus.RECEIVED,
-    TransactionStatus.PENDING
-  ];
+  const pendingStatuses = [TransactionStatus.NOT_RECEIVED, TransactionStatus.RECEIVED];
+  const consumedStatus = [TransactionStatus.PENDING, TransactionStatus.ACCEPTED_ON_L2];
 
   useDeepCompareEffect(() => {
     transactions.forEach(tx => {
@@ -41,7 +38,7 @@ export const ToastProvider = () => {
     const isChanged = prevTx && tx.status !== prevTx.status;
     if (pendingStatuses.includes(tx.status)) {
       showPendingTransactionToast(tx);
-    } else if (isChanged && tx.status === TransactionStatus.ACCEPTED_ON_L2) {
+    } else if (isChanged && consumedStatus.includes(tx.status)) {
       showConsumedTransactionToast(tx);
     }
   };
@@ -79,7 +76,7 @@ export const ToastProvider = () => {
   };
 
   const renderPendingTransactionToast = (tx, isLoading) => (
-    <PendingTransactionToast tx={tx} isLoading={isLoading} onClose={() => dismissToast(tx)} />
+    <PendingTransactionToast isLoading={isLoading} tx={tx} onClose={() => dismissToast(tx)} />
   );
 
   const renderWithdrawalTransactionToast = (t, tx) => (
