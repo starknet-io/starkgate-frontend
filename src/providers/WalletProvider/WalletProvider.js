@@ -5,8 +5,7 @@ import {UseWalletProvider as UseWalletProviderWrapper} from 'use-wallet';
 import {useConfig} from '../../hooks';
 
 export const WalletProvider = ({children}) => {
-  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainIds} =
-    useConfig();
+  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainIds} = useConfig();
   return (
     <UseWalletProviderWrapper
       autoConnect={false}

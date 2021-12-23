@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from 'uuid';
+
 export const actions = {
   SET_TRANSACTIONS: 'Transactions/SET_TRANSACTIONS',
   ADD_TRANSACTION: 'Transactions/ADD_TRANSACTION'
@@ -18,7 +20,7 @@ export const reducer = (state, action) => {
         txs[index] = tx;
         return txs;
       }
-      return [action.payload, ...state];
+      return [{id: uuidv4(), timestamp: new Date().getTime(), ...tx}, ...state];
     }
 
     default:

@@ -73,10 +73,10 @@ export const TransactionsProvider = ({children}) => {
     updateTransactions();
   }, [blockHash, transactions]);
 
-  const addTransaction = tx => {
+  const addTransaction = payload => {
     dispatch({
       type: actions.ADD_TRANSACTION,
-      payload: {...tx, id: uuidv4(), timestamp: new Date().getTime()}
+      payload
     });
   };
 
