@@ -6,7 +6,7 @@ import {selectModal} from './ModalProvider.selectors';
 import {hideModalAction, showModalAction} from './ModalProvider.slice';
 
 export const useModal = () => ({
-  modal: useSelector(selectModal)
+  ...useSelector(selectModal)
 });
 
 export const useHideModal = () => {

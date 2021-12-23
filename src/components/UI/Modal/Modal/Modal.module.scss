@@ -11,7 +11,7 @@ $error-color: $--color-error;
   right: 0;
   bottom: 0;
   position: absolute;
-  z-index: 1;
+  z-index: 100000;
 
   .container {
     top: 50%;

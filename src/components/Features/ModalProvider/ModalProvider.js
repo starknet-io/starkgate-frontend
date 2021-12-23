@@ -5,7 +5,7 @@ import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import {useHideModal, useModal} from './ModalProvider.hooks';
 
 export const ModalProvider = () => {
-  const {modal} = useModal();
+  const modal = useModal();
   const handleOnClose = useHideModal();
   const CustomComponent = lazy(() => import(`../../${modal.componentPath}`));
 

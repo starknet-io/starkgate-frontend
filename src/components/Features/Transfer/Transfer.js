@@ -133,12 +133,7 @@ export const Transfer = () => {
 
   return (
     <Menu>
-      <div
-        className={styles.transfer}
-        style={{
-          filter: isLoading && 'blur(5px)'
-        }}
-      >
+      <div className={styles.transfer}>
         <div className={styles.tabsContainer}>{renderTabs()}</div>
         {!selectedToken && (
           <center>
