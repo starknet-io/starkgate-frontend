@@ -19,8 +19,6 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
   const {action, isEthereum} = useTransferData();
   const {chainId} = useWallets();
 
-  console.table({symbol, timestamp, name, amount, status, eth_hash, starknet_hash});
-
   useEffect(() => {
     setSign(tx.type === action ? '-' : '+');
   }, [action]);
