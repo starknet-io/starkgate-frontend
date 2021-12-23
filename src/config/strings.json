@@ -55,16 +55,17 @@
     "input_placeholder_txt": "0.00"
   },
   "transactionLogContainer": {
-    "title_txt": "Transaction log",
-    "overview_txt": "recent transactions",
-    "empty_msg_txt": "Transactions will appear here...",
+    "title_txt": "Transfers log",
+    "overview_txt": "recent transfers",
+    "empty_msg_txt": "Transfers will appear here...",
     "view_more_txt": "View more"
   },
   "transactionSubmittedModal": {
+    "title_txt": "Transaction submitted",
     "btn_txt": "View on {{explorer}}",
     "body_txt": [
       "Your transaction has been sent to StarkNet!\n",
-      "We'll notify you once its status will be updated."
+      "Follow the top-right status bar to be updated on its status."
     ]
   },
   "transferProgressModal": {
@@ -73,8 +74,8 @@
       "message": "Requesting permission to access your {{symbol}} funds"
     },
     "deposit": {
-      "type": "Deposit in progress",
-      "message": "Depositing {{amount}} {{symbol}} to StarkNet"
+      "type": "Transfer in progress",
+      "message": "Transferring {{amount}} {{symbol}} to StarkNet"
     },
     "initiateWithdraw": {
       "type": "Initiate withdrawal",
