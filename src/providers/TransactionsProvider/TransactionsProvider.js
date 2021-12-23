@@ -2,7 +2,6 @@ import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import {v4 as uuidv4} from 'uuid';
 
 import {LOCAL_STORAGE_TXS_KEY} from '../../constants';
 import {TransactionStatus} from '../../enums';
@@ -16,6 +15,7 @@ export const TransactionsProvider = ({children}) => {
   const logger = useLogger(TransactionsProvider.displayName);
   const [transactions, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
+  const completedStatuses = [TransactionStatus.ACCEPTED_ON_L1, TransactionStatus.REJECTED];
 
   useEffect(() => {
     const storedTransactions = StorageManager.getItem(LOCAL_STORAGE_TXS_KEY);
@@ -31,7 +31,7 @@ export const TransactionsProvider = ({children}) => {
         return;
       }
       const checkTransaction = async tx => {
-        if ([TransactionStatus.REJECTED, TransactionStatus.ACCEPTED_ON_L1].includes(tx.status)) {
+        if (completedStatuses.includes(tx.status)) {
           return tx;
         }
         if (tx.lastChecked === blockHash) {
@@ -40,7 +40,13 @@ export const TransactionsProvider = ({children}) => {
         try {
           logger.log(`Checking tx status ${tx.starknet_hash}`);
           const newStatus = await getStarknet().provider.getTransactionStatus(tx.starknet_hash);
-          logger.log(`New status ${newStatus.tx_status}`);
+          if (tx.status !== newStatus.tx_status) {
+            logger.log(
+              !tx.status
+                ? `New status ${newStatus.tx_status}`
+                : `Status changed from ${tx.status}->${newStatus.tx_status}`
+            );
+          }
           return {
             ...tx,
             status: newStatus.tx_status,
@@ -66,10 +72,10 @@ export const TransactionsProvider = ({children}) => {
     updateTransactions();
   }, [blockHash, transactions]);
 
-  const addTransaction = tx => {
+  const addTransaction = payload => {
     dispatch({
       type: actions.ADD_TRANSACTION,
-      payload: {...tx, id: uuidv4(), timestamp: new Date().getTime()}
+      payload
     });
   };
 

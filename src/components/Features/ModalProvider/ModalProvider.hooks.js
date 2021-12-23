@@ -6,7 +6,7 @@ import {selectModal} from './ModalProvider.selectors';
 import {hideModalAction, showModalAction} from './ModalProvider.slice';
 
 export const useModal = () => ({
-  modal: useSelector(selectModal)
+  ...useSelector(selectModal)
 });
 
 export const useHideModal = () => {
@@ -22,7 +22,7 @@ export const useProgressModal = () => {
     (title, message, type = ModalType.INFO) => {
       dispatch(
         showModalAction({
-          componentPath: 'UI/ProgressModal/ProgressModal',
+          componentPath: 'UI/Modal/ProgressModal/ProgressModal',
           componentProps: {
             message
           },
@@ -41,7 +41,7 @@ export const useTransactionSubmittedModal = () => {
     tx => {
       dispatch(
         showModalAction({
-          componentPath: 'UI/TransactionSubmittedModal/TransactionSubmittedModal',
+          componentPath: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
           componentProps: {
             tx
           },

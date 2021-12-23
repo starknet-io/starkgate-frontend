@@ -9,13 +9,17 @@ import {
   useProgressModal,
   useTransactionSubmittedModal
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
-import {useSelectedToken, useTransferData} from '../components/Features/Transfer/Transfer.hooks';
+import {
+  useAmount,
+  useSelectedToken,
+  useTransferData
+} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType} from '../enums';
 import {useEthereumToken, useStarknetToken, useTokens} from '../providers/TokensProvider';
 import {useTransactions} from '../providers/TransactionsProvider';
 import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
 import {evaluate, hashEquals, isEth, txHash} from '../utils';
-import {eth_listenOnce, starknet_waitForTransaction} from '../utils/contract';
+import {eth_listenOnce} from '../utils/contract';
 import {
   useEthBridgeContract,
   useEthereumTokenBridgeContract,
@@ -45,6 +49,7 @@ export const useTransfer = () => {
   const {action} = useTransferData();
   const {addTransaction} = useTransactions();
   const {updateTokens} = useTokens();
+  const [, , clearAmount] = useAmount();
   const showProgressModal = useProgressModal();
   const showErrorModal = useErrorModal(error_title);
   const hideModal = useHideModal();
@@ -73,7 +78,7 @@ export const useTransfer = () => {
       };
     },
     initiateWithdraw: (amount, symbol) => {
-      const message = evaluate(initiateWithdraw, {amount, symbol});
+      const message = evaluate(initiateWithdraw.message, {amount, symbol});
       return {
         type: initiateWithdraw.type,
         message
@@ -106,6 +111,7 @@ export const useTransfer = () => {
       showTransactionSubmittedModal(data);
       addTransaction(data);
       updateTokens();
+      clearAmount();
     }
   }, [progress, data, error, isLoading]);
 
@@ -195,8 +201,6 @@ export const useTransfer = () => {
         bridgeContract,
         tokenContract
       );
-      setProgress(progressOptions.waitForAccept());
-      await starknet_waitForTransaction(transaction_hash);
       setIsLoading(false);
       setData({
         type: ActionType.TRANSFER_FROM_STARKNET,

@@ -20,6 +20,6 @@ export const useAccountTransactions = account => {
   const {transactions} = useTransactions();
   return useMemo(
     () => transactions.filter(tx => tx.sender === account || tx.recipient === account),
-    [account]
+    [account, transactions]
   );
 };

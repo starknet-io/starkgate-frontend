@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
-import {pollBalanceInterval} from '../../config/config.json';
-import {useLogger} from '../../hooks';
+import {useLogger, useConfig} from '../../hooks';
 import {useEthereumTokenBalance, useStarknetTokenBalance} from '../../hooks/useTokenBalance';
 import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
+  const {pollBalanceInterval} = useConfig();
   const logger = useLogger(TokensProvider.displayName);
   const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: ethereumAccount} = useEthereumWallet();

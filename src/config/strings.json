@@ -27,16 +27,16 @@
     "search_placeholder": "Token name, symbol, or address"
   },
   "transactionLog": {
-    "withdraw_btn_txt": "withdraw"
+    "withdrawal_btn_txt": "Withdrawal"
   },
   "accountAddress": {
-    "copied_msg_txt": "copied!"
+    "copied_msg_txt": "Copied!"
   },
   "logoutButton": {
-    "btn_txt": "Logout'"
+    "btn_txt": "Logout"
   },
   "maxButton": {
-    "btn_txt": "max"
+    "btn_txt": "Max"
   },
   "backButton": {
     "btn_txt": "Back"
@@ -58,10 +58,10 @@
     "title_txt": "Transaction log",
     "overview_txt": "recent transactions",
     "empty_msg_txt": "Transactions will appear here...",
-    "view_more_txt": "view more"
+    "view_more_txt": "View more"
   },
   "transactionSubmittedModal": {
-    "btn_txt": "view on {{explorer}}",
+    "btn_txt": "View on {{explorer}}",
     "body_txt": [
       "Your transaction has been sent to StarkNet!\n",
       "We'll notify you once its status will be updated."
@@ -78,7 +78,7 @@
     },
     "initiateWithdraw": {
       "type": "Initiate withdrawal",
-      "message": "Initiating withdrawal of {{amount} {{symbol}} from StarkNet"
+      "message": "Initiating withdrawal of {{amount}} {{symbol}} from StarkNet"
     },
     "waitForAccept": {
       "type": "Transaction sent",
@@ -89,5 +89,15 @@
       "message": "Withdrawing {{amount}} {{symbol}} to Ethereum"
     },
     "error_title": "Transaction error"
+  },
+  "pendingTransactionToast": {
+    "pending_txt": "Waiting for transaction to be consumed on StarkNet",
+    "consumed_txt": "Transaction consumed successfully on StarkNet"
+  },
+  "withdrawalTransactionToast": {
+    "title_txt": "StarkNet finished to process your withdrawal!",
+    "body_txt": "Click on Withdrawal to transfer the funds from StarkNet Bridge to your Ethereum address.",
+    "dismiss_btn_txt": "Dismiss",
+    "withdrawal_btn_txt": "Withdrawal"
   }
 }

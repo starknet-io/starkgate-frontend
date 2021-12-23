@@ -1,12 +1,13 @@
 import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
-import {pollBlockNumberInterval} from '../../config/config.json';
+import {useConfig} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
-  const [blockHash, setBlockHash] = React.useState();
+  const {pollBlockNumberInterval} = useConfig();
+  const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
     const {block_hash} = await getStarknet().provider.getBlock();

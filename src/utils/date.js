@@ -23,3 +23,7 @@ export const get24Time = timestamp => {
   if (h <= 9) h = '0' + h;
   return `${h}:${m}:${s}`;
 };
+
+export const getFullTime = timestamp => {
+  return `${getDate(timestamp)}, ${get24Time(timestamp)}`;
+};

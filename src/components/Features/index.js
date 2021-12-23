@@ -5,3 +5,4 @@ export * from './ModalProvider/ModalProvider';
 export * from './SelectToken/SelectToken';
 export * from './Transfer/Transfer';
 export * from './TransactionLog/TransactionLog';
+export * from './ToastProvider/ToastProvider';
