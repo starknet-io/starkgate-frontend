@@ -17,7 +17,7 @@ export const useContracts = (ABI, getContractHandler = eth_getContract) => {
         }
         return null;
       }),
-    [ABI]
+    [ABI, getContract]
   );
 };
 
@@ -33,7 +33,7 @@ export const useContract = (ABI, getContractHandler = eth_getContract) => {
         return null;
       }
     },
-    [ABI, chainId]
+    [ABI, chainId, getContractHandler]
   );
 };
 
@@ -44,7 +44,7 @@ export const useTokenContract = () => {
   return useCallback(
     tokenAddresses =>
       isEthereum ? getTokenContract(tokenAddresses) : getStarknetTokenContract(tokenAddresses),
-    [isEthereum]
+    [isEthereum, getStarknetTokenContract, getTokenContract]
   );
 };
 
@@ -57,44 +57,44 @@ export const useTokenBridgeContract = () => {
       isEthereum
         ? getTokenBridgeContract(bridgeAddress)
         : getStarknetTokenBridgeContract(bridgeAddress),
-    [isEthereum]
+    [isEthereum, getTokenBridgeContract, getStarknetTokenBridgeContract]
   );
 };
 
 export const useStarknetTokenContract = () => {
   const getContract = useContract(STARKNET_ERC20_ABI, starknet_getContract);
-  return useCallback(tokenAddresses => getContract(tokenAddresses), []);
+  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 export const useStarknetTokenContracts = () => {
   const getContracts = useContracts(STARKNET_ERC20_ABI, starknet_getContract);
-  return useCallback(tokensAddresses => getContracts(tokensAddresses), []);
+  return useCallback(tokensAddresses => getContracts(tokensAddresses), [getContracts]);
 };
 export const useEthereumTokenContract = () => {
   const getContract = useContract(ERC20_ABI);
-  return useCallback(tokenAddresses => getContract(tokenAddresses), []);
+  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useEthereumTokenContracts = () => {
   const getContracts = useContracts(ERC20_ABI);
-  return useCallback(tokensAddresses => getContracts(tokensAddresses), []);
+  return useCallback(tokensAddresses => getContracts(tokensAddresses), [getContracts]);
 };
 
 export const useEthBridgeContract = () => {
   const getContract = useContract(ETH_BRIDGE_ABI);
-  return useMemo(() => getContract(ETH_BRIDGE_CONTRACT_ADDRESS), []);
+  return useMemo(() => getContract(ETH_BRIDGE_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useMessagingContract = () => {
   const getContract = useContract(MESSAGING_ABI);
-  return useMemo(() => getContract(MESSAGING_CONTRACT_ADDRESS), []);
+  return useMemo(() => getContract(MESSAGING_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useStarknetTokenBridgeContract = () => {
   const getContract = useContract(STARKNET_BRIDGE_ABI, starknet_getContract);
-  return useCallback(bridgeAddress => getContract(bridgeAddress), []);
+  return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 
 export const useEthereumTokenBridgeContract = () => {
   const getContract = useContract(ERC20_BRIDGE_ABI);
-  return useCallback(bridgeAddress => getContract(bridgeAddress), []);
+  return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };

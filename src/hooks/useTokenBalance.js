@@ -13,7 +13,7 @@ export const useTokenBalance = account => {
       isEthereum
         ? getEthereumTokenBalance(tokenAddresses)
         : getStarknetTokenBalance(tokenAddresses),
-    [isEthereum, account]
+    [isEthereum, account, getEthereumTokenBalance, getStarknetTokenBalance]
   );
 };
 
@@ -21,7 +21,7 @@ export const useStarknetTokenBalance = account => {
   const getContract = useStarknetTokenContract();
   return useCallback(
     async tokenAddresses => await balanceOf(account, getContract(tokenAddresses), false),
-    [account]
+    [account, getContract]
   );
 };
 
@@ -32,6 +32,6 @@ export const useEthereumTokenBalance = account => {
       tokenAddresses
         ? await balanceOf(account, getContract(tokenAddresses), true)
         : await eth_ethBalanceOf(account),
-    [account]
+    [account, getContract]
   );
 };
