@@ -19,6 +19,11 @@ $path-fill-color-hover: $--color-gamma;
   cursor: pointer;
   margin: 10px 0 10px 10px;
 
+  &.isDisabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
   svg {
     margin-left: 5px;
   }
