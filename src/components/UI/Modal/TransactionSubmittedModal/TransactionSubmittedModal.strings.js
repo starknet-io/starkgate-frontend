@@ -1,9 +1,6 @@
-import strings from '../../../../config/strings.json';
-import {evaluate} from '../../../../utils';
+import {evaluate, getString} from '../../../../utils';
 
-const {
-  transactionSubmittedModal: {btn_txt, body_txt}
-} = strings;
+const {btn_txt, body_txt} = getString('modals.transactionSubmitted');
 
 export const BODY_TXT_PARTS = body_txt;
 export const BTN_TEXT = explorer => evaluate(btn_txt, {explorer});

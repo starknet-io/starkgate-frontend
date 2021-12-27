@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  logoutButton: {btn_txt}
-} = strings;
-
-export const BTN_TXT = btn_txt;
+export const BTN_TXT = getString('menus.account.logout_btn_txt');

@@ -18,7 +18,7 @@ import {ActionType} from '../enums';
 import {useEthereumToken, useStarknetToken, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
-import {evaluate, hashEquals, isEth, txHash} from '../utils';
+import {evaluate, getString, hashEquals, isEth, txHash} from '../utils';
 import {eth_listenOnce} from '../utils/contract';
 import {
   useEthBridgeContract,
@@ -27,19 +27,16 @@ import {
   useTokenBridgeContract,
   useTokenContract
 } from './useContract';
-import {useStrings} from './useStrings';
 
 export const useTransfer = () => {
-  const {
-    transferProgressModal: {
+  const  {
       error_title,
       approval,
       deposit,
       initiateWithdraw,
       waitForAccept,
       withdraw
-    }
-  } = useStrings();
+  } = getString('modals.transferProgress');
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(null);

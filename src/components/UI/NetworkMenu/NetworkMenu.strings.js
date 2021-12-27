@@ -1,8 +1,6 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  networkMenu: {to_txt, from_txt}
-} = strings;
+const {to_txt, from_txt} = getString('menus.transfer');
 
 export const TO = to_txt;
 export const FROM = from_txt;

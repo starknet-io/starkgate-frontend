@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  searchToken: {search_placeholder}
-} = strings;
-
-export const SEARCH_PLACEHOLDER = search_placeholder;
+export const SEARCH_PLACEHOLDER = getString('menus.selectToken.search_placeholder');

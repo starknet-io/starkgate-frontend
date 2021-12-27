@@ -1,8 +1,6 @@
-import strings from '../../../../config/strings.json';
+import {getString} from '../../../../utils';
 
-const {
-  pendingTransferToast: {pending_txt, consumed_txt}
-} = strings;
+const {pending_txt, consumed_txt} = getString('toasts.pendingTransfer');
 
 export const PENDING_TXT = pending_txt;
 export const CONSUMED_TXT = consumed_txt;
