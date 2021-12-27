@@ -1,7 +1,7 @@
 import {byChainId} from './enums';
 import {evaluate} from './utils';
 
-export const LOCAL_STORAGE_TXS_KEY = 'STARKNET_BRIDGE_TXS';
+export const LOCAL_STORAGE_TRANSFERS_KEY = 'STARKNET_BRIDGE_TRANSFERS';
 export const STARKNET_INVOKE_TX_PREFIX = '115923154332517';
 export const ETHERSCAN_URL = 'etherscan.io';
 export const VOYAGER_URL = 'voyager.online';

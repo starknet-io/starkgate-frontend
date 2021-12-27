@@ -4,20 +4,20 @@ import React from 'react';
 
 import {ReactComponent as EthereumLogo} from '../../../../assets/svg/tokens/eth.svg';
 import {useColors} from '../../../../hooks';
-import {TransactionData} from '../../../Features';
+import {TransferData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
-import styles from './WithdrawalTransactionToast.module.scss';
+import styles from './WithdrawalTransferToast.module.scss';
 import {
   BODY_TXT,
   DISMISS_BTN_TXT,
   TITLE_TXT,
   WITHDRAWAL_BTN_TXT
-} from './WithdrawalTransactionToast.strings';
+} from './WithdrawalTransferToast.strings';
 
-export const WithdrawalTransactionToast = ({t, tx, onDismiss, onWithdrawal, onClose}) => {
+export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, onClose}) => {
   const {colorBeta, colorOmega1} = useColors();
   return (
     <Transition
@@ -43,7 +43,7 @@ export const WithdrawalTransactionToast = ({t, tx, onDismiss, onWithdrawal, onCl
               <ToastButton color={colorBeta} text={WITHDRAWAL_BTN_TXT} onClick={onWithdrawal} />
             </ToastButtons>
             <ToastSeparator />
-            <TransactionData style={{fontSize: '10px'}} tx={tx} />
+            <TransferData style={{fontSize: '10px'}} transfer={transfer} />
           </div>
         </div>
       </div>
@@ -51,9 +51,9 @@ export const WithdrawalTransactionToast = ({t, tx, onDismiss, onWithdrawal, onCl
   );
 };
 
-WithdrawalTransactionToast.propTypes = {
+WithdrawalTransferToast.propTypes = {
   t: PropTypes.object,
-  tx: PropTypes.object,
+  transfer: PropTypes.object,
   onDismiss: PropTypes.func,
   onWithdrawal: PropTypes.func,
   onClose: PropTypes.func

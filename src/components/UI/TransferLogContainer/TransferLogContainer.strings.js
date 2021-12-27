@@ -1,7 +1,7 @@
 import strings from '../../../config/strings.json';
 
 const {
-  transactionLogContainer: {title_txt, overview_txt, empty_msg_txt, view_more_txt}
+  transferLogContainer: {title_txt, overview_txt, empty_msg_txt, view_more_txt}
 } = strings;
 
 export const TITLE_TXT = title_txt;
