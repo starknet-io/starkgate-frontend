@@ -7,7 +7,8 @@ export const actions = {
 
 const ethereumTokens = [
   {
-    ...NetworkType.ETHEREUM,
+    symbol: NetworkType.ETHEREUM.symbol,
+    name: NetworkType.ETHEREUM.tokenName,
     bridgeAddress: ETH_BRIDGE_CONTRACT_ADDRESS
   },
   ...EthereumTokens

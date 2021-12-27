@@ -10,7 +10,7 @@ export const StarknetTokens = [
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x03188903406daaaedd123598a8bd1f5dbec34720089037f4bf1473e51857e190'
     },
-    name: NetworkType.ETHEREUM.name,
+    name: NetworkType.ETHEREUM.tokenName,
     symbol: NetworkType.ETHEREUM.symbol
   },
   {
@@ -22,7 +22,7 @@ export const StarknetTokens = [
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x021eb73bd66eb18c37ec7b1e2567bc3fa8ba9ac0d391b53745a5f9d483217595'
     },
-    name: 'ERC20 StarkNet Token',
-    symbol: 'E20ST'
+    name: 'Mock ERC20 Token',
+    symbol: 'TEST'
   }
 ];
