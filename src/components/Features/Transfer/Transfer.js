@@ -137,7 +137,7 @@ export const Transfer = () => {
         <div className={styles.tabsContainer}>{renderTabs()}</div>
         {!selectedToken && (
           <center>
-            <Loading size={LoadingSize.EXTRA_LARGE} />
+            <Loading size={LoadingSize.XL} />
           </center>
         )}
         {selectedToken && (
