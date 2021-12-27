@@ -5,14 +5,14 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {ActionType, NetworkType, TransactionStatus} from '../../../enums';
 import {usePrevious, useTransfer} from '../../../hooks';
-import {useTransactions} from '../../../providers/TransactionsProvider';
+import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
-import {PendingTransactionToast, ToastBody, WithdrawalTransactionToast} from '../../UI';
+import {PendingTransferToast, ToastBody, WithdrawalTransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 
 export const ToastProvider = () => {
-  const {transactions} = useTransactions();
-  const prevTransactions = usePrevious(transactions);
+  const {transfers} = useTransfers();
+  const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const {finalizeTransferFromStarknet} = useTransfer();
@@ -20,88 +20,95 @@ export const ToastProvider = () => {
   const consumedStatus = [TransactionStatus.PENDING, TransactionStatus.ACCEPTED_ON_L2];
 
   useDeepCompareEffect(() => {
-    transactions.forEach(tx => {
-      const prevTx = prevTransactions?.find(prevTx => prevTx.id === tx.id);
-      handleToast(tx, prevTx);
+    transfers.forEach(transfer => {
+      const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
+      handleToast(transfer, prevTransfer);
     });
-  }, [transactions]);
+  }, [transfers]);
 
-  const handleToast = (tx, prevTx) => {
-    if (tx.type === ActionType.TRANSFER_TO_STARKNET) {
-      handleTransferToStarknetToast(tx, prevTx);
+  const handleToast = (transfer, prevTransfer) => {
+    if (transfer.type === ActionType.TRANSFER_TO_STARKNET) {
+      handleTransferToStarknetToast(transfer, prevTransfer);
     } else {
-      handleTransferFromStarknetToast(tx);
+      handleTransferFromStarknetToast(transfer);
     }
   };
 
-  const handleTransferToStarknetToast = (tx, prevTx) => {
-    const isChanged = prevTx && tx.status !== prevTx.status;
-    if (pendingStatuses.includes(tx.status)) {
-      showPendingTransactionToast(tx);
-    } else if (isChanged && consumedStatus.includes(tx.status)) {
-      showConsumedTransactionToast(tx);
+  const handleTransferToStarknetToast = (transfer, prevTransfer) => {
+    const isChanged = prevTransfer && transfer.status !== prevTransfer.status;
+    if (pendingStatuses.includes(transfer.status)) {
+      showPendingTransferToast(transfer);
+    } else if (isChanged && consumedStatus.includes(transfer.status)) {
+      showConsumedTransferToast(transfer);
     }
   };
 
-  const handleTransferFromStarknetToast = tx => {
-    if (pendingStatuses.includes(tx.status)) {
-      showPendingTransactionToast(tx);
-    } else if (!tx.eth_hash && tx.status === TransactionStatus.ACCEPTED_ON_L1) {
-      showWithdrawalToast(tx);
+  const handleTransferFromStarknetToast = transfer => {
+    if (pendingStatuses.includes(transfer.status)) {
+      showPendingTransferToast(transfer);
+    } else if (!transfer.eth_hash && transfer.status === TransactionStatus.ACCEPTED_ON_L1) {
+      showWithdrawalToast(transfer);
     }
   };
 
-  const showPendingTransactionToast = tx => {
-    let toastId = getToastId(tx);
+  const showPendingTransferToast = transfer => {
+    let toastId = getToastId(transfer);
     if (!toastId) {
-      toastId = toast.loading(renderPendingTransactionToast(tx, true));
-      toastsMap.current[tx.id] = toastId;
+      toastId = toast.loading(renderPendingTransferToast(transfer, true));
+      toastsMap.current[transfer.id] = toastId;
     }
   };
 
-  const showConsumedTransactionToast = tx => {
-    const toastId = getToastId(tx);
-    toastsMap.current[tx.id] = toast.success(renderPendingTransactionToast(tx), {
+  const showConsumedTransferToast = transfer => {
+    const toastId = getToastId(transfer);
+    toastsMap.current[transfer.id] = toast.success(renderPendingTransferToast(transfer), {
       id: toastId
     });
   };
 
-  const showWithdrawalToast = tx => {
-    const toastId = getToastId(tx);
+  const showWithdrawalToast = transfer => {
+    const toastId = getToastId(transfer);
     if (!toastId && !isToastDismissed(toastId)) {
-      toastsMap.current[tx.id] = toast.custom(t => renderWithdrawalTransactionToast(t, tx), {
-        id: toastId
-      });
+      toastsMap.current[transfer.id] = toast.custom(
+        t => renderWithdrawalTransferToast(t, transfer),
+        {
+          id: toastId
+        }
+      );
     }
   };
 
-  const renderPendingTransactionToast = (tx, isLoading) => (
-    <PendingTransactionToast isLoading={isLoading} tx={tx} onClose={() => dismissToast(tx)} />
-  );
-
-  const renderWithdrawalTransactionToast = (t, tx) => (
-    <WithdrawalTransactionToast
-      t={t}
-      tx={tx}
-      onClose={() => dismissToast(tx)}
-      onDismiss={() => dismissToast(tx)}
-      onWithdrawal={() => onWithdrawalClick(tx)}
+  const renderPendingTransferToast = (transfer, isLoading) => (
+    <PendingTransferToast
+      isLoading={isLoading}
+      transfer={transfer}
+      onClose={() => dismissToast(transfer)}
     />
   );
 
-  const getToastId = tx => toastsMap.current[tx.id];
+  const renderWithdrawalTransferToast = (t, transfer) => (
+    <WithdrawalTransferToast
+      t={t}
+      transfer={transfer}
+      onClose={() => dismissToast(transfer)}
+      onDismiss={() => dismissToast(transfer)}
+      onWithdrawal={() => onWithdrawalClick(transfer)}
+    />
+  );
+
+  const getToastId = transfer => toastsMap.current[transfer.id];
 
   const isToastDismissed = id => !!toastsDismissed[id];
 
-  const dismissToast = tx => {
-    const toastId = getToastId(tx);
+  const dismissToast = transfer => {
+    const toastId = getToastId(transfer);
     toast.dismiss(toastId);
     toastsDismissed.current[toastId] = true;
   };
 
-  const onWithdrawalClick = async tx => {
-    await finalizeTransferFromStarknet(tx);
-    dismissToast(tx);
+  const onWithdrawalClick = async transfer => {
+    await finalizeTransferFromStarknet(transfer);
+    dismissToast(transfer);
   };
 
   return (
@@ -115,24 +122,24 @@ export const ToastProvider = () => {
   );
 };
 
-export const TransactionData = ({tx, style}) => {
+export const TransferData = ({transfer, style}) => {
   return (
     <>
       <ToastBody
         body={
-          tx.type === ActionType.TRANSFER_TO_STARKNET
+          transfer.type === ActionType.TRANSFER_TO_STARKNET
             ? `${NetworkType.ETHEREUM.name} -> ${NetworkType.STARKNET.name}`
             : `${NetworkType.STARKNET.name} -> ${NetworkType.ETHEREUM.name}`
         }
         style={style}
       />
-      <ToastBody body={`${tx.amount} ${tx.symbol}`} style={style} />
-      <ToastBody body={getFullTime(tx.timestamp)} style={style} />
+      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
+      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
     </>
   );
 };
 
-TransactionData.propTypes = {
-  tx: PropTypes.object,
+TransferData.propTypes = {
+  transfer: PropTypes.object,
   style: PropTypes.object
 };

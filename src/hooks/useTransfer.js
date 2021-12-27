@@ -16,7 +16,7 @@ import {
 } from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType} from '../enums';
 import {useEthereumToken, useStarknetToken, useTokens} from '../providers/TokensProvider';
-import {useTransactions} from '../providers/TransactionsProvider';
+import {useTransfers} from '../providers/TransfersProvider';
 import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
 import {evaluate, hashEquals, isEth, txHash} from '../utils';
 import {eth_listenOnce} from '../utils/contract';
@@ -47,7 +47,7 @@ export const useTransfer = () => {
   const {account: ethereumAccount, chainId} = useEthereumWallet();
   const {account: starknetAccount} = useStarknetWallet();
   const {action} = useTransferData();
-  const {addTransaction} = useTransactions();
+  const {addTransfer} = useTransfers();
   const {updateTokens} = useTokens();
   const [, , clearAmount] = useAmount();
   const showProgressModal = useProgressModal();
@@ -109,7 +109,7 @@ export const useTransfer = () => {
       showErrorModal(error.message);
     } else if (data) {
       showTransactionSubmittedModal(data);
-      addTransaction(data);
+      addTransfer(data);
       updateTokens();
       clearAmount();
     }
@@ -220,10 +220,10 @@ export const useTransfer = () => {
   };
 
   const finalizeTransferFromStarknet = useCallback(
-    async tx => {
+    async transfer => {
       resetState();
       try {
-        const {symbol, amount} = tx;
+        const {symbol, amount} = transfer;
         setIsLoading(true);
         const ethereumToken = getEthereumToken(symbol);
         let tokenBridgeContract;
@@ -235,7 +235,7 @@ export const useTransfer = () => {
         setProgress(progressOptions.withdraw(amount, symbol));
         const {transactionHash} = await eth_withdraw(ethereumAccount, amount, tokenBridgeContract);
         setIsLoading(false);
-        setData({...tx, eth_hash: transactionHash});
+        setData({...transfer, eth_hash: transactionHash});
         return data;
       } catch (ex) {
         setIsLoading(false);

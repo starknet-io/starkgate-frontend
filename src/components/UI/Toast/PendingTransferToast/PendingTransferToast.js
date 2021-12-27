@@ -2,28 +2,28 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {TransactionStatus} from '../../../../enums';
-import {TransactionData} from '../../../Features';
+import {TransferData} from '../../../Features';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
-import styles from './PendingTransactionToast.module.scss';
-import {CONSUMED_TXT, PENDING_TXT} from './PendingTransactionToast.strings';
+import styles from './PendingTransferToast.module.scss';
+import {CONSUMED_TXT, PENDING_TXT} from './PendingTransferToast.strings';
 
-export const PendingTransactionToast = ({tx, isLoading, onClose}) => {
+export const PendingTransferToast = ({transfer, isLoading, onClose}) => {
   return (
     <div className={styles.pendingTransactionToast}>
       <ToastHeader
-        title={tx.status === TransactionStatus.ACCEPTED_ON_L2 ? CONSUMED_TXT : PENDING_TXT}
+        title={transfer.status === TransactionStatus.ACCEPTED_ON_L2 ? CONSUMED_TXT : PENDING_TXT}
         withClose={!isLoading}
         onClose={onClose}
       />
       <ToastSeparator />
-      <TransactionData style={{fontSize: '12px'}} tx={tx} />
+      <TransferData style={{fontSize: '12px'}} transfer={transfer} />
     </div>
   );
 };
 
-PendingTransactionToast.propTypes = {
-  tx: PropTypes.object,
+PendingTransferToast.propTypes = {
+  transfer: PropTypes.object,
   isLoading: PropTypes.bool,
   onClose: PropTypes.func
 };
