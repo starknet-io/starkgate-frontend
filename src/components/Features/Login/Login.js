@@ -5,8 +5,7 @@ import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useEthereumWallet, useStarknetWallet, useWallets} from '../../../providers/WalletsProvider';
 import {capitalize, toClasses} from '../../../utils';
-import {Loading, Menu, WalletLogin} from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
+import {Menu, WalletLogin} from '../../UI';
 import {useHideModal, useProgressModal} from '../ModalProvider/ModalProvider.hooks';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
@@ -20,8 +19,8 @@ export const Login = () => {
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
-  const {status, error} = useWallets();
   const getWalletHandlers = useWalletHandlerProvider();
+  const {status, error} = useWallets();
   const {connectWallet: connectEthereumWallet, isConnected} = useEthereumWallet();
   const {connectWallet: connectStarknetWallet} = useStarknetWallet();
 
@@ -125,33 +124,25 @@ export const Login = () => {
   };
 
   return (
-    <>
-      {autoConnect ? (
-        <div className="center">
-          <Loading size={LoadingSize.XX_LARGE} />
+    <Menu>
+      <div className={toClasses(styles.login, 'center')}>
+        <div className={styles.content}>
+          <div className={styles.title}>{TITLE_TXT}</div>
+          <p>
+            {SUBTITLE_TXT(
+              walletType === WalletType.ETHEREUM
+                ? NetworkType.ETHEREUM.name
+                : NetworkType.STARKNET.name
+            )}
+          </p>
+          <div className={styles.container}>{renderLoginWallets()}</div>
+          {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}
         </div>
-      ) : (
-        <Menu>
-          <div className={toClasses(styles.login, 'center')}>
-            <div className={styles.content}>
-              <div className={styles.title}>{TITLE_TXT}</div>
-              <p>
-                {SUBTITLE_TXT(
-                  walletType === WalletType.ETHEREUM
-                    ? NetworkType.ETHEREUM.name
-                    : NetworkType.STARKNET.name
-                )}
-              </p>
-              <div className={styles.container}>{renderLoginWallets()}</div>
-              {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}
-            </div>
-            <div className={styles.separator} />
-            <div className={styles.download}>
-              {DOWNLOAD_TEXT[0]} <span onClick={onDownloadClick}>{DOWNLOAD_TEXT[1]}</span>
-            </div>
-          </div>
-        </Menu>
-      )}
-    </>
+        <div className={styles.separator} />
+        <div className={styles.download}>
+          {DOWNLOAD_TEXT[0]} <span onClick={onDownloadClick}>{DOWNLOAD_TEXT[1]}</span>
+        </div>
+      </div>
+    </Menu>
   );
 };
