@@ -10,7 +10,7 @@ import {CONSUMED_TXT, PENDING_TXT} from './PendingTransferToast.strings';
 
 export const PendingTransferToast = ({transfer, isLoading, onClose}) => {
   return (
-    <div className={styles.pendingTransactionToast}>
+    <div className={styles.pendingTransferToast}>
       <ToastHeader
         title={transfer.status === TransactionStatus.ACCEPTED_ON_L2 ? CONSUMED_TXT : PENDING_TXT}
         withClose={!isLoading}

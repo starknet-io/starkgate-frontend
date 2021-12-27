@@ -1,7 +1,7 @@
 import strings from '../../../../config/strings.json';
 
 const {
-  withdrawalTransactionToast: {title_txt, body_txt, dismiss_btn_txt, withdrawal_btn_txt}
+  withdrawalTransferToast: {title_txt, body_txt, dismiss_btn_txt, withdrawal_btn_txt}
 } = strings;
 
 export const TITLE_TXT = title_txt;

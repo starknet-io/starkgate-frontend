@@ -1,7 +1,7 @@
 import strings from '../../../../config/strings.json';
 
 const {
-  pendingTransactionToast: {pending_txt, consumed_txt}
+  pendingTransferToast: {pending_txt, consumed_txt}
 } = strings;
 
 export const PENDING_TXT = pending_txt;

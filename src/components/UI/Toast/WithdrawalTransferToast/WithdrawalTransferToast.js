@@ -30,7 +30,7 @@ export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, o
       leaveTo="opacity-0"
       show={t.visible}
     >
-      <div className={styles.withdrawalTransactionToast}>
+      <div className={styles.withdrawalTransferToast}>
         <div className={styles.container}>
           <div className={styles.left}>
             <EthereumLogo style={{opacity: 0.5}} />
