@@ -16,6 +16,14 @@ export const TokensProvider = ({children}) => {
   const getEthereumTokenBalance = useEthereumTokenBalance(ethereumAccount);
   const getStarknetTokenBalance = useStarknetTokenBalance(starknetAccount);
 
+  useEffect(() => {
+    updateTokens();
+    const intervalId = setInterval(() => {
+      updateTokens();
+    }, pollBalanceInterval);
+    return () => clearInterval(intervalId);
+  }, [pollBalanceInterval]);
+
   const updateTokens = () => {
     logger.log(`It's time to update tokens balances!`);
     for (let index = 0; index < tokens.length; index++) {
@@ -31,7 +39,7 @@ export const TokensProvider = ({children}) => {
         logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
       }
       const getBalance = token.isEthereum ? getEthereumTokenBalance : getStarknetTokenBalance;
-      getBalance(tokens[index].tokenAddress)
+      getBalance(token.tokenAddress)
         .then(balance => {
           logger.log(`New ${token.symbol} token balance is ${balance}`);
           updateTokenState(index, {balance, isLoading: false});
@@ -42,14 +50,6 @@ export const TokensProvider = ({children}) => {
         });
     }
   };
-
-  useEffect(() => {
-    updateTokens();
-    const intervalId = setInterval(() => {
-      updateTokens();
-    }, pollBalanceInterval);
-    return () => clearInterval(intervalId);
-  }, []);
 
   const updateTokenState = (index, args) => {
     dispatch({
