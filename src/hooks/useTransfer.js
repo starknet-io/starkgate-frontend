@@ -29,14 +29,8 @@ import {
 } from './useContract';
 
 export const useTransfer = () => {
-  const  {
-      error_title,
-      approval,
-      deposit,
-      initiateWithdraw,
-      waitForAccept,
-      withdraw
-  } = getString('modals.transferProgress');
+  const {error_title, approval, deposit, initiateWithdraw, waitForAccept, withdraw} =
+    getString('modals.transferProgress');
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState(null);
   const [progress, setProgress] = useState(null);

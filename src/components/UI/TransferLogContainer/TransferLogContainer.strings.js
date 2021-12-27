@@ -1,6 +1,8 @@
 import {getString} from '../../../utils';
 
-const {title_txt, overview_txt, empty_msg_txt, view_more_txt} = getString('menus.account.transferLogContainer');
+const {title_txt, overview_txt, empty_msg_txt, view_more_txt} = getString(
+  'menus.account.transferLogContainer'
+);
 
 export const TITLE_TXT = title_txt;
 export const OVERVIEW_TXT = overview_txt;
