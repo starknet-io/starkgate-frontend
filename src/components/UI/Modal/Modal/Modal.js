@@ -7,11 +7,11 @@ import {ModalSize, ModalType} from './Modal.constants';
 import styles from './Modal.module.scss';
 
 export const Modal = ({show, type = ModalType.INFO, size = ModalSize.SMALL, children}) => {
-  const {height, width} = size;
+  const {width} = size;
   return show
     ? createPortal(
         <div className={toClasses(styles.modal, styles[type])}>
-          <div className={toClasses(styles.container, styles[type])} style={{width, height}}>
+          <div className={toClasses(styles.container, styles[type])} style={{width}}>
             {children}
           </div>
         </div>,

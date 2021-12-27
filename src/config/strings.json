@@ -48,43 +48,47 @@
     "transactionSubmitted": {
       "title_txt": "Transaction sent",
       "btn_txt": "View on {{explorer}}",
-      "body_txt": [
-        "Your transaction has been sent to StarkNet!\n",
-        "We'll notify you once its status will be updated."
-      ]
+      "withdrawal_txt": "Your transaction is now being processing on StarkNet. When it will be accepted on-chain, we will promote you to complete your transfer.",
+      "deposit_txt": "Your transaction has been sent to StarkNet!",
+      "status_txt": "Follow the transaction status on the right side of the browser."
     },
     "transferProgress": {
       "approval": {
         "type": "Approval required",
-        "message": "Requesting permission to access your {{symbol}} funds"
+        "message": "Requesting permission to access your {{symbol}} funds."
       },
       "deposit": {
         "type": "Transfer in progress",
-        "message": "Transferring {{amount}} {{symbol}} to StarkNet"
+        "message": "Transferring {{amount}} {{symbol}} to StarkNet..."
       },
       "initiateWithdraw": {
         "type": "Initiate transfer",
-        "message": "Initiating transfer of {{amount}} {{symbol}} from StarkNet"
+        "message": "Initiating transfer of {{amount}} {{symbol}} from StarkNet..."
       },
       "waitForAccept": {
         "type": "Transaction sent",
-        "message": "Waiting for transaction to be accepted on StarkNet"
+        "message": "Waiting for transaction to be accepted on StarkNet..."
       },
       "withdraw": {
-        "type": "Transfer in Progress",
-        "message": "Transferring {{amount}} {{symbol}} to Ethereum"
+        "type": "Transfer in progress",
+        "message": "Transferring {{amount}} {{symbol}} to Ethereum..."
       },
+      "waitForConfirm": {
+        "type": "{{walletName}}",
+        "message": "Waiting for confirmation from {{walletName}}"
+      },
+      "confirm_txt": "Confirm this transaction in your wallet",
       "error_title": "Transaction error"
     }
   },
   "toasts": {
     "pendingTransfer": {
-      "pending_txt": "Waiting for transaction to be consumed on StarkNet",
-      "consumed_txt": "Transaction consumed successfully on StarkNet",
+      "pending_txt": "Waiting for transaction to be accepted on StarkNet",
+      "consumed_txt": "Transaction accepted successfully on StarkNet",
       "rejected_txt": "Transaction rejected on StarkNet"
     },
     "withdrawalTransfer": {
-      "title_txt": "StarkNet finished to process your transfer!",
+      "title_txt": "StarkNet finished processing your transfer!",
       "body_txt": "Click on Complete Transfer to transfer the funds from StarkNet Bridge to your Ethereum address.",
       "dismiss_btn_txt": "Dismiss",
       "withdrawal_btn_txt": "Complete Transfer"

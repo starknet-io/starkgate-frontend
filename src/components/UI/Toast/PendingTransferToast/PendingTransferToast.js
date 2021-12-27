@@ -4,7 +4,6 @@ import React from 'react';
 import {TransactionStatus} from '../../../../enums';
 import {TransferData} from '../../../Features';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
-import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import styles from './PendingTransferToast.module.scss';
 import {CONSUMED_TXT, PENDING_TXT} from './PendingTransferToast.strings';
 
@@ -16,7 +15,6 @@ export const PendingTransferToast = ({transfer, isLoading, onClose}) => {
         withClose={!isLoading}
         onClose={onClose}
       />
-      <ToastSeparator />
       <TransferData style={{fontSize: '12px'}} transfer={transfer} />
     </div>
   );
