@@ -61,7 +61,7 @@ export const Transfer = () => {
   }, [amount, selectedToken]);
 
   const onMaxClick = () => {
-    setAmount(selectedToken.balance);
+    setAmount(selectedToken.balance.toString());
   };
 
   const onInputChange = event => {
