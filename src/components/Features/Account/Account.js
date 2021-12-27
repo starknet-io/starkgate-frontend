@@ -2,7 +2,7 @@ import React from 'react';
 
 import {LINKS} from '../../../constants';
 import {useTransfer} from '../../../hooks';
-import {useAccountTransactions} from '../../../providers/TransactionsProvider';
+import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {
   AccountAddress,
@@ -10,29 +10,29 @@ import {
   LogoutButton,
   Menu,
   MenuTitle,
-  TransactionLogContainer
+  TransferLogContainer
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {TransactionLog} from '../TransactionLog/TransactionLog';
 import {useTransferData} from '../Transfer/Transfer.hooks';
+import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
 export const Account = () => {
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
-  const transactions = useAccountTransactions(account);
+  const transfers = useAccountTransfers(account);
   const {isEthereum, isStarknet, fromNetwork} = useTransferData();
   const {finalizeTransferFromStarknet} = useTransfer();
 
-  const renderTransactions = () => {
-    return transactions.length
-      ? transactions.map((tx, index) => (
-          <TransactionLog
+  const renderTransfers = () => {
+    return transfers.length
+      ? transfers.map((transfer, index) => (
+          <TransferLog
             key={index}
-            tx={tx}
-            onWithdrawClick={() => finalizeTransferFromStarknet(tx)}
+            transfer={transfer}
+            onWithdrawClick={() => finalizeTransferFromStarknet(transfer)}
           />
         ))
       : null;
@@ -53,7 +53,7 @@ export const Account = () => {
         {isStarknet && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransactionLogContainer>{renderTransactions()}</TransactionLogContainer>
+        <TransferLogContainer>{renderTransfers()}</TransferLogContainer>
         <LogoutButton isDisabled={isStarknet} onClick={resetWallet} />
       </div>
     </Menu>

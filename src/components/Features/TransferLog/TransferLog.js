@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
-import {TransactionStatus} from '../../../enums';
+import {NetworkType, TransactionStatus} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {getFullTime} from '../../../utils';
@@ -10,22 +10,22 @@ import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useTransferData} from '../Transfer/Transfer.hooks';
-import styles from './TransactionLog.module.scss';
-import {WITHDRAWAL_BTN_TXT} from './TransactionLog.strings';
+import styles from './TransferLog.module.scss';
+import {WITHDRAWAL_BTN_TXT} from './TransferLog.strings';
 
-export const TransactionLog = ({tx, onWithdrawClick}) => {
-  const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = tx;
+export const TransferLog = ({transfer, onWithdrawClick}) => {
+  const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isEthereum} = useTransferData();
   const {chainId} = useWallets();
 
   useEffect(() => {
-    setSign(tx.type === action ? '-' : '+');
+    setSign(transfer.type === action ? '-' : '+');
   }, [action]);
 
   return (
     <>
-      <div className={styles.transactionLog}>
+      <div className={styles.transferLog}>
         <div className={styles.left}>
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
@@ -43,13 +43,13 @@ export const TransactionLog = ({tx, onWithdrawClick}) => {
             <div className={styles.links}>
               {eth_hash && (
                 <LinkButton
-                  text={LINKS.ETHERSCAN.text}
+                  text={`${NetworkType.ETHEREUM.name} Tx`}
                   url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
                 />
               )}
               {!eth_hash && isEthereum && <WithdrawalButton onClick={onWithdrawClick} />}
               <LinkButton
-                text={LINKS.VOYAGER.text}
+                text={`${NetworkType.STARKNET.name} Tx`}
                 url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
               />
             </div>
@@ -83,7 +83,7 @@ WithdrawalButton.propTypes = {
   onClick: PropTypes.func
 };
 
-TransactionLog.propTypes = {
-  tx: PropTypes.object,
+TransferLog.propTypes = {
+  transfer: PropTypes.object,
   onWithdrawClick: PropTypes.func
 };

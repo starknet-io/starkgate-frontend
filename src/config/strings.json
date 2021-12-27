@@ -26,7 +26,7 @@
   "searchToken": {
     "search_placeholder": "Token name, symbol, or address"
   },
-  "transactionLog": {
+  "transferLog": {
     "withdrawal_btn_txt": "Withdrawal"
   },
   "accountAddress": {
@@ -54,10 +54,10 @@
   "tokenInput": {
     "input_placeholder_txt": "0.00"
   },
-  "transactionLogContainer": {
-    "title_txt": "Transaction log",
-    "overview_txt": "recent transactions",
-    "empty_msg_txt": "Transactions will appear here...",
+  "transferLogContainer": {
+    "title_txt": "Transfers log",
+    "overview_txt": "recent transfers",
+    "empty_msg_txt": "Transfers will appear here...",
     "view_more_txt": "View more"
   },
   "transactionSubmittedModal": {
@@ -90,11 +90,11 @@
     },
     "error_title": "Transaction error"
   },
-  "pendingTransactionToast": {
+  "pendingTransferToast": {
     "pending_txt": "Waiting for transaction to be consumed on StarkNet",
     "consumed_txt": "Transaction consumed successfully on StarkNet"
   },
-  "withdrawalTransactionToast": {
+  "withdrawalTransferToast": {
     "title_txt": "StarkNet finished to process your withdrawal!",
     "body_txt": "Click on Withdrawal to transfer the funds from StarkNet Bridge to your Ethereum address.",
     "dismiss_btn_txt": "Dismiss",
