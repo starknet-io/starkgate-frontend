@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
-import {NetworkType, TransactionStatus} from '../../../enums';
+import {NetworkType, TransactionPendingStatuses, TransactionStatus} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {getFullTime} from '../../../utils';
@@ -23,6 +23,36 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
     setSign(transfer.type === action ? '-' : '+');
   }, [action]);
 
+  const renderTransferStatus = () => {
+    return status !== TransactionStatus.ACCEPTED_ON_L1 ? (
+      <div className={styles.data}>{status && status.replaceAll('_', ' ')}</div>
+    ) : null;
+  };
+
+  const renderEthereumTxButton = () => {
+    return !eth_hash && isEthereum && status === TransactionStatus.ACCEPTED_ON_L1 ? (
+      <WithdrawalButton onClick={onWithdrawClick} />
+    ) : (
+      <LinkButton
+        isDisabled={!eth_hash}
+        text={`${NetworkType.ETHEREUM.name} Tx`}
+        url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
+      />
+    );
+  };
+
+  const renderStarknetTxButton = () => {
+    return (
+      <>
+        <LinkButton
+          isDisabled={TransactionPendingStatuses.includes(status)}
+          text={`${NetworkType.STARKNET.name} Tx`}
+          url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
+        />
+      </>
+    );
+  };
+
   return (
     <>
       <div className={styles.transferLog}>
@@ -37,23 +67,11 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
           <div className={styles.amount}>
             {sign} {amount} {symbol.toUpperCase()}
           </div>
-          {status !== TransactionStatus.ACCEPTED_ON_L1 ? (
-            <div className={styles.data}>{status && status.replaceAll('_', ' ')}</div>
-          ) : (
-            <div className={styles.links}>
-              {eth_hash && (
-                <LinkButton
-                  text={`${NetworkType.ETHEREUM.name} Tx`}
-                  url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
-                />
-              )}
-              {!eth_hash && isEthereum && <WithdrawalButton onClick={onWithdrawClick} />}
-              <LinkButton
-                text={`${NetworkType.STARKNET.name} Tx`}
-                url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
-              />
-            </div>
-          )}
+          {renderTransferStatus()}
+          <div className={styles.links}>
+            {renderEthereumTxButton()}
+            {renderStarknetTxButton()}
+          </div>
         </div>
       </div>
       <hr />
