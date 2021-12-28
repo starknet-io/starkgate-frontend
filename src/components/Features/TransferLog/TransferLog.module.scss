@@ -2,6 +2,7 @@
 
 $color: $--color-alpha-6;
 $hr-color: $--color-alpha-3;
+$error-color: $--color-error;
 
 .transferLog {
   display: flex;
@@ -36,6 +37,10 @@ $hr-color: $--color-alpha-3;
   .data {
     font-size: 13px;
     color: $color;
+
+    &.error {
+      color: $error-color;
+    }
   }
 
   .amount {

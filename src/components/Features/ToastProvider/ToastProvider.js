@@ -3,11 +3,18 @@ import React, {useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ActionType, NetworkType, TransactionStatus} from '../../../enums';
+import {
+  ActionType,
+  isConsumed,
+  isOnChain,
+  isPending,
+  isRejected,
+  NetworkType
+} from '../../../enums';
 import {usePrevious, useTransfer} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
-import {PendingTransferToast, ToastBody, WithdrawalTransferToast} from '../../UI';
+import {ToastBody, TransferToast, WithdrawalTransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 
 export const ToastProvider = () => {
@@ -16,8 +23,6 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const {finalizeTransferFromStarknet} = useTransfer();
-  const pendingStatuses = [TransactionStatus.NOT_RECEIVED, TransactionStatus.RECEIVED];
-  const consumedStatus = [TransactionStatus.PENDING, TransactionStatus.ACCEPTED_ON_L2];
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -27,41 +32,40 @@ export const ToastProvider = () => {
   }, [transfers]);
 
   const handleToast = (transfer, prevTransfer) => {
-    if (transfer.type === ActionType.TRANSFER_TO_STARKNET) {
-      handleTransferToStarknetToast(transfer, prevTransfer);
-    } else {
-      handleTransferFromStarknetToast(transfer);
+    const {status, type} = transfer;
+    const isChanged = prevTransfer && status !== prevTransfer.status;
+    if (isPending(status)) {
+      return showPendingTransferToast(transfer);
     }
-  };
-
-  const handleTransferToStarknetToast = (transfer, prevTransfer) => {
-    const isChanged = prevTransfer && transfer.status !== prevTransfer.status;
-    if (pendingStatuses.includes(transfer.status)) {
-      showPendingTransferToast(transfer);
-    } else if (isChanged && consumedStatus.includes(transfer.status)) {
-      showConsumedTransferToast(transfer);
+    if (isChanged && isConsumed(status)) {
+      return showConsumedTransferToast(transfer);
     }
-  };
-
-  const handleTransferFromStarknetToast = transfer => {
-    if (pendingStatuses.includes(transfer.status)) {
-      showPendingTransferToast(transfer);
-    } else if (!transfer.eth_hash && transfer.status === TransactionStatus.ACCEPTED_ON_L1) {
-      showWithdrawalToast(transfer);
+    if (isChanged && isRejected(status)) {
+      return showRejectedTransferToast(transfer);
+    }
+    if (!transfer.eth_hash && type === ActionType.TRANSFER_FROM_STARKNET && isOnChain(status)) {
+      return showWithdrawalToast(transfer);
     }
   };
 
   const showPendingTransferToast = transfer => {
     let toastId = getToastId(transfer);
     if (!toastId) {
-      toastId = toast.loading(renderPendingTransferToast(transfer, true));
+      toastId = toast.loading(renderTransferToast(transfer, true));
       toastsMap.current[transfer.id] = toastId;
     }
   };
 
   const showConsumedTransferToast = transfer => {
     const toastId = getToastId(transfer);
-    toastsMap.current[transfer.id] = toast.success(renderPendingTransferToast(transfer), {
+    toastsMap.current[transfer.id] = toast.success(renderTransferToast(transfer), {
+      id: toastId
+    });
+  };
+
+  const showRejectedTransferToast = transfer => {
+    const toastId = getToastId(transfer);
+    toastsMap.current[transfer.id] = toast.error(renderTransferToast(transfer), {
       id: toastId
     });
   };
@@ -78,8 +82,8 @@ export const ToastProvider = () => {
     }
   };
 
-  const renderPendingTransferToast = (transfer, isLoading) => (
-    <PendingTransferToast
+  const renderTransferToast = (transfer, isLoading) => (
+    <TransferToast
       isLoading={isLoading}
       transfer={transfer}
       onClose={() => dismissToast(transfer)}
