@@ -84,7 +84,7 @@
   "toasts": {
     "pendingTransfer": {
       "pending_txt": "Waiting for transaction to be accepted on StarkNet",
-      "consumed_txt": "Transaction accepted successfully on StarkNet",
+      "consumed_txt": "Transaction accepted on StarkNet",
       "rejected_txt": "Transaction rejected on StarkNet"
     },
     "withdrawalTransfer": {

@@ -114,8 +114,8 @@ export const useTransfer = () => {
       hideModal();
       showErrorModal(error.message);
     } else if (data) {
-      showTransactionSubmittedModal(data);
       addTransfer(data);
+      showTransactionSubmittedModal(data);
       updateTokens();
       clearAmount();
     }
