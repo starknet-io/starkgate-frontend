@@ -1,6 +1,6 @@
 {
   "name": "starknet-bridge",
-  "version": "0.0.1-5",
+  "version": "0.0.1-6",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
