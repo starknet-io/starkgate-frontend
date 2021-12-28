@@ -165,6 +165,7 @@ export const useTransfer = () => {
         }
       }
       setProgress(progressOptions.waitForConfirm(ethereumConfig.name));
+      const depositEventPromise = waitForLogMessageToL2(bridgeContract.options.address);
       const depositPromise = depositHandler(
         starknetAccount,
         amount,
@@ -174,7 +175,6 @@ export const useTransfer = () => {
           transactionHash: () => setProgress(progressOptions.deposit(amount, symbol))
         }
       );
-      const depositEventPromise = waitForLogMessageToL2(bridgeContract.options.address);
       const [{transactionHash}, starknetTxHash] = await Promise.all([
         depositPromise,
         depositEventPromise
