@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
-import {NetworkType, TransactionPendingStatuses, TransactionStatus} from '../../../enums';
+import {isOnChain, isPending, isRejected, NetworkType} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {getFullTime} from '../../../utils';
+import {getFullTime, toClasses} from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
@@ -24,13 +24,15 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
   }, [action]);
 
   const renderTransferStatus = () => {
-    return status !== TransactionStatus.ACCEPTED_ON_L1 ? (
-      <div className={styles.data}>{status && status.replaceAll('_', ' ')}</div>
+    return !isOnChain(status) ? (
+      <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
+        {status && status.replaceAll('_', ' ')}
+      </div>
     ) : null;
   };
 
   const renderEthereumTxButton = () => {
-    return !eth_hash && isEthereum && status === TransactionStatus.ACCEPTED_ON_L1 ? (
+    return !eth_hash && isEthereum && isOnChain(status) ? (
       <WithdrawalButton onClick={onWithdrawClick} />
     ) : (
       <LinkButton
@@ -45,7 +47,7 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
     return (
       <>
         <LinkButton
-          isDisabled={TransactionPendingStatuses.includes(status)}
+          isDisabled={isPending(status)}
           text={`${NetworkType.STARKNET.name} Tx`}
           url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
         />

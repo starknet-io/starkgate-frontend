@@ -92,7 +92,8 @@
   },
   "pendingTransferToast": {
     "pending_txt": "Waiting for transaction to be consumed on StarkNet",
-    "consumed_txt": "Transaction consumed successfully on StarkNet"
+    "consumed_txt": "Transaction consumed successfully on StarkNet",
+    "rejected_txt": "Transaction rejected on StarkNet"
   },
   "withdrawalTransferToast": {
     "title_txt": "StarkNet finished to process your withdrawal!",

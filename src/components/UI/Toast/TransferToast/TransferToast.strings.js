@@ -1,8 +1,9 @@
 import strings from '../../../../config/strings.json';
 
 const {
-  pendingTransferToast: {pending_txt, consumed_txt}
+  pendingTransferToast: {pending_txt, consumed_txt, rejected_txt}
 } = strings;
 
+export const REJECTED_TXT = rejected_txt;
 export const PENDING_TXT = pending_txt;
 export const CONSUMED_TXT = consumed_txt;

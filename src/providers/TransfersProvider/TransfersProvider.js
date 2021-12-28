@@ -4,7 +4,7 @@ import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {LOCAL_STORAGE_TRANSFERS_KEY} from '../../constants';
-import {TransactionStatus} from '../../enums';
+import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
 import {StorageManager} from '../../services';
 import {useBlockHash} from '../BlockHashProvider';
@@ -15,7 +15,6 @@ export const TransfersProvider = ({children}) => {
   const logger = useLogger(TransfersProvider.displayName);
   const [transfers, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
-  const completedStatuses = [TransactionStatus.ACCEPTED_ON_L1, TransactionStatus.REJECTED];
 
   useEffect(() => {
     const storedTransfers = StorageManager.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
@@ -31,7 +30,7 @@ export const TransfersProvider = ({children}) => {
         return;
       }
       const checkTransaction = async transfer => {
-        if (completedStatuses.includes(transfer.status)) {
+        if (isCompleted(transfer.status)) {
           return transfer;
         }
         if (transfer.lastChecked === blockHash) {
