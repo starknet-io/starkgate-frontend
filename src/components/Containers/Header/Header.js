@@ -12,7 +12,7 @@ import {CHAIN_TXT} from './Header.strings';
 
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
-  const {showAccountMenu} = useBridgeActions();
+  const {showAccountMenu, showTransferMenu} = useBridgeActions();
   const [, setEthereum] = useIsEthereum();
   const [, setStarknet] = useIsStarknet();
   const {
@@ -36,10 +36,14 @@ export const Header = () => {
     showAccountMenu();
   };
 
+  const onLogoClick = () => {
+    showTransferMenu();
+  };
+
   return (
     <div className={toClasses(styles.header, 'row')}>
       <div className={toClasses(styles.left, 'row')}>
-        <div className={toClasses(styles.logo, 'row')}>
+        <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <img alt="" height={STARKNET_LOGO_SIZE} src={StarkNetLogoPath} />
           <div className={styles.bridge}>Bridge</div>
         </div>
