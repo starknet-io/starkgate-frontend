@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  footer: {rights_txt}
-} = strings;
-
-export const RIGHTS_TXT = rights_txt;
+export const RIGHTS_TXT = getString('containers.footer.rights_txt');

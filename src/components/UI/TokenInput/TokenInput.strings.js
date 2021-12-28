@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  tokenInput: {input_placeholder_txt}
-} = strings;
-
-export const INPUT_PLACEHOLDER = input_placeholder_txt;
+export const INPUT_PLACEHOLDER = getString('menus.transfer.input_placeholder_txt');

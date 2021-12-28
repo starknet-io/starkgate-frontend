@@ -1,7 +1,5 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  transfer: {insufficient_balance_error_msg}
-} = strings;
-
-export const INSUFFICIENT_BALANCE_ERROR_MSG = insufficient_balance_error_msg;
+export const INSUFFICIENT_BALANCE_ERROR_MSG = getString(
+  'menus.transfer.insufficient_balance_error_msg'
+);

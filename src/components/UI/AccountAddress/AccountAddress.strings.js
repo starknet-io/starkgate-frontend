@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  accountAddress: {copied_msg_txt}
-} = strings;
-
-export const COPIED_MSG_TXT = copied_msg_txt;
+export const COPIED_MSG_TXT = getString('menus.account.copied_msg_txt');

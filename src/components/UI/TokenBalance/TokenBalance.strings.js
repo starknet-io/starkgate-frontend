@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  tokenBalance: {title_txt}
-} = strings;
-
-export const TITLE_TXT = title_txt;
+export const TITLE_TXT = getString('menus.transfer.balance_title_txt');

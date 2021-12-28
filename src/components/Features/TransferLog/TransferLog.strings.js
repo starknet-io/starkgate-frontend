@@ -1,7 +1,5 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  transferLog: {withdrawal_btn_txt}
-} = strings;
-
-export const WITHDRAWAL_BTN_TXT = withdrawal_btn_txt;
+export const WITHDRAWAL_BTN_TXT = getString(
+  'menus.account.transferLogContainer.transferLog.withdrawal_btn_txt'
+);

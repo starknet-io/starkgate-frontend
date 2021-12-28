@@ -1,8 +1,8 @@
-import strings from '../../../../config/strings.json';
+import {getString} from '../../../../utils';
 
-const {
-  withdrawalTransferToast: {title_txt, body_txt, dismiss_btn_txt, withdrawal_btn_txt}
-} = strings;
+const {title_txt, body_txt, dismiss_btn_txt, withdrawal_btn_txt} = getString(
+  'toasts.withdrawalTransfer'
+);
 
 export const TITLE_TXT = title_txt;
 export const BODY_TXT = body_txt;

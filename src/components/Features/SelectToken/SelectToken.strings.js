@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  selectToken: {title_txt}
-} = strings;
-
-export const TITLE_TXT = title_txt;
+export const TITLE_TXT = getString('menus.selectToken.title_txt');

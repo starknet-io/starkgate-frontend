@@ -1,104 +1,97 @@
 {
-  "header": {
-    "chain_txt": "{{chainName}} testnet"
-  },
-  "footer": {
-    "rights_txt": "© 2022 StarkWare Industries Ltd. All Rights Reserved"
-  },
-  "transfer": {
-    "insufficient_balance_error_msg": "Insufficient balance"
-  },
-  "transferButton": {
-    "btn_txt": "Transfer"
-  },
-  "account": {
-    "title_txt": "{{network}} Account"
-  },
-  "login": {
-    "title_txt": "Login",
-    "subtitle_txt": "Please select {{networkName}} wallet to connect with this dApp:",
-    "download_txt": ["Don’t have a wallet?", "Download Here"],
-    "modal_txt": "Waiting for confirmation from {{walletName}}"
-  },
-  "selectToken": {
-    "title_txt": "Select token from:"
-  },
-  "searchToken": {
-    "search_placeholder": "Token name, symbol, or address"
-  },
-  "transferLog": {
-    "withdrawal_btn_txt": "Withdrawal"
-  },
-  "accountAddress": {
-    "copied_msg_txt": "Copied!"
-  },
-  "logoutButton": {
-    "btn_txt": "Logout"
-  },
-  "maxButton": {
-    "btn_txt": "Max"
-  },
-  "backButton": {
-    "btn_txt": "Back"
-  },
-  "walletButton": {
-    "btn_txt": "Account | {{address}}"
-  },
-  "networkMenu": {
-    "to_txt": "to",
-    "from_txt": "from"
-  },
-  "tokenBalance": {
-    "title_txt": "Available balance"
-  },
-  "tokenInput": {
-    "input_placeholder_txt": "0.00"
-  },
-  "transferLogContainer": {
-    "title_txt": "Transfers log",
-    "overview_txt": "recent transfers",
-    "empty_msg_txt": "Transfers will appear here...",
-    "view_more_txt": "View more"
-  },
-  "transactionSubmittedModal": {
-    "btn_txt": "View on {{explorer}}",
-    "body_txt": [
-      "Your transaction has been sent to StarkNet!\n",
-      "We'll notify you once its status will be updated."
-    ]
-  },
-  "transferProgressModal": {
-    "approval": {
-      "type": "Approval required",
-      "message": "Requesting permission to access your {{symbol}} funds"
+  "containers": {
+    "header": {
+      "chain_txt": "{{chainName}} testnet",
+      "wallet_btn_txt": "Account | {{address}}"
     },
-    "deposit": {
-      "type": "Deposit in progress",
-      "message": "Depositing {{amount}} {{symbol}} to StarkNet"
-    },
-    "initiateWithdraw": {
-      "type": "Initiate withdrawal",
-      "message": "Initiating withdrawal of {{amount}} {{symbol}} from StarkNet"
-    },
-    "waitForAccept": {
-      "type": "Transaction sent",
-      "message": "Waiting for transaction to be accepted on StarkNet"
-    },
-    "withdraw": {
-      "type": "Withdrawal in Progress",
-      "message": "Withdrawing {{amount}} {{symbol}} to Ethereum"
-    },
-    "error_title": "Transaction error"
+    "footer": {
+      "rights_txt": "© 2022 StarkWare Industries Ltd. All Rights Reserved"
+    }
   },
-  "pendingTransferToast": {
-    "pending_txt": "Waiting for transaction to be consumed on StarkNet",
-    "consumed_txt": "Transaction consumed successfully on StarkNet",
-    "rejected_txt": "Transaction rejected on StarkNet"
+  "menus": {
+    "back_btn_txt": "Back",
+    "login": {
+      "title_txt": "Login",
+      "subtitle_txt": "Please select {{networkName}} wallet to connect with this dApp:",
+      "download_txt": ["Don’t have a wallet?", "Download Here"],
+      "modal_txt": "Waiting for confirmation from {{walletName}}"
+    },
+    "account": {
+      "title_txt": "{{network}} Account",
+      "copied_msg_txt": "Copied!",
+      "logout_btn_txt": "Logout",
+      "transferLogContainer": {
+        "title_txt": "Transfers log",
+        "overview_txt": "recent transfers",
+        "empty_msg_txt": "Transfers will appear here...",
+        "view_more_txt": "View more",
+        "transferLog": {
+          "withdrawal_btn_txt": "Withdrawal"
+        }
+      }
+    },
+    "selectToken": {
+      "title_txt": "Select token from:",
+      "search_placeholder": "Token name, symbol, or address"
+    },
+    "transfer": {
+      "to_txt": "to",
+      "from_txt": "from",
+      "insufficient_balance_error_msg": "Insufficient balance",
+      "max_btn_txt": "Max",
+      "balance_title_txt": "Available balance",
+      "input_placeholder_txt": "0.00",
+      "transfer_btn_txt": "Transfer"
+    }
   },
-  "withdrawalTransferToast": {
-    "title_txt": "StarkNet finished to process your withdrawal!",
-    "body_txt": "Click on Withdrawal to transfer the funds from StarkNet Bridge to your Ethereum address.",
-    "dismiss_btn_txt": "Dismiss",
-    "withdrawal_btn_txt": "Withdrawal"
+  "modals": {
+    "transactionSubmitted": {
+      "title_txt": "Transaction sent",
+      "btn_txt": "View on {{explorer}}",
+      "withdrawal_txt": "Your transaction is now being processing on StarkNet. When it will be accepted on-chain, we will promote you to complete your transfer.",
+      "deposit_txt": "Your transaction has been sent to StarkNet!",
+      "status_txt": "Follow the transaction status on the right side of the browser."
+    },
+    "transferProgress": {
+      "approval": {
+        "type": "Approval required",
+        "message": "Requesting permission to access your {{symbol}} funds."
+      },
+      "deposit": {
+        "type": "Transfer in progress",
+        "message": "Transferring {{amount}} {{symbol}} to StarkNet..."
+      },
+      "initiateWithdraw": {
+        "type": "Initiate transfer",
+        "message": "Initiating transfer of {{amount}} {{symbol}} from StarkNet..."
+      },
+      "waitForAccept": {
+        "type": "Transaction sent",
+        "message": "Waiting for transaction to be accepted on StarkNet..."
+      },
+      "withdraw": {
+        "type": "Transfer in progress",
+        "message": "Transferring {{amount}} {{symbol}} to Ethereum..."
+      },
+      "waitForConfirm": {
+        "type": "{{walletName}}",
+        "message": "Waiting for confirmation from {{walletName}}"
+      },
+      "confirm_txt": "Confirm this transaction in your wallet",
+      "error_title": "Transaction error"
+    }
+  },
+  "toasts": {
+    "pendingTransfer": {
+      "pending_txt": "Waiting for transaction to be accepted on StarkNet",
+      "consumed_txt": "Transaction accepted on StarkNet",
+      "rejected_txt": "Transaction rejected on StarkNet"
+    },
+    "withdrawalTransfer": {
+      "title_txt": "StarkNet finished processing your transfer!",
+      "body_txt": "Click on Complete Transfer to transfer the funds from StarkNet Bridge to your Ethereum address.",
+      "dismiss_btn_txt": "Dismiss",
+      "withdrawal_btn_txt": "Complete Transfer"
+    }
   }
 }

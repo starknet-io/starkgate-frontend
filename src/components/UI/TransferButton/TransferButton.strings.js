@@ -1,7 +1,3 @@
-import strings from '../../../config/strings.json';
+import {getString} from '../../../utils';
 
-const {
-  transferButton: {btn_txt}
-} = strings;
-
-export const BTN_TXT = btn_txt;
+export const BTN_TXT = getString('menus.transfer.transfer_btn_txt');

@@ -1,8 +1,3 @@
-import strings from '../../../config/strings.json';
-import {evaluate} from '../../../utils';
+import {evaluate, getString} from '../../../utils';
 
-const {
-  account: {title_txt}
-} = strings;
-
-export const TITLE_TXT = network => evaluate(title_txt, {network});
+export const TITLE_TXT = network => evaluate(getString('menus.account.title_txt'), {network});

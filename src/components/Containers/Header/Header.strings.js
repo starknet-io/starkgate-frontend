@@ -1,8 +1,4 @@
-import strings from '../../../config/strings.json';
-import {capitalize, evaluate} from '../../../utils';
+import {capitalize, evaluate, getString} from '../../../utils';
 
-const {
-  header: {chain_txt}
-} = strings;
-
-export const CHAIN_TXT = chainName => capitalize(evaluate(chain_txt, {chainName}));
+export const CHAIN_TXT = chainName =>
+  capitalize(evaluate(getString('containers.header.chain_txt'), {chainName}));
