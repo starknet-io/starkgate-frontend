@@ -55,10 +55,10 @@ export const useTransactionSubmittedModal = () => {
   );
 };
 
-export const useErrorModal = title => {
+export const useErrorModal = () => {
   const dispatch = useDispatch();
   return useCallback(
-    body => {
+    (title, body) => {
       dispatch(
         showModalAction({
           title,

@@ -14,19 +14,15 @@ export const eth_callContract = async (contract, method, args = []) => {
   }
 };
 
-export const eth_sendTransaction = async (contract, method, args = [], options = {}, emitter) => {
+export const eth_sendTransaction = async (
+  contract,
+  method,
+  args = [],
+  options = {},
+  cb = () => {}
+) => {
   try {
-    const promise = contract.methods?.[method](...args).send(options);
-    if (emitter) {
-      return new Promise((resolve, reject) => {
-        promise
-          .on('transactionHash', hash => emitter?.transactionHash(hash))
-          .on('confirmation', (confNumber, receipt) => emitter?.confirmation(confNumber, receipt))
-          .on('receipt', receipt => resolve(receipt))
-          .on('error', (error, receipt) => reject(error, receipt));
-      });
-    }
-    return promise;
+    return contract.methods?.[method](...args).send(options, cb);
   } catch (ex) {
     return Promise.reject(ex);
   }
