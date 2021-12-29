@@ -12,28 +12,31 @@ import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {
   BTN_TEXT,
+  COMPLETE_WITHDRAWAL_TXT,
   DEPOSIT_TXT,
   STATUS_TXT,
   WITHDRAWAL_TXT
 } from './TransactionSubmittedModal.strings';
 
-const TransactionSubmittedModal = ({tx}) => {
+const TransactionSubmittedModal = ({transfer}) => {
   const {chainId} = useWallets();
   const [networkData, setNetworkData] = useState({});
 
   useEffect(() => {
-    if (tx.type === ActionType.TRANSFER_TO_STARKNET || (tx.eth_hash && tx.starknet_hash)) {
+    const isCompletedWithdrawal = transfer.eth_hash && transfer.starknet_hash;
+    if (transfer.type === ActionType.TRANSFER_TO_STARKNET || isCompletedWithdrawal) {
       setNetworkData({
-        message: DEPOSIT_TXT,
+        message:
+          transfer.type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
         explorerName: LINKS.ETHERSCAN.text,
-        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, tx.eth_hash),
+        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, transfer.eth_hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
       });
     } else {
       setNetworkData({
         message: WITHDRAWAL_TXT,
         explorerName: LINKS.VOYAGER.text,
-        explorerUrl: LINKS.VOYAGER.txUrl(chainId, tx.starknet_hash),
+        explorerUrl: LINKS.VOYAGER.txUrl(chainId, transfer.starknet_hash),
         explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
       });
     }
@@ -99,7 +102,7 @@ TransactionSubmittedModalButton.propTypes = {
 };
 
 TransactionSubmittedModal.propTypes = {
-  tx: PropTypes.object
+  transfer: PropTypes.object
 };
 
 export default TransactionSubmittedModal;

@@ -1,7 +1,7 @@
 import {getStarknet} from '@argent/get-starknet';
 import {compileCalldata, Contract, stark} from 'starknet';
 
-import {TransactionPendingStatuses} from '../enums';
+import {TransactionConsumedStatuses} from '../enums';
 import {web3} from '../web3';
 
 export const eth_getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
@@ -47,21 +47,8 @@ export const starknet_callContract = async (contract, method, args = []) => {
   }
 };
 
-export const starknet_sendTransaction = async (contract, method, args = {}, emitter) => {
+export const starknet_sendTransaction = async (contract, method, args = {}) => {
   try {
-    if (emitter) {
-      const handler = event => {
-        const {data} = event;
-        const {type} = data;
-        if (type === 'FAILED_TX') {
-          window.removeEventListener('message', handler);
-        } else if (type === 'SIGN') {
-          emitter?.transactionHash(data.hash);
-          window.removeEventListener('message', handler);
-        }
-      };
-      window.addEventListener('message', handler);
-    }
     const methodSelector = stark.getSelectorFromName(method);
     const compiledCalldata = compileCalldata(args);
     return getStarknet().signer.invokeFunction(
@@ -74,18 +61,24 @@ export const starknet_sendTransaction = async (contract, method, args = {}, emit
   }
 };
 
-export const starknet_waitForTransaction = async (hash, retryInterval = 5000) => {
+export const starknet_waitForTransaction = async (hash, customStatus, retryInterval = 5000) => {
   return new Promise(resolve => {
     let processing = false;
+    const waitingForStatuses = customStatus ? [customStatus] : TransactionConsumedStatuses;
+    console.log(`Waiting for transaction with statuses ${waitingForStatuses.join(' ')}`);
     const intervalId = setInterval(async () => {
       if (processing) return;
+      console.log(`Checking transaction again`);
       const statusPromise = getStarknet().provider.getTransactionStatus(hash);
       processing = true;
       const {tx_status} = await statusPromise;
-      if (!TransactionPendingStatuses.includes(tx_status)) {
+      console.log(`Transaction status is ${tx_status}`);
+      if (waitingForStatuses.includes(tx_status)) {
+        console.log(`We got our desired status!`);
         clearInterval(intervalId);
         resolve();
       } else {
+        console.log(`We haven't got our desired status, trying again.`);
         processing = false;
       }
     }, retryInterval);

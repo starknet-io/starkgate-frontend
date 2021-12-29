@@ -49,6 +49,7 @@
       "title_txt": "Transaction sent",
       "btn_txt": "View on {{explorer}}",
       "withdrawal_txt": "Your transaction is now being processing on StarkNet. When it will be accepted on-chain, we will promote you to complete your transfer.",
+      "complete_withdrawal_txt": "Your transaction is completed on Ethereum!",
       "deposit_txt": "Your transaction has been sent to StarkNet!",
       "status_txt": "Follow the transaction status on the right side of the browser."
     },

@@ -51,24 +51,13 @@ export const withdraw = async (recipient, amount, tokenBridgeContract, emitter) 
   }
 };
 
-export const initiateWithdraw = async (
-  recipient,
-  amount,
-  tokenBridgeContract,
-  tokenContract,
-  emitter
-) => {
+export const initiateWithdraw = async (recipient, amount, tokenBridgeContract, tokenContract) => {
   try {
     const dec = await decimals(tokenContract, false);
-    return starknet_sendTransaction(
-      tokenBridgeContract,
-      'initiate_withdraw',
-      {
-        l1Recipient: parseToFelt(recipient),
-        amount: parseToUint256(amount, dec)
-      },
-      emitter
-    );
+    return starknet_sendTransaction(tokenBridgeContract, 'initiate_withdraw', {
+      l1Recipient: parseToFelt(recipient),
+      amount: parseToUint256(amount, dec)
+    });
   } catch (ex) {
     return Promise.reject(ex);
   }
