@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {LINKS} from '../../../constants';
-import {useTransfer} from '../../../hooks';
+import {useCompleteTransferToL1, useTransfer} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {
@@ -24,7 +24,7 @@ export const Account = () => {
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
   const {isEthereum, isStarknet, fromNetwork} = useTransferData();
-  const {finalizeTransferFromStarknet} = useTransfer();
+  const completeTransferToL1 = useCompleteTransferToL1();
 
   const renderTransfers = () => {
     return transfers.length
@@ -32,7 +32,7 @@ export const Account = () => {
           <TransferLog
             key={index}
             transfer={transfer}
-            onWithdrawClick={() => finalizeTransferFromStarknet(transfer)}
+            onWithdrawClick={() => completeTransferToL1(transfer)}
           />
         ))
       : null;

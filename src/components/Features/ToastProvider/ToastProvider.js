@@ -3,15 +3,8 @@ import React, {useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {
-  ActionType,
-  isConsumed,
-  isOnChain,
-  isPending,
-  isRejected,
-  NetworkType
-} from '../../../enums';
-import {usePrevious, useTransfer} from '../../../hooks';
+import {ActionType, isConsumed, isOnChain, isPending, isRejected, NetworkType} from '../../../enums';
+import {useCompleteTransferToL1, usePrevious, useTransfer} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
 import {ToastBody, TransferToast, WithdrawalTransferToast} from '../../UI';
@@ -22,7 +15,7 @@ export const ToastProvider = () => {
   const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
-  const {finalizeTransferFromStarknet} = useTransfer();
+  const completeTransferToL1 = useCompleteTransferToL1();
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -111,14 +104,14 @@ export const ToastProvider = () => {
   };
 
   const onWithdrawalClick = async transfer => {
-    await finalizeTransferFromStarknet(transfer);
+    await completeTransferToL1(transfer);
     dismissToast(transfer);
   };
 
   return (
     <Toaster
       containerClassName={styles.toastProvider}
-      position="top-right"
+      position='top-right'
       toastOptions={{
         duration: Infinity
       }}
