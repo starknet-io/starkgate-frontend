@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
-import {useTransfer} from '../../../hooks';
+import {useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useEthereumToken, useStarknetToken, useTokens} from '../../../providers/TokensProvider';
 import {
   Loading,
@@ -33,7 +33,8 @@ export const Transfer = () => {
   const {showSelectTokenMenu} = useBridgeActions();
   const {selectedToken, action} = useTransferData();
   const {selectToken} = useTransferActions();
-  const {transferTokenToStarknet, transferTokenFromStarknet, isLoading} = useTransfer();
+  const transferToL2 = useTransferToL2();
+  const transferToL1 = useTransferToL1();
   const {tokens} = useTokens();
   const getEthereumToken = useEthereumToken();
   const getStarknetToken = useStarknetToken();
@@ -72,8 +73,7 @@ export const Transfer = () => {
     isStarknet ? setEthereum() : setStarknet();
   };
 
-  const onTransferClick = async () =>
-    isEthereum ? transferTokenToStarknet(amount) : transferTokenFromStarknet(amount);
+  const onTransferClick = async () => (isEthereum ? transferToL2(amount) : transferToL1(amount));
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -122,11 +122,7 @@ export const Transfer = () => {
           onTokenSelect={showSelectTokenMenu}
         />
         {hasInputError && <div className={styles.errorMsg}>{INSUFFICIENT_BALANCE_ERROR_MSG}</div>}
-        <TransferButton
-          isDisabled={isButtonDisabled}
-          isLoading={isLoading}
-          onClick={onTransferClick}
-        />
+        <TransferButton isDisabled={isButtonDisabled} onClick={onTransferClick} />
       </>
     );
   };
