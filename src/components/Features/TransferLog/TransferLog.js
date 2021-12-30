@@ -19,7 +19,6 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
   const {action, isEthereum} = useTransferData();
   const {chainId} = useWallets();
 
-  console.log(TransactionStatusFriendlyMessage[status]);
   useEffect(() => {
     setSign(transfer.type === action ? '-' : '+');
   }, [action]);
