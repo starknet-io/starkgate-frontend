@@ -14,7 +14,7 @@ import {
   useSelectedToken,
   useTransferData
 } from '../components/Features/Transfer/Transfer.hooks';
-import {ActionType} from '../enums';
+import {ActionType, TransactionStatus} from '../enums';
 import {useEthereumToken, useStarknetToken, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
@@ -207,11 +207,10 @@ export const useTransfer = () => {
         ethereumAccount,
         amount,
         bridgeContract,
-        tokenContract,
-        {
-          transactionHash: () => setProgress(progressOptions.initiateWithdraw(amount, symbol))
-        }
+        tokenContract
       );
+      setProgress(progressOptions.initiateWithdraw(amount, symbol));
+      await starknet_waitForTransaction(transaction_hash, TransactionStatus.RECEIVED);
       setProgress(progressOptions.waitForAccept());
       await starknet_waitForTransaction(transaction_hash);
       setIsLoading(false);
