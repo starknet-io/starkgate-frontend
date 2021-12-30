@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {LINKS} from '../../../constants';
-import {useCompleteTransferToL1, useTransfer} from '../../../hooks';
+import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {
