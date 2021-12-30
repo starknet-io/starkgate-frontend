@@ -6,13 +6,14 @@ import {useConfig} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
+  const {provider} = getStarknet();
   const {pollBlockNumberInterval} = useConfig();
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    const {block_hash} = await getStarknet().provider.getBlock();
+    const {block_hash} = await provider.getBlock();
     setBlockHash(block_hash);
-  }, [getStarknet().provider]);
+  }, [provider]);
 
   useEffect(() => {
     fetchBlockHash();
@@ -20,7 +21,7 @@ export const BlockHashProvider = ({children}) => {
       fetchBlockHash();
     }, pollBlockNumberInterval);
     return () => clearInterval(intervalId);
-  }, [fetchBlockHash]);
+  }, [fetchBlockHash, pollBlockNumberInterval]);
 
   return <BlockHashContext.Provider value={blockHash}>{children}</BlockHashContext.Provider>;
 };

@@ -23,14 +23,14 @@ const TransactionSubmittedModal = ({transfer}) => {
   const [networkData, setNetworkData] = useState({});
 
   useEffect(() => {
-    const isCompletedWithdrawal = transfer.eth_hash && transfer.starknet_hash;
-    if (transfer.type === ActionType.TRANSFER_TO_STARKNET || isCompletedWithdrawal) {
+    const {type, starknet_hash, eth_hash} = transfer;
+    const isCompletedWithdrawal = eth_hash && starknet_hash;
+    if (type === ActionType.TRANSFER_TO_STARKNET || isCompletedWithdrawal) {
       setNetworkData({
-        message:
-          transfer.type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
-        showStatusMsg: transfer.type === ActionType.TRANSFER_TO_STARKNET,
+        message: type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
+        showStatusMsg: type === ActionType.TRANSFER_TO_STARKNET,
         explorerName: LINKS.ETHERSCAN.text,
-        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, transfer.eth_hash),
+        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, eth_hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
       });
     } else {
@@ -38,7 +38,7 @@ const TransactionSubmittedModal = ({transfer}) => {
         message: WITHDRAWAL_TXT,
         showStatusMsg: true,
         explorerName: LINKS.VOYAGER.text,
-        explorerUrl: LINKS.VOYAGER.txUrl(chainId, transfer.starknet_hash),
+        explorerUrl: LINKS.VOYAGER.txUrl(chainId, starknet_hash),
         explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
       });
     }
