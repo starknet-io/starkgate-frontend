@@ -17,7 +17,7 @@ export const useContracts = (ABI, getContractHandler = eth_getContract) => {
         }
         return null;
       }),
-    [ABI, getContract]
+    [getContract]
   );
 };
 

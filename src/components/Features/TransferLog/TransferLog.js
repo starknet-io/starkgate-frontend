@@ -21,7 +21,7 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
 
   useEffect(() => {
     setSign(transfer.type === action ? '-' : '+');
-  }, [action]);
+  }, [action, transfer]);
 
   const renderTransferStatus = () => {
     return !isOnChain(status) ? (

@@ -15,7 +15,7 @@ export const Main = () => {
 
   useEffect(() => {
     setHeight(document.body.offsetHeight - mainOffset);
-  }, [windowSize]);
+  }, [windowSize, mainOffset]);
 
   return (
     <main className={styles.main} style={{height}}>

@@ -19,5 +19,5 @@ const useShowBridgeMenu = type => {
   const dispatch = useDispatch();
   return useCallback(() => {
     dispatch(showMenuAction(type));
-  }, [dispatch]);
+  }, [dispatch, type]);
 };

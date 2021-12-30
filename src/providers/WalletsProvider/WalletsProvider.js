@@ -1,6 +1,6 @@
 import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useCallback, useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {useIsEthereum, useIsStarknet} from '../../components/Features/Transfer/Transfer.hooks';
@@ -17,16 +17,6 @@ export const WalletsProvider = ({children}) => {
   const {selectedAddress, isConnected: isStarknetConnected, enable} = getStarknet();
   const [isEthereum, setEthereum] = useIsEthereum();
   const [isStarknet, setStarknet] = useIsStarknet();
-
-  // Handles starknet wallet changes
-  useEffect(() => {
-    (isStarknet || state.starknetWallet.config) && maybeUpdateStarknetWallet();
-  }, [selectedAddress, isStarknetConnected]);
-
-  // Handles ethereum wallet changes
-  useEffect(() => {
-    (isEthereum || state.ethereumWallet.config) && maybeUpdateEthereumWallet();
-  }, [status, error, account, chainId, networkName]);
 
   const connectWallet = async walletConfig => {
     if (isEthereum) {
@@ -73,7 +63,7 @@ export const WalletsProvider = ({children}) => {
     }
   };
 
-  const maybeUpdateEthereumWallet = () => {
+  const maybeUpdateEthereumWallet = useCallback(() => {
     // To support serializable object in the store
     let serialError = error ? {...error} : null;
     updateEthereumWallet({
@@ -85,9 +75,9 @@ export const WalletsProvider = ({children}) => {
       isConnected: isConnected(),
       library: web3
     });
-  };
+  }, [account, status, chainId, error, isConnected, networkName]);
 
-  const maybeUpdateStarknetWallet = async () => {
+  const maybeUpdateStarknetWallet = useCallback(async () => {
     let status,
       error = null;
     try {
@@ -107,7 +97,32 @@ export const WalletsProvider = ({children}) => {
         library: getStarknet()
       });
     }
-  };
+  }, [chainId, enable, isStarknetConnected, networkName, selectedAddress]);
+
+  // Handles starknet wallet changes
+  useEffect(() => {
+    (isStarknet || state.starknetWallet.config) && maybeUpdateStarknetWallet();
+  }, [
+    selectedAddress,
+    isStarknetConnected,
+    isStarknet,
+    state.starknetWallet.config,
+    maybeUpdateStarknetWallet
+  ]);
+
+  // Handles ethereum wallet changes
+  useEffect(() => {
+    (isEthereum || state.ethereumWallet.config) && maybeUpdateEthereumWallet();
+  }, [
+    status,
+    error,
+    account,
+    chainId,
+    networkName,
+    isEthereum,
+    state.ethereumWallet.config,
+    maybeUpdateEthereumWallet
+  ]);
 
   // Dispatchers
   const updateEthereumWallet = payload => {

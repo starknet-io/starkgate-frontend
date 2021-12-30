@@ -8,9 +8,9 @@ export const useWallets = () => {
   const [activeWallet, setActiveWallet] = useState(wallets.ethereumWallet);
   const {isEthereum} = useTransferData();
 
-  const connectWallet = useCallback(walletConfig => wallets.connectWallet(walletConfig), []);
-  const resetWallet = useCallback(() => wallets.resetWallet(), []);
-  const swapWallets = useCallback(() => wallets.swapWallets(), []);
+  const connectWallet = useCallback(walletConfig => wallets.connectWallet(walletConfig), [wallets]);
+  const resetWallet = useCallback(() => wallets.resetWallet(), [wallets]);
+  const swapWallets = useCallback(() => wallets.swapWallets(), [wallets]);
 
   useEffect(() => {
     setActiveWallet(isEthereum ? wallets.ethereumWallet : wallets.starknetWallet);
@@ -28,7 +28,7 @@ export const useEthereumWallet = () => {
   const wallets = useContext(WalletsContext);
   const connectWallet = useCallback(
     walletConfig => wallets.connectEthereumWallet(walletConfig),
-    []
+    [wallets]
   );
 
   return {
@@ -41,7 +41,7 @@ export const useStarknetWallet = () => {
   const wallets = useContext(WalletsContext);
   const connectWallet = useCallback(
     walletConfig => wallets.connectStarknetWallet(walletConfig),
-    []
+    [wallets]
   );
 
   return {

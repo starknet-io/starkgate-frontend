@@ -62,6 +62,6 @@ export const useTransferProgress = () => {
         };
       }
     }),
-    []
+    [transferProgressStrings]
   );
 };

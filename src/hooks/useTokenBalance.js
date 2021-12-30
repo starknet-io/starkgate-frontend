@@ -13,7 +13,7 @@ export const useTokenBalance = account => {
       isEthereum
         ? getEthereumTokenBalance(tokenAddresses)
         : getStarknetTokenBalance(tokenAddresses),
-    [isEthereum, account, getEthereumTokenBalance, getStarknetTokenBalance]
+    [isEthereum, getEthereumTokenBalance, getStarknetTokenBalance]
   );
 };
 

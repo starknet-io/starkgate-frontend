@@ -16,7 +16,7 @@ export const SearchToken = ({tokens, onSearchResults}) => {
   useEffect(() => {
     const results = tokens.filter(token => token.name.toLowerCase().includes(searchTerm));
     onSearchResults(results);
-  }, [searchTerm]);
+  }, [searchTerm, onSearchResults, tokens]);
 
   return (
     <div className={styles.searchToken}>

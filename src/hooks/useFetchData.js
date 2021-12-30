@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 
-export const useFetchData = (func, deps = []) => {
+export const useFetchData = (func, dep) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
@@ -22,7 +23,8 @@ export const useFetchData = (func, deps = []) => {
     let mounted = true;
     fetch();
     return () => (mounted = false);
-  }, deps);
+  }, [func, dep]);
+
   return {
     isLoading,
     data,

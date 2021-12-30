@@ -22,7 +22,7 @@ import {
   useTokenBridgeContract,
   useTokenContract
 } from './useContract';
-import {useLogDepositListener, useLogMessageToL2Listener} from './useEventListener';
+import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -38,7 +38,6 @@ export const useTransferToL2 = () => {
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const addLogDepositListener = useLogDepositListener();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
 
   return useCallback(
@@ -105,7 +104,6 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      addLogDepositListener,
       addLogMessageToL2Listener,
       chainId,
       ethBridgeContract,

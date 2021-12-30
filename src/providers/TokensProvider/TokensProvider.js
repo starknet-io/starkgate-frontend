@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useCallback, useEffect, useReducer} from 'react';
 
-import {useLogger, useConfig} from '../../hooks';
+import {useConfig, useLogger} from '../../hooks';
 import {useEthereumTokenBalance, useStarknetTokenBalance} from '../../hooks/useTokenBalance';
 import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
@@ -16,15 +16,7 @@ export const TokensProvider = ({children}) => {
   const getEthereumTokenBalance = useEthereumTokenBalance(ethereumAccount);
   const getStarknetTokenBalance = useStarknetTokenBalance(starknetAccount);
 
-  useEffect(() => {
-    updateTokens();
-    const intervalId = setInterval(() => {
-      updateTokens();
-    }, pollBalanceInterval);
-    return () => clearInterval(intervalId);
-  }, [pollBalanceInterval]);
-
-  const updateTokens = () => {
+  const updateTokens = useCallback(() => {
     logger.log(`It's time to update tokens balances!`);
     for (let index = 0; index < tokens.length; index++) {
       const token = tokens[index];
@@ -49,7 +41,15 @@ export const TokensProvider = ({children}) => {
           updateTokenState(index, {balance: null, isLoading: false});
         });
     }
-  };
+  }, [getEthereumTokenBalance, getStarknetTokenBalance, logger, tokens]);
+
+  useEffect(() => {
+    updateTokens();
+    const intervalId = setInterval(() => {
+      updateTokens();
+    }, pollBalanceInterval);
+    return () => clearInterval(intervalId);
+  }, [pollBalanceInterval, updateTokens]);
 
   const updateTokenState = (index, args) => {
     dispatch({

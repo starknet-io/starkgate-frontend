@@ -39,7 +39,7 @@ export const useSelectedToken = () => {
   const starknetToken = useStarknetToken()(symbol);
   return useMemo(
     () => (isEthereum ? ethereumToken : starknetToken),
-    [symbol, isEthereum, ethereumToken, starknetToken]
+    [isEthereum, ethereumToken, starknetToken]
   );
 };
 
@@ -76,7 +76,7 @@ const useSetActionType = action => {
   const dispatch = useDispatch();
   return useCallback(() => {
     dispatch(setTransferAction(action));
-  }, [dispatch]);
+  }, [dispatch, action]);
 };
 
 const useSelectToken = () => {

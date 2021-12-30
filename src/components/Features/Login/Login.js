@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ChainUnsupportedError} from 'use-wallet';
 
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
@@ -24,6 +24,52 @@ export const Login = () => {
   const {connectWallet: connectEthereumWallet, isConnected} = useEthereumWallet();
   const {connectWallet: connectStarknetWallet} = useStarknetWallet();
 
+  const onDownloadClick = () => {
+    const handlers = getWalletHandlers(walletType);
+    if (handlers.length > 0) {
+      return handlers[0].install();
+    }
+  };
+
+  const handleError = error => {
+    if (error.name === ChainUnsupportedError.name) {
+      const msg = error.message.replace(
+        /\d+/g,
+        match => `${match} (${capitalize(toChainName(Number(match)))})`
+      );
+      setErrorMsg(msg);
+    }
+  };
+
+  const onWalletConnect = useCallback(
+    walletHandler => {
+      if (!walletHandler.isInstalled()) {
+        return walletHandler.install();
+      }
+      const {config} = walletHandler;
+      setSelectedWalletName(config.name);
+      return walletType === WalletType.ETHEREUM
+        ? connectEthereumWallet(config)
+        : connectStarknetWallet(config);
+    },
+    [connectEthereumWallet, connectStarknetWallet, walletType]
+  );
+
+  const maybeHideModal = useCallback(() => {
+    if (typeof modalTimeoutId.current === 'number') {
+      clearTimeout(modalTimeoutId.current);
+      modalTimeoutId.current = null;
+    }
+    hideModal();
+  }, [hideModal]);
+
+  const maybeShowModal = useCallback(() => {
+    maybeHideModal();
+    modalTimeoutId.current = setTimeout(() => {
+      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName));
+    }, MODAL_TIMEOUT_DURATION);
+  }, [maybeHideModal, selectedWalletName, showProgressModal]);
+
   useEffect(() => {
     let timeoutId;
     if (autoConnect) {
@@ -33,7 +79,7 @@ export const Login = () => {
       }
     }
     return () => clearTimeout(timeoutId);
-  }, [walletType, getWalletHandlers]);
+  }, [walletType, getWalletHandlers, autoConnect, onWalletConnect]);
 
   useEffect(() => {
     isConnected && setWalletType(WalletType.STARKNET);
@@ -61,50 +107,7 @@ export const Login = () => {
     return () => {
       maybeHideModal();
     };
-  }, [status]);
-
-  const onWalletConnect = walletHandler => {
-    if (!walletHandler.isInstalled()) {
-      return walletHandler.install();
-    }
-    const {config} = walletHandler;
-    setSelectedWalletName(config.name);
-    return walletType === WalletType.ETHEREUM
-      ? connectEthereumWallet(config)
-      : connectStarknetWallet(config);
-  };
-
-  const onDownloadClick = () => {
-    const handlers = getWalletHandlers(walletType);
-    if (handlers.length > 0) {
-      return handlers[0].install();
-    }
-  };
-
-  const handleError = error => {
-    if (error.name === ChainUnsupportedError.name) {
-      const msg = error.message.replace(
-        /\d+/g,
-        match => `${match} (${capitalize(toChainName(Number(match)))})`
-      );
-      setErrorMsg(msg);
-    }
-  };
-
-  const maybeShowModal = () => {
-    maybeHideModal();
-    modalTimeoutId.current = setTimeout(() => {
-      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName));
-    }, MODAL_TIMEOUT_DURATION);
-  };
-
-  const maybeHideModal = () => {
-    if (typeof modalTimeoutId.current === 'number') {
-      clearTimeout(modalTimeoutId.current);
-      modalTimeoutId.current = null;
-    }
-    hideModal();
-  };
+  }, [status, maybeShowModal, maybeHideModal]);
 
   const renderLoginWallets = () => {
     return getWalletHandlers(walletType).map(walletHandler => {
