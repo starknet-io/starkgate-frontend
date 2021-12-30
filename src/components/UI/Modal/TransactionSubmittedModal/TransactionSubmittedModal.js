@@ -28,6 +28,7 @@ const TransactionSubmittedModal = ({transfer}) => {
       setNetworkData({
         message:
           transfer.type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
+        showStatusMsg: transfer.type === ActionType.TRANSFER_TO_STARKNET,
         explorerName: LINKS.ETHERSCAN.text,
         explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, transfer.eth_hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
@@ -35,6 +36,7 @@ const TransactionSubmittedModal = ({transfer}) => {
     } else {
       setNetworkData({
         message: WITHDRAWAL_TXT,
+        showStatusMsg: true,
         explorerName: LINKS.VOYAGER.text,
         explorerUrl: LINKS.VOYAGER.txUrl(chainId, transfer.starknet_hash),
         explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
@@ -49,7 +51,7 @@ const TransactionSubmittedModal = ({transfer}) => {
   return (
     <div>
       <TransactionSubmittedModalText bold={true} text={networkData.message} />
-      <TransactionSubmittedModalText text={STATUS_TXT} />
+      {networkData.showStatusMsg && <TransactionSubmittedModalText text={STATUS_TXT} />}
       <TransactionSubmittedModalButton
         networkLogo={networkData.explorerLogo}
         networkName={networkData.explorerName}

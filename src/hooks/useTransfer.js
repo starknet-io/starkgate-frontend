@@ -69,11 +69,9 @@ export const useTransferToL2 = () => {
           }
         }
         handleProgress(progressOptions.waitForConfirm(ethereumConfig.name));
-        logger.log('Register events');
         const logMessageToL2EventPromise = addLogMessageToL2Listener();
-        const depositEventPromise = addLogDepositListener();
         logger.log('Calling deposit');
-        await depositHandler(
+        const depositPromise = await depositHandler(
           starknetAccount,
           amount,
           bridgeContract,
@@ -85,8 +83,8 @@ export const useTransferToL2 = () => {
             }
           }
         );
-        const [l1hash, l2hash] = await Promise.all([
-          depositEventPromise,
+        const [{transactionHash: l1hash}, l2hash] = await Promise.all([
+          depositPromise,
           logMessageToL2EventPromise
         ]);
         logger.log('Done', {l1hash, l2hash});
