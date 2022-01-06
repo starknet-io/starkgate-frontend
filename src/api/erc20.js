@@ -1,69 +1,32 @@
-import {
-  parseFromDecimals,
-  parseFromFelt,
-  parseFromUint256,
-  parseToFelt,
-  parseToUint256
-} from '../utils';
-import {
-  eth_callContract,
-  eth_sendTransaction,
-  starknet_callContract,
-  starknet_sendTransaction
-} from '../utils/contract';
+import {parseFromDecimals, parseFromUint256} from '../utils';
+import {eth_callContract, eth_sendTransaction, starknet_callContract} from '../utils/contract';
 import {web3} from '../web3';
 
-export const approve = async (spender, value, contract, from, isEthereum = true) => {
+export const approve = async ({spender, value, contract, options}) => {
   try {
-    if (isEthereum) {
-      return await eth_sendTransaction(contract, 'approve', [spender, value], {from});
-    } else {
-      const dec = await decimals(contract, false);
-      return await starknet_sendTransaction(contract, 'approve', {
-        spender: parseToFelt(spender),
-        amount: parseToUint256(value, dec)
-      });
-    }
+    return await eth_sendTransaction(contract, 'approve', [spender, value], options);
   } catch (ex) {
     return Promise.reject(ex);
   }
 };
 
-export const allowance = async (owner, spender, contract, isEthereum = true) => {
+export const allowance = async ({owner, spender, decimals, contract}) => {
   try {
-    if (isEthereum) {
-      const allow = await eth_callContract(contract, 'allowance', [owner, spender]);
-      return parseFromDecimals(allow);
-    }
+    const allow = await eth_callContract(contract, 'allowance', [owner, spender]);
+    return parseFromDecimals(allow, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }
 };
 
-export const balanceOf = async (account, contract, isEthereum = true) => {
+export const balanceOf = async ({account, decimals, contract}, isEthereum = true) => {
   try {
     if (isEthereum) {
       const balance = await eth_callContract(contract, 'balanceOf', [account]);
-      return parseFromDecimals(balance);
+      return parseFromDecimals(balance, decimals);
     } else {
-      const [{balance}, dec] = await Promise.all([
-        starknet_callContract(contract, 'balanceOf', [{account}]),
-        decimals(contract, false)
-      ]);
-      return parseFromUint256(balance, dec);
-    }
-  } catch (ex) {
-    return Promise.reject(ex);
-  }
-};
-
-export const decimals = async (contract, isEthereum = true) => {
-  try {
-    if (isEthereum) {
-      return await eth_callContract(contract, 'decimals');
-    } else {
-      const {decimals} = await starknet_callContract(contract, 'decimals');
-      return parseFromFelt(decimals);
+      const {balance} = await starknet_callContract(contract, 'balanceOf', [{account}]);
+      return parseFromUint256(balance, decimals);
     }
   } catch (ex) {
     return Promise.reject(ex);

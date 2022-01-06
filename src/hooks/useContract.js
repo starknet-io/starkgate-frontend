@@ -1,10 +1,12 @@
 import {useCallback, useMemo} from 'react';
 
-import {ERC20_ABI, ERC20_BRIDGE_ABI, MESSAGING_ABI} from '../abis/ethereum';
+import {ERC20_ABI, ERC20_BRIDGE_ABI, ETH_BRIDGE_ABI, MESSAGING_ABI} from '../abis/ethereum';
 import {STARKNET_BRIDGE_ABI, STARKNET_ERC20_ABI} from '../abis/starknet';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
-import {useWallets} from '../providers/WalletsProvider';
+import {EthereumTokens, MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
+import {NetworkType} from '../enums';
+import {useEthereumToken} from '../providers/TokensProvider';
+import {useEthereumWallet, useWallets} from '../providers/WalletsProvider';
 import {eth_getContract, starknet_getContract} from '../utils/contract';
 
 export const useContracts = (ABI, getContractHandler = eth_getContract) => {
@@ -90,6 +92,15 @@ export const useStarknetTokenBridgeContract = () => {
 };
 
 export const useEthereumTokenBridgeContract = () => {
-  const getContract = useContract(ERC20_BRIDGE_ABI);
-  return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
+  const getTokenBridgeContract = useContract(ERC20_BRIDGE_ABI);
+  const getEthBridgeContract = useContract(ETH_BRIDGE_ABI);
+  const ethToken = useEthereumToken()(NetworkType.ETHEREUM.symbol);
+  const {chainId} = useEthereumWallet();
+  return useCallback(
+    bridgeAddress =>
+      bridgeAddress[chainId] === ethToken.bridgeAddress[chainId]
+        ? getEthBridgeContract(bridgeAddress)
+        : getTokenBridgeContract(bridgeAddress),
+    [getTokenBridgeContract, getEthBridgeContract]
+  );
 };
