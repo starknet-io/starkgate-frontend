@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {LINKS} from '../../../constants';
-import {isOnChain, isPending, isRejected, NetworkType} from '../../../enums';
+import {
+  isOnChain,
+  isPending,
+  isRejected,
+  NetworkType,
+  TransactionStatusFriendlyMessage
+} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
 import {getFullTime, toClasses} from '../../../utils';
@@ -26,7 +32,7 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
   const renderTransferStatus = () => {
     return !isOnChain(status) ? (
       <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
-        {status && status.replaceAll('_', ' ')}
+        {TransactionStatusFriendlyMessage[status]}
       </div>
     ) : null;
   };

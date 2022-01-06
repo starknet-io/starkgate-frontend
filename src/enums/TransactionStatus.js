@@ -7,6 +7,15 @@ export const TransactionStatus = {
   ACCEPTED_ON_L1: 'ACCEPTED_ON_L1'
 };
 
+export const TransactionStatusFriendlyMessage = {
+  [TransactionStatus.REJECTED]: 'Invalid transaction',
+  [TransactionStatus.NOT_RECEIVED]: 'Waiting to be accepted on L2',
+  [TransactionStatus.RECEIVED]: 'Waiting to be accepted on L2',
+  [TransactionStatus.PENDING]: 'Accepted on L2',
+  [TransactionStatus.ACCEPTED_ON_L2]: 'Accepted on L2',
+  [TransactionStatus.ACCEPTED_ON_L1]: 'Proved and accepted on L1'
+};
+
 export const TransactionPendingStatuses = [
   TransactionStatus.NOT_RECEIVED,
   TransactionStatus.RECEIVED
