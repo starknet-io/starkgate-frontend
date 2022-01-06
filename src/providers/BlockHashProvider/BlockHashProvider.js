@@ -2,6 +2,7 @@ import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
+import {TransactionStatus} from '../../enums';
 import {useConfig} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
@@ -11,7 +12,7 @@ export const BlockHashProvider = ({children}) => {
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    const {block_hash} = await provider.getBlock();
+    const {block_hash} = await provider.getBlock(null, TransactionStatus.PENDING);
     setBlockHash(block_hash);
   }, [provider]);
 

@@ -57,7 +57,7 @@
     "react-hot-toast": "^2.1.1",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
-    "starknet": "^2.5.0",
+    "starknet": "^2.7.1",
     "use-deep-compare-effect": "^1.8.1",
     "use-wallet": "^0.13.4",
     "uuid": "^8.3.2",
