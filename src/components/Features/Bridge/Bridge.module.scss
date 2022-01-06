@@ -5,7 +5,6 @@ $background-color: $--color-alpha;
 .bridge {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   background: $background-color;
   border-radius: 20px;
   padding: 20px;

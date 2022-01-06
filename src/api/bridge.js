@@ -1,16 +1,13 @@
 import {parseToDecimals, parseToFelt, parseToUint256} from '../utils';
 import {eth_sendTransaction, starknet_sendTransaction} from '../utils/contract';
-import {decimals} from './erc20';
 
-export const deposit = async (recipient, amount, tokenBridgeContract, from, emitter) => {
+export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   try {
     return eth_sendTransaction(
-      tokenBridgeContract,
+      contract,
       'deposit',
-      [parseToDecimals(amount), recipient],
-      {
-        from
-      },
+      [parseToDecimals(amount, decimals), recipient],
+      options,
       emitter
     );
   } catch (ex) {
@@ -18,14 +15,14 @@ export const deposit = async (recipient, amount, tokenBridgeContract, from, emit
   }
 };
 
-export const depositEth = async (recipient, amount, ethBridgeContract, from, emitter) => {
+export const depositEth = async ({recipient, amount, contract, options, emitter}) => {
   try {
     return eth_sendTransaction(
-      ethBridgeContract,
+      contract,
       'deposit',
       [recipient],
       {
-        from,
+        ...options,
         value: parseToDecimals(amount)
       },
       emitter
@@ -35,12 +32,12 @@ export const depositEth = async (recipient, amount, ethBridgeContract, from, emi
   }
 };
 
-export const withdraw = async (recipient, amount, tokenBridgeContract, emitter) => {
+export const withdraw = async ({recipient, amount, decimals, contract, emitter}) => {
   try {
     return eth_sendTransaction(
-      tokenBridgeContract,
+      contract,
       'withdraw',
-      [parseToDecimals(amount), recipient],
+      [parseToDecimals(amount, decimals), recipient],
       {
         from: recipient
       },
@@ -51,12 +48,11 @@ export const withdraw = async (recipient, amount, tokenBridgeContract, emitter) 
   }
 };
 
-export const initiateWithdraw = async (recipient, amount, tokenBridgeContract, tokenContract) => {
+export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
   try {
-    const dec = await decimals(tokenContract, false);
-    return starknet_sendTransaction(tokenBridgeContract, 'initiate_withdraw', {
+    return starknet_sendTransaction(contract, 'initiate_withdraw', {
       l1Recipient: parseToFelt(recipient),
-      amount: parseToUint256(amount, dec)
+      amount: parseToUint256(amount, decimals)
     });
   } catch (ex) {
     return Promise.reject(ex);

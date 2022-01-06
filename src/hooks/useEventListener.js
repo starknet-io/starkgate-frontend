@@ -4,8 +4,8 @@ import {stark} from 'starknet';
 import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {useEthereumToken, useStarknetToken} from '../providers/TokensProvider';
 import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
-import {isEth, txHash} from '../utils';
-import {useEthBridgeContract, useMessagingContract, useTokenBridgeContract} from './useContract';
+import {txHash} from '../utils';
+import {useMessagingContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 
 const HOOK_MODULE = 'useEventListener';
@@ -53,7 +53,6 @@ export const useLogMessageToL2Listener = () => {
 export const useLogDepositListener = () => {
   const logger = useLogger(`${HOOK_MODULE}:useLogDepositListener`);
   const selectedToken = useSelectedToken();
-  const ethBridgeContract = useEthBridgeContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const addEventListener = useEventListener();
   const {account: ethereumAccount} = useEthereumWallet();
@@ -61,8 +60,8 @@ export const useLogDepositListener = () => {
 
   return useCallback(async () => {
     logger.log('Registering to LogDeposit event');
-    const {symbol, bridgeAddress} = selectedToken;
-    const contract = isEth(symbol) ? ethBridgeContract : getTokenBridgeContract(bridgeAddress);
+    const {bridgeAddress} = selectedToken;
+    const contract = getTokenBridgeContract(bridgeAddress);
     try {
       const event = await addEventListener(contract, 'LogDeposit', {
         filter: {
@@ -78,7 +77,6 @@ export const useLogDepositListener = () => {
     }
   }, [
     addEventListener,
-    ethBridgeContract,
     ethereumAccount,
     starknetAccount,
     getTokenBridgeContract,

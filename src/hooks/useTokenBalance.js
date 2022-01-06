@@ -20,7 +20,8 @@ export const useTokenBalance = account => {
 export const useStarknetTokenBalance = account => {
   const getContract = useStarknetTokenContract();
   return useCallback(
-    async tokenAddresses => await balanceOf(account, getContract(tokenAddresses), false),
+    async tokenAddresses =>
+      await balanceOf({account, contract: getContract(tokenAddresses)}, false),
     [account, getContract]
   );
 };
@@ -30,7 +31,7 @@ export const useEthereumTokenBalance = account => {
   return useCallback(
     async tokenAddresses =>
       tokenAddresses
-        ? await balanceOf(account, getContract(tokenAddresses), true)
+        ? await balanceOf({account, contract: getContract(tokenAddresses)}, true)
         : await eth_ethBalanceOf(account),
     [account, getContract]
   );
