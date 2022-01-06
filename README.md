@@ -1,6 +1,6 @@
 <p align="center">
-  <img style="position: absolute; left: 50%; transform: translateX(-50%)" src="https://github.com/starkware-libs/starknet-bridge/blob/dev/src/assets/img/stars.png?raw=true"  alt=""/>
-  <img src="https://github.com/starkware-libs/starknet-bridge/blob/dev/src/assets/img/starknet.png?raw=true"  alt=""/>
+  <img style="position: absolute; left: 50%; transform: translateX(-50%)" src="https://github.com/starkware-libs/starkgate-frontend/blob/dev/src/assets/img/stars.png?raw=true"  alt=""/>
+  <img src="https://github.com/starkware-libs/starkgate-frontend/blob/dev/src/assets/img/starknet.png?raw=true"  alt=""/>
 </p>
 
 <h2 align='center'> Token Bridge for StarkNet</h2>
@@ -33,8 +33,8 @@ uses [Redux Toolkit](https://redux-toolkit.js.org/) for state management.
 Clone and run `yarn` to install dependencies:
 
 ```
-git clone https://github.com/starkware-libs/starknet-bridge.git
-cd starknet-bridge
+git clone https://github.com/starkware-libs/starkgate-frontend.git
+cd starkgate-frontend
 yarn install
 ```
 
@@ -90,7 +90,7 @@ requests to us.
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see
-the [tags on this repository](https://github.com/starkware-libs/starknet-bridge/releases).
+the [tags on this repository](https://github.com/starkware-libs/starkgate-frontend/releases).
 
 ## License
 
