@@ -15,19 +15,6 @@ export const StarknetTokens = [
     }
   },
   {
-    name: 'Mock ERC20 Token',
-    symbol: 'TEST',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x0061f462a8a2ea511189e4ec73d115ef65fad071e643e99644818249604a525d'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x021eb73bd66eb18c37ec7b1e2567bc3fa8ba9ac0d391b53745a5f9d483217595'
-    }
-  },
-  {
     name: 'Wrapped BTC',
     symbol: 'WBTC',
     decimals: 8,
