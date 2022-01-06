@@ -17,7 +17,6 @@ import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider
 import {isEth} from '../utils';
 import {starknet_waitForTransaction} from '../utils/contract';
 import {
-  useEthBridgeContract,
   useEthereumTokenBridgeContract,
   useTokenBridgeContract,
   useTokenContract
@@ -34,7 +33,6 @@ export const useTransferToL2 = () => {
   const {account: starknetAccount} = useStarknetWallet();
   const {handleProgress, handleData, handleError} = useTransfer();
   const selectedToken = useSelectedToken();
-  const ethBridgeContract = useEthBridgeContract();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
@@ -47,9 +45,7 @@ export const useTransferToL2 = () => {
         logger.log('TransferToL2 called');
         const {symbol, tokenAddress, bridgeAddress, name} = selectedToken;
         const isEthToken = isEth(symbol);
-        const bridgeContract = isEthToken
-          ? ethBridgeContract
-          : getTokenBridgeContract(bridgeAddress);
+        const bridgeContract = getTokenBridgeContract(bridgeAddress);
         const depositHandler = isEthToken ? depositEth : deposit;
         logger.log('Prepared contract and handler', {isEthToken, bridgeContract, depositHandler});
         if (!isEthToken) {
@@ -108,7 +104,6 @@ export const useTransferToL2 = () => {
       addLogDepositListener,
       addLogMessageToL2Listener,
       chainId,
-      ethBridgeContract,
       ethereumAccount,
       ethereumConfig,
       getTokenBridgeContract,
@@ -193,7 +188,6 @@ export const useCompleteTransferToL1 = () => {
   const {handleProgress, handleData, handleError} = useTransfer();
   const progressOptions = useTransferProgress();
   const getEthereumToken = useEthereumToken();
-  const ethBridgeContract = useEthBridgeContract();
   const getEthereumTokenBridgeContract = useEthereumTokenBridgeContract();
 
   return useCallback(
@@ -202,9 +196,7 @@ export const useCompleteTransferToL1 = () => {
         logger.log('CompleteTransferToL1 called');
         const {symbol, amount} = transfer;
         const ethereumToken = getEthereumToken(symbol);
-        const tokenBridgeContract = isEth(symbol)
-          ? ethBridgeContract
-          : getEthereumTokenBridgeContract(ethereumToken.bridgeAddress);
+        const tokenBridgeContract = getEthereumTokenBridgeContract(ethereumToken.bridgeAddress);
         logger.log('Prepared token and bridge contract', {ethereumToken, tokenBridgeContract});
         handleProgress(progressOptions.waitForConfirm(ethereumConfig.name));
         logger.log('Calling withdraw');
@@ -227,7 +219,6 @@ export const useCompleteTransferToL1 = () => {
       }
     },
     [
-      ethBridgeContract,
       ethereumAccount,
       ethereumConfig,
       getEthereumToken,

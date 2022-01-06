@@ -8,6 +8,7 @@ $network-color: $--color-beta;
   position: relative;
   display: flex;
   flex-direction: column;
+  max-height: 100%;
 
   .background {
     content: '';

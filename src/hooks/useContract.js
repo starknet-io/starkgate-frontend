@@ -1,9 +1,9 @@
 import {useCallback, useMemo} from 'react';
 
-import {ERC20_ABI, ERC20_BRIDGE_ABI, ETH_BRIDGE_ABI, MESSAGING_ABI} from '../abis/ethereum';
+import {ERC20_ABI, ERC20_BRIDGE_ABI, MESSAGING_ABI} from '../abis/ethereum';
 import {STARKNET_BRIDGE_ABI, STARKNET_ERC20_ABI} from '../abis/starknet';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {ETH_BRIDGE_CONTRACT_ADDRESS, MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
+import {MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
 import {useWallets} from '../providers/WalletsProvider';
 import {eth_getContract, starknet_getContract} from '../utils/contract';
 
@@ -77,11 +77,6 @@ export const useEthereumTokenContract = () => {
 export const useEthereumTokenContracts = () => {
   const getContracts = useContracts(ERC20_ABI);
   return useCallback(tokensAddresses => getContracts(tokensAddresses), [getContracts]);
-};
-
-export const useEthBridgeContract = () => {
-  const getContract = useContract(ETH_BRIDGE_ABI);
-  return useMemo(() => getContract(ETH_BRIDGE_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useMessagingContract = () => {
