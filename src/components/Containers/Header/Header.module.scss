@@ -3,7 +3,6 @@
 $height: $--header-height;
 $background-color: $--color-alpha-5;
 $chain-color: $--color-white-1;
-$bridge-color: $--color-beta;
 
 .header {
   height: #{$height}px;
@@ -23,13 +22,8 @@ $bridge-color: $--color-beta;
       transition: 0.3s ease-in-out;
       cursor: pointer;
 
-      .bridge {
-        transition: 0.3s ease-in-out;
-        font-family: $--primary-font;
-        margin-left: 5px;
-        font-size: 25px;
-        line-height: 1;
-        color: $bridge-color;
+      svg {
+        width: 220px;
       }
     }
 
@@ -39,7 +33,6 @@ $bridge-color: $--color-beta;
       font-size: 13px;
       font-weight: 500;
       opacity: 0.6;
-      margin-top: 2px;
       text-transform: capitalize;
     }
   }
