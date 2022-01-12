@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 import {constants} from 'starknet';
 
-import {deposit, depositEth, initiateWithdraw, withdraw} from '../api/bridge';
+import {deposit, depositEth, initiateWithdraw, maxDeposit, withdraw} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
 import {
   useErrorModal,
@@ -64,6 +64,17 @@ export const useTransferToL2 = () => {
               options: {from: l1Account}
             });
           }
+        }
+        const maxAmount = await maxDeposit({decimals, contract: bridgeContract});
+        logger.log(`Max amount to transfer for token is ${maxAmount}`);
+        if (amount > maxAmount) {
+          logger.log(`Transfer amount is bigger then max amount`, {amount, maxAmount});
+          handleError(
+            progressOptions.error(
+              new Error(`You are not allow to transfer more then ${maxAmount} ${symbol}`)
+            )
+          );
+          return;
         }
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
         const logMessageToL2EventPromise = addLogMessageToL2Listener();
