@@ -1,10 +1,10 @@
 import {parseFromDecimals, parseFromUint256} from '../utils';
-import {eth_callContract, eth_sendTransaction, starknet_callContract} from '../utils/contract';
+import {l1_callContract, l1_sendTransaction, l2_callContract} from '../utils/contract';
 import {web3} from '../web3';
 
 export const approve = async ({spender, value, contract, options}) => {
   try {
-    return await eth_sendTransaction(contract, 'approve', [spender, value], options);
+    return await l1_sendTransaction(contract, 'approve', [spender, value], options);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -12,20 +12,20 @@ export const approve = async ({spender, value, contract, options}) => {
 
 export const allowance = async ({owner, spender, decimals, contract}) => {
   try {
-    const allow = await eth_callContract(contract, 'allowance', [owner, spender]);
+    const allow = await l1_callContract(contract, 'allowance', [owner, spender]);
     return parseFromDecimals(allow, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }
 };
 
-export const balanceOf = async ({account, decimals, contract}, isEthereum = true) => {
+export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
   try {
-    if (isEthereum) {
-      const balance = await eth_callContract(contract, 'balanceOf', [account]);
+    if (isL1) {
+      const balance = await l1_callContract(contract, 'balanceOf', [account]);
       return parseFromDecimals(balance, decimals);
     } else {
-      const {balance} = await starknet_callContract(contract, 'balanceOf', [{account}]);
+      const {balance} = await l2_callContract(contract, 'balanceOf', [{account}]);
       return parseFromUint256(balance, decimals);
     }
   } catch (ex) {
@@ -33,7 +33,7 @@ export const balanceOf = async ({account, decimals, contract}, isEthereum = true
   }
 };
 
-export const eth_ethBalanceOf = async account => {
+export const l1_ethBalanceOf = async account => {
   try {
     const balance = await web3.eth.getBalance(account);
     return parseFromDecimals(balance);

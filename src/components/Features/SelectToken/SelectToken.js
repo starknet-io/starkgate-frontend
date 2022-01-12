@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import EthereumLogo from '../../../assets/svg/tokens/eth.svg';
-import StarkNetLogo from '../../../assets/svg/tokens/starknet.svg';
+import L1Logo from '../../../assets/svg/tokens/eth.svg';
+import L2Logo from '../../../assets/svg/tokens/starknet.svg';
 import {useColors} from '../../../hooks';
 import {useTokens} from '../../../providers/TokensProvider';
 import {BackButton, Menu, MenuTitle, SearchToken, SelectTokenList} from '../../UI';
@@ -14,7 +14,7 @@ export const SelectToken = () => {
   const {tokens} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useBridgeActions();
-  const {isEthereum, fromNetwork} = useTransferData();
+  const {isL1, fromNetwork} = useTransferData();
   const {selectToken} = useTransferActions();
   const [searchTokens, setSearchTokens] = useState(tokens);
 
@@ -42,7 +42,7 @@ export const SelectToken = () => {
         <div
           className={styles.background}
           style={{
-            backgroundImage: `url(${isEthereum ? EthereumLogo : StarkNetLogo})`
+            backgroundImage: `url(${isL1 ? L1Logo : L2Logo})`
           }}
         />
       </div>

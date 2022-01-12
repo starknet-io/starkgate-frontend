@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
-import {ReactComponent as StarknetLogo} from '../../../../assets/svg/tokens/starknet.svg';
+import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
 import {LINKS} from '../../../../constants';
 import {ActionType} from '../../../../enums';
 import {useColors} from '../../../../hooks';
@@ -23,14 +23,14 @@ const TransactionSubmittedModal = ({transfer}) => {
   const [networkData, setNetworkData] = useState({});
 
   useEffect(() => {
-    const {type, starknet_hash, eth_hash} = transfer;
-    const isCompletedWithdrawal = eth_hash && starknet_hash;
-    if (type === ActionType.TRANSFER_TO_STARKNET || isCompletedWithdrawal) {
+    const {type, l2hash, l1hash} = transfer;
+    const isCompletedWithdrawal = l1hash && l2hash;
+    if (type === ActionType.TRANSFER_TO_L2 || isCompletedWithdrawal) {
       setNetworkData({
-        message: type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
-        showStatusMsg: type === ActionType.TRANSFER_TO_STARKNET,
+        message: type === ActionType.TRANSFER_TO_L2 ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
+        showStatusMsg: type === ActionType.TRANSFER_TO_L2,
         explorerName: LINKS.ETHERSCAN.text,
-        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, eth_hash),
+        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, l1hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
       });
     } else {
@@ -38,8 +38,8 @@ const TransactionSubmittedModal = ({transfer}) => {
         message: WITHDRAWAL_TXT,
         showStatusMsg: true,
         explorerName: LINKS.VOYAGER.text,
-        explorerUrl: LINKS.VOYAGER.txUrl(chainId, starknet_hash),
-        explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
+        explorerUrl: LINKS.VOYAGER.txUrl(chainId, l2hash),
+        explorerLogo: <L2Logo style={{margin: 'auto'}} />
       });
     }
   }, []);

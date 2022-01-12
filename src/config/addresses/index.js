@@ -1,3 +1,3 @@
-export * from './contracts/contracts.ethereum';
-export * from './tokens/tokens.ethereum';
-export * from './tokens/tokens.starknet';
+export * from './contracts/contracts.l1';
+export * from './tokens/tokens.l1';
+export * from './tokens/tokens.l2';

@@ -23,7 +23,7 @@ export const Account = () => {
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
-  const {isEthereum, isStarknet, fromNetwork} = useTransferData();
+  const {isL1, isL2, fromNetwork} = useTransferData();
   const completeTransferToL1 = useCompleteTransferToL1();
 
   const renderTransfers = () => {
@@ -44,17 +44,17 @@ export const Account = () => {
         <BackButton onClick={showTransferMenu} />
         <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
         <AccountAddress address={account} />
-        {isEthereum && (
+        {isL1 && (
           <LinkButton
             text={LINKS.ETHERSCAN.text}
             url={LINKS.ETHERSCAN.accountUrl(chainId, account)}
           />
         )}
-        {isStarknet && (
+        {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
         <TransferLogContainer>{renderTransfers()}</TransferLogContainer>
-        <LogoutButton isDisabled={isStarknet} onClick={resetWallet} />
+        <LogoutButton isDisabled={isL2} onClick={resetWallet} />
       </div>
     </Menu>
   );

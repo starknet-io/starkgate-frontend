@@ -8,5 +8,5 @@ export const isEth = tokenData => {
   } else if (typeof tokenData === 'string') {
     symbol = tokenData;
   }
-  return symbol === NetworkType.ETHEREUM.symbol;
+  return symbol === NetworkType.L1.symbol;
 };

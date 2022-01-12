@@ -20,9 +20,9 @@ import styles from './TransferLog.module.scss';
 import {WITHDRAWAL_BTN_TXT} from './TransferLog.strings';
 
 export const TransferLog = ({transfer, onWithdrawClick}) => {
-  const {symbol, timestamp, name, amount, status, eth_hash, starknet_hash} = transfer;
+  const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
-  const {action, isEthereum} = useTransferData();
+  const {action, isL1} = useTransferData();
   const {chainId} = useWallets();
 
   useEffect(() => {
@@ -37,25 +37,25 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
     ) : null;
   };
 
-  const renderEthereumTxButton = () => {
-    return !eth_hash && isEthereum && isOnChain(status) ? (
+  const renderL1TxButton = () => {
+    return !l1hash && isL1 && isOnChain(status) ? (
       <WithdrawalButton onClick={onWithdrawClick} />
     ) : (
       <LinkButton
-        isDisabled={!eth_hash}
-        text={`${NetworkType.ETHEREUM.name} Tx`}
-        url={LINKS.ETHERSCAN.txUrl(chainId, eth_hash)}
+        isDisabled={!l1hash}
+        text={`${NetworkType.L1.name} Tx`}
+        url={LINKS.ETHERSCAN.txUrl(chainId, l1hash)}
       />
     );
   };
 
-  const renderStarknetTxButton = () => {
+  const renderL2TxButton = () => {
     return (
       <>
         <LinkButton
           isDisabled={isPending(status)}
-          text={`${NetworkType.STARKNET.name} Tx`}
-          url={LINKS.VOYAGER.txUrl(chainId, starknet_hash)}
+          text={`${NetworkType.L2.name} Tx`}
+          url={LINKS.VOYAGER.txUrl(chainId, l2hash)}
         />
       </>
     );
@@ -77,8 +77,8 @@ export const TransferLog = ({transfer, onWithdrawClick}) => {
           </div>
           {renderTransferStatus()}
           <div className={styles.links}>
-            {renderEthereumTxButton()}
-            {renderStarknetTxButton()}
+            {renderL1TxButton()}
+            {renderL2TxButton()}
           </div>
         </div>
       </div>

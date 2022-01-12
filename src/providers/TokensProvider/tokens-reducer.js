@@ -1,12 +1,12 @@
-import {EthereumTokens, StarknetTokens} from '../../config/addresses';
+import {L1Tokens, L2Tokens} from '../../config/addresses';
 
 export const actions = {
   UPDATE_TOKEN_STATE: 'Tokens/UPDATE_TOKEN_STATE'
 };
 
-const ethereumTokens = EthereumTokens.map(t => ({...t, isEthereum: true}));
-const starknetTokens = StarknetTokens.map(t => ({...t, isStarknet: true}));
-export const initialState = [...ethereumTokens, ...starknetTokens];
+const l1Tokens = L1Tokens.map(t => ({...t, isL1: true}));
+const l2Tokens = L2Tokens.map(t => ({...t, isL2: true}));
+export const initialState = [...l1Tokens, ...l2Tokens];
 
 export const reducer = (state, action) => {
   switch (action.type) {
