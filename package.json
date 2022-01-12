@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.1-11",
+  "version": "0.0.1-12",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -14,9 +14,7 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|scss|css|md)\"",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
-    "pre-release": "standard-version --prerelease --skip.changelog",
-    "pushTaggedRelease": "git push --follow-tags --no-verify origin master",
-    "publish": "bash ./scripts/npm-publish.bash"
+    "pre-release": "standard-version --prerelease --skip.changelog"
   },
   "husky": {
     "hooks": {

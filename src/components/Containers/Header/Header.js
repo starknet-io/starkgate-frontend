@@ -1,12 +1,11 @@
 import React from 'react';
 
-import L2LogoPath from '../../../assets/img/starknet.png';
+import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import {toClasses} from '../../../utils';
 import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
 import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
 import {WalletButton} from '../../UI';
-import {L2_LOGO_SIZE} from './Header.constants';
 import styles from './Header.module.scss';
 import {CHAIN_TXT} from './Header.strings';
 
@@ -36,8 +35,7 @@ export const Header = () => {
     <div className={toClasses(styles.header, 'row')}>
       <div className={toClasses(styles.left, 'row')}>
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
-          <img alt="" height={L2_LOGO_SIZE} src={L2LogoPath} />
-          <div className={styles.bridge}>Bridge</div>
+          <StarkGateLogo />
         </div>
         {isConnected && (
           <div className={toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
