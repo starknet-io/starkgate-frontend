@@ -13,18 +13,18 @@ import {CHAIN_TXT} from './Header.strings';
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
   const {showAccountMenu, showTransferMenu} = useBridgeActions();
-  const [, setL1] = useIsL1();
-  const [, setL2] = useIsL2();
+  const [, swapToL1] = useIsL1();
+  const [, swapToL2] = useIsL2();
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
 
   const onL2WalletButtonClick = () => {
-    setL2();
+    swapToL2();
     showAccountMenu();
   };
 
   const onL1WalletButtonClick = () => {
-    setL1();
+    swapToL1();
     showAccountMenu();
   };
 

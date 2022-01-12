@@ -49,14 +49,14 @@ export const useAmount = () => {
 
 export const useIsL1 = () => {
   const isL1 = useSelector(toL2Selector);
-  const setL1 = useSetActionType(ActionType.TRANSFER_TO_L2);
-  return [isL1, setL1];
+  const swapToL1 = useSetActionType(ActionType.TRANSFER_TO_L2);
+  return [isL1, swapToL1];
 };
 
 export const useIsL2 = () => {
   const isL2 = useSelector(toL1Selector);
-  const setL2 = useSetActionType(ActionType.TRANSFER_TO_L1);
-  return [isL2, setL2];
+  const swapToL2 = useSetActionType(ActionType.TRANSFER_TO_L1);
+  return [isL2, swapToL2];
 };
 
 const useSetAmount = () => {

@@ -15,8 +15,8 @@ export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
   const {selectedAddress, isConnected: isL2Connected, enable} = getStarknet();
-  const [isL1, setL1] = useIsL1();
-  const [isL2, setL2] = useIsL2();
+  const [isL1, swapToL1] = useIsL1();
+  const [isL2, swapToL2] = useIsL2();
 
   // Handles starknet wallet changes
   useEffect(() => {
@@ -65,10 +65,10 @@ export const WalletsProvider = ({children}) => {
 
   const swapWallets = async () => {
     if (state.l1Wallet.config && !state.l2Wallet.config) {
-      setL1();
+      swapToL1();
       maybeUpdateL1Wallet();
     } else if (state.l2Wallet.config && !state.l1Wallet.config) {
-      setL2();
+      swapToL2();
       await maybeUpdateL2Wallet();
     }
   };

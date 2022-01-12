@@ -19,8 +19,8 @@ import styles from './Transfer.module.scss';
 import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
-  const [isL1, setL1] = useIsL1();
-  const [isL2, setL2] = useIsL2();
+  const [isL1, swapToL1] = useIsL1();
+  const [isL2, swapToL2] = useIsL2();
   const [amount, setAmount] = useAmount();
   const [hasInputError, setHasInputError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -64,7 +64,7 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
-    isL2 ? setL1() : setL2();
+    isL2 ? swapToL1() : swapToL2();
   };
 
   const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
