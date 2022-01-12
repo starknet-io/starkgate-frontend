@@ -2,7 +2,7 @@ import {Transition} from '@headlessui/react';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ReactComponent as EthereumLogo} from '../../../../assets/svg/tokens/eth.svg';
+import {ReactComponent as L1Logo} from '../../../../assets/svg/tokens/eth.svg';
 import {useColors} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
@@ -33,7 +33,7 @@ export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, o
       <div className={styles.withdrawalTransferToast}>
         <div className={styles.container}>
           <div className={styles.left}>
-            <EthereumLogo style={{opacity: 0.5}} />
+            <L1Logo style={{opacity: 0.5}} />
           </div>
           <div className={styles.right}>
             <ToastHeader title={TITLE_TXT} withClose={true} onClose={onClose} />

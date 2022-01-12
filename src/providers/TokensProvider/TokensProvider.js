@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
 import {useLogger, useConfig} from '../../hooks';
-import {useEthereumTokenBalance, useStarknetTokenBalance} from '../../hooks/useTokenBalance';
-import {useEthereumWallet, useStarknetWallet} from '../WalletsProvider';
+import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
@@ -11,10 +11,10 @@ export const TokensProvider = ({children}) => {
   const {pollBalanceInterval} = useConfig();
   const logger = useLogger(TokensProvider.displayName);
   const [tokens, dispatch] = useReducer(reducer, initialState);
-  const {account: ethereumAccount} = useEthereumWallet();
-  const {account: starknetAccount} = useStarknetWallet();
-  const getEthereumTokenBalance = useEthereumTokenBalance(ethereumAccount);
-  const getStarknetTokenBalance = useStarknetTokenBalance(starknetAccount);
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
+  const getL1TokenBalance = useL1TokenBalance(l1Account);
+  const getL2TokenBalance = useL2TokenBalance(l2Account);
 
   useEffect(() => {
     updateTokens();
@@ -38,7 +38,7 @@ export const TokensProvider = ({children}) => {
       } else {
         logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
       }
-      const getBalance = token.isEthereum ? getEthereumTokenBalance : getStarknetTokenBalance;
+      const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
       getBalance(token.tokenAddress)
         .then(balance => {
           logger.log(`New ${token.symbol} token balance is ${balance}`);

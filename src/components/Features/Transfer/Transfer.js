@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {useTransferToL1, useTransferToL2} from '../../../hooks';
-import {useEthereumToken, useStarknetToken, useTokens} from '../../../providers/TokensProvider';
+import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {
   Loading,
   Menu,
@@ -14,19 +14,13 @@ import {
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {
-  useAmount,
-  useIsEthereum,
-  useIsStarknet,
-  useTransferActions,
-  useTransferData
-} from './Transfer.hooks';
+import {useAmount, useIsL1, useIsL2, useTransferActions, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
 import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
-  const [isEthereum, setEthereum] = useIsEthereum();
-  const [isStarknet, setStarknet] = useIsStarknet();
+  const [isL1, setL1] = useIsL1();
+  const [isL2, setL2] = useIsL2();
   const [amount, setAmount] = useAmount();
   const [hasInputError, setHasInputError] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -36,8 +30,8 @@ export const Transfer = () => {
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const {tokens} = useTokens();
-  const getEthereumToken = useEthereumToken();
-  const getStarknetToken = useStarknetToken();
+  const getL1Token = useL1Token();
+  const getL2Token = useL2Token();
 
   useEffect(() => {
     if (!selectedToken) {
@@ -70,10 +64,10 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
-    isStarknet ? setEthereum() : setStarknet();
+    isL2 ? setL1() : setL2();
   };
 
-  const onTransferClick = async () => (isEthereum ? transferToL2(amount) : transferToL1(amount));
+  const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -81,31 +75,27 @@ export const Transfer = () => {
         <TransferMenuTab
           key={index}
           isActive={action === tab}
-          text={
-            tab === ActionType.TRANSFER_TO_STARKNET
-              ? NetworkType.ETHEREUM.name
-              : NetworkType.STARKNET.name
-          }
+          text={tab === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name}
           onClick={() => action !== tab && onSwapClick()}
         />
       );
     });
   };
 
-  const renderEthereumNetwork = () => {
-    const tokenData = getEthereumToken(selectedToken.symbol);
+  const renderL1Network = () => {
+    const tokenData = getL1Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isEthereum} networkData={NetworkType.ETHEREUM} tokenData={tokenData}>
-        {isEthereum && renderTransferInput()}
+      <NetworkMenu isTarget={!isL1} networkData={NetworkType.L1} tokenData={tokenData}>
+        {isL1 && renderTransferInput()}
       </NetworkMenu>
     );
   };
 
-  const renderStarknetNetwork = () => {
-    const tokenData = getStarknetToken(selectedToken.symbol);
+  const renderL2Network = () => {
+    const tokenData = getL2Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isStarknet} networkData={NetworkType.STARKNET} tokenData={tokenData}>
-        {isStarknet && renderTransferInput()}
+      <NetworkMenu isTarget={!isL2} networkData={NetworkType.L2} tokenData={tokenData}>
+        {isL2 && renderTransferInput()}
       </NetworkMenu>
     );
   };
@@ -138,9 +128,9 @@ export const Transfer = () => {
         )}
         {selectedToken && (
           <>
-            {isEthereum ? renderEthereumNetwork() : renderStarknetNetwork()}
-            <NetworkSwap isFlipped={isStarknet} onClick={onSwapClick} />
-            {isEthereum ? renderStarknetNetwork() : renderEthereumNetwork()}
+            {isL1 ? renderL1Network() : renderL2Network()}
+            <NetworkSwap isFlipped={isL2} onClick={onSwapClick} />
+            {isL1 ? renderL2Network() : renderL1Network()}
           </>
         )}
       </div>

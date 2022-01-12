@@ -1,18 +1,18 @@
 import {hash, number} from 'starknet';
 
-import {STARKNET_INVOKE_TX_PREFIX} from '../constants';
+import {L2_INVOKE_TX_PREFIX} from '../constants';
 import {byChainId} from '../enums';
 
 export const txHash = (fromAddress, toAddress, selector, payload, chainId) => {
   const calldata = [number.hexToDecimalString(fromAddress), ...payload];
   const calldataHash = hash.hashCalldata(calldata);
-  const {starknetIdPrefix} = byChainId(chainId);
+  const {l2IdPrefix} = byChainId(chainId);
   return hash.computeHashOnElements([
-    STARKNET_INVOKE_TX_PREFIX,
+    L2_INVOKE_TX_PREFIX,
     toAddress,
     selector,
     calldataHash,
-    starknetIdPrefix
+    l2IdPrefix
   ]);
 };
 

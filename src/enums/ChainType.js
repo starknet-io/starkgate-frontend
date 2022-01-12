@@ -5,17 +5,17 @@ export const ChainType = {
     id: 1,
     name: 'main',
     blockExplorerUrl: `https://${ETHERSCAN_URL}`,
-    starknetId: 'SN_MAIN',
-    starknetIdPrefix: '23448594291968334',
-    starknetBlockExplorerUrl: `https://${VOYAGER_URL}`
+    l2Id: 'SN_MAIN',
+    l2IdPrefix: '23448594291968334',
+    l2BlockExplorerUrl: `https://${VOYAGER_URL}`
   },
   GOERLI: {
     id: 5,
     name: 'goerli',
     blockExplorerUrl: `https://goerli.${ETHERSCAN_URL}`,
-    starknetId: 'SN_GOERLI',
-    starknetIdPrefix: '1536727068981429685321',
-    starknetBlockExplorerUrl: `https://goerli.${VOYAGER_URL}`
+    l2Id: 'SN_GOERLI',
+    l2IdPrefix: '1536727068981429685321',
+    l2BlockExplorerUrl: `https://goerli.${VOYAGER_URL}`
   }
 };
 

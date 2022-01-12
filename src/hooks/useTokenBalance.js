@@ -1,24 +1,22 @@
 import {useCallback} from 'react';
 
-import {balanceOf, eth_ethBalanceOf} from '../api/erc20';
+import {balanceOf, l1_ethBalanceOf} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {useEthereumTokenContract, useStarknetTokenContract} from './useContract';
+import {useL1TokenContract, useL2TokenContract} from './useContract';
 
 export const useTokenBalance = account => {
-  const getStarknetTokenBalance = useStarknetTokenBalance(account);
-  const getEthereumTokenBalance = useEthereumTokenBalance(account);
-  const {isEthereum} = useTransferData();
+  const getL2TokenBalance = useL2TokenBalance(account);
+  const getL1TokenBalance = useL1TokenBalance(account);
+  const {isL1} = useTransferData();
   return useCallback(
     tokenAddresses =>
-      isEthereum
-        ? getEthereumTokenBalance(tokenAddresses)
-        : getStarknetTokenBalance(tokenAddresses),
-    [isEthereum, account, getEthereumTokenBalance, getStarknetTokenBalance]
+      isL1 ? getL1TokenBalance(tokenAddresses) : getL2TokenBalance(tokenAddresses),
+    [isL1, account, getL1TokenBalance, getL2TokenBalance]
   );
 };
 
-export const useStarknetTokenBalance = account => {
-  const getContract = useStarknetTokenContract();
+export const useL2TokenBalance = account => {
+  const getContract = useL2TokenContract();
   return useCallback(
     async tokenAddresses =>
       await balanceOf({account, contract: getContract(tokenAddresses)}, false),
@@ -26,13 +24,13 @@ export const useStarknetTokenBalance = account => {
   );
 };
 
-export const useEthereumTokenBalance = account => {
-  const getContract = useEthereumTokenContract();
+export const useL1TokenBalance = account => {
+  const getContract = useL1TokenContract();
   return useCallback(
     async tokenAddresses =>
       tokenAddresses
         ? await balanceOf({account, contract: getContract(tokenAddresses)}, true)
-        : await eth_ethBalanceOf(account),
+        : await l1_ethBalanceOf(account),
     [account, getContract]
   );
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
-import {useIsEthereum, useIsStarknet} from '../../components/Features/Transfer/Transfer.hooks';
+import {useIsL1, useIsL2} from '../../components/Features/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
 import {useConfig} from '../../hooks';
 import {web3} from '../../web3';
@@ -14,69 +14,69 @@ export const WalletsProvider = ({children}) => {
   const {autoConnect} = useConfig();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
-  const {selectedAddress, isConnected: isStarknetConnected, enable} = getStarknet();
-  const [isEthereum, setEthereum] = useIsEthereum();
-  const [isStarknet, setStarknet] = useIsStarknet();
+  const {selectedAddress, isConnected: isL2Connected, enable} = getStarknet();
+  const [isL1, setL1] = useIsL1();
+  const [isL2, setL2] = useIsL2();
 
   // Handles starknet wallet changes
   useEffect(() => {
-    (isStarknet || state.starknetWallet.config) && maybeUpdateStarknetWallet();
-  }, [selectedAddress, isStarknetConnected]);
+    (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
+  }, [selectedAddress, isL2Connected]);
 
   // Handles ethereum wallet changes
   useEffect(() => {
-    (isEthereum || state.ethereumWallet.config) && maybeUpdateEthereumWallet();
+    (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
   }, [status, error, account, chainId, networkName]);
 
   const connectWallet = async walletConfig => {
-    if (isEthereum) {
-      return connectEthereumWallet(walletConfig);
+    if (isL1) {
+      return connectL1Wallet(walletConfig);
     }
-    return connectStarknetWallet(walletConfig);
+    return connectL2Wallet(walletConfig);
   };
 
-  const connectEthereumWallet = async walletConfig => {
+  const connectL1Wallet = async walletConfig => {
     const {connectorId} = walletConfig;
     await connect(connectorId);
-    setEthereumWalletConfig(walletConfig);
+    setL1WalletConfig(walletConfig);
   };
 
-  const connectStarknetWallet = async walletConfig => {
+  const connectL2Wallet = async walletConfig => {
     await getStarknet(!autoConnect && {showModal: true}).enable();
-    setStarknetWalletConfig(walletConfig);
+    setL2WalletConfig(walletConfig);
   };
 
   const resetWallet = () => {
-    if (isEthereum) {
-      return resetEthereumWallet();
+    if (isL1) {
+      return resetL1Wallet();
     }
-    return resetStarknetWallet();
+    return resetL2Wallet();
   };
 
-  const resetEthereumWallet = () => {
-    setEthereumWalletConfig(null);
+  const resetL1Wallet = () => {
+    setL1WalletConfig(null);
     return reset();
   };
 
-  const resetStarknetWallet = () => {
-    setStarknetWalletConfig(null);
+  const resetL2Wallet = () => {
+    setL2WalletConfig(null);
     return null;
   };
 
   const swapWallets = async () => {
-    if (state.ethereumWallet.config && !state.starknetWallet.config) {
-      setEthereum();
-      maybeUpdateEthereumWallet();
-    } else if (state.starknetWallet.config && !state.ethereumWallet.config) {
-      setStarknet();
-      await maybeUpdateStarknetWallet();
+    if (state.l1Wallet.config && !state.l2Wallet.config) {
+      setL1();
+      maybeUpdateL1Wallet();
+    } else if (state.l2Wallet.config && !state.l1Wallet.config) {
+      setL2();
+      await maybeUpdateL2Wallet();
     }
   };
 
-  const maybeUpdateEthereumWallet = () => {
+  const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
     let serialError = error ? {...error} : null;
-    updateEthereumWallet({
+    updateL1Wallet({
       account,
       status,
       chainId,
@@ -87,7 +87,7 @@ export const WalletsProvider = ({children}) => {
     });
   };
 
-  const maybeUpdateStarknetWallet = async () => {
+  const maybeUpdateL2Wallet = async () => {
     let status,
       error = null;
     try {
@@ -97,11 +97,11 @@ export const WalletsProvider = ({children}) => {
       error = ex;
       status = WalletStatus.ERROR;
     } finally {
-      updateStarknetWallet({
+      updateL2Wallet({
         status,
         chainId,
         error,
-        isConnected: isStarknetConnected,
+        isConnected: isL2Connected,
         account: selectedAddress,
         chainName: networkName,
         library: getStarknet()
@@ -110,30 +110,30 @@ export const WalletsProvider = ({children}) => {
   };
 
   // Dispatchers
-  const updateEthereumWallet = payload => {
+  const updateL1Wallet = payload => {
     dispatch({
-      type: actions.UPDATE_ETHEREUM_WALLET,
+      type: actions.UPDATE_L1_WALLET,
       payload
     });
   };
 
-  const updateStarknetWallet = payload => {
+  const updateL2Wallet = payload => {
     dispatch({
-      type: actions.UPDATE_STARKNET_WALLET,
+      type: actions.UPDATE_L2_WALLET,
       payload
     });
   };
 
-  const setEthereumWalletConfig = payload => {
+  const setL1WalletConfig = payload => {
     dispatch({
-      type: actions.SET_ETHEREUM_WALLET_CONFIG,
+      type: actions.SET_L1_WALLET_CONFIG,
       payload
     });
   };
 
-  const setStarknetWalletConfig = payload => {
+  const setL2WalletConfig = payload => {
     dispatch({
-      type: actions.SET_STARKNET_WALLET_CONFIG,
+      type: actions.SET_L2_WALLET_CONFIG,
       payload
     });
   };
@@ -142,11 +142,11 @@ export const WalletsProvider = ({children}) => {
   const context = {
     ...state,
     connectWallet,
-    connectEthereumWallet,
-    connectStarknetWallet,
+    connectL1Wallet,
+    connectL2Wallet,
     resetWallet,
-    resetEthereumWallet,
-    resetStarknetWallet,
+    resetL1Wallet,
+    resetL2Wallet,
     swapWallets
   };
 

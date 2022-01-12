@@ -1,9 +1,9 @@
 import {ChainType, NetworkType} from '../../../enums';
 
-export const EthereumTokens = [
+export const L1Tokens = [
   {
-    name: NetworkType.ETHEREUM.tokenName,
-    symbol: NetworkType.ETHEREUM.symbol,
+    name: NetworkType.L1.tokenName,
+    symbol: NetworkType.L1.symbol,
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',

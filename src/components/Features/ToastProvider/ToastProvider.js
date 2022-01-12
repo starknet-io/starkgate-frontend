@@ -43,7 +43,7 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    if (!transfer.eth_hash && type === ActionType.TRANSFER_FROM_STARKNET && isOnChain(status)) {
+    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
       return showWithdrawalToast(transfer);
     }
   };
@@ -131,9 +131,9 @@ export const TransferData = ({transfer, style}) => {
     <>
       <ToastBody
         body={
-          transfer.type === ActionType.TRANSFER_TO_STARKNET
-            ? `${NetworkType.ETHEREUM.name} -> ${NetworkType.STARKNET.name}`
-            : `${NetworkType.STARKNET.name} -> ${NetworkType.ETHEREUM.name}`
+          transfer.type === ActionType.TRANSFER_TO_L2
+            ? `${NetworkType.L1.name} -> ${NetworkType.L2.name}`
+            : `${NetworkType.L2.name} -> ${NetworkType.L1.name}`
         }
         style={style}
       />

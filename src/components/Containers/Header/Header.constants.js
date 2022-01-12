@@ -1,1 +1,1 @@
-export const STARKNET_LOGO_SIZE = 30;
+export const L2_LOGO_SIZE = 30;

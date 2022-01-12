@@ -2,15 +2,15 @@ import {useCallback, useMemo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {ActionType} from '../../../enums';
-import {useEthereumToken, useStarknetToken} from '../../../providers/TokensProvider';
+import {useL1Token, useL2Token} from '../../../providers/TokensProvider';
 import {
   fromNetworkSelector,
-  fromStarknetSelector,
+  toL1Selector,
   getCurrentAmountSelector,
   selectSymbol,
   selectTransfer,
   toNetworkSelector,
-  toStarknetSelector
+  toL2Selector
 } from './Transfer.selectors';
 import {resetAction, selectTokenAction, setAmountAction, setTransferAction} from './Transfer.slice';
 
@@ -25,8 +25,8 @@ export const useTransferData = () => {
   return {
     ...useSelector(selectTransfer),
     selectedToken: useSelectedToken(),
-    isEthereum: useSelector(toStarknetSelector),
-    isStarknet: useSelector(fromStarknetSelector),
+    isL1: useSelector(toL2Selector),
+    isL2: useSelector(toL1Selector),
     fromNetwork: useSelector(fromNetworkSelector),
     toNetwork: useSelector(toNetworkSelector)
   };
@@ -34,13 +34,10 @@ export const useTransferData = () => {
 
 export const useSelectedToken = () => {
   const symbol = useSelector(selectSymbol);
-  const isEthereum = useSelector(toStarknetSelector);
-  const ethereumToken = useEthereumToken()(symbol);
-  const starknetToken = useStarknetToken()(symbol);
-  return useMemo(
-    () => (isEthereum ? ethereumToken : starknetToken),
-    [symbol, isEthereum, ethereumToken, starknetToken]
-  );
+  const isL1 = useSelector(toL2Selector);
+  const l1Token = useL1Token()(symbol);
+  const l2Token = useL2Token()(symbol);
+  return useMemo(() => (isL1 ? l1Token : l2Token), [symbol, isL1, l1Token, l2Token]);
 };
 
 export const useAmount = () => {
@@ -50,16 +47,16 @@ export const useAmount = () => {
   return [amount, setAmount, clearAmount];
 };
 
-export const useIsEthereum = () => {
-  const isEthereum = useSelector(toStarknetSelector);
-  const setEthereum = useSetActionType(ActionType.TRANSFER_TO_STARKNET);
-  return [isEthereum, setEthereum];
+export const useIsL1 = () => {
+  const isL1 = useSelector(toL2Selector);
+  const setL1 = useSetActionType(ActionType.TRANSFER_TO_L2);
+  return [isL1, setL1];
 };
 
-export const useIsStarknet = () => {
-  const isStarknet = useSelector(fromStarknetSelector);
-  const setStarknet = useSetActionType(ActionType.TRANSFER_FROM_STARKNET);
-  return [isStarknet, setStarknet];
+export const useIsL2 = () => {
+  const isL2 = useSelector(toL1Selector);
+  const setL2 = useSetActionType(ActionType.TRANSFER_TO_L1);
+  return [isL2, setL2];
 };
 
 const useSetAmount = () => {

@@ -5,9 +5,9 @@ import {TransactionConsumedStatuses} from '../enums';
 import {getLogger} from '../services';
 import {web3} from '../web3';
 
-export const eth_getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
+export const l1_getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
 
-export const eth_callContract = async (contract, method, args = []) => {
+export const l1_callContract = async (contract, method, args = []) => {
   try {
     return await contract.methods?.[method](...args).call();
   } catch (ex) {
@@ -15,7 +15,7 @@ export const eth_callContract = async (contract, method, args = []) => {
   }
 };
 
-export const eth_sendTransaction = async (
+export const l1_sendTransaction = async (
   contract,
   method,
   args = [],
@@ -29,14 +29,9 @@ export const eth_sendTransaction = async (
   }
 };
 
-export const eth_listenOnce = async (contract, event, callback) => {
-  contract.once(event, null, (error, event) => callback(error, event));
-};
+export const l2_getContract = (address, ABI) => new Contract(ABI, address, getStarknet().provider);
 
-export const starknet_getContract = (address, ABI) =>
-  new Contract(ABI, address, getStarknet().provider);
-
-export const starknet_callContract = async (contract, method, args = []) => {
+export const l2_callContract = async (contract, method, args = []) => {
   try {
     return await contract.call(method, ...args);
   } catch (ex) {
@@ -44,7 +39,7 @@ export const starknet_callContract = async (contract, method, args = []) => {
   }
 };
 
-export const starknet_sendTransaction = async (contract, method, args = {}) => {
+export const l2_sendTransaction = async (contract, method, args = {}) => {
   try {
     const methodSelector = stark.getSelectorFromName(method);
     const compiledCalldata = compileCalldata(args);
@@ -58,8 +53,8 @@ export const starknet_sendTransaction = async (contract, method, args = {}) => {
   }
 };
 
-export const starknet_waitForTransaction = async (hash, customStatus, retryInterval = 5000) => {
-  const logger = getLogger('starknet_waitForTransaction');
+export const l2_waitForTransaction = async (hash, customStatus, retryInterval = 5000) => {
+  const logger = getLogger('l2_waitForTransaction');
   return new Promise(resolve => {
     let processing = false;
     const waitingForStatuses = customStatus ? [customStatus] : TransactionConsumedStatuses;

@@ -48,9 +48,9 @@
     "transactionSubmitted": {
       "title_txt": "Transaction sent",
       "btn_txt": "View on {{explorer}}",
-      "withdrawal_txt": "Your transaction is now being processing on StarkNet. When it will be accepted on-chain, we will promote you to complete your transfer.",
-      "complete_withdrawal_txt": "Your transaction is completed on Ethereum!",
-      "deposit_txt": "Your transaction has been sent to StarkNet!",
+      "withdrawal_txt": "Your transaction is now being processing on L2. When it will be accepted on-chain, we will promote you to complete your transfer.",
+      "complete_withdrawal_txt": "Your transaction is completed on L1!",
+      "deposit_txt": "Your transaction has been sent to L2!",
       "status_txt": "Follow the transaction status on the right side of the browser."
     },
     "transferProgress": {
@@ -60,19 +60,19 @@
       },
       "deposit": {
         "type": "Transfer in progress",
-        "message": "Transferring {{amount}} {{symbol}} to StarkNet..."
+        "message": "Transferring {{amount}} {{symbol}} to L2..."
       },
       "initiateWithdraw": {
         "type": "Initiate transfer",
-        "message": "Initiating transfer of {{amount}} {{symbol}} from StarkNet..."
+        "message": "Initiating transfer of {{amount}} {{symbol}} from L2..."
       },
       "waitForAccept": {
         "type": "Transaction sent",
-        "message": "Waiting for transaction to be accepted on StarkNet..."
+        "message": "Waiting for transaction to be accepted on L2..."
       },
       "withdraw": {
         "type": "Transfer in progress",
-        "message": "Transferring {{amount}} {{symbol}} to Ethereum..."
+        "message": "Transferring {{amount}} {{symbol}} to L1..."
       },
       "waitForConfirm": {
         "type": "{{walletName}}",
@@ -84,13 +84,13 @@
   },
   "toasts": {
     "pendingTransfer": {
-      "pending_txt": "Waiting for transaction to be accepted on StarkNet",
-      "consumed_txt": "Transaction accepted on StarkNet",
-      "rejected_txt": "Transaction rejected on StarkNet"
+      "pending_txt": "Waiting for transaction to be accepted on L2",
+      "consumed_txt": "Transaction accepted on L2",
+      "rejected_txt": "Transaction rejected on L2"
     },
     "withdrawalTransfer": {
-      "title_txt": "StarkNet finished processing your transfer!",
-      "body_txt": "Click on Complete Transfer to transfer the funds from StarkNet Bridge to your Ethereum address.",
+      "title_txt": "L2 finished processing your transfer!",
+      "body_txt": "Click on Complete Transfer to transfer the funds from L2 Bridge to your L1 address.",
       "dismiss_btn_txt": "Dismiss",
       "withdrawal_btn_txt": "Complete Transfer"
     }
