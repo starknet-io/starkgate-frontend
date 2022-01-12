@@ -19,7 +19,7 @@
   {
     "inputs": [
       {
-        "name": "governance_account_address",
+        "name": "governor_address",
         "type": "felt"
       }
     ],
@@ -29,7 +29,7 @@
   },
   {
     "inputs": [],
-    "name": "governance_address",
+    "name": "get_governor",
     "outputs": [
       {
         "name": "res",
@@ -41,7 +41,7 @@
   },
   {
     "inputs": [],
-    "name": "l1_contract_address",
+    "name": "get_l1_bridge",
     "outputs": [
       {
         "name": "res",
@@ -53,7 +53,7 @@
   },
   {
     "inputs": [],
-    "name": "l2_token_contract_address",
+    "name": "get_l2_token",
     "outputs": [
       {
         "name": "res",
@@ -66,11 +66,11 @@
   {
     "inputs": [
       {
-        "name": "l1_contract_address",
+        "name": "l1_bridge_address",
         "type": "felt"
       }
     ],
-    "name": "set_l1_bridge_address",
+    "name": "set_l1_bridge",
     "outputs": [],
     "type": "function"
   },
@@ -81,7 +81,7 @@
         "type": "felt"
       }
     ],
-    "name": "set_l2_token_address",
+    "name": "set_l2_token",
     "outputs": [],
     "type": "function"
   },
