@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ChainUnsupportedError} from 'use-wallet';
 
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
@@ -80,11 +79,15 @@ export const Login = () => {
   };
 
   const handleError = error => {
-    if (error.name === ChainUnsupportedError.name) {
-      const msg = error.message.replace(
-        /\d+/g,
-        match => `${match} (${capitalize(toChainName(Number(match)))})`
-      );
+    if (error.name === 'ChainUnsupportedError') {
+      const msg = error.message.replace(/\d+/g, match => {
+        let msg = match;
+        const chainName = capitalize(toChainName(Number(match)));
+        if (chainName) {
+          msg += ` (${capitalize(toChainName(Number(match)))})`;
+        }
+        return msg;
+      });
       setErrorMsg(msg);
     }
   };

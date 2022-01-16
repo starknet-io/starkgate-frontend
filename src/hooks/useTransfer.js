@@ -17,7 +17,7 @@ import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
 import {l2_waitForTransaction} from '../utils/contract';
 import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
-import {useLogDepositListener, useLogMessageToL2Listener} from './useEventListener';
+import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -32,7 +32,6 @@ export const useTransferToL2 = () => {
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const addLogDepositListener = useLogDepositListener();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
 
   return useCallback(
@@ -103,7 +102,6 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      addLogDepositListener,
       addLogMessageToL2Listener,
       chainId,
       l1Account,

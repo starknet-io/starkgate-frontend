@@ -6,6 +6,7 @@
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
     "build": "react-scripts build",
+    "build:testing": "env-cmd -f .env.testing npm run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -64,6 +65,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react-hooks": "^4.3.0",
