@@ -5,7 +5,6 @@ import {maxDeposit} from '../../../api/bridge';
 import {ActionType, NetworkType} from '../../../enums';
 import {useTokenBridgeContract, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
-import {evaluate} from '../../../utils';
 import {
   Loading,
   Menu,
@@ -32,13 +31,12 @@ export const Transfer = () => {
   const {showSelectTokenMenu} = useBridgeActions();
   const {selectedToken, action, symbol} = useTransferData();
   const {selectToken} = useTransferActions();
+  const {tokens} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
-  const {tokens} = useTokens();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const getTokenBridgeContract = useTokenBridgeContract();
-
   const memoizedMaxAmount = useAsyncMemo(async () => {
     if (symbol) {
       const {decimals, bridgeAddress} = selectedToken;
@@ -66,7 +64,7 @@ export const Transfer = () => {
           setIsButtonDisabled(true);
         } else if (isL1 && amount > maxAmount) {
           setHasInputError(true);
-          setErrorMsg(evaluate(MAX_AMOUNT_ERROR_MSG, {maxAmount, symbol}));
+          setErrorMsg(MAX_AMOUNT_ERROR_MSG(maxAmount, symbol));
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);
