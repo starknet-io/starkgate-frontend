@@ -25,6 +25,7 @@ export const useTransferData = () => {
   return {
     ...useSelector(selectTransfer),
     selectedToken: useSelectedToken(),
+    symbol: useSelector(selectSymbol),
     isL1: useSelector(toL2Selector),
     isL2: useSelector(toL1Selector),
     fromNetwork: useSelector(fromNetworkSelector),
