@@ -9,14 +9,21 @@ import {useL1Token} from '../providers/TokensProvider';
 import {useL1Wallet, useWallets} from '../providers/WalletsProvider';
 import {l1_getContract, l2_getContract} from '../utils/contract';
 
+const cache = {};
+
 export const useContract = (ABI, getContractHandler = l1_getContract) => {
   const {chainId} = useWallets();
   return useCallback(
     addresses => {
       try {
-        let address = addresses[chainId];
-        if (!address) return null;
-        return getContractHandler(address, ABI);
+        const address = addresses[chainId];
+        if (!address) {
+          return null;
+        }
+        if (!cache[address]) {
+          cache[address] = getContractHandler(address, ABI);
+        }
+        return cache[address];
       } catch (ex) {
         return null;
       }
