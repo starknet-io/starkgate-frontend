@@ -22,19 +22,19 @@ export const useLogMessageToL2Listener = () => {
   return useCallback(async () => {
     logger.log('Registering to LogMessageToL2 event');
     const {symbol} = selectedToken;
-    const snBridgeAddress = getL2Token(symbol).bridgeAddress[chainId];
-    const ethBridgeAddress = getL1Token(symbol).bridgeAddress[chainId];
+    const l1BridgeAddress = getL1Token(symbol).bridgeAddress[chainId];
+    const l2BridgeAddress = getL2Token(symbol).bridgeAddress[chainId];
     try {
       const event = await addEventListener(messagingContract, 'LogMessageToL2', {
         filter: {
-          to_address: snBridgeAddress,
-          from_address: ethBridgeAddress,
+          to_address: l2BridgeAddress,
+          from_address: l1BridgeAddress,
           selector: stark.getSelectorFromName('handle_deposit')
         }
       });
       logger.log('Event received', {event});
-      const {to_address, from_address, selector, payload} = event.returnValues;
-      return txHash(from_address, to_address, selector, payload, chainId);
+      const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+      return txHash(from_address, to_address, selector, payload, chainId, nonce);
     } catch (ex) {
       logger.error('Event error', {ex});
       return Promise.reject(ex.message);
