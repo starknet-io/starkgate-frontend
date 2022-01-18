@@ -1,4 +1,20 @@
-import {b64d, b64e} from '../utils';
+function b64e(str) {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+      return String.fromCharCode('0x' + p1);
+    })
+  );
+}
+
+function b64d(str) {
+  return decodeURIComponent(
+    Array.prototype.map
+      .call(atob(str), function (c) {
+        return '%' + c.charCodeAt(0).toString(16);
+      })
+      .join('')
+  );
+}
 
 Storage.prototype.setObjectHash = function (key, myObject) {
   const newObject = {};
@@ -22,26 +38,19 @@ Storage.prototype.getObjectHash = function (key) {
 export const StorageManager = {
   setItem: (key, item) => {
     if (localStorage) {
-      localStorage.setItem(key, JSON.stringify(item));
+      localStorage.setObjectHash(key, JSON.stringify(item));
       return true;
     }
     return false;
   },
   getItem: key => {
     if (localStorage) {
-      const item = localStorage.getItem(key);
-      if (item) {
-        try {
-          return JSON.parse(item);
-        } catch (ex) {
-          return item;
-        }
+      let item = localStorage.getObjectHash(key);
+      try {
+        return JSON.parse(Object.values(item).join(''));
+      } catch (ex) {
+        return item;
       }
-    }
-  },
-  removeItem: key => {
-    if (localStorage) {
-      localStorage.removeItem(key);
     }
   }
 };
