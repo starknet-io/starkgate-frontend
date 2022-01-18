@@ -17,5 +17,5 @@ export const txHash = (fromAddress, toAddress, selector, payload, chainId) => {
 };
 
 export const hashEquals = (data1, data2) => {
- return hash.computeHashOnElements(data1) === hash.computeHashOnElements(data2);
-}
+  return hash.computeHashOnElements(data1) === hash.computeHashOnElements(data2);
+};
