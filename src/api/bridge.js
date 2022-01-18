@@ -1,5 +1,5 @@
-import {parseToDecimals, parseToFelt, parseToUint256} from '../utils';
-import {l1_sendTransaction, l2_sendTransaction} from '../utils/contract';
+import {parseFromDecimals, parseToDecimals, parseToFelt, parseToUint256} from '../utils';
+import {l1_callContract, l1_sendTransaction, l2_sendTransaction} from '../utils/contract';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   try {
@@ -43,6 +43,15 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
       },
       emitter
     );
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
+};
+
+export const maxDeposit = async ({decimals, contract}) => {
+  try {
+    const maxDeposit = await l1_callContract(contract, 'maxDeposit');
+    return parseFromDecimals(maxDeposit, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }

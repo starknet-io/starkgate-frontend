@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
-import {useTransferToL1, useTransferToL2} from '../../../hooks';
+import {useMaxAmount, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {
   Loading,
@@ -16,22 +16,24 @@ import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import {useBridgeActions} from '../Bridge/Bridge.hooks';
 import {useAmount, useIsL1, useIsL2, useTransferActions, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG} from './Transfer.strings';
+import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
   const [amount, setAmount] = useAmount();
   const [hasInputError, setHasInputError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useBridgeActions();
-  const {selectedToken, action} = useTransferData();
+  const {selectedToken, action, symbol} = useTransferData();
   const {selectToken} = useTransferActions();
+  const {tokens} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
-  const {tokens} = useTokens();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
+  const maxAmount = useMaxAmount();
 
   useEffect(() => {
     if (!selectedToken) {
@@ -42,21 +44,30 @@ export const Transfer = () => {
   useEffect(() => {
     if (selectedToken) {
       setHasInputError(false);
-      if (selectedToken.isLoading || Math.ceil(amount) === 0) {
+      if (selectedToken.isLoading || Math.ceil(amount) === 0 || (isL1 && !maxAmount)) {
         setIsButtonDisabled(true);
       } else {
         if (amount > selectedToken.balance) {
           setHasInputError(true);
+          setErrorMsg(INSUFFICIENT_BALANCE_ERROR_MSG);
+          setIsButtonDisabled(true);
+        } else if (isL1 && amount > maxAmount) {
+          setHasInputError(true);
+          setErrorMsg(MAX_AMOUNT_ERROR_MSG(maxAmount, symbol));
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);
         }
       }
     }
-  }, [amount, selectedToken]);
+  }, [amount, selectedToken, maxAmount, isL1]);
 
   const onMaxClick = () => {
-    setAmount(selectedToken.balance.toString());
+    try {
+      setAmount(Math.min(selectedToken.balance, Number(maxAmount)));
+    } catch (ex) {
+      setAmount(selectedToken.balance);
+    }
   };
 
   const onInputChange = event => {
@@ -111,7 +122,7 @@ export const Transfer = () => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
-        {hasInputError && <div className={styles.errorMsg}>{INSUFFICIENT_BALANCE_ERROR_MSG}</div>}
+        {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
         <TransferButton isDisabled={isButtonDisabled} onClick={onTransferClick} />
       </>
     );

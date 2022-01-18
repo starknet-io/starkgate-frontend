@@ -12,3 +12,4 @@ export * from './useTransfer';
 export * from './useConfig';
 export * from './useEventListener';
 export * from './useTransferProgress';
+export * from './useMaxAmount';
