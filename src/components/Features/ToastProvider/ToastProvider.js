@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
@@ -16,6 +16,7 @@ import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
 import {ToastBody, TransferToast, WithdrawalTransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
+import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 export const ToastProvider = () => {
   const {transfers} = useTransfers();
@@ -23,6 +24,10 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
+
+  useEffect(() => {
+    showAlphaDisclaimerToast();
+  }, []);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -54,6 +59,13 @@ export const ToastProvider = () => {
       toastId = toast.loading(renderTransferToast(transfer, true));
       toastsMap.current[transfer.id] = toastId;
     }
+  };
+
+  const showAlphaDisclaimerToast = () => {
+    toast.success(ALPHA_DISCLAIMER_MSG, {
+      position: 'bottom-left',
+      icon: '❗'
+    });
   };
 
   const showConsumedTransferToast = transfer => {
