@@ -24,17 +24,8 @@ export const txHash = (
   ]);
 };
 
-export const hashEquals = (data1, data2) =>
-  hash.computeHashOnElements(data1) === hash.computeHashOnElements(data2);
-
-export const b64e = str =>
-  window.btoa(
-    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) =>
-      String.fromCharCode('0x' + p1)
-    )
+export const hashEquals = (...data) => {
+  return !!data.reduce((d1, d2) =>
+    hash.computeHashOnElements(d1) === hash.computeHashOnElements(d2) ? d1 : ''
   );
-
-export const b64d = str =>
-  decodeURIComponent(
-    Array.prototype.map.call(window.atob(str), c => '%' + c.charCodeAt(0).toString(16)).join('')
-  );
+};
