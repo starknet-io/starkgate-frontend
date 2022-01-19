@@ -24,6 +24,8 @@ export const txHash = (
   ]);
 };
 
-export const hashEquals = (data1, data2) => {
-  return hash.computeHashOnElements(data1) === hash.computeHashOnElements(data2);
+export const hashEquals = (...data) => {
+  return !!data.reduce((d1, d2) =>
+    hash.computeHashOnElements(d1) === hash.computeHashOnElements(d2) ? d1 : ''
+  );
 };
