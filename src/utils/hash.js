@@ -1,6 +1,6 @@
 import {hash, number} from 'starknet';
 
-import {L2_INVOKE_TX_PREFIX} from '../constants';
+import {L1_HANDLER_TX_PREFIX} from '../constants';
 import {byChainId} from '../enums';
 
 export const txHash = (fromAddress, toAddress, selector, payload, chainId, ...additionalData) => {
@@ -8,7 +8,7 @@ export const txHash = (fromAddress, toAddress, selector, payload, chainId, ...ad
   const calldataHash = hash.hashCalldata(calldata);
   const {l2IdPrefix} = byChainId(chainId);
   return hash.computeHashOnElements([
-    L2_INVOKE_TX_PREFIX,
+    L1_HANDLER_TX_PREFIX,
     toAddress,
     selector,
     calldataHash,
