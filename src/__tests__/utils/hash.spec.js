@@ -1,4 +1,4 @@
-import {ChainType} from '../../enums';
+import {ChainType, TransactionHashPrefix} from '../../enums';
 import {hashEquals, txHash} from '../../utils';
 
 it('should calc tx hash', () => {
@@ -12,9 +12,17 @@ it('should calc tx hash', () => {
     '0'
   ];
 
-  expect(txHash(from_address, to_address, selector, payload, ChainType.GOERLI.id, nonce)).toEqual(
-    '0x35ab0e4de971ac0736844ef36a05796dc41490c165373923c423f4b995983e8'
-  );
+  expect(
+    txHash(
+      TransactionHashPrefix.L1_HANDLER,
+      from_address,
+      to_address,
+      selector,
+      payload,
+      ChainType.GOERLI.id,
+      nonce
+    )
+  ).toEqual('0x35ab0e4de971ac0736844ef36a05796dc41490c165373923c423f4b995983e8');
 });
 
 it('should compare hashes', () => {

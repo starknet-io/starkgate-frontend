@@ -2,6 +2,7 @@ import {useCallback} from 'react';
 import {stark} from 'starknet';
 
 import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
+import {TransactionHashPrefix} from '../enums';
 import {useL1Token, useL2Token} from '../providers/TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {txHash} from '../utils';
@@ -34,7 +35,15 @@ export const useLogMessageToL2Listener = () => {
       });
       logger.log('Event received', {event});
       const {to_address, from_address, selector, payload, nonce} = event.returnValues;
-      return txHash(from_address, to_address, selector, payload, chainId, nonce);
+      return txHash(
+        TransactionHashPrefix.L1_HANDLER,
+        from_address,
+        to_address,
+        selector,
+        payload,
+        chainId,
+        nonce
+      );
     } catch (ex) {
       logger.error('Event error', {ex});
       return Promise.reject(ex.message);
