@@ -1,16 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {
-  ActionType,
-  isConsumed,
-  isOnChain,
-  isPending,
-  isRejected,
-  NetworkType
-} from '../../../enums';
+import {ActionType, isConsumed, isOnChain, isPending, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
@@ -23,6 +16,13 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
+
+  useEffect(() => {
+    toast.success('Notice: Starknet is in alpha stage, and StarkWare\'s effort is currently focused towards significantly improving the network\'s throughput. Currently we are limiting to 0.1TPS, and this limit is expected to improve by 2-3 orders of magnitude when our effort ends.', {
+      position: 'bottom-left',
+      icon: null
+    });
+  }, []);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -118,7 +118,7 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
-      position="top-right"
+      position='top-right'
       toastOptions={{
         duration: Infinity
       }}
