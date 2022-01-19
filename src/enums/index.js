@@ -5,3 +5,4 @@ export * from './NetworkType';
 export * from './WalletType';
 export * from './WalletStatus';
 export * from './TransactionStatus';
+export * from './TransactionHashPrefix';

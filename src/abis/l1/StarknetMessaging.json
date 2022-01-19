@@ -106,6 +106,12 @@
         "internalType": "uint256[]",
         "name": "payload",
         "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
       }
     ],
     "name": "LogMessageToL2",
