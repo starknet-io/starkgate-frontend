@@ -64,7 +64,7 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       position: 'bottom-left',
-      icon: '⚠'
+      icon: '❗'
     });
   };
 
