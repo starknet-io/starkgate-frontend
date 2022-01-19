@@ -2,7 +2,6 @@ import {byChainId} from './enums';
 import {evaluate} from './utils';
 
 export const LOCAL_STORAGE_TRANSFERS_KEY = 'STARKGATE_TRANSFERS';
-export const L2_INVOKE_TX_PREFIX = '115923154332517';
 export const ETHERSCAN_URL = 'etherscan.io';
 export const VOYAGER_URL = 'voyager.online';
 export const LINKS = {

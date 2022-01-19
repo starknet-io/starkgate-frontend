@@ -5,7 +5,8 @@
   },
   "globals": {
     "process": true,
-    "gtag": true
+    "expect": true,
+    "it": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
   "parserOptions": {
