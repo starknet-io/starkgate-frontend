@@ -29,11 +29,11 @@ export const L1Tokens = [
     decimals: 6,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0xc175127A2AA180F48D47fC20e6ED581Bd9c369c7'
+      [ChainType.GOERLI.id]: '0xBA9cE9F22A3Cfa7Fcb5c31f6B2748b1e72C06204'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557'
+      [ChainType.GOERLI.id]: '0x07865c6e87b9f70255377e024ace6630c1eaa37f'
     }
   },
   {
