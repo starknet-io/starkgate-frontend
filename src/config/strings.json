@@ -90,11 +90,11 @@
       "consumed_txt": "Transaction accepted on L2",
       "rejected_txt": "Transaction rejected on L2"
     },
-    "withdrawalTransfer": {
+    "completeTransfer": {
       "title_txt": "L2 finished processing your transfer!",
       "body_txt": "Click on Complete Transfer to transfer the funds from L2 Bridge to your L1 address.",
       "dismiss_btn_txt": "Dismiss",
-      "withdrawal_btn_txt": "Complete Transfer"
+      "complete_transfer_btn_txt": "Complete Transfer"
     }
   }
 }

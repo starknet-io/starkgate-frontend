@@ -64,14 +64,19 @@ export const l2_waitForTransaction = async (hash, customStatus, retryInterval = 
       logger.debug(`Checking transaction again`);
       const statusPromise = getStarknet().provider.getTransactionStatus(hash);
       processing = true;
-      const {tx_status} = await statusPromise;
-      logger.debug(`Transaction status is ${tx_status}`);
-      if (waitingForStatuses.includes(tx_status)) {
-        logger.debug(`We got our desired status!`);
-        clearInterval(intervalId);
-        resolve();
-      } else {
-        logger.debug(`We haven't got our desired status, trying again.`);
+      try {
+        const {tx_status} = await statusPromise;
+        logger.debug(`Transaction status is ${tx_status}`);
+        if (waitingForStatuses.includes(tx_status)) {
+          logger.debug(`We got our desired status!`);
+          clearInterval(intervalId);
+          resolve();
+        } else {
+          logger.debug(`We haven't got our desired status, trying again.`);
+          processing = false;
+        }
+      } catch (ex) {
+        logger.error(`Error while calling get status: ${ex.message}, trying again.`);
         processing = false;
       }
     }, retryInterval);
