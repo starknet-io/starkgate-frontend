@@ -1,5 +1,5 @@
 import {getString} from '../../../utils';
 
-export const WITHDRAWAL_BTN_TXT = getString(
-  'menus.account.transferLogContainer.transferLog.withdrawal_btn_txt'
+export const COMPLETE_TRANSFER_BTN_TXT = getString(
+  'menus.account.transferLogContainer.transferLog.complete_transfer_btn_txt'
 );

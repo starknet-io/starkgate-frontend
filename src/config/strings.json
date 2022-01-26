@@ -26,7 +26,7 @@
         "empty_msg_txt": "Transfers will appear here...",
         "view_more_txt": "View more",
         "transferLog": {
-          "withdrawal_btn_txt": "Withdrawal"
+          "complete_transfer_btn_txt": "Complete transfer"
         }
       }
     },
