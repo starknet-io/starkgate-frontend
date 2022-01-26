@@ -9,15 +9,21 @@ import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
-import styles from './WithdrawalTransferToast.module.scss';
+import styles from './CompleteTransferToL1Toast.module.scss';
 import {
   BODY_TXT,
   DISMISS_BTN_TXT,
   TITLE_TXT,
-  WITHDRAWAL_BTN_TXT
-} from './WithdrawalTransferToast.strings';
+  COMPLETE_TRANSFER_BTN_TXT
+} from './CompleteTransferToL1Toast.strings';
 
-export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, onClose}) => {
+export const CompleteTransferToL1Toast = ({
+  t,
+  transfer,
+  onDismiss,
+  onCompleteTransfer,
+  onClose
+}) => {
   const {colorBeta, colorOmega1} = useColors();
   return (
     <Transition
@@ -30,7 +36,7 @@ export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, o
       leaveTo="opacity-0"
       show={t.visible}
     >
-      <div className={styles.withdrawalTransferToast}>
+      <div className={styles.CompleteTransferToL1Toast}>
         <div className={styles.container}>
           <div className={styles.left}>
             <L1Logo style={{opacity: 0.5}} />
@@ -40,7 +46,11 @@ export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, o
             <ToastBody body={BODY_TXT} style={{paddingRight: '20px'}} />
             <ToastButtons>
               <ToastButton color={colorOmega1} text={DISMISS_BTN_TXT} onClick={onDismiss} />
-              <ToastButton color={colorBeta} text={WITHDRAWAL_BTN_TXT} onClick={onWithdrawal} />
+              <ToastButton
+                color={colorBeta}
+                text={COMPLETE_TRANSFER_BTN_TXT}
+                onClick={onCompleteTransfer}
+              />
             </ToastButtons>
             <ToastSeparator />
             <TransferData style={{fontSize: '10px'}} transfer={transfer} />
@@ -51,10 +61,10 @@ export const WithdrawalTransferToast = ({t, transfer, onDismiss, onWithdrawal, o
   );
 };
 
-WithdrawalTransferToast.propTypes = {
+CompleteTransferToL1Toast.propTypes = {
   t: PropTypes.object,
   transfer: PropTypes.object,
   onDismiss: PropTypes.func,
-  onWithdrawal: PropTypes.func,
+  onCompleteTransfer: PropTypes.func,
   onClose: PropTypes.func
 };

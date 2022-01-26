@@ -33,7 +33,7 @@ export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
   }
 };
 
-export const l1_ethBalanceOf = async account => {
+export const ethBalanceOf = async account => {
   try {
     const balance = await web3.eth.getBalance(account);
     return parseFromDecimals(balance);
