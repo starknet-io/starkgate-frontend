@@ -5,8 +5,8 @@ import {ActionType} from '../../../enums';
 const initialState = {
   action: ActionType.TRANSFER_TO_L2,
   symbol: '',
-  depositAmount: '',
-  withdrawAmount: ''
+  transferToL2Amount: '',
+  transferToL1Amount: ''
 };
 
 const transferSlice = createSlice({
@@ -21,9 +21,9 @@ const transferSlice = createSlice({
     },
     setAmountAction(state, action) {
       if (state.action === ActionType.TRANSFER_TO_L2) {
-        state.depositAmount = action.payload;
+        state.transferToL2Amount = action.payload;
       } else {
-        state.withdrawAmount = action.payload;
+        state.transferToL1Amount = action.payload;
       }
     },
     resetAction(state) {
