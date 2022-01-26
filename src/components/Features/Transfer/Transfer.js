@@ -64,7 +64,7 @@ export const Transfer = () => {
 
   const onMaxClick = () => {
     try {
-      setAmount(Math.min(selectedToken.balance, Number(maxAmount)));
+      setAmount(String(Math.min(selectedToken.balance, Number(maxAmount))));
     } catch (ex) {
       setAmount(selectedToken.balance);
     }
