@@ -26,7 +26,7 @@
         "empty_msg_txt": "Transfers will appear here...",
         "view_more_txt": "View more",
         "transferLog": {
-          "withdrawal_btn_txt": "Withdrawal"
+          "complete_transfer_btn_txt": "Complete transfer"
         }
       }
     },
@@ -49,9 +49,9 @@
     "transactionSubmitted": {
       "title_txt": "Transaction sent",
       "btn_txt": "View on {{explorer}}",
-      "withdrawal_txt": "Your transaction is now being processing on L2. When it will be accepted on-chain, we will promote you to complete your transfer.",
-      "complete_withdrawal_txt": "Your transaction is completed on L1!",
-      "deposit_txt": "Your transaction has been sent to L2!",
+      "transfer_to_l1_txt": "Your transaction is now being processing on L2. When it will be accepted on-chain, we will promote you to complete your transfer.",
+      "transfer_to_l2_txt": "Your transaction has been sent to L2!",
+      "complete_transfer_to_l1_txt": "Your transaction is completed on L1!",
       "status_txt": "Follow the transaction status on the right side of the browser."
     },
     "transferProgress": {

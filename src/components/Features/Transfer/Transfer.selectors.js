@@ -8,9 +8,9 @@ export const selectTransferAction = state => state.transfer.action;
 
 export const selectSymbol = state => state.transfer.symbol;
 
-export const selectWithdrawAmount = state => state.transfer.withdrawAmount;
+export const selectTransferToL1Amount = state => state.transfer.transferToL1Amount;
 
-export const selectDepositAmount = state => state.transfer.depositAmount;
+export const selectTransferToL2Amount = state => state.transfer.transferToL2Amount;
 
 export const toL2Selector = createSelector(
   selectTransferAction,
@@ -31,11 +31,11 @@ export const toNetworkSelector = createSelector(selectTransferAction, action =>
 );
 
 export const getCurrentAmountSelector = createSelector(
-  [selectTransferAction, selectDepositAmount, selectWithdrawAmount],
-  (action, depositAmount, withdrawAmount) => {
+  [selectTransferAction, selectTransferToL2Amount, selectTransferToL1Amount],
+  (action, transferToL2Amount, transferToL1Amount) => {
     if (action === ActionType.TRANSFER_TO_L2) {
-      return depositAmount;
+      return transferToL2Amount;
     }
-    return withdrawAmount;
+    return transferToL1Amount;
   }
 );
