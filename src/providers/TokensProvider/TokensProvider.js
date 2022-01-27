@@ -39,7 +39,7 @@ export const TokensProvider = ({children}) => {
         logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
       }
       const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
-      getBalance(token.tokenAddress)
+      getBalance(token)
         .then(balance => {
           logger.log(`New ${token.symbol} token balance is ${balance}`);
           updateTokenState(index, {balance, isLoading: false});

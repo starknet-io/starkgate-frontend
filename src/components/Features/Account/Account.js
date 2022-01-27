@@ -32,7 +32,7 @@ export const Account = () => {
           <TransferLog
             key={index}
             transfer={transfer}
-            onWithdrawClick={() => completeTransferToL1(transfer)}
+            onCompleteTransferClick={() => completeTransferToL1(transfer)}
           />
         ))
       : null;

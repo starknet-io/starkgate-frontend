@@ -12,10 +12,10 @@ import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {
   BTN_TEXT,
-  COMPLETE_WITHDRAWAL_TXT,
-  DEPOSIT_TXT,
-  STATUS_TXT,
-  WITHDRAWAL_TXT
+  TRANSFER_TO_L2_TXT,
+  TRANSFER_TO_L1_TXT,
+  COMPLETE_TRANSFER_TO_L1_TXT,
+  STATUS_TXT
 } from './TransactionSubmittedModal.strings';
 
 const TransactionSubmittedModal = ({transfer}) => {
@@ -24,10 +24,11 @@ const TransactionSubmittedModal = ({transfer}) => {
 
   useEffect(() => {
     const {type, l2hash, l1hash} = transfer;
-    const isCompletedWithdrawal = l1hash && l2hash;
-    if (type === ActionType.TRANSFER_TO_L2 || isCompletedWithdrawal) {
+    const isTransferCompleted = l1hash && l2hash;
+    if (type === ActionType.TRANSFER_TO_L2 || isTransferCompleted) {
       setNetworkData({
-        message: type === ActionType.TRANSFER_TO_L2 ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
+        message:
+          type === ActionType.TRANSFER_TO_L2 ? TRANSFER_TO_L2_TXT : COMPLETE_TRANSFER_TO_L1_TXT,
         showStatusMsg: type === ActionType.TRANSFER_TO_L2,
         explorerName: LINKS.ETHERSCAN.text,
         explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, l1hash),
@@ -35,7 +36,7 @@ const TransactionSubmittedModal = ({transfer}) => {
       });
     } else {
       setNetworkData({
-        message: WITHDRAWAL_TXT,
+        message: TRANSFER_TO_L1_TXT,
         showStatusMsg: true,
         explorerName: LINKS.VOYAGER.text,
         explorerUrl: LINKS.VOYAGER.txUrl(chainId, l2hash),

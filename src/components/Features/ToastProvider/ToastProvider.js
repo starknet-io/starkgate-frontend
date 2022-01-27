@@ -14,7 +14,7 @@ import {
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
-import {ToastBody, TransferToast, WithdrawalTransferToast} from '../../UI';
+import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
@@ -49,7 +49,7 @@ export const ToastProvider = () => {
       return showRejectedTransferToast(transfer);
     }
     if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
-      return showWithdrawalToast(transfer);
+      return showCompleteTransferToL1Toast(transfer);
     }
   };
 
@@ -82,11 +82,11 @@ export const ToastProvider = () => {
     });
   };
 
-  const showWithdrawalToast = transfer => {
+  const showCompleteTransferToL1Toast = transfer => {
     const toastId = getToastId(transfer);
     if (!toastId && !isToastDismissed(toastId)) {
       toastsMap.current[transfer.id] = toast.custom(
-        t => renderWithdrawalTransferToast(t, transfer),
+        t => renderCompleteTransferToL1Toast(t, transfer),
         {
           id: toastId
         }
@@ -102,13 +102,13 @@ export const ToastProvider = () => {
     />
   );
 
-  const renderWithdrawalTransferToast = (t, transfer) => (
-    <WithdrawalTransferToast
+  const renderCompleteTransferToL1Toast = (t, transfer) => (
+    <CompleteTransferToL1Toast
       t={t}
       transfer={transfer}
       onClose={() => dismissToast(transfer)}
+      onCompleteTransfer={() => onCompleteTransferClick(transfer)}
       onDismiss={() => dismissToast(transfer)}
-      onWithdrawal={() => onWithdrawalClick(transfer)}
     />
   );
 
@@ -122,7 +122,7 @@ export const ToastProvider = () => {
     toastsDismissed.current[toastId] = true;
   };
 
-  const onWithdrawalClick = async transfer => {
+  const onCompleteTransferClick = async transfer => {
     await completeTransferToL1(transfer);
     dismissToast(transfer);
   };
