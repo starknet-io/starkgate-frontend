@@ -50,32 +50,6 @@ export const L1Tokens = [
     }
   },
   {
-    name: 'Magic Internet Money',
-    symbol: 'MIM',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x865C602d591eB18e946e9edF73895F6e699EB118'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x86124F8CF3C4AB702cEF895483067e46CE8764f9'
-    }
-  },
-  {
-    name: 'Frax',
-    symbol: 'FRAX',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x9818b35b62B1B394614f97b5e8BC158907E4eb1C'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0xBd97097dF545cc9734b96A5f3C5b1752C9179649'
-    }
-  },
-  {
     name: 'DAI',
     symbol: 'DAI',
     decimals: 18,
