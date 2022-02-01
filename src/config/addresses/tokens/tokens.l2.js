@@ -52,31 +52,5 @@ export const L2Tokens = [
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x386e8d061177f19b3b485c20e31137e6f6bc497cc635ccdfcab96fadf5add6a'
     }
-  },
-  {
-    name: 'Magic Internet Money',
-    symbol: 'MIM',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x341747554ec54280d2e92eab57295055955fd1e8ec2292910163ca60c85e74f'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x1dd62766ff2a0d3b996857e6a04490c74649386dc52dc4b6153b9acf5f4cae3'
-    }
-  },
-  {
-    name: 'Frax',
-    symbol: 'FRAX',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x254e681ffbf99c79e9e56aa38b2212914cadafa97d6c4f470589b1d43932a5f'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x1a53260bb912e49d668ae4ea8c4b5c1ebf1441f2acc1fd7fde74836738ed8da'
-    }
   }
 ];
