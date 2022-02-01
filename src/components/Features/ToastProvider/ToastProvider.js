@@ -135,7 +135,7 @@ export const ToastProvider = () => {
   };
 
   const goToTransferLog = transfer => {
-    transfer.type === ActionType.TRANSFER_TO_L2 ? swapToL2() : swapToL1();
+    transfer.type === ActionType.TRANSFER_TO_L2 ? swapToL1() : swapToL2();
     showAccountMenu({transferId: transfer.id});
   };
 

@@ -15,16 +15,6 @@ $marker-color: $--color-beta-1;
   padding-left: 5px;
   position: relative;
 
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    left: -11px;
-    width: 6px;
-    height: 70px;
-    background-color: $marker-color;
-  }
-
   &:nth-child(2) {
     margin-top: 20px;
   }

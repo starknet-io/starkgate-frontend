@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {toClasses} from '../../../utils';
@@ -32,13 +32,6 @@ export const TransferLogContainer = ({highlighted, children}) => {
       return children;
     }
   };
-
-  useEffect(() => {
-    if (children && highlighted) {
-      const highlightedTransfer = children[highlighted];
-      console.log(highlightedTransfer);
-    }
-  }, [highlighted]);
 
   return (
     <div className={styles.transferLogContainer}>

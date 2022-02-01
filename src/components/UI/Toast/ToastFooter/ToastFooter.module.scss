@@ -5,6 +5,8 @@ $colorHover: $--color-omega-1;
 
 .toastFooter {
   margin-bottom: 5px;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .transferLogLink {
@@ -14,4 +16,5 @@ $colorHover: $--color-omega-1;
   color: $color;
   width: 114px;
   text-decoration: underline;
+  align-self: flex-end;
 }
