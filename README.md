@@ -1,6 +1,6 @@
 <p align="center">
   <img style="position: absolute; left: 50%; transform: translateX(-50%)" src="https://github.com/starkware-libs/starkgate-frontend/blob/dev/src/assets/img/stars.png?raw=true"  alt=""/>
-  <img src="https://github.com/starkware-libs/starkgate-frontend/blob/dev/src/assets/img/starknet.png?raw=true"  alt=""/>
+  <img src="https://github.com/starkware-libs/starkgate-frontend/blob/dev/src/assets/img/starkgate.svg?raw=true"  alt=""/>
 </p>
 
 <h2 align='center'> Token Bridge for StarkNet</h2>

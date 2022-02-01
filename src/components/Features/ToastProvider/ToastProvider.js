@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
@@ -14,8 +14,9 @@ import {
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
-import {ToastBody, TransferToast, WithdrawalTransferToast} from '../../UI';
+import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
 import styles from './ToastProvider.module.scss';
+import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 export const ToastProvider = () => {
   const {transfers} = useTransfers();
@@ -23,6 +24,10 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
+
+  useEffect(() => {
+    showAlphaDisclaimerToast();
+  }, []);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -43,8 +48,8 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    if (!transfer.eth_hash && type === ActionType.TRANSFER_FROM_STARKNET && isOnChain(status)) {
-      return showWithdrawalToast(transfer);
+    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
+      return showCompleteTransferToL1Toast(transfer);
     }
   };
 
@@ -54,6 +59,13 @@ export const ToastProvider = () => {
       toastId = toast.loading(renderTransferToast(transfer, true));
       toastsMap.current[transfer.id] = toastId;
     }
+  };
+
+  const showAlphaDisclaimerToast = () => {
+    toast.success(ALPHA_DISCLAIMER_MSG, {
+      position: 'bottom-left',
+      icon: '❗'
+    });
   };
 
   const showConsumedTransferToast = transfer => {
@@ -70,11 +82,11 @@ export const ToastProvider = () => {
     });
   };
 
-  const showWithdrawalToast = transfer => {
+  const showCompleteTransferToL1Toast = transfer => {
     const toastId = getToastId(transfer);
     if (!toastId && !isToastDismissed(toastId)) {
       toastsMap.current[transfer.id] = toast.custom(
-        t => renderWithdrawalTransferToast(t, transfer),
+        t => renderCompleteTransferToL1Toast(t, transfer),
         {
           id: toastId
         }
@@ -90,13 +102,13 @@ export const ToastProvider = () => {
     />
   );
 
-  const renderWithdrawalTransferToast = (t, transfer) => (
-    <WithdrawalTransferToast
+  const renderCompleteTransferToL1Toast = (t, transfer) => (
+    <CompleteTransferToL1Toast
       t={t}
       transfer={transfer}
       onClose={() => dismissToast(transfer)}
+      onCompleteTransfer={() => onCompleteTransferClick(transfer)}
       onDismiss={() => dismissToast(transfer)}
-      onWithdrawal={() => onWithdrawalClick(transfer)}
     />
   );
 
@@ -110,7 +122,7 @@ export const ToastProvider = () => {
     toastsDismissed.current[toastId] = true;
   };
 
-  const onWithdrawalClick = async transfer => {
+  const onCompleteTransferClick = async transfer => {
     await completeTransferToL1(transfer);
     dismissToast(transfer);
   };
@@ -131,9 +143,9 @@ export const TransferData = ({transfer, style}) => {
     <>
       <ToastBody
         body={
-          transfer.type === ActionType.TRANSFER_TO_STARKNET
-            ? `${NetworkType.ETHEREUM.name} -> ${NetworkType.STARKNET.name}`
-            : `${NetworkType.STARKNET.name} -> ${NetworkType.ETHEREUM.name}`
+          transfer.type === ActionType.TRANSFER_TO_L2
+            ? `${NetworkType.L1.name} -> ${NetworkType.L2.name}`
+            : `${NetworkType.L2.name} -> ${NetworkType.L1.name}`
         }
         style={style}
       />

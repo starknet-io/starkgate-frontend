@@ -1,10 +1,10 @@
 import {WalletStatus} from '../../enums';
 
 export const actions = {
-  UPDATE_ETHEREUM_WALLET: 'CombineWallets/UPDATE_ETHEREUM_WALLET',
-  UPDATE_STARKNET_WALLET: 'CombineWallets/UPDATE_STARKNET_WALLET',
-  SET_ETHEREUM_WALLET_CONFIG: 'CombineWallets/SET_ETHEREUM_WALLET_CONFIG',
-  SET_STARKNET_WALLET_CONFIG: 'CombineWallets/SET_STARKNET_WALLET_CONFIG'
+  UPDATE_L1_WALLET: 'Wallets/UPDATE_L1_WALLET',
+  UPDATE_L2_WALLET: 'Wallets/UPDATE_L2_WALLET',
+  SET_L1_WALLET_CONFIG: 'Wallets/SET_L1_WALLET_CONFIG',
+  SET_L2_WALLET_CONFIG: 'Wallets/SET_L2_WALLET_CONFIG'
 };
 
 const initialWalletState = {
@@ -19,42 +19,42 @@ const initialWalletState = {
 };
 
 export const initialState = {
-  ethereumWallet: {
+  l1Wallet: {
     ...initialWalletState
   },
-  starknetWallet: {
+  l2Wallet: {
     ...initialWalletState
   }
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.UPDATE_ETHEREUM_WALLET:
+    case actions.UPDATE_L1_WALLET:
       return {
         ...state,
-        ethereumWallet: {...state.ethereumWallet, ...action.payload}
+        l1Wallet: {...state.l1Wallet, ...action.payload}
       };
 
-    case actions.UPDATE_STARKNET_WALLET:
+    case actions.UPDATE_L2_WALLET:
       return {
         ...state,
-        starknetWallet: {...state.starknetWallet, ...action.payload}
+        l2Wallet: {...state.l2Wallet, ...action.payload}
       };
 
-    case actions.SET_ETHEREUM_WALLET_CONFIG:
+    case actions.SET_L1_WALLET_CONFIG:
       return {
         ...state,
-        ethereumWallet: {
-          ...state.ethereumWallet,
+        l1Wallet: {
+          ...state.l1Wallet,
           config: action.payload
         }
       };
 
-    case actions.SET_STARKNET_WALLET_CONFIG:
+    case actions.SET_L2_WALLET_CONFIG:
       return {
         ...state,
-        starknetWallet: {
-          ...state.starknetWallet,
+        l2Wallet: {
+          ...state.l2Wallet,
           config: action.payload
         }
       };

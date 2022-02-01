@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {useEthereumWallet, useStarknetWallet, useWallets} from '../../../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import {toClasses} from '../../../utils';
 import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
-import {useIsEthereum, useIsStarknet} from '../../Features/Transfer/Transfer.hooks';
+import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
 import {WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 import {CHAIN_TXT} from './Header.strings';
@@ -12,26 +12,18 @@ import {CHAIN_TXT} from './Header.strings';
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
   const {showAccountMenu, showTransferMenu} = useBridgeActions();
-  const [, setEthereum] = useIsEthereum();
-  const [, setStarknet] = useIsStarknet();
-  const {
-    account: ethereumAccount,
-    isConnected: isEthereumConnected,
-    config: ethereumConfig
-  } = useEthereumWallet();
-  const {
-    account: starknetAccount,
-    isConnected: isStarknetConnected,
-    config: starknetConfig
-  } = useStarknetWallet();
+  const [, swapToL1] = useIsL1();
+  const [, swapToL2] = useIsL2();
+  const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
+  const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
 
-  const onStarknetWalletButtonClick = () => {
-    setStarknet();
+  const onL2WalletButtonClick = () => {
+    swapToL2();
     showAccountMenu();
   };
 
-  const onEthereumWalletButtonClick = () => {
-    setEthereum();
+  const onL1WalletButtonClick = () => {
+    swapToL1();
     showAccountMenu();
   };
 
@@ -51,18 +43,18 @@ export const Header = () => {
       </div>
 
       <div className={toClasses(styles.right, 'row')}>
-        {isEthereumConnected && (
+        {isL1AccountConnected && (
           <WalletButton
-            account={ethereumAccount}
-            logoPath={ethereumConfig?.logoPath}
-            onClick={onEthereumWalletButtonClick}
+            account={l1Account}
+            logoPath={l1Config?.logoPath}
+            onClick={onL1WalletButtonClick}
           />
         )}
-        {isStarknetConnected && (
+        {isL2AccountConnected && (
           <WalletButton
-            account={starknetAccount}
-            logoPath={starknetConfig?.logoPath}
-            onClick={onStarknetWalletButtonClick}
+            account={l2Account}
+            logoPath={l2Config?.logoPath}
+            onClick={onL2WalletButtonClick}
           />
         )}
       </div>

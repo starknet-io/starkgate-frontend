@@ -37,10 +37,8 @@ export const TransfersProvider = ({children}) => {
           return transfer;
         }
         try {
-          logger.log(`Checking tx status ${transfer.starknet_hash}`);
-          const newStatus = await getStarknet().provider.getTransactionStatus(
-            transfer.starknet_hash
-          );
+          logger.log(`Checking tx status ${transfer.l2hash}`);
+          const newStatus = await getStarknet().provider.getTransactionStatus(transfer.l2hash);
           if (transfer.status !== newStatus.tx_status) {
             logger.log(
               !transfer.status
@@ -54,7 +52,7 @@ export const TransfersProvider = ({children}) => {
             lastChecked: blockHash
           };
         } catch (error) {
-          logger.error(`Failed to check transaction status: ${transfer.starknet_hash}`);
+          logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
         }
         return transfer;
       };

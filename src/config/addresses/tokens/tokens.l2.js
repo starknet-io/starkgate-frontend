@@ -1,9 +1,9 @@
 import {ChainType, NetworkType} from '../../../enums';
 
-export const StarknetTokens = [
+export const L2Tokens = [
   {
-    name: NetworkType.ETHEREUM.tokenName,
-    symbol: NetworkType.ETHEREUM.symbol,
+    name: NetworkType.L1.tokenName,
+    symbol: NetworkType.L1.symbol,
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
@@ -33,11 +33,11 @@ export const StarknetTokens = [
     decimals: 6,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x28248893ca3bab78fe7b0a053d3ddc450c291f3572e175699dbd1f7076dc800'
+      [ChainType.GOERLI.id]: '0x001d5b64feabc8ac7c839753994f469704c6fabdd45c8fe6d26ed57b5eb79057'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x77367abf77245c0e74728e4f9dc7c944b2bc5c1bdb6902575ff97aea7653842'
+      [ChainType.GOERLI.id]: '0x005a643907b9a4bc6a55e9069c4fd5fd1f5c79a22470690f75556c4736e34426'
     }
   },
   {

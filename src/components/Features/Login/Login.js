@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ChainUnsupportedError} from 'use-wallet';
 
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
-import {useEthereumWallet, useStarknetWallet, useWallets} from '../../../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import {capitalize, toClasses} from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
 import {useHideModal, useProgressModal} from '../ModalProvider/ModalProvider.hooks';
@@ -15,14 +14,14 @@ export const Login = () => {
   const {autoConnect} = useConfig();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [walletType, setWalletType] = useState(WalletType.ETHEREUM);
+  const [walletType, setWalletType] = useState(WalletType.L1);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const getWalletHandlers = useWalletHandlerProvider();
   const {status, error} = useWallets();
-  const {connectWallet: connectEthereumWallet, isConnected} = useEthereumWallet();
-  const {connectWallet: connectStarknetWallet} = useStarknetWallet();
+  const {connectWallet: connectL1Wallet, isConnected} = useL1Wallet();
+  const {connectWallet: connectL2Wallet} = useL2Wallet();
 
   useEffect(() => {
     let timeoutId;
@@ -36,7 +35,7 @@ export const Login = () => {
   }, [walletType, getWalletHandlers]);
 
   useEffect(() => {
-    isConnected && setWalletType(WalletType.STARKNET);
+    isConnected && setWalletType(WalletType.L2);
   }, [isConnected]);
 
   useEffect(() => {
@@ -69,9 +68,7 @@ export const Login = () => {
     }
     const {config} = walletHandler;
     setSelectedWalletName(config.name);
-    return walletType === WalletType.ETHEREUM
-      ? connectEthereumWallet(config)
-      : connectStarknetWallet(config);
+    return walletType === WalletType.L1 ? connectL1Wallet(config) : connectL2Wallet(config);
   };
 
   const onDownloadClick = () => {
@@ -82,11 +79,15 @@ export const Login = () => {
   };
 
   const handleError = error => {
-    if (error.name === ChainUnsupportedError.name) {
-      const msg = error.message.replace(
-        /\d+/g,
-        match => `${match} (${capitalize(toChainName(Number(match)))})`
-      );
+    if (error.name === 'ChainUnsupportedError') {
+      const msg = error.message.replace(/\d+/g, match => {
+        let msg = match;
+        const chainName = capitalize(toChainName(Number(match)));
+        if (chainName) {
+          msg += ` (${capitalize(toChainName(Number(match)))})`;
+        }
+        return msg;
+      });
       setErrorMsg(msg);
     }
   };
@@ -129,11 +130,7 @@ export const Login = () => {
         <div className={styles.content}>
           <div className={styles.title}>{TITLE_TXT}</div>
           <p>
-            {SUBTITLE_TXT(
-              walletType === WalletType.ETHEREUM
-                ? NetworkType.ETHEREUM.name
-                : NetworkType.STARKNET.name
-            )}
+            {SUBTITLE_TXT(walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name)}
           </p>
           <div className={styles.container}>{renderLoginWallets()}</div>
           {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}

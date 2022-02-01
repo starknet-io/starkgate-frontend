@@ -8,34 +8,34 @@ export const selectTransferAction = state => state.transfer.action;
 
 export const selectSymbol = state => state.transfer.symbol;
 
-export const selectWithdrawAmount = state => state.transfer.withdrawAmount;
+export const selectTransferToL1Amount = state => state.transfer.transferToL1Amount;
 
-export const selectDepositAmount = state => state.transfer.depositAmount;
+export const selectTransferToL2Amount = state => state.transfer.transferToL2Amount;
 
-export const toStarknetSelector = createSelector(
+export const toL2Selector = createSelector(
   selectTransferAction,
-  action => action === ActionType.TRANSFER_TO_STARKNET
+  action => action === ActionType.TRANSFER_TO_L2
 );
 
-export const fromStarknetSelector = createSelector(
+export const toL1Selector = createSelector(
   selectTransferAction,
-  action => action === ActionType.TRANSFER_FROM_STARKNET
+  action => action === ActionType.TRANSFER_TO_L1
 );
 
 export const fromNetworkSelector = createSelector(selectTransferAction, action =>
-  action === ActionType.TRANSFER_TO_STARKNET ? NetworkType.ETHEREUM : NetworkType.STARKNET
+  action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1 : NetworkType.L2
 );
 
 export const toNetworkSelector = createSelector(selectTransferAction, action =>
-  action === ActionType.TRANSFER_TO_STARKNET ? NetworkType.STARKNET : NetworkType.ETHEREUM
+  action === ActionType.TRANSFER_TO_L2 ? NetworkType.L2 : NetworkType.L1
 );
 
 export const getCurrentAmountSelector = createSelector(
-  [selectTransferAction, selectDepositAmount, selectWithdrawAmount],
-  (action, depositAmount, withdrawAmount) => {
-    if (action === ActionType.TRANSFER_TO_STARKNET) {
-      return depositAmount;
+  [selectTransferAction, selectTransferToL2Amount, selectTransferToL1Amount],
+  (action, transferToL2Amount, transferToL1Amount) => {
+    if (action === ActionType.TRANSFER_TO_L2) {
+      return transferToL2Amount;
     }
-    return withdrawAmount;
+    return transferToL1Amount;
   }
 );

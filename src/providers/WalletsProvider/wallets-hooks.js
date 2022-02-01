@@ -5,16 +5,16 @@ import {WalletsContext} from './wallets-context';
 
 export const useWallets = () => {
   const wallets = useContext(WalletsContext);
-  const [activeWallet, setActiveWallet] = useState(wallets.ethereumWallet);
-  const {isEthereum} = useTransferData();
+  const [activeWallet, setActiveWallet] = useState(wallets.l1Wallet);
+  const {isL1} = useTransferData();
 
   const connectWallet = useCallback(walletConfig => wallets.connectWallet(walletConfig), []);
   const resetWallet = useCallback(() => wallets.resetWallet(), []);
   const swapWallets = useCallback(() => wallets.swapWallets(), []);
 
   useEffect(() => {
-    setActiveWallet(isEthereum ? wallets.ethereumWallet : wallets.starknetWallet);
-  }, [isEthereum, wallets]);
+    setActiveWallet(isL1 ? wallets.l1Wallet : wallets.l2Wallet);
+  }, [isL1, wallets]);
 
   return {
     ...activeWallet,
@@ -24,28 +24,22 @@ export const useWallets = () => {
   };
 };
 
-export const useEthereumWallet = () => {
+export const useL1Wallet = () => {
   const wallets = useContext(WalletsContext);
-  const connectWallet = useCallback(
-    walletConfig => wallets.connectEthereumWallet(walletConfig),
-    []
-  );
+  const connectWallet = useCallback(walletConfig => wallets.connectL1Wallet(walletConfig), []);
 
   return {
     connectWallet,
-    ...wallets.ethereumWallet
+    ...wallets.l1Wallet
   };
 };
 
-export const useStarknetWallet = () => {
+export const useL2Wallet = () => {
   const wallets = useContext(WalletsContext);
-  const connectWallet = useCallback(
-    walletConfig => wallets.connectStarknetWallet(walletConfig),
-    []
-  );
+  const connectWallet = useCallback(walletConfig => wallets.connectL2Wallet(walletConfig), []);
 
   return {
     connectWallet,
-    ...wallets.starknetWallet
+    ...wallets.l2Wallet
   };
 };

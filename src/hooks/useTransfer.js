@@ -11,17 +11,13 @@ import {
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
 import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionStatus} from '../enums';
-import {useEthereumToken, useTokens} from '../providers/TokensProvider';
+import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
-import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
-import {starknet_waitForTransaction} from '../utils/contract';
-import {
-  useEthereumTokenBridgeContract,
-  useTokenBridgeContract,
-  useTokenContract
-} from './useContract';
-import {useLogDepositListener, useLogMessageToL2Listener} from './useEventListener';
+import {l2_waitForTransaction} from '../utils/contract';
+import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
+import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -29,14 +25,13 @@ const HOOK_MODULE = 'useTransfer';
 
 export const useTransferToL2 = () => {
   const logger = useLogger(`${HOOK_MODULE}:useTransferToL2`);
-  const {account: ethereumAccount, chainId, config: ethereumConfig} = useEthereumWallet();
-  const {account: starknetAccount} = useStarknetWallet();
+  const {account: l1Account, chainId, config: l1Config} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const addLogDepositListener = useLogDepositListener();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
 
   return useCallback(
@@ -53,7 +48,7 @@ export const useTransferToL2 = () => {
           const tokenContract = getTokenContract(tokenAddress);
           handleProgress(progressOptions.approval(symbol));
           const allow = await allowance({
-            owner: ethereumAccount,
+            owner: l1Account,
             spender: bridgeAddress[chainId],
             decimals,
             contract: tokenContract
@@ -65,19 +60,19 @@ export const useTransferToL2 = () => {
               spender: bridgeAddress[chainId],
               value: constants.MASK_250,
               contract: tokenContract,
-              options: {from: ethereumAccount}
+              options: {from: l1Account}
             });
           }
         }
-        handleProgress(progressOptions.waitForConfirm(ethereumConfig.name));
+        handleProgress(progressOptions.waitForConfirm(l1Config.name));
         const logMessageToL2EventPromise = addLogMessageToL2Listener();
         logger.log('Calling deposit');
         const depositPromise = await depositHandler({
-          recipient: starknetAccount,
+          recipient: l2Account,
           amount,
           decimals,
           contract: bridgeContract,
-          options: {from: ethereumAccount},
+          options: {from: l1Account},
           emitter: (error, transactionHash) => {
             if (!error) {
               logger.log('Tx hash received', {transactionHash});
@@ -91,14 +86,14 @@ export const useTransferToL2 = () => {
         ]);
         logger.log('Done', {l1hash, l2hash});
         handleData({
-          type: ActionType.TRANSFER_TO_STARKNET,
-          sender: ethereumAccount,
-          recipient: starknetAccount,
+          type: ActionType.TRANSFER_TO_L2,
+          sender: l1Account,
+          recipient: l2Account,
           name,
           symbol,
           amount,
-          eth_hash: l1hash,
-          starknet_hash: l2hash
+          l1hash,
+          l2hash
         });
       } catch (ex) {
         logger.error(ex.message, {ex});
@@ -107,11 +102,10 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      addLogDepositListener,
       addLogMessageToL2Listener,
       chainId,
-      ethereumAccount,
-      ethereumConfig,
+      l1Account,
+      l1Config,
       getTokenBridgeContract,
       getTokenContract,
       handleData,
@@ -119,15 +113,15 @@ export const useTransferToL2 = () => {
       handleProgress,
       logger,
       progressOptions,
-      starknetAccount
+      l2Account
     ]
   );
 };
 
 export const useTransferToL1 = () => {
   const logger = useLogger(`${HOOK_MODULE}:useTransferToL1`);
-  const {account: ethereumAccount} = useEthereumWallet();
-  const {account: starknetAccount, config: starknetConfig} = useStarknetWallet();
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account, config: l2Config} = useL2Wallet();
   const selectedToken = useSelectedToken();
   const getTokenBridgeContract = useTokenBridgeContract();
   const {handleProgress, handleData, handleError} = useTransfer();
@@ -140,10 +134,10 @@ export const useTransferToL1 = () => {
         const {decimals, bridgeAddress, name, symbol} = selectedToken;
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
         logger.log('Prepared contract', {bridgeContract});
-        handleProgress(progressOptions.waitForConfirm(starknetConfig.name));
+        handleProgress(progressOptions.waitForConfirm(l2Config.name));
         logger.log('Calling initiate withdraw');
         const {transaction_hash} = await initiateWithdraw({
-          recipient: ethereumAccount,
+          recipient: l1Account,
           amount,
           decimals,
           contract: bridgeContract
@@ -151,19 +145,19 @@ export const useTransferToL1 = () => {
         logger.log('Tx hash received', {transaction_hash});
         handleProgress(progressOptions.initiateWithdraw(amount, symbol));
         logger.log('Waiting for tx to be received on L2');
-        await starknet_waitForTransaction(transaction_hash, TransactionStatus.RECEIVED);
+        await l2_waitForTransaction(transaction_hash, TransactionStatus.RECEIVED);
         handleProgress(progressOptions.waitForAccept());
         logger.log('Waiting for tx to be accepted on L2');
-        await starknet_waitForTransaction(transaction_hash);
+        await l2_waitForTransaction(transaction_hash);
         logger.log('Done', {transaction_hash});
         handleData({
-          type: ActionType.TRANSFER_FROM_STARKNET,
-          sender: starknetAccount,
-          recipient: ethereumAccount,
+          type: ActionType.TRANSFER_TO_L1,
+          sender: l2Account,
+          recipient: l1Account,
           name,
           symbol,
           amount,
-          starknet_hash: transaction_hash
+          l2hash: transaction_hash
         });
       } catch (ex) {
         logger.error(ex.message, {ex});
@@ -171,7 +165,7 @@ export const useTransferToL1 = () => {
       }
     },
     [
-      ethereumAccount,
+      l1Account,
       getTokenBridgeContract,
       handleData,
       handleError,
@@ -179,33 +173,33 @@ export const useTransferToL1 = () => {
       logger,
       progressOptions,
       selectedToken,
-      starknetAccount,
-      starknetConfig
+      l2Account,
+      l2Config
     ]
   );
 };
 
 export const useCompleteTransferToL1 = () => {
   const logger = useLogger(`${HOOK_MODULE}:useCompleteTransferToL1`);
-  const {account: ethereumAccount, config: ethereumConfig} = useEthereumWallet();
+  const {account: l1Account, config: l1Config} = useL1Wallet();
   const {handleProgress, handleData, handleError} = useTransfer();
   const progressOptions = useTransferProgress();
-  const getEthereumToken = useEthereumToken();
-  const getEthereumTokenBridgeContract = useEthereumTokenBridgeContract();
+  const getL1Token = useL1Token();
+  const getL1TokenBridgeContract = useL1TokenBridgeContract();
 
   return useCallback(
     async transfer => {
       try {
         logger.log('CompleteTransferToL1 called');
         const {symbol, amount} = transfer;
-        const ethereumToken = getEthereumToken(symbol);
-        const {bridgeAddress, decimals} = ethereumToken;
-        const tokenBridgeContract = getEthereumTokenBridgeContract(bridgeAddress);
-        logger.log('Prepared token and bridge contract', {ethereumToken, tokenBridgeContract});
-        handleProgress(progressOptions.waitForConfirm(ethereumConfig.name));
+        const l1Token = getL1Token(symbol);
+        const {bridgeAddress, decimals} = l1Token;
+        const tokenBridgeContract = getL1TokenBridgeContract(bridgeAddress);
+        logger.log('Prepared token and bridge contract', {l1Token, tokenBridgeContract});
+        handleProgress(progressOptions.waitForConfirm(l1Config.name));
         logger.log('Calling withdraw');
         const {transactionHash} = await withdraw({
-          recipient: ethereumAccount,
+          recipient: l1Account,
           amount,
           decimals,
           contract: tokenBridgeContract,
@@ -217,17 +211,17 @@ export const useCompleteTransferToL1 = () => {
           }
         });
         logger.log('Done', {transactionHash});
-        handleData({...transfer, eth_hash: transactionHash});
+        handleData({...transfer, l1hash: transactionHash});
       } catch (ex) {
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));
       }
     },
     [
-      ethereumAccount,
-      ethereumConfig,
-      getEthereumToken,
-      getEthereumTokenBridgeContract,
+      l1Account,
+      l1Config,
+      getL1Token,
+      getL1TokenBridgeContract,
       handleData,
       handleError,
       handleProgress,

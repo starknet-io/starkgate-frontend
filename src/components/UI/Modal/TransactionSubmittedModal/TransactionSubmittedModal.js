@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
-import {ReactComponent as StarknetLogo} from '../../../../assets/svg/tokens/starknet.svg';
+import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
 import {LINKS} from '../../../../constants';
 import {ActionType} from '../../../../enums';
 import {useColors} from '../../../../hooks';
@@ -12,10 +12,10 @@ import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {
   BTN_TEXT,
-  COMPLETE_WITHDRAWAL_TXT,
-  DEPOSIT_TXT,
-  STATUS_TXT,
-  WITHDRAWAL_TXT
+  TRANSFER_TO_L2_TXT,
+  TRANSFER_TO_L1_TXT,
+  COMPLETE_TRANSFER_TO_L1_TXT,
+  STATUS_TXT
 } from './TransactionSubmittedModal.strings';
 
 const TransactionSubmittedModal = ({transfer}) => {
@@ -23,23 +23,24 @@ const TransactionSubmittedModal = ({transfer}) => {
   const [networkData, setNetworkData] = useState({});
 
   useEffect(() => {
-    const {type, starknet_hash, eth_hash} = transfer;
-    const isCompletedWithdrawal = eth_hash && starknet_hash;
-    if (type === ActionType.TRANSFER_TO_STARKNET || isCompletedWithdrawal) {
+    const {type, l2hash, l1hash} = transfer;
+    const isTransferCompleted = l1hash && l2hash;
+    if (type === ActionType.TRANSFER_TO_L2 || isTransferCompleted) {
       setNetworkData({
-        message: type === ActionType.TRANSFER_TO_STARKNET ? DEPOSIT_TXT : COMPLETE_WITHDRAWAL_TXT,
-        showStatusMsg: type === ActionType.TRANSFER_TO_STARKNET,
+        message:
+          type === ActionType.TRANSFER_TO_L2 ? TRANSFER_TO_L2_TXT : COMPLETE_TRANSFER_TO_L1_TXT,
+        showStatusMsg: type === ActionType.TRANSFER_TO_L2,
         explorerName: LINKS.ETHERSCAN.text,
-        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, eth_hash),
+        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, l1hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
       });
     } else {
       setNetworkData({
-        message: WITHDRAWAL_TXT,
+        message: TRANSFER_TO_L1_TXT,
         showStatusMsg: true,
         explorerName: LINKS.VOYAGER.text,
-        explorerUrl: LINKS.VOYAGER.txUrl(chainId, starknet_hash),
-        explorerLogo: <StarknetLogo style={{margin: 'auto'}} />
+        explorerUrl: LINKS.VOYAGER.txUrl(chainId, l2hash),
+        explorerLogo: <L2Logo style={{margin: 'auto'}} />
       });
     }
   }, []);

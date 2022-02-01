@@ -1,4 +1,22 @@
-import {b64d, b64e} from '../utils';
+export const StorageManager = {
+  setItem: (key, item) => {
+    if (localStorage) {
+      localStorage.setObjectHash(key, JSON.stringify(item));
+      return true;
+    }
+    return false;
+  },
+  getItem: key => {
+    if (localStorage) {
+      let item = localStorage.getObjectHash(key);
+      try {
+        return JSON.parse(Object.values(item).join(''));
+      } catch (ex) {
+        return item;
+      }
+    }
+  }
+};
 
 Storage.prototype.setObjectHash = function (key, myObject) {
   const newObject = {};
@@ -9,8 +27,13 @@ Storage.prototype.setObjectHash = function (key, myObject) {
 };
 
 Storage.prototype.getObjectHash = function (key) {
-  const myObject = this.getItem(key);
+  let myObject = this.getItem(key);
   if (!myObject) return null;
+  // For backward compatibility
+  if (myObject.startsWith('[') && myObject.endsWith(']')) {
+    this.setObjectHash(key, myObject);
+    myObject = this.getItem(key);
+  }
   return (
     b64d(myObject) &&
     JSON.parse(b64d(myObject), function (key) {
@@ -19,29 +42,20 @@ Storage.prototype.getObjectHash = function (key) {
   );
 };
 
-export const StorageManager = {
-  setItem: (key, item) => {
-    if (localStorage) {
-      localStorage.setItem(key, JSON.stringify(item));
-      return true;
-    }
-    return false;
-  },
-  getItem: key => {
-    if (localStorage) {
-      const item = localStorage.getItem(key);
-      if (item) {
-        try {
-          return JSON.parse(item);
-        } catch (ex) {
-          return item;
-        }
-      }
-    }
-  },
-  removeItem: key => {
-    if (localStorage) {
-      localStorage.removeItem(key);
-    }
-  }
+const b64e = function (str) {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+      return String.fromCharCode('0x' + p1);
+    })
+  );
+};
+
+const b64d = function (str) {
+  return decodeURIComponent(
+    Array.prototype.map
+      .call(atob(str), function (c) {
+        return '%' + c.charCodeAt(0).toString(16);
+      })
+      .join('')
+  );
 };

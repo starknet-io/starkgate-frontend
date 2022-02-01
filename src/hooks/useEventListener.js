@@ -2,8 +2,9 @@ import {useCallback} from 'react';
 import {stark} from 'starknet';
 
 import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
-import {useEthereumToken, useStarknetToken} from '../providers/TokensProvider';
-import {useEthereumWallet, useStarknetWallet} from '../providers/WalletsProvider';
+import {TransactionHashPrefix} from '../enums';
+import {useL1Token, useL2Token} from '../providers/TokensProvider';
+import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {txHash} from '../utils';
 import {useMessagingContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
@@ -13,41 +14,41 @@ const HOOK_MODULE = 'useEventListener';
 export const useLogMessageToL2Listener = () => {
   const logger = useLogger(`${HOOK_MODULE}:useLogMessageToL2Listener`);
   const selectedToken = useSelectedToken();
-  const getEthereumToken = useEthereumToken();
-  const getStarknetToken = useStarknetToken();
+  const getL1Token = useL1Token();
+  const getL2Token = useL2Token();
   const messagingContract = useMessagingContract();
   const addEventListener = useEventListener();
-  const {chainId} = useEthereumWallet();
+  const {chainId} = useL1Wallet();
 
   return useCallback(async () => {
     logger.log('Registering to LogMessageToL2 event');
     const {symbol} = selectedToken;
-    const snBridgeAddress = getStarknetToken(symbol).bridgeAddress[chainId];
-    const ethBridgeAddress = getEthereumToken(symbol).bridgeAddress[chainId];
+    const l1BridgeAddress = getL1Token(symbol).bridgeAddress[chainId];
+    const l2BridgeAddress = getL2Token(symbol).bridgeAddress[chainId];
     try {
       const event = await addEventListener(messagingContract, 'LogMessageToL2', {
         filter: {
-          to_address: snBridgeAddress,
-          from_address: ethBridgeAddress,
+          to_address: l2BridgeAddress,
+          from_address: l1BridgeAddress,
           selector: stark.getSelectorFromName('handle_deposit')
         }
       });
       logger.log('Event received', {event});
-      const {to_address, from_address, selector, payload} = event.returnValues;
-      return txHash(from_address, to_address, selector, payload, chainId);
+      const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+      return txHash(
+        TransactionHashPrefix.L1_HANDLER,
+        from_address,
+        to_address,
+        selector,
+        payload,
+        chainId,
+        nonce
+      );
     } catch (ex) {
       logger.error('Event error', {ex});
       return Promise.reject(ex.message);
     }
-  }, [
-    addEventListener,
-    chainId,
-    getEthereumToken,
-    getStarknetToken,
-    logger,
-    messagingContract,
-    selectedToken
-  ]);
+  }, [addEventListener, chainId, getL1Token, getL2Token, logger, messagingContract, selectedToken]);
 };
 
 export const useLogDepositListener = () => {
@@ -55,8 +56,8 @@ export const useLogDepositListener = () => {
   const selectedToken = useSelectedToken();
   const getTokenBridgeContract = useTokenBridgeContract();
   const addEventListener = useEventListener();
-  const {account: ethereumAccount} = useEthereumWallet();
-  const {account: starknetAccount} = useStarknetWallet();
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
 
   return useCallback(async () => {
     logger.log('Registering to LogDeposit event');
@@ -65,8 +66,8 @@ export const useLogDepositListener = () => {
     try {
       const event = await addEventListener(contract, 'LogDeposit', {
         filter: {
-          l2Recipient: starknetAccount,
-          sender: ethereumAccount
+          l2Recipient: l2Account,
+          sender: l1Account
         }
       });
       logger.log('Event received', {event});
@@ -75,14 +76,7 @@ export const useLogDepositListener = () => {
       logger.error('Event error', {ex});
       return Promise.reject(ex.message);
     }
-  }, [
-    addEventListener,
-    ethereumAccount,
-    starknetAccount,
-    getTokenBridgeContract,
-    logger,
-    selectedToken
-  ]);
+  }, [addEventListener, l1Account, l2Account, getTokenBridgeContract, logger, selectedToken]);
 };
 
 export const useEventListener = () => {
