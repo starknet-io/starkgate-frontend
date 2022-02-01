@@ -78,5 +78,18 @@ export const L2Tokens = [
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x1a53260bb912e49d668ae4ea8c4b5c1ebf1441f2acc1fd7fde74836738ed8da'
     }
+  },
+  {
+    name: 'DAI',
+    symbol: 'DAI',
+    decimals: 18,
+    bridgeAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x015605ab0d2a2883dd72fe014bb997578fe8ce73caa91d1c0973a68efc6a43c5'
+    },
+    tokenAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x00da19dab05e9f3cd09c3aa0d8046415b3d7f7dbbd83e1c2e4946792298fbe28'
+    }
   }
 ];

@@ -74,5 +74,18 @@ export const L1Tokens = [
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0xBd97097dF545cc9734b96A5f3C5b1752C9179649'
     }
+  },
+  {
+    name: 'DAI',
+    symbol: 'DAI',
+    decimals: 18,
+    bridgeAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x3ebB6C28BD63aDa2feA81f1e6c5a50aFe53B5feE'
+    },
+    tokenAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844'
+    }
   }
 ];
