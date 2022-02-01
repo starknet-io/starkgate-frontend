@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.1-23",
+  "version": "0.0.1-25",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -15,7 +15,7 @@
     "format": "prettier --write \"**/*.+(js|jsx|json|scss|css|md)\"",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
-    "pre-release": "standard-version --prerelease --skip.changelog"
+    "pre-release": "standard-version --prerelease --skip.changelog --releaseCommitMessageFormat 'chore(prerelease): {{currentTag}}'"
   },
   "husky": {
     "hooks": {
