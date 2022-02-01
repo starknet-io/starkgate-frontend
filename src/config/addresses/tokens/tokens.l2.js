@@ -54,29 +54,16 @@ export const L2Tokens = [
     }
   },
   {
-    name: 'Magic Internet Money',
-    symbol: 'MIM',
+    name: 'DAI',
+    symbol: 'DAI',
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x341747554ec54280d2e92eab57295055955fd1e8ec2292910163ca60c85e74f'
+      [ChainType.GOERLI.id]: '0x015605ab0d2a2883dd72fe014bb997578fe8ce73caa91d1c0973a68efc6a43c5'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x1dd62766ff2a0d3b996857e6a04490c74649386dc52dc4b6153b9acf5f4cae3'
-    }
-  },
-  {
-    name: 'Frax',
-    symbol: 'FRAX',
-    decimals: 18,
-    bridgeAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x254e681ffbf99c79e9e56aa38b2212914cadafa97d6c4f470589b1d43932a5f'
-    },
-    tokenAddress: {
-      [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x1a53260bb912e49d668ae4ea8c4b5c1ebf1441f2acc1fd7fde74836738ed8da'
+      [ChainType.GOERLI.id]: '0x00da19dab05e9f3cd09c3aa0d8046415b3d7f7dbbd83e1c2e4946792298fbe28'
     }
   }
 ];
