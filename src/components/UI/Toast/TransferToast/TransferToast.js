@@ -3,11 +3,12 @@ import React from 'react';
 
 import {isConsumed, isPending, isRejected} from '../../../../enums';
 import {TransferData} from '../../../Features';
+import {ToastFooter, TransferLogLink} from '../ToastFooter/ToastFooter';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import {CONSUMED_TXT, PENDING_TXT, REJECTED_TXT} from './TransferToast.strings';
 
-export const TransferToast = ({transfer, isLoading, onClose}) => {
+export const TransferToast = ({transfer, isLoading, onTransferLogLink, onClose}) => {
   const getTitle = () => {
     const {status} = transfer;
     if (isPending(status)) {
@@ -26,6 +27,9 @@ export const TransferToast = ({transfer, isLoading, onClose}) => {
       <ToastHeader title={getTitle()} withClose={!isLoading} onClose={onClose} />
       <ToastSeparator />
       <TransferData style={{fontSize: '12px'}} transfer={transfer} />
+      <ToastFooter>
+        <TransferLogLink onClick={onTransferLogLink} />
+      </ToastFooter>
     </div>
   );
 };
@@ -33,5 +37,6 @@ export const TransferToast = ({transfer, isLoading, onClose}) => {
 TransferToast.propTypes = {
   transfer: PropTypes.object,
   isLoading: PropTypes.bool,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  onTransferLogLink: PropTypes.func
 };

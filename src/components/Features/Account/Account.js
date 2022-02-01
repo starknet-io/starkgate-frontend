@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, {useState, useEffect} from 'react';
 
 import {LINKS} from '../../../constants';
 import {useCompleteTransferToL1} from '../../../hooks';
@@ -19,12 +20,14 @@ import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
-export const Account = () => {
+export const Account = menuProps => {
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
   const {isL1, isL2, fromNetwork} = useTransferData();
   const completeTransferToL1 = useCompleteTransferToL1();
+  const {transferId} = menuProps;
+  const [highlightedIndex, setHighlightedIndex] = useState(null);
 
   const renderTransfers = () => {
     return transfers.length
@@ -37,6 +40,17 @@ export const Account = () => {
         ))
       : null;
   };
+
+  const findIndexById = (array, id) => {
+    return array.findIndex(item => item.id === id);
+  };
+
+  useEffect(() => {
+    if (transferId) {
+      const highlightedIndex = findIndexById(transfers, transferId);
+      highlightedIndex ? setHighlightedIndex(highlightedIndex) : '';
+    }
+  }, [transferId]);
 
   return (
     <Menu>
@@ -53,9 +67,15 @@ export const Account = () => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer>{renderTransfers()}</TransferLogContainer>
+        <TransferLogContainer highlighted={highlightedIndex}>
+          {renderTransfers()}
+        </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />
       </div>
     </Menu>
   );
+};
+
+Account.propTypes = {
+  menuProps: PropTypes.object
 };

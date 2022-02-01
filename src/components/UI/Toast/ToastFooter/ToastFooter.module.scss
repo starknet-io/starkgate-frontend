@@ -1,0 +1,17 @@
+@import '../../../../index';
+
+$color: $--color-omega;
+$colorHover: $--color-omega-1;
+
+.toastFooter {
+  margin-bottom: 5px;
+}
+
+.transferLogLink {
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 18px;
+  color: $color;
+  width: 114px;
+  text-decoration: underline;
+}

@@ -9,15 +9,20 @@ export const useBridgeData = () => ({
   ...useSelector(selectBridge)
 });
 
-export const useBridgeActions = () => ({
-  showAccountMenu: useShowBridgeMenu(MenuType.ACCOUNT),
-  showTransferMenu: useShowBridgeMenu(MenuType.TRANSFER),
-  showSelectTokenMenu: useShowBridgeMenu(MenuType.SELECT_TOKEN)
-});
+export const useBridgeActions = menuProps => {
+  return {
+    showAccountMenu: useShowBridgeMenu(MenuType.ACCOUNT, menuProps),
+    showTransferMenu: useShowBridgeMenu(MenuType.TRANSFER),
+    showSelectTokenMenu: useShowBridgeMenu(MenuType.SELECT_TOKEN)
+  };
+};
 
 const useShowBridgeMenu = type => {
   const dispatch = useDispatch();
-  return useCallback(() => {
-    dispatch(showMenuAction(type));
-  }, [dispatch]);
+  return useCallback(
+    menuProps => {
+      dispatch(showMenuAction({type, menuProps}));
+    },
+    [dispatch]
+  );
 };

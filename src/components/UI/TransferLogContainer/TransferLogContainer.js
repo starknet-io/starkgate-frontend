@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {toClasses} from '../../../utils';
@@ -11,7 +11,7 @@ import {
   VIEW_MORE_TXT
 } from './TransferLogContainer.strings';
 
-export const TransferLogContainer = ({children}) => {
+export const TransferLogContainer = ({highlighted, children}) => {
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
@@ -21,7 +21,7 @@ export const TransferLogContainer = ({children}) => {
   const renderChildren = () => {
     if (!children) {
       return <div className={styles.empty}>{EMPTY_MSG_TXT}</div>;
-    } else if (!showChildren) {
+    } else if (!showChildren && !highlighted) {
       return (
         <div className={styles.viewMore}>
           {Array.isArray(children) ? children.length : 1} {OVERVIEW_TXT}{' '}
@@ -32,6 +32,13 @@ export const TransferLogContainer = ({children}) => {
       return children;
     }
   };
+
+  useEffect(() => {
+    if (children && highlighted) {
+      const highlightedTransfer = children[highlighted];
+      console.log(highlightedTransfer);
+    }
+  }, [highlighted]);
 
   return (
     <div className={styles.transferLogContainer}>
@@ -49,5 +56,6 @@ export const TransferLogContainer = ({children}) => {
 };
 
 TransferLogContainer.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  highlighted: PropTypes.number
 };
