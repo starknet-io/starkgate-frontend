@@ -104,7 +104,7 @@ export const ToastProvider = () => {
       isLoading={isLoading}
       transfer={transfer}
       onClose={() => dismissToast(transfer)}
-      onTransferLogLink={() => goToTransferLog(transfer)}
+      onTransferLogLinkClick={() => goToTransferLog(transfer)}
     />
   );
 
@@ -115,7 +115,7 @@ export const ToastProvider = () => {
       onClose={() => dismissToast(transfer)}
       onCompleteTransfer={() => onCompleteTransferClick(transfer)}
       onDismiss={() => dismissToast(transfer)}
-      onTransferLogLink={() => goToTransferLog(transfer)}
+      onTransferLogLinkClick={() => goToTransferLog(transfer)}
     />
   );
 

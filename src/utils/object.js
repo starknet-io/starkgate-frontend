@@ -22,3 +22,8 @@ export const evaluate = (template, model) => {
     return '';
   }
 };
+
+export const findIndexById = (array, id) => {
+  if (!array || (!id && id !== 0)) return;
+  else return array.findIndex(item => item.id === id);
+};

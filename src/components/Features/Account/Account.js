@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import {LINKS} from '../../../constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
+import {findIndexById} from '../../../utils';
 import {
   AccountAddress,
   BackButton,
@@ -20,14 +21,12 @@ import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
-export const Account = menuProps => {
+export const Account = ({transferId}) => {
   const {showTransferMenu} = useBridgeActions();
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
   const {isL1, isL2, fromNetwork} = useTransferData();
   const completeTransferToL1 = useCompleteTransferToL1();
-  const {transferId} = menuProps;
-  const [highlightedIndex, setHighlightedIndex] = useState(null);
 
   const renderTransfers = () => {
     return transfers.length
@@ -40,17 +39,6 @@ export const Account = menuProps => {
         ))
       : null;
   };
-
-  const findIndexById = (array, id) => {
-    return array.findIndex(item => item.id === id);
-  };
-
-  useEffect(() => {
-    if (transferId) {
-      const highlightedIndex = findIndexById(transfers, transferId);
-      highlightedIndex ? setHighlightedIndex(highlightedIndex) : '';
-    }
-  }, [transferId]);
 
   return (
     <Menu>
@@ -67,7 +55,7 @@ export const Account = menuProps => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer highlighted={highlightedIndex}>
+        <TransferLogContainer transferIndex={findIndexById(transfers, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />
@@ -77,5 +65,5 @@ export const Account = menuProps => {
 };
 
 Account.propTypes = {
-  menuProps: PropTypes.object
+  transferId: PropTypes.string
 };

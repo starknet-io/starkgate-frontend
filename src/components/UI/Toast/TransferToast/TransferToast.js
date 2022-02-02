@@ -8,7 +8,7 @@ import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import {CONSUMED_TXT, PENDING_TXT, REJECTED_TXT} from './TransferToast.strings';
 
-export const TransferToast = ({transfer, isLoading, onTransferLogLink, onClose}) => {
+export const TransferToast = ({transfer, isLoading, onTransferLogLinkClick, onClose}) => {
   const getTitle = () => {
     const {status} = transfer;
     if (isPending(status)) {
@@ -28,7 +28,7 @@ export const TransferToast = ({transfer, isLoading, onTransferLogLink, onClose})
       <ToastSeparator />
       <TransferData style={{fontSize: '12px'}} transfer={transfer} />
       <ToastFooter>
-        <TransferLogLink onClick={onTransferLogLink} />
+        <TransferLogLink onClick={onTransferLogLinkClick} />
       </ToastFooter>
     </div>
   );
@@ -38,5 +38,5 @@ TransferToast.propTypes = {
   transfer: PropTypes.object,
   isLoading: PropTypes.bool,
   onClose: PropTypes.func,
-  onTransferLogLink: PropTypes.func
+  onTransferLogLinkClick: PropTypes.func
 };

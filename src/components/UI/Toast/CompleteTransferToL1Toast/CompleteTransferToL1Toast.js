@@ -23,7 +23,7 @@ export const CompleteTransferToL1Toast = ({
   transfer,
   onDismiss,
   onCompleteTransfer,
-  onTransferLogLink,
+  onTransferLogLinkClick,
   onClose
 }) => {
   const {colorBeta, colorOmega1} = useColors();
@@ -57,7 +57,7 @@ export const CompleteTransferToL1Toast = ({
             <ToastSeparator />
             <TransferData style={{fontSize: '10px'}} transfer={transfer} />
             <ToastFooter>
-              <TransferLogLink onClick={onTransferLogLink} />
+              <TransferLogLink onClick={onTransferLogLinkClick} />
             </ToastFooter>
           </div>
         </div>
@@ -72,5 +72,5 @@ CompleteTransferToL1Toast.propTypes = {
   onDismiss: PropTypes.func,
   onCompleteTransfer: PropTypes.func,
   onClose: PropTypes.func,
-  onTransferLogLink: PropTypes.func
+  onTransferLogLinkClick: PropTypes.func
 };

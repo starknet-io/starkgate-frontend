@@ -12,7 +12,7 @@ const bridgeSlice = createSlice({
   initialState,
   reducers: {
     showMenuAction(state, action) {
-      state.menu = action.payload.type;
+      state.menu = action.payload.menu;
       state.menuProps = action.payload.menuProps;
     }
   }
