@@ -1,3 +1,4 @@
+import {TransactionStatus} from '../enums';
 import {parseFromDecimals, parseFromUint256} from '../utils';
 import {l1_callContract, l1_sendTransaction, l2_callContract} from '../utils/contract';
 import {web3} from '../web3';
@@ -25,7 +26,12 @@ export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
       const balance = await l1_callContract(contract, 'balanceOf', [account]);
       return parseFromDecimals(balance, decimals);
     } else {
-      const {balance} = await l2_callContract(contract, 'balanceOf', [{account}]);
+      const {balance} = await l2_callContract(
+        contract,
+        'balanceOf',
+        [{account}],
+        TransactionStatus.PENDING.toLowerCase()
+      );
       return parseFromUint256(balance, decimals);
     }
   } catch (ex) {

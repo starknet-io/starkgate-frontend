@@ -12,7 +12,7 @@ export const BlockHashProvider = ({children}) => {
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    const {block_hash} = await provider.getBlock(null, TransactionStatus.PENDING);
+    const {block_hash} = await provider.getBlock();
     setBlockHash(block_hash);
   }, [provider]);
 
