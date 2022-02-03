@@ -12,7 +12,9 @@ import {
 } from './TransferLogContainer.strings';
 
 export const TransferLogContainer = ({transferIndex = null, children}) => {
-  const [showChildren, setShowChildren] = useState(transferIndex !== null);
+  const [showChildren, setShowChildren] = useState(
+    !!transferIndex || (0 === 0 && transferIndex > -1)
+  );
 
   const toggleShowChildren = () => {
     setShowChildren(!showChildren);
