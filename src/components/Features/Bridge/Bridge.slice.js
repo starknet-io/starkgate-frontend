@@ -4,7 +4,9 @@ import {MenuType} from '../../../enums';
 
 const initialState = {
   menu: MenuType.TRANSFER,
-  menuProps: null
+  menuProps: {
+    transferId: null
+  }
 };
 
 const bridgeSlice = createSlice({
@@ -13,7 +15,13 @@ const bridgeSlice = createSlice({
   reducers: {
     showMenuAction(state, action) {
       state.menu = action.payload.menu;
-      state.menuProps = action.payload.menuProps;
+      if (!action.payload.menuProps || !action.payload.menuProps.transferId) {
+        state.menuProps = {
+          transferId: null
+        };
+      } else {
+        state.menuProps = action.payload.menuProps;
+      }
     }
   }
 });

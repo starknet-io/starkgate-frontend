@@ -11,10 +11,8 @@ import {
   VIEW_MORE_TXT
 } from './TransferLogContainer.strings';
 
-export const TransferLogContainer = ({transferIndex = null, children}) => {
-  const [showChildren, setShowChildren] = useState(
-    !!transferIndex || (0 === 0 && transferIndex > -1)
-  );
+export const TransferLogContainer = ({expanded, children}) => {
+  const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
     setShowChildren(!showChildren);
@@ -23,7 +21,7 @@ export const TransferLogContainer = ({transferIndex = null, children}) => {
   const renderChildren = () => {
     if (!children) {
       return <div className={styles.empty}>{EMPTY_MSG_TXT}</div>;
-    } else if (!showChildren) {
+    } else if (!showChildren && !expanded) {
       return (
         <div className={styles.viewMore}>
           {Array.isArray(children) ? children.length : 1} {OVERVIEW_TXT}{' '}
@@ -52,5 +50,5 @@ export const TransferLogContainer = ({transferIndex = null, children}) => {
 
 TransferLogContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  transferIndex: PropTypes.number
+  expanded: PropTypes.bool
 };
