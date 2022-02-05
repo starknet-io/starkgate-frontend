@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {LINKS} from '../../../constants';
 import {useCompleteTransferToL1} from '../../../hooks';
@@ -27,7 +27,6 @@ export const Account = ({transferId}) => {
   const transfers = useAccountTransfers(account);
   const {isL1, isL2, fromNetwork} = useTransferData();
   const completeTransferToL1 = useCompleteTransferToL1();
-  const [expandTransferLog, setExpandTransferLog] = useState(false);
 
   const renderTransfers = () => {
     return transfers.length
@@ -40,15 +39,6 @@ export const Account = ({transferId}) => {
         ))
       : null;
   };
-
-  useEffect(() => {
-    if (transferId) {
-      const index = findIndexById(transfers, transferId);
-      setExpandTransferLog((!!index || index === 0) && index > -1);
-    } else {
-      setExpandTransferLog(false);
-    }
-  }, [transferId]);
 
   return (
     <Menu>
@@ -65,7 +55,7 @@ export const Account = ({transferId}) => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer expanded={expandTransferLog}>
+        <TransferLogContainer transferIndex={findIndexById(transfers, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />
