@@ -12,10 +12,10 @@ import {
 } from './TransferLogContainer.strings';
 
 export const TransferLogContainer = ({transferIndex, children}) => {
-  const [showChildren, setShowChildren] = useState(false);
+  const [showChildren, setShowChildren] = useState(transferIndex > 1);
 
   useEffect(() => {
-    setShowChildren((!!transferIndex || transferIndex === 0) && transferIndex > -1);
+    setShowChildren(transferIndex > -1);
   }, [transferIndex]);
 
   const toggleShowChildren = () => {

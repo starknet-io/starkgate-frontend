@@ -15,17 +15,11 @@ const bridgeSlice = createSlice({
   reducers: {
     showMenuAction(state, action) {
       state.menu = action.payload.menu;
-      if (!action.payload.menuProps || !action.payload.menuProps.transferId) {
-        state.menuProps = {
-          transferId: null
-        };
-      } else {
-        state.menuProps = action.payload.menuProps;
-      }
+      Object.assign(state.menuProps, initialState.menuProps, action.payload.menuProps);
     }
   }
 });
 
-export const {showMenuAction, resetAction} = bridgeSlice.actions;
+export const {showMenuAction, resetAction, resetFocusedTransfer} = bridgeSlice.actions;
 
 export default bridgeSlice.reducer;
