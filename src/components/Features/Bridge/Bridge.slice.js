@@ -20,6 +20,6 @@ const bridgeSlice = createSlice({
   }
 });
 
-export const {showMenuAction, resetAction, resetFocusedTransfer} = bridgeSlice.actions;
+export const {showMenuAction, resetAction} = bridgeSlice.actions;
 
 export default bridgeSlice.reducer;

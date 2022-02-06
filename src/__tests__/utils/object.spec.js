@@ -13,7 +13,7 @@ describe('findIndexById', () => {
     expect(resultIndex).toEqual(-1);
   });
 
-  it("returns -1 (Number) for falsy 'array' or falsy 'id', but allows 'id' to be 0 or '0'", () => {
+  it("should return -1 (Number) for falsy 'array' or falsy 'id', but allows 'id' to be 0 or '0'", () => {
     const array = [{id: '0cbff33f'}, {id: '0'}, {id: 0}];
     expect(findIndexById(undefined, '0cbff33f')).toEqual(-1);
     expect(findIndexById([], '0cbff33f')).toEqual(-1);
