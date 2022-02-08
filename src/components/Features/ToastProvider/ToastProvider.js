@@ -9,7 +9,6 @@ import {
   isOnChain,
   isPending,
   isRejected,
-  MenuType,
   NetworkType
 } from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
@@ -137,7 +136,7 @@ export const ToastProvider = () => {
 
   const goToTransferLog = transfer => {
     transfer.type === ActionType.TRANSFER_TO_L2 ? swapToL1() : swapToL2();
-    showAccountMenu({[MenuType.ACCOUNT]: {transferId: transfer.id}});
+    showAccountMenu({transferId: transfer.id});
   };
 
   return (

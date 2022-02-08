@@ -15,7 +15,9 @@ const bridgeSlice = createSlice({
   reducers: {
     showMenuAction(state, action) {
       state.menu = action.payload.menu;
-      Object.assign(state.menuProps, initialState.menuProps, action.payload.menuProps);
+      state.menuProps = {
+        [action.payload.menu]: action.payload.menuProps
+      };
     },
     resetMenuPropsAction(state) {
       state.menuProps[state.menu] = initialState.menuProps[state.menu];
