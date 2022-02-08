@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {toClasses} from '../../../utils';
+import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
 import styles from './TransferLogContainer.module.scss';
 import {
   EMPTY_MSG_TXT,
@@ -11,26 +12,27 @@ import {
   VIEW_MORE_TXT
 } from './TransferLogContainer.strings';
 
-export const TransferLogContainer = ({children}) => {
+export const TransferLogContainer = ({transferIndex, children}) => {
+  const {resetMenuProps} = useBridgeActions();
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
-    setShowChildren(!showChildren);
+    transferIndex > -1 ? resetMenuProps() : setShowChildren(!showChildren);
   };
 
   const renderChildren = () => {
     if (!children) {
       return <div className={styles.empty}>{EMPTY_MSG_TXT}</div>;
-    } else if (!showChildren) {
-      return (
-        <div className={styles.viewMore}>
-          {Array.isArray(children) ? children.length : 1} {OVERVIEW_TXT}{' '}
-          <span onClick={toggleShowChildren}>{VIEW_MORE_TXT}</span>
-        </div>
-      );
-    } else {
+    } else if (showChildren || transferIndex > -1) {
       return children;
     }
+
+    return (
+      <div className={styles.viewMore}>
+        {Array.isArray(children) ? children.length : 1} {OVERVIEW_TXT}{' '}
+        <span onClick={toggleShowChildren}>{VIEW_MORE_TXT}</span>
+      </div>
+    );
   };
 
   return (
@@ -49,5 +51,6 @@ export const TransferLogContainer = ({children}) => {
 };
 
 TransferLogContainer.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  transferIndex: PropTypes.number
 };

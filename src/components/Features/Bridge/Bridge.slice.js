@@ -3,7 +3,10 @@ import {createSlice} from '@reduxjs/toolkit';
 import {MenuType} from '../../../enums';
 
 const initialState = {
-  menu: MenuType.TRANSFER
+  menu: MenuType.TRANSFER,
+  menuProps: {
+    [MenuType.ACCOUNT]: {transferId: null}
+  }
 };
 
 const bridgeSlice = createSlice({
@@ -11,11 +14,17 @@ const bridgeSlice = createSlice({
   initialState,
   reducers: {
     showMenuAction(state, action) {
-      state.menu = action.payload;
+      state.menu = action.payload.menu;
+      state.menuProps = {
+        [action.payload.menu]: action.payload.menuProps
+      };
+    },
+    resetMenuPropsAction(state) {
+      state.menuProps[state.menu] = initialState.menuProps[state.menu];
     }
   }
 });
 
-export const {showMenuAction, resetAction} = bridgeSlice.actions;
+export const {showMenuAction, resetAction, resetMenuPropsAction} = bridgeSlice.actions;
 
 export default bridgeSlice.reducer;

@@ -6,7 +6,7 @@ import {useBridgeData} from './Bridge.hooks';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
-  const {menu} = useBridgeData();
+  const {menu, menuProps} = useBridgeData();
 
   const renderMenu = () => {
     switch (menu) {
@@ -15,7 +15,7 @@ export const Bridge = () => {
       case MenuType.SELECT_TOKEN:
         return <SelectToken />;
       case MenuType.ACCOUNT:
-        return <Account />;
+        return <Account {...menuProps[MenuType.ACCOUNT]} />;
     }
   };
 

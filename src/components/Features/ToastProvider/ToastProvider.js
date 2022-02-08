@@ -14,6 +14,8 @@ import {
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
+import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
+import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
 import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
@@ -24,6 +26,9 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
+  const {showAccountMenu} = useBridgeActions();
+  const [, swapToL1] = useIsL1();
+  const [, swapToL2] = useIsL2();
 
   useEffect(() => {
     showAlphaDisclaimerToast();
@@ -99,6 +104,7 @@ export const ToastProvider = () => {
       isLoading={isLoading}
       transfer={transfer}
       onClose={() => dismissToast(transfer)}
+      onTransferLogLinkClick={() => goToTransferLog(transfer)}
     />
   );
 
@@ -109,6 +115,7 @@ export const ToastProvider = () => {
       onClose={() => dismissToast(transfer)}
       onCompleteTransfer={() => onCompleteTransferClick(transfer)}
       onDismiss={() => dismissToast(transfer)}
+      onTransferLogLinkClick={() => goToTransferLog(transfer)}
     />
   );
 
@@ -125,6 +132,11 @@ export const ToastProvider = () => {
   const onCompleteTransferClick = async transfer => {
     await completeTransferToL1(transfer);
     dismissToast(transfer);
+  };
+
+  const goToTransferLog = transfer => {
+    transfer.type === ActionType.TRANSFER_TO_L2 ? swapToL1() : swapToL2();
+    showAccountMenu({transferId: transfer.id});
   };
 
   return (
