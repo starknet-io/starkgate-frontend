@@ -15,7 +15,7 @@ export const Bridge = () => {
       case MenuType.SELECT_TOKEN:
         return <SelectToken />;
       case MenuType.ACCOUNT:
-        return <Account {...menuProps} />;
+        return <Account {...menuProps[MenuType.ACCOUNT]} />;
     }
   };
 

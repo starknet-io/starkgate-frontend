@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {toClasses} from '../../../utils';
+import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
 import styles from './TransferLogContainer.module.scss';
 import {
   EMPTY_MSG_TXT,
@@ -12,6 +13,7 @@ import {
 } from './TransferLogContainer.strings';
 
 export const TransferLogContainer = ({transferIndex, children}) => {
+  const {resetMenuProps} = useBridgeActions();
   const [showChildren, setShowChildren] = useState(transferIndex > 1);
 
   useEffect(() => {
@@ -19,6 +21,7 @@ export const TransferLogContainer = ({transferIndex, children}) => {
   }, [transferIndex]);
 
   const toggleShowChildren = () => {
+    resetMenuProps();
     setShowChildren(!showChildren);
   };
 
