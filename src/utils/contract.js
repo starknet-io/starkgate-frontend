@@ -1,6 +1,5 @@
 import {getStarknet} from '@argent/get-starknet';
 import {compileCalldata, Contract, stark} from 'starknet';
-import {getSelectorFromName} from 'starknet/utils/stark';
 
 import {TransactionConsumedStatuses} from '../enums';
 import {getLogger} from '../services';
@@ -32,22 +31,9 @@ export const l1_sendTransaction = async (
 
 export const l2_getContract = (address, ABI) => new Contract(ABI, address, getStarknet().provider);
 
-export const l2_callContract = async (contract, method, args = [], blockNumber = null) => {
+export const l2_callContract = async (contract, method, args = [], blockIdentifier = null) => {
   try {
-    const entrypointSelector = getSelectorFromName(method);
-    console.log({entrypointSelector});
-    const calldata = compileCalldata(...args);
-    console.log({calldata});
-    const response = await getStarknet().provider.callContract(
-      {
-        contract_address: contract.connectedTo,
-        calldata,
-        entry_point_selector: entrypointSelector
-      },
-      null,
-      blockNumber
-    );
-    return contract.parseResponse(method, response.result);
+    return await contract.call(method, ...args, blockIdentifier);
   } catch (ex) {
     return Promise.reject(ex);
   }

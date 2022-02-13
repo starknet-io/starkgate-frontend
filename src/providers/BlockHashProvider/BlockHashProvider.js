@@ -2,7 +2,6 @@ import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
-import {TransactionStatus} from '../../enums';
 import {useConfig} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
