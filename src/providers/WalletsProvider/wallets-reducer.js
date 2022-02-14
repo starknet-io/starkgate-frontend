@@ -8,7 +8,6 @@ export const actions = {
 };
 
 const initialWalletState = {
-  library: null,
   account: '',
   isConnected: false,
   status: WalletStatus.DISCONNECTED,

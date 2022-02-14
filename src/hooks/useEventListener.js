@@ -1,8 +1,8 @@
 import {useCallback} from 'react';
-import {stark} from 'starknet';
 
 import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {TransactionHashPrefix} from '../enums';
+import {starknet} from '../libs';
 import {useL1Token, useL2Token} from '../providers/TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {txHash} from '../utils';
@@ -30,7 +30,7 @@ export const useLogMessageToL2Listener = () => {
         filter: {
           to_address: l2BridgeAddress,
           from_address: l1BridgeAddress,
-          selector: stark.getSelectorFromName('handle_deposit')
+          selector: starknet.stark.getSelectorFromName('handle_deposit')
         }
       });
       logger.log('Event received', {event});

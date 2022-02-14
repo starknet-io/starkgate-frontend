@@ -1,7 +1,7 @@
 import {TransactionStatus} from '../enums';
+import {web3} from '../libs';
 import {parseFromDecimals, parseFromUint256} from '../utils';
 import {l1_callContract, l1_sendTransaction, l2_callContract} from '../utils/contract';
-import {web3} from '../web3';
 
 export const approve = async ({spender, value, contract, options}) => {
   try {
