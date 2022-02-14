@@ -1,9 +1,6 @@
-import {getStarknet} from '@argent/get-starknet';
-import {compileCalldata, Contract, stark} from 'starknet';
-
 import {TransactionConsumedStatuses} from '../enums';
+import {getStarknet, starknet, web3} from '../libs';
 import {getLogger} from '../services';
-import {web3} from '../web3';
 
 export const l1_getContract = (address, ABI) => new web3.eth.Contract(ABI, address);
 
@@ -29,11 +26,11 @@ export const l1_sendTransaction = async (
   }
 };
 
-export const l2_getContract = (address, ABI) => new Contract(ABI, address, getStarknet().provider);
+export const l2_getContract = (address, ABI) => new starknet.Contract(ABI, address);
 
-export const l2_callContract = async (contract, method, args = []) => {
+export const l2_callContract = async (contract, method, args = [], blockIdentifier = null) => {
   try {
-    return await contract.call(method, ...args);
+    return await contract.call(method, ...args, blockIdentifier);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -41,8 +38,8 @@ export const l2_callContract = async (contract, method, args = []) => {
 
 export const l2_sendTransaction = async (contract, method, args = {}) => {
   try {
-    const methodSelector = stark.getSelectorFromName(method);
-    const compiledCalldata = compileCalldata(args);
+    const methodSelector = starknet.stark.getSelectorFromName(method);
+    const compiledCalldata = starknet.compileCalldata(args);
     return getStarknet().signer.invokeFunction(
       contract.connectedTo,
       methodSelector,
@@ -62,7 +59,7 @@ export const l2_waitForTransaction = async (hash, customStatus, retryInterval = 
     const intervalId = setInterval(async () => {
       if (processing) return;
       logger.debug(`Checking transaction again`);
-      const statusPromise = getStarknet().provider.getTransactionStatus(hash);
+      const statusPromise = starknet.defaultProvider.getTransactionStatus(hash);
       processing = true;
       try {
         const {tx_status} = await statusPromise;
