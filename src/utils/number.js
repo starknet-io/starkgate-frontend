@@ -7,7 +7,7 @@ const {toBN} = number;
 
 const TEN = 10;
 const DEFAULT_DECIMALS = 18;
-const UNIT_MAP = {};
+export const UNIT_MAP = {};
 
 for (let key in web3.utils.unitMap) {
   UNIT_MAP[web3.utils.unitMap[key]] = key;
