@@ -26,7 +26,7 @@ export const parseToFelt = value => {
 
 export const parseToUint256 = (value, decimals = DEFAULT_DECIMALS) => {
   const decimalsValue = parseToDecimals(value, decimals);
-  const uint256 = starknet.uint256.bnToUint256(toBN(decimalsValue));
+  const uint256 = starknet.uint256.bnToUint256(starknet.number.toBN(decimalsValue));
   return {
     type: 'struct',
     ...uint256
