@@ -8,7 +8,7 @@
     "build": "react-scripts build",
     "build:testing": "env-cmd -f .env.testing npm run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
-    "test": "react-scripts test --env=jsdom",
+    "test": "TZ='GMT+0200' react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
