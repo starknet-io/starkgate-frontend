@@ -14,7 +14,7 @@ describe('getPropertyPath', () => {
     expect(getPropertyPath(obj, 'c')).toEqual({
       d: true
     });
-    expect(getPropertyPath(obj, 'c.d')).toEqual(true);
+    expect(getPropertyPath(obj, 'c.d')).toBeTruthy();
   });
 });
 
