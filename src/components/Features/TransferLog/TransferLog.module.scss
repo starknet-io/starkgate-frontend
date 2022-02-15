@@ -3,6 +3,7 @@
 $color: $--color-alpha-6;
 $hr-color: $--color-alpha-3;
 $error-color: $--color-error;
+$marker-color: $--color-beta-1;
 
 .transferLog {
   display: flex;
@@ -11,6 +12,8 @@ $error-color: $--color-error;
   font-size: 15px;
   line-height: 21px;
   margin: 10px 5px;
+  padding-left: 5px;
+  position: relative;
 
   &:nth-child(2) {
     margin-top: 20px;
@@ -55,4 +58,8 @@ hr {
     display: block;
     border: 1px solid $hr-color;
   }
+}
+
+.markered-transfer {
+  background-color: $marker-color;
 }

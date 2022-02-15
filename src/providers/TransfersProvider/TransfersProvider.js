@@ -1,4 +1,3 @@
-import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
@@ -6,6 +5,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import {LOCAL_STORAGE_TRANSFERS_KEY} from '../../constants';
 import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
+import {starknet} from '../../libs';
 import {StorageManager} from '../../services';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransfersContext} from './transfers-context';
@@ -38,7 +38,7 @@ export const TransfersProvider = ({children}) => {
         }
         try {
           logger.log(`Checking tx status ${transfer.l2hash}`);
-          const newStatus = await getStarknet().provider.getTransactionStatus(transfer.l2hash);
+          const newStatus = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
           if (transfer.status !== newStatus.tx_status) {
             logger.log(
               !transfer.status

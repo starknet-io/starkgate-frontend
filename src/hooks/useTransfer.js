@@ -1,5 +1,4 @@
 import {useCallback} from 'react';
-import {constants} from 'starknet';
 
 import {deposit, depositEth, initiateWithdraw, withdraw} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
@@ -11,6 +10,7 @@ import {
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
 import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionStatus} from '../enums';
+import {starknet} from '../libs';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
@@ -58,7 +58,7 @@ export const useTransferToL2 = () => {
             logger.log('Allow value is smaller then amount, sending approve tx', {amount});
             await approve({
               spender: bridgeAddress[chainId],
-              value: constants.MASK_250,
+              value: starknet.constants.MASK_250,
               contract: tokenContract,
               options: {from: l1Account}
             });
