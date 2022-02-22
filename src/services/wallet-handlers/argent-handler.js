@@ -10,6 +10,6 @@ export class ArgentHandler {
   }
 
   install() {
-    return getStarknet({showModal: true});
+    return getStarknet().enable({showModal: true});
   }
 }
