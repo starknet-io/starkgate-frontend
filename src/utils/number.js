@@ -1,13 +1,8 @@
-import {number, uint256} from 'starknet';
-
-import {web3} from '../web3';
-
-const {uint256ToBN, bnToUint256} = uint256;
-const {toBN} = number;
+import {web3, starknet} from '../libs';
 
 const TEN = 10;
 const DEFAULT_DECIMALS = 18;
-const UNIT_MAP = {};
+export const UNIT_MAP = {};
 
 for (let key in web3.utils.unitMap) {
   UNIT_MAP[web3.utils.unitMap[key]] = key;
@@ -22,16 +17,16 @@ export const parseFromDecimals = (value, decimals = DEFAULT_DECIMALS) => {
 };
 
 export const parseFromFelt = value => {
-  return toBN(value).toNumber();
+  return starknet.number.toBN(value).toNumber();
 };
 
 export const parseToFelt = value => {
-  return toBN(value).toString();
+  return starknet.number.toBN(value).toString();
 };
 
 export const parseToUint256 = (value, decimals = DEFAULT_DECIMALS) => {
   const decimalsValue = parseToDecimals(value, decimals);
-  const uint256 = bnToUint256(toBN(decimalsValue));
+  const uint256 = starknet.uint256.bnToUint256(starknet.number.toBN(decimalsValue));
   return {
     type: 'struct',
     ...uint256
@@ -39,6 +34,6 @@ export const parseToUint256 = (value, decimals = DEFAULT_DECIMALS) => {
 };
 
 export const parseFromUint256 = (value, decimals = DEFAULT_DECIMALS) => {
-  const bnString = uint256ToBN(value).toString();
+  const bnString = starknet.uint256.uint256ToBN(value).toString();
   return parseFromDecimals(bnString, decimals);
 };

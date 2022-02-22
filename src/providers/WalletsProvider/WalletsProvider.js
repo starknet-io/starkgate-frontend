@@ -1,4 +1,3 @@
-import {getStarknet} from '@argent/get-starknet';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
@@ -6,7 +5,7 @@ import {useWallet} from 'use-wallet';
 import {useIsL1, useIsL2} from '../../components/Features/Transfer/Transfer.hooks';
 import {WalletStatus} from '../../enums';
 import {useConfig} from '../../hooks';
-import {web3} from '../../web3';
+import {getStarknet} from '../../libs';
 import {WalletsContext} from './wallets-context';
 import {actions, initialState, reducer} from './wallets-reducer';
 
@@ -82,8 +81,7 @@ export const WalletsProvider = ({children}) => {
       chainId,
       error: serialError,
       chainName: networkName,
-      isConnected: isConnected(),
-      library: web3
+      isConnected: isConnected()
     });
   };
 
@@ -103,8 +101,7 @@ export const WalletsProvider = ({children}) => {
         error,
         isConnected: isL2Connected,
         account: selectedAddress,
-        chainName: networkName,
-        library: getStarknet()
+        chainName: networkName
       });
     }
   };

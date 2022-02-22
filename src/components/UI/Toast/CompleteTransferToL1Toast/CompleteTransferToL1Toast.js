@@ -7,6 +7,7 @@ import {useColors} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
+import {ToastFooter, TransferLogLink} from '../ToastFooter/ToastFooter';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import styles from './CompleteTransferToL1Toast.module.scss';
@@ -22,6 +23,7 @@ export const CompleteTransferToL1Toast = ({
   transfer,
   onDismiss,
   onCompleteTransfer,
+  onTransferLogLinkClick,
   onClose
 }) => {
   const {colorBeta, colorOmega1} = useColors();
@@ -54,6 +56,9 @@ export const CompleteTransferToL1Toast = ({
             </ToastButtons>
             <ToastSeparator />
             <TransferData style={{fontSize: '10px'}} transfer={transfer} />
+            <ToastFooter>
+              <TransferLogLink onClick={onTransferLogLinkClick} />
+            </ToastFooter>
           </div>
         </div>
       </div>
@@ -66,5 +71,6 @@ CompleteTransferToL1Toast.propTypes = {
   transfer: PropTypes.object,
   onDismiss: PropTypes.func,
   onCompleteTransfer: PropTypes.func,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  onTransferLogLinkClick: PropTypes.func
 };

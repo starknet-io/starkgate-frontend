@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2-1",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -8,7 +8,7 @@
     "build": "react-scripts build",
     "build:testing": "env-cmd -f .env.testing npm run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
-    "test": "react-scripts test --env=jsdom",
+    "test": "TZ='GMT+0200' react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -56,7 +56,7 @@
     "react-hot-toast": "^2.2.0",
     "react-redux": "^7.2.6",
     "react-scripts": "4.0.3",
-    "starknet": "^2.5.0",
+    "starknet": "^3.0.0",
     "use-async-memo": "^1.2.3",
     "use-deep-compare-effect": "^1.8.1",
     "use-wallet": "^0.13.4",

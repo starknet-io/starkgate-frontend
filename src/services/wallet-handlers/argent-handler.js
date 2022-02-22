@@ -1,4 +1,4 @@
-import {getStarknet} from '@argent/get-starknet';
+import {getStarknet} from '../../libs';
 
 export class ArgentHandler {
   constructor(config) {

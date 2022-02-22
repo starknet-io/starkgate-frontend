@@ -15390,10 +15390,10 @@ standard-version@^9.3.1:
     stringify-package "^1.0.1"
     yargs "^16.0.0"
 
-starknet@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/starknet/-/starknet-2.5.0.tgz#451e0519567419823214ac967b98c66630b97139"
-  integrity sha512-vW07z9JcHQVxk6US2nh1A+Z2ZBWlWviy32KTBm7MUzNewT8lgRRrIK9pPH6yWxpAPaRlD/u+7C0Vjp1Nbowtjg==
+starknet@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/starknet/-/starknet-3.0.0.tgz#9519bcd4730f7251286c76ca7ad37c5ef0500afc"
+  integrity sha512-cm51mRfF+N8RGfzsRnvpP9d+58K3snBI+zlnyKxhjAb7ZoHXd/JDRfSYYuzep+QqFQetYa3uvTPPRZ5uJIRoAg==
   dependencies:
     axios "^0.23.0"
     bn.js "^5.2.0"
