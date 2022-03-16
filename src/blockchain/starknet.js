@@ -1,9 +1,9 @@
 import {getStarknet} from '@argent/get-starknet';
 import * as starknetJS from 'starknet';
-import {compileCalldata, Contract, defaultProvider, stark} from 'starknet';
 
-import {TransactionConsumedStatuses} from '../enums';
 import {getLogger} from '../services';
+
+const {compileCalldata, Contract, defaultProvider, stark} = starknetJS;
 
 const starknet = {
   createContract: (address, ABI) => {

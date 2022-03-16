@@ -29,10 +29,10 @@ export const parseToFelt = value => {
 
 export const parseToUint256 = (value, decimals = DEFAULT_DECIMALS) => {
   const decimalsValue = parseToDecimals(value, decimals);
-  const uint256 = uint256.bnToUint256(number.toBN(decimalsValue));
+  const uint256Value = uint256.bnToUint256(number.toBN(decimalsValue));
   return {
     type: 'struct',
-    ...uint256
+    ...uint256Value
   };
 };
 

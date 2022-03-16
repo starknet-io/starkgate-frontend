@@ -1,4 +1,4 @@
-import strings from '../config/strings.js';
+import strings from '../config/strings';
 import {getLogger, getLogLevel, setLogLevel} from '../services';
 import {getPropertyPath} from './object';
 
