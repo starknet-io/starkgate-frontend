@@ -1,9 +1,9 @@
-import {web3, starknet} from '../blockchain';
 import {parseFromDecimals, parseToDecimals, parseToFelt, parseToUint256} from '../utils';
+import blockchainUtils from '../utils/blockchain';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   try {
-    return web3.sendTransaction(
+    return blockchainUtils.ethereum.sendTransaction(
       contract,
       'deposit',
       [parseToDecimals(amount, decimals), recipient],
@@ -17,7 +17,7 @@ export const deposit = async ({recipient, amount, decimals, contract, options, e
 
 export const depositEth = async ({recipient, amount, contract, options, emitter}) => {
   try {
-    return web3.sendTransaction(
+    return blockchainUtils.ethereum.sendTransaction(
       contract,
       'deposit',
       [recipient],
@@ -34,7 +34,7 @@ export const depositEth = async ({recipient, amount, contract, options, emitter}
 
 export const withdraw = async ({recipient, amount, decimals, contract, emitter}) => {
   try {
-    return web3.sendTransaction(
+    return blockchainUtils.ethereum.sendTransaction(
       contract,
       'withdraw',
       [parseToDecimals(amount, decimals), recipient],
@@ -50,7 +50,7 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
 
 export const maxDeposit = async ({decimals, contract}) => {
   try {
-    const maxDeposit = await web3.callContract(contract, 'maxDeposit');
+    const maxDeposit = await blockchainUtils.ethereum.callContract(contract, 'maxDeposit');
     return parseFromDecimals(maxDeposit, decimals);
   } catch (ex) {
     return Promise.reject(ex);
@@ -59,7 +59,7 @@ export const maxDeposit = async ({decimals, contract}) => {
 
 export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
   try {
-    return starknet.sendTransaction(contract, 'initiate_withdraw', {
+    return blockchainUtils.starknet.sendTransaction(contract, 'initiate_withdraw', {
       l1Recipient: parseToFelt(recipient),
       amount: parseToUint256(amount, decimals)
     });

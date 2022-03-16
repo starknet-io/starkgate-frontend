@@ -31,6 +31,15 @@ export const TransactionConsumedStatuses = [
   TransactionStatus.PENDING
 ];
 
+export const TransactionStatusStep = {
+  NOT_RECEIVED: 0,
+  RECEIVED: 1,
+  PENDING: 2,
+  ACCEPTED_ON_L2: 3,
+  ACCEPTED_ON_L1: 4,
+  REJECTED: 5
+};
+
 export const isPending = status => TransactionPendingStatuses.includes(status);
 
 export const isConsumed = status => TransactionConsumedStatuses.includes(status);

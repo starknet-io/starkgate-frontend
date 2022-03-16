@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
-import {starknet} from '../../blockchain';
 import {useConfig} from '../../hooks';
+import {starknet} from '../../libs';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {

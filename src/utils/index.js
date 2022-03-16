@@ -7,3 +7,4 @@ export * from './hash';
 export * from './date';
 export * from './object';
 export * from './helpers';
+export * from './blockchain';

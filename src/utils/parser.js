@@ -1,4 +1,4 @@
-import {web3, starknet} from '../blockchain';
+import {web3, starknet} from '../libs';
 
 const {number, uint256} = starknet;
 const {utils} = web3;

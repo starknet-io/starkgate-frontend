@@ -2,7 +2,6 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth, initiateWithdraw, withdraw} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
-import {starknet} from '../blockchain';
 import {
   useErrorModal,
   useHideModal,
@@ -11,10 +10,12 @@ import {
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
 import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionStatus} from '../enums';
+import {starknet} from '../libs';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
+import blockchainUtils from '../utils/blockchain';
 import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
@@ -144,10 +145,16 @@ export const useTransferToL1 = () => {
         logger.log('Tx hash received', {transaction_hash});
         handleProgress(progressOptions.initiateWithdraw(amount, symbol));
         logger.log('Waiting for tx to be received on L2');
-        await starknet.waitForTransaction(transaction_hash, TransactionStatus.RECEIVED);
+        await blockchainUtils.starknet.waitForTransaction(
+          transaction_hash,
+          TransactionStatus.RECEIVED
+        );
         handleProgress(progressOptions.waitForAccept());
         logger.log('Waiting for tx to be accepted on L2');
-        await starknet.waitForTransaction(transaction_hash);
+        await blockchainUtils.starknet.waitForTransaction(
+          transaction_hash,
+          TransactionStatus.PENDING
+        );
         logger.log('Done', {transaction_hash});
         handleData({
           type: ActionType.TRANSFER_TO_L1,

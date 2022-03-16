@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {starknet} from '../../blockchain';
 import constants from '../../config/constants';
 import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
+import {starknet} from '../../libs';
 import {StorageManager} from '../../services';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransfersContext} from './transfers-context';
