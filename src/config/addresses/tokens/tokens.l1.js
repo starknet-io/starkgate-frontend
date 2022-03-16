@@ -7,7 +7,7 @@ export const L1Tokens = [
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0xcf98f0A8edC6a730E1CA6B64a2528c6bE031Cb12'
+      [ChainType.GOERLI.id]: '0xc3511006C04EF1d78af4C8E0e74Ec18A6E64Ff9e'
     }
   },
   {
@@ -60,6 +60,19 @@ export const L1Tokens = [
     tokenAddress: {
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844'
+    }
+  },
+  {
+    name: 'SelfService',
+    symbol: 'SLF',
+    decimals: 6,
+    bridgeAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x160e7631f22035149A01420cADD1012267551181'
+    },
+    tokenAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0xd44BB808bfE43095dBb94c83077766382D63952a'
     }
   }
 ];
