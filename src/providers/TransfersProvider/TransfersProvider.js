@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {LOCAL_STORAGE_TRANSFERS_KEY} from '../../constants';
+import {starknet} from '../../blockchain';
+import constants from '../../config/constants';
 import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
-import {starknet} from '../../libs';
 import {StorageManager} from '../../services';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransfersContext} from './transfers-context';
 import {actions, initialState, reducer} from './transfers-reducer';
+
+const {LOCAL_STORAGE_TRANSFERS_KEY} = constants;
 
 export const TransfersProvider = ({children}) => {
   const logger = useLogger(TransfersProvider.displayName);

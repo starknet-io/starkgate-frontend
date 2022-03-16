@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import {getTranslation} from '../../../utils';
 
-export const INPUT_PLACEHOLDER = getString('menus.transfer.input_placeholder_txt');
+export const INPUT_PLACEHOLDER = getTranslation('menus.transfer.input_placeholder_txt');

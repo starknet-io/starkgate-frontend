@@ -2,16 +2,16 @@ import {useCallback, useMemo} from 'react';
 
 import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
+import {web3, starknet} from '../blockchain';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
 import {MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useL1Wallet, useWallets} from '../providers/WalletsProvider';
-import {l1_getContract, l2_getContract} from '../utils/contract';
 
 const cache = {};
 
-export const useContract = (ABI, getContractHandler = l1_getContract) => {
+export const useContract = (ABI, getContractHandler = web3.createContract) => {
   const {chainId} = useWallets();
   return useCallback(
     addresses => {
@@ -55,7 +55,7 @@ export const useTokenBridgeContract = () => {
 };
 
 export const useL2TokenContract = () => {
-  const getContract = useContract(L2_ERC20_ABI, l2_getContract);
+  const getContract = useContract(L2_ERC20_ABI, starknet.createContract);
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
@@ -70,7 +70,7 @@ export const useMessagingContract = () => {
 };
 
 export const useL2TokenBridgeContract = () => {
-  const getContract = useContract(L2_BRIDGE_ABI, l2_getContract);
+  const getContract = useContract(L2_BRIDGE_ABI, starknet.createContract);
   return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 

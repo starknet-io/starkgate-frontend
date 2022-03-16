@@ -1,9 +1,9 @@
 import {useMemo} from 'react';
 
-import {evaluate, getString} from '../utils';
+import {evaluate, getTranslation} from '../utils';
 
 export const useTransferProgress = () => {
-  const transferProgressStrings = getString('modals.transferProgress');
+  const transferProgressStrings = getTranslation('modals.transferProgress');
   return useMemo(
     () => ({
       approval: symbol => {

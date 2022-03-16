@@ -1,4 +1,6 @@
-import {ETHERSCAN_URL, VOYAGER_URL} from '../constants';
+import constants from '../config/constants';
+
+const {ETHERSCAN_URL, VOYAGER_URL} = constants;
 
 export const ChainType = {
   MAIN: {

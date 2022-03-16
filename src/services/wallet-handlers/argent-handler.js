@@ -1,4 +1,4 @@
-import {getStarknet} from '../../libs';
+import {getStarknet} from '../../blockchain';
 
 export class ArgentHandler {
   constructor(config) {

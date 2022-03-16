@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {LINKS} from '../../../constants';
+import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
@@ -20,6 +20,8 @@ import {useTransferData} from '../Transfer/Transfer.hooks';
 import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
+
+const {LINKS} = constants;
 
 export const Account = ({transferId}) => {
   const {showTransferMenu} = useBridgeActions();

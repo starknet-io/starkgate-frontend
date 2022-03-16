@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import {getTranslation} from '../../../utils';
 
-export const SEARCH_PLACEHOLDER = getString('menus.selectToken.search_placeholder');
+export const SEARCH_PLACEHOLDER = getTranslation('menus.selectToken.search_placeholder');

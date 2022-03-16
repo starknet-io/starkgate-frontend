@@ -1,3 +1,3 @@
-import {evaluate, getString} from '../../../utils';
+import {evaluate, getTranslation} from '../../../utils';
 
-export const TITLE_TXT = network => evaluate(getString('menus.account.title_txt'), {network});
+export const TITLE_TXT = network => evaluate(getTranslation('menus.account.title_txt'), {network});

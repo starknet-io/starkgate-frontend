@@ -1,6 +1,6 @@
-import {getString} from '../../../../utils';
+import {getTranslation} from '../../../../utils';
 
-const {pending_txt, consumed_txt, rejected_txt} = getString('toasts.pendingTransfer');
+const {pending_txt, consumed_txt, rejected_txt} = getTranslation('toasts.pendingTransfer');
 
 export const REJECTED_TXT = rejected_txt;
 export const PENDING_TXT = pending_txt;

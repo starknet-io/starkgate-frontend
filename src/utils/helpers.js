@@ -1,4 +1,4 @@
-import strings from '../config/strings.json';
+import strings from '../config/strings.js';
 import {getLogger, getLogLevel, setLogLevel} from '../services';
 import {getPropertyPath} from './object';
 
@@ -9,4 +9,4 @@ export const printPackageInfo = (name, version, color) => {
   setLogLevel(currentLogLevel);
 };
 
-export const getString = path => getPropertyPath(strings, path);
+export const getTranslation = path => getPropertyPath(strings, path);

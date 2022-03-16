@@ -1,6 +1,6 @@
 import {WalletType} from '../enums';
 
-export default [
+const wallets = [
   {
     id: 'metamask',
     name: 'MetaMask',
@@ -17,3 +17,5 @@ export default [
     logoPath: 'wallets/argent/logo.svg'
   }
 ];
+
+export default wallets;

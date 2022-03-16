@@ -1,7 +1,7 @@
-import {evaluate, getString} from '../../../../utils';
+import {evaluate, getTranslation} from '../../../../utils';
 
 const {btn_txt, transfer_to_l1_txt, complete_transfer_to_l1_txt, transfer_to_l2_txt, status_txt} =
-  getString('modals.transactionSubmitted');
+  getTranslation('modals.transactionSubmitted');
 
 export const COMPLETE_TRANSFER_TO_L1_TXT = complete_transfer_to_l1_txt;
 export const TRANSFER_TO_L1_TXT = transfer_to_l1_txt;

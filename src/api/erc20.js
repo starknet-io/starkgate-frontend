@@ -1,11 +1,10 @@
+import {web3, starknet} from '../blockchain';
 import {TransactionStatus} from '../enums';
-import {web3} from '../libs';
 import {parseFromDecimals, parseFromUint256} from '../utils';
-import {l1_callContract, l1_sendTransaction, l2_callContract} from '../utils/contract';
 
 export const approve = async ({spender, value, contract, options}) => {
   try {
-    return await l1_sendTransaction(contract, 'approve', [spender, value], options);
+    return await web3.sendTransaction(contract, 'approve', [spender, value], options);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -13,7 +12,7 @@ export const approve = async ({spender, value, contract, options}) => {
 
 export const allowance = async ({owner, spender, decimals, contract}) => {
   try {
-    const allow = await l1_callContract(contract, 'allowance', [owner, spender]);
+    const allow = await web3.callContract(contract, 'allowance', [owner, spender]);
     return parseFromDecimals(allow, decimals);
   } catch (ex) {
     return Promise.reject(ex);
@@ -23,10 +22,10 @@ export const allowance = async ({owner, spender, decimals, contract}) => {
 export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
   try {
     if (isL1) {
-      const balance = await l1_callContract(contract, 'balanceOf', [account]);
+      const balance = await web3.callContract(contract, 'balanceOf', [account]);
       return parseFromDecimals(balance, decimals);
     } else {
-      const {balance} = await l2_callContract(
+      const {balance} = await starknet.callContract(
         contract,
         'balanceOf',
         [{account}],

@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import {getTranslation} from '../../../utils';
 
-export const BTN_TXT = getString('menus.transfer.max_btn_txt');
+export const BTN_TXT = getTranslation('menus.transfer.max_btn_txt');

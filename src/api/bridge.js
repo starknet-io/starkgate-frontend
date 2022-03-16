@@ -1,9 +1,9 @@
+import {web3, starknet} from '../blockchain';
 import {parseFromDecimals, parseToDecimals, parseToFelt, parseToUint256} from '../utils';
-import {l1_callContract, l1_sendTransaction, l2_sendTransaction} from '../utils/contract';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return web3.sendTransaction(
       contract,
       'deposit',
       [parseToDecimals(amount, decimals), recipient],
@@ -17,7 +17,7 @@ export const deposit = async ({recipient, amount, decimals, contract, options, e
 
 export const depositEth = async ({recipient, amount, contract, options, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return web3.sendTransaction(
       contract,
       'deposit',
       [recipient],
@@ -34,7 +34,7 @@ export const depositEth = async ({recipient, amount, contract, options, emitter}
 
 export const withdraw = async ({recipient, amount, decimals, contract, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return web3.sendTransaction(
       contract,
       'withdraw',
       [parseToDecimals(amount, decimals), recipient],
@@ -50,7 +50,7 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
 
 export const maxDeposit = async ({decimals, contract}) => {
   try {
-    const maxDeposit = await l1_callContract(contract, 'maxDeposit');
+    const maxDeposit = await web3.callContract(contract, 'maxDeposit');
     return parseFromDecimals(maxDeposit, decimals);
   } catch (ex) {
     return Promise.reject(ex);
@@ -59,7 +59,7 @@ export const maxDeposit = async ({decimals, contract}) => {
 
 export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
   try {
-    return l2_sendTransaction(contract, 'initiate_withdraw', {
+    return starknet.sendTransaction(contract, 'initiate_withdraw', {
       l1Recipient: parseToFelt(recipient),
       amount: parseToUint256(amount, decimals)
     });

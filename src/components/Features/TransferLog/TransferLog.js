@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {LINKS} from '../../../constants';
+import constants from '../../../config/constants';
 import {
   isOnChain,
   isPending,
@@ -18,6 +18,8 @@ import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransferLog.module.scss';
 import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
+
+const {LINKS} = constants;
 
 export const TransferLog = ({transfer, onCompleteTransferClick}) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;

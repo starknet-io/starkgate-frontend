@@ -1,4 +1,4 @@
-import {capitalize, evaluate, getString} from '../../../utils';
+import {capitalize, evaluate, getTranslation} from '../../../utils';
 
 export const CHAIN_TXT = chainName =>
-  capitalize(evaluate(getString('containers.header.chain_txt'), {chainName}));
+  capitalize(evaluate(getTranslation('containers.header.chain_txt'), {chainName}));

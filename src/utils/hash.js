@@ -1,5 +1,5 @@
+import {starknet} from '../blockchain';
 import {byChainId} from '../enums';
-import {starknet} from '../libs';
 
 export const txHash = (
   txHashPrefix,

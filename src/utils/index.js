@@ -2,7 +2,7 @@ export * from './wallet';
 export * from './browser';
 export * from './string';
 export * from './token';
-export * from './number';
+export * from './parser';
 export * from './hash';
 export * from './date';
 export * from './object';
