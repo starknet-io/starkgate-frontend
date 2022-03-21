@@ -32,10 +32,7 @@ export const TransfersProvider = ({children}) => {
         return;
       }
       const checkTransaction = async transfer => {
-        if (isCompleted(transfer.status)) {
-          return transfer;
-        }
-        if (transfer.lastChecked === blockHash) {
+        if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
           return transfer;
         }
         try {
