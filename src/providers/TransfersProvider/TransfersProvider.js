@@ -27,7 +27,7 @@ export const TransfersProvider = ({children}) => {
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
-      logger.log(`It's time to update transfers!`);
+      logger.log(`Update transfers`);
       if (!blockHash) {
         return;
       }
