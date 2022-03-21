@@ -5,13 +5,14 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {
   ActionType,
+  Breakpoints,
   isConsumed,
   isOnChain,
   isPending,
   isRejected,
   NetworkType
 } from '../../../enums';
-import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
+import {useCompleteTransferToL1, usePrevious, useWindowSize} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import {getFullTime} from '../../../utils';
 import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
@@ -20,7 +21,36 @@ import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
+const styleForXL = {
+  position: 'bottom-left',
+  style: {
+    boxSizing: 'border-box',
+    maxWidth: '350px',
+    marginBottom: '0px',
+    fontSize: '16px'
+  }
+};
+const styleForSmWidth = {
+  position: 'bottom-center',
+  style: {
+    boxSizing: 'border-box',
+    maxWidth: '540px',
+    marginBottom: '34px',
+    fontSize: '14px'
+  }
+};
+const styleForSmHeight = {
+  position: 'bottom-right',
+  style: {
+    boxSizing: 'border-box',
+    maxWidth: '357px',
+    marginBottom: '34px',
+    fontSize: '14px'
+  }
+};
+
 export const ToastProvider = () => {
+  const windowSize = useWindowSize();
   const {transfers} = useTransfers();
   const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
@@ -32,7 +62,7 @@ export const ToastProvider = () => {
 
   useEffect(() => {
     showAlphaDisclaimerToast();
-  }, []);
+  }, [windowSize]);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -67,10 +97,17 @@ export const ToastProvider = () => {
   };
 
   const showAlphaDisclaimerToast = () => {
-    toast.success(ALPHA_DISCLAIMER_MSG, {
-      position: 'bottom-left',
-      icon: '❗'
-    });
+    toast.success(
+      ALPHA_DISCLAIMER_MSG,
+      Object.assign(
+        {id: 'alpha', icon: '❗'},
+        Breakpoints.largeScreens(windowSize)
+          ? styleForXL
+          : Breakpoints.smallHeightScreens(windowSize)
+          ? styleForSmHeight
+          : styleForSmWidth
+      )
+    );
   };
 
   const showConsumedTransferToast = transfer => {
@@ -142,6 +179,13 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
+      containerStyle={{
+        left: 20,
+        right: 20,
+        top: Breakpoints.smallHeightScreens(windowSize) ? 8 : 20,
+        bottom: Breakpoints.smallHeightScreens(windowSize) ? 0 : 20,
+        transition: 'all 0.3s ease-in-out 0s'
+      }}
       position="top-right"
       toastOptions={{
         duration: Infinity

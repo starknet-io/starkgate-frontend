@@ -4,6 +4,7 @@ $background-color: $--color-alpha-1;
 $error-msg-color: $--color-error;
 
 .transfer {
+  position: relative;
   transition: 0.3s ease-in-out;
 
   .tabsContainer {

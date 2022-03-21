@@ -1,7 +1,13 @@
 $--header-height: 80;
+$--header-height-small: 50;
 $--footer-height: 50;
+$--footer-height-small: 30;
 $--main-offset: $--header-height + $--footer-height + 2;
+$--main-offset-small: $--header-height-small + $--footer-height-small + 2;
+
+$--small-height-screens: 1024;
 
 :export {
   mainOffset: $--main-offset;
+  mainOffsetSmall: $--main-offset-small;
 }

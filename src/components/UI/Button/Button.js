@@ -46,7 +46,7 @@ export const Button = ({
       onMouseLeave={() => setIsHover(false)}
     >
       {iconAlign === 'left' && icon}
-      {isLoading ? <Loading size={LoadingSize.SMALL} /> : text}
+      {isLoading ? <Loading size={LoadingSize.SMALL} /> : <span>{text}</span>}
       {iconAlign === 'right' && icon}
     </button>
   );

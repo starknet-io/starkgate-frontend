@@ -1,5 +1,10 @@
 @import '../../../index';
 
+$smallScreenHeight: $--small-height-screens - 1;
+
 .toastProvider {
   margin-top: #{$--header-height}px;
+  @media screen and (max-height: #{$smallScreenHeight}px) {
+    margin-top: #{$--header-height-small}px;
+  }
 }

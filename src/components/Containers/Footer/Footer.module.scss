@@ -1,11 +1,16 @@
 @import '../../../index';
 
 $height: $--footer-height;
+$height-small: $--footer-height-small;
 $copyright-color: $--color-beta;
+$smallScreenHeight: $--small-height-screens - 1;
 
 .footer {
   font-size: 13px;
   height: #{$height}px;
+  @media screen and (max-height: #{$smallScreenHeight}px) {
+    height: #{$height-small}px;
+  }
   border-top: 1px solid transparent;
 
   .copyright {
