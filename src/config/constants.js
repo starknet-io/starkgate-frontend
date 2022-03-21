@@ -1,5 +1,5 @@
 import {byChainId} from '../enums';
-import {evaluate} from '../utils';
+import utils from '../utils';
 
 const constants = {
   LOCAL_STORAGE_TRANSFERS_KEY: 'STARKGATE_TRANSFERS',
@@ -9,12 +9,12 @@ const constants = {
     ETHERSCAN: {
       text: 'etherscan',
       txUrl: (chainId, hash) =>
-        evaluate('{{url}}/tx/{{hash}}', {
+        utils.object.evaluate('{{url}}/tx/{{hash}}', {
           url: byChainId(chainId).blockExplorerUrl,
           hash
         }),
       accountUrl: (chainId, account) =>
-        evaluate('{{url}}/address/{{account}}', {
+        utils.object.evaluate('{{url}}/address/{{account}}', {
           url: byChainId(chainId).blockExplorerUrl,
           account
         })
@@ -22,12 +22,12 @@ const constants = {
     VOYAGER: {
       text: 'voyager',
       txUrl: (chainId, hash) =>
-        evaluate('{{url}}/tx/{{hash}}', {
+        utils.object.evaluate('{{url}}/tx/{{hash}}', {
           url: byChainId(chainId).l2BlockExplorerUrl,
           hash
         }),
       accountUrl: (chainId, account) =>
-        evaluate('{{url}}/contract/{{account}}', {
+        utils.object.evaluate('{{url}}/contract/{{account}}', {
           url: byChainId(chainId).l2BlockExplorerUrl,
           account
         })

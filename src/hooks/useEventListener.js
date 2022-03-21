@@ -5,8 +5,8 @@ import {TransactionHashPrefix} from '../enums';
 import {starknet} from '../libs';
 import {useL1Token, useL2Token} from '../providers/TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {txHash} from '../utils';
-import {useMessagingContract, useTokenBridgeContract} from './useContract';
+import utils from '../utils';
+import {useStarknetContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 
 const HOOK_MODULE = 'useEventListener';
@@ -16,7 +16,7 @@ export const useLogMessageToL2Listener = () => {
   const selectedToken = useSelectedToken();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const messagingContract = useMessagingContract();
+  const starknetContract = useStarknetContract();
   const addEventListener = useEventListener();
   const {chainId} = useL1Wallet();
 
@@ -26,7 +26,7 @@ export const useLogMessageToL2Listener = () => {
     const l1BridgeAddress = getL1Token(symbol).bridgeAddress[chainId];
     const l2BridgeAddress = getL2Token(symbol).bridgeAddress[chainId];
     try {
-      const event = await addEventListener(messagingContract, 'LogMessageToL2', {
+      const event = await addEventListener(starknetContract, 'LogMessageToL2', {
         filter: {
           to_address: l2BridgeAddress,
           from_address: l1BridgeAddress,
@@ -35,7 +35,7 @@ export const useLogMessageToL2Listener = () => {
       });
       logger.log('Event received', {event});
       const {to_address, from_address, selector, payload, nonce} = event.returnValues;
-      return txHash(
+      return utils.blockchain.starknet.getTransactionHash(
         TransactionHashPrefix.L1_HANDLER,
         from_address,
         to_address,
@@ -48,7 +48,7 @@ export const useLogMessageToL2Listener = () => {
       logger.error('Event error', {ex});
       return Promise.reject(ex.message);
     }
-  }, [addEventListener, chainId, getL1Token, getL2Token, logger, messagingContract, selectedToken]);
+  }, [addEventListener, chainId, getL1Token, getL2Token, logger, starknetContract, selectedToken]);
 };
 
 export const useLogDepositListener = () => {

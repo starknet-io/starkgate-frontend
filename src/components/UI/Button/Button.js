@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {toClasses} from '../../../utils';
+import utils from '../../../utils';
 import {Loading} from '../Loading/Loading';
 import {LoadingSize} from '../Loading/Loading.enums';
 import styles from './Button.module.scss';
@@ -35,7 +35,7 @@ export const Button = ({
 
   return (
     <button
-      className={toClasses(
+      className={utils.object.toClasses(
         styles.button,
         isDisabled && styles.isDisabled,
         isLoading && styles.isLoading

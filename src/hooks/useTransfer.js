@@ -14,8 +14,7 @@ import {starknet} from '../libs';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {isEth} from '../utils';
-import blockchainUtils from '../utils/blockchain';
+import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
@@ -39,7 +38,7 @@ export const useTransferToL2 = () => {
       try {
         logger.log('TransferToL2 called');
         const {symbol, decimals, tokenAddress, bridgeAddress, name} = selectedToken;
-        const isEthToken = isEth(symbol);
+        const isEthToken = utils.token.isEth(symbol);
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
         const depositHandler = isEthToken ? depositEth : deposit;
         logger.log('Prepared contract and handler', {isEthToken, bridgeContract, depositHandler});
@@ -145,13 +144,13 @@ export const useTransferToL1 = () => {
         logger.log('Tx hash received', {transaction_hash});
         handleProgress(progressOptions.initiateWithdraw(amount, symbol));
         logger.log('Waiting for tx to be received on L2');
-        await blockchainUtils.starknet.waitForTransaction(
+        await utils.blockchain.starknet.waitForTransaction(
           transaction_hash,
           TransactionStatus.RECEIVED
         );
         handleProgress(progressOptions.waitForAccept());
         logger.log('Waiting for tx to be accepted on L2');
-        await blockchainUtils.starknet.waitForTransaction(
+        await utils.blockchain.starknet.waitForTransaction(
           transaction_hash,
           TransactionStatus.PENDING
         );

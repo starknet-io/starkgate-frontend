@@ -1,6 +1,6 @@
 import MetaMaskOnboarding from '@metamask/onboarding';
 
-export class MetaMaskHandler {
+export class MetaMask {
   constructor(config) {
     this.config = config;
     this.onboarding = new MetaMaskOnboarding();

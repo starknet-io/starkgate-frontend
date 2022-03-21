@@ -1,3 +1,4 @@
-import {evaluate, getTranslation} from '../../../utils';
+import utils from '../../../utils';
 
-export const TITLE_TXT = network => evaluate(getTranslation('menus.account.title_txt'), {network});
+export const TITLE_TXT = network =>
+  utils.object.evaluate(utils.getTranslation('menus.account.title_txt'), {network});

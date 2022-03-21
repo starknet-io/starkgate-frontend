@@ -5,7 +5,7 @@ import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {findIndexById} from '../../../utils';
+import utils from '../../../utils';
 import {
   AccountAddress,
   BackButton,
@@ -57,7 +57,7 @@ export const Account = ({transferId}) => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer transferIndex={findIndexById(transfers, transferId)}>
+        <TransferLogContainer transferIndex={utils.object.findIndexById(transfers, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />

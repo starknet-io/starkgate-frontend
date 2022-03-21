@@ -7,7 +7,7 @@ import constants from '../../../../config/constants';
 import {ActionType} from '../../../../enums';
 import {useColors} from '../../../../hooks';
 import {useWallets} from '../../../../providers/WalletsProvider';
-import {openInNewTab} from '../../../../utils';
+import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {
@@ -48,7 +48,7 @@ const TransactionSubmittedModal = ({transfer}) => {
   }, []);
 
   const onClick = () => {
-    openInNewTab(networkData.explorerUrl);
+    utils.browser.openInNewTab(networkData.explorerUrl);
   };
 
   return (

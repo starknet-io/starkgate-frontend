@@ -1,4 +1,6 @@
-import {StorageManager} from '../../services';
+import utils from '../../utils';
+
+const {getItem, setItem} = utils.storage;
 
 class LocalStorageMock {
   constructor() {
@@ -33,14 +35,14 @@ describe('StorageManager', () => {
   });
 
   it('should return null for empty key', () => {
-    expect(StorageManager.getItem('test')).toBeNull();
+    expect(getItem('test')).toBeNull();
   });
 
   it('should get item hash from local storage', () => {
-    StorageManager.setItem('testObject', testObject);
-    StorageManager.setItem('testArray', testArray);
-    StorageManager.setItem('testNumber', testNumber);
-    StorageManager.setItem('testString', testString);
+    setItem('testObject', testObject);
+    setItem('testArray', testArray);
+    setItem('testNumber', testNumber);
+    setItem('testString', testString);
     expect(localStorage.getItem('testObject')).toEqual(
       'eyIwIjoiZXc9PSIsIjEiOiJJZz09IiwiMiI6IllRPT0iLCIzIjoiSWc9PSIsIjQiOiJPZz09IiwiNSI6Ik1RPT0iLCI2IjoiZlE9PSJ9'
     );
@@ -54,21 +56,21 @@ describe('StorageManager', () => {
   });
 
   it('should get item from storage manager', () => {
-    StorageManager.setItem('testObject', testObject);
-    StorageManager.setItem('testArray', testArray);
-    StorageManager.setItem('testNumber', testNumber);
-    StorageManager.setItem('testString', testString);
-    expect(StorageManager.getItem('testObject')).toEqual(testObject);
-    expect(StorageManager.getItem('testArray')).toEqual(testArray);
-    expect(StorageManager.getItem('testNumber')).toEqual(testNumber);
-    expect(StorageManager.getItem('testString')).toEqual(testString);
+    setItem('testObject', testObject);
+    setItem('testArray', testArray);
+    setItem('testNumber', testNumber);
+    setItem('testString', testString);
+    expect(getItem('testObject')).toEqual(testObject);
+    expect(getItem('testArray')).toEqual(testArray);
+    expect(getItem('testNumber')).toEqual(testNumber);
+    expect(getItem('testString')).toEqual(testString);
   });
 
   it('should backward compatible for saved arrays', () => {
     const jsonArray = JSON.stringify(testArray);
     localStorage.setItem('test', jsonArray);
     expect(localStorage.getItem('test')).toEqual(jsonArray);
-    expect(StorageManager.getItem('test')).toEqual(testArray);
+    expect(getItem('test')).toEqual(testArray);
     expect(localStorage.getItem('test')).toEqual(
       'eyIwIjoiV3c9PSIsIjEiOiJldz09IiwiMiI6IklnPT0iLCIzIjoiWVE9PSIsIjQiOiJJZz09IiwiNSI6Ik9nPT0iLCI2IjoiTVE9PSIsIjciOiJmUT09IiwiOCI6IlhRPT0ifQ=='
     );

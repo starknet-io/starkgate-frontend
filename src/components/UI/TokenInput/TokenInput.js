@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
+import utils from '../../../utils';
 import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
 import {Input} from '../index';
@@ -16,7 +16,7 @@ export const TokenInput = ({
   onTokenSelect,
   onInputChange
 }) => (
-  <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
+  <div className={utils.object.toClasses(styles.tokenInput, hasError && styles.hasError)}>
     <Input
       placeholder={INPUT_PLACEHOLDER}
       style={{

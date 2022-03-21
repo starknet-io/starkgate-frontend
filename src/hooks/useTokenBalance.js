@@ -2,7 +2,7 @@ import {useCallback} from 'react';
 
 import {balanceOf, ethBalanceOf} from '../api/erc20';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {isEth} from '../utils';
+import utils from '../utils';
 import {useL1TokenContract, useL2TokenContract} from './useContract';
 
 export const useTokenBalance = account => {
@@ -32,7 +32,7 @@ export const useL1TokenBalance = account => {
   return useCallback(
     async token => {
       const {tokenAddress, decimals} = token;
-      return isEth(token)
+      return utils.token.isEth(token)
         ? await ethBalanceOf(account)
         : await balanceOf({account, decimals, contract: getContract(tokenAddress)}, true);
     },

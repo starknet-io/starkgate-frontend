@@ -1,3 +1,3 @@
-import {getTranslation} from '../../../../utils';
+import utils from '../../../../utils';
 
-export const TRANSFER_LOG_LINK_BTN_TXT = getTranslation('toasts.transfer_log_link');
+export const TRANSFER_LOG_LINK_BTN_TXT = utils.getTranslation('toasts.transfer_log_link');

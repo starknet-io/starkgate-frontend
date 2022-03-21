@@ -6,7 +6,7 @@ import constants from '../../config/constants';
 import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
 import {starknet} from '../../libs';
-import {StorageManager} from '../../services';
+import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransfersContext} from './transfers-context';
 import {actions, initialState, reducer} from './transfers-reducer';
@@ -19,7 +19,7 @@ export const TransfersProvider = ({children}) => {
   const blockHash = useBlockHash();
 
   useEffect(() => {
-    const storedTransfers = StorageManager.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
+    const storedTransfers = utils.storage.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
     if (Array.isArray(storedTransfers)) {
       setTransfers(storedTransfers);
     }
@@ -67,7 +67,7 @@ export const TransfersProvider = ({children}) => {
       logger.log(`Done update transfers`, {newTransfers});
       if (newTransfers.length) {
         setTransfers(newTransfers);
-        StorageManager.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
+        utils.storage.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
       }
     };
     updateTransfers();

@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useState} from 'react';
 
 import WalletsConfig from '../config/wallets.js';
-import {ArgentHandler, MetaMaskHandler} from '../services';
+import {ArgentX, MetaMask} from '../wallets';
 
 const SUPPORTED_HANDLERS_REGISTRY = {
-  metamask: MetaMaskHandler,
-  argent: ArgentHandler
+  metamask: MetaMask,
+  argent: ArgentX
 };
 
 export const useWalletHandlerProvider = () => {

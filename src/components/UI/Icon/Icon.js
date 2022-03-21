@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
+import utils from '../../../utils';
 import styles from './Icon.module.scss';
 
 export const Icon = ({isClickable, onClick, style, className, children}) => (
   <div
-    className={toClasses(styles.icon, className)}
+    className={utils.object.toClasses(styles.icon, className)}
     style={{
       cursor: isClickable ? 'pointer' : 'default',
       ...style

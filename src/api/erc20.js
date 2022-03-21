@@ -1,11 +1,10 @@
 import {TransactionStatus} from '../enums';
 import {web3} from '../libs';
-import {parseFromDecimals, parseFromUint256} from '../utils';
-import blockchainUtils from '../utils/blockchain';
+import utils from '../utils';
 
 export const approve = async ({spender, value, contract, options}) => {
   try {
-    return await blockchainUtils.ethereum.sendTransaction(
+    return await utils.blockchain.ethereum.sendTransaction(
       contract,
       'approve',
       [spender, value],
@@ -18,11 +17,11 @@ export const approve = async ({spender, value, contract, options}) => {
 
 export const allowance = async ({owner, spender, decimals, contract}) => {
   try {
-    const allow = await blockchainUtils.ethereum.callContract(contract, 'allowance', [
+    const allow = await utils.blockchain.ethereum.callContract(contract, 'allowance', [
       owner,
       spender
     ]);
-    return parseFromDecimals(allow, decimals);
+    return utils.parser.parseFromDecimals(allow, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -31,16 +30,18 @@ export const allowance = async ({owner, spender, decimals, contract}) => {
 export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
   try {
     if (isL1) {
-      const balance = await blockchainUtils.ethereum.callContract(contract, 'balanceOf', [account]);
-      return parseFromDecimals(balance, decimals);
+      const balance = await utils.blockchain.ethereum.callContract(contract, 'balanceOf', [
+        account
+      ]);
+      return utils.parser.parseFromDecimals(balance, decimals);
     } else {
-      const {balance} = await blockchainUtils.starknet.callContract(
+      const {balance} = await utils.blockchain.starknet.callContract(
         contract,
         'balanceOf',
         [{account}],
         TransactionStatus.PENDING.toLowerCase()
       );
-      return parseFromUint256(balance, decimals);
+      return utils.parser.parseFromUint256(balance, decimals);
     }
   } catch (ex) {
     return Promise.reject(ex);
@@ -50,7 +51,7 @@ export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
 export const ethBalanceOf = async account => {
   try {
     const balance = await web3.eth.getBalance(account);
-    return parseFromDecimals(balance);
+    return utils.parser.parseFromDecimals(balance);
   } catch (ex) {
     return Promise.reject(ex);
   }

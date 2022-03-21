@@ -1,4 +1,6 @@
-import {capitalize} from '../../utils';
+import utils from '../../utils';
+
+const {capitalize} = utils.string;
 
 describe('capitalize', () => {
   it('should capitalize string', () => {

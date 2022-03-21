@@ -1,3 +1,3 @@
-import {getTranslation} from '../../../utils';
+import utils from '../../../utils';
 
-export const RIGHTS_TXT = getTranslation('containers.footer.rights_txt');
+export const RIGHTS_TXT = utils.getTranslation('containers.footer.rights_txt');

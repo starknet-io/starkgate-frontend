@@ -1,19 +1,18 @@
-export const StorageManager = {
-  setItem: (key, item) => {
-    if (localStorage) {
-      localStorage.setObjectHash(key, JSON.stringify(item));
-      return true;
-    }
-    return false;
-  },
-  getItem: key => {
-    if (localStorage) {
-      let item = localStorage.getObjectHash(key);
-      try {
-        return JSON.parse(Object.values(item).join(''));
-      } catch (ex) {
-        return item;
-      }
+export const setItem = (key, item) => {
+  if (localStorage) {
+    localStorage.setObjectHash(key, JSON.stringify(item));
+    return true;
+  }
+  return false;
+};
+
+export const getItem = key => {
+  if (localStorage) {
+    let item = localStorage.getObjectHash(key);
+    try {
+      return JSON.parse(Object.values(item).join(''));
+    } catch (ex) {
+      return item;
     }
   }
 };

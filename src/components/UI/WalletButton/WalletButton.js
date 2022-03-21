@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../hooks';
-import {shortenAddress} from '../../../utils';
+import utils from '../../../utils';
 import {Button, DynamicIcon} from '../index';
 import {WALLET_LOGO_SIZE} from './WalletButton.constants';
 import {BTN_TXT} from './WalletButton.strings';
@@ -18,7 +18,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       height={40}
       icon={<DynamicIcon path={logoPath} size={WALLET_LOGO_SIZE} />}
       style={{borderWidth: '2px'}}
-      text={BTN_TXT(shortenAddress(account))}
+      text={BTN_TXT(utils.wallet.shortenAddress(account))}
       onClick={onClick}
     />
   );
