@@ -2,5 +2,5 @@ import {createContext} from 'react';
 
 export const TokensContext = createContext({
   tokens: [],
-  updateTokenBalance: symbol => {}
+  updateTokenBalance: symbol => symbol
 });
