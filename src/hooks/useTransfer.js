@@ -251,7 +251,7 @@ const useTransfer = () => {
   const hideModal = useHideModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
   const {addTransfer} = useTransfers();
-  const {updateTokens} = useTokens();
+  const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 
   const handleProgress = progress => {
@@ -266,7 +266,7 @@ const useTransfer = () => {
   const handleData = data => {
     addTransfer(data);
     showTransactionSubmittedModal(data);
-    updateTokens();
+    updateTokenBalance(data.symbol);
     clearAmount();
   };
 
