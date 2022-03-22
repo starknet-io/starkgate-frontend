@@ -44,9 +44,6 @@ export const ToastProvider = () => {
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;
     const isChanged = prevTransfer && status !== prevTransfer.status;
-    if (isPending(status)) {
-      return showPendingTransferToast(transfer);
-    }
     if (isChanged && isConsumed(status)) {
       return showConsumedTransferToast(transfer);
     }
@@ -58,6 +55,7 @@ export const ToastProvider = () => {
     }
   };
 
+  /* eslint-disable-next-line */
   const showPendingTransferToast = transfer => {
     let toastId = getToastId(transfer);
     if (!toastId) {
