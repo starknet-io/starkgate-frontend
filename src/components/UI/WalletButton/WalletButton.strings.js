@@ -1,4 +1,4 @@
-import {evaluate, getString} from '../../../utils';
+import utils from '../../../utils';
 
 export const BTN_TXT = address =>
-  evaluate(getString('containers.header.wallet_btn_txt'), {address});
+  utils.object.evaluate(utils.getTranslation('containers.header.wallet_btn_txt'), {address});

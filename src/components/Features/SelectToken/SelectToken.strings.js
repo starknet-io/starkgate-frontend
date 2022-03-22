@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import utils from '../../../utils';
 
-export const TITLE_TXT = getString('menus.selectToken.title_txt');
+export const TITLE_TXT = utils.getTranslation('menus.selectToken.title_txt');

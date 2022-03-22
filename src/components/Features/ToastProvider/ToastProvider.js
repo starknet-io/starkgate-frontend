@@ -13,10 +13,10 @@ import {
 } from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
-import {getFullTime} from '../../../utils';
-import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
-import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
+import utils from '../../../utils';
 import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
+import {useBridgeActions} from '../Bridge/Bridge.hooks';
+import {useIsL1, useIsL2} from '../Transfer/Transfer.hooks';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
@@ -162,7 +162,7 @@ export const TransferData = ({transfer, style}) => {
         style={style}
       />
       <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
-      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
+      <ToastBody body={utils.date.getFullTime(transfer.timestamp)} style={style} />
     </>
   );
 };

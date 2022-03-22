@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {LINKS} from '../../../constants';
+import constants from '../../../config/constants';
 import {
   isOnChain,
   isPending,
@@ -11,13 +11,15 @@ import {
 } from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {getFullTime, toClasses} from '../../../utils';
+import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransferLog.module.scss';
 import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
+
+const {LINKS} = constants;
 
 export const TransferLog = ({transfer, onCompleteTransferClick}) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
@@ -31,7 +33,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
 
   const renderTransferStatus = () => {
     return !isOnChain(status) ? (
-      <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
+      <div className={utils.object.toClasses(styles.data, isRejected(status) && styles.error)}>
         {TransactionStatusFriendlyMessage[status]}
       </div>
     ) : null;
@@ -68,7 +70,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
             {name}
-            <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>
+            <div className={styles.data}>{`${utils.date.getFullTime(timestamp)}`}</div>
           </div>
         </div>
         <div className={styles.right}>

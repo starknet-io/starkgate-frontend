@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {LINKS} from '../../../constants';
+import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {findIndexById} from '../../../utils';
+import utils from '../../../utils';
 import {
   AccountAddress,
   BackButton,
@@ -20,6 +20,8 @@ import {useTransferData} from '../Transfer/Transfer.hooks';
 import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
+
+const {LINKS} = constants;
 
 export const Account = ({transferId}) => {
   const {showTransferMenu} = useBridgeActions();
@@ -55,7 +57,7 @@ export const Account = ({transferId}) => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer transferIndex={findIndexById(transfers, transferId)}>
+        <TransferLogContainer transferIndex={utils.object.findIndexById(transfers, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />
