@@ -3,14 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {
-  ActionType,
-  isConsumed,
-  isOnChain,
-  isPending,
-  isRejected,
-  NetworkType
-} from '../../../enums';
+import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import utils from '../../../utils';
