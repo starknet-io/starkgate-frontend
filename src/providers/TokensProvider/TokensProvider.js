@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
-import {useLogger, useConfig} from '../../hooks';
+import {useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
-  const {pollBalanceInterval} = useConfig();
   const logger = useLogger(TokensProvider.displayName);
   const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: l1Account} = useL1Wallet();
@@ -17,17 +16,15 @@ export const TokensProvider = ({children}) => {
   const getL2TokenBalance = useL2TokenBalance(l2Account);
 
   useEffect(() => {
-    updateTokens();
-    const intervalId = setInterval(() => {
-      updateTokens();
-    }, pollBalanceInterval);
-    return () => clearInterval(intervalId);
-  }, [pollBalanceInterval]);
+    updateTokenBalance();
+  }, []);
 
-  const updateTokens = () => {
-    logger.log(`It's time to update tokens balances!`);
-    for (let index = 0; index < tokens.length; index++) {
-      const token = tokens[index];
+  const updateTokenBalance = symbol => {
+    logger.log(`Update token balance`, {symbol});
+    const tokensToUpdate = symbol ? tokens.filter(token => token.symbol === symbol) : tokens;
+    logger.log(`Tokens to update`, {tokensToUpdate});
+    for (let index = 0; index < tokensToUpdate.length; index++) {
+      const token = tokensToUpdate[index];
       if (token.isLoading) {
         logger.log('Token already loading, skip balance update');
         break;
@@ -63,7 +60,7 @@ export const TokensProvider = ({children}) => {
 
   const context = {
     tokens,
-    updateTokens
+    updateTokenBalance
   };
 
   return <TokensContext.Provider value={context}>{children}</TokensContext.Provider>;

@@ -27,15 +27,12 @@ export const TransfersProvider = ({children}) => {
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
-      logger.log(`It's time to update transfers!`);
+      logger.log(`Update transfers`);
       if (!blockHash) {
         return;
       }
       const checkTransaction = async transfer => {
-        if (isCompleted(transfer.status)) {
-          return transfer;
-        }
-        if (transfer.lastChecked === blockHash) {
+        if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
           return transfer;
         }
         try {
