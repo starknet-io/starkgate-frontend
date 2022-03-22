@@ -9,14 +9,14 @@ import {
   useTransactionSubmittedModal
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
 import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
-import {ActionType, TransactionStatus} from '../enums';
+import {ActionType, TransactionHashPrefix, TransactionStatus} from '../enums';
 import {starknet} from '../libs';
+import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
-import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -32,6 +32,19 @@ export const useTransferToL2 = () => {
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
+
+  const getL2TransactionHashFromEvent = event => {
+    const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+    return utils.blockchain.starknet.getTransactionHash(
+      TransactionHashPrefix.L1_HANDLER,
+      from_address,
+      to_address,
+      selector,
+      payload,
+      chainId,
+      nonce
+    );
+  };
 
   return useCallback(
     async amount => {
@@ -64,35 +77,31 @@ export const useTransferToL2 = () => {
           }
         }
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
-        const logMessageToL2EventPromise = addLogMessageToL2Listener();
         logger.log('Calling deposit');
-        const depositPromise = await depositHandler({
+        addLogMessageToL2Listener((error, event) => {
+          handleData({
+            type: ActionType.TRANSFER_TO_L2,
+            sender: l1Account,
+            recipient: l2Account,
+            name,
+            symbol,
+            amount,
+            l1hash: event.transactionHash,
+            l2hash: getL2TransactionHashFromEvent(event)
+          });
+        });
+        depositHandler({
           recipient: l2Account,
           amount,
           decimals,
           contract: bridgeContract,
           options: {from: l1Account},
-          emitter: (error, transactionHash) => {
+          emitter: error => {
             if (!error) {
-              logger.log('Tx hash received', {transactionHash});
+              logger.log('Tx signed');
               handleProgress(progressOptions.deposit(amount, symbol));
             }
           }
-        });
-        const [{transactionHash: l1hash}, l2hash] = await Promise.all([
-          depositPromise,
-          logMessageToL2EventPromise
-        ]);
-        logger.log('Done', {l1hash, l2hash});
-        handleData({
-          type: ActionType.TRANSFER_TO_L2,
-          sender: l1Account,
-          recipient: l2Account,
-          name,
-          symbol,
-          amount,
-          l1hash,
-          l2hash
         });
       } catch (ex) {
         logger.error(ex.message, {ex});

@@ -1,0 +1,81 @@
+import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
+
+import {useL1TokenBridgeContract, useStarknetContract} from '../../hooks';
+import {starknet} from '../../libs';
+import {useL1Tokens, useL2Tokens} from '../TokensProvider';
+import {useL1Wallet, useL2Wallet, useWallets} from '../WalletsProvider';
+import {EventManagerContext} from './event-manager-context';
+
+const listeners = {};
+
+export const EventManagerProvider = ({children}) => {
+  const starknetContract = useStarknetContract();
+  const getTokenBridgeContract = useL1TokenBridgeContract();
+  const {chainId} = useWallets();
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
+  const l1Tokens = useL1Tokens();
+  const l2Tokens = useL2Tokens();
+
+  const addListener = (eventName, callback) => {
+    if (!listeners[eventName]) {
+      listeners[eventName] = [];
+    }
+    listeners[eventName].push(callback);
+  };
+
+  const emitListeners = (eventName, error, event) => {
+    listeners[eventName]?.forEach(listener => listener(error, event));
+    cleanListeners(eventName);
+  };
+
+  const cleanListeners = eventName => {
+    listeners[eventName] = [];
+  };
+
+  /* eslint-disable-next-line no-unused-vars */
+  const addLogDepositListener = () => {
+    l1Tokens.forEach(l1Token => {
+      const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
+      bridgeContract.events['LogDeposit'](
+        {
+          filter: {
+            sender: l1Account,
+            l2Recipient: l2Account
+          }
+        },
+        (error, event) => emitListeners('LogDeposit', error, event)
+      );
+    });
+  };
+
+  const addLogMessageToL2Listener = () => {
+    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[chainId]);
+    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[chainId]);
+    starknetContract.events['LogMessageToL2'](
+      {
+        filter: {
+          from_address: l1BridgesAddresses,
+          to_address: l2BridgesAddress,
+          selector: starknet.stark.getSelectorFromName('handle_deposit')
+        }
+      },
+      (error, event) => emitListeners('LogMessageToL2', error, event)
+    );
+  };
+
+  useEffect(() => {
+    addLogMessageToL2Listener();
+  }, []);
+
+  const value = {
+    addListener
+  };
+
+  return <EventManagerContext.Provider value={value}>{children}</EventManagerContext.Provider>;
+};
+
+EventManagerProvider.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
