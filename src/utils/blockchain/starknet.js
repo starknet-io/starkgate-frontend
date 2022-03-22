@@ -72,9 +72,11 @@ export const getTransactionHash = (
   const {l2IdPrefix} = byChainId(chainId);
   return hash.computeHashOnElements([
     txHashPrefix,
+    0, // version
     toAddress,
     selector,
     calldataHash,
+    0, // max_fee
     l2IdPrefix,
     ...additionalData
   ]);
