@@ -4,11 +4,11 @@ $height: $--header-height;
 $height-small: $--header-height-small;
 $background-color: $--color-alpha-5;
 $chain-color: $--color-white-1;
-$smallScreenHeight: $--small-height-screens - 1;
+$small-screen-height: $--small-height-screens - 1;
 
 .header {
   height: #{$height}px;
-  @media screen and (max-height: #{$smallScreenHeight}px) {
+  @media screen and (max-height: #{$small-screen-height}px) {
     height: #{$height-small}px;
   }
   border-bottom: 1px solid transparent;
@@ -31,7 +31,7 @@ $smallScreenHeight: $--small-height-screens - 1;
       svg {
         width: 220px;
         height: 46px;
-        @media screen and (max-width: 768px), screen and (max-height: #{$smallScreenHeight}px) {
+        @media screen and (max-width: 768px), screen and (max-height: #{$small-screen-height}px) {
           width: 150px;
           height: 30px;
         }

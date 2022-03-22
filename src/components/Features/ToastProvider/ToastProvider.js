@@ -21,7 +21,7 @@ import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
-const styleForXL = {
+const styleBottomLeft = {
   position: 'bottom-left',
   style: {
     boxSizing: 'border-box',
@@ -30,7 +30,7 @@ const styleForXL = {
     fontSize: '16px'
   }
 };
-const styleForSmWidth = {
+const styleBottomCenter = {
   position: 'bottom-center',
   style: {
     boxSizing: 'border-box',
@@ -39,7 +39,7 @@ const styleForSmWidth = {
     fontSize: '14px'
   }
 };
-const styleForSmHeight = {
+const styleBottomRight = {
   position: 'bottom-right',
   style: {
     boxSizing: 'border-box',
@@ -100,12 +100,12 @@ export const ToastProvider = () => {
     toast.success(
       ALPHA_DISCLAIMER_MSG,
       Object.assign(
-        {id: 'alpha', icon: '❗'},
+        {id: 'alpha', icon: '❗', className: 'alpha-notification'},
         Breakpoints.largeScreens(windowSize)
-          ? styleForXL
+          ? styleBottomLeft
           : Breakpoints.smallHeightScreens(windowSize)
-          ? styleForSmHeight
-          : styleForSmWidth
+          ? styleBottomRight
+          : styleBottomCenter
       )
     );
   };

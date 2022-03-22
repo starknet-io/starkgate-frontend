@@ -13,19 +13,15 @@ export const Main = () => {
   const {isConnected: isL1Connected} = useL1Wallet();
   const {isConnected: isL2Connected} = useL2Wallet();
   const [height, setHeight] = useState(null);
-  const [width, setWidth] = useState(null);
 
   useEffect(() => {
     Breakpoints.largeHeightScreens(windowSize)
       ? setHeight(document.body.offsetHeight - mainOffset)
       : setHeight(document.body.offsetHeight - mainOffsetSmall);
-    Breakpoints.mediumWidthScreens(windowSize)
-      ? setWidth(document.body.offsetWidth - 378)
-      : setWidth('100%');
   }, [windowSize]);
 
   return (
-    <main className={styles.main} style={{height, width}}>
+    <main className={styles.main} style={{height}}>
       {isL1Connected && isL2Connected ? (
         <TokensProvider>
           <Bridge />
