@@ -26,7 +26,7 @@ describe('starknet', () => {
           ChainType.GOERLI.id,
           nonce
         )
-      ).toEqual('0x35ab0e4de971ac0736844ef36a05796dc41490c165373923c423f4b995983e8');
+      ).toEqual('0x6660a4a84d5c6665be0e97b863433afe3ce7ea6521f5f90e0693b3b772cda55');
     });
   });
 });
