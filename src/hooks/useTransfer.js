@@ -90,7 +90,7 @@ export const useTransferToL2 = () => {
             l2hash: getL2TransactionHashFromEvent(event)
           });
         });
-        depositHandler({
+        await depositHandler({
           recipient: l2Account,
           amount,
           decimals,
