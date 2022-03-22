@@ -87,7 +87,7 @@ const strings = {
   },
   toasts: {
     alpha_disclaimer_msg:
-      'This is an ALPHA version of StarkNet, and its Bridge. As such, deyals may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
+      'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
     transfer_log_link: 'View on Transfer Log',
     pendingTransfer: {
       pending_txt: 'Waiting for transaction to be accepted on L2',
