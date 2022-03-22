@@ -31,7 +31,7 @@ export const SelectToken = () => {
   return (
     <Menu>
       <div className={styles.selectToken}>
-        <BackButton onClick={showTransferMenu} />
+        <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT} />
         <MenuTitle color={colorBeta} text={fromNetwork.name} />
         <SearchToken
