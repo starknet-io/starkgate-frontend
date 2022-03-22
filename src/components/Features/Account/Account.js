@@ -43,7 +43,7 @@ export const Account = ({transferId}) => {
   return (
     <Menu>
       <div className={styles.account}>
-        <BackButton onClick={showTransferMenu} />
+        <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
         <AccountAddress address={account} />
         {isL1 && (
