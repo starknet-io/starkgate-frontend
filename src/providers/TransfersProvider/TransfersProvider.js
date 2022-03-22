@@ -3,11 +3,12 @@ import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import constants from '../../config/constants';
-import {isCompleted} from '../../enums';
+import {isCompleted, isConsumed} from '../../enums';
 import {useLogger} from '../../hooks';
 import {starknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
+import {useTokens} from '../TokensProvider';
 import {TransfersContext} from './transfers-context';
 import {actions, initialState, reducer} from './transfers-reducer';
 
@@ -17,6 +18,7 @@ export const TransfersProvider = ({children}) => {
   const logger = useLogger(TransfersProvider.displayName);
   const [transfers, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
+  const {updateTokenBalance} = useTokens();
 
   useEffect(() => {
     const storedTransfers = utils.storage.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
@@ -27,7 +29,6 @@ export const TransfersProvider = ({children}) => {
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
-      logger.log(`Update transfers`);
       if (!blockHash) {
         return;
       }
@@ -37,17 +38,18 @@ export const TransfersProvider = ({children}) => {
         }
         try {
           logger.log(`Checking tx status ${transfer.l2hash}`);
-          const newStatus = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
-          if (transfer.status !== newStatus.tx_status) {
-            logger.log(
-              !transfer.status
-                ? `New status ${newStatus.tx_status}`
-                : `Status changed from ${transfer.status}->${newStatus.tx_status}`
-            );
+          const {tx_status} = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
+          logger.log(
+            transfer.status !== tx_status
+              ? `Status changed from ${transfer.status}->${tx_status}`
+              : `Status is still ${tx_status}`
+          );
+          if (isConsumed(tx_status)) {
+            updateTokenBalance(transfer.symbol);
           }
           return {
             ...transfer,
-            status: newStatus.tx_status,
+            status: tx_status,
             lastChecked: blockHash
           };
         } catch (error) {
@@ -61,7 +63,6 @@ export const TransfersProvider = ({children}) => {
         const newTransfer = await checkTransaction(transfer);
         newTransfers.push(newTransfer);
       }
-      logger.log(`Done update transfers`, {newTransfers});
       if (newTransfers.length) {
         setTransfers(newTransfers);
         utils.storage.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);

@@ -2,15 +2,17 @@ import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 
 import {EventName, SelectorName} from '../../enums';
-import {useL1TokenBridgeContract, useStarknetContract} from '../../hooks';
+import {useL1TokenBridgeContract, useLogger, useStarknetContract} from '../../hooks';
 import {starknet} from '../../libs';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
+import {TransfersProvider} from '../TransfersProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
 
 const listeners = {};
 
 export const EventManagerProvider = ({children}) => {
+  const logger = useLogger(EventManagerProvider.displayName);
   const starknetContract = useStarknetContract();
   const getTokenBridgeContract = useL1TokenBridgeContract();
   const {chainId} = useWallets();
@@ -20,6 +22,7 @@ export const EventManagerProvider = ({children}) => {
   const l2Tokens = useL2Tokens();
 
   const addListener = (eventName, callback) => {
+    logger.log(`Registered to ${eventName} event`);
     if (!listeners[eventName]) {
       listeners[eventName] = [];
     }
@@ -27,6 +30,7 @@ export const EventManagerProvider = ({children}) => {
   };
 
   const emitListeners = (eventName, error, event) => {
+    logger.log(`Event ${eventName} dispatched`);
     listeners[eventName]?.forEach(listener => listener(error, event));
     cleanListeners(eventName);
   };
@@ -76,6 +80,8 @@ export const EventManagerProvider = ({children}) => {
 
   return <EventManagerContext.Provider value={value}>{children}</EventManagerContext.Provider>;
 };
+
+EventManagerProvider.displayName = 'EventManagerProvider';
 
 EventManagerProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
