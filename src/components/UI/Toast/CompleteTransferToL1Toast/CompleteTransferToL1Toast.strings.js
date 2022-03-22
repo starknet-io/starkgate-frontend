@@ -1,7 +1,7 @@
-import {getString} from '../../../../utils';
+import utils from '../../../../utils';
 
 const {title_txt, body_txt, dismiss_btn_txt, complete_transfer_btn_txt} =
-  getString('toasts.completeTransfer');
+  utils.getTranslation('toasts.completeTransfer');
 
 export const TITLE_TXT = title_txt;
 export const BODY_TXT = body_txt;

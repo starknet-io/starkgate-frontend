@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {toClasses} from '../../../utils';
+import utils from '../../../utils';
 import styles from './Menu.module.scss';
 
 export const Menu = ({children}) => {
@@ -14,7 +14,7 @@ export const Menu = ({children}) => {
     };
   }, []);
 
-  return <div className={toClasses(styles.menu, show && styles.show)}>{children}</div>;
+  return <div className={utils.object.toClasses(styles.menu, show && styles.show)}>{children}</div>;
 };
 
 Menu.propTypes = {

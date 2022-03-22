@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
-import {capitalize, toClasses} from '../../../utils';
+import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
 import {useHideModal, useProgressModal} from '../ModalProvider/ModalProvider.hooks';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
@@ -82,9 +82,9 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       const msg = error.message.replace(/\d+/g, match => {
         let msg = match;
-        const chainName = capitalize(toChainName(Number(match)));
+        const chainName = utils.string.capitalize(toChainName(Number(match)));
         if (chainName) {
-          msg += ` (${capitalize(toChainName(Number(match)))})`;
+          msg += ` (${utils.string.capitalize(toChainName(Number(match)))})`;
         }
         return msg;
       });
@@ -126,7 +126,7 @@ export const Login = () => {
 
   return (
     <Menu>
-      <div className={toClasses(styles.login, 'center')}>
+      <div className={utils.object.toClasses(styles.login, 'center')}>
         <div className={styles.content}>
           <div className={styles.title}>{TITLE_TXT}</div>
           <p>

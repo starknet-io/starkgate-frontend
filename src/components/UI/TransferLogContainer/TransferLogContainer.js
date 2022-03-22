@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
-import {toClasses} from '../../../utils';
+import utils from '../../../utils';
 import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
 import styles from './TransferLogContainer.module.scss';
 import {
@@ -37,7 +37,7 @@ export const TransferLogContainer = ({transferIndex, children}) => {
 
   return (
     <div className={styles.transferLogContainer}>
-      <div className={toClasses(styles.title, showChildren && styles.showChildren)}>
+      <div className={utils.object.toClasses(styles.title, showChildren && styles.showChildren)}>
         {TITLE_TXT}
         {children && (
           <div>

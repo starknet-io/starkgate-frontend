@@ -1,12 +1,11 @@
-import {parseFromDecimals, parseToDecimals, parseToFelt, parseToUint256} from '../utils';
-import {l1_callContract, l1_sendTransaction, l2_sendTransaction} from '../utils/contract';
+import utils from '../utils';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return utils.blockchain.ethereum.sendTransaction(
       contract,
       'deposit',
-      [parseToDecimals(amount, decimals), recipient],
+      [utils.parser.parseToDecimals(amount, decimals), recipient],
       options,
       emitter
     );
@@ -17,13 +16,13 @@ export const deposit = async ({recipient, amount, decimals, contract, options, e
 
 export const depositEth = async ({recipient, amount, contract, options, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return utils.blockchain.ethereum.sendTransaction(
       contract,
       'deposit',
       [recipient],
       {
         ...options,
-        value: parseToDecimals(amount)
+        value: utils.parser.parseToDecimals(amount)
       },
       emitter
     );
@@ -34,10 +33,10 @@ export const depositEth = async ({recipient, amount, contract, options, emitter}
 
 export const withdraw = async ({recipient, amount, decimals, contract, emitter}) => {
   try {
-    return l1_sendTransaction(
+    return utils.blockchain.ethereum.sendTransaction(
       contract,
       'withdraw',
-      [parseToDecimals(amount, decimals), recipient],
+      [utils.parser.parseToDecimals(amount, decimals), recipient],
       {
         from: recipient
       },
@@ -50,8 +49,8 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
 
 export const maxDeposit = async ({decimals, contract}) => {
   try {
-    const maxDeposit = await l1_callContract(contract, 'maxDeposit');
-    return parseFromDecimals(maxDeposit, decimals);
+    const maxDeposit = await utils.blockchain.ethereum.callContract(contract, 'maxDeposit');
+    return utils.parser.parseFromDecimals(maxDeposit, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -59,9 +58,9 @@ export const maxDeposit = async ({decimals, contract}) => {
 
 export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
   try {
-    return l2_sendTransaction(contract, 'initiate_withdraw', {
-      l1Recipient: parseToFelt(recipient),
-      amount: parseToUint256(amount, decimals)
+    return utils.blockchain.starknet.sendTransaction(contract, 'initiate_withdraw', {
+      l1Recipient: utils.parser.parseToFelt(recipient),
+      amount: utils.parser.parseToUint256(amount, decimals)
     });
   } catch (ex) {
     return Promise.reject(ex);

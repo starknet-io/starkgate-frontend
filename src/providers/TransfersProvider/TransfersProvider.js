@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {LOCAL_STORAGE_TRANSFERS_KEY} from '../../constants';
+import constants from '../../config/constants';
 import {isCompleted} from '../../enums';
 import {useLogger} from '../../hooks';
 import {starknet} from '../../libs';
-import {StorageManager} from '../../services';
+import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {TransfersContext} from './transfers-context';
 import {actions, initialState, reducer} from './transfers-reducer';
+
+const {LOCAL_STORAGE_TRANSFERS_KEY} = constants;
 
 export const TransfersProvider = ({children}) => {
   const logger = useLogger(TransfersProvider.displayName);
@@ -17,7 +19,7 @@ export const TransfersProvider = ({children}) => {
   const blockHash = useBlockHash();
 
   useEffect(() => {
-    const storedTransfers = StorageManager.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
+    const storedTransfers = utils.storage.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
     if (Array.isArray(storedTransfers)) {
       setTransfers(storedTransfers);
     }
@@ -25,15 +27,12 @@ export const TransfersProvider = ({children}) => {
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
-      logger.log(`It's time to update transfers!`);
+      logger.log(`Update transfers`);
       if (!blockHash) {
         return;
       }
       const checkTransaction = async transfer => {
-        if (isCompleted(transfer.status)) {
-          return transfer;
-        }
-        if (transfer.lastChecked === blockHash) {
+        if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
           return transfer;
         }
         try {
@@ -65,7 +64,7 @@ export const TransfersProvider = ({children}) => {
       logger.log(`Done update transfers`, {newTransfers});
       if (newTransfers.length) {
         setTransfers(newTransfers);
-        StorageManager.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
+        utils.storage.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
       }
     };
     updateTransfers();

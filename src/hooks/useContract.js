@@ -3,15 +3,15 @@ import {useCallback, useMemo} from 'react';
 import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {MESSAGING_CONTRACT_ADDRESS} from '../config/addresses';
+import {STARKNET_CONTRACT_ADDRESS} from '../config/addresses';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useL1Wallet, useWallets} from '../providers/WalletsProvider';
-import {l1_getContract, l2_getContract} from '../utils/contract';
+import utils from '../utils';
 
 const cache = {};
 
-export const useContract = (ABI, getContractHandler = l1_getContract) => {
+export const useContract = (ABI, getContractHandler = utils.blockchain.ethereum.createContract) => {
   const {chainId} = useWallets();
   return useCallback(
     addresses => {
@@ -55,7 +55,7 @@ export const useTokenBridgeContract = () => {
 };
 
 export const useL2TokenContract = () => {
-  const getContract = useContract(L2_ERC20_ABI, l2_getContract);
+  const getContract = useContract(L2_ERC20_ABI, utils.blockchain.starknet.createContract);
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
@@ -64,13 +64,13 @@ export const useL1TokenContract = () => {
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
-export const useMessagingContract = () => {
+export const useStarknetContract = () => {
   const getContract = useContract(L1_MESSAGING_ABI);
-  return useMemo(() => getContract(MESSAGING_CONTRACT_ADDRESS), [getContract]);
+  return useMemo(() => getContract(STARKNET_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
-  const getContract = useContract(L2_BRIDGE_ABI, l2_getContract);
+  const getContract = useContract(L2_BRIDGE_ABI, utils.blockchain.starknet.createContract);
   return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 

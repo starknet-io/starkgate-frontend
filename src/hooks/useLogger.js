@@ -1,3 +1,3 @@
-import {getLogger} from '../services';
+import utils from '../utils';
 
-export const useLogger = name => getLogger(name);
+export const useLogger = name => utils.logger.getLogger(name);

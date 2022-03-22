@@ -7,11 +7,11 @@ export const L2Tokens = [
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x30fab1f1cc35d6ab0a992240528e122bc46c196eebfed9d21a5f800f72f066d'
+      [ChainType.GOERLI.id]: '0x073314940630fd6dcda0d772d4c972c4e0a9946bef9dabf4ef84eda8ef542b82'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x2dd93e385742984bf2fc887cd5d8b5ec6917d80af09cf7a00a63710ad51ba53'
+      [ChainType.GOERLI.id]: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7'
     }
   },
   {
@@ -64,6 +64,19 @@ export const L2Tokens = [
     tokenAddress: {
       [ChainType.MAIN.id]: '',
       [ChainType.GOERLI.id]: '0x00da19dab05e9f3cd09c3aa0d8046415b3d7f7dbbd83e1c2e4946792298fbe28'
+    }
+  },
+  {
+    name: 'SelfService',
+    symbol: 'SLF',
+    decimals: 6,
+    bridgeAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x00fd2a9843c19436542e0ac7fc7b5cbf1d0b69fc2abea6d68591e46a5ca2d75a'
+    },
+    tokenAddress: {
+      [ChainType.MAIN.id]: '',
+      [ChainType.GOERLI.id]: '0x07a39a50bf689e9430fc81fba0f4d46e245e1657e77455548ed7e32c808cfc10'
     }
   }
 ];

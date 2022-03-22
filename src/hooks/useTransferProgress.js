@@ -1,14 +1,14 @@
 import {useMemo} from 'react';
 
-import {evaluate, getString} from '../utils';
+import utils from '../utils';
 
 export const useTransferProgress = () => {
-  const transferProgressStrings = getString('modals.transferProgress');
+  const transferProgressStrings = utils.getTranslation('modals.transferProgress');
   return useMemo(
     () => ({
       approval: symbol => {
         const {approval} = transferProgressStrings;
-        const message = evaluate(approval.message, {symbol});
+        const message = utils.object.evaluate(approval.message, {symbol});
         return {
           type: approval.type,
           message
@@ -16,7 +16,7 @@ export const useTransferProgress = () => {
       },
       deposit: (amount, symbol) => {
         const {deposit} = transferProgressStrings;
-        const message = evaluate(deposit.message, {amount, symbol});
+        const message = utils.object.evaluate(deposit.message, {amount, symbol});
         return {
           type: deposit.type,
           message
@@ -24,7 +24,7 @@ export const useTransferProgress = () => {
       },
       initiateWithdraw: (amount, symbol) => {
         const {initiateWithdraw} = transferProgressStrings;
-        const message = evaluate(initiateWithdraw.message, {amount, symbol});
+        const message = utils.object.evaluate(initiateWithdraw.message, {amount, symbol});
         return {
           type: initiateWithdraw.type,
           message
@@ -32,8 +32,8 @@ export const useTransferProgress = () => {
       },
       waitForConfirm: walletName => {
         const {waitForConfirm} = transferProgressStrings;
-        const type = evaluate(waitForConfirm.type, {walletName});
-        const message = evaluate(waitForConfirm.message, {walletName});
+        const type = utils.object.evaluate(waitForConfirm.type, {walletName});
+        const message = utils.object.evaluate(waitForConfirm.message, {walletName});
         return {
           type,
           message
@@ -48,7 +48,7 @@ export const useTransferProgress = () => {
       },
       withdraw: (amount, symbol) => {
         const {withdraw} = transferProgressStrings;
-        const message = evaluate(withdraw.message, {amount, symbol});
+        const message = utils.object.evaluate(withdraw.message, {amount, symbol});
         return {
           type: withdraw.type,
           message

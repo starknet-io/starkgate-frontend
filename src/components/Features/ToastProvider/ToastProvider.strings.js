@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import utils from '../../../utils';
 
-export const ALPHA_DISCLAIMER_MSG = getString('toasts.alpha_disclaimer_msg');
+export const ALPHA_DISCLAIMER_MSG = utils.getTranslation('toasts.alpha_disclaimer_msg');

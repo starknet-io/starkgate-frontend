@@ -3,20 +3,22 @@ import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
-import {LINKS} from '../../../../constants';
+import constants from '../../../../config/constants';
 import {ActionType} from '../../../../enums';
 import {useColors} from '../../../../hooks';
 import {useWallets} from '../../../../providers/WalletsProvider';
-import {openInNewTab} from '../../../../utils';
+import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {
   BTN_TEXT,
-  TRANSFER_TO_L2_TXT,
-  TRANSFER_TO_L1_TXT,
   COMPLETE_TRANSFER_TO_L1_TXT,
-  STATUS_TXT
+  STATUS_TXT,
+  TRANSFER_TO_L1_TXT,
+  TRANSFER_TO_L2_TXT
 } from './TransactionSubmittedModal.strings';
+
+const {LINKS} = constants;
 
 const TransactionSubmittedModal = ({transfer}) => {
   const {chainId} = useWallets();
@@ -46,7 +48,7 @@ const TransactionSubmittedModal = ({transfer}) => {
   }, []);
 
   const onClick = () => {
-    openInNewTab(networkData.explorerUrl);
+    utils.browser.openInNewTab(networkData.explorerUrl);
   };
 
   return (

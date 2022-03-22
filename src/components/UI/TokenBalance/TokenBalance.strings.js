@@ -1,3 +1,3 @@
-import {getString} from '../../../utils';
+import utils from '../../../utils';
 
-export const TITLE_TXT = getString('menus.transfer.balance_title_txt');
+export const TITLE_TXT = utils.getTranslation('menus.transfer.balance_title_txt');

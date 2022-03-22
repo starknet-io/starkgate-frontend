@@ -1,6 +1,6 @@
-import {getString} from '../../../utils';
+import utils from '../../../utils';
 
-const {title_txt, overview_txt, empty_msg_txt, view_more_txt} = getString(
+const {title_txt, overview_txt, empty_msg_txt, view_more_txt} = utils.getTranslation(
   'menus.account.transferLogContainer'
 );
 

@@ -1,3 +1,5 @@
-import {getString} from '../../../utils';
+import utils from '../../../utils';
 
-export const TRANSACTION_SUBMITTED_TITLE_TXT = getString('modals.transactionSubmitted.title_txt');
+export const TRANSACTION_SUBMITTED_TITLE_TXT = utils.getTranslation(
+  'modals.transactionSubmitted.title_txt'
+);

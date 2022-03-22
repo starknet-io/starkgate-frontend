@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {formatBalance} from '../../../utils';
+import utils from '../../../utils';
 import {LoadingSize} from '../Loading/Loading.enums';
 import {Loading} from '../index';
 import styles from './TokenBalance.module.scss';
@@ -23,7 +23,7 @@ export const TokenBalance = ({tokenData}) => {
       )}
       {!isLoading && (
         <div className={styles.balance}>
-          {formatBalance(balance)} {symbol}
+          {utils.wallet.formatBalance(balance)} {symbol}
         </div>
       )}
     </div>

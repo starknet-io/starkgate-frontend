@@ -1,4 +1,6 @@
-import {get24Time, getDate} from '../../utils';
+import utils from '../../utils';
+
+const {get24Time, getDate} = utils.date;
 
 describe('getDate', () => {
   it('should get date', () => {
