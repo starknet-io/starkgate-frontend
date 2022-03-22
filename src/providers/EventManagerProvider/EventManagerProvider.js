@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 
+import {EventName, SelectorName} from '../../enums';
 import {useL1TokenBridgeContract, useStarknetContract} from '../../hooks';
 import {starknet} from '../../libs';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
@@ -38,14 +39,14 @@ export const EventManagerProvider = ({children}) => {
   const addLogDepositListener = () => {
     l1Tokens.forEach(l1Token => {
       const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
-      bridgeContract.events['LogDeposit'](
+      bridgeContract.events[EventName.L1.LOG_DEPOSIT](
         {
           filter: {
             sender: l1Account,
             l2Recipient: l2Account
           }
         },
-        (error, event) => emitListeners('LogDeposit', error, event)
+        (error, event) => emitListeners(EventName.L1.LOG_DEPOSIT, error, event)
       );
     });
   };
@@ -53,15 +54,15 @@ export const EventManagerProvider = ({children}) => {
   const addLogMessageToL2Listener = () => {
     const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[chainId]);
     const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[chainId]);
-    starknetContract.events['LogMessageToL2'](
+    starknetContract.events[EventName.L1.LOG_MESSAGE_TO_L2](
       {
         filter: {
           from_address: l1BridgesAddresses,
           to_address: l2BridgesAddress,
-          selector: starknet.stark.getSelectorFromName('handle_deposit')
+          selector: starknet.stark.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
         }
       },
-      (error, event) => emitListeners('LogMessageToL2', error, event)
+      (error, event) => emitListeners(EventName.L1.LOG_MESSAGE_TO_L2, error, event)
     );
   };
 

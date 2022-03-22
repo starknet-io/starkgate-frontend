@@ -1,5 +1,5 @@
 import {createContext} from 'react';
 
 export const EventManagerContext = createContext({
-  addListener: () => {}
+  addListener: (eventName, callback) => ({eventName, callback})
 });
