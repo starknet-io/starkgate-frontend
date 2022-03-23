@@ -12,7 +12,7 @@
       max-width: 330px;
       @media screen and (max-width: #{$--breakpoint-laptop}px) {
         max-width: 100%;
-        margin-bottom: 12px;
+        margin-bottom: 22px;
       }
     }
     @media screen and (max-width: #{$--breakpoint-desktop}px) {
