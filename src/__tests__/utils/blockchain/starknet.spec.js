@@ -1,9 +1,21 @@
 import {ChainType, TransactionHashPrefix} from '../../../enums';
 import utils from '../../../utils';
 
-describe('starknet', () => {
+const {getTransactionHash, hashEquals} = utils.blockchain.starknet;
+
+describe('starknet blockchain utils', () => {
+  describe('hashEquals', () => {
+    it('should compare hashes', () => {
+      expect(hashEquals([1, 2])).toBeTruthy();
+      expect(hashEquals([1, 2, 3], [1, 2, 3])).toBeTruthy();
+      expect(hashEquals([1, 2, 3], [1, 2, 3], [1, 2, 3])).toBeTruthy();
+      expect(hashEquals([1, 2, 3], [1, 2, 3], [1])).toBeFalsy();
+      expect(hashEquals([1, 2, 3], [1, 2])).toBeFalsy();
+    });
+  });
+
   describe('getTransactionHash', () => {
-    it('should calc tx hash', () => {
+    it('should calc tx hash from message params', () => {
       const from_address = '0xc3511006C04EF1d78af4C8E0e74Ec18A6E64Ff9e';
       const to_address =
         '3256441166037631918262930812410838598500200462657642943867372734773841898370';
@@ -17,7 +29,7 @@ describe('starknet', () => {
       ];
 
       expect(
-        utils.blockchain.starknet.getTransactionHash(
+        getTransactionHash(
           TransactionHashPrefix.L1_HANDLER,
           from_address,
           to_address,
