@@ -75,7 +75,7 @@ export const ToastProvider = () => {
       id: 'alphaDisclaimer',
       position: 'bottom-left',
       icon: breakpoint === 'DESKTOP' ? '❗' : null,
-      className: 'disclaimer ' + breakpoint
+      className: `disclaimer ${breakpoint}`
     });
   };
 
