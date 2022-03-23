@@ -3,14 +3,7 @@ import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {
-  ActionType,
-  isConsumed,
-  isOnChain,
-  isPending,
-  isRejected,
-  NetworkType
-} from '../../../enums';
+import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import utils from '../../../utils';
@@ -44,9 +37,6 @@ export const ToastProvider = () => {
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;
     const isChanged = prevTransfer && status !== prevTransfer.status;
-    if (isPending(status)) {
-      return showPendingTransferToast(transfer);
-    }
     if (isChanged && isConsumed(status)) {
       return showConsumedTransferToast(transfer);
     }
@@ -58,6 +48,7 @@ export const ToastProvider = () => {
     }
   };
 
+  /* eslint-disable-next-line */
   const showPendingTransferToast = transfer => {
     let toastId = getToastId(transfer);
     if (!toastId) {
@@ -68,6 +59,7 @@ export const ToastProvider = () => {
 
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
+      id: 'alphaDisclaimer',
       position: 'bottom-left',
       icon: '❗'
     });
