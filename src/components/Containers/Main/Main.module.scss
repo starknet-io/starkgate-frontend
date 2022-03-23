@@ -6,9 +6,11 @@
   overflow-y: auto;
   width: 100%;
   height: calc(100vh - #{$--main-offset-small}px);
+
   @media screen and (min-width: #{$--breakpoint-laptop}px) and (max-width: #{$--breakpoint-desktop - 1}px) {
     width: calc(100% - 378px);
   }
+
   @media screen and (min-width: #{$--breakpoint-desktop}px) {
     height: calc(100vh - #{$--main-offset}px);
   }

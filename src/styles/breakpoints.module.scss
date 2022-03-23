@@ -2,3 +2,10 @@ $--breakpoint-mobile: 0;
 $--breakpoint-tablet: 768;
 $--breakpoint-laptop: 960;
 $--breakpoint-desktop: 1280;
+
+:export {
+  $breakpointMobile: $--breakpoint-mobile;
+  $breakpointTablet: $--breakpoint-tablet;
+  $breakpointLaptop: $--breakpoint-laptop;
+  $breakpointDesktop: $--breakpoint-desktop;
+}

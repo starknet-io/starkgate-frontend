@@ -2,6 +2,7 @@
 
 .toastProvider {
   margin-top: #{$--header-height-small}px;
+
   @media screen and (min-width: #{$--breakpoint-desktop}px) {
     margin-top: #{$--header-height}px;
   }
@@ -10,11 +11,13 @@
     font-size: 16px;
     &[class~='disclaimer'] {
       max-width: 330px;
+
       @media screen and (max-width: #{$--breakpoint-laptop}px) {
         max-width: 100%;
         margin-bottom: 22px;
       }
     }
+
     @media screen and (max-width: #{$--breakpoint-desktop}px) {
       font-size: 14px;
     }

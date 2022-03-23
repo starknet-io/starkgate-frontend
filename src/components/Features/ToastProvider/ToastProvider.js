@@ -6,7 +6,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {
   ActionType,
-  Breakpoints,
+  Breakpoint,
   isConsumed,
   isOnChain,
   isRejected,
@@ -30,7 +30,7 @@ export const ToastProvider = () => {
   const {showAccountMenu} = useBridgeActions();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {breakpoint} = useBreakpoint(Breakpoints);
+  const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
     showAlphaDisclaimerToast();
@@ -69,7 +69,7 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
-      position: breakpoint === 'desktop' ? 'bottom-left' : 'bottom-right',
+      position: breakpoint[breakpoint] === 'DESKTOP' ? 'bottom-left' : 'bottom-right',
       icon: '❗',
       className: 'disclaimer ' + breakpoint
     });

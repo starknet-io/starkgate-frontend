@@ -31,6 +31,7 @@ $chain-color: $--color-white-1;
       svg {
         width: 150px;
         height: 30px;
+
         @media screen and (min-width: #{$--breakpoint-desktop}px) {
           width: 220px;
           height: 46px;

@@ -1,5 +1,5 @@
 export * from './ActionType';
-export * from './Breakpoints';
+export * from './Breakpoint';
 export * from './ChainType';
 export * from './MenuType';
 export * from './NetworkType';

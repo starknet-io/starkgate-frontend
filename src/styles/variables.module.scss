@@ -1,8 +1,9 @@
 $--header-height: 80;
 $--header-height-small: 50;
 $--footer-height: 40;
-$--main-offset: $--header-height + $--footer-height + 2;
-$--main-offset-small: $--header-height-small + $--footer-height + 2;
+$--main-offset-borders-height: 2;
+$--main-offset: $--header-height + $--footer-height + $--main-offset-borders-height;
+$--main-offset-small: $--header-height-small + $--footer-height + $--main-offset-borders-height;
 
 :export {
   mainOffset: $--main-offset;
