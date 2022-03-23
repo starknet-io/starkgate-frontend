@@ -56,9 +56,9 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    // if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
-    return showCompleteTransferToL1Toast(transfer);
-    // }
+    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
+      return showCompleteTransferToL1Toast(transfer);
+    }
   };
 
   /* eslint-disable-next-line */
