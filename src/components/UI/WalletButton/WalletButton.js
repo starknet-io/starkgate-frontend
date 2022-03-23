@@ -12,6 +12,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
 
   return (
     <Button
+      buttonClass="wallet-btn"
       colorBackground="transparent"
       colorBorder={colorBeta}
       colorText={colorWhite}

@@ -1,3 +1,5 @@
+@import '../../../index';
+
 .button {
   display: flex;
   justify-content: space-around;
@@ -27,5 +29,12 @@
   img,
   svg {
     margin-right: 10px;
+  }
+
+  &[class~='wallet-btn'] {
+    width: 180px;
+    @media screen and (min-width: #{$--breakpoint-desktop}px) {
+      width: 220px;
+    }
   }
 }

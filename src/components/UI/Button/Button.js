@@ -12,6 +12,7 @@ export const Button = ({
   height,
   icon,
   iconAlign = 'left',
+  buttonClass,
   colorText,
   colorTextHover,
   colorBackground,
@@ -37,6 +38,7 @@ export const Button = ({
     <button
       className={utils.object.toClasses(
         styles.button,
+        buttonClass,
         isDisabled && styles.isDisabled,
         isLoading && styles.isLoading
       )}
@@ -56,6 +58,7 @@ Button.propTypes = {
   text: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  buttonClass: PropTypes.string,
   colorText: PropTypes.string,
   colorTextHover: PropTypes.string,
   colorBackground: PropTypes.string,
