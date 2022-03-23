@@ -9,23 +9,19 @@ $error-color: $--color-error;
   align-items: center;
   background: $background-color;
   height: 50px;
+  margin: 20px 0 10px 0;
   padding: 10px;
   border-radius: 7px;
   transition: 0.3s ease-in-out;
-  margin: 8px 0;
 
   @media screen and (min-width: #{$--breakpoint-desktop}px) {
     margin: 20px 0;
   }
 
   &.hasError {
-    margin: 8px 0;
+    margin: 20px 0 10px 0;
     border-color: $error-color;
     border-style: solid;
     border-width: 1px;
-
-    @media screen and (min-width: #{$--breakpoint-desktop}px) {
-      margin: 20px 0 10px 0;
-    }
   }
 }

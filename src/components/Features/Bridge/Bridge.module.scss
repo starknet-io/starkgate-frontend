@@ -12,8 +12,4 @@ $background-color: $--color-alpha;
   margin: auto;
   transition: 0.3s ease-in-out;
   padding: 20px;
-
-  @media screen and (min-width: #{$--breakpoint-tablet}px) and (max-width: #{$--breakpoint-desktop}px) {
-    padding: 8px;
-  }
 }

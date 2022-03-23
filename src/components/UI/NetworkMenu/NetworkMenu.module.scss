@@ -11,13 +11,6 @@ $box-shadow-color: rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   padding: 30px 40px;
 
-  @media screen and (min-width: #{$--breakpoint-tablet}px) and (max-width: #{$--breakpoint-desktop}px) {
-    padding: 8px 40px 30px;
-    &:last-child {
-      padding: 8px 40px 16px;
-    }
-  }
-
   .networkContainer {
     display: flex;
     justify-content: space-between;

@@ -35,6 +35,8 @@ export const ToastProvider = () => {
   useEffect(() => {
     if (breakpoint !== 'MOBILE' && breakpoint !== 'TABLET') {
       showAlphaDisclaimerToast();
+    } else {
+      toast.dismiss('alphaDisclaimer');
     }
   }, [breakpoint]);
 
@@ -54,9 +56,9 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
-      return showCompleteTransferToL1Toast(transfer);
-    }
+    // if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
+    return showCompleteTransferToL1Toast(transfer);
+    // }
   };
 
   /* eslint-disable-next-line */
@@ -72,7 +74,7 @@ export const ToastProvider = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
       position: 'bottom-left',
-      icon: '❗',
+      icon: breakpoint === 'DESKTOP' ? '❗' : null,
       className: 'disclaimer ' + breakpoint
     });
   };
@@ -147,6 +149,9 @@ export const ToastProvider = () => {
     <Toaster
       className="toast"
       containerClassName={styles.toastProvider}
+      containerStyle={{
+        inset: '24px 16px 16px'
+      }}
       gutter={breakpoint === 'DESKTOP' ? 16 : 8}
       position="top-right"
       toastOptions={{

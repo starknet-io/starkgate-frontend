@@ -33,6 +33,8 @@
 
   &[class~='wallet-btn'] {
     width: 170px;
+    border-width: 2px;
+    padding: 4px 10px 4px 6px;
 
     @media screen and (min-width: #{$--breakpoint-desktop}px) {
       width: 220px;
