@@ -41,7 +41,7 @@ export const CompleteTransferToL1Toast = ({
       <div className={styles.CompleteTransferToL1Toast}>
         <div className={styles.container}>
           <div className={styles.left}>
-            <L1Logo style={{opacity: 0.5}} />
+            <L1Logo style={{opacity: 0.5, margin: '0 8px', width: 40}} />
           </div>
           <div className={styles.right}>
             <ToastHeader title={TITLE_TXT} withClose={true} onClose={onClose} />

@@ -17,7 +17,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       colorText={colorWhite}
       height={40}
       icon={<DynamicIcon path={logoPath} size={WALLET_LOGO_SIZE} />}
-      style={{borderWidth: '2px'}}
+      style={{borderWidth: '2px', padding: '4px 10px 4px 6px'}}
       text={BTN_TXT(utils.wallet.shortenAddress(account))}
       onClick={onClick}
     />

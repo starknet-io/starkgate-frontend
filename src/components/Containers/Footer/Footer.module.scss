@@ -1,12 +1,21 @@
 @import '../../../index';
 
 $height: $--footer-height;
+$height-small: $--footer-height-small;
 $copyright-color: $--color-beta;
 
 .footer {
+  @media screen and (min-width: #{$--breakpoint-desktop}px) {
+    height: #{$height}px;
+  }
   font-size: 13px;
-  height: #{$height}px;
+  height: #{$height-small}px;
   border-top: 1px solid transparent;
+
+  width: 100%;
+  @media screen and (min-width: #{$--breakpoint-laptop}px) and (max-width: #{$--breakpoint-desktop - 1}px) {
+    width: calc(100% - 378px);
+  }
 
   .copyright {
     color: $copyright-color;

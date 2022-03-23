@@ -1,5 +1,21 @@
 @import '../../../index';
 
 .toastProvider {
-  margin-top: #{$--header-height}px;
+  margin-top: #{$--header-height-small}px;
+  @media screen and (min-width: #{$--breakpoint-desktop}px) {
+    margin-top: #{$--header-height}px;
+  }
+
+  & > div > div {
+    font-size: 16px;
+    &[class~='disclaimer'] {
+      @media screen and (max-width: #{$--breakpoint-laptop}px) {
+        max-width: 100%;
+        margin-bottom: 12px;
+      }
+    }
+    @media screen and (max-width: #{$--breakpoint-desktop}px) {
+      font-size: 14px;
+    }
+  }
 }

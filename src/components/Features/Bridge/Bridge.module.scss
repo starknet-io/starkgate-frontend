@@ -7,9 +7,12 @@ $background-color: $--color-alpha;
   flex-direction: column;
   background: $background-color;
   border-radius: 20px;
-  padding: 20px;
   width: 500px;
   max-height: 650px;
   margin: auto;
   transition: 0.3s ease-in-out;
+  padding: 20px;
+  @media screen and (min-width: #{$--breakpoint-tablet}px) and (max-width: #{$--breakpoint-desktop}px) {
+    padding: 8px;
+  }
 }

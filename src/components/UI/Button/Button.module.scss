@@ -6,7 +6,6 @@
   text-transform: capitalize;
   font-weight: bold;
   font-size: 14px;
-  line-height: 24px;
   border: 1px solid;
   box-sizing: border-box;
   border-radius: 7px;
@@ -14,6 +13,7 @@
   padding: 20px 15px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
+  line-height: 1.2;
 
   &.isDisabled {
     pointer-events: none;

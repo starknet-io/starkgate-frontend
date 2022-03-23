@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from 'react';
+import {useBreakpoint} from 'use-breakpoint';
 
-import {useVars, useWindowSize} from '../../../hooks';
+import {Breakpoints} from '../../../enums';
+import {useVars} from '../../../hooks';
 import {TokensProvider} from '../../../providers/TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import {Bridge, Login} from '../../Features';
 import styles from './Main.module.scss';
 
 export const Main = () => {
-  const windowSize = useWindowSize();
-  const {mainOffset} = useVars();
+  const {mainOffset, mainOffsetSmall} = useVars();
   const {isConnected: isL1Connected} = useL1Wallet();
   const {isConnected: isL2Connected} = useL2Wallet();
   const [height, setHeight] = useState(null);
+  const {breakpoint} = useBreakpoint(Breakpoints);
 
   useEffect(() => {
-    setHeight(document.body.offsetHeight - mainOffset);
-  }, [windowSize]);
+    let offset = 0;
+    offset = breakpoint === 'desktop' ? mainOffset : mainOffsetSmall;
+    setHeight(document.body.offsetHeight - offset);
+  }, [breakpoint]);
 
   return (
     <main className={styles.main} style={{height}}>

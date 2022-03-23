@@ -1,5 +1,11 @@
+@import '../../../index';
+
 .main {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  width: 100%;
+  @media screen and (min-width: #{$--breakpoint-laptop}px) and (max-width: #{$--breakpoint-desktop - 1}px) {
+    width: calc(100% - 378px);
+  }
 }

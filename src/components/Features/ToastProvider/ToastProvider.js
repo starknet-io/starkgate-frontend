@@ -1,9 +1,17 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
+import {useBreakpoint} from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
+import {
+  ActionType,
+  Breakpoints,
+  isConsumed,
+  isOnChain,
+  isRejected,
+  NetworkType
+} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import utils from '../../../utils';
@@ -22,10 +30,11 @@ export const ToastProvider = () => {
   const {showAccountMenu} = useBridgeActions();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
+  const {breakpoint} = useBreakpoint(Breakpoints);
 
   useEffect(() => {
     showAlphaDisclaimerToast();
-  }, []);
+  }, [breakpoint]);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -60,8 +69,9 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
-      position: 'bottom-left',
-      icon: '❗'
+      position: breakpoint === 'desktop' ? 'bottom-left' : 'bottom-right',
+      icon: '❗',
+      className: 'disclaimer ' + breakpoint
     });
   };
 
@@ -134,6 +144,7 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
+      gutter={breakpoint === 'desktop' ? 16 : 8}
       position="top-right"
       toastOptions={{
         duration: Infinity

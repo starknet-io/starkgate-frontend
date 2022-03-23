@@ -5,6 +5,7 @@ $color-title: $--color-black;
 .toastHeader {
   display: flex;
   margin-bottom: 5px;
+  justify-content: space-between;
 
   .title {
     font-style: normal;
