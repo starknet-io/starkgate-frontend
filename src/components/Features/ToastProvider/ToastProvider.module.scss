@@ -9,6 +9,7 @@
   & > div > div {
     font-size: 16px;
     &[class~='disclaimer'] {
+      max-width: 330px;
       @media screen and (max-width: #{$--breakpoint-laptop}px) {
         max-width: 100%;
         margin-bottom: 12px;
