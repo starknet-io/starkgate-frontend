@@ -6,10 +6,6 @@ $background-color: $--color-alpha-5;
 $chain-color: $--color-white-1;
 
 .header {
-  @media screen and (min-width: #{$--breakpoint-desktop}px) {
-    height: #{$height}px;
-    padding: 0 40px;
-  }
   height: #{$height-small}px;
   padding: 0 16px;
   border-bottom: 1px solid transparent;
@@ -17,6 +13,11 @@ $chain-color: $--color-white-1;
   background: $background-color;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
+
+  @media screen and (min-width: #{$--breakpoint-desktop}px) {
+    height: #{$height}px;
+    padding: 0 40px;
+  }
 
   .left {
     display: flex;
