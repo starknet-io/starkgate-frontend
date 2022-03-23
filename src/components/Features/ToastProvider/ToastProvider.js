@@ -33,7 +33,9 @@ export const ToastProvider = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
-    showAlphaDisclaimerToast();
+    if (breakpoint !== 'MOBILE' && breakpoint !== 'TABLET') {
+      showAlphaDisclaimerToast();
+    }
   }, [breakpoint]);
 
   useDeepCompareEffect(() => {
@@ -69,7 +71,7 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
-      position: breakpoint[breakpoint] === 'DESKTOP' ? 'bottom-left' : 'bottom-right',
+      position: 'bottom-left',
       icon: '❗',
       className: 'disclaimer ' + breakpoint
     });
@@ -143,8 +145,9 @@ export const ToastProvider = () => {
 
   return (
     <Toaster
+      className="toast"
       containerClassName={styles.toastProvider}
-      gutter={breakpoint === 'desktop' ? 16 : 8}
+      gutter={breakpoint === 'DESKTOP' ? 16 : 8}
       position="top-right"
       toastOptions={{
         duration: Infinity

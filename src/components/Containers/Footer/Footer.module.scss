@@ -7,11 +7,7 @@ $copyright-color: $--color-beta;
   font-size: 13px;
   height: #{$height}px;
   border-top: 1px solid transparent;
-
   width: 100%;
-  @media screen and (min-width: #{$--breakpoint-laptop}px) and (max-width: #{$--breakpoint-desktop - 1}px) {
-    width: calc(100% - 378px);
-  }
 
   .copyright {
     color: $copyright-color;
