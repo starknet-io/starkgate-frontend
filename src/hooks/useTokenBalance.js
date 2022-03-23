@@ -9,6 +9,7 @@ export const useTokenBalance = account => {
   const getL2TokenBalance = useL2TokenBalance(account);
   const getL1TokenBalance = useL1TokenBalance(account);
   const {isL1} = useTransferData();
+
   return useCallback(
     tokenAddresses =>
       isL1 ? getL1TokenBalance(tokenAddresses) : getL2TokenBalance(tokenAddresses),
@@ -18,6 +19,7 @@ export const useTokenBalance = account => {
 
 export const useL2TokenBalance = account => {
   const getContract = useL2TokenContract();
+
   return useCallback(
     async token => {
       const {tokenAddress, decimals} = token;
@@ -29,6 +31,7 @@ export const useL2TokenBalance = account => {
 
 export const useL1TokenBalance = account => {
   const getContract = useL1TokenContract();
+
   return useCallback(
     async token => {
       const {tokenAddress, decimals} = token;

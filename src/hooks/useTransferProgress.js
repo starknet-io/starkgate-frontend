@@ -4,6 +4,7 @@ import utils from '../utils';
 
 export const useTransferProgress = () => {
   const transferProgressStrings = utils.getTranslation('modals.transferProgress');
+
   return useMemo(
     () => ({
       approval: symbol => {

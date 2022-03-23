@@ -39,11 +39,12 @@ export const TransfersProvider = ({children}) => {
         try {
           logger.log(`Checking tx status ${transfer.l2hash}`);
           const {tx_status} = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
-          logger.log(
-            transfer.status !== tx_status
-              ? `Status changed from ${transfer.status}->${tx_status}`
-              : `Status is still ${tx_status}`
-          );
+          if (transfer.status !== tx_status) {
+            updated = true;
+            logger.log(`Status changed from ${transfer.status}->${tx_status}`);
+          } else {
+            logger.log(`Status is still ${tx_status}`);
+          }
           if (isConsumed(tx_status)) {
             updateTokenBalance(transfer.symbol);
           }
@@ -57,13 +58,14 @@ export const TransfersProvider = ({children}) => {
         }
         return transfer;
       };
-
+      let updated = false;
       const newTransfers = [];
       for (const transfer of transfers) {
         const newTransfer = await checkTransaction(transfer);
         newTransfers.push(newTransfer);
       }
-      if (newTransfers.length) {
+      if (updated && newTransfers.length) {
+        logger.log('Transfers updated', {newTransfers});
         setTransfers(newTransfers);
         utils.storage.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
       }
