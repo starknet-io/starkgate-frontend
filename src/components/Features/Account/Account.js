@@ -5,7 +5,7 @@ import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
-import {useAccountTransfers} from '../../../providers/TransfersProvider';
+import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {
@@ -57,7 +57,7 @@ export const Account = ({transferId}) => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer transferIndex={utils.object.findIndexById(transfers, transferId)}>
+        <TransferLogContainer transferIndex={utils.object.findIndexById(transfersLog, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />

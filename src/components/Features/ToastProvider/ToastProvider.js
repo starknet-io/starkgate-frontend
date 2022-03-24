@@ -7,14 +7,14 @@ import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
-import {useTransfers} from '../../../providers/TransfersProvider';
+import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 export const ToastProvider = () => {
-  const {transfers} = useTransfers();
+  const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
