@@ -5,10 +5,10 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
+import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import utils from '../../../utils';
-import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
+import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import {useIsL1, useIsL2} from '../Transfer/Transfer.hooks';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
@@ -19,7 +19,7 @@ export const ToastProvider = () => {
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
-  const {showAccountMenu} = useBridgeActions();
+  const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
 

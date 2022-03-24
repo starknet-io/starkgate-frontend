@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {useMaxAmount, useTransferToL1, useTransferToL2} from '../../../hooks';
+import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {
   Loading,
@@ -13,7 +14,6 @@ import {
   TransferMenuTab
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
 import {useAmount, useIsL1, useIsL2, useTransferActions, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
 import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
@@ -25,7 +25,7 @@ export const Transfer = () => {
   const [hasInputError, setHasInputError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const {showSelectTokenMenu} = useBridgeActions();
+  const {showSelectTokenMenu} = useMenu();
   const {selectedToken, action, symbol} = useTransferData();
   const {selectToken} = useTransferActions();
   const {tokens} = useTokens();

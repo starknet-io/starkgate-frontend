@@ -3,6 +3,7 @@ import React from 'react';
 
 import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
+import {useMenu} from '../../../providers/MenuProvider';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
@@ -15,7 +16,6 @@ import {
   TransferLogContainer
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
 import {useTransferData} from '../Transfer/Transfer.hooks';
 import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
@@ -24,7 +24,7 @@ import {TITLE_TXT} from './Account.strings';
 const {LINKS} = constants;
 
 export const Account = ({transferId}) => {
-  const {showTransferMenu} = useBridgeActions();
+  const {showTransferMenu} = useMenu();
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
   const {isL1, isL2, fromNetwork} = useTransferData();
