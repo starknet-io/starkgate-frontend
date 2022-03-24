@@ -1,4 +1,4 @@
-import {ChainType} from '../../../enums';
+import {ChainType} from '../enums';
 
 export const STARKNET_CONTRACT_ADDRESS = {
   [ChainType.MAIN.id]: '',
