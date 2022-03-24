@@ -2,14 +2,14 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth, initiateWithdraw, withdraw} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
+import {ActionType, TransactionStatus} from '../enums';
+import {starknet} from '../libs';
 import {
   useErrorModal,
   useHideModal,
   useProgressModal,
   useTransactionSubmittedModal
-} from '../components/Features/ModalProvider/ModalProvider.hooks';
-import {ActionType, TransactionStatus} from '../enums';
-import {starknet} from '../libs';
+} from '../providers/ModalProvider';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useAmount, useSelectedToken} from '../providers/TransferProvider';
 import {useTransfersLog} from '../providers/TransfersLogProvider';

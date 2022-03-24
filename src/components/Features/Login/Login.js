@@ -2,10 +2,10 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
+import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
-import {useHideModal, useProgressModal} from '../ModalProvider/ModalProvider.hooks';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
 import {DOWNLOAD_TEXT, MODAL_TXT, SUBTITLE_TXT, TITLE_TXT} from './Login.strings';

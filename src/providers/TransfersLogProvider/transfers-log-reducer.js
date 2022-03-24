@@ -1,8 +1,8 @@
 import {v4 as uuidv4} from 'uuid';
 
 export const actions = {
-  SET_TRANSFERS: 'Transfers/SET_TRANSFERS',
-  ADD_TRANSFER: 'Transfers/ADD_TRANSFER'
+  SET_TRANSFERS: 'TransfersLog/SET_TRANSFERS',
+  ADD_TRANSFER: 'TransfersLog/ADD_TRANSFER'
 };
 
 export const initialState = [];
