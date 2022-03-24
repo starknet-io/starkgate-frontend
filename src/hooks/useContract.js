@@ -3,7 +3,7 @@ import {useCallback, useMemo} from 'react';
 import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
 import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
-import {STARKNET_CONTRACT_ADDRESS} from '../config/addresses';
+import {STARKNET_CONTRACT_ADDRESS} from '../config/contracts';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useL1Wallet, useWallets} from '../providers/WalletsProvider';

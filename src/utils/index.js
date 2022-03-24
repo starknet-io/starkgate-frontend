@@ -2,7 +2,6 @@ import strings from '../config/strings';
 import * as blockchain from './blockchain';
 import * as browser from './browser';
 import * as date from './date';
-import * as hash from './hash';
 import * as logger from './logger';
 import * as object from './object';
 import * as parser from './parser';
@@ -28,7 +27,6 @@ const utils = {
   string,
   token,
   parser,
-  hash,
   date,
   object,
   blockchain,
