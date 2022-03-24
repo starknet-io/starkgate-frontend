@@ -16,7 +16,7 @@ const strings = {
       download_txt: ['Don’t have a wallet?', 'Download Here'],
       modal_txt: 'Waiting for confirmation from {{walletName}}',
       unsupported_browser_txt:
-        'Your browser is not currently supported. Use Google Chrome to login.'
+        'Your browser is currently not supported by the current version of StarkGate (Alpha). Use Google Chrome to login.'
     },
     account: {
       title_txt: '{{network}} Account',
