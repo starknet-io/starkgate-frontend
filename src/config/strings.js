@@ -14,7 +14,9 @@ const strings = {
       title_txt: 'Login',
       subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
       download_txt: ['Don’t have a wallet?', 'Download Here'],
-      modal_txt: 'Waiting for confirmation from {{walletName}}'
+      modal_txt: 'Waiting for confirmation from {{walletName}}',
+      unsupported_browser_txt:
+        'Your browser is not currently supported. Use Google Chrome to login.'
     },
     account: {
       title_txt: '{{network}} Account',
