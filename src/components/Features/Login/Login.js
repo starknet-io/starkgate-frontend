@@ -126,6 +126,7 @@ export const Login = () => {
         <WalletLogin
           key={id}
           description={description}
+          isDisabled={!utils.browser.isChrome()}
           logoPath={logoPath}
           name={name}
           onClick={() => onWalletConnect(walletHandler)}
