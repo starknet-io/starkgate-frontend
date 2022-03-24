@@ -2,9 +2,9 @@ import React from 'react';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
-import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
 import {WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 import {CHAIN_TXT} from './Header.strings';

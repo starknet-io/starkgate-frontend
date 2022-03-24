@@ -11,6 +11,7 @@ export const initialState = {
     [MenuType.ACCOUNT]: {transferId: null}
   }
 };
+
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.SHOW_MENU: {

@@ -4,6 +4,7 @@ import React from 'react';
 import constants from '../../../config/constants';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
@@ -16,7 +17,6 @@ import {
   TransferLogContainer
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
-import {useTransferData} from '../Transfer/Transfer.hooks';
 import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
@@ -27,7 +27,7 @@ export const Account = ({transferId}) => {
   const {showTransferMenu} = useMenu();
   const {account, chainId, resetWallet} = useWallets();
   const transfers = useAccountTransfers(account);
-  const {isL1, isL2, fromNetwork} = useTransferData();
+  const {isL1, isL2, fromNetwork} = useTransfer();
   const completeTransferToL1 = useCompleteTransferToL1();
 
   const renderTransfers = () => {

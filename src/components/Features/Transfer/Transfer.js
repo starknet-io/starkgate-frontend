@@ -4,6 +4,7 @@ import {ActionType, NetworkType} from '../../../enums';
 import {useMaxAmount, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
+import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
 import {
   Loading,
   Menu,
@@ -14,7 +15,6 @@ import {
   TransferMenuTab
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
-import {useAmount, useIsL1, useIsL2, useTransferActions, useTransferData} from './Transfer.hooks';
 import styles from './Transfer.module.scss';
 import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
 
@@ -26,8 +26,7 @@ export const Transfer = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
-  const {selectedToken, action, symbol} = useTransferData();
-  const {selectToken} = useTransferActions();
+  const {selectToken, selectedToken, action, symbol} = useTransfer();
   const {tokens} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();

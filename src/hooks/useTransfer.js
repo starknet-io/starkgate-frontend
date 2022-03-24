@@ -8,10 +8,10 @@ import {
   useProgressModal,
   useTransactionSubmittedModal
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
-import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionStatus} from '../enums';
 import {starknet} from '../libs';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
+import {useAmount, useSelectedToken} from '../providers/TransferProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';

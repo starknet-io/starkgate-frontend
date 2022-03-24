@@ -1,9 +1,9 @@
 import {useCallback} from 'react';
 
-import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {TransactionHashPrefix} from '../enums';
 import {starknet} from '../libs';
 import {useL1Token, useL2Token} from '../providers/TokensProvider';
+import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useStarknetContract, useTokenBridgeContract} from './useContract';

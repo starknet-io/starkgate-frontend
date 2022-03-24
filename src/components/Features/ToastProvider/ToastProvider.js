@@ -6,10 +6,10 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfers} from '../../../providers/TransfersProvider';
 import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
-import {useIsL1, useIsL2} from '../Transfer/Transfer.hooks';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
