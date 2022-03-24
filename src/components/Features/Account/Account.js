@@ -26,7 +26,7 @@ const {LINKS} = constants;
 export const Account = ({transferId}) => {
   const {showTransferMenu} = useMenu();
   const {account, chainId, resetWallet} = useWallets();
-  const transfers = useAccountTransfers(account);
+  const transfers = useAccountTransfersLog(account);
   const {isL1, isL2, fromNetwork} = useTransfer();
   const completeTransferToL1 = useCompleteTransferToL1();
 
@@ -57,7 +57,7 @@ export const Account = ({transferId}) => {
         {isL2 && (
           <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
         )}
-        <TransferLogContainer transferIndex={utils.object.findIndexById(transfersLog, transferId)}>
+        <TransferLogContainer transferIndex={utils.object.findIndexById(transfers, transferId)}>
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />
