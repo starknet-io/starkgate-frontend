@@ -106,14 +106,14 @@ export const EventManagerProvider = ({children}) => {
     l1Tokens.forEach(l1Token => {
       const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
       logger.log(`Add ${EventName.L1.LOG_DEPOSIT} listener for token ${l1Token.symbol}.`);
-      bridgeContract.events[EventName.L1.LOG_DEPOSIT](
+      addContractEventListener(
+        bridgeContract,
+        EventName.L1.LOG_DEPOSIT,
         {
-          filter: {
-            sender: l1Account,
-            l2Recipient: l2Account
-          }
+          sender: l1Account,
+          l2Recipient: l2Account
         },
-        (error, event) => onLogDeposit(error, event)
+        onLogDeposit
       );
     });
   };
@@ -122,15 +122,24 @@ export const EventManagerProvider = ({children}) => {
     logger.log(`Add ${EventName.L1.LOG_MESSAGE_TO_L2} listener.`);
     const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[chainId]);
     const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[chainId]);
-    starknetContract.events[EventName.L1.LOG_MESSAGE_TO_L2](
+    addContractEventListener(
+      starknetContract,
+      EventName.L1.LOG_MESSAGE_TO_L2,
       {
-        filter: {
-          from_address: l1BridgesAddresses,
-          to_address: l2BridgesAddress,
-          selector: starknet.stark.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
-        }
+        from_address: l1BridgesAddresses,
+        to_address: l2BridgesAddress,
+        selector: starknet.stark.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
       },
-      (error, event) => onLogMessageToL2(error, event)
+      onLogMessageToL2
+    );
+  };
+
+  const addContractEventListener = (contract, eventName, filter, handler) => {
+    contract.events[eventName](
+      {
+        filter
+      },
+      (error, event) => handler(error, event)
     );
   };
 

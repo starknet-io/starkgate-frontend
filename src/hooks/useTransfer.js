@@ -23,7 +23,7 @@ import {useTransferProgress} from './useTransferProgress';
 const HOOK_MODULE = 'useTransfer';
 
 export const useTransferToL2 = () => {
-  const logger = useLogger(`${HOOK_MODULE}:useTransferToL2`);
+  const logger = useLogger('useTransferToL2');
   const {account: l1Account, chainId, config: l1Config} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer();
@@ -33,64 +33,34 @@ export const useTransferToL2 = () => {
   const progressOptions = useTransferProgress();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
 
-  const getL2TransactionHashFromEvent = event => {
-    const {to_address, from_address, selector, payload, nonce} = event.returnValues;
-    return utils.blockchain.starknet.getTransactionHash(
-      TransactionHashPrefix.L1_HANDLER,
-      from_address,
-      to_address,
-      selector,
-      payload,
-      chainId,
-      nonce
-    );
-  };
-
   return useCallback(
     async amount => {
-      try {
-        logger.log('TransferToL2 called');
-        const {symbol, decimals, tokenAddress, bridgeAddress, name} = selectedToken;
-        const isEthToken = utils.token.isEth(symbol);
-        const bridgeContract = getTokenBridgeContract(bridgeAddress);
-        const depositHandler = isEthToken ? depositEth : deposit;
-        logger.log('Prepared contract and handler', {isEthToken, bridgeContract, depositHandler});
-        if (!isEthToken) {
-          logger.log('Token needs approval', {isEthToken});
-          const tokenContract = getTokenContract(tokenAddress);
-          handleProgress(progressOptions.approval(symbol));
-          const allow = await allowance({
-            owner: l1Account,
-            spender: bridgeAddress[chainId],
-            decimals,
-            contract: tokenContract
-          });
-          logger.log('Current allow value', {allow});
-          if (allow < amount) {
-            logger.log('Allow value is smaller then amount, sending approve tx', {amount});
-            await approve({
-              spender: bridgeAddress[chainId],
-              value: starknet.constants.MASK_250,
-              contract: tokenContract,
-              options: {from: l1Account}
-            });
-          }
-        }
-        handleProgress(progressOptions.waitForConfirm(l1Config.name));
-        logger.log('Calling deposit');
-        addLogMessageToL2Listener((error, event) => {
-          handleData({
-            type: ActionType.TRANSFER_TO_L2,
-            sender: l1Account,
-            recipient: l2Account,
-            name,
-            symbol,
-            amount,
-            l1hash: event.transactionHash,
-            l2hash: getL2TransactionHashFromEvent(event)
-          });
+      const {symbol, decimals, tokenAddress, bridgeAddress} = selectedToken;
+      const isEthToken = utils.token.isEth(symbol);
+      const tokenContract = getTokenContract(tokenAddress);
+      const bridgeContract = getTokenBridgeContract(bridgeAddress);
+
+      const readAllowance = async () => {
+        return await allowance({
+          owner: l1Account,
+          spender: bridgeAddress[chainId],
+          decimals,
+          contract: tokenContract
         });
-        await depositHandler({
+      };
+
+      const sendApproval = async () => {
+        return await approve({
+          spender: bridgeAddress[chainId],
+          value: starknet.constants.MASK_250,
+          contract: tokenContract,
+          options: {from: l1Account}
+        });
+      };
+
+      const sendDeposit = async () => {
+        const depositHandler = isEthToken ? depositEth : deposit;
+        return await depositHandler({
           recipient: l2Account,
           amount,
           decimals,
@@ -103,6 +73,52 @@ export const useTransferToL2 = () => {
             }
           }
         });
+      };
+
+      const onLogMessageToL2 = (error, event) => {
+        handleData({
+          type: ActionType.TRANSFER_TO_L2,
+          sender: l1Account,
+          recipient: l2Account,
+          name,
+          symbol,
+          amount,
+          ...extractTransactionsHashFromEvent(event)
+        });
+      };
+
+      const extractTransactionsHashFromEvent = event => {
+        const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+        return {
+          l1hash: event.transactionHash,
+          l2hash: utils.blockchain.starknet.getTransactionHash(
+            TransactionHashPrefix.L1_HANDLER,
+            from_address,
+            to_address,
+            selector,
+            payload,
+            chainId,
+            nonce
+          )
+        };
+      };
+
+      try {
+        logger.log('TransferToL2 called');
+        if (!isEthToken) {
+          logger.log('Token needs approval');
+          handleProgress(progressOptions.approval(symbol));
+          const allow = await readAllowance();
+          logger.log('Current allow value', {allow});
+          if (allow < amount) {
+            logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
+            await sendApproval();
+          }
+        }
+        handleProgress(progressOptions.waitForConfirm(l1Config.name));
+        addLogMessageToL2Listener(onLogMessageToL2);
+        logger.log('Calling deposit');
+        await sendDeposit();
       } catch (ex) {
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));
@@ -113,6 +129,7 @@ export const useTransferToL2 = () => {
       addLogMessageToL2Listener,
       chainId,
       l1Account,
+      l2Account,
       l1Config,
       getTokenBridgeContract,
       getTokenContract,
@@ -120,8 +137,7 @@ export const useTransferToL2 = () => {
       handleError,
       handleProgress,
       logger,
-      progressOptions,
-      l2Account
+      progressOptions
     ]
   );
 };
