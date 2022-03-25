@@ -24,6 +24,7 @@ export const EventManagerProvider = ({children}) => {
 
   useEffect(() => {
     addLogDepositListener();
+    addLogWithdrawalListener();
     addLogMessageToL2Listener();
   }, []);
 
@@ -57,6 +58,11 @@ export const EventManagerProvider = ({children}) => {
   const removeFromQueue = (eventName, index) => {
     logger.log(`Remove event ${eventName} at index ${index} from queue.`);
     eventsQueue[eventName].splice(index, 1);
+  };
+
+  const onLogWithdrawal = (error, event) => {
+    logger.log(`Event ${EventName.L1.LOG_WITHDRAWAL} dispatched internal.`, {error, event});
+    emitListeners(EventName.L1.LOG_WITHDRAWAL, error, event);
   };
 
   const onLogDeposit = (error, event) => {
@@ -100,6 +106,21 @@ export const EventManagerProvider = ({children}) => {
       logger.log(`Didn't found matched ${EventName.L1.LOG_DEPOSIT} event.`);
       insertEventToQueue(EventName.L1.LOG_MESSAGE_TO_L2, event);
     }
+  };
+
+  const addLogWithdrawalListener = () => {
+    l1Tokens.forEach(l1Token => {
+      const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
+      logger.log(`Add ${EventName.L1.LOG_WITHDRAWAL} listener for token ${l1Token.symbol}.`);
+      addContractEventListener(
+        bridgeContract,
+        EventName.L1.LOG_WITHDRAWAL,
+        {
+          recipient: l1Account
+        },
+        onLogWithdrawal
+      );
+    });
   };
 
   const addLogDepositListener = () => {

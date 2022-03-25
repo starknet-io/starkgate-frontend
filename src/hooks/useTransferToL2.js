@@ -67,6 +67,7 @@ export const useTransferToL2 = () => {
       };
 
       const onLogMessageToL2 = (error, event) => {
+        logger.log('Done', event.transactionHash);
         handleData({
           type: ActionType.TRANSFER_TO_L2,
           sender: l1Account,

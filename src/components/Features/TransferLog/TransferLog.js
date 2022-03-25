@@ -6,8 +6,8 @@ import {
   isOnChain,
   isPending,
   isRejected,
-  NetworkType,
-  TransactionStatusFriendlyMessage
+  NetworkType, TransactionStatus,
+  TransactionStatusFriendlyMessage, TransactionStatusStep
 } from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useWallets} from '../../../providers/WalletsProvider';
@@ -55,7 +55,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
     return (
       <>
         <LinkButton
-          isDisabled={isPending(status)}
+          isDisabled={TransactionStatusStep[status] > TransactionStatus.NOT_RECEIVED}
           text={`${NetworkType.L2.name} Tx`}
           url={LINKS.VOYAGER.txUrl(chainId, l2hash)}
         />
