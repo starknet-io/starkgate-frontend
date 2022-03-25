@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import constants from '../../../config/constants';
-import {byChainId} from '../../../enums';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useAccountTransfers} from '../../../providers/TransfersProvider';
 import {useWallets} from '../../../providers/WalletsProvider';

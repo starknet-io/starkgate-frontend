@@ -6,7 +6,7 @@ import {useTokenBridgeContract} from './useContract';
 
 const cache = {};
 
-export const useMaxAmount = () => {
+export const useMaxDeposit = () => {
   const {symbol, isL1, selectedToken} = useTransferData();
   const getTokenBridgeContract = useTokenBridgeContract();
 
