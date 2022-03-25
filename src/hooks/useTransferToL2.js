@@ -26,7 +26,7 @@ export const useTransferToL2 = () => {
 
   return useCallback(
     async amount => {
-      const {symbol, decimals, tokenAddress, bridgeAddress} = selectedToken;
+      const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
       const isEthToken = utils.token.isEth(symbol);
       const tokenContract = getTokenContract(tokenAddress);
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
