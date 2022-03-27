@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 
-import {deposit, depositEth, initiateWithdraw, withdraw} from '../api/bridge';
-import {allowance, approve} from '../api/erc20';
+import {deposit, depositEth, initiateWithdraw, maxTotalBalance, withdraw} from '../api/bridge';
+import {allowance, approve, ethBalanceOf, balanceOf} from '../api/erc20';
 import {
   useErrorModal,
   useHideModal,
@@ -9,13 +9,19 @@ import {
   useTransactionSubmittedModal
 } from '../components/Features/ModalProvider/ModalProvider.hooks';
 import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
+import {MAX_TOTAL_BALANCE} from '../components/Features/Transfer/Transfer.strings';
 import {ActionType, TransactionStatus} from '../enums';
 import {starknet} from '../libs';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
 import {useTransfers} from '../providers/TransfersProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
-import {useL1TokenBridgeContract, useTokenBridgeContract, useTokenContract} from './useContract';
+import {
+  useL1TokenBridgeContract,
+  useL1TokenContract,
+  useTokenBridgeContract,
+  useTokenContract
+} from './useContract';
 import {useLogMessageToL2Listener} from './useEventListener';
 import {useLogger} from './useLogger';
 import {useTransferProgress} from './useTransferProgress';
@@ -32,6 +38,7 @@ export const useTransferToL2 = () => {
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
+  const getL1TokenContract = useL1TokenContract();
 
   return useCallback(
     async amount => {
@@ -41,10 +48,27 @@ export const useTransferToL2 = () => {
         const isEthToken = utils.token.isEth(symbol);
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
         const depositHandler = isEthToken ? depositEth : deposit;
+        const tokenContract = isEthToken && getTokenContract(tokenAddress);
         logger.log('Prepared contract and handler', {isEthToken, bridgeContract, depositHandler});
+
+        const isReachedMaxTotalBalance = async () => {
+          const tokenMaxTotalBalance = await maxTotalBalance({decimals, contract: bridgeContract});
+          const tokenBalance = isEthToken
+            ? await ethBalanceOf(bridgeAddress[chainId])
+            : await balanceOf({
+                account: tokenContract,
+                decimals,
+                contract: getL1TokenContract(tokenAddress)
+              });
+          return tokenMaxTotalBalance < amount + tokenBalance;
+        };
+        if (isReachedMaxTotalBalance()) {
+          logger.log(`Prevented ${symbol} deposit due to it's maxTotalBalance`);
+          handleError(progressOptions.error({message: MAX_TOTAL_BALANCE}));
+          return;
+        }
         if (!isEthToken) {
           logger.log('Token needs approval', {isEthToken});
-          const tokenContract = getTokenContract(tokenAddress);
           handleProgress(progressOptions.approval(symbol));
           const allow = await allowance({
             owner: l1Account,

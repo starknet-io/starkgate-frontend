@@ -9,3 +9,5 @@ export const MAX_AMOUNT_ERROR_MSG = (maxAmount, symbol) =>
     maxAmount,
     symbol
   });
+
+export const MAX_TOTAL_BALANCE = utils.getTranslation('menus.transfer.max_total_balance_error_msg');

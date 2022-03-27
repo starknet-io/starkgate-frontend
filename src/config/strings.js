@@ -40,6 +40,8 @@ const strings = {
       insufficient_balance_error_msg: 'Insufficient balance',
       max_amount_error_msg:
         'StarkNet Alpha Limitation: transfer to StarkNet limited to {{maxAmount}} {{symbol}}.',
+      max_total_balance_error_msg:
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now. Please try later or use another token.',
       max_btn_txt: 'Max',
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
