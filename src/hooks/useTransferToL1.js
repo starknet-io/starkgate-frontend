@@ -97,9 +97,9 @@ export const useCompleteTransferToL1 = () => {
           amount,
           decimals,
           contract: tokenBridgeContract,
-          emitter: error => {
+          emitter: (error, transactionHash) => {
             if (!error) {
-              logger.log('Tx signed');
+              logger.log('Tx signed', {transactionHash});
               handleProgress(progressOptions.withdraw(amount, symbol));
             }
           }

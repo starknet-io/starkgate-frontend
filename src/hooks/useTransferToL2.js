@@ -57,9 +57,9 @@ export const useTransferToL2 = () => {
           decimals,
           contract: bridgeContract,
           options: {from: l1Account},
-          emitter: error => {
+          emitter: (error, transactionHash) => {
             if (!error) {
-              logger.log('Tx signed');
+              logger.log('Tx signed', {transactionHash});
               handleProgress(progressOptions.deposit(amount, symbol));
             }
           }
