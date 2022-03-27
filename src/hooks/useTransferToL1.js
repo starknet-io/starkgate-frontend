@@ -1,9 +1,9 @@
 import {useCallback} from 'react';
 
 import {initiateWithdraw, withdraw} from '../api/bridge';
-import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionStatus} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
+import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';

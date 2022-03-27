@@ -1,10 +1,10 @@
 import React, {lazy, Suspense} from 'react';
 
-import {Loading, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle} from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
-import {useHideModal, useModal} from './ModalProvider.hooks';
+import {useHideModal, useModal} from '../../../providers/ModalProvider';
+import {LoadingSize} from '../Loading/Loading.enums';
+import {Loading, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle} from '../index';
 
-export const ModalProvider = () => {
+export const ModalWrapper = () => {
   const modal = useModal();
   const handleOnClose = useHideModal();
   const CustomComponent = lazy(() => import(`../../${modal.componentPath}`));

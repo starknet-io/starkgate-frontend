@@ -3,17 +3,17 @@ import {
   useHideModal,
   useProgressModal,
   useTransactionSubmittedModal
-} from '../components/Features/ModalProvider/ModalProvider.hooks';
-import {useAmount} from '../components/Features/Transfer/Transfer.hooks';
+} from '../providers/ModalProvider';
 import {useTokens} from '../providers/TokensProvider';
-import {useTransfers} from '../providers/TransfersProvider';
+import {useAmount} from '../providers/TransferProvider';
+import {useTransfersLog} from '../providers/TransfersLogProvider';
 
 export const useTransfer = () => {
   const showProgressModal = useProgressModal();
   const showErrorModal = useErrorModal();
   const hideModal = useHideModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
-  const {addTransfer} = useTransfers();
+  const {addTransfer} = useTransfersLog();
   const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 

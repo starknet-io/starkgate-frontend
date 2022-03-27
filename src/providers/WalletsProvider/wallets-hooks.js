@@ -1,12 +1,12 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 
-import {useTransferData} from '../../components/Features/Transfer/Transfer.hooks';
+import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
 export const useWallets = () => {
   const wallets = useContext(WalletsContext);
   const [activeWallet, setActiveWallet] = useState(wallets.l1Wallet);
-  const {isL1} = useTransferData();
+  const {isL1} = useTransfer();
 
   const connectWallet = useCallback(walletConfig => wallets.connectWallet(walletConfig), []);
   const resetWallet = useCallback(() => wallets.resetWallet(), []);
