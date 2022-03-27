@@ -5,7 +5,7 @@ import {EventName, SelectorName} from '../../enums';
 import {useL1TokenBridgeContract, useLogger, useStarknetContract} from '../../hooks';
 import {starknet} from '../../libs';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
-import {useL1Wallet, useL2Wallet, useWallets} from '../WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
 
 const listeners = {};
@@ -16,9 +16,8 @@ export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
   const starknetContract = useStarknetContract();
   const getTokenBridgeContract = useL1TokenBridgeContract();
-  const {chainId} = useWallets();
-  const {account: l1Account} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {account: l1Account, chainId: l1ChainId} = useL1Wallet();
+  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();
 
@@ -141,8 +140,8 @@ export const EventManagerProvider = ({children}) => {
 
   const addLogMessageToL2Listener = () => {
     logger.log(`Add ${EventName.L1.LOG_MESSAGE_TO_L2} listener.`);
-    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[chainId]);
-    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[chainId]);
+    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[l1ChainId]);
+    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[l2ChainId]);
     addContractEventListener(
       starknetContract,
       EventName.L1.LOG_MESSAGE_TO_L2,

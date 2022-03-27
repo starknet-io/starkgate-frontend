@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
-import {WalletStatus} from '../../enums';
+import {ChainType, WalletStatus} from '../../enums';
 import {useConfig} from '../../hooks';
 import {getStarknet} from '../../libs';
 import {useIsL1, useIsL2} from '../TransferProvider';
@@ -97,8 +97,8 @@ export const WalletsProvider = ({children}) => {
     } finally {
       updateL2Wallet({
         status,
-        chainId,
         error,
+        chainId: chainId === ChainType.L1.MAIN ? ChainType.L2.MAIN : ChainType.L2.GOERLI,
         isConnected: isL2Connected,
         account: selectedAddress,
         chainName: networkName

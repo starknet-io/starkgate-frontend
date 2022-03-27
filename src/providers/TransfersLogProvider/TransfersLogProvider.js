@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import constants from '../../config/constants';
+import envs from '../../config/envs';
 import {isCompleted, isConsumed} from '../../enums';
 import {useLogger} from '../../hooks';
 import {starknet} from '../../libs';
@@ -12,7 +12,7 @@ import {useTokens} from '../TokensProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
-const {LOCAL_STORAGE_TRANSFERS_KEY} = constants;
+const {localStorageTransfersLogKey} = envs;
 
 export const TransfersLogProvider = ({children}) => {
   const logger = useLogger(TransfersLogProvider.displayName);
@@ -21,7 +21,7 @@ export const TransfersLogProvider = ({children}) => {
   const {updateTokenBalance} = useTokens();
 
   useEffect(() => {
-    const storedTransfers = utils.storage.getItem(LOCAL_STORAGE_TRANSFERS_KEY);
+    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
     if (Array.isArray(storedTransfers)) {
       setTransfers(storedTransfers);
     }
@@ -67,7 +67,7 @@ export const TransfersLogProvider = ({children}) => {
       if (updated && newTransfers.length) {
         logger.log('Transfers updated', {newTransfers});
         setTransfers(newTransfers);
-        utils.storage.setItem(LOCAL_STORAGE_TRANSFERS_KEY, newTransfers);
+        utils.storage.setItem(localStorageTransfersLogKey, newTransfers);
       }
     };
     updateTransfers();

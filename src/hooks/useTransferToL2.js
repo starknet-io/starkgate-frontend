@@ -15,8 +15,8 @@ import {useTransferProgress} from './useTransferProgress';
 
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
-  const {account: l1Account, chainId, config: l1Config} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
+  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
@@ -34,7 +34,7 @@ export const useTransferToL2 = () => {
       const readAllowance = async () => {
         return await allowance({
           owner: l1Account,
-          spender: bridgeAddress[chainId],
+          spender: bridgeAddress[l1ChainId],
           decimals,
           contract: tokenContract
         });
@@ -42,7 +42,7 @@ export const useTransferToL2 = () => {
 
       const sendApproval = async () => {
         return await approve({
-          spender: bridgeAddress[chainId],
+          spender: bridgeAddress[l1ChainId],
           value: starknet.constants.MASK_250,
           contract: tokenContract,
           options: {from: l1Account}
@@ -89,7 +89,7 @@ export const useTransferToL2 = () => {
             to_address,
             selector,
             payload,
-            chainId,
+            l2ChainId,
             nonce
           )
         };
@@ -119,7 +119,7 @@ export const useTransferToL2 = () => {
     [
       selectedToken,
       addLogMessageToL2Listener,
-      chainId,
+      l1ChainId,
       l1Account,
       l2Account,
       l1Config,
