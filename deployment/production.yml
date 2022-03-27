@@ -63,6 +63,8 @@ backend:
 # the port 443 on the backend and frontend service.
 ingress:
 
+  type: gce
+
   # Host name to create Ingress rules.
   # @type: string
   host: faucet.goerli.starknet.io
