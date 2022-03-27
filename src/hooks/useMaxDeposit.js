@@ -1,16 +1,16 @@
 import {useAsyncMemo} from 'use-async-memo';
 
 import {maxDeposit} from '../api/bridge';
-import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
+import {useTransfer} from '../providers/TransferProvider';
 import {useTokenBridgeContract} from './useContract';
 
 const cache = {};
 
-export const useMaxAmount = () => {
-  const {symbol, isL1, selectedToken} = useTransferData();
+export const useMaxDeposit = () => {
+  const {symbol, isL1, selectedToken} = useTransfer();
   const getTokenBridgeContract = useTokenBridgeContract();
 
-  const fetchMaxAmount = async () => {
+  const fetchMaxDeposit = async () => {
     const {decimals, bridgeAddress} = selectedToken;
     const contract = getTokenBridgeContract(bridgeAddress);
     return await maxDeposit({decimals, contract});
@@ -19,7 +19,7 @@ export const useMaxAmount = () => {
   return useAsyncMemo(async () => {
     if (symbol && isL1) {
       if (!cache[symbol]) {
-        const value = await fetchMaxAmount();
+        const value = await fetchMaxDeposit();
         cache[symbol] = value;
         return value;
       }

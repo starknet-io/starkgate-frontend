@@ -4,18 +4,19 @@ import React, {useEffect, useState} from 'react';
 import constants from '../../../config/constants';
 import {
   isOnChain,
-  isPending,
   isRejected,
   NetworkType,
-  TransactionStatusFriendlyMessage
+  TransactionStatus,
+  TransactionStatusFriendlyMessage,
+  TransactionStatusStep
 } from '../../../enums';
 import {useColors} from '../../../hooks';
+import {useTransfer} from '../../../providers/TransferProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
-import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransferLog.module.scss';
 import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
 
@@ -24,7 +25,7 @@ const {LINKS} = constants;
 export const TransferLog = ({transfer, onCompleteTransferClick}) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
-  const {action, isL1} = useTransferData();
+  const {action, isL1} = useTransfer();
   const {chainId} = useWallets();
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
     return (
       <>
         <LinkButton
-          isDisabled={isPending(status)}
+          isDisabled={TransactionStatusStep[status] > TransactionStatus.NOT_RECEIVED}
           text={`${NetworkType.L2.name} Tx`}
           url={LINKS.VOYAGER.txUrl(chainId, l2hash)}
         />

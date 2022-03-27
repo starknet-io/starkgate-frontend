@@ -2,11 +2,11 @@ import React from 'react';
 
 import {Account, SelectToken, ToastProvider, Transfer} from '..';
 import {MenuType} from '../../../enums';
-import {useBridgeData} from './Bridge.hooks';
+import {useMenu} from '../../../providers/MenuProvider';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
-  const {menu, menuProps} = useBridgeData();
+  const {menu, menuProps} = useMenu();
 
   const renderMenu = () => {
     switch (menu) {

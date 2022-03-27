@@ -14,21 +14,21 @@ import {
   Breakpoint
 } from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
-import {useTransfers} from '../../../providers/TransfersProvider';
+import {useMenu} from '../../../providers/MenuProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
+import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import utils from '../../../utils';
-import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {useIsL1, useIsL2} from '../Transfer/Transfer.hooks';
+import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 export const ToastProvider = () => {
-  const {transfers} = useTransfers();
+  const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
-  const {showAccountMenu} = useBridgeActions();
+  const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {breakpoint} = useBreakpoint(Breakpoint);
