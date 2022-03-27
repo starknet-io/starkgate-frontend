@@ -1,10 +1,10 @@
 import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 
-import {useTransferData} from '../../components/Features/Transfer/Transfer.hooks';
+import {useTransfer} from '../TransferProvider';
 import {TokensContext} from './tokens-context';
 
 export const useTokens = () => {
-  const {isL1} = useTransferData();
+  const {isL1} = useTransfer();
   const l2Tokens = useL2Tokens();
   const l1Tokens = useL1Tokens();
   const {updateTokenBalance} = useContext(TokensContext);

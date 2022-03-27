@@ -2,10 +2,10 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
-import {useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
 import {ActionType, TransactionHashPrefix} from '../enums';
 import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
+import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';

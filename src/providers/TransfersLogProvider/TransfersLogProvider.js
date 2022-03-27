@@ -9,13 +9,13 @@ import {starknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
-import {TransfersContext} from './transfers-context';
-import {actions, initialState, reducer} from './transfers-reducer';
+import {TransfersLogContext} from './transfers-log-context';
+import {actions, initialState, reducer} from './transfers-log-reducer';
 
 const {LOCAL_STORAGE_TRANSFERS_KEY} = constants;
 
-export const TransfersProvider = ({children}) => {
-  const logger = useLogger(TransfersProvider.displayName);
+export const TransfersLogProvider = ({children}) => {
+  const logger = useLogger(TransfersLogProvider.displayName);
   const [transfers, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
@@ -92,11 +92,11 @@ export const TransfersProvider = ({children}) => {
     addTransfer
   };
 
-  return <TransfersContext.Provider value={context}>{children}</TransfersContext.Provider>;
+  return <TransfersLogContext.Provider value={context}>{children}</TransfersLogContext.Provider>;
 };
 
-TransfersProvider.displayName = 'TransfersProvider';
+TransfersLogProvider.displayName = 'TransfersLogProvider';
 
-TransfersProvider.propTypes = {
+TransfersLogProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
