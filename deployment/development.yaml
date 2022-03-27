@@ -55,7 +55,7 @@ ingress:
   type: gce
   # Host name to create Ingress rules.
   # @type: string
-  host: goerli.starkgate.starknet.io
+  host: devnet-goerli.starkgate.starknet.io
 
 # Consume ConfigMaps as environment variables.
 configMap:
@@ -63,4 +63,4 @@ configMap:
   # for deployments environment variables.
   # @default: production
   # @type: string
-  env: testing
+  env: development

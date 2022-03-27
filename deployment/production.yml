@@ -2,10 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Values that configure running a starknet fauset frontend on Kubernetes.
+# Values that configure running a starknet starkgate frontend on Kubernetes.
 frontend:
   # The name of the Docker image (including any tag and repository name)
-  # for the container running starknet faucet fronend.
+  # for the container running starknet faucet frontend.
   # For example:
   #''' yaml
   # image:
@@ -15,10 +15,10 @@ frontend:
   #'''
   # @type: string
   image:
-    repository: us.gcr.io/starkware-dev/starknet/faucet/frontend
+    repository: us.gcr.io/starkware-dev/starknet/starkgate/frontend
     tag: latest
 
-  # Default service variabled for starknet fauset frontend pod.
+  # Default service variable for starknet testing.yaml frontend pod.
   service:
     # Type of service, ex. NodePort, ClusterIP.
     type: ClusterIP
@@ -27,10 +27,10 @@ frontend:
     protocol: TCP
 
 
-# Values that configure running a starknet fauset backend on Kubernetes.
+# Values that configure running a starknet testing.yaml backend on Kubernetes.
 backend:
   # If true, the chart will install all
-  # the resources necessary for a starknet fauset backend on Kubernetes.
+  # the resources necessary for a starknet testing.yaml backend on Kubernetes.
   # @default: true
   # @type: boolean
   enabled: false
@@ -46,10 +46,10 @@ backend:
   #'''
   # @type: string
   image:
-    repository: us.gcr.io/starkware-dev/starknet/faucet/backend
+    repository: us.gcr.io/starkware-dev/starknet/starkgate/backend
     tag: latest
 
-  # Default service variabled for starknet fauset backend pod.
+  # Default service variable for starknet starkgate backend pod.
   service:
     # Type of service, ex. LoadBalancer, ClusterIP.
     # @type: string
@@ -67,7 +67,7 @@ ingress:
 
   # Host name to create Ingress rules.
   # @type: string
-  host: faucet.goerli.starknet.io
+  host: goerli.starkgate.starknet.io
 
 # Consume ConfigMaps as environment variables.
 configMap:
