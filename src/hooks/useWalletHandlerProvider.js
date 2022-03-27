@@ -10,6 +10,7 @@ const SUPPORTED_HANDLERS_REGISTRY = {
 
 export const useWalletHandlerProvider = () => {
   const [handlers, setHandlers] = useState([]);
+
   useEffect(() => {
     const walletHandlers = [];
     WalletsConfig.forEach(walletConfig => {
@@ -21,6 +22,7 @@ export const useWalletHandlerProvider = () => {
     });
     setHandlers(walletHandlers);
   }, []);
+
   return useCallback(
     type =>
       type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers,

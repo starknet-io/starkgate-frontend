@@ -56,21 +56,25 @@ export const useTokenBridgeContract = () => {
 
 export const useL2TokenContract = () => {
   const getContract = useContract(L2_ERC20_ABI, utils.blockchain.starknet.createContract);
+
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useL1TokenContract = () => {
   const getContract = useContract(L1_ERC20_ABI);
+
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useStarknetContract = () => {
   const getContract = useContract(L1_MESSAGING_ABI);
+
   return useMemo(() => getContract(STARKNET_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
   const getContract = useContract(L2_BRIDGE_ABI, utils.blockchain.starknet.createContract);
+
   return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 
@@ -79,6 +83,7 @@ export const useL1TokenBridgeContract = () => {
   const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI);
   const ethToken = useL1Token()(NetworkType.L1.symbol);
   const {chainId} = useL1Wallet();
+
   return useCallback(
     bridgeAddress =>
       bridgeAddress[chainId] === ethToken.bridgeAddress[chainId]
