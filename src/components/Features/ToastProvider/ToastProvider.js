@@ -144,7 +144,7 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
-      position="center-right"
+      position="top-right"
       toastOptions={{
         duration: Infinity
       }}
