@@ -16453,6 +16453,11 @@ use-async-memo@^1.2.3:
   resolved "https://registry.yarnpkg.com/use-async-memo/-/use-async-memo-1.2.3.tgz#fe49d7ae1cd850199cf9e4a8ee483e31ed85659f"
   integrity sha512-AjZ1Wy1vfOSlaxohqoLIpauV+jwph/p0N72PBzxeEcjrZ4Mf/4o1Vav4bLaAPYuHLJZo+4M/4TIcAk7XC6H98g==
 
+use-breakpoint@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/use-breakpoint/-/use-breakpoint-3.0.1.tgz#9534ca7a93e067781b45f9ab05e88675bb5962bd"
+  integrity sha512-gQ3zg55Aa/AAicxJSsKBSs5B4pcQv8PNMaJXS+P7TzvWJ6QLY7Napa2erkA6gZDmFFdkjWsztyOax5a5nuoLGQ==
+
 use-deep-compare-effect@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/use-deep-compare-effect/-/use-deep-compare-effect-1.8.1.tgz#ef0ce3b3271edb801da1ec23bf0754ef4189d0c6"

@@ -1,6 +1,8 @@
 import React from 'react';
+import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {Breakpoint} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
@@ -16,6 +18,7 @@ export const Header = () => {
   const [, swapToL2] = useIsL2();
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
+  const {breakpoint} = useBreakpoint(Breakpoint);
 
   const onL2WalletButtonClick = () => {
     swapToL2();
@@ -32,7 +35,7 @@ export const Header = () => {
   };
 
   return (
-    <div className={utils.object.toClasses(styles.header, 'row')}>
+    <div className={utils.object.toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
       <div className={utils.object.toClasses(styles.left, 'row')}>
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
