@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import constants from '../../../config/constants';
 import {
   isOnChain,
-  isPending,
   isRejected,
   NetworkType,
   TransactionStatus,
