@@ -3,12 +3,16 @@ import React from 'react';
 
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import utils from '../../../utils';
+import {toClasses} from '../../../utils/object';
 import {DynamicIcon} from '../index';
 import styles from './WalletLogin.module.scss';
 
-export const WalletLogin = ({name, description, logoPath, onClick}) => (
+export const WalletLogin = ({name, description, logoPath, isDisabled, onClick}) => (
   <>
-    <div className={styles.walletLogin} onClick={onClick}>
+    <div
+      className={toClasses(styles.walletLogin, isDisabled && styles.isDisabled)}
+      onClick={onClick}
+    >
       <div className={styles.left}>
         <DynamicIcon path={logoPath} size={41} />
         <div className={styles.text}>
@@ -26,5 +30,6 @@ WalletLogin.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   logoPath: PropTypes.string,
+  isDisabled: PropTypes.bool,
   onClick: PropTypes.func
 };

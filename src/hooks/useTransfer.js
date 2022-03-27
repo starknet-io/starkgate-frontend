@@ -2,18 +2,18 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth, initiateWithdraw, maxTotalBalance, withdraw} from '../api/bridge';
 import {allowance, approve, ethBalanceOf, balanceOf} from '../api/erc20';
+import {MAX_TOTAL_BALANCE} from '../components/Features/Transfer/Transfer.strings';
+import {ActionType, TransactionStatus} from '../enums';
+import {starknet} from '../libs';
 import {
   useErrorModal,
   useHideModal,
   useProgressModal,
   useTransactionSubmittedModal
-} from '../components/Features/ModalProvider/ModalProvider.hooks';
-import {useAmount, useSelectedToken} from '../components/Features/Transfer/Transfer.hooks';
-import {MAX_TOTAL_BALANCE} from '../components/Features/Transfer/Transfer.strings';
-import {ActionType, TransactionStatus} from '../enums';
-import {starknet} from '../libs';
+} from '../providers/ModalProvider/modal-hooks';
 import {useL1Token, useTokens} from '../providers/TokensProvider';
-import {useTransfers} from '../providers/TransfersProvider';
+import {useAmount, useSelectedToken} from '../providers/TransferProvider';
+import {useTransfersLog} from '../providers/TransfersLogProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {
@@ -265,7 +265,7 @@ const useTransfer = () => {
   const showErrorModal = useErrorModal();
   const hideModal = useHideModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
-  const {addTransfer} = useTransfers();
+  const {addTransfer} = useTransfersLog();
   const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 

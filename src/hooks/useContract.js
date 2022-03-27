@@ -2,10 +2,10 @@ import {useCallback, useMemo} from 'react';
 
 import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
-import {useTransferData} from '../components/Features/Transfer/Transfer.hooks';
 import {STARKNET_CONTRACT_ADDRESS} from '../config/contracts';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
+import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet, useWallets} from '../providers/WalletsProvider';
 import utils from '../utils';
 
@@ -35,7 +35,7 @@ export const useContract = (ABI, getContractHandler = utils.blockchain.ethereum.
 export const useTokenContract = () => {
   const getL1TokenContract = useL1TokenContract();
   const getL2TokenContract = useL2TokenContract();
-  const {isL1} = useTransferData();
+  const {isL1} = useTransfer();
   return useCallback(
     tokenAddresses =>
       isL1 ? getL1TokenContract(tokenAddresses) : getL2TokenContract(tokenAddresses),
@@ -46,7 +46,7 @@ export const useTokenContract = () => {
 export const useTokenBridgeContract = () => {
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
   const getL2TokenBridgeContract = useL2TokenBridgeContract();
-  const {isL1} = useTransferData();
+  const {isL1} = useTransfer();
   return useCallback(
     bridgeAddress =>
       isL1 ? getL1TokenBridgeContract(bridgeAddress) : getL2TokenBridgeContract(bridgeAddress),
