@@ -2,6 +2,7 @@ import {useCallback} from 'react';
 
 import {initiateWithdraw, withdraw} from '../api/bridge';
 import {ActionType, TransactionStatus} from '../enums';
+import {useLogWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
@@ -10,7 +11,6 @@ import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
-import {useLogWithdrawalListener} from '../providers/EventManagerProvider';
 
 export const useTransferToL1 = () => {
   const logger = useLogger('useTransferToL1');
@@ -20,7 +20,6 @@ export const useTransferToL1 = () => {
   const getTokenBridgeContract = useTokenBridgeContract();
   const {handleProgress, handleData, handleError} = useTransfer();
   const progressOptions = useTransferProgress();
-
 
   return useCallback(
     async amount => {
@@ -89,7 +88,6 @@ export const useCompleteTransferToL1 = () => {
 
   return useCallback(
     async transfer => {
-
       const sendWithdrawal = async () => {
         const {symbol, amount} = transfer;
         const {bridgeAddress, decimals} = getL1Token(symbol);
@@ -99,7 +97,7 @@ export const useCompleteTransferToL1 = () => {
           amount,
           decimals,
           contract: tokenBridgeContract,
-          emitter: (error) => {
+          emitter: error => {
             if (!error) {
               logger.log('Tx signed');
               handleProgress(progressOptions.withdraw(amount, symbol));
@@ -108,15 +106,15 @@ export const useCompleteTransferToL1 = () => {
         });
       };
 
-      const onLogWithdrawal = (error,event)=>{
+      const onLogWithdrawal = (error, event) => {
         logger.log('Done', event.transactionHash);
         handleData({...transfer, l1hash: event.transactionHash});
-      }
+      };
 
       try {
         logger.log('CompleteTransferToL1 called');
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
-        addLogWithdrawalListener(onLogWithdrawal)
+        addLogWithdrawalListener(onLogWithdrawal);
         logger.log('Calling withdraw');
         await sendWithdrawal();
       } catch (ex) {

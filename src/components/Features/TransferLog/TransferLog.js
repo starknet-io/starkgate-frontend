@@ -6,8 +6,10 @@ import {
   isOnChain,
   isPending,
   isRejected,
-  NetworkType, TransactionStatus,
-  TransactionStatusFriendlyMessage, TransactionStatusStep
+  NetworkType,
+  TransactionStatus,
+  TransactionStatusFriendlyMessage,
+  TransactionStatusStep
 } from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
