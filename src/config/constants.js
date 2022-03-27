@@ -32,6 +32,10 @@ const constants = {
           account
         })
     }
+  },
+  DISCORD: {
+    url: 'https://discord.gg/MRjKBXtaDt',
+    target: 'Discord StarkGate Channel'
   }
 };
 

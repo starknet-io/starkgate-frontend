@@ -2,7 +2,8 @@ const strings = {
   containers: {
     header: {
       chain_txt: '{{chainName}} testnet',
-      wallet_btn_txt: 'Account | {{address}}'
+      wallet_btn_txt: 'Account | {{address}}',
+      tab_discord: 'Discord'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
