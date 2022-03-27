@@ -6,3 +6,5 @@ export const CHAIN_TXT = chainName =>
   );
 
 export const TAB_DISCORD = utils.getTranslation('containers.header.tab_discord');
+
+export const TAB_FAQ = utils.getTranslation('containers.header.tab_faq');

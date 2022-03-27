@@ -3,7 +3,8 @@ const strings = {
     header: {
       chain_txt: '{{chainName}} testnet',
       wallet_btn_txt: 'Account | {{address}}',
-      tab_discord: 'Discord'
+      tab_discord: 'Discord',
+      tab_faq: 'FAQ'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
@@ -46,6 +47,9 @@ const strings = {
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
       transfer_btn_txt: 'Transfer'
+    },
+    faq: {
+      title_txt: 'FAQ'
     }
   },
   modals: {

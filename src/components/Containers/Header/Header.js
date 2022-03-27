@@ -10,11 +10,11 @@ import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsPr
 import utils from '../../../utils';
 import {WalletButton, Tab} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD} from './Header.strings';
+import {CHAIN_TXT, TAB_DISCORD, TAB_FAQ} from './Header.strings';
 
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
-  const {showAccountMenu, showTransferMenu} = useMenu();
+  const {showAccountMenu, showTransferMenu, showFaqMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
@@ -40,6 +40,10 @@ export const Header = () => {
     utils.browser.openInNewTab(DISCORD.url, DISCORD.target);
   };
 
+  const onTabFaqClick = () => {
+    showFaqMenu();
+  };
+
   return (
     <div className={utils.object.toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
       <div className={utils.object.toClasses(styles.left, 'row')}>
@@ -52,7 +56,8 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab label={TAB_DISCORD} onClick={onTabDiscordClick}></Tab>
+        <Tab label={TAB_FAQ} onClick={onTabFaqClick}></Tab>
+        <Tab label={TAB_DISCORD} style={{marginRight: '5px'}} onClick={onTabDiscordClick}></Tab>
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}
