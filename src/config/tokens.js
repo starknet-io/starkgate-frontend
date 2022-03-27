@@ -55,7 +55,7 @@ const l1tokens = [
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x3ebB6C28BD63aDa2feA81f1e6c5a50aFe53B5feE'
+      [ChainType.GOERLI.id]: '0xd8beAa22894Cd33F24075459cFba287a10a104E4'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
@@ -136,11 +136,11 @@ const l2tokens = [
     decimals: 18,
     bridgeAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x015605ab0d2a2883dd72fe014bb997578fe8ce73caa91d1c0973a68efc6a43c5'
+      [ChainType.GOERLI.id]: '0x0278f24c3e74cbf7a375ec099df306289beb0605a346277d200b791a7f811a19'
     },
     tokenAddress: {
       [ChainType.MAIN.id]: '',
-      [ChainType.GOERLI.id]: '0x00da19dab05e9f3cd09c3aa0d8046415b3d7f7dbbd83e1c2e4946792298fbe28'
+      [ChainType.GOERLI.id]: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9'
     }
   },
   {
