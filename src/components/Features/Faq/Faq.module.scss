@@ -2,6 +2,7 @@
 
 $color: $--color-white;
 $active-color: $--color-beta;
+$border-color: $--color-alpha-3;
 $font: $--primary-font;
 $background-question: $--color-alpha-3;
 
@@ -10,9 +11,25 @@ $background-question: $--color-alpha-3;
   max-height: 500px;
   overflow-y: auto;
   text-align: left;
-  line-height: 1.6;
+
+  .container {
+    color: $color;
+    padding: 13px;
+    border-radius: 7px;
+    border-color: $border-color;
+    border-style: solid;
+    border-width: 2px;
+    margin: 10px 0 0;
+    overflow-y: auto;
+    max-height: 372px;
+
+    > ol {
+      margin-top: -20px;
+    }
+  }
 
   ol {
+    line-height: 1.6;
     padding-inline-start: 20px;
     margin-block-start: 0;
     padding-right: 16px;
@@ -39,7 +56,7 @@ $background-question: $--color-alpha-3;
           z-index: 0;
           top: -10px;
           left: -20px;
-          width: 486px;
+          width: 462px;
           height: calc(100% + 20px);
           background-color: $background-question;
           border-radius: 7px;
