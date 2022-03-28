@@ -63,4 +63,4 @@ configMap:
   # for deployments environment variables.
   # @default: production
   # @type: string
-  env: development
+  env: testing

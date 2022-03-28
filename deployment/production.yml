@@ -67,7 +67,7 @@ ingress:
 
   # Host name to create Ingress rules.
   # @type: string
-  host: goerli.starkgate.starknet.io
+  host: starkgate.starknet.io
 
 # Consume ConfigMaps as environment variables.
 configMap:
