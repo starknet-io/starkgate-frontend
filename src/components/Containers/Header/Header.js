@@ -10,7 +10,7 @@ import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsPr
 import utils from '../../../utils';
 import {WalletButton, Tab} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD} from './Header.strings';
+import {CHAIN_TXT, TAB_DISCORD_TXT} from './Header.strings';
 
 const {DISCORD_LINK_URL} = constants;
 
@@ -53,7 +53,7 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab label={TAB_DISCORD} onClick={onTabDiscordClick}></Tab>
+        <Tab label={TAB_DISCORD_TXT} onClick={onTabDiscordClick}></Tab>
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}
