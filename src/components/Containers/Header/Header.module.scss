@@ -64,7 +64,8 @@ $chain-color: $--color-white-1;
     .tabs {
       display: flex;
       flex-flow: row nowrap;
-      > button {
+
+      button {
         margin: 0 12px 0 0;
       }
     }
