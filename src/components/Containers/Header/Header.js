@@ -12,6 +12,8 @@ import {WalletButton, Tab} from '../../UI';
 import styles from './Header.module.scss';
 import {CHAIN_TXT, TAB_DISCORD} from './Header.strings';
 
+const {DISCORD_LINK_URL} = constants;
+
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -20,7 +22,6 @@ export const Header = () => {
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {DISCORD} = constants;
 
   const onL2WalletButtonClick = () => {
     swapToL2();
@@ -37,7 +38,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
-    utils.browser.openInNewTab(DISCORD.url, DISCORD.target);
+    utils.browser.openInNewTab(DISCORD_LINK_URL.url, DISCORD_LINK_URL.target);
   };
 
   return (

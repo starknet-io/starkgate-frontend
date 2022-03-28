@@ -33,7 +33,7 @@ const constants = {
         })
     }
   },
-  DISCORD: {
+  DISCORD_LINK_URL: {
     url: 'https://discord.gg/MRjKBXtaDt',
     target: 'Discord StarkGate Channel'
   }
