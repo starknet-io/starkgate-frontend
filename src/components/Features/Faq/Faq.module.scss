@@ -1,16 +1,32 @@
 @import '../../../index';
 
 $color: $--color-white;
-$active-color: $--color-beta;
+$link-color: $--color-gamma;
+$link-color-hover: $--color-gamma-1;
+$visited-link-color: $--color-alpha-6;
+$visited-link-color-hover: $--color-alpha-6-hover;
 $border-color: $--color-alpha-3;
-$font: $--primary-font;
-$background-question: $--color-alpha-3;
+$background-answer: $--color-alpha-3;
 
 .faq {
   color: $color;
   max-height: 500px;
   overflow-y: auto;
   text-align: left;
+
+  a {
+    color: $link-color;
+    &:hover {
+      color: $link-color-hover;
+    }
+    &:visited {
+      color: $visited-link-color;
+
+      &:hover {
+        color: $visited-link-color-hover;
+      }
+    }
+  }
 
   .container {
     color: $color;
@@ -38,6 +54,10 @@ $background-question: $--color-alpha-3;
       position: relative;
       margin-bottom: 40px;
 
+      h4 {
+        letter-spacing: 0.7px;
+      }
+
       &::marker {
         font-size: 16px;
         font-weight: 600;
@@ -58,7 +78,7 @@ $background-question: $--color-alpha-3;
           left: -20px;
           width: 462px;
           height: calc(100% + 20px);
-          background-color: $background-question;
+          background-color: $background-answer;
           border-radius: 7px;
         }
       }
