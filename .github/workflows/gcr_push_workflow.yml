@@ -21,14 +21,6 @@ jobs:
     name: Build tag and push docker images to GCR.
     runs-on: ubuntu-latest
     steps:
-      - name: Build docker tag
-        uses: mad9000/actions-find-and-replace-string@1
-        id: dockerTag
-        with:
-          source: ${{ github.ref_name }}
-          find: '@'
-          replace: '-v'
-
       - name: Login to Gcloud using starkgate service account.
         uses: google-github-actions/setup-gcloud@v0
         with:
