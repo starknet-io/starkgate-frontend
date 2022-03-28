@@ -33,9 +33,7 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
-  const maxTotalBalance = useMaxTotalBalance();
 
-  console.log('::', {maxDeposit, maxTotalBalance});
   useEffect(() => {
     if (!selectedToken) {
       selectToken(tokens[0].symbol);
