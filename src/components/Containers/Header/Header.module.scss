@@ -55,9 +55,15 @@ $chain-color: $--color-white-1;
   .right {
     margin-left: 20px;
 
-    button {
-      &:not(:last-child) {
+    & > button {
+      margin: 0 16px 0 0;
+
+      &:first-child {
         margin-right: 10px;
+      }
+
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
