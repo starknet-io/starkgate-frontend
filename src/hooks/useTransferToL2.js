@@ -106,7 +106,7 @@ export const useTransferToL2 = () => {
               decimals,
               contract: tokenContract
             }));
-        return 1 < tokenBridgeBalance + Number(amount);
+        return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
       try {
