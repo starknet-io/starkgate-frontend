@@ -10,7 +10,7 @@ jobs:
   release-version:
     name: Releasing a version
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.head_commit.message, 'chore') || (github.ref_name == 'master' && !contains(github.event.head_commit.message, 'chore(release)')) }}
+    if: ${{ !contains(github.event.head_commit.message, 'release') || (github.ref_name == 'master' && !contains(github.event.head_commit.message, 'release')) }}
     steps:
       - uses: actions/checkout@v2
         with:

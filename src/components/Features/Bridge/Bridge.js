@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Account, SelectToken, ToastProvider, Transfer, FAQ} from '..';
+import {Account, FAQ, SelectToken, ToastProvider, Transfer} from '..';
 import {MenuType} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
 import styles from './Bridge.module.scss';
