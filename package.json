@@ -5,8 +5,8 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
-    "build": "react-scripts build",
-    "build:testing": "env-cmd -f .env.testing npm run build",
+    "build:production": "react-scripts build",
+    "build:testing": "env-cmd -f .env.testing npm run build:production",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
