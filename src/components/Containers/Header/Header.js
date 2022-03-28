@@ -38,7 +38,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
-    utils.browser.openInNewTab(DISCORD_LINK_URL.url, DISCORD_LINK_URL.target);
+    utils.browser.openInNewTab(DISCORD_LINK_URL, DISCORD_LINK_URL);
   };
 
   return (
