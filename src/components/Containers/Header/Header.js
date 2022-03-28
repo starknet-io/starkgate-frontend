@@ -10,7 +10,9 @@ import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsPr
 import utils from '../../../utils';
 import {WalletButton, Tab} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD, TAB_FAQ} from './Header.strings';
+import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ} from './Header.strings';
+
+const {DISCORD_LINK_URL} = constants;
 
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
@@ -20,7 +22,6 @@ export const Header = () => {
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {DISCORD} = constants;
 
   const onL2WalletButtonClick = () => {
     swapToL2();
@@ -37,7 +38,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
-    utils.browser.openInNewTab(DISCORD.url, DISCORD.target);
+    utils.browser.openInNewTab(DISCORD_LINK_URL, DISCORD_LINK_URL);
   };
 
   const onTabFaqClick = () => {
@@ -57,7 +58,7 @@ export const Header = () => {
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
         <Tab label={TAB_FAQ} onClick={onTabFaqClick}></Tab>
-        <Tab label={TAB_DISCORD} style={{marginRight: '5px'}} onClick={onTabDiscordClick}></Tab>
+        <Tab label={TAB_DISCORD_TXT} style={{marginRight: '5px'}} onClick={onTabDiscordClick}></Tab>
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}

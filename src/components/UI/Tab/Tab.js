@@ -5,7 +5,7 @@ import styles from './Tab.module.scss';
 
 export const Tab = ({onClick, label, style}) => {
   return (
-    <button className={styles.tab} style={style} onClick={() => onClick()}>
+    <button className={styles.tab} style={style} onClick={onClick}>
       {label}
     </button>
   );

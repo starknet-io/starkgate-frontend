@@ -3,7 +3,7 @@ const strings = {
     header: {
       chain_txt: '{{chainName}} testnet',
       wallet_btn_txt: 'Account | {{address}}',
-      tab_discord: 'Discord',
+      tab_discord_txt: 'Discord',
       tab_faq: 'FAQ'
     },
     footer: {
