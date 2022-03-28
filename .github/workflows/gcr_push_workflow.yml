@@ -38,40 +38,40 @@ jobs:
         if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
 
       - name: Build with production env and push with mainnet and stable tags.
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
-          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
 
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
           docker push ${{ inputs.image_name }}:stable
 
       - name: Build with testing env and push with goerli tag.
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
 
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
 
       - name: Build with production env and push with mainnet and stable tags.
-        if: ${{ inputs.branch_name == 'refs/heads/deployment' }}
+        if: ${{ inputs.branch_name == 'refs/heads/deploy' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
-          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
 
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
           docker push ${{ inputs.image_name }}:stable
 
       - name: Build with testing env and push with goerli tag.
-        if: ${{ inputs.branch_name == 'refs/heads/deployment' }}
+        if: ${{ inputs.branch_name == 'refs/heads/deploy' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
 
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
