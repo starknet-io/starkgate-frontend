@@ -53,8 +53,10 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab label={TAB_FAQ_TXT} onClick={showFaqMenu}></Tab>
-        <Tab label={TAB_DISCORD_TXT} onClick={onTabDiscordClick}></Tab>
+        <div className={styles.tabs}>
+          <Tab label={TAB_FAQ_TXT} onClick={showFaqMenu}></Tab>
+          <Tab label={TAB_DISCORD_TXT} onClick={onTabDiscordClick}></Tab>
+        </div>
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}

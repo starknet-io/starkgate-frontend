@@ -11,7 +11,7 @@ export const Faq = () => {
   return (
     <Menu>
       <div className={styles.faq}>
-        <BackButton onClick={() => showTransferMenu()} />
+        <BackButton onClick={showTransferMenu} />
         <MenuTitle text={TITLE_TXT} />
         <div className={styles.container}>
           <ol>
