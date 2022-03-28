@@ -1,0 +1,18 @@
+.walletButton {
+  margin: 0 10px;
+  border-width: 2px;
+  transition: 0.3s ease-in-out;
+
+  &.mobile {
+    width: 80px;
+
+    img {
+      margin-right: 0;
+    }
+  }
+
+  &.tablet {
+    width: 150px;
+    font-size: 16px;
+  }
+}

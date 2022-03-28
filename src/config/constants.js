@@ -32,7 +32,8 @@ const constants = {
           account
         })
     }
-  }
+  },
+  DISCORD_LINK_URL: '//discord.gg/MRjKBXtaDt'
 };
 
 export default constants;

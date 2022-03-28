@@ -18,6 +18,7 @@ export const useTokenBalance = account => {
 
 export const useL2TokenBalance = account => {
   const getContract = useL2TokenContract();
+
   return useCallback(
     async token => {
       const {tokenAddress, decimals} = token;
@@ -29,6 +30,7 @@ export const useL2TokenBalance = account => {
 
 export const useL1TokenBalance = account => {
   const getContract = useL1TokenContract();
+
   return useCallback(
     async token => {
       const {tokenAddress, decimals} = token;
