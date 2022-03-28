@@ -88,25 +88,36 @@ export const useCompleteTransferToL1 = () => {
 
   return useCallback(
     async transfer => {
-      const sendWithdrawal = async () => {
-        const {symbol, amount} = transfer;
+      const {symbol, amount} = transfer;
+
+      const sendWithdrawal = () => {
         const {bridgeAddress, decimals} = getL1Token(symbol);
         const tokenBridgeContract = getL1TokenBridgeContract(bridgeAddress);
-        return await withdraw({
+        return withdraw({
           recipient: l1Account,
           amount,
           decimals,
           contract: tokenBridgeContract,
-          emitter: (error, transactionHash) => {
-            if (!error) {
-              logger.log('Tx signed', {transactionHash});
-              handleProgress(progressOptions.withdraw(amount, symbol));
-            }
-          }
+          emitter: onTransactionHash
         });
       };
 
+      const onTransactionHash = (error, transactionHash) => {
+        if (error) {
+          logger.error(error.message);
+          handleError(progressOptions.error(error));
+          return;
+        }
+        logger.log('Tx signed', {transactionHash});
+        handleProgress(progressOptions.withdraw(amount, symbol));
+      };
+
       const onLogWithdrawal = (error, event) => {
+        if (error) {
+          logger.error(error.message);
+          handleError(progressOptions.error(error));
+          return;
+        }
         logger.log('Done', event.transactionHash);
         handleData({...transfer, l1hash: event.transactionHash});
       };
@@ -116,7 +127,7 @@ export const useCompleteTransferToL1 = () => {
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
         addLogWithdrawalListener(onLogWithdrawal);
         logger.log('Calling withdraw');
-        await sendWithdrawal();
+        sendWithdrawal();
       } catch (ex) {
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));

@@ -13,7 +13,7 @@ export const useTransfer = () => {
   const showErrorModal = useErrorModal();
   const hideModal = useHideModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal();
-  const {addTransfer} = useTransfersLog();
+  const {addTransfer, updateTransfer} = useTransfersLog();
   const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 
@@ -26,10 +26,10 @@ export const useTransfer = () => {
     showErrorModal(error.type, error.message);
   };
 
-  const handleData = data => {
-    addTransfer(data);
-    showTransactionSubmittedModal(data);
-    updateTokenBalance(data.symbol);
+  const handleData = transfer => {
+    transfer.id ? updateTransfer(transfer) : addTransfer(transfer);
+    showTransactionSubmittedModal(transfer);
+    updateTokenBalance(transfer.symbol);
     clearAmount();
   };
 
