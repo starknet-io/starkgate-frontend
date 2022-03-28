@@ -42,10 +42,36 @@ jobs:
           docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
           docker push ${{ inputs.image_name }}
 
-      - name: Build and push images to GCR, with tag stable and git tag.
+      - name: Build with production env and push with mainnet and stable tags.
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
           docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+
           docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
           docker push ${{ inputs.image_name }}:stable
+
+      - name: Build with testing env and push with goerli tag.
+        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+
+          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+
+      - name: Build with production env and push with mainnet and stable tags.
+        if: ${{ inputs.branch_name == 'refs/heads/deployment' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+
+          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
+          docker push ${{ inputs.image_name }}:stable
+
+      - name: Build with testing env and push with goerli tag.
+        if: ${{ inputs.branch_name == 'refs/heads/deployment' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
+
+          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}-goerli
