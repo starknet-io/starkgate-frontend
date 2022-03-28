@@ -4,9 +4,9 @@ import React, {useEffect, useState} from 'react';
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
 import constants from '../../../../config/constants';
+import envs from '../../../../config/envs';
 import {ActionType} from '../../../../enums';
 import {useColors} from '../../../../hooks';
-import {useWallets} from '../../../../providers/WalletsProvider';
 import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
@@ -18,10 +18,10 @@ import {
   TRANSFER_TO_L2_TXT
 } from './TransactionSubmittedModal.strings';
 
-const {LINKS} = constants;
+const {ETHERSCAN, VOYAGER} = constants;
+const {etherscanTxUrl, voyagerTxUrl} = envs;
 
 const TransactionSubmittedModal = ({transfer}) => {
-  const {chainId} = useWallets();
   const [networkData, setNetworkData] = useState({});
 
   useEffect(() => {
@@ -32,16 +32,16 @@ const TransactionSubmittedModal = ({transfer}) => {
         message:
           type === ActionType.TRANSFER_TO_L2 ? TRANSFER_TO_L2_TXT : COMPLETE_TRANSFER_TO_L1_TXT,
         showStatusMsg: type === ActionType.TRANSFER_TO_L2,
-        explorerName: LINKS.ETHERSCAN.text,
-        explorerUrl: LINKS.ETHERSCAN.txUrl(chainId, l1hash),
+        explorerName: ETHERSCAN,
+        explorerUrl: etherscanTxUrl(l1hash),
         explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
       });
     } else {
       setNetworkData({
         message: TRANSFER_TO_L1_TXT,
         showStatusMsg: true,
-        explorerName: LINKS.VOYAGER.text,
-        explorerUrl: LINKS.VOYAGER.txUrl(chainId, l2hash),
+        explorerName: VOYAGER,
+        explorerUrl: voyagerTxUrl(l2hash),
         explorerLogo: <L2Logo style={{margin: 'auto'}} />
       });
     }

@@ -16,8 +16,8 @@ import {useTransferProgress} from './useTransferProgress';
 
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
-  const {account: l1Account, chainId, config: l1Config} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
+  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
@@ -32,10 +32,10 @@ export const useTransferToL2 = () => {
       const tokenContract = getTokenContract(tokenAddress);
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
       const isEthToken = utils.token.isEth(symbol);
-      const tokenBridgeAddress = bridgeAddress[chainId];
+      const tokenBridgeAddress = bridgeAddress[l1ChainId];
 
-      const readAllowance = async () => {
-        return await allowance({
+      const readAllowance = () => {
+        return allowance({
           owner: l1Account,
           spender: tokenBridgeAddress,
           decimals,
@@ -52,24 +52,34 @@ export const useTransferToL2 = () => {
         });
       };
 
-      const sendDeposit = async () => {
+      const sendDeposit = () => {
         const depositHandler = isEthToken ? depositEth : deposit;
-        return await depositHandler({
+        return depositHandler({
           recipient: l2Account,
           amount,
           decimals,
           contract: bridgeContract,
           options: {from: l1Account},
-          emitter: (error, transactionHash) => {
-            if (!error) {
-              logger.log('Tx signed', {transactionHash});
-              handleProgress(progressOptions.deposit(amount, symbol));
-            }
-          }
+          emitter: onTransactionHash
         });
       };
 
+      const onTransactionHash = (error, transactionHash) => {
+        if (error) {
+          logger.error(error.message);
+          handleError(progressOptions.error(error));
+          return;
+        }
+        logger.log('Tx signed', {transactionHash});
+        handleProgress(progressOptions.deposit(amount, symbol));
+      };
+
       const onLogMessageToL2 = (error, event) => {
+        if (error) {
+          logger.error(error.message);
+          handleError(progressOptions.error(error));
+          return;
+        }
         logger.log('Done', event.transactionHash);
         handleData({
           type: ActionType.TRANSFER_TO_L2,
@@ -92,7 +102,7 @@ export const useTransferToL2 = () => {
             to_address,
             selector,
             payload,
-            chainId,
+            l2ChainId,
             nonce
           )
         };
@@ -129,7 +139,7 @@ export const useTransferToL2 = () => {
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
         addLogMessageToL2Listener(onLogMessageToL2);
         logger.log('Calling deposit');
-        await sendDeposit();
+        sendDeposit();
       } catch (ex) {
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));
@@ -138,7 +148,7 @@ export const useTransferToL2 = () => {
     [
       selectedToken,
       addLogMessageToL2Listener,
-      chainId,
+      l1ChainId,
       l1Account,
       l2Account,
       l1Config,
