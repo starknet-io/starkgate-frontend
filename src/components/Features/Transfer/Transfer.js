@@ -16,7 +16,7 @@ import {
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
+import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_DEPOSIT_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isL1, swapToL1] = useIsL1();
@@ -52,7 +52,7 @@ export const Transfer = () => {
           setIsButtonDisabled(true);
         } else if (isL1 && amount > maxDeposit) {
           setHasInputError(true);
-          setErrorMsg(MAX_AMOUNT_ERROR_MSG(maxDeposit, symbol));
+          setErrorMsg(MAX_DEPOSIT_ERROR_MSG(maxDeposit, symbol));
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);

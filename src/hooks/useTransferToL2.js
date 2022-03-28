@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 
 import {deposit, depositEth} from '../api/bridge';
-import {allowance, approve} from '../api/erc20';
+import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
 import {ActionType, TransactionHashPrefix} from '../enums';
 import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
@@ -10,6 +10,7 @@ import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogger} from './useLogger';
+import {useMaxTotalBalance} from './useTokenConstant';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -23,26 +24,28 @@ export const useTransferToL2 = () => {
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
+  const maxTotalBalance = useMaxTotalBalance();
 
   return useCallback(
     async amount => {
       const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
-      const isEthToken = utils.token.isEth(symbol);
       const tokenContract = getTokenContract(tokenAddress);
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
+      const isEthToken = utils.token.isEth(symbol);
+      const tokenBridgeAddress = bridgeAddress[l1ChainId];
 
       const readAllowance = () => {
         return allowance({
           owner: l1Account,
-          spender: bridgeAddress[l1ChainId],
+          spender: tokenBridgeAddress,
           decimals,
           contract: tokenContract
         });
       };
 
-      const sendApproval = () => {
-        return approve({
-          spender: bridgeAddress[l1ChainId],
+      const sendApproval = async () => {
+        return await approve({
+          spender: tokenBridgeAddress,
           value: starknet.constants.MASK_250,
           contract: tokenContract,
           options: {from: l1Account}
@@ -105,8 +108,24 @@ export const useTransferToL2 = () => {
         };
       };
 
+      const isMaxBalanceExceeded = async () => {
+        const tokenBridgeBalance = await (isEthToken
+          ? ethBalanceOf(tokenBridgeAddress)
+          : balanceOf({
+              account: tokenBridgeAddress,
+              decimals,
+              contract: tokenContract
+            }));
+        return maxTotalBalance < tokenBridgeBalance + Number(amount);
+      };
+
       try {
         logger.log('TransferToL2 called');
+        if (await isMaxBalanceExceeded()) {
+          logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
+          handleError(progressOptions.maxTotalBalanceError());
+          return;
+        }
         if (!isEthToken) {
           logger.log('Token needs approval');
           handleProgress(progressOptions.approval(symbol));
@@ -139,7 +158,8 @@ export const useTransferToL2 = () => {
       handleError,
       handleProgress,
       logger,
-      progressOptions
+      progressOptions,
+      maxTotalBalance
     ]
   );
 };

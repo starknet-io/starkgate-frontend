@@ -40,7 +40,7 @@ const strings = {
       to_txt: 'to',
       from_txt: 'from',
       insufficient_balance_error_msg: 'Insufficient balance',
-      max_amount_error_msg:
+      max_deposit_error_msg:
         'StarkNet Alpha Limitation: transfer to StarkNet limited to {{maxAmount}} {{symbol}}.',
       max_btn_txt: 'Max',
       balance_title_txt: 'Available balance',
@@ -84,7 +84,10 @@ const strings = {
         message: 'Waiting for confirmation from {{walletName}}'
       },
       confirm_txt: 'Confirm this transaction in your wallet',
-      error_title: 'Transaction error'
+      max_total_balance_error_msg:
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
+      error_title: 'Transaction error',
+      limitation_error_title: 'Limitation error'
     }
   },
   toasts: {
