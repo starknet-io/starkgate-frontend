@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
+import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
@@ -92,9 +92,9 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       const msg = error.message.replace(/\d+/g, match => {
         let msg = match;
-        const chainName = utils.string.capitalize(toChainName(Number(match)));
+        const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)].NAME);
         if (chainName) {
-          msg += ` (${utils.string.capitalize(toChainName(Number(match)))})`;
+          msg += ` (${utils.string.capitalize(ChainInfo.L1[Number(match)].NAME)})`;
         }
         return msg;
       });
