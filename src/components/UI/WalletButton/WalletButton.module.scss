@@ -5,6 +5,10 @@
 
   &.mobile {
     width: 80px;
+
+    img {
+      margin-right: 0;
+    }
   }
 
   &.tablet {

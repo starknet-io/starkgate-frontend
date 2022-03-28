@@ -15,6 +15,7 @@ export * from './MaxButton/MaxButton';
 export * from './NetworkMenu/NetworkMenu';
 export * from './NetworkSwap/NetworkSwap';
 export * from './NetworkTitle/NetworkTitle';
+export * from './Tab/Tab';
 export * from './TokenBalance/TokenBalance';
 export * from './TokenInput/TokenInput';
 export * from './TokenSelector/TokenSelector';
