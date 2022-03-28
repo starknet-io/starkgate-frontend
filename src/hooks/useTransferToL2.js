@@ -149,6 +149,7 @@ export const useTransferToL2 = () => {
       selectedToken,
       addLogMessageToL2Listener,
       l1ChainId,
+      l2ChainId,
       l1Account,
       l2Account,
       l1Config,

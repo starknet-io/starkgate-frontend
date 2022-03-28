@@ -9,7 +9,9 @@ export const useWallets = () => {
   const {isL1} = useTransfer();
 
   const connectWallet = useCallback(walletConfig => wallets.connectWallet(walletConfig), []);
+
   const resetWallet = useCallback(() => wallets.resetWallet(), []);
+
   const swapWallets = useCallback(() => wallets.swapWallets(), []);
 
   useEffect(() => {

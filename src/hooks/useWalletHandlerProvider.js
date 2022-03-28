@@ -24,8 +24,9 @@ export const useWalletHandlerProvider = () => {
   }, []);
 
   return useCallback(
-    type =>
-      type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers,
+    type => {
+      return type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers;
+    },
     [handlers]
   );
 };

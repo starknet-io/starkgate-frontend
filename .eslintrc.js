@@ -169,10 +169,10 @@ module.exports = {
     'react/react-in-jsx-scope': 'off', // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks - https://fr.reactjs.org/docs/hooks-rules.html#eslint-plugin
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies - https://fr.reactjs.org/docs/hooks-rules.html#eslint-plugin
-    quotes: ['error', 'single'], // https://eslint.org/docs/rules/quotes
+    quotes: ['error', 'single', {avoidEscape: true}], // https://eslint.org/docs/rules/quotes
     'comma-dangle': [
       // https://eslint.org/docs/rules/comma-dangle
-      'error',
+      'off',
       {
         arrays: 'always-multiline',
         objects: 'always-multiline',
@@ -195,6 +195,8 @@ module.exports = {
         object: true,
         array: false
       }
-    ]
+    ],
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off'
   }
 };
