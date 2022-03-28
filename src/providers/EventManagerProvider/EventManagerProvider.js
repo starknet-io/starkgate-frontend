@@ -22,8 +22,7 @@ export const EventManagerProvider = ({children}) => {
   const l2Tokens = useL2Tokens();
 
   useEffect(() => {
-    addLogDepositListener();
-    addLogWithdrawalListener();
+    addLogDepositWithdrawalListeners();
     addLogMessageToL2Listener();
   }, []);
 
@@ -107,22 +106,7 @@ export const EventManagerProvider = ({children}) => {
     }
   };
 
-  const addLogWithdrawalListener = () => {
-    l1Tokens.forEach(l1Token => {
-      const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
-      logger.log(`Add ${EventName.L1.LOG_WITHDRAWAL} listener for token ${l1Token.symbol}.`);
-      addContractEventListener(
-        bridgeContract,
-        EventName.L1.LOG_WITHDRAWAL,
-        {
-          recipient: l1Account
-        },
-        onLogWithdrawal
-      );
-    });
-  };
-
-  const addLogDepositListener = () => {
+  const addLogDepositWithdrawalListeners = () => {
     l1Tokens.forEach(l1Token => {
       const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
       logger.log(`Add ${EventName.L1.LOG_DEPOSIT} listener for token ${l1Token.symbol}.`);
@@ -134,6 +118,15 @@ export const EventManagerProvider = ({children}) => {
           l2Recipient: l2Account
         },
         onLogDeposit
+      );
+      logger.log(`Add ${EventName.L1.LOG_WITHDRAWAL} listener for token ${l1Token.symbol}.`);
+      addContractEventListener(
+        bridgeContract,
+        EventName.L1.LOG_WITHDRAWAL,
+        {
+          recipient: l1Account
+        },
+        onLogWithdrawal
       );
     });
   };
