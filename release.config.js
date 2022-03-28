@@ -21,7 +21,6 @@ module.exports = {
           {type: 'fix', release: 'patch'},
           {type: 'bugfix', release: 'patch'},
           {type: 'hotfix', release: 'patch'},
-          {type: 'chore', release: 'patch'},
           {type: 'perf', release: 'patch'},
           {type: 'refactor', release: 'patch'},
           {type: 'improvement', release: 'patch'},
@@ -31,6 +30,7 @@ module.exports = {
           {type: 'ci', release: 'patch'},
           {type: 'test', release: 'patch'},
           // NO RELEASE
+          {type: 'chore', release: false},
           {type: 'ci', release: false},
           {type: 'build', release: false},
           {type: 'prerelease', release: false},
@@ -53,13 +53,13 @@ module.exports = {
             {type: 'fix', section: '🔧 Fixes'},
             {type: 'bugfix', section: '🔧 Fixes'},
             {type: 'hotfix', section: '🔧 Fixes'},
-            {type: 'chore', section: '💉 Improvements'},
             {type: 'perf', section: '💉 Improvements'},
             {type: 'refactor', section: '💉 Improvements'},
             {type: 'improvement', section: '💉 Improvements'},
             {type: 'style', section: '💉 Improvements'},
             {type: 'docs', section: '📚 Docs'},
 
+            {type: 'chore', section: '⚙ Internals', hidden: true},
             {type: 'ci', section: '⚙ Internals', hidden: true},
             {type: 'build', section: '⚙ Internals', hidden: true},
             {

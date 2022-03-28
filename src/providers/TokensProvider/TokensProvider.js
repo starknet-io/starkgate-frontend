@@ -38,7 +38,7 @@ export const TokensProvider = ({children}) => {
       const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
       getBalance(token)
         .then(balance => {
-          logger.log(`New ${token.symbol} token balance is ${balance}`);
+          logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
           updateTokenState(index, {balance, isLoading: false});
         })
         .catch(ex => {

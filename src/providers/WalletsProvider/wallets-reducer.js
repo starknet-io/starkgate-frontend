@@ -12,7 +12,7 @@ const initialWalletState = {
   isConnected: false,
   status: WalletStatus.DISCONNECTED,
   chainName: '',
-  chainId: -1,
+  chainId: null,
   error: null,
   config: null
 };

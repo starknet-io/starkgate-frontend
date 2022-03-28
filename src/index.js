@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {App} from './App';
-import {ModalProvider} from './components/Features';
+import {ModalWrapper} from './components/UI';
 import './index.scss';
 import {Providers} from './providers';
 import utils from './utils';
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'development' || utils.browser.getUrlParameter('deb
 ReactDOM.render(
   <Providers>
     <App />
-    <ModalProvider />
+    <ModalWrapper />
   </Providers>,
   document.getElementById('root')
 );

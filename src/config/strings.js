@@ -2,7 +2,9 @@ const strings = {
   containers: {
     header: {
       chain_txt: '{{chainName}} testnet',
-      wallet_btn_txt: 'Account | {{address}}'
+      wallet_btn_txt: 'Account | {{address}}',
+      tab_discord_txt: 'Discord',
+      tab_faq: 'FAQ'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
@@ -14,7 +16,8 @@ const strings = {
       title_txt: 'Login',
       subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
       download_txt: ['Don’t have a wallet?', 'Download Here'],
-      modal_txt: 'Waiting for confirmation from {{walletName}}'
+      modal_txt: 'Waiting for confirmation from {{walletName}}',
+      unsupported_browser_txt: `Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect.`
     },
     account: {
       title_txt: '{{network}} Account',
@@ -38,12 +41,15 @@ const strings = {
       to_txt: 'to',
       from_txt: 'from',
       insufficient_balance_error_msg: 'Insufficient balance',
-      max_amount_error_msg:
+      max_deposit_error_msg:
         'StarkNet Alpha Limitation: transfer to StarkNet limited to {{maxAmount}} {{symbol}}.',
       max_btn_txt: 'Max',
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
       transfer_btn_txt: 'Transfer'
+    },
+    faq: {
+      title_txt: 'FAQ'
     }
   },
   modals: {
@@ -82,7 +88,10 @@ const strings = {
         message: 'Waiting for confirmation from {{walletName}}'
       },
       confirm_txt: 'Confirm this transaction in your wallet',
-      error_title: 'Transaction error'
+      max_total_balance_error_msg:
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
+      error_title: 'Transaction error',
+      limitation_error_title: 'Limitation error'
     }
   },
   toasts: {

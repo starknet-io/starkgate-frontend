@@ -1,31 +1,30 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import constants from '../../../config/constants';
+import envs from '../../../config/envs';
 import {
   isOnChain,
-  isPending,
   isRejected,
   NetworkType,
-  TransactionStatusFriendlyMessage
+  TransactionStatus,
+  TransactionStatusFriendlyMessage,
+  TransactionStatusStep
 } from '../../../enums';
 import {useColors} from '../../../hooks';
-import {useWallets} from '../../../providers/WalletsProvider';
+import {useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
-import {useTransferData} from '../Transfer/Transfer.hooks';
 import styles from './TransferLog.module.scss';
 import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
 
-const {LINKS} = constants;
+const {voyagerTxUrl, etherscanTxUrl} = envs;
 
 export const TransferLog = ({transfer, onCompleteTransferClick}) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
-  const {action, isL1} = useTransferData();
-  const {chainId} = useWallets();
+  const {action, isL1} = useTransfer();
 
   useEffect(() => {
     setSign(transfer.type === action ? '-' : '+');
@@ -46,7 +45,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
       <LinkButton
         isDisabled={!l1hash}
         text={`${NetworkType.L1.name} Tx`}
-        url={LINKS.ETHERSCAN.txUrl(chainId, l1hash)}
+        url={etherscanTxUrl(l1hash)}
       />
     );
   };
@@ -55,9 +54,9 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
     return (
       <>
         <LinkButton
-          isDisabled={isPending(status)}
+          isDisabled={TransactionStatusStep[status] > TransactionStatus.NOT_RECEIVED}
           text={`${NetworkType.L2.name} Tx`}
-          url={LINKS.VOYAGER.txUrl(chainId, l2hash)}
+          url={voyagerTxUrl(l2hash)}
         />
       </>
     );

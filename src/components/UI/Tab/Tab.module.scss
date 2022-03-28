@@ -1,0 +1,30 @@
+@import '../../../index';
+
+$color: $--color-white;
+$active-color: $--color-beta;
+
+.tab {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 1.2;
+  margin: 10px 0;
+  padding: 20px 4px;
+  cursor: pointer;
+  background-color: transparent;
+  color: $color;
+  text-decoration: none;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 7px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $active-color;
+    text-decoration-color: $active-color;
+  }
+}

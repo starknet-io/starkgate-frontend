@@ -20,8 +20,7 @@
 StarkNet is a permissionless decentralized Rollup operating as an L2 network over Ethereum.\
 The _StarkNet bridge_ allows users to transfer ERC20 tokens from Ethereum to StarkNet and vice versa.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and
-uses [Redux Toolkit](https://redux-toolkit.js.org/) for state management.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Prerequisites
 

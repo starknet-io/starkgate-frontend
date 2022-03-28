@@ -1,31 +1,41 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
+import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ActionType, isConsumed, isOnChain, isRejected, NetworkType} from '../../../enums';
+import {
+  ActionType,
+  isConsumed,
+  isMobile,
+  isOnChain,
+  isRejected,
+  NetworkType,
+  Breakpoint
+} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
-import {useTransfers} from '../../../providers/TransfersProvider';
+import {useMenu} from '../../../providers/MenuProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
+import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import utils from '../../../utils';
-import {ToastBody, TransferToast, CompleteTransferToL1Toast} from '../../UI';
-import {useBridgeActions} from '../Bridge/Bridge.hooks';
-import {useIsL1, useIsL2} from '../Transfer/Transfer.hooks';
+import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 export const ToastProvider = () => {
-  const {transfers} = useTransfers();
+  const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const toastsMap = useRef({});
   const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
-  const {showAccountMenu} = useBridgeActions();
+  const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
+  const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
     showAlphaDisclaimerToast();
-  }, []);
+  }, [breakpoint]);
 
   useDeepCompareEffect(() => {
     transfers.forEach(transfer => {
@@ -60,7 +70,7 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
-      position: 'bottom-left',
+      position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-left',
       icon: '❗'
     });
   };

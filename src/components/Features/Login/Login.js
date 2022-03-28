@@ -1,14 +1,20 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {NetworkType, toChainName, WalletStatus, WalletType} from '../../../enums';
+import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
+import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
-import {useHideModal, useProgressModal} from '../ModalProvider/ModalProvider.hooks';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
-import {DOWNLOAD_TEXT, MODAL_TXT, SUBTITLE_TXT, TITLE_TXT} from './Login.strings';
+import {
+  DOWNLOAD_TEXT,
+  MODAL_TXT,
+  SUBTITLE_TXT,
+  TITLE_TXT,
+  UNSUPPORTED_BROWSER_TXT
+} from './Login.strings';
 
 export const Login = () => {
   const {autoConnect} = useConfig();
@@ -25,6 +31,10 @@ export const Login = () => {
 
   useEffect(() => {
     let timeoutId;
+    if (!utils.browser.isChrome()) {
+      setErrorMsg(UNSUPPORTED_BROWSER_TXT);
+      return;
+    }
     if (autoConnect) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
@@ -82,9 +92,9 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       const msg = error.message.replace(/\d+/g, match => {
         let msg = match;
-        const chainName = utils.string.capitalize(toChainName(Number(match)));
+        const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)].NAME);
         if (chainName) {
-          msg += ` (${utils.string.capitalize(toChainName(Number(match)))})`;
+          msg += ` (${utils.string.capitalize(ChainInfo.L1[Number(match)].NAME)})`;
         }
         return msg;
       });
@@ -116,6 +126,7 @@ export const Login = () => {
         <WalletLogin
           key={id}
           description={description}
+          isDisabled={!utils.browser.isChrome()}
           logoPath={logoPath}
           name={name}
           onClick={() => onWalletConnect(walletHandler)}

@@ -56,6 +56,18 @@ export const maxDeposit = async ({decimals, contract}) => {
   }
 };
 
+export const maxTotalBalance = async ({decimals, contract}) => {
+  try {
+    const maxTotalBalance = await utils.blockchain.ethereum.callContract(
+      contract,
+      'maxTotalBalance'
+    );
+    return utils.parser.parseFromDecimals(maxTotalBalance, decimals);
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
+};
+
 export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
   try {
     return utils.blockchain.starknet.sendTransaction(contract, 'initiate_withdraw', {
