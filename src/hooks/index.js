@@ -13,4 +13,4 @@ export * from './useTransferToL1';
 export * from './useTransferToL2';
 export * from './useConfig';
 export * from './useTransferProgress';
-export * from './useMaxDeposit';
+export * from './useTokenConstant';

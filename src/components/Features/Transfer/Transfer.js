@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
-import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
+import {useMaxDeposit, useMaxTotalBalance, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
@@ -16,7 +16,7 @@ import {
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
+import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_DEPOSIT_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isL1, swapToL1] = useIsL1();
@@ -33,7 +33,9 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+  const maxTotalBalance = useMaxTotalBalance();
 
+  console.log('::', {maxDeposit, maxTotalBalance});
   useEffect(() => {
     if (!selectedToken) {
       selectToken(tokens[0].symbol);
@@ -52,7 +54,7 @@ export const Transfer = () => {
           setIsButtonDisabled(true);
         } else if (isL1 && amount > maxDeposit) {
           setHasInputError(true);
-          setErrorMsg(MAX_AMOUNT_ERROR_MSG(maxDeposit, symbol));
+          setErrorMsg(MAX_DEPOSIT_ERROR_MSG(maxDeposit, symbol));
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);
