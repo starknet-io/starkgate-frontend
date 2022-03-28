@@ -16,9 +16,11 @@ $background-answer: $--color-alpha-3;
 
   a {
     color: $link-color;
+
     &:hover {
       color: $link-color-hover;
     }
+
     &:visited {
       color: $visited-link-color;
 
