@@ -3,15 +3,14 @@ import React from 'react';
 
 import styles from './Tab.module.scss';
 
-export const Tab = ({onClick, label, style}) => {
+export const Tab = ({onClick, label}) => {
   return (
-    <button className={styles.tab} style={style} onClick={onClick}>
+    <button className={styles.tab} onClick={onClick}>
       {label}
     </button>
   );
 };
 Tab.propTypes = {
   label: PropTypes.string,
-  onClick: PropTypes.func,
-  style: PropTypes.object
+  onClick: PropTypes.func
 };
