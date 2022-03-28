@@ -4,25 +4,24 @@ export const faqs = [
     answer: `
       <p>
         To understand how StarkGate works, please see this post, the
-        <a href="//starknet.io/documentation/starkgate-token-bridge/" target="_blank">technical documentation</a>,
+        <a href="//starknet.io/documentation/starkgate-token-bridge/" target="_blank">Technical Documentation</a>,
         the <a href="//github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate" target="_blank">contract’s code</a>,
-        and the <a href="//github.com/starkware-libs/starkgate-frontend" target="_blank">front end code</a>.
+        and the <a href="//github.com/starkware-libs/starkgate-frontend" target="_blank">application code</a>.
       </p>
     `
   },
   {
-    question: `I’m unable to use StarkGate Alpha; what could be the problem? `,
+    question: `I'm unable to use StarkGate Alpha; What could be the problem?`,
     answer: `
-      <div>
         <p>
-          A: The first version currently has some restrictions that may affect your ability
+          The first version currently has some restrictions that may affect your ability
           to use StarkGate:
         </p>
         <ol type="a">
           <li>Make sure you are browsing from Chrome.</li>
           <li>Make sure you are not using incognito mode.</li>
           <li>
-            Ensure that you have successfolly installed the required wallets (MetaMask +
+            Ensure that you have successfully installed the required wallets (MetaMask +
             Argent X). If you haven’t installed one of these wallets, please do so and
             refresh the page.
           </li>
@@ -36,7 +35,6 @@ export const faqs = [
             there is high congestion. Please be patient and try again later :)
           </li>
         </ol>
-      </div>
     `
   },
   {
@@ -111,7 +109,6 @@ export const faqs = [
   {
     question: `Why there are restrictions on using the browser?`,
     answer: `
-      <div>
         <p>
           In StarkGate Alpha, your transfer’s log history is saved in the local storage of
           the browser.
@@ -133,11 +130,10 @@ export const faqs = [
           <li>Do not refresh the page while the transfer is being processed</li>
           <li>Do not delete the local storage of the browser</li>
         </ul>
-      </div>
     `
   },
   {
-    question: `I can’t find solutions to the problems I encountered while using StarkGate. Where can I get help?`,
+    question: `I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?`,
     answer: `
       <p>We have opened a <em>community channel on Discord</em> to help each other use StarkGate.</p>
     `
