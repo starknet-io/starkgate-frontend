@@ -46,9 +46,9 @@ jobs:
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
-          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
 
-          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-minnet
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
           docker push ${{ inputs.image_name }}:stable
 
       - name: Build with testing env and push with goerli tag.
