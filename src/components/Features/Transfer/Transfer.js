@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
-import {useMaxDeposit, useMaxTotalBalance, useTransferToL1, useTransferToL2} from '../../../hooks';
+import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
