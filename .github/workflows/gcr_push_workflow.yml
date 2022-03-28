@@ -57,11 +57,3 @@ jobs:
           docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
           docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
           docker push ${{ inputs.image_name }}:stable
-
-      - name: Build and push images to GCR, with tag latest and git tag.
-        if: ${{ inputs.branch_name == 'refs/heads/deployment' }}
-        run: |
-          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
-          docker push ${{ inputs.image_name }}:${{ steps.dockerTag.outputs.value }}
-          docker push ${{ inputs.image_name }}
