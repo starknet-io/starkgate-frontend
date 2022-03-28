@@ -10,7 +10,6 @@ export const Tab = ({label, onClick}) => {
     </button>
   );
 };
-
 Tab.propTypes = {
   label: PropTypes.string,
   onClick: PropTypes.func
