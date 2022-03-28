@@ -1,10 +1,10 @@
 import React from 'react';
 
+import {faqs} from '../../../config/faqs';
 import {useMenu} from '../../../providers/MenuProvider';
 import {BackButton, Menu, MenuTitle} from '../../UI';
 import styles from './Faq.module.scss';
 import {TITLE_TXT} from './Faq.strings';
-import {faqs} from './Faq.text';
 
 export const Faq = () => {
   const {showTransferMenu} = useMenu();
