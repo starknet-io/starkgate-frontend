@@ -13,20 +13,6 @@ $chain-color: $--color-white-1;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
 
-  &.mobile {
-    height: #{$height - 10}px;
-    padding: 0 30px;
-
-    .left {
-      .logo {
-        svg {
-          width: 150px;
-          height: 35px;
-        }
-      }
-    }
-  }
-
   .left {
     display: flex;
     flex-direction: column;
@@ -58,6 +44,20 @@ $chain-color: $--color-white-1;
     button {
       &:not(:last-child) {
         margin-right: 10px;
+      }
+    }
+  }
+
+  &.mobile {
+    height: #{$height - 10}px;
+    padding: 0 30px;
+
+    .left {
+      .logo {
+        svg {
+          width: 150px;
+          height: 35px;
+        }
       }
     }
   }

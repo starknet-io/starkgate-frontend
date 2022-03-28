@@ -1,18 +1,23 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.2-10",
+  "version": "0.0.0",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "prebuild": "npm run clean",
+    "prebuild": "yarn run clean",
     "build": "react-scripts build",
-    "build:testing": "env-cmd -f .env.testing npm run build",
+    "build:testing": "env-cmd -f .env.testing yarn run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "format": "prettier --write \"**/*.+(js|jsx|json|scss|css|md)\"",
+    "lint:scripts": "eslint **/*.{js,jsx}",
+    "lint:styles": "stylelint **/*.{css,scss}",
+    "lint:prettier": "prettier --check s**/*.{js,jsx,css,scss}",
+    "lint": "yarn run -s lint:scripts & yarn run -s lint:styles & yarn run -s lint:prettier",
+    "format:scripts": "eslint --fix **/*.{js,jsx}",
+    "format:styles": "stylelint --fix **/*.{css,scss}",
+    "format:prettier": "prettier --write **/*.{js,jsx,css,scss}",
+    "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier",
     "release": "standard-version",
     "release:dry": "standard-version --dry-run",
     "pre-release": "standard-version --prerelease --skip.changelog --releaseCommitMessageFormat 'chore(prerelease): {{currentTag}}'"
@@ -23,12 +28,15 @@
     }
   },
   "lint-staged": {
-    "*.+(js|jsx)": [
+    "**/*.{js,jsx}": [
+      "prettier --write",
       "eslint --fix",
-      "prettier --write --ignore-unknown"
+      "git add"
     ],
-    "*.+(json|scss|css|md)": [
-      "prettier --write"
+    "**/*.{css,scss}": [
+      "prettier --write",
+      "stylelint --fix",
+      "git add"
     ]
   },
   "browserslist": {
@@ -63,22 +71,51 @@
     "web3": "^1.6.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/eslint-plugin": "^7.14.5",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-syntax-flow": "^7.16.0",
+    "@babel/plugin-transform-react-jsx": "^7.16.0",
+    "@babel/preset-flow": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/commit-analyzer": "^9.0.1",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
     "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^25.3.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.0.1",
+    "eslint-plugin-testing-library": "^5.0.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "node-sass": "^6.0.1",
+    "postcss": "^8.4.4",
     "prettier": "^2.5.1",
+    "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.7.2",
     "sass-loader": "^12.1.0",
-    "standard-version": "^9.3.1"
+    "standard-version": "^9.3.1",
+    "stylelint": "^14.1.0",
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-prettier": "^2.0.0",
+    "stylelint-scss": "^4.0.0"
   },
   "engines": {
     "node": ">=16.0.0",
