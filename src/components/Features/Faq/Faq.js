@@ -16,7 +16,7 @@ export const Faq = () => {
         <div className={styles.container}>
           <ol>
             <li className={styles.question}>
-              <h3>Where can I find more in-depth information on how StarkGate works?</h3>
+              <h4>Where can I find more in-depth information on how StarkGate works?</h4>
               <div className={styles.answer}>
                 <p>
                   To understand how StarkGate works, please see this post, the technical
@@ -25,7 +25,7 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>I’m unable to use StarkGate Alpha; what could be the problem?</h3>
+              <h4>I’m unable to use StarkGate Alpha; what could be the problem?</h4>
               <div className={styles.answer}>
                 <p>
                   A: The first version currently has some restrictions that may affect your ability
@@ -52,10 +52,10 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>
+              <h4>
                 I performed the operation and have been waiting for completion for a long time. Why
                 is that, and what should I do?
-              </h3>
+              </h4>
               <div className={styles.answer}>
                 <ol type="a">
                   <li>
@@ -73,10 +73,10 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>
+              <h4>
                 I performed a StarkNet → Ethereum transfer a few hours ago, and my balance on
                 Ethereum has not been updated yet. What should I do?
-              </h3>
+              </h4>
               <div className={styles.answer}>
                 <ol type="a">
                   <li>
@@ -100,10 +100,10 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>
+              <h4>
                 What are the limitations that are intentionally constrained by StarkGate Alpha? Why
                 do they exist? And, what will happen if they reach the limits?
-              </h3>
+              </h4>
               <div className={styles.answer}>
                 <p>
                   StarkGate Alpha has two limitations at its first stage in order to reduce risk:
@@ -128,7 +128,7 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>Why are there restrictions on using the browser?</h3>
+              <h4>Why are there restrictions on using the browser?</h4>
               <div className={styles.answer}>
                 <p>
                   In StarkGate Alpha, your transfer’s log history is saved in the local storage of
@@ -154,10 +154,10 @@ export const Faq = () => {
               </div>
             </li>
             <li className={styles.question}>
-              <h3>
+              <h4>
                 I can’t find solutions to the problems I encountered while using StarkGate. Where
                 can I get help?
-              </h3>
+              </h4>
               <div className={styles.answer}>
                 <p>
                   We have opened a community channel on Discord to help each other use StarkGate.
