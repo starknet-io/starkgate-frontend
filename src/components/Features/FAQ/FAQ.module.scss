@@ -10,7 +10,6 @@ $background-answer: $--color-alpha-3;
 
 .faq {
   color: $color;
-  max-height: 500px;
   overflow-y: auto;
   text-align: left;
 
@@ -32,14 +31,10 @@ $background-answer: $--color-alpha-3;
 
   .container {
     color: $color;
-    padding: 13px;
-    border-radius: 7px;
-    border-color: $border-color;
-    border-style: solid;
-    border-width: 2px;
-    margin: 10px 0 0;
+    padding: 15px;
+    margin: 10px 0;
     overflow-y: auto;
-    max-height: 372px;
+    max-height: 450px;
 
     > ol {
       margin-top: -20px;

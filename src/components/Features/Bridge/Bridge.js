@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Account, SelectToken, ToastProvider, Transfer, Faq} from '..';
+import {Account, SelectToken, ToastProvider, Transfer, FAQ} from '..';
 import {MenuType} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
 import styles from './Bridge.module.scss';
@@ -17,7 +17,7 @@ export const Bridge = () => {
       case MenuType.ACCOUNT:
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
       case MenuType.FAQ:
-        return <Faq />;
+        return <FAQ />;
     }
   };
 
