@@ -56,13 +56,13 @@ $background-answer: $--color-alpha-3;
       position: relative;
       margin-bottom: 40px;
 
-      h4 {
-        letter-spacing: 0.7px;
-      }
-
       &::marker {
         font-size: 16px;
         font-weight: 600;
+      }
+
+      h4 {
+        letter-spacing: 0.7px;
       }
 
       & * {
