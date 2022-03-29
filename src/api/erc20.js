@@ -38,8 +38,8 @@ export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
       const {balance} = await utils.blockchain.starknet.callContract(
         contract,
         'balanceOf',
-        [{account}],
-        TransactionStatus.PENDING.toLowerCase()
+        account,
+        {blockIdentifier: TransactionStatus.PENDING.toLowerCase()}
       );
       return utils.parser.parseFromUint256(balance, decimals);
     }
