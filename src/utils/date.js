@@ -27,3 +27,10 @@ export const get24Time = timestamp => {
 export const getFullTime = timestamp => {
   return `${getDate(timestamp)}, ${get24Time(timestamp)}`;
 };
+
+export const getMsFromHrs = hours => {
+  const parsed = parseFloat(hours, 10);
+  if (!isNaN(parsed)) {
+    return parsed * 60 * 60 * 1000;
+  }
+};
