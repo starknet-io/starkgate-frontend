@@ -55,18 +55,20 @@ $chain-color: $--color-white-1;
   .right {
     margin-left: 20px;
 
-    button {
-      &:not(:last-child) {
-        margin: 0 16px 0 0;
-      }
-    }
-
     .tabs {
       display: flex;
-      flex-flow: row nowrap;
+      flex-direction: row;
+      margin-right: 10px;
+    }
+
+    .walletButtons {
+      display: flex;
+      flex-direction: row;
 
       button {
-        margin: 0 12px 0 0;
+        &:not(:last-child) {
+          margin-right: 30px;
+        }
       }
     }
   }
