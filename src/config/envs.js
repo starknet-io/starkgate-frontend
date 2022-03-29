@@ -14,7 +14,9 @@ const envs = {
   voyagerTxUrl: tx => utils.object.evaluate(`${process.env.REACT_APP_VOYAGER_URL}/tx/{{tx}}`, {tx}),
   voyagerAccountUrl: contract =>
     utils.object.evaluate(`${process.env.REACT_APP_VOYAGER_URL}/contract/{{contract}}`, {contract}),
-  localStorageTransfersLogKey: process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY
+  localStorageTransfersLogKey: process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY,
+  localStorageOnboardingTimestampKey: process.env.REACT_APP_LOCAL_STORAGE_ONBOARDING_TIMESTAMP_KEY,
+  onboardingModalTimeoutHr: process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HR
 };
 
 export default envs;

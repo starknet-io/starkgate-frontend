@@ -27,3 +27,7 @@ export const get24Time = timestamp => {
 export const getFullTime = timestamp => {
   return `${getDate(timestamp)}, ${get24Time(timestamp)}`;
 };
+
+export const hsToMs = hours => {
+  return Number.parseInt(hours, 10) * 60 * 60 * 1000;
+};

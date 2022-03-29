@@ -69,3 +69,16 @@ export const useErrorModal = () => {
     [showModal]
   );
 };
+
+export const useOnboardingModal = () => {
+  const {showModal} = useContext(ModalContext);
+
+  return useCallback(() => {
+    showModal({
+      componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
+      componentProps: null,
+      title: utils.getTranslation('modals.onboarding.title_txt'),
+      isClosable: true
+    });
+  }, [showModal]);
+};

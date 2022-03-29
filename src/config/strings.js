@@ -92,6 +92,18 @@ const strings = {
         'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
       error_title: 'Transaction error',
       limitation_error_title: 'Limitation error'
+    },
+    onboarding: {
+      title_txt: 'Before takeoff, a few important notes:',
+      subtitle_txt: 'While using StarkGate Alpha:',
+      bullets_txt: [
+        'Use Google Chrome',
+        'Refrain from switching browsers',
+        'Do not refresh the page while the transfer is being processed',
+        'Do not delete the local storage of the browser'
+      ],
+      incognito_txt:
+        'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
     }
   },
   toasts: {
