@@ -2,16 +2,16 @@
 
 ## First time installation
 
-1. Connect to production kubernetes cluster
+1. Authenticate
+
+```bash
+gcloud auth login
+```
+
+2. Connect to production kubernetes cluster
 
 ```bash
 gcloud container clusters get-credentials web-devs --region us-central1 --project starkware-dev
-```
-
-2. Switch to starkgate namespace
-
-```bash
-kubens starkgate
 ```
 
 3. Deploy application using helm CLI.
@@ -20,13 +20,11 @@ kubens starkgate
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/production.yaml \
---set-file configMap.backend.envs=packages/backend/.env.production \
---set-file configMap.frontend.envs=packages/frontend/.env.production \
---namespace starkgate \
+--values deployment/production.yml \
+--set-file configMap.frontend.envs=.env.production \
+--namespace starkgate-mainnet \
 --create-namespace \
---set frontend.image.tag=VERSION \
---set backend.image.tag=VERSION
+--set frontend.image.tag=VERSION
 ```
 
 > **Note:** Change image VERSION to the new git tag.
@@ -35,13 +33,22 @@ helm install starkgate starkware/webapp-general-helm \
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/testing.yaml \
---set-file configMap.backend.envs=packages/backend/.env.testing \
---set-file configMap.frontend.envs=packages/frontend/.env.testing \
---namespace starkgate-testing \
+--values deployment/testing.yml \
+--set-file configMap.frontend.envs=.env.testing \
+--namespace starkgate-goerli \
 --create-namespace \
---set frontend.image.tag=VERSION \
---set backend.image.tag=VERSION
+--set frontend.image.tag=VERSION
+```
+
+#### Devnet
+
+```bash
+helm install starkgate starkware/webapp-general-helm \
+--values deployment/development.yml \
+--set-file configMap.frontend.envs=.env.testing \
+--namespace starkgate-devnet \
+--create-namespace \
+--set frontend.image.tag=VERSION
 ```
 
 > **Note:** Change image VERSION to the new git tag.
@@ -52,28 +59,40 @@ helm install starkgate starkware/webapp-general-helm \
 
 Upgrade starknet faucet helm chart.
 
+1. Authenticate
+
+```bash
+gcloud auth login
+```
+
 ### Production
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/production.yaml \
---set-file configMap.backend.envs=packages/backend/.env.production \
---set-file configMap.frontend.envs=packages/frontend/.env.production \
---namespace starkgate \
---set frontend.image.tag=VERSION \
---set backend.image.tag=VERSION
+--values deployment/production.yml \
+--set-file configMap.frontend.envs=.env.production \
+--namespace starkgate-mainnet \
+--set frontend.image.tag=VERSION
 ```
 
 ### Testing
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/testing.yaml \
---set-file configMap.backend.envs=packages/backend/.env.testing \
---set-file configMap.frontend.envs=packages/frontend/.env.testing \
---namespace starkgate-testing \
---set frontend.image.tag=VERSION \
---set backend.image.tag=VERSION
+--values deployment/testing.yml \
+--set-file configMap.frontend.envs=.env.testing \
+--namespace starkgate-goerli \
+--set frontend.image.tag=VERSION
+```
+
+### Devnet
+
+```bash
+helm upgrade starkgate starkware/webapp-general-helm \
+--values deployment/development.yml \
+--set-file configMap.frontend.envs=.env.testing \
+--namespace starkgate-devnet \
+--set frontend.image.tag=VERSION
 ```
 
 ## Rollback
