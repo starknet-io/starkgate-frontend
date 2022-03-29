@@ -50,7 +50,6 @@ helm install starkgate starkware/webapp-general-helm \
 
 > **Note:** Upgrade only if you already run `helm install`
 
-
 Upgrade starknet faucet helm chart.
 
 ### Production
