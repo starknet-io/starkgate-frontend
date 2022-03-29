@@ -28,6 +28,11 @@ export const getFullTime = timestamp => {
   return `${getDate(timestamp)}, ${get24Time(timestamp)}`;
 };
 
-export const hsToMs = hours => {
-  return Number.parseInt(hours, 10) * 60 * 60 * 1000;
+export const getMsFromHs = hours => {
+  const parsed = Number.parseFloat(hours, 10);
+  if (Number.isNaN(parsed)) {
+    return undefined;
+  } else {
+    return parsed * 60 * 60 * 1000;
+  }
 };

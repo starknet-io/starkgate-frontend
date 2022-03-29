@@ -94,7 +94,7 @@ const strings = {
       limitation_error_title: 'Limitation error'
     },
     onboarding: {
-      title_txt: 'Before takeoff, a few important notes:',
+      title_txt: 'Before takeoff, a few important notes',
       subtitle_txt: 'While using StarkGate Alpha:',
       bullets_txt: [
         'Use Google Chrome',

@@ -21,7 +21,7 @@ export const Bridge = () => {
   const maybeShowOnboardingModal = () => {
     const onboardingTimestamp = utils.storage.getItem(localStorageOnboardingTimestampKey);
     const currentTime = new Date().getTime();
-    const timeout = utils.date.hsToMs(onboardingModalTimeoutHr);
+    const timeout = utils.date.getMsFromHs(onboardingModalTimeoutHr);
     if (!onboardingTimestamp || Number.parseInt(onboardingTimestamp, 10) < currentTime) {
       showOnboardingModal();
       utils.storage.setItem(localStorageOnboardingTimestampKey, currentTime + timeout);
