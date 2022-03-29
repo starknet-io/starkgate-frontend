@@ -1,6 +1,6 @@
 export const faqs = [
   {
-    question: `Where can I find more in-depth information on how StarkGate works?`,
+    question: 'Where can I find more in-depth information on how StarkGate works?',
     answer: `
       <p>
         To understand how StarkGate works, please see this post, the
@@ -11,7 +11,7 @@ export const faqs = [
     `
   },
   {
-    question: `I'm unable to use StarkGate Alpha; What could be the problem?`,
+    question: "I'm unable to use StarkGate Alpha; what could be the problem?",
     answer: `
         <p>
           The first version currently has some restrictions that may affect your ability
@@ -38,7 +38,8 @@ export const faqs = [
     `
   },
   {
-    question: `I performed the operation and have been waiting for completion for a long time. Why is that, and what should I do? `,
+    question:
+      'I performed the operation and have been waiting for completion for a long time. Why is that, and what should I do? ',
     answer: `
       <ol type="a">
         <li>
@@ -56,7 +57,8 @@ export const faqs = [
     `
   },
   {
-    question: `I performed a StarkNet → Ethereum transfer a few hours ago, and my balance on Ethereum has not been updated yet. What should I do?`,
+    question:
+      'I performed a StarkNet → Ethereum transfer a few hours ago, and my balance on Ethereum has not been updated yet. What should I do?',
     answer: `
       <ol type="a">
         <li>
@@ -80,7 +82,8 @@ export const faqs = [
     `
   },
   {
-    question: `What are the limitations that are intentionally constrained by StarkGate Alpha? Why do they exist? And, what will happen if they reach the limits?`,
+    question:
+      'What are the limitations that are intentionally constrained by StarkGate Alpha? Why do they exist? And, what will happen if they reach the limits?',
     answer: `
       <div>
         <p>
@@ -107,7 +110,7 @@ export const faqs = [
     `
   },
   {
-    question: `Why there are restrictions on using the browser?`,
+    question: 'Why there are restrictions on using the browser?',
     answer: `
         <p>
           In StarkGate Alpha, your transfer’s log history is saved in the local storage of
@@ -133,7 +136,8 @@ export const faqs = [
     `
   },
   {
-    question: `I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?`,
+    question:
+      "I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?",
     answer: `
       <p>We have opened a <em>community channel on Discord</em> to help each other use StarkGate.</p>
     `

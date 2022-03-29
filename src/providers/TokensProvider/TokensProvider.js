@@ -20,9 +20,9 @@ export const TokensProvider = ({children}) => {
   }, []);
 
   const updateTokenBalance = symbol => {
-    logger.log(`Update token balance`, {symbol});
+    logger.log('Update token balance', {symbol});
     const tokensToUpdate = symbol ? tokens.filter(token => token.symbol === symbol) : tokens;
-    logger.log(`Tokens to update`, {tokensToUpdate});
+    logger.log('Tokens to update', {tokensToUpdate});
     for (let index = 0; index < tokensToUpdate.length; index++) {
       const token = tokensToUpdate[index];
       if (token.isLoading) {

@@ -74,7 +74,7 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    let serialError = error ? {...error} : null;
+    const serialError = error ? {...error} : null;
     updateL1Wallet({
       account,
       status,
