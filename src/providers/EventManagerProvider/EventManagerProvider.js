@@ -141,7 +141,7 @@ export const EventManagerProvider = ({children}) => {
       {
         from_address: l1BridgesAddresses,
         to_address: l2BridgesAddress,
-        selector: starknet.stark.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
+        selector: starknet.hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
       },
       onLogMessageToL2
     );

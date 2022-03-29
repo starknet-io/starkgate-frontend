@@ -1,15 +1,15 @@
 import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
 import {getStarknet, starknet} from '../../libs';
 
-const {compileCalldata, Contract, defaultProvider, stark, hash, number} = starknet;
+const {Contract, defaultProvider, stark, hash, number} = starknet;
 
 export const createContract = (address, ABI) => {
   return new Contract(ABI, address);
 };
 
-export const callContract = async (contract, method, args = [], blockIdentifier = null) => {
+export const callContract = async (contract, method, ...args) => {
   try {
-    return await contract.call(method, ...args, blockIdentifier);
+    return await contract.call(method, args);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -17,13 +17,13 @@ export const callContract = async (contract, method, args = [], blockIdentifier 
 
 export const sendTransaction = async (contract, method, args = {}) => {
   try {
-    const methodSelector = stark.getSelectorFromName(method);
-    const compiledCalldata = compileCalldata(args);
-    return await getStarknet().signer.invokeFunction(
-      contract.connectedTo,
-      methodSelector,
-      compiledCalldata
-    );
+    const calldata = stark.compileCalldata(args);
+    const transaction = {
+      contractAddress: contract.address,
+      entrypoint: method,
+      calldata
+    };
+    return await getStarknet().account.execute(transaction);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -68,7 +68,7 @@ export const getTransactionHash = (
   ...additionalData
 ) => {
   const calldata = [number.hexToDecimalString(fromAddress), ...payload];
-  const calldataHash = hash.hashCalldata(calldata);
+  const calldataHash = hash.computeHashOnElements(calldata);
   return hash.computeHashOnElements([
     txHashPrefix,
     0, // version

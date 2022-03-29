@@ -26,7 +26,6 @@ frontend:
     port: 80
     protocol: TCP
 
-
 # Values that configure running a starknet testing.yaml backend on Kubernetes.
 backend:
   # If true, the chart will install all
@@ -62,7 +61,6 @@ backend:
 # If `ingress.tls.enabled` is set to `true`, the Ingress will expose
 # the port 443 on the backend and frontend service.
 ingress:
-
   type: gce
 
   # Host name to create Ingress rules.

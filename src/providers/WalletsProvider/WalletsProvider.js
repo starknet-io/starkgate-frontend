@@ -41,7 +41,7 @@ export const WalletsProvider = ({children}) => {
   };
 
   const connectL2Wallet = async walletConfig => {
-    await getStarknet(!autoConnect && {showModal: true}).enable();
+    await getStarknet().enable(!autoConnect && {showModal: true});
     setL2WalletConfig(walletConfig);
   };
 
