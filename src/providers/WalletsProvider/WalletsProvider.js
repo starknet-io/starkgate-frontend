@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
-import {useIsL1, useIsL2} from '../../components/Features/Transfer/Transfer.hooks';
-import {WalletStatus} from '../../enums';
+import {ChainType, WalletStatus} from '../../enums';
 import {useConfig} from '../../hooks';
 import {getStarknet} from '../../libs';
+import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {actions, initialState, reducer} from './wallets-reducer';
 
@@ -74,7 +74,7 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    let serialError = error ? {...error} : null;
+    const serialError = error ? {...error} : null;
     updateL1Wallet({
       account,
       status,
@@ -97,8 +97,8 @@ export const WalletsProvider = ({children}) => {
     } finally {
       updateL2Wallet({
         status,
-        chainId,
         error,
+        chainId: chainId === ChainType.L1.MAIN ? ChainType.L2.MAIN : ChainType.L2.GOERLI,
         isConnected: isL2Connected,
         account: selectedAddress,
         chainName: networkName

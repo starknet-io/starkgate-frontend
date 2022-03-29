@@ -24,6 +24,7 @@ $chain-color: $--color-white-1;
 
       svg {
         width: 220px;
+        height: 46px;
       }
     }
 
@@ -38,9 +39,36 @@ $chain-color: $--color-white-1;
   }
 
   .right {
-    button {
-      &:not(:last-child) {
-        margin-right: 10px;
+    margin-left: 20px;
+
+    .tabs {
+      display: flex;
+      flex-direction: row;
+      margin-right: 10px;
+    }
+
+    .walletButtons {
+      display: flex;
+      flex-direction: row;
+
+      button {
+        &:not(:last-child) {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
+  &.mobile {
+    height: #{$height - 10}px;
+    padding: 0 30px;
+
+    .left {
+      .logo {
+        svg {
+          width: 150px;
+          height: 35px;
+        }
       }
     }
   }

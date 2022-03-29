@@ -18,7 +18,6 @@ input {
     display: inline-block;
     max-width: 100%;
     text-align: left;
-    outline: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -31,16 +30,16 @@ input {
   }
 }
 
-input::-webkit-input-placeholder {
+input::input-placeholder {
   opacity: 0.5;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 input[type='number'] {
-  -moz-appearance: textfield;
+  appearance: textfield;
 }

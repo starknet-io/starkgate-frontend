@@ -8,7 +8,7 @@ export const setItem = (key, item) => {
 
 export const getItem = key => {
   if (localStorage) {
-    let item = localStorage.getObjectHash(key);
+    const item = localStorage.getObjectHash(key);
     try {
       return JSON.parse(Object.values(item).join(''));
     } catch (ex) {
@@ -20,7 +20,7 @@ export const getItem = key => {
 Storage.prototype.setObjectHash = function (key, myObject) {
   const newObject = {};
   Object.keys(myObject).map(function (value) {
-    newObject[value] = b64e(myObject[value]);
+    return (newObject[value] = b64e(myObject[value]));
   });
   this.setItem(key, b64e(JSON.stringify(newObject)));
 };
@@ -44,7 +44,7 @@ Storage.prototype.getObjectHash = function (key) {
 const b64e = function (str) {
   return btoa(
     encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-      return String.fromCharCode('0x' + p1);
+      return String.fromCharCode(`0x${p1}`);
     })
   );
 };
@@ -53,7 +53,7 @@ const b64d = function (str) {
   return decodeURIComponent(
     Array.prototype.map
       .call(atob(str), function (c) {
-        return '%' + c.charCodeAt(0).toString(16);
+        return `%${c.charCodeAt(0).toString(16)}`;
       })
       .join('')
   );

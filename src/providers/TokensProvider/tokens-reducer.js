@@ -1,12 +1,13 @@
-import {L1Tokens, L2Tokens} from '../../config/addresses';
+import {l1tokens, l2tokens} from '../../config/tokens';
 
 export const actions = {
   UPDATE_TOKEN_STATE: 'Tokens/UPDATE_TOKEN_STATE'
 };
 
-const l1Tokens = L1Tokens.map(t => ({...t, isL1: true}));
-const l2Tokens = L2Tokens.map(t => ({...t, isL2: true}));
-export const initialState = [...l1Tokens, ...l2Tokens];
+export const initialState = [
+  ...l1tokens.map(t => ({...t, isL1: true})),
+  ...l2tokens.map(t => ({...t, isL2: true}))
+];
 
 export const reducer = (state, action) => {
   switch (action.type) {

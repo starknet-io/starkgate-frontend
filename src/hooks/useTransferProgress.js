@@ -4,6 +4,7 @@ import utils from '../utils';
 
 export const useTransferProgress = () => {
   const transferProgressStrings = utils.getTranslation('modals.transferProgress');
+
   return useMemo(
     () => ({
       approval: symbol => {
@@ -60,8 +61,15 @@ export const useTransferProgress = () => {
           type: error_title,
           message: err.message
         };
+      },
+      maxTotalBalanceError: () => {
+        const {limitation_error_title, max_total_balance_error_msg} = transferProgressStrings;
+        return {
+          type: limitation_error_title,
+          message: max_total_balance_error_msg
+        };
       }
     }),
-    []
+    [transferProgressStrings]
   );
 };

@@ -11,6 +11,11 @@ $background-color-hover: $--color-alpha-1;
   align-items: center;
   justify-content: space-between;
 
+  &.isDisabled {
+    pointer-events: none;
+    opacity: 0.2;
+  }
+
   .left {
     display: flex;
 

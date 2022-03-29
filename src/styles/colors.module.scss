@@ -1,7 +1,7 @@
-$--color-white: #ffffff;
+$--color-white: #fff;
 $--color-white-1: #d3dae3;
 $--color-white-2: #d3dae3ff;
-$--color-black: #000000;
+$--color-black: #000;
 $--color-alpha: #15174e;
 $--color-alpha-1: #1c1e52;
 $--color-alpha-2: #23255b;
@@ -20,6 +20,7 @@ $--color-omega-1: #667085;
 $--color-success: #039855;
 $--color-error: #da4646;
 
+/* stylelint scss/dollar-variable-pattern: [/color/, {"ignore": "global"}] */
 :export {
   colorBlack: $--color-black;
   colorWhite: $--color-white;

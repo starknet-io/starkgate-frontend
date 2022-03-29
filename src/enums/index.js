@@ -6,3 +6,6 @@ export * from './WalletType';
 export * from './WalletStatus';
 export * from './TransactionStatus';
 export * from './TransactionHashPrefix';
+export * from './EventName';
+export * from './SelectorName';
+export * from './Breakpoint';

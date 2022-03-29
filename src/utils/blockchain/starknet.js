@@ -1,4 +1,4 @@
-import {byChainId, isRejected, TransactionStatusStep} from '../../enums';
+import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
 import {getStarknet, starknet} from '../../libs';
 
 const {compileCalldata, Contract, defaultProvider, stark, hash, number} = starknet;
@@ -69,7 +69,6 @@ export const getTransactionHash = (
 ) => {
   const calldata = [number.hexToDecimalString(fromAddress), ...payload];
   const calldataHash = hash.hashCalldata(calldata);
-  const {l2IdPrefix} = byChainId(chainId);
   return hash.computeHashOnElements([
     txHashPrefix,
     0, // version
@@ -77,7 +76,15 @@ export const getTransactionHash = (
     selector,
     calldataHash,
     0, // max_fee
-    l2IdPrefix,
+    ChainInfo.L2[chainId].ID_PREFIX,
     ...additionalData
   ]);
+};
+
+export const hashEquals = (...data) => {
+  return !!data.reduce((d1, d2) => {
+    return starknet.hash.computeHashOnElements(d1) === starknet.hash.computeHashOnElements(d2)
+      ? d1
+      : '';
+  });
 };

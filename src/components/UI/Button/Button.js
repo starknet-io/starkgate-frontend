@@ -21,6 +21,7 @@ export const Button = ({
   style,
   isDisabled,
   isLoading,
+  className,
   onClick
 }) => {
   const [isHover, setIsHover] = useState(false);
@@ -38,7 +39,8 @@ export const Button = ({
       className={utils.object.toClasses(
         styles.button,
         isDisabled && styles.isDisabled,
-        isLoading && styles.isLoading
+        isLoading && styles.isLoading,
+        className
       )}
       style={styleObj}
       onClick={onClick}
@@ -68,5 +70,6 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onClick: PropTypes.func,
+  className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
