@@ -30,14 +30,15 @@ export const Bridge = () => {
 
   const renderMenu = () => {
     switch (menu) {
-      case MenuType.TRANSFER:
-        return <Transfer />;
       case MenuType.SELECT_TOKEN:
         return <SelectToken />;
       case MenuType.ACCOUNT:
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
       case MenuType.FAQ:
-        return <FAQ />;
+        return <Faq />;
+      case MenuType.TRANSFER:
+      default:
+        return <Transfer />;
     }
   };
 

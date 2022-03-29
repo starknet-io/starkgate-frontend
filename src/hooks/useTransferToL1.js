@@ -142,7 +142,8 @@ export const useCompleteTransferToL1 = () => {
       handleError,
       handleProgress,
       logger,
-      progressOptions
+      progressOptions,
+      addLogWithdrawalListener
     ]
   );
 };
