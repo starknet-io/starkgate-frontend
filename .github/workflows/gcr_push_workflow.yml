@@ -1,0 +1,60 @@
+name: Push docker image to GCR reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+      branch_name:
+        required: true
+        type: string
+      dockerfile:
+        required: true
+        type: string
+    secrets:
+      gcp_token:
+        required: true
+
+jobs:
+  deploy:
+    name: Build tag and push docker images to GCR.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Gcloud using starkgate service account.
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: starkware-dev
+          service_account_email: starknet-faucet@starkware-dev.iam.gserviceaccount.com
+          service_account_key: ${{ secrets.gcp_token }}
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker --quiet
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and push images to GCR, with tag latest and git tag.
+        if: ${{ inputs.branch_name == 'refs/heads/dev' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}
+
+      - name: Build with production env and push with mainnet and stable tags.
+        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
+
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
+          docker push ${{ inputs.image_name }}:stable
+
+      - name: Build with testing env and push with goerli tag.
+        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
+
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli

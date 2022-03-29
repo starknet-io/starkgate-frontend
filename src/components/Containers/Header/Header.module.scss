@@ -43,7 +43,16 @@ $chain-color: $--color-white-1;
 
     button {
       &:not(:last-child) {
-        margin-right: 10px;
+        margin: 0 16px 0 0;
+      }
+    }
+
+    .tabs {
+      display: flex;
+      flex-flow: row nowrap;
+
+      button {
+        margin: 0 12px 0 0;
       }
     }
   }

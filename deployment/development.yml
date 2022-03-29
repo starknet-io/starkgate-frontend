@@ -1,0 +1,66 @@
+# Values that configure running a starknet starkgate frontend on Kubernetes.
+frontend:
+  # The name of the Docker image (including any tag and repository name)
+  # for the container running starknet faucet frontend.
+  # For example:
+  #''' yaml
+  # image:
+  #   repository: 076859660908.dkr.ecr.us-east-2.amazonaws.com/starknet/faucet/frontend
+  #   tag: latest
+  #   pullPolicy: Always
+  #'''
+  # @type: string
+  image:
+    repository: us.gcr.io/starkware-dev/starknet/starkgate/frontend
+    tag: latest
+    pullPolicy: Always
+
+
+# Values that configure running a starknet starkgate backend on Kubernetes.
+backend:
+  # If true, the chart will install all
+  # the resources necessary for a starknet starkgate backend on Kubernetes.
+  # @default: true
+  # @type: boolean
+  enabled: false
+
+  # The name of the Docker image (including any tag and repository name)
+  # for the container running starknet faucet backend.
+  # For example:
+  #''' yaml
+  # image:
+  #   repository: 076859660908.dkr.ecr.us-east-2.amazonaws.com/starknet/faucet/backend
+  #   tag: latest
+  #   pullPolicy: Always
+  #'''
+  # @type: string
+  image:
+    repository: us.gcr.io/starkware-dev/starknet/starkgate/backend
+    tag: latest
+
+  # Default service variable for starknet starkgate backend pod.
+  service:
+    # Type of service, ex. LoadBalancer, ClusterIP.
+    # @type: string
+    type: ClusterIP
+    name: backend
+    port: 3001
+    protocol: TCP
+
+# Configure Ingress for starknet faucet frontend and backend.
+# If `ingress.tls.enabled` is set to `true`, the Ingress will expose
+# the port 443 on the backend and frontend service.
+ingress:
+
+  type: gce
+  # Host name to create Ingress rules.
+  # @type: string
+  host: devnet-goerli.starkgate.starknet.io
+
+# Consume ConfigMaps as environment variables.
+configMap:
+  # Environment name (development | production | testing)
+  # for deployments environment variables.
+  # @default: production
+  # @type: string
+  env: testing
