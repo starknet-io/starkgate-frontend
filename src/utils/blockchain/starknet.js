@@ -19,7 +19,7 @@ export const sendTransaction = async (contract, method, args = {}) => {
   try {
     const methodSelector = stark.getSelectorFromName(method);
     const compiledCalldata = compileCalldata(args);
-    return getStarknet().signer.invokeFunction(
+    return await getStarknet().signer.invokeFunction(
       contract.connectedTo,
       methodSelector,
       compiledCalldata

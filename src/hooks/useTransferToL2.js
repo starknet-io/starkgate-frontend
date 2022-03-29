@@ -54,13 +54,13 @@ export const useTransferToL2 = () => {
       };
 
       const sendDeposit = () => {
-        const depositHandler = isEthToken ? depositEth : deposit;
         track(TrackEvent.TRANSFER.TRANSFER_TO_L2, {
           from_address: l1Account,
           to_address: l2Account,
           amount,
           symbol
         });
+        const depositHandler = isEthToken ? depositEth : deposit;
         return depositHandler({
           recipient: l2Account,
           amount,

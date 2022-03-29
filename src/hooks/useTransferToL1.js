@@ -6,6 +6,7 @@ import {useLogWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
+import {track, TrackEvent} from '../tracking';
 import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
@@ -25,9 +26,15 @@ export const useTransferToL1 = () => {
     async amount => {
       const {decimals, bridgeAddress, name, symbol} = selectedToken;
 
-      const sendInitiateWithdraw = async () => {
+      const sendInitiateWithdraw = () => {
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
-        return await initiateWithdraw({
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L1, {
+          from_address: l2Account,
+          to_address: l1Account,
+          amount,
+          symbol
+        });
+        return initiateWithdraw({
           recipient: l1Account,
           amount,
           decimals,
@@ -48,6 +55,9 @@ export const useTransferToL1 = () => {
           TransactionStatus.RECEIVED
         );
         logger.log('Done', {transaction_hash});
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L1_SUCCESS, {
+          l2_hash: transaction_hash
+        });
         handleData({
           type: ActionType.TRANSFER_TO_L1,
           sender: l2Account,
@@ -59,6 +69,7 @@ export const useTransferToL1 = () => {
         });
       } catch (ex) {
         logger.error(ex.message, {ex});
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L1_ERROR, {error: ex});
         handleError(progressOptions.error(ex));
       }
     },
