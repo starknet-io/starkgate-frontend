@@ -1,6 +1,6 @@
 export const MenuType = {
-  TRANSFER: 0,
-  SELECT_TOKEN: 1,
-  ACCOUNT: 2,
-  FAQ: 3
+  TRANSFER: 'TRANSFER',
+  SELECT_TOKEN: 'SELECT_TOKEN',
+  ACCOUNT: 'ACCOUNT',
+  FAQ: 'FAQ'
 };

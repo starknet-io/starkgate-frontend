@@ -5,6 +5,7 @@ import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import {track, TrackEvent} from '../../../tracking';
 import {
   Loading,
   Menu,
@@ -63,6 +64,7 @@ export const Transfer = () => {
 
   const onMaxClick = () => {
     try {
+      track(TrackEvent.TRANSFER.MAX_CLICK);
       setAmount(String(Math.min(selectedToken.balance, Number(maxDeposit))));
     } catch (ex) {
       setAmount(selectedToken.balance);
@@ -74,10 +76,17 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
+    track(TrackEvent.TRANSFER.SWAP_NETWORK);
     isL2 ? swapToL1() : swapToL2();
   };
 
   const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
+
+  const onNetworkTabClick = tab => {
+    if (action !== tab) {
+      onSwapClick();
+    }
+  };
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -86,7 +95,7 @@ export const Transfer = () => {
           key={index}
           isActive={action === tab}
           text={tab === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name}
-          onClick={() => action !== tab && onSwapClick()}
+          onClick={() => onNetworkTabClick(tab)}
         />
       );
     });

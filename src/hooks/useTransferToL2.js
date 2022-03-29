@@ -7,6 +7,7 @@ import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
+import {track, TrackEvent} from '../tracking';
 import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogger} from './useLogger';
@@ -54,6 +55,12 @@ export const useTransferToL2 = () => {
 
       const sendDeposit = () => {
         const depositHandler = isEthToken ? depositEth : deposit;
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2, {
+          from_address: l1Account,
+          to_address: l2Account,
+          amount,
+          symbol
+        });
         return depositHandler({
           recipient: l2Account,
           amount,
@@ -68,6 +75,7 @@ export const useTransferToL2 = () => {
         if (error) {
           logger.error(error.message);
           handleError(progressOptions.error(error));
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           return;
         }
         logger.log('Tx signed', {transactionHash});
@@ -94,17 +102,20 @@ export const useTransferToL2 = () => {
 
       const extractTransactionsHashFromEvent = event => {
         const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+        const l1hash = event.transactionHash;
+        const l2hash = utils.blockchain.starknet.getTransactionHash(
+          TransactionHashPrefix.L1_HANDLER,
+          from_address,
+          to_address,
+          selector,
+          payload,
+          l2ChainId,
+          nonce
+        );
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_SUCCESS, {l1_hash: l1hash, l2_hash: l2hash});
         return {
-          l1hash: event.transactionHash,
-          l2hash: utils.blockchain.starknet.getTransactionHash(
-            TransactionHashPrefix.L1_HANDLER,
-            from_address,
-            to_address,
-            selector,
-            payload,
-            l2ChainId,
-            nonce
-          )
+          l1hash,
+          l2hash
         };
       };
 
@@ -112,10 +123,10 @@ export const useTransferToL2 = () => {
         const tokenBridgeBalance = await (isEthToken
           ? ethBalanceOf(tokenBridgeAddress)
           : balanceOf({
-              account: tokenBridgeAddress,
-              decimals,
-              contract: tokenContract
-            }));
+            account: tokenBridgeAddress,
+            decimals,
+            contract: tokenContract
+          }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
@@ -124,6 +135,7 @@ export const useTransferToL2 = () => {
         if (await isMaxBalanceExceeded()) {
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
           handleError(progressOptions.maxTotalBalanceError());
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, progressOptions.maxTotalBalanceError());
           return;
         }
         if (!isEthToken) {
@@ -142,6 +154,7 @@ export const useTransferToL2 = () => {
         sendDeposit();
       } catch (ex) {
         logger.error(ex.message, {ex});
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, {error: ex});
         handleError(progressOptions.error(ex));
       }
     },

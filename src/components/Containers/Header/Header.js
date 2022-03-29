@@ -7,8 +7,9 @@ import {Breakpoint} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
+import {track} from '../../../tracking';
 import utils from '../../../utils';
-import {WalletButton, Tab} from '../../UI';
+import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT} from './Header.strings';
 
@@ -38,6 +39,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
+    track(TrackEvent.DISCORD_TAB_CLICK);
     utils.browser.openInNewTab(DISCORD_LINK_URL);
   };
 

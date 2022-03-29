@@ -6,6 +6,7 @@ import {useColors} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
+import {track, TrackEvent} from '../../../tracking';
 import {BackButton, Menu, MenuTitle, SearchToken, SelectTokenList} from '../../UI';
 import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
@@ -24,6 +25,7 @@ export const SelectToken = () => {
 
   const onTokenSelect = tokenData => {
     const {symbol} = tokenData;
+    track(TrackEvent.SELECT_TOKEN.TOKEN_SELECTED, {symbol});
     selectToken(symbol);
     showTransferMenu();
   };
