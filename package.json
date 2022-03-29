@@ -16,7 +16,7 @@
     "lint": "yarn run -s lint:scripts & yarn run -s lint:styles & yarn run -s lint:prettier",
     "format:scripts": "eslint --fix **/*.{js,jsx}",
     "format:styles": "stylelint --fix **/*.{css,scss}",
-    "format:prettier": "prettier --write **/*.{js,jsx,css,scss}",
+    "format:prettier": "prettier --write **/*.{js,jsx,css,scss,yaml,yml}",
     "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier",
     "release": "semantic-release",
     "release:dry": "semantic-release --no-ci --dry-run"
