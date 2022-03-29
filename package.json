@@ -1,21 +1,20 @@
 {
   "name": "starkgate-frontend",
-  "version": "0.0.2-10",
+  "version": "0.0.0",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "npm run clean",
-    "build": "react-scripts build",
-    "build:testing": "env-cmd -f .env.testing npm run build",
+    "build:production": "react-scripts build",
+    "build:testing": "env-cmd -f .env.testing npm run build:production",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "format": "prettier --write \"**/*.+(js|jsx|json|scss|css|md)\"",
-    "release": "standard-version",
-    "release:dry": "standard-version --dry-run",
-    "pre-release": "standard-version --prerelease --skip.changelog --releaseCommitMessageFormat 'chore(prerelease): {{currentTag}}'"
+    "release": "semantic-release",
+    "release:dry": "semantic-release --no-ci --dry-run"
   },
   "husky": {
     "hooks": {
@@ -64,10 +63,16 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/commit-analyzer": "^9.0.1",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "conventional-changelog-conventionalcommits": "^4.6.3",
     "env-cmd": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -78,7 +83,7 @@
     "prettier": "^2.5.1",
     "prop-types": "^15.7.2",
     "sass-loader": "^12.1.0",
-    "standard-version": "^9.3.1"
+    "semantic-release": "^19.0.2"
   },
   "engines": {
     "node": ">=16.0.0",

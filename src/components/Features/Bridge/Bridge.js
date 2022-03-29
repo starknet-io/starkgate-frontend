@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {Account, SelectToken, ToastProvider, Transfer, FAQ} from '..';
+import {Account, FAQ, SelectToken, ToastProvider, Transfer} from '..';
 import envs from '../../../config/envs';
 import {MenuType} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
