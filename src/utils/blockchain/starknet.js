@@ -19,7 +19,7 @@ export const sendTransaction = async (contract, method, args = {}) => {
   try {
     const calldata = stark.compileCalldata(args);
     const transaction = {
-      contractAddress: contract.connectedTo,
+      contractAddress: contract.address,
       entrypoint: method,
       calldata
     };
