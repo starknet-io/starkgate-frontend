@@ -38,7 +38,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
-    utils.browser.openInNewTab(DISCORD_LINK_URL, DISCORD_LINK_URL);
+    utils.browser.openInNewTab(DISCORD_LINK_URL);
   };
 
   return (
@@ -54,23 +54,25 @@ export const Header = () => {
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
         <div className={styles.tabs}>
-          <Tab label={TAB_FAQ_TXT} onClick={showFaqMenu}></Tab>
-          <Tab label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
+          <Tab label={TAB_FAQ_TXT} onClick={showFaqMenu} />
+          <Tab isLink={true} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
         </div>
-        {isL1AccountConnected && (
-          <WalletButton
-            account={l1Account}
-            logoPath={l1Config?.logoPath}
-            onClick={onL1WalletButtonClick}
-          />
-        )}
-        {isL2AccountConnected && (
-          <WalletButton
-            account={l2Account}
-            logoPath={l2Config?.logoPath}
-            onClick={onL2WalletButtonClick}
-          />
-        )}
+        <div className={styles.walletButtons}>
+          {isL1AccountConnected && (
+            <WalletButton
+              account={l1Account}
+              logoPath={l1Config?.logoPath}
+              onClick={onL1WalletButtonClick}
+            />
+          )}
+          {isL2AccountConnected && (
+            <WalletButton
+              account={l2Account}
+              logoPath={l2Config?.logoPath}
+              onClick={onL2WalletButtonClick}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
