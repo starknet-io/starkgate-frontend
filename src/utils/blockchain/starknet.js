@@ -68,7 +68,7 @@ export const getTransactionHash = (
   ...additionalData
 ) => {
   const calldata = [number.hexToDecimalString(fromAddress), ...payload];
-  const calldataHash = hash.hashCalldata(calldata);
+  const calldataHash = hash.computeHashOnElements(calldata);
   return hash.computeHashOnElements([
     txHashPrefix,
     0, // version
