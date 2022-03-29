@@ -17,7 +17,7 @@ const envs = {
   localStorageTransfersLogKey: process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY,
   localStorageOnboardingExpirationTimestampKey:
     process.env.REACT_APP_LOCAL_STORAGE_ONBOARDING_TIMESTAMP_KEY,
-  onboardingModalTimeoutHrs: process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HR
+  onboardingModalTimeoutHrs: process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HRS
 };
 
 export default envs;
