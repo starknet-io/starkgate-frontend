@@ -27,13 +27,13 @@ export const useTransferToL1 = () => {
       const {decimals, bridgeAddress, name, symbol} = selectedToken;
 
       const sendInitiateWithdraw = () => {
-        const bridgeContract = getTokenBridgeContract(bridgeAddress);
         track(TrackEvent.TRANSFER.TRANSFER_TO_L1, {
           from_address: l2Account,
           to_address: l1Account,
           amount,
           symbol
         });
+        const bridgeContract = getTokenBridgeContract(bridgeAddress);
         return initiateWithdraw({
           recipient: l1Account,
           amount,
@@ -69,7 +69,7 @@ export const useTransferToL1 = () => {
         });
       } catch (ex) {
         logger.error(ex.message, {ex});
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L1_ERROR, {error: ex});
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L1_ERROR, ex);
         handleError(progressOptions.error(ex));
       }
     },
@@ -102,6 +102,12 @@ export const useCompleteTransferToL1 = () => {
       const {symbol, amount} = transfer;
 
       const sendWithdrawal = () => {
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1, {
+          l2_hash: transfer.l2hash,
+          to_address: l1Account,
+          amount,
+          symbol
+        });
         const {bridgeAddress, decimals} = getL1Token(symbol);
         const tokenBridgeContract = getL1TokenBridgeContract(bridgeAddress);
         return withdraw({
@@ -115,6 +121,7 @@ export const useCompleteTransferToL1 = () => {
 
       const onTransactionHash = (error, transactionHash) => {
         if (error) {
+          track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_REJECT, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
           return;
@@ -125,12 +132,15 @@ export const useCompleteTransferToL1 = () => {
 
       const onLogWithdrawal = (error, event) => {
         if (error) {
+          track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_ERROR, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
           return;
         }
-        logger.log('Done', event.transactionHash);
-        handleData({...transfer, l1hash: event.transactionHash});
+        const {transactionHash} = event;
+        logger.log('Done', transactionHash);
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_SUCCESS, {l1_hash: transactionHash});
+        handleData({...transfer, l1hash: transactionHash});
       };
 
       try {
@@ -140,6 +150,7 @@ export const useCompleteTransferToL1 = () => {
         logger.log('Calling withdraw');
         sendWithdrawal();
       } catch (ex) {
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_ERROR, ex);
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));
       }

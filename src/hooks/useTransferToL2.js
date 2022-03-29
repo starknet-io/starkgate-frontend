@@ -73,9 +73,9 @@ export const useTransferToL2 = () => {
 
       const onTransactionHash = (error, transactionHash) => {
         if (error) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
-          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           return;
         }
         logger.log('Tx signed', {transactionHash});
@@ -84,6 +84,7 @@ export const useTransferToL2 = () => {
 
       const onLogMessageToL2 = (error, event) => {
         if (error) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
           return;
@@ -133,9 +134,9 @@ export const useTransferToL2 = () => {
       try {
         logger.log('TransferToL2 called');
         if (await isMaxBalanceExceeded()) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, progressOptions.maxTotalBalanceError());
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
           handleError(progressOptions.maxTotalBalanceError());
-          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, progressOptions.maxTotalBalanceError());
           return;
         }
         if (!isEthToken) {
@@ -153,8 +154,8 @@ export const useTransferToL2 = () => {
         logger.log('Calling deposit');
         sendDeposit();
       } catch (ex) {
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, ex);
         logger.error(ex.message, {ex});
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, {error: ex});
         handleError(progressOptions.error(ex));
       }
     },

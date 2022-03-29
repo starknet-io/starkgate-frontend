@@ -12,7 +12,6 @@ import {
 } from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
-import {track} from '../../../tracking';
 import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
