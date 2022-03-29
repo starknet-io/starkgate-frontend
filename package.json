@@ -16,7 +16,7 @@
     "lint": "yarn run -s lint:scripts & yarn run -s lint:styles & yarn run -s lint:prettier",
     "format:scripts": "eslint --fix **/*.{js,jsx}",
     "format:styles": "stylelint --fix **/*.{css,scss}",
-    "format:prettier": "prettier --write **/*.{js,jsx,css,scss}",
+    "format:prettier": "prettier --write **/*.{js,jsx,css,scss,yaml,yml}",
     "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier",
     "release": "semantic-release",
     "release:dry": "semantic-release --no-ci --dry-run"
@@ -53,21 +53,21 @@
     ]
   },
   "dependencies": {
-    "@argent/get-starknet": "^1.1.3",
-    "@headlessui/react": "^1.4.2",
+    "@argent/get-starknet": "^3.0.1",
+    "@headlessui/react": "^1.5.0",
     "@metamask/onboarding": "^1.0.1",
     "js-logger": "^1.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hot-toast": "^2.1.1",
+    "react-hot-toast": "^2.2.0",
     "react-scripts": "4.0.3",
-    "starknet": "^3.0.0",
+    "starknet": "^3.7.0",
     "use-async-memo": "^1.2.3",
     "use-breakpoint": "^3.0.1",
     "use-deep-compare-effect": "^1.8.1",
     "use-wallet": "^0.13.4",
     "uuid": "^8.3.2",
-    "web3": "^1.6.1"
+    "web3": "^1.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
