@@ -7,7 +7,7 @@ const TEN = 10;
 const DEFAULT_DECIMALS = 18;
 export const UNIT_MAP = {};
 
-for (let key in utils.unitMap) {
+for (const key in utils.unitMap) {
   UNIT_MAP[utils.unitMap[key]] = key;
 }
 

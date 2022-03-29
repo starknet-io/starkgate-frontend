@@ -38,7 +38,7 @@ describe('evaluate', () => {
 });
 
 describe('findIndexById', () => {
-  it("should return the matching-object's index (Number), accourding it's 'id'.", () => {
+  it("should return the matching-object's index (Number), according it's id", () => {
     const array = [{id: '0cbff33f'}, {id: '11a083e3'}];
     const resultIndex = findIndexById(array, '0cbff33f');
     expect(resultIndex).toEqual(0);
@@ -50,7 +50,7 @@ describe('findIndexById', () => {
     expect(resultIndex).toEqual(-1);
   });
 
-  it("should return -1 (Number) for empty 'array' or falsy 'id', but allows 'id' to be 0 or '0'", () => {
+  it("should return -1 (Number) for empty array or falsy id, but allows id to be 0 or '0'", () => {
     const array = [{id: '0cbff33f'}, {id: '0'}, {id: 0}];
     expect(findIndexById([], '0cbff33f')).toEqual(-1);
     expect(findIndexById(array, undefined)).toEqual(-1);

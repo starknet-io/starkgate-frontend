@@ -19,7 +19,6 @@ import {
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
-import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
 const {etherscanAccountUrl, voyagerAccountUrl} = envs;
@@ -47,7 +46,7 @@ export const Account = ({transferId}) => {
 
   return (
     <Menu>
-      <div className={styles.account}>
+      <div>
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
         <AccountAddress address={account} />

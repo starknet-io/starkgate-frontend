@@ -66,6 +66,8 @@ export const Login = () => {
       case WalletStatus.DISCONNECTED:
         maybeHideModal();
         break;
+      default:
+        break;
     }
     return () => {
       maybeHideModal();

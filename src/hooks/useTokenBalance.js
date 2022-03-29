@@ -10,9 +10,10 @@ export const useTokenBalance = account => {
   const getL1TokenBalance = useL1TokenBalance(account);
   const {isL1} = useTransfer();
   return useCallback(
-    tokenAddresses =>
-      isL1 ? getL1TokenBalance(tokenAddresses) : getL2TokenBalance(tokenAddresses),
-    [isL1, account, getL1TokenBalance, getL2TokenBalance]
+    tokenAddresses => {
+      return isL1 ? getL1TokenBalance(tokenAddresses) : getL2TokenBalance(tokenAddresses);
+    },
+    [isL1, getL1TokenBalance, getL2TokenBalance]
   );
 };
 
@@ -36,7 +37,14 @@ export const useL1TokenBalance = account => {
       const {tokenAddress, decimals} = token;
       return utils.token.isEth(token)
         ? await ethBalanceOf(account)
-        : await balanceOf({account, decimals, contract: getContract(tokenAddress)}, true);
+        : await balanceOf(
+            {
+              account,
+              decimals,
+              contract: getContract(tokenAddress)
+            },
+            true
+          );
     },
     [account, getContract]
   );

@@ -29,18 +29,6 @@ $background-answer: $--color-alpha-3;
     }
   }
 
-  .container {
-    color: $color;
-    padding: 15px;
-    margin: 10px 0;
-    overflow-y: auto;
-    max-height: 450px;
-
-    > ol {
-      margin-top: -20px;
-    }
-  }
-
   ol {
     line-height: 1.6;
     padding-inline-start: 20px;
@@ -79,6 +67,18 @@ $background-answer: $--color-alpha-3;
           border-radius: 7px;
         }
       }
+    }
+  }
+
+  .container {
+    color: $color;
+    padding: 15px;
+    margin: 10px 0;
+    overflow-y: auto;
+    max-height: 450px;
+
+    > ol {
+      margin-top: -20px;
     }
   }
 }

@@ -43,8 +43,9 @@ export const useTokenContract = () => {
   const {isL1} = useTransfer();
 
   return useCallback(
-    tokenAddresses =>
-      isL1 ? getL1TokenContract(tokenAddresses) : getL2TokenContract(tokenAddresses),
+    tokenAddresses => {
+      return isL1 ? getL1TokenContract(tokenAddresses) : getL2TokenContract(tokenAddresses);
+    },
     [isL1, getL2TokenContract, getL1TokenContract]
   );
 };
@@ -55,8 +56,11 @@ export const useTokenBridgeContract = () => {
   const {isL1} = useTransfer();
 
   return useCallback(
-    bridgeAddress =>
-      isL1 ? getL1TokenBridgeContract(bridgeAddress) : getL2TokenBridgeContract(bridgeAddress),
+    bridgeAddress => {
+      return isL1
+        ? getL1TokenBridgeContract(bridgeAddress)
+        : getL2TokenBridgeContract(bridgeAddress);
+    },
     [isL1, getL1TokenBridgeContract, getL2TokenBridgeContract]
   );
 };
@@ -65,14 +69,14 @@ export const useL2TokenContract = () => {
   const {chainId} = useL2Wallet();
   const getContract = useContract(L2_ERC20_ABI, chainId, utils.blockchain.starknet.createContract);
 
-  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract, chainId]);
+  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useL1TokenContract = () => {
   const {chainId} = useL1Wallet();
   const getContract = useContract(L1_ERC20_ABI, chainId, utils.blockchain.ethereum.createContract);
 
-  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract, chainId]);
+  return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useStarknetContract = () => {
@@ -83,14 +87,14 @@ export const useStarknetContract = () => {
     utils.blockchain.ethereum.createContract
   );
 
-  return useMemo(() => getContract(starknetContractAddress), [getContract, chainId]);
+  return useMemo(() => getContract(starknetContractAddress), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
   const {chainId} = useL2Wallet();
   const getContract = useContract(L2_BRIDGE_ABI, chainId, utils.blockchain.starknet.createContract);
 
-  return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract, chainId]);
+  return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 
 export const useL1TokenBridgeContract = () => {
@@ -108,10 +112,11 @@ export const useL1TokenBridgeContract = () => {
   const ethToken = useL1Token()(NetworkType.L1.symbol);
 
   return useCallback(
-    bridgeAddress =>
-      bridgeAddress[chainId] === ethToken.bridgeAddress[chainId]
+    bridgeAddress => {
+      return bridgeAddress[chainId] === ethToken.bridgeAddress[chainId]
         ? getEthBridgeContract(bridgeAddress)
-        : getTokenBridgeContract(bridgeAddress),
+        : getTokenBridgeContract(bridgeAddress);
+    },
     [getTokenBridgeContract, getEthBridgeContract, chainId, ethToken]
   );
 };

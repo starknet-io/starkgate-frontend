@@ -13,7 +13,7 @@ export const useIsLoading = deps => {
     } else {
       setIsLoading(true);
     }
-  }, [deps, status]);
+  }, [deps, status, isConnected]);
 
   return isLoading;
 };
