@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {Account, FAQ, SelectToken, ToastProvider, Transfer} from '..';
+import {Account, Faq, SelectToken, ToastProvider, Transfer} from '..';
 import envs from '../../../config/envs';
 import {MenuType} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -8,7 +8,7 @@ import {useOnboardingModal} from '../../../providers/ModalProvider';
 import utils from '../../../utils';
 import styles from './Bridge.module.scss';
 
-const {localStorageOnboardingTimestampKey, onboardingModalTimeoutHr} = envs;
+const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = envs;
 
 export const Bridge = () => {
   const {menu, menuProps} = useMenu();
@@ -19,12 +19,15 @@ export const Bridge = () => {
   }, []);
 
   const maybeShowOnboardingModal = () => {
-    const onboardingTimestamp = utils.storage.getItem(localStorageOnboardingTimestampKey);
-    const currentTime = new Date().getTime();
-    const timeout = utils.date.getMsFromHs(onboardingModalTimeoutHr);
-    if (!onboardingTimestamp || Number.parseInt(onboardingTimestamp, 10) < currentTime) {
+    const onboardingTimestamp = utils.storage.getItem(localStorageOnboardingExpirationTimestampKey);
+    const now = new Date().getTime();
+    const onboardingModalTimeoutMs = utils.date.getMsFromHrs(onboardingModalTimeoutHrs);
+    if (!onboardingTimestamp || onboardingTimestamp < now) {
       showOnboardingModal();
-      utils.storage.setItem(localStorageOnboardingTimestampKey, currentTime + timeout);
+      utils.storage.setItem(
+        localStorageOnboardingExpirationTimestampKey,
+        now + onboardingModalTimeoutMs
+      );
     }
   };
 

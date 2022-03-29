@@ -1,6 +1,6 @@
 import utils from '../../utils';
 
-const {get24Time, getDate, getMsFromHs} = utils.date;
+const {get24Time, getDate, getMsFromHrs} = utils.date;
 
 describe('getDate', () => {
   it('should return date of the form DD/MM/YYYY from timestamp', () => {
@@ -14,14 +14,15 @@ describe('get24Time', () => {
   });
 });
 
-describe('getMsFromHs', () => {
-  it('should return the equivalant time from hours to milliseconds', () => {
-    expect(getMsFromHs(1)).toEqual(3600000);
-    expect(getMsFromHs('24')).toEqual(86400000);
+describe('getMsFromHrs', () => {
+  it('should return the equivalent time from hours to milliseconds', () => {
+    expect(getMsFromHrs(1)).toEqual(3600000);
+    expect(getMsFromHrs('24')).toEqual(86400000);
+    expect(getMsFromHrs('0')).toEqual(0);
   });
-  it('should return 0 if parseFloat got NaN', () => {
-    expect(getMsFromHs('something')).toEqual(undefined);
-    expect(getMsFromHs(undefined)).toEqual(undefined);
-    expect(getMsFromHs('0')).toEqual(0);
+
+  it('should return undefined if parseFloat got NaN', () => {
+    expect(getMsFromHrs('something')).toEqual(undefined);
+    expect(getMsFromHrs(undefined)).toEqual(undefined);
   });
 });
