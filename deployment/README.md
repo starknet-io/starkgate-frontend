@@ -2,16 +2,16 @@
 
 ## First time installation
 
-1. Connect to production kubernetes cluster
+1. Authenticate
+
+```bash
+gcloud auth login
+```
+
+2. Connect to production kubernetes cluster
 
 ```bash
 gcloud container clusters get-credentials web-devs --region us-central1 --project starkware-dev
-```
-
-2. Switch to starkgate namespace
-
-```bash
-kubens starkgate
 ```
 
 3. Deploy application using helm CLI.
@@ -51,6 +51,12 @@ helm install starkgate starkware/webapp-general-helm \
 > **Note:** Upgrade only if you already run `helm install`
 
 Upgrade starknet faucet helm chart.
+
+1. Authenticate
+
+```bash
+gcloud auth login
+```
 
 ### Production
 
