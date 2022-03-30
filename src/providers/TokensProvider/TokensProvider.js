@@ -24,7 +24,7 @@ export const TokensProvider = ({children}) => {
       return fn(token)
         .then(resolve)
         .catch(() => {
-          console.log(`[TokensProvider] retry ${token.symbol}`);
+          logger.log(`retry ${token.symbol}`);
           return new Promise(fn => setTimeout(fn, 0))
             .then(retryGetBalance.bind(null, fn, token))
             .then(resolve)
