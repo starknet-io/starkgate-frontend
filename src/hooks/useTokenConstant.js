@@ -32,7 +32,7 @@ const useTokenConstant = (methodName, methodHandler) => {
         cache[methodName][symbol] = value;
         return value;
       }
-      return cache[symbol];
+      return cache[methodName][symbol];
     }
     return null;
   }, [symbol, isL1, selectedToken, methodHandler, methodName]);
