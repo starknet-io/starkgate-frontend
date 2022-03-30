@@ -27,7 +27,7 @@ export const useTransferToL1 = () => {
       const {decimals, bridgeAddress, name, symbol} = selectedToken;
 
       const sendInitiateWithdraw = () => {
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L1, {
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L1_INITIATED, {
           from_address: l2Account,
           to_address: l1Account,
           amount,
@@ -99,7 +99,7 @@ export const useCompleteTransferToL1 = () => {
       const {symbol, amount, l2hash} = transfer;
 
       const sendWithdrawal = () => {
-        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1, {
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_INITIATED, {
           to_address: l1Account,
           l2hash,
           amount,

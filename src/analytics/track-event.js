@@ -13,18 +13,18 @@ export const TrackEvent = {
   TRANSFER: {
     SWAP_NETWORK: 'TRANSFER_MENU/swap_network',
     MAX_CLICK: 'TRANSFER_MENU/max_click',
-    TRANSFER_TO_L2: 'TRANSFER_MENU/deposit',
-    TRANSFER_TO_L2_SUCCESS: 'TRANSFER_MENU/deposit_success',
-    TRANSFER_TO_L2_REJECT: 'TRANSFER_MENU/deposit_reject',
-    TRANSFER_TO_L2_ERROR: 'TRANSFER_MENU/deposit_error',
-    TRANSFER_TO_L1: 'TRANSFER_MENU/initiate_withdraw',
-    TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/initiate_withdraw_success',
-    TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/initiate_withdraw_reject',
-    TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/initiate_withdraw_error',
-    COMPLETE_TRANSFER_TO_L1: 'TRANSFER_MENU/withdraw',
-    COMPLETE_TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/withdraw_success',
-    COMPLETE_TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/withdraw_reject',
-    COMPLETE_TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/withdraw_error'
+    TRANSFER_TO_L2_INITIATED: 'TRANSFER_MENU/transfer_to_l2_initiated',
+    TRANSFER_TO_L2_SUCCESS: 'TRANSFER_MENU/transfer_to_l2_success',
+    TRANSFER_TO_L2_REJECT: 'TRANSFER_MENU/transfer_to_l2_reject',
+    TRANSFER_TO_L2_ERROR: 'TRANSFER_MENU/transfer_to_l2_error',
+    TRANSFER_TO_L1_INITIATED: 'TRANSFER_MENU/transfer_to_l1_initiated',
+    TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/transfer_to_l1_success',
+    TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/transfer_to_l1_reject',
+    TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/transfer_to_l1_error',
+    COMPLETE_TRANSFER_TO_L1_INITIATED: 'TRANSFER_MENU/complete_transfer_to_l1_initiated',
+    COMPLETE_TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/complete_transfer_to_l1_success',
+    COMPLETE_TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/complete_transfer_to_l1_reject',
+    COMPLETE_TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/complete_transfer_to_l1_error'
   },
 
   /**
@@ -41,7 +41,7 @@ export const TrackEvent = {
     TX_LINK_CLICK: 'ACCOUNT_MENU/tx_link_click',
     ACCOUNT_LINK_CLICK: 'ACCOUNT_MENU/account_link_click',
     VIEW_TRANSFERS_LOG: 'ACCOUNT_MENU/view_transfers_log',
-    COMPLETE_TRANSFER: 'ACCOUNT_MENU/complete_transfer',
+    COMPLETE_TRANSFER_CLICK: 'ACCOUNT_MENU/complete_transfer',
     ADDRESS_COPIED: 'ACCOUNT_MENU/address_copied'
   },
 

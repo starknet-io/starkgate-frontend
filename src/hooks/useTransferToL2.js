@@ -54,7 +54,7 @@ export const useTransferToL2 = () => {
       };
 
       const sendDeposit = () => {
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2, {
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_INITIATED, {
           from_address: l1Account,
           to_address: l2Account,
           amount,

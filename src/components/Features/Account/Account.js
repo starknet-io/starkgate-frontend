@@ -51,7 +51,7 @@ export const Account = ({transferId}) => {
   };
 
   const onCompleteTransferClick = transfer => {
-    track(TrackEvent.ACCOUNT.COMPLETE_TRANSFER, {l2_hash: transfer.l2hash});
+    track(TrackEvent.ACCOUNT.COMPLETE_TRANSFER_CLICK);
     completeTransferToL1(transfer);
   };
 
