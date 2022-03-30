@@ -1,12 +1,12 @@
 import {useCallback} from 'react';
 
+import {track, TrackEvent} from '../analytics';
 import {initiateWithdraw, withdraw} from '../api/bridge';
 import {ActionType, TransactionStatus} from '../enums';
 import {useLogWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {track, TrackEvent} from '../tracking';
 import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';

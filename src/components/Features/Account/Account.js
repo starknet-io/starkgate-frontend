@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import constants from '../../../config/constants';
 import envs from '../../../config/envs';
 import {useCompleteTransferToL1} from '../../../hooks';
@@ -8,7 +9,6 @@ import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {track, TrackEvent} from '../../../tracking';
 import utils from '../../../utils';
 import {
   AccountAddress,

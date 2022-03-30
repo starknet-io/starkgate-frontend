@@ -1,13 +1,13 @@
 import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
+import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import constants from '../../../config/constants';
 import {Breakpoint} from '../../../enums';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
-import {track} from '../../../tracking';
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';

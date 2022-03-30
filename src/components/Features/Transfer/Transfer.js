@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
 import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
-import {track, TrackEvent} from '../../../tracking';
 import {
   Loading,
   Menu,

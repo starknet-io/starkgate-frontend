@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
-import {track, TrackEvent} from '../../../tracking';
 import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
