@@ -2,10 +2,10 @@ import splitbee from '@splitbee/web';
 
 import utils from '../utils';
 
-const logger = utils.logger.getLogger('Tracking');
+const logger = utils.logger.getLogger('Analytics');
 
 export const track = (event, data) => {
-  logger.debug('Tracking event', {event, data});
+  logger.debug('Track event', {event, data});
   return splitbee.track(event, data);
 };
 
