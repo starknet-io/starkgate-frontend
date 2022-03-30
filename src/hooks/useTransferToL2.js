@@ -39,8 +39,8 @@ export const useTransferToL2 = () => {
         return allowance({
           owner: l1Account,
           spender: tokenBridgeAddress,
-          decimals,
-          contract: tokenContract
+          contract: tokenContract,
+          decimals
         });
       };
 
@@ -63,11 +63,11 @@ export const useTransferToL2 = () => {
         const depositHandler = isEthToken ? depositEth : deposit;
         return depositHandler({
           recipient: l2Account,
-          amount,
-          decimals,
           contract: bridgeContract,
           options: {from: l1Account},
-          emitter: onTransactionHash
+          emitter: onTransactionHash,
+          amount,
+          decimals
         });
       };
 
@@ -113,7 +113,7 @@ export const useTransferToL2 = () => {
           l2ChainId,
           nonce
         );
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_SUCCESS, {l1_hash: l1hash, l2_hash: l2hash});
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_SUCCESS, {l1hash, l2hash});
         return {
           l1hash,
           l2hash

@@ -36,9 +36,9 @@ export const useTransferToL1 = () => {
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
         return initiateWithdraw({
           recipient: l1Account,
+          contract: bridgeContract,
           amount,
-          decimals,
-          contract: bridgeContract
+          decimals
         });
       };
 
@@ -46,17 +46,14 @@ export const useTransferToL1 = () => {
         logger.log('TransferToL1 called');
         handleProgress(progressOptions.waitForConfirm(l2Config.name));
         logger.log('Calling initiate withdraw');
-        const {transaction_hash} = await sendInitiateWithdraw();
-        logger.log('Tx hash received', {transaction_hash});
+        const {transaction_hash: l2hash} = await sendInitiateWithdraw();
+        logger.log('Tx hash received', {l2hash});
         handleProgress(progressOptions.initiateWithdraw(amount, symbol));
         logger.log('Waiting for tx to be received on L2');
-        await utils.blockchain.starknet.waitForTransaction(
-          transaction_hash,
-          TransactionStatus.RECEIVED
-        );
-        logger.log('Done', {transaction_hash});
+        await utils.blockchain.starknet.waitForTransaction(l2hash, TransactionStatus.RECEIVED);
+        logger.log('Done', {l2hash});
         track(TrackEvent.TRANSFER.TRANSFER_TO_L1_SUCCESS, {
-          l2_hash: transaction_hash
+          l2hash
         });
         handleData({
           type: ActionType.TRANSFER_TO_L1,
@@ -65,7 +62,7 @@ export const useTransferToL1 = () => {
           name,
           symbol,
           amount,
-          l2hash: transaction_hash
+          l2hash
         });
       } catch (ex) {
         logger.error(ex.message, {ex});
@@ -75,6 +72,7 @@ export const useTransferToL1 = () => {
     },
     [
       l1Account,
+      l2Account,
       getTokenBridgeContract,
       handleData,
       handleError,
@@ -82,7 +80,6 @@ export const useTransferToL1 = () => {
       logger,
       progressOptions,
       selectedToken,
-      l2Account,
       l2Config
     ]
   );
@@ -99,12 +96,12 @@ export const useCompleteTransferToL1 = () => {
 
   return useCallback(
     async transfer => {
-      const {symbol, amount} = transfer;
+      const {symbol, amount, l2hash} = transfer;
 
       const sendWithdrawal = () => {
         track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1, {
-          l2_hash: transfer.l2hash,
           to_address: l1Account,
+          l2hash,
           amount,
           symbol
         });
@@ -112,10 +109,10 @@ export const useCompleteTransferToL1 = () => {
         const tokenBridgeContract = getL1TokenBridgeContract(bridgeAddress);
         return withdraw({
           recipient: l1Account,
-          amount,
-          decimals,
           contract: tokenBridgeContract,
-          emitter: onTransactionHash
+          emitter: onTransactionHash,
+          amount,
+          decimals
         });
       };
 
@@ -137,10 +134,10 @@ export const useCompleteTransferToL1 = () => {
           handleError(progressOptions.error(error));
           return;
         }
-        const {transactionHash} = event;
-        logger.log('Done', transactionHash);
-        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_SUCCESS, {l1_hash: transactionHash});
-        handleData({...transfer, l1hash: transactionHash});
+        const {transactionHash: l1hash} = event;
+        logger.log('Done', l1hash);
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_SUCCESS, {l1hash});
+        handleData({...transfer, l1hash});
       };
 
       try {
