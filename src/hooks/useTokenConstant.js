@@ -35,5 +35,5 @@ const useTokenConstant = (methodName, methodHandler) => {
       return cache[symbol];
     }
     return null;
-  }, [symbol, isL1, methodHandler, methodName]);
+  }, [symbol, isL1, selectedToken, methodHandler, methodName]);
 };
