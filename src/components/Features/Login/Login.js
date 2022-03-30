@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
 import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
@@ -30,8 +31,13 @@ export const Login = () => {
   const {connectWallet: connectL2Wallet} = useL2Wallet();
 
   useEffect(() => {
+    track(TrackEvent.LOGIN_SCREEN);
+  }, []);
+
+  useEffect(() => {
     let timeoutId;
     if (!utils.browser.isChrome()) {
+      track(TrackEvent.LOGIN.LOGIN_ERROR, {message: UNSUPPORTED_BROWSER_TXT});
       setErrorMsg(UNSUPPORTED_BROWSER_TXT);
       return;
     }
@@ -75,15 +81,18 @@ export const Login = () => {
   }, [status]);
 
   const onWalletConnect = walletHandler => {
+    const {config} = walletHandler;
+    const {name} = config;
+    track(TrackEvent.LOGIN.WALLET_CLICK, {name});
     if (!walletHandler.isInstalled()) {
       return walletHandler.install();
     }
-    const {config} = walletHandler;
-    setSelectedWalletName(config.name);
+    setSelectedWalletName(name);
     return walletType === WalletType.L1 ? connectL1Wallet(config) : connectL2Wallet(config);
   };
 
   const onDownloadClick = () => {
+    track(TrackEvent.LOGIN.DOWNLOAD_CLICK, {walletType});
     const handlers = getWalletHandlers(walletType);
     if (handlers.length > 0) {
       return handlers[0].install();
@@ -92,7 +101,7 @@ export const Login = () => {
 
   const handleError = error => {
     if (error.name === 'ChainUnsupportedError') {
-      const msg = error.message.replace(/\d+/g, match => {
+      const message = error.message.replace(/\d+/g, match => {
         let msg = match;
         const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)].NAME);
         if (chainName) {
@@ -100,7 +109,8 @@ export const Login = () => {
         }
         return msg;
       });
-      setErrorMsg(msg);
+      track(TrackEvent.LOGIN.LOGIN_ERROR, {message});
+      setErrorMsg(message);
     }
   };
 

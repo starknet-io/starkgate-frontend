@@ -21,7 +21,7 @@ import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
 
 const {voyagerTxUrl, etherscanTxUrl} = envs;
 
-export const TransferLog = ({transfer, onCompleteTransferClick}) => {
+export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
@@ -46,6 +46,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
         isDisabled={!l1hash}
         text={`${NetworkType.L1.name} Tx`}
         url={etherscanTxUrl(l1hash)}
+        onClick={onTxClick}
       />
     );
   };
@@ -57,6 +58,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick}) => {
           isDisabled={TransactionStatusStep[status] > TransactionStatus.NOT_RECEIVED}
           text={`${NetworkType.L2.name} Tx`}
           url={voyagerTxUrl(l2hash)}
+          onClick={onTxClick}
         />
       </>
     );
@@ -112,5 +114,6 @@ CompleteTransferButton.propTypes = {
 
 TransferLog.propTypes = {
   transfer: PropTypes.object,
-  onCompleteTransferClick: PropTypes.func
+  onCompleteTransferClick: PropTypes.func,
+  onTxClick: PropTypes.func
 };

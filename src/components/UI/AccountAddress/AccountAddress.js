@@ -8,7 +8,7 @@ import {COPIED_ANIMATION_TIMEOUT_INTERVAL} from './AccountAddress.constants';
 import styles from './AccountAddress.module.scss';
 import {COPIED_MSG_TXT} from './AccountAddress.strings';
 
-export const AccountAddress = ({address}) => {
+export const AccountAddress = ({address, onClick}) => {
   const [isAnimate, startAnimation] = useAnimation(COPIED_ANIMATION_TIMEOUT_INTERVAL);
   const ref = useRef();
 
@@ -16,6 +16,7 @@ export const AccountAddress = ({address}) => {
     const cb = navigator.clipboard;
     await cb.writeText(address);
     startAnimation();
+    onClick();
   };
 
   return (
@@ -32,5 +33,6 @@ export const AccountAddress = ({address}) => {
 };
 
 AccountAddress.propTypes = {
-  address: PropTypes.string
+  address: PropTypes.string,
+  onClick: PropTypes.func
 };

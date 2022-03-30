@@ -1,5 +1,6 @@
 import {useCallback} from 'react';
 
+import {track, TrackEvent} from '../analytics';
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
 import {ActionType, TransactionHashPrefix} from '../enums';
@@ -38,8 +39,8 @@ export const useTransferToL2 = () => {
         return allowance({
           owner: l1Account,
           spender: tokenBridgeAddress,
-          decimals,
-          contract: tokenContract
+          contract: tokenContract,
+          decimals
         });
       };
 
@@ -53,19 +54,26 @@ export const useTransferToL2 = () => {
       };
 
       const sendDeposit = () => {
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_INITIATED, {
+          from_address: l1Account,
+          to_address: l2Account,
+          amount,
+          symbol
+        });
         const depositHandler = isEthToken ? depositEth : deposit;
         return depositHandler({
           recipient: l2Account,
-          amount,
-          decimals,
           contract: bridgeContract,
           options: {from: l1Account},
-          emitter: onTransactionHash
+          emitter: onTransactionHash,
+          amount,
+          decimals
         });
       };
 
       const onTransactionHash = (error, transactionHash) => {
         if (error) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
           return;
@@ -76,6 +84,7 @@ export const useTransferToL2 = () => {
 
       const onLogMessageToL2 = (error, event) => {
         if (error) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
           return;
@@ -94,17 +103,20 @@ export const useTransferToL2 = () => {
 
       const extractTransactionsHashFromEvent = event => {
         const {to_address, from_address, selector, payload, nonce} = event.returnValues;
+        const l1hash = event.transactionHash;
+        const l2hash = utils.blockchain.starknet.getTransactionHash(
+          TransactionHashPrefix.L1_HANDLER,
+          from_address,
+          to_address,
+          selector,
+          payload,
+          l2ChainId,
+          nonce
+        );
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_SUCCESS, {l1hash, l2hash});
         return {
-          l1hash: event.transactionHash,
-          l2hash: utils.blockchain.starknet.getTransactionHash(
-            TransactionHashPrefix.L1_HANDLER,
-            from_address,
-            to_address,
-            selector,
-            payload,
-            l2ChainId,
-            nonce
-          )
+          l1hash,
+          l2hash
         };
       };
 
@@ -122,6 +134,7 @@ export const useTransferToL2 = () => {
       try {
         logger.log('TransferToL2 called');
         if (await isMaxBalanceExceeded()) {
+          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, progressOptions.maxTotalBalanceError());
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
           handleError(progressOptions.maxTotalBalanceError());
           return;
@@ -141,6 +154,7 @@ export const useTransferToL2 = () => {
         logger.log('Calling deposit');
         sendDeposit();
       } catch (ex) {
+        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, ex);
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(ex));
       }

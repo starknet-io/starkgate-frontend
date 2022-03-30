@@ -17,6 +17,7 @@ module.exports = {
     'no-empty-source': null,
     'shorthand-property-no-redundant-values': null,
     'string-quotes': 'single',
+    'scss/dollar-variable-pattern': ['/^color/', {ignore: 'global'}],
     'scss/at-import-partial-extension': null,
     'scss/comment-no-empty': null,
     'scss/double-slash-comment-empty-line-before': null,

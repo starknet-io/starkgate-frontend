@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import L1Logo from '../../../assets/svg/tokens/eth.svg';
 import L2Logo from '../../../assets/svg/tokens/starknet.svg';
 import {useColors} from '../../../hooks';
@@ -24,6 +25,7 @@ export const SelectToken = () => {
 
   const onTokenSelect = tokenData => {
     const {symbol} = tokenData;
+    track(TrackEvent.SELECT_TOKEN.TOKEN_SELECTED, {symbol});
     selectToken(symbol);
     showTransferMenu();
   };
