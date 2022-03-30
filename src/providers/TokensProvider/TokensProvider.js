@@ -19,49 +19,14 @@ export const TokensProvider = ({children}) => {
     updateTokenBalance();
   }, []);
 
-  const getBalanceMockRandom = token => {
+  const retryGetBalance = (fn, token) => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (Boolean(Math.floor(Math.random() * 2))) {
-          resolve(Math.random());
-        } else {
-          reject({message: `[TokensProvider] failed to fetch ${token.symbol}`});
-        }
-      }, Math.floor(Math.random() * (5000 - 1000 + 1) + 1000));
-    });
-  };
-
-  const getBalanceMock4tries = (token, triesByToken) => {
-    return new Promise((resolve, reject) => {
-      let i;
-      if (triesByToken.hasOwnProperty(token.symbol)) {
-        triesByToken[token.symbol]++;
-        i = triesByToken[token.symbol];
-      } else {
-        i = 0;
-        triesByToken[token.symbol] = i;
-      }
-      setTimeout(() => {
-        if (i < 3) {
-          reject({triesByToken});
-        } else {
-          resolve(Math.random());
-        }
-      });
-    }, 1000);
-  };
-
-  const retryGetBalance = (fn, token, triesByToken) => {
-    return new Promise((resolve, reject) => {
-      return fn(token, triesByToken)
+      return fn(token)
         .then(resolve)
-        .catch(ex => {
-          triesByToken = ex.triesByToken;
-          console.log(
-            `[TokensProvider] retry no.${ex.triesByToken[token.symbol]} for ${token.symbol}`
-          );
+        .catch(() => {
+          console.log(`[TokensProvider] retry ${token.symbol}`);
           return new Promise(fn => setTimeout(fn, 0))
-            .then(retryGetBalance.bind(null, fn, token, triesByToken))
+            .then(retryGetBalance.bind(null, fn, token))
             .then(resolve)
             .catch(reject);
         });
@@ -83,9 +48,8 @@ export const TokensProvider = ({children}) => {
       } else {
         logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
       }
-      // const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
-      // getBalance(token)
-      retryGetBalance(getBalanceMock4tries, token, {})
+      const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
+      retryGetBalance(getBalance, token)
         .then(balance => {
           logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
           updateTokenState(index, {balance, isLoading: false});
