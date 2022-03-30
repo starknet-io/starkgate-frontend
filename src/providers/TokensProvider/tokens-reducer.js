@@ -1,3 +1,4 @@
+import envs from '../../config/envs';
 import {l1tokens, l2tokens} from '../../config/tokens';
 
 export const actions = {
@@ -5,8 +6,8 @@ export const actions = {
 };
 
 export const initialState = [
-  ...l1tokens.map(t => ({...t, isL1: true})),
-  ...l2tokens.map(t => ({...t, isL2: true}))
+  ...l1tokens.filter(t => envs.supportedTokens.includes(t.symbol)).map(t => ({...t, isL1: true})),
+  ...l2tokens.filter(t => envs.supportedTokens.includes(t.symbol)).map(t => ({...t, isL2: true}))
 ];
 
 export const reducer = (state, action) => {
