@@ -100,11 +100,11 @@ helm upgrade starkgate starkware/webapp-general-helm \
 To see revision numbers, run:
 
 ```bash
-helm history starknet-faucet
+helm history starkgate-[ENV]
 ```
 
 To rollback
 
 ```bash
-helm rollback starknet-faucet [REVISION]
+helm rollback starkgate-[ENV] [REVISION]
 ```

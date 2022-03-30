@@ -25,7 +25,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: starkware-dev
-          service_account_email: starknet-faucet@starkware-dev.iam.gserviceaccount.com
+          service_account_email: starkgate@starkware-dev.iam.gserviceaccount.com
           service_account_key: ${{ secrets.gcp_token }}
 
       - name: Configure Docker
