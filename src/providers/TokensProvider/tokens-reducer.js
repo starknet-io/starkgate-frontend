@@ -2,7 +2,7 @@ import envs from '../../config/envs';
 import {l1tokens, l2tokens} from '../../config/tokens';
 
 export const actions = {
-  UPDATE_TOKEN_STATE: 'Tokens/UPDATE_TOKEN_STATE'
+  UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN'
 };
 
 export const initialState = [
@@ -12,12 +12,12 @@ export const initialState = [
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.UPDATE_TOKEN_STATE: {
-      const {index, args} = action.payload;
-      const token = {...state[index], ...args};
-      const tokens = [...state];
-      tokens[index] = token;
-      return tokens;
+    case actions.UPDATE_TOKEN: {
+      const {index, props} = action.payload;
+      const newToken = {...state[index], ...props};
+      const clonedTokens = [...state];
+      clonedTokens[index] = newToken;
+      return clonedTokens;
     }
 
     default:
