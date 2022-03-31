@@ -4,7 +4,16 @@ import {toast, Toaster} from 'react-hot-toast';
 import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ActionType, Breakpoint, isConsumed, isMobile, isOnChain, isRejected, NetworkType} from '../../../enums';
+import {
+  ActionType,
+  Breakpoint,
+  isConsumed,
+  isMobile,
+  isOnChain,
+  isRejected,
+  NetworkType,
+  ToastType
+} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -50,15 +59,6 @@ export const ToastProvider = () => {
     }
   };
 
-  /* eslint-disable-next-line */
-  const showPendingTransferToast = transfer => {
-    let toastId = isToastRendered(transfer);
-    if (!toastId) {
-      toastId = toast.loading(renderTransferToast(transfer, true));
-      toastsMap.current[transfer.id] = toastId;
-    }
-  };
-
   const showAlphaDisclaimerToast = () => {
     toast.success(ALPHA_DISCLAIMER_MSG, {
       id: 'alphaDisclaimer',
@@ -69,8 +69,8 @@ export const ToastProvider = () => {
 
   const showConsumedTransferToast = transfer => {
     const {id} = transfer;
-    if (!isToastRendered(id) && !isToastDismissed(id)) {
-      toastsMap.current[id] = true;
+    if (toastShouldRender(id, ToastType.CONSUMED_TRANSFER)) {
+      setToast(id, ToastType.CONSUMED_TRANSFER);
       toast.success(renderTransferToast(transfer), {
         id
       });
@@ -79,8 +79,8 @@ export const ToastProvider = () => {
 
   const showRejectedTransferToast = transfer => {
     const {id} = transfer;
-    if (!isToastRendered(id) && !isToastDismissed(id)) {
-      toastsMap.current[id] = true;
+    if (toastShouldRender(id, ToastType.REJECTED_TRANSFER)) {
+      setToast(id, ToastType.REJECTED_TRANSFER);
       toast.error(renderTransferToast(transfer), {
         id
       });
@@ -89,8 +89,8 @@ export const ToastProvider = () => {
 
   const showCompleteTransferToL1Toast = transfer => {
     const {id} = transfer;
-    if (!isToastRendered(id) && !isToastDismissed(id)) {
-      toastsMap.current[id] = true;
+    if (toastShouldRender(id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
+      setToast(id, ToastType.COMPLETE_TRANSFER_TO_L1);
       toast.custom(t => renderCompleteTransferToL1Toast(t, transfer), {
         id
       });
@@ -117,9 +117,22 @@ export const ToastProvider = () => {
     />
   );
 
-  const isToastRendered = transfer => toastsMap.current[transfer.id];
+  const setToast = (id, type) => {
+    toastsMap.current[type] = toastsMap.current[type] || {};
+    toastsMap.current[type][id] = true;
+  };
 
-  const isToastDismissed = id => !!toastsDismissed[id];
+  const toastShouldRender = (id, type) => {
+    return !isToastRendered(id, type) && !isToastDismissed(id, type);
+  };
+
+  const isToastRendered = (id, type) => {
+    return toastsMap.current[type]?.[id];
+  };
+
+  const isToastDismissed = (id, type) => {
+    return !!toastsDismissed.current[type]?.[id];
+  };
 
   const dismissToast = transfer => {
     const {id} = transfer;
@@ -140,7 +153,7 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
-      position='top-right'
+      position="top-right"
       toastOptions={{
         duration: Infinity
       }}
