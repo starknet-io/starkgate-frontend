@@ -14,8 +14,7 @@ export const NetworkMenu = ({networkData, tokenData, isTarget, onRefresh, childr
       <Badge text={isTarget ? TO : FROM} />
       <div className={styles.networkContainer}>
         <NetworkTitle networkData={networkData} />
-        <TokenBalance tokenData={tokenData} />
-        <RefreshButton onClick={onRefresh} />
+        <TokenBalance tokenData={tokenData} onRefresh={onRefresh} />
       </div>
       <div className={styles.transferContainer}>{children}</div>
     </div>

@@ -31,22 +31,18 @@ export const SelectToken = () => {
     showTransferMenu();
   };
 
-  const onRefreshClick = () => {
-    updateTokenBalance();
-  };
-
   return (
     <Menu>
       <div className={styles.selectToken}>
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT} />
         <MenuTitle color={colorBeta} text={fromNetwork.name} />
-        <div className="row">
-          <SearchToken
-            tokens={tokens}
-            onSearchResults={searchResult => setSearchTokens(searchResult)}
-          />
-          <RefreshButton onClick={onRefreshClick} />
+        <SearchToken
+          tokens={tokens}
+          onSearchResults={searchResult => setSearchTokens(searchResult)}
+        />
+        <div className={styles.listButtonsRow}>
+          <RefreshButton onClick={updateTokenBalance} />
         </div>
         <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
         <div

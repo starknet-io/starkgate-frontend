@@ -26,4 +26,11 @@ $network-color: $--color-beta;
   .loadingContainer {
     margin: 50px auto;
   }
+
+  .listButtonsRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    padding-right: 18px;
+  }
 }
