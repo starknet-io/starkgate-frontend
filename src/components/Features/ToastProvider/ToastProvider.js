@@ -6,12 +6,12 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {
   ActionType,
+  Breakpoint,
   isConsumed,
   isMobile,
   isOnChain,
   isRejected,
-  NetworkType,
-  Breakpoint
+  NetworkType
 } from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -60,7 +60,7 @@ export const ToastProvider = () => {
 
   /* eslint-disable-next-line */
   const showPendingTransferToast = transfer => {
-    let toastId = getToastId(transfer);
+    let toastId = isToastRendered(transfer);
     if (!toastId) {
       toastId = toast.loading(renderTransferToast(transfer, true));
       toastsMap.current[transfer.id] = toastId;
@@ -76,28 +76,31 @@ export const ToastProvider = () => {
   };
 
   const showConsumedTransferToast = transfer => {
-    const toastId = getToastId(transfer);
-    toastsMap.current[transfer.id] = toast.success(renderTransferToast(transfer), {
-      id: toastId
-    });
+    const {id} = transfer;
+    if (!isToastRendered(id) && !isToastDismissed(id)) {
+      toastsMap.current[id] = toast.success(renderTransferToast(transfer), {
+        id
+      });
+    }
   };
 
   const showRejectedTransferToast = transfer => {
-    const toastId = getToastId(transfer);
-    toastsMap.current[transfer.id] = toast.error(renderTransferToast(transfer), {
-      id: toastId
-    });
+    const {id} = transfer;
+    if (!isToastRendered(id) && !isToastDismissed(id)) {
+      toastsMap.current[id] = true;
+      toast.error(renderTransferToast(transfer), {
+        id
+      });
+    }
   };
 
   const showCompleteTransferToL1Toast = transfer => {
-    const toastId = getToastId(transfer);
-    if (!toastId && !isToastDismissed(toastId)) {
-      toastsMap.current[transfer.id] = toast.custom(
-        t => renderCompleteTransferToL1Toast(t, transfer),
-        {
-          id: toastId
-        }
-      );
+    const {id} = transfer;
+    if (!isToastRendered(id) && !isToastDismissed(id)) {
+      toastsMap.current[id] = true;
+      toast.custom(t => renderCompleteTransferToL1Toast(t, transfer), {
+        id
+      });
     }
   };
 
@@ -121,14 +124,14 @@ export const ToastProvider = () => {
     />
   );
 
-  const getToastId = transfer => toastsMap.current[transfer.id];
+  const isToastRendered = transfer => toastsMap.current[transfer.id];
 
   const isToastDismissed = id => !!toastsDismissed[id];
 
   const dismissToast = transfer => {
-    const toastId = getToastId(transfer);
-    toast.dismiss(toastId);
-    toastsDismissed.current[toastId] = true;
+    const {id} = transfer;
+    toast.dismiss(id);
+    toastsDismissed.current[id] = true;
   };
 
   const onCompleteTransferClick = async transfer => {
