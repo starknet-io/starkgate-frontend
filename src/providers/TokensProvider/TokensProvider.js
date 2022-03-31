@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
+import constants from '../../config/constants';
 import {useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
+
+const {FETCH_TOKEN_BALANCE_MAX_RETRY} = constants;
 
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
@@ -37,16 +40,19 @@ export const TokensProvider = ({children}) => {
     }
   };
 
-  const fetchBalance = async (fn, index, token) => {
+  const fetchBalance = async (fn, index, token, retry = 1) => {
     try {
       const balance = await fn(token);
       logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
-      updateToken(index, {balance, isLoading: false});
+      return updateToken(index, {balance, isLoading: false});
     } catch (ex) {
       logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}, retry again`, {
         ex
       });
-      return fetchBalance(fn, index, token);
+      if (retry === FETCH_TOKEN_BALANCE_MAX_RETRY) {
+        return updateToken(index, {balance: null, isLoading: false});
+      }
+      return fetchBalance(fn, index, token, retry + 1);
     }
   };
 
