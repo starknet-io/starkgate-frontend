@@ -28,7 +28,7 @@ export const Transfer = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
   const {selectToken, selectedToken, action, symbol} = useTransfer();
-  const {tokens} = useTokens();
+  const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
@@ -148,7 +148,7 @@ export const Transfer = () => {
         {selectedToken && (
           <>
             {isL1 ? renderL1Network() : renderL2Network()}
-            <NetworkSwap isFlipped={isL2} onClick={onSwapClick} />
+            <NetworkSwap isFlipped={isL2} onClick={() => updateTokenBalance('SLF')} />
             {isL1 ? renderL2Network() : renderL1Network()}
           </>
         )}
