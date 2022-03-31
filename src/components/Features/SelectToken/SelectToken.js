@@ -32,9 +32,7 @@ export const SelectToken = () => {
   };
 
   const onRefreshClick = () => {
-    for (let index = 0; index < tokens.length; index++) {
-      updateTokenBalance(tokens[index].symbol);
-    }
+    updateTokenBalance();
   };
 
   return (
