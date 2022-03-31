@@ -32,7 +32,7 @@ export const TokensProvider = ({children}) => {
       logger.log(`Update balance for token ${token.symbol}`, {token});
       'balance' in token
         ? logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`)
-        : updateTokenState(index, {isLoading: true});
+        : updateToken(index, {isLoading: true});
       fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, index, token);
     }
   };
@@ -41,7 +41,7 @@ export const TokensProvider = ({children}) => {
     try {
       const balance = await fn(token);
       logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
-      updateTokenState(index, {balance, isLoading: false});
+      updateToken(index, {balance, isLoading: false});
     } catch (ex) {
       logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}, retry again`, {
         ex
@@ -50,12 +50,12 @@ export const TokensProvider = ({children}) => {
     }
   };
 
-  const updateTokenState = (index, args) => {
+  const updateToken = (index, props) => {
     dispatch({
-      type: actions.UPDATE_TOKEN_STATE,
+      type: actions.UPDATE_TOKEN,
       payload: {
         index,
-        args
+        props
       }
     });
   };
