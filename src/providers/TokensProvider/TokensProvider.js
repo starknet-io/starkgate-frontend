@@ -22,10 +22,11 @@ export const TokensProvider = ({children}) => {
     updateTokenBalance();
   }, []);
 
-  const updateTokenBalance = symbol => {
+  const updateTokenBalance = (symbol, shouldShowLoading = false) => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
     const tokensToUpdate = symbol ? tokens.filter(token => token.symbol === symbol) : tokens;
     logger.log('Tokens to update', {tokensToUpdate});
+
     for (let index = 0; index < tokensToUpdate.length; index++) {
       const token = tokensToUpdate[index];
       if (token.isLoading) {
@@ -33,7 +34,7 @@ export const TokensProvider = ({children}) => {
         break;
       }
       logger.log(`Update balance for token ${token.symbol}`, {token});
-      'balance' in token
+      'balance' in token && !shouldShowLoading
         ? logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`)
         : updateToken(index, {isLoading: true});
       fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, index, token);

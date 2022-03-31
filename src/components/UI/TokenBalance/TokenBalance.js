@@ -13,7 +13,7 @@ export const TokenBalance = ({tokenData, onRefresh}) => {
   return (
     <div className={styles.tokenBalance}>
       <span>{TITLE_TXT}</span>
-      <div className="row">
+      <div className={styles.balanceRow}>
         {isLoading && (
           <>
             <br />

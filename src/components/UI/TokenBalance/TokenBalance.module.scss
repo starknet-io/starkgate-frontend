@@ -9,6 +9,12 @@ $balance-color: $--color-white;
   text-align: right;
   letter-spacing: 0.01em;
 
+  .balanceRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+  }
+
   .balance {
     line-height: 24px;
     color: $balance-color;
