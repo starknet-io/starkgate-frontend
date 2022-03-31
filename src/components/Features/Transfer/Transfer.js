@@ -162,7 +162,7 @@ export const Transfer = () => {
         {selectedToken && (
           <>
             {isL1 ? renderL1Network() : renderL2Network()}
-            <NetworkSwap isFlipped={isL2} onClick={() => updateTokenBalance('SLF')} />
+            <NetworkSwap isFlipped={isL2} onClick={onSwapClick} />
             {isL1 ? renderL2Network() : renderL1Network()}
           </>
         )}

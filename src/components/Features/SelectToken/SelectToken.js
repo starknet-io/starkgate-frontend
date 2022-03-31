@@ -43,9 +43,6 @@ export const SelectToken = () => {
           tokens={tokens}
           onSearchResults={searchResult => setSearchTokens(searchResult)}
         />
-        {/*<div className={styles.listButtonsRow}>*/}
-        {/*  <RefreshButton onClick={() => updateTokenBalance()} />*/}
-        {/*</div>*/}
         <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
         <div
           className={styles.background}
