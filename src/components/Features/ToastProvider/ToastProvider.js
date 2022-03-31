@@ -4,15 +4,7 @@ import {toast, Toaster} from 'react-hot-toast';
 import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {
-  ActionType,
-  Breakpoint,
-  isConsumed,
-  isMobile,
-  isOnChain,
-  isRejected,
-  NetworkType
-} from '../../../enums';
+import {ActionType, Breakpoint, isConsumed, isMobile, isOnChain, isRejected, NetworkType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -78,7 +70,8 @@ export const ToastProvider = () => {
   const showConsumedTransferToast = transfer => {
     const {id} = transfer;
     if (!isToastRendered(id) && !isToastDismissed(id)) {
-      toastsMap.current[id] = toast.success(renderTransferToast(transfer), {
+      toastsMap.current[id] = true;
+      toast.success(renderTransferToast(transfer), {
         id
       });
     }
@@ -147,7 +140,7 @@ export const ToastProvider = () => {
   return (
     <Toaster
       containerClassName={styles.toastProvider}
-      position="top-right"
+      position='top-right'
       toastOptions={{
         duration: Infinity
       }}
