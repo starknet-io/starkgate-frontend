@@ -20,7 +20,7 @@ export const TokensProvider = ({children}) => {
   }, []);
 
   const updateTokenBalance = symbol => {
-    logger.log('Update token balance', {symbol});
+    logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
     const tokensToUpdate = symbol ? tokens.filter(token => token.symbol === symbol) : tokens;
     logger.log('Tokens to update', {tokensToUpdate});
     for (let index = 0; index < tokensToUpdate.length; index++) {
@@ -30,21 +30,23 @@ export const TokensProvider = ({children}) => {
         break;
       }
       logger.log(`Update balance for token ${token.symbol}`, {token});
-      if (!('balance' in token)) {
-        updateTokenState(index, {isLoading: true});
-      } else {
-        logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
-      }
-      const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
-      getBalance(token)
-        .then(balance => {
-          logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
-          updateTokenState(index, {balance, isLoading: false});
-        })
-        .catch(ex => {
-          logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}`, {ex});
-          updateTokenState(index, {balance: null, isLoading: false});
-        });
+      'balance' in token
+        ? logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`)
+        : updateTokenState(index, {isLoading: true});
+      fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, index, token);
+    }
+  };
+
+  const fetchBalance = async (fn, index, token) => {
+    try {
+      const balance = await fn(token);
+      logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
+      updateTokenState(index, {balance, isLoading: false});
+    } catch (ex) {
+      logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}, retry again`, {
+        ex
+      });
+      return fetchBalance(fn, index, token);
     }
   };
 
