@@ -1,11 +1,14 @@
+@import '../../../index';
+
 .button {
+  font-family: $--primary-font;
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: center;
   text-transform: capitalize;
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 24px;
   border: 1px solid;
   box-sizing: border-box;

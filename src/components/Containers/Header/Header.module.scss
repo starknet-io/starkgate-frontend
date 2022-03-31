@@ -39,22 +39,12 @@ $chain-color: $--color-white-1;
   }
 
   .right {
-    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
 
-    .tabs {
-      display: flex;
-      flex-direction: row;
-      margin-right: 10px;
-    }
-
-    .walletButtons {
-      display: flex;
-      flex-direction: row;
-
-      button {
-        &:not(:last-child) {
-          margin-right: 20px;
-        }
+    * {
+      &:not(:last-child) {
+        margin-right: 15px;
       }
     }
   }
