@@ -29,7 +29,7 @@ export const TokensProvider = ({children}) => {
       .filter(t => !symbol || t.symbol === symbol);
     logger.log('Tokens to update:', {tokensToUpdate});
 
-     tokensToUpdate.forEach(token => {
+    tokensToUpdate.forEach(token => {
       if (!token.isLoading) {
         updateToken(token.index, {isLoading: true});
         fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);

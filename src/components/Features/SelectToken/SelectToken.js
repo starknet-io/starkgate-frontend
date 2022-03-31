@@ -7,8 +7,7 @@ import {useColors} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
-import {BackButton, Menu, MenuTitle, SearchToken, SelectTokenList} from '../../UI';
-import {RefreshButton} from '../../UI/RefreshButton/RefreshButton';
+import {BackButton, Menu, MenuTitle, RefreshIcon, SearchToken, SelectTokenList} from '../../UI';
 import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
 
@@ -36,14 +35,17 @@ export const SelectToken = () => {
       <div className={styles.selectToken}>
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT} />
-        <MenuTitle color={colorBeta} text={fromNetwork.name} />
+        <div className={styles.test}>
+          <MenuTitle color={colorBeta} text={fromNetwork.name} />
+          <RefreshIcon onClick={updateTokenBalance} />
+        </div>
         <SearchToken
           tokens={tokens}
           onSearchResults={searchResult => setSearchTokens(searchResult)}
         />
-        <div className={styles.listButtonsRow}>
-          <RefreshButton onClick={() => updateTokenBalance()} />
-        </div>
+        {/*<div className={styles.listButtonsRow}>*/}
+        {/*  <RefreshButton onClick={() => updateTokenBalance()} />*/}
+        {/*</div>*/}
         <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
         <div
           className={styles.background}

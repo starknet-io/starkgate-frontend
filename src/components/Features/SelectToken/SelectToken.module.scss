@@ -27,10 +27,8 @@ $network-color: $--color-beta;
     margin: 50px auto;
   }
 
-  .listButtonsRow {
+  .test {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-end;
-    padding-right: 18px;
+    justify-content: space-between;
   }
 }

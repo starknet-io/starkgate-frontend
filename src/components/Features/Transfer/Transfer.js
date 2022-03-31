@@ -112,7 +112,7 @@ export const Transfer = () => {
         isTarget={!isL1}
         networkData={NetworkType.L1}
         tokenData={tokenData}
-        onRefresh={onRefreshTokenBalanceClick}
+        onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL1 && renderTransferInput()}
       </NetworkMenu>
@@ -126,7 +126,7 @@ export const Transfer = () => {
         isTarget={!isL2}
         networkData={NetworkType.L2}
         tokenData={tokenData}
-        onRefresh={onRefreshTokenBalanceClick}
+        onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL2 && renderTransferInput()}
       </NetworkMenu>

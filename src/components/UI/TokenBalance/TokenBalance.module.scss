@@ -13,10 +13,25 @@ $balance-color: $--color-white;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
+
+    .balance {
+      display: flex;
+      line-height: 24px;
+      color: $balance-color;
+
+      .symbol {
+        margin-left: 5px;
+      }
+    }
   }
 
-  .balance {
-    line-height: 24px;
-    color: $balance-color;
+  &.loading {
+    .balanceRow {
+      .balance {
+        .symbol {
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
