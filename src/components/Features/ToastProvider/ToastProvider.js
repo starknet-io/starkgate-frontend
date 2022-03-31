@@ -23,11 +23,12 @@ import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
+const toastsMap = {};
+const toastsDismissed = {};
+
 export const ToastProvider = () => {
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
-  const toastsMap = useRef({});
-  const toastsDismissed = useRef({});
   const completeTransferToL1 = useCompleteTransferToL1();
   const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
@@ -71,7 +72,7 @@ export const ToastProvider = () => {
     const {id} = transfer;
     if (toastShouldRender(id, ToastType.CONSUMED_TRANSFER)) {
       setToast(id, ToastType.CONSUMED_TRANSFER);
-      toast.success(renderTransferToast(transfer), {
+      toast.success(renderTransferToast(transfer, ToastType.CONSUMED_TRANSFER), {
         id
       });
     }
@@ -81,7 +82,7 @@ export const ToastProvider = () => {
     const {id} = transfer;
     if (toastShouldRender(id, ToastType.REJECTED_TRANSFER)) {
       setToast(id, ToastType.REJECTED_TRANSFER);
-      toast.error(renderTransferToast(transfer), {
+      toast.error(renderTransferToast(transfer, ToastType.REJECTED_TRANSFER), {
         id
       });
     }
@@ -97,29 +98,28 @@ export const ToastProvider = () => {
     }
   };
 
-  const renderTransferToast = (transfer, isLoading) => (
+  const renderTransferToast = (transfer, type) => (
     <TransferToast
-      isLoading={isLoading}
+      isLoading={false}
       transfer={transfer}
-      onClose={() => dismissToast(transfer)}
+      onClose={() => dismissToast(transfer.id, type)}
       onTransferLogLinkClick={() => goToTransferLog(transfer)}
     />
   );
 
-  const renderCompleteTransferToL1Toast = (t, transfer) => (
-    <CompleteTransferToL1Toast
-      t={t}
-      transfer={transfer}
-      onClose={() => dismissToast(transfer)}
-      onCompleteTransfer={() => onCompleteTransferClick(transfer)}
-      onDismiss={() => dismissToast(transfer)}
-      onTransferLogLinkClick={() => goToTransferLog(transfer)}
-    />
-  );
-
-  const setToast = (id, type) => {
-    toastsMap.current[type] = toastsMap.current[type] || {};
-    toastsMap.current[type][id] = true;
+  const renderCompleteTransferToL1Toast = (t, transfer) => {
+    const type = ToastType.COMPLETE_TRANSFER_TO_L1;
+    const {id} = transfer;
+    return (
+      <CompleteTransferToL1Toast
+        t={t}
+        transfer={transfer}
+        onClose={() => dismissToast(id, type)}
+        onCompleteTransfer={() => onCompleteTransferClick(transfer)}
+        onDismiss={() => dismissToast(id, type)}
+        onTransferLogLinkClick={() => goToTransferLog(transfer)}
+      />
+    );
   };
 
   const toastShouldRender = (id, type) => {
@@ -127,17 +127,22 @@ export const ToastProvider = () => {
   };
 
   const isToastRendered = (id, type) => {
-    return toastsMap.current[type]?.[id];
+    return toastsMap[type]?.[id];
   };
 
   const isToastDismissed = (id, type) => {
-    return !!toastsDismissed.current[type]?.[id];
+    return toastsDismissed[type]?.[id];
   };
 
-  const dismissToast = transfer => {
-    const {id} = transfer;
+  const setToast = (id, type) => {
+    toastsMap[type] = toastsMap[type] || {};
+    toastsMap[type][id] = true;
+  };
+
+  const dismissToast = (id, type) => {
+    toastsDismissed[type] = toastsDismissed[type] || {};
+    toastsDismissed[type][id] = true;
     toast.dismiss(id);
-    toastsDismissed.current[id] = true;
   };
 
   const onCompleteTransferClick = async transfer => {
