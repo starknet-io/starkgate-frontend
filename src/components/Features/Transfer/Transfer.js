@@ -89,7 +89,7 @@ export const Transfer = () => {
   };
 
   const onRefreshTokenBalanceClick = () => {
-    updateTokenBalance(selectedToken.symbol, true);
+    updateTokenBalance(selectedToken.symbol);
   };
 
   const renderTabs = () => {
