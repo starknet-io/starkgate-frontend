@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
+import constants from '../../config/constants';
 import {useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
+
+const {FETCH_TOKEN_BALANCE_MAX_RETRY} = constants;
 
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
@@ -20,7 +23,7 @@ export const TokensProvider = ({children}) => {
   }, []);
 
   const updateTokenBalance = symbol => {
-    logger.log('Update token balance', {symbol});
+    logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
     const tokensToUpdate = symbol ? tokens.filter(token => token.symbol === symbol) : tokens;
     logger.log('Tokens to update', {tokensToUpdate});
     for (let index = 0; index < tokensToUpdate.length; index++) {
@@ -30,30 +33,35 @@ export const TokensProvider = ({children}) => {
         break;
       }
       logger.log(`Update balance for token ${token.symbol}`, {token});
-      if (!('balance' in token)) {
-        updateTokenState(index, {isLoading: true});
-      } else {
-        logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`);
-      }
-      const getBalance = token.isL1 ? getL1TokenBalance : getL2TokenBalance;
-      getBalance(token)
-        .then(balance => {
-          logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
-          updateTokenState(index, {balance, isLoading: false});
-        })
-        .catch(ex => {
-          logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}`, {ex});
-          updateTokenState(index, {balance: null, isLoading: false});
-        });
+      'balance' in token
+        ? logger.log(`Token already have a balance of ${token.balance}, don't set isLoading prop`)
+        : updateToken(index, {isLoading: true});
+      fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, index, token);
     }
   };
 
-  const updateTokenState = (index, args) => {
+  const fetchBalance = async (fn, index, token, retry = 1) => {
+    try {
+      const balance = await fn(token);
+      logger.log(`New ${token.isL1 ? 'L1' : 'L2'} ${token.symbol} token balance is ${balance}`);
+      return updateToken(index, {balance, isLoading: false});
+    } catch (ex) {
+      logger.error(`Failed to fetch token ${token.symbol} balance: ${ex.message}, retry again`, {
+        ex
+      });
+      if (retry === FETCH_TOKEN_BALANCE_MAX_RETRY) {
+        return updateToken(index, {balance: null, isLoading: false});
+      }
+      return fetchBalance(fn, index, token, retry + 1);
+    }
+  };
+
+  const updateToken = (index, props) => {
     dispatch({
-      type: actions.UPDATE_TOKEN_STATE,
+      type: actions.UPDATE_TOKEN,
       payload: {
         index,
-        args
+        props
       }
     });
   };

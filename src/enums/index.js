@@ -9,3 +9,4 @@ export * from './TransactionHashPrefix';
 export * from './EventName';
 export * from './SelectorName';
 export * from './Breakpoint';
+export * from './ToastType';
