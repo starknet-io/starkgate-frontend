@@ -5,6 +5,7 @@ import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import constants from '../../../config/constants';
 import {Breakpoint} from '../../../enums';
+import {useColors} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
@@ -23,6 +24,7 @@ export const Header = () => {
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
+  const {colorDiscord, colorWhiteOp50} = useColors();
 
   const onL2WalletButtonClick = () => {
     swapToL2();
@@ -55,26 +57,22 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <div className={styles.tabs}>
-          <Tab label={TAB_FAQ_TXT} onClick={showFaqMenu} />
-          <Tab isLink={true} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
-        </div>
-        <div className={styles.walletButtons}>
-          {isL1AccountConnected && (
-            <WalletButton
-              account={l1Account}
-              logoPath={l1Config?.logoPath}
-              onClick={onL1WalletButtonClick}
-            />
-          )}
-          {isL2AccountConnected && (
-            <WalletButton
-              account={l2Account}
-              logoPath={l2Config?.logoPath}
-              onClick={onL2WalletButtonClick}
-            />
-          )}
-        </div>
+        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={showFaqMenu} />
+        <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
+        {isL1AccountConnected && (
+          <WalletButton
+            account={l1Account}
+            logoPath={l1Config?.logoPath}
+            onClick={onL1WalletButtonClick}
+          />
+        )}
+        {isL2AccountConnected && (
+          <WalletButton
+            account={l2Account}
+            logoPath={l2Config?.logoPath}
+            onClick={onL2WalletButtonClick}
+          />
+        )}
       </div>
     </div>
   );

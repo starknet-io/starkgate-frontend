@@ -1,6 +1,9 @@
 $--color-white: #fff;
 $--color-white-1: #d3dae3;
 $--color-white-2: #d3dae3ff;
+$--color-white-op-10: rgba(255, 255, 255, 0.1);
+$--color-white-op-20: rgba(255, 255, 255, 0.2);
+$--color-white-op-50: rgba(255, 255, 255, 0.5);
 $--color-black: #000;
 $--color-alpha: #15174e;
 $--color-alpha-1: #1c1e52;
@@ -19,8 +22,8 @@ $--color-omega: #5f666c;
 $--color-omega-1: #667085;
 $--color-success: #039855;
 $--color-error: #da4646;
+$--color-discord: #5865f2;
 
-/* stylelint scss/dollar-variable-pattern: [/color/, {"ignore": "global"}] */
 :export {
   colorBlack: $--color-black;
   colorWhite: $--color-white;
@@ -29,4 +32,8 @@ $--color-error: #da4646;
   colorAlpha3: $--color-alpha-3;
   colorAlpha5: $--color-alpha-5;
   colorOmega1: $--color-omega-1;
+  colorDiscord: $--color-discord;
+  colorWhiteOp10: $--color-white-op-10;
+  colorWhiteOp20: $--color-white-op-20;
+  colorWhiteOp50: $--color-white-op-50;
 }

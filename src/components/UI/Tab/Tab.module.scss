@@ -1,26 +1,3 @@
-@import '../../../index';
-
-$color: $--color-white;
-$color: $--color-white;
-
 .tab {
-  text-transform: capitalize;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.2;
-  margin-right: 30px;
-  cursor: pointer;
-  background-color: transparent;
-  color: $color;
-  text-decoration: none;
-  box-sizing: border-box;
-  border: none;
-  transition: 0.3s ease-in-out;
-  font-family: $--primary-font;
-
-  &.link {
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+  border-width: 2px;
 }
