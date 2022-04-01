@@ -28,5 +28,6 @@ export * from './WalletLogin/WalletLogin';
 export * from './TransferLogContainer/TransferLogContainer';
 export * from './LogoutButton/LogoutButton';
 export * from './AccountAddress/AccountAddress';
+export * from './RefreshIcon/RefreshIcon';
 export * from './Modal';
 export * from './Toast';

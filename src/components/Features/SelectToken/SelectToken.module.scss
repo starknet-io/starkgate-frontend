@@ -26,4 +26,9 @@ $network-color: $--color-beta;
   .loadingContainer {
     margin: 50px auto;
   }
+
+  .name {
+    display: flex;
+    justify-content: space-between;
+  }
 }

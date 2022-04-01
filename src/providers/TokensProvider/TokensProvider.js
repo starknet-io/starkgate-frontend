@@ -28,6 +28,7 @@ export const TokensProvider = ({children}) => {
       .map((t, index) => ({...t, index}))
       .filter(t => !symbol || t.symbol === symbol);
     logger.log('Tokens to update:', {tokensToUpdate});
+
     tokensToUpdate.forEach(token => {
       if (!token.isLoading) {
         updateToken(token.index, {isLoading: true});
