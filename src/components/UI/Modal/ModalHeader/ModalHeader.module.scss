@@ -4,8 +4,9 @@ $error-color: $--color-error;
 
 .modalHeader {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 
   .container {
     svg {

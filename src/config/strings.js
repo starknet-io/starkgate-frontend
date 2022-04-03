@@ -74,10 +74,6 @@ const strings = {
         type: 'Initiate transfer',
         message: 'Initiating transfer of {{amount}} {{symbol}} from StarkNet...'
       },
-      waitForAccept: {
-        type: 'Transaction sent',
-        message: 'Waiting for transaction to be accepted on StarkNet...'
-      },
       withdraw: {
         type: 'Transfer in progress',
         message: 'Transferring {{amount}} {{symbol}} to Ethereum...'

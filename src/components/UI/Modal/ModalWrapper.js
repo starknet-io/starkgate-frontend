@@ -9,10 +9,14 @@ export const ModalWrapper = () => {
   const modal = useModal();
   const handleOnClose = useHideModal();
   const CustomComponent = lazy(() => import(`../../${modal.componentPath}`));
+  const CustomHeaderComponent = lazy(() => import(`../../${modal.headerComponentPath}`));
 
   return (
     <Modal show={modal.show} size={modal.size} type={modal.type}>
       <ModalHeader type={modal.type}>
+        <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
+          {modal.headerComponentPath && <CustomHeaderComponent {...modal.headerComponentProps} />}
+        </Suspense>
         {modal.title && <ModalTitle>{modal.title}</ModalTitle>}
       </ModalHeader>
       <ModalBody type={modal.type}>
