@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import useBreakpoint from 'use-breakpoint';
 
 import {track, TrackEvent} from '../../../analytics';
-import {ActionType, NetworkType} from '../../../enums';
-import {useMaxDeposit, useTransferToL1, useTransferToL2, useWindowSize} from '../../../hooks';
+import {ActionType, NetworkType, isTablet, Breakpoint} from '../../../enums';
+import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
@@ -30,21 +31,12 @@ export const Transfer = () => {
   const {showSelectTokenMenu} = useMenu();
   const {selectToken, selectedToken, action, symbol} = useTransfer();
   const {tokens, updateTokenBalance} = useTokens();
-  const [smallHeight, setSmallHeight] = useState(false);
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
-  const windowSize = useWindowSize();
-
-  useEffect(() => {
-    if (document.body.offsetHeight < 768) {
-      setSmallHeight(true);
-    } else {
-      setSmallHeight(false);
-    }
-  }, [windowSize]);
+  const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
     if (!selectedToken) {
@@ -186,7 +178,7 @@ export const Transfer = () => {
             <Loading size={LoadingSize.XL} />
           </center>
         )}
-        {selectedToken && smallHeight ? (
+        {selectedToken && isTablet(breakpoint) ? (
           <div className={styles.networks}>{renderL1L2Networks()}</div>
         ) : (
           selectedToken && (

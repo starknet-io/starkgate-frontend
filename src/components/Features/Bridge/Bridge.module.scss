@@ -10,9 +10,9 @@ $background-color: $--color-alpha;
   margin: auto;
   transition: 0.3s ease-in-out;
   height: inherit;
-  width: unset;
+  width: 500px;
 
-  @media screen and (min-height: 768px) {
-    width: 500px;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    width: unset;
   }
 }
