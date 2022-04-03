@@ -70,8 +70,8 @@ const TransactionSubmittedModal = ({transfer}) => {
   return (
     <div className={styles.transactionSubmittedModal}>
       <ModalText>{textMessage}</ModalText>
-      {messageComponent}
       <div className={styles.buttons}>{renderNetworks()}</div>
+      {messageComponent}
     </div>
   );
 };

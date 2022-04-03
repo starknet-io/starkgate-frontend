@@ -1,8 +1,13 @@
+import {toClasses} from '../../../../utils/object';
+import styles from './ModalMessage.module.scss';
+
 export const TransferToL1Message = () => {
   return (
-    <p>
-      The StarkNet → Ethereum transfer divided into two stages (
-      <a href="https://starknet.io/documentation/starkgate-token-bridge/">Docs</a>):
+    <div className={toClasses(styles.modalMessage, styles.transferMessage)}>
+      <center>
+        The StarkNet → Ethereum transfer divided into two stages (
+        <a href="https://starknet.io/documentation/starkgate-token-bridge/">Docs</a>):
+      </center>
       <ul>
         <li>A waiting period of several hours is expected between the stages.</li>
         <li>
@@ -10,6 +15,6 @@ export const TransferToL1Message = () => {
           transfer.
         </li>
       </ul>
-    </p>
+    </div>
   );
 };

@@ -9,6 +9,7 @@ const ProgressModal = ({message}) => {
   return (
     <>
       <LinearProgress />
+      <br />
       <ModalText>{message}</ModalText>
       <br />
       <RefreshMessage />
