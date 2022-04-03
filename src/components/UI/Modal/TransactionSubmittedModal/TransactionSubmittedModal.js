@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
-import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
+import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/tokens/starknet.svg';
 import constants from '../../../../config/constants';
 import envs from '../../../../config/envs';
 import {ActionType} from '../../../../enums';
@@ -26,6 +26,7 @@ const {etherscanTxUrl, voyagerTxUrl} = envs;
 const TransactionSubmittedModal = ({transfer}) => {
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
+  const explorerButtons = [];
 
   const textMessage =
     type === ActionType.TRANSFER_TO_L2
@@ -41,18 +42,22 @@ const TransactionSubmittedModal = ({transfer}) => {
       <TransferToL1Message />
     ) : null;
 
-  const explorerButtons = [
-    {
-      explorerName: VOYAGER,
-      explorerUrl: voyagerTxUrl(l2hash),
-      explorerLogo: <L2Logo style={{margin: 'auto'}} />
-    }
-  ];
-  if (type === ActionType.TRANSFER_TO_L2) {
+  if (type === ActionType.TRANSFER_TO_L2 || isTransferCompleted) {
     explorerButtons.push({
       explorerName: ETHERSCAN,
       explorerUrl: etherscanTxUrl(l1hash),
-      explorerLogo: <EtherscanLogo style={{margin: 'auto'}} />
+      explorerLogo: <EtherscanLogo />
+    });
+  }
+
+  if (
+    (type === ActionType.TRANSFER_TO_L1 && !isTransferCompleted) ||
+    type === ActionType.TRANSFER_TO_L2
+  ) {
+    explorerButtons.push({
+      explorerName: VOYAGER,
+      explorerUrl: voyagerTxUrl(l2hash),
+      explorerLogo: <StarkNetLogo />
     });
   }
 
