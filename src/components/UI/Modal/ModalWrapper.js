@@ -17,7 +17,11 @@ export const ModalWrapper = () => {
       </ModalHeader>
       <ModalBody type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {modal.componentPath ? <CustomComponent {...modal.componentProps} /> : <ModalText>{modal.body}</ModalText>}
+          {modal.componentPath ? (
+            <CustomComponent {...modal.componentProps} />
+          ) : (
+            <ModalText>{modal.body}</ModalText>
+          )}
         </Suspense>
       </ModalBody>
       {modal.withButtons && <ModalFooter type={modal.type} onClose={handleOnClose} {...modal} />}

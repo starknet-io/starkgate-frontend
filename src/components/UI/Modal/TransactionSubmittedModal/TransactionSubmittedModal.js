@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as L2Logo} from '../../../../assets/svg/tokens/starknet.svg';
@@ -10,6 +10,8 @@ import {useColors} from '../../../../hooks';
 import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
+import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
+import {ModalText} from '../ModalText/ModalText';
 import styles from './TransactionSubmittedModal.module.scss';
 import {
   BTN_TEXT,
@@ -17,8 +19,6 @@ import {
   TRANSFER_TO_L1_TXT,
   TRANSFER_TO_L2_TXT
 } from './TransactionSubmittedModal.strings';
-import {ModalText} from '../ModalText/ModalText';
-import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
 
 const {ETHERSCAN, VOYAGER} = constants;
 const {etherscanTxUrl, voyagerTxUrl} = envs;
@@ -27,18 +27,19 @@ const TransactionSubmittedModal = ({transfer}) => {
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
 
-  const textMessage = type === ActionType.TRANSFER_TO_L2
-    ? TRANSFER_TO_L2_TXT
-    : isTransferCompleted
+  const textMessage =
+    type === ActionType.TRANSFER_TO_L2
+      ? TRANSFER_TO_L2_TXT
+      : isTransferCompleted
       ? COMPLETE_TRANSFER_TO_L1_TXT
       : TRANSFER_TO_L1_TXT;
 
-
   const messageComponent =
-    type === ActionType.TRANSFER_TO_L2
-    ? <TransferToL2Message/>
-    : !isTransferCompleted ?
-  <TransferToL1Message/> : null;
+    type === ActionType.TRANSFER_TO_L2 ? (
+      <TransferToL2Message />
+    ) : !isTransferCompleted ? (
+      <TransferToL1Message />
+    ) : null;
 
   const explorerButtons = [
     {
@@ -68,9 +69,7 @@ const TransactionSubmittedModal = ({transfer}) => {
 
   return (
     <div className={styles.transactionSubmittedModal}>
-      <ModalText>
-      {textMessage}
-      </ModalText>
+      <ModalText>{textMessage}</ModalText>
       {messageComponent}
       <div className={styles.buttons}>{renderNetworks()}</div>
     </div>

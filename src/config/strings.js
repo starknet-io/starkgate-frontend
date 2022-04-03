@@ -58,9 +58,8 @@ const strings = {
       title_txt: 'Transaction sent',
       btn_txt: 'View on {{explorer}}',
       transfer_to_l1_txt: 'Your transaction is now being processing on StarkNet.',
-      transfer_to_l2_txt:
-        'Your transaction has been successfully sent to StarkNet!',
-      complete_transfer_to_l1_txt: 'Your transaction is completed on Ethereum!'
+      transfer_to_l2_txt: 'Your transaction has been successfully sent to StarkNet!',
+      complete_transfer_to_l1_txt: 'Your transfer is completed on Ethereum!'
     },
     transferProgress: {
       approval: {

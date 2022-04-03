@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import styles from './ModalText.module.scss';
 
 export const ModalText = ({children}) => {
@@ -8,4 +10,8 @@ export const ModalText = ({children}) => {
       </div>
     </div>
   );
+};
+
+ModalText.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };

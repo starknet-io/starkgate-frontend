@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../../hooks';
@@ -15,10 +16,15 @@ export const ModalFooter = ({type, onClose}) => {
         colorBackground={color}
         colorBorder={color}
         colorText={colorWhite}
-        text="close"
         height={40}
+        text="close"
         onClick={onClose}
       />
     </div>
   );
+};
+
+ModalFooter.propTypes = {
+  type: PropTypes.string,
+  onClose: PropTypes.func
 };
