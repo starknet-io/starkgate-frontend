@@ -12,7 +12,7 @@ import styles from './WalletButton.module.scss';
 import {BTN_TXT} from './WalletButton.strings';
 
 export const WalletButton = ({account, logoPath, onClick}) => {
-  const {colorBeta, colorWhite} = useColors();
+  const {colorBeta, colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   const getText = () => {
@@ -28,7 +28,8 @@ export const WalletButton = ({account, logoPath, onClick}) => {
   return (
     <Button
       className={toClasses(styles.walletButton, styles[breakpoint.toLowerCase()])}
-      colorBackground="transparent"
+      colorBackground={colorWhiteOp10}
+      colorBackgroundHover={colorWhiteOp20}
       colorBorder={colorBeta}
       colorText={colorWhite}
       height={0}

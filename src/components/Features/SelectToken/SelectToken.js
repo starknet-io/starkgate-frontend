@@ -7,12 +7,12 @@ import {useColors} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
-import {BackButton, Menu, MenuTitle, SearchToken, SelectTokenList} from '../../UI';
+import {BackButton, Menu, MenuTitle, RefreshIcon, SearchToken, SelectTokenList} from '../../UI';
 import styles from './SelectToken.module.scss';
 import {TITLE_TXT} from './SelectToken.strings';
 
 export const SelectToken = () => {
-  const {tokens} = useTokens();
+  const {tokens, updateTokenBalance} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useMenu();
   const {isL1, fromNetwork} = useTransfer();
@@ -35,7 +35,10 @@ export const SelectToken = () => {
       <div className={styles.selectToken}>
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT} />
-        <MenuTitle color={colorBeta} text={fromNetwork.name} />
+        <div className={styles.name}>
+          <MenuTitle color={colorBeta} text={fromNetwork.name} />
+          <RefreshIcon onClick={updateTokenBalance} />
+        </div>
         <SearchToken
           tokens={tokens}
           onSearchResults={searchResult => setSearchTokens(searchResult)}

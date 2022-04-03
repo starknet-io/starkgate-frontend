@@ -28,7 +28,7 @@ export const Transfer = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
   const {selectToken, selectedToken, action, symbol} = useTransfer();
-  const {tokens} = useTokens();
+  const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
@@ -88,6 +88,10 @@ export const Transfer = () => {
     }
   };
 
+  const onRefreshTokenBalanceClick = () => {
+    updateTokenBalance(selectedToken.symbol);
+  };
+
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
       return (
@@ -104,7 +108,12 @@ export const Transfer = () => {
   const renderL1Network = () => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isL1} networkData={NetworkType.L1} tokenData={tokenData}>
+      <NetworkMenu
+        isTarget={!isL1}
+        networkData={NetworkType.L1}
+        tokenData={tokenData}
+        onRefreshClick={onRefreshTokenBalanceClick}
+      >
         {isL1 && renderTransferInput()}
       </NetworkMenu>
     );
@@ -113,7 +122,12 @@ export const Transfer = () => {
   const renderL2Network = () => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isL2} networkData={NetworkType.L2} tokenData={tokenData}>
+      <NetworkMenu
+        isTarget={!isL2}
+        networkData={NetworkType.L2}
+        tokenData={tokenData}
+        onRefreshClick={onRefreshTokenBalanceClick}
+      >
         {isL2 && renderTransferInput()}
       </NetworkMenu>
     );
