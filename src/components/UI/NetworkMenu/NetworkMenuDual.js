@@ -4,8 +4,8 @@ import React from 'react';
 import {NetworkTitle} from '../NetworkTitle/NetworkTitle';
 import {TokenBalance} from '../TokenBalance/TokenBalance';
 import {Badge} from '../index';
+import styles from './NetworkMenu.module.scss';
 import {FROM, TO} from './NetworkMenu.strings';
-import styles from './NetworkMenuDual.module.scss';
 
 export const NetworkMenuDual = ({
   fromNetworkData,
@@ -16,7 +16,7 @@ export const NetworkMenuDual = ({
   children
 }) => {
   return (
-    <div className={styles.networkMenuDual}>
+    <div className={styles.networkMenu}>
       <div className={styles.tokensRow}>
         <div>
           <Badge text={FROM} />

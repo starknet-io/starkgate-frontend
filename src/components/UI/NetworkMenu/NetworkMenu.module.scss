@@ -11,6 +11,12 @@ $box-shadow-color: rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   padding: 30px 40px;
 
+  .tokensRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
   .networkContainer {
     display: flex;
     justify-content: space-between;
