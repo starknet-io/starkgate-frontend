@@ -1,6 +1,10 @@
 @import '../../../../index';
 
 .onboardingModal {
+  ul {
+    text-align: left;
+  }
+
   h3 {
     color: $--color-alpha-5;
   }

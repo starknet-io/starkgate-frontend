@@ -4,11 +4,14 @@ $error-color: $--color-error;
 
 .modalHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 
-  svg {
-    cursor: pointer;
+  .container {
+    svg {
+      cursor: pointer;
+      float: right;
+    }
   }
 
   &.error {

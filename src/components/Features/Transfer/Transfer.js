@@ -4,6 +4,7 @@ import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
 import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useProgressModal, useTransactionSubmittedModal} from '../../../providers/ModalProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
 import {
@@ -34,6 +35,39 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+
+  const show = useTransactionSubmittedModal();
+
+  // useEffect(() => {
+  //   show({
+  //     id: 'de007d52-c5b1-4717-ba5b-f37b9bef8c50',
+  //     timestamp: 1648996087509,
+  //     type: 1,
+  //     sender: '0x9B1239B1bd98436f15980Ab05456a0efe162AE4C',
+  //     recipient: '0x573d6c01f64dd68d20b0d62f98ce19fcf387c8fddedfff4a5cede84490f73ed',
+  //     name: 'Ether',
+  //     symbol: 'ETH',
+  //     amount: '0.01',
+  //     l1hash: '0x43175d756534d27ecd09e4ef04d5cb28c246a6b80bb9bf30dad41f8e8de698c1',
+  //     l2hash: '0x7ca258279bcce6273f94480ce282e231e6b90550e81574d5a83e72107acea91',
+  //     status: 'ACCEPTED_ON_L2',
+  //     lastChecked: '0x591e857d5c0046628cca4dfebd8b0761c7883788cecc8b2c98b69908f5c8fab'
+  //   });
+  //   // show({
+  //   //   "id": "de007d52-c5b1-4717-ba5b-f37b9bef8c50",
+  //   //   "timestamp": 1648996087509,
+  //   //   "type": 1,
+  //   //   "sender": "0x9B1239B1bd98436f15980Ab05456a0efe162AE4C",
+  //   //   "recipient": "0x573d6c01f64dd68d20b0d62f98ce19fcf387c8fddedfff4a5cede84490f73ed",
+  //   //   "name": "Ether",
+  //   //   "symbol": "ETH",
+  //   //   "amount": "0.01",
+  //   //   "l1hash": "0x43175d756534d27ecd09e4ef04d5cb28c246a6b80bb9bf30dad41f8e8de698c1",
+  //   //   "l2hash": "0x7ca258279bcce6273f94480ce282e231e6b90550e81574d5a83e72107acea91",
+  //   //   "status": "NOT_RECEIVED",
+  //   //   "lastChecked": "0x203de8ede06f6cb6096fd391725ffdc87184fa3d7ce5cce3fe4192cd081f637"
+  //   // });
+  // }, []);
 
   useEffect(() => {
     if (!selectedToken) {

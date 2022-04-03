@@ -22,14 +22,16 @@ export const useProgressModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, type = ModalType.INFO) => {
+    (title, message, component, withButtons = false, type = ModalType.INFO) => {
       showModal({
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
-          message
+          message,
+          component
         },
         title,
-        type
+        type,
+        withButtons
       });
     },
     [showModal]
@@ -47,7 +49,7 @@ export const useTransactionSubmittedModal = () => {
           transfer
         },
         title: utils.getTranslation('modals.transactionSubmitted.title_txt'),
-        isClosable: true
+        withButtons: true
       });
     },
     [showModal]
@@ -62,7 +64,7 @@ export const useErrorModal = () => {
       showModal({
         title,
         body,
-        isClosable: true,
+        withButtons: true,
         type: ModalType.ERROR
       });
     },
@@ -76,9 +78,8 @@ export const useOnboardingModal = () => {
   return useCallback(() => {
     showModal({
       componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
-      componentProps: null,
       title: utils.getTranslation('modals.onboarding.title_txt'),
-      isClosable: true
+      withButtons: true
     });
   }, [showModal]);
 };

@@ -45,7 +45,7 @@ export const useTransferToL2 = () => {
       };
 
       const sendApproval = async () => {
-        return await approve({
+        return approve({
           spender: tokenBridgeAddress,
           value: starknet.constants.MASK_250,
           contract: tokenContract,
@@ -72,33 +72,33 @@ export const useTransferToL2 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (error) {
+        if (!error) {
+          logger.log('Tx signed', {transactionHash});
+          handleProgress(progressOptions.deposit(amount, symbol));
+        } else {
           track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
-          return;
         }
-        logger.log('Tx signed', {transactionHash});
-        handleProgress(progressOptions.deposit(amount, symbol));
       };
 
       const onLogMessageToL2 = (error, event) => {
-        if (error) {
+        if (!error) {
+          logger.log('Done', event.transactionHash);
+          handleData({
+            type: ActionType.TRANSFER_TO_L2,
+            sender: l1Account,
+            recipient: l2Account,
+            name,
+            symbol,
+            amount,
+            ...extractTransactionsHashFromEvent(event)
+          });
+        } else {
           track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
           logger.error(error.message);
           handleError(progressOptions.error(error));
-          return;
         }
-        logger.log('Done', event.transactionHash);
-        handleData({
-          type: ActionType.TRANSFER_TO_L2,
-          sender: l1Account,
-          recipient: l2Account,
-          name,
-          symbol,
-          amount,
-          ...extractTransactionsHashFromEvent(event)
-        });
       };
 
       const extractTransactionsHashFromEvent = event => {
@@ -152,7 +152,7 @@ export const useTransferToL2 = () => {
         handleProgress(progressOptions.waitForConfirm(l1Config.name));
         addLogMessageToL2Listener(onLogMessageToL2);
         logger.log('Calling deposit');
-        sendDeposit();
+        await sendDeposit();
       } catch (ex) {
         track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, ex);
         logger.error(ex.message, {ex});
