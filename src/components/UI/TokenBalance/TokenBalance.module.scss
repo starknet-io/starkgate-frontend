@@ -15,12 +15,6 @@ $balance-color: $--color-white;
     flex-flow: row nowrap;
     justify-content: flex-end;
 
-    .title {
-      width: 60px;
-      text-align: right;
-      margin: 0 0 0 auto;
-    }
-
     .balance {
       display: flex;
       line-height: 24px;

@@ -13,7 +13,7 @@ export const TokenBalance = ({tokenData, onRefreshClick}) => {
 
   return (
     <div className={toClasses(styles.tokenBalance, isLoading && styles.loading)}>
-      <div className={styles.title}>{TITLE_TXT}</div>
+      <span>{TITLE_TXT}</span>
       <div className={styles.balanceRow}>
         <div className={styles.balance}>
           {isLoading ? <Loading size={LoadingSize.SMALL} /> : utils.wallet.formatBalance(balance)}
