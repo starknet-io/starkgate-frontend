@@ -43,7 +43,7 @@ const strings = {
       from_txt: 'from',
       insufficient_balance_error_msg: 'Insufficient balance',
       max_deposit_error_msg:
-        'StarkNet Alpha Limitation: transfer to StarkNet limited to {{maxAmount}} {{symbol}}.',
+        'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
       max_btn_txt: 'Max',
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',

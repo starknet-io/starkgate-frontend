@@ -53,7 +53,7 @@ export const Transfer = () => {
           setIsButtonDisabled(true);
         } else if (isL1 && amount > maxDeposit) {
           setHasInputError(true);
-          setErrorMsg(MAX_DEPOSIT_ERROR_MSG(maxDeposit, symbol));
+          setErrorMsg(MAX_DEPOSIT_ERROR_MSG);
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);
