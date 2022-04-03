@@ -8,17 +8,17 @@ import {useTokens} from '../providers/TokensProvider';
 import {useAmount} from '../providers/TransferProvider';
 import {useTransfersLog} from '../providers/TransfersLogProvider';
 
-export const useTransfer = () => {
-  const showProgressModal = useProgressModal();
+export const useTransfer = steps => {
+  const showProgressModal = useProgressModal(steps);
   const showErrorModal = useErrorModal();
   const hideModal = useHideModal();
-  const showTransactionSubmittedModal = useTransactionSubmittedModal();
+  const showTransactionSubmittedModal = useTransactionSubmittedModal(steps);
   const {addTransfer, updateTransfer} = useTransfersLog();
   const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 
   const handleProgress = progress => {
-    showProgressModal(progress.type, progress.message);
+    showProgressModal(progress.type, progress.message, progress.activeStep);
   };
 
   const handleError = error => {

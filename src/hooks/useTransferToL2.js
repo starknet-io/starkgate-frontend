@@ -3,7 +3,14 @@ import {useCallback} from 'react';
 import {track, TrackEvent} from '../analytics';
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
-import {ActionType, TransactionHashPrefix} from '../enums';
+import {
+  ActionType,
+  stepOf,
+  TransactionHashPrefix,
+  TransferError,
+  TransferStep,
+  TransferToL2Steps
+} from '../enums';
 import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
@@ -19,7 +26,7 @@ export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
   const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
   const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
-  const {handleProgress, handleData, handleError} = useTransfer();
+  const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
@@ -45,7 +52,7 @@ export const useTransferToL2 = () => {
       };
 
       const sendApproval = async () => {
-        return await approve({
+        return approve({
           spender: tokenBridgeAddress,
           value: starknet.constants.MASK_250,
           contract: tokenContract,
@@ -72,33 +79,35 @@ export const useTransferToL2 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (error) {
+        if (!error) {
+          logger.log('Tx signed', {transactionHash});
+          handleProgress(
+            progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
+          );
+        } else {
           track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
           logger.error(error.message);
-          handleError(progressOptions.error(error));
-          return;
+          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
-        logger.log('Tx signed', {transactionHash});
-        handleProgress(progressOptions.deposit(amount, symbol));
       };
 
       const onLogMessageToL2 = (error, event) => {
-        if (error) {
+        if (!error) {
+          logger.log('Done', event.transactionHash);
+          handleData({
+            type: ActionType.TRANSFER_TO_L2,
+            sender: l1Account,
+            recipient: l2Account,
+            name,
+            symbol,
+            amount,
+            ...extractTransactionsHashFromEvent(event)
+          });
+        } else {
           track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
           logger.error(error.message);
-          handleError(progressOptions.error(error));
-          return;
+          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
-        logger.log('Done', event.transactionHash);
-        handleData({
-          type: ActionType.TRANSFER_TO_L2,
-          sender: l1Account,
-          recipient: l2Account,
-          name,
-          symbol,
-          amount,
-          ...extractTransactionsHashFromEvent(event)
-        });
       };
 
       const extractTransactionsHashFromEvent = event => {
@@ -134,14 +143,19 @@ export const useTransferToL2 = () => {
       try {
         logger.log('TransferToL2 called');
         if (await isMaxBalanceExceeded()) {
-          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, progressOptions.maxTotalBalanceError());
+          track(
+            TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT,
+            progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR)
+          );
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
-          handleError(progressOptions.maxTotalBalanceError());
+          handleError(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
           return;
         }
         if (!isEthToken) {
           logger.log('Token needs approval');
-          handleProgress(progressOptions.approval(symbol));
+          handleProgress(
+            progressOptions.approval(symbol, stepOf(TransferStep.APPROVE, TransferToL2Steps))
+          );
           const allow = await readAllowance();
           logger.log('Current allow value', {allow});
           if (allow < amount) {
@@ -149,14 +163,19 @@ export const useTransferToL2 = () => {
             await sendApproval();
           }
         }
-        handleProgress(progressOptions.waitForConfirm(l1Config.name));
+        handleProgress(
+          progressOptions.waitForConfirm(
+            l1Config.name,
+            stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
+          )
+        );
         addLogMessageToL2Listener(onLogMessageToL2);
         logger.log('Calling deposit');
-        sendDeposit();
+        await sendDeposit();
       } catch (ex) {
         track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, ex);
         logger.error(ex.message, {ex});
-        handleError(progressOptions.error(ex));
+        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
     },
     [

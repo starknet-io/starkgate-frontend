@@ -1,0 +1,17 @@
+.modalText {
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+
+  .wrap {
+    float: left;
+    position: relative;
+    left: 50%;
+
+    .content {
+      float: left;
+      position: relative;
+      left: -50%;
+    }
+  }
+}

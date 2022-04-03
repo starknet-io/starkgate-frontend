@@ -1,10 +1,10 @@
 export const ModalSize = {
   SMALL: {
-    width: 400,
+    width: 450,
     height: 200
   },
   MEDIUM: {
-    width: 500,
+    width: 550,
     height: 300
   },
   LARGE: {

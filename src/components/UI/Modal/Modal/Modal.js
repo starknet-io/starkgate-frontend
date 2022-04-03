@@ -6,7 +6,7 @@ import utils from '../../../../utils';
 import {ModalSize, ModalType} from './Modal.constants';
 import styles from './Modal.module.scss';
 
-export const Modal = ({show, type = ModalType.INFO, size = ModalSize.SMALL, children}) => {
+export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, children}) => {
   const {width} = size;
   return show
     ? createPortal(

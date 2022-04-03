@@ -27,7 +27,7 @@ export const Transfer = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
-  const {selectToken, selectedToken, action, symbol} = useTransfer();
+  const {selectToken, selectedToken, action} = useTransfer();
   const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
@@ -53,7 +53,7 @@ export const Transfer = () => {
           setIsButtonDisabled(true);
         } else if (isL1 && amount > maxDeposit) {
           setHasInputError(true);
-          setErrorMsg(MAX_DEPOSIT_ERROR_MSG(maxDeposit, symbol));
+          setErrorMsg(MAX_DEPOSIT_ERROR_MSG);
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);

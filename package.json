@@ -54,8 +54,12 @@
   },
   "dependencies": {
     "@argent/get-starknet": "^3.0.1",
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
     "@headlessui/react": "^1.5.0",
     "@metamask/onboarding": "^1.0.1",
+    "@mui/material": "^5.5.3",
+    "@mui/styles": "^5.5.0",
     "@splitbee/web": "^0.3.0",
     "js-logger": "^1.6.1",
     "react": "^17.0.2",

@@ -43,7 +43,7 @@ const strings = {
       from_txt: 'from',
       insufficient_balance_error_msg: 'Insufficient balance',
       max_deposit_error_msg:
-        'StarkNet Alpha Limitation: transfer to StarkNet limited to {{maxAmount}} {{symbol}}.',
+        'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
       max_btn_txt: 'Max',
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
@@ -57,11 +57,9 @@ const strings = {
     transactionSubmitted: {
       title_txt: 'Transaction sent',
       btn_txt: 'View on {{explorer}}',
-      transfer_to_l1_txt:
-        'Your transaction is now being processing on L2. When it will be accepted on-chain, we will promote you to complete your transfer.',
-      transfer_to_l2_txt: 'Your transaction has been sent to L2!',
-      complete_transfer_to_l1_txt: 'Your transaction is completed on L1!',
-      status_txt: 'Follow the transaction status on the right side of the browser.'
+      transfer_to_l1_txt: 'Your transaction is now being processing on StarkNet.',
+      transfer_to_l2_txt: 'Your transaction has been successfully sent to StarkNet!',
+      complete_transfer_to_l1_txt: 'Your transfer is completed on Ethereum!'
     },
     transferProgress: {
       approval: {
@@ -70,19 +68,15 @@ const strings = {
       },
       deposit: {
         type: 'Transfer in progress',
-        message: 'Transferring {{amount}} {{symbol}} to L2...'
+        message: 'Transferring {{amount}} {{symbol}} to StarkNet...'
       },
       initiateWithdraw: {
         type: 'Initiate transfer',
-        message: 'Initiating transfer of {{amount}} {{symbol}} from L2...'
-      },
-      waitForAccept: {
-        type: 'Transaction sent',
-        message: 'Waiting for transaction to be accepted on L2...'
+        message: 'Initiating transfer of {{amount}} {{symbol}} from StarkNet...'
       },
       withdraw: {
         type: 'Transfer in progress',
-        message: 'Transferring {{amount}} {{symbol}} to L1...'
+        message: 'Transferring {{amount}} {{symbol}} to Ethereum...'
       },
       waitForConfirm: {
         type: '{{walletName}}',
@@ -102,9 +96,7 @@ const strings = {
         'Refrain from switching browsers',
         'Do not refresh the page while the transfer is being processed',
         'Do not delete the local storage of the browser'
-      ],
-      incognito_txt:
-        'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
+      ]
     }
   },
   toasts: {
@@ -112,14 +104,14 @@ const strings = {
       'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
     transfer_log_link: 'View on Transfer Log',
     pendingTransfer: {
-      pending_txt: 'Waiting for transaction to be accepted on L2',
-      consumed_txt: 'Transaction accepted on L2',
-      rejected_txt: 'Transaction rejected on L2'
+      pending_txt: 'Waiting for transaction to be accepted on StarkNet',
+      consumed_txt: 'Transaction accepted on StarkNet',
+      rejected_txt: 'Transaction rejected on StarkNet'
     },
     completeTransfer: {
-      title_txt: 'L2 finished processing your transfer!',
+      title_txt: 'StarkNet finished processing your transfer!',
       body_txt:
-        'Click on Complete Transfer to transfer the funds from L2 Bridge to your L1 address.',
+        'Click on Complete Transfer to transfer the funds from StarkNet Bridge to your Ethereum address.',
       dismiss_btn_txt: 'Dismiss',
       complete_transfer_btn_txt: 'Complete Transfer'
     }

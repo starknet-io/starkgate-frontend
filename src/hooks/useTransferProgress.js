@@ -1,5 +1,6 @@
 import {useMemo} from 'react';
 
+import {TransferError} from '../enums';
 import utils from '../utils';
 
 export const useTransferProgress = () => {
@@ -7,66 +8,64 @@ export const useTransferProgress = () => {
 
   return useMemo(
     () => ({
-      approval: symbol => {
+      approval: (symbol, activeStep) => {
         const {approval} = transferProgressStrings;
         const message = utils.object.evaluate(approval.message, {symbol});
         return {
           type: approval.type,
-          message
+          message,
+          activeStep
         };
       },
-      deposit: (amount, symbol) => {
+      deposit: (amount, symbol, activeStep) => {
         const {deposit} = transferProgressStrings;
         const message = utils.object.evaluate(deposit.message, {amount, symbol});
         return {
           type: deposit.type,
-          message
+          message,
+          activeStep
         };
       },
-      initiateWithdraw: (amount, symbol) => {
+      initiateWithdraw: (amount, symbol, activeStep) => {
         const {initiateWithdraw} = transferProgressStrings;
         const message = utils.object.evaluate(initiateWithdraw.message, {amount, symbol});
         return {
           type: initiateWithdraw.type,
-          message
+          message,
+          activeStep
         };
       },
-      waitForConfirm: walletName => {
+      waitForConfirm: (walletName, activeStep) => {
         const {waitForConfirm} = transferProgressStrings;
         const type = utils.object.evaluate(waitForConfirm.type, {walletName});
         const message = utils.object.evaluate(waitForConfirm.message, {walletName});
         return {
           type,
-          message
+          message,
+          activeStep
         };
       },
-      waitForAccept: () => {
-        const {waitForAccept} = transferProgressStrings;
-        return {
-          type: waitForAccept.type,
-          message: waitForAccept.message
-        };
-      },
-      withdraw: (amount, symbol) => {
+      withdraw: (amount, symbol, activeStep) => {
         const {withdraw} = transferProgressStrings;
         const message = utils.object.evaluate(withdraw.message, {amount, symbol});
         return {
           type: withdraw.type,
-          message
+          message,
+          activeStep
         };
       },
-      error: err => {
+      error: (type, err) => {
+        if (type === TransferError.MAX_TOTAL_BALANCE_ERROR) {
+          const {limitation_error_title, max_total_balance_error_msg} = transferProgressStrings;
+          return {
+            type: limitation_error_title,
+            message: max_total_balance_error_msg
+          };
+        }
         const {error_title} = transferProgressStrings;
         return {
           type: error_title,
           message: err.message
-        };
-      },
-      maxTotalBalanceError: () => {
-        const {limitation_error_title, max_total_balance_error_msg} = transferProgressStrings;
-        return {
-          type: limitation_error_title,
-          message: max_total_balance_error_msg
         };
       }
     }),
