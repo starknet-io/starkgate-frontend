@@ -20,4 +20,8 @@ $error-color: $--color-error;
     border-style: solid;
     border-width: 1px;
   }
+
+  input {
+    flex: 1 1 auto;
+  }
 }

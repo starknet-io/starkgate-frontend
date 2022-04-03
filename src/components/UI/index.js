@@ -13,6 +13,7 @@ export * from './Input/Input';
 export * from './WalletButton/WalletButton';
 export * from './MaxButton/MaxButton';
 export * from './NetworkMenu/NetworkMenu';
+export * from './NetworkMenu/NetworkMenuDual';
 export * from './NetworkSwap/NetworkSwap';
 export * from './NetworkTitle/NetworkTitle';
 export * from './Tab/Tab';

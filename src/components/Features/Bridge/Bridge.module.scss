@@ -5,11 +5,14 @@ $background-color: $--color-alpha;
 .bridge {
   display: flex;
   flex-direction: column;
-  background: $background-color;
-  border-radius: 20px;
-  padding: 20px;
-  width: 500px;
+  justify-content: center;
   max-height: 650px;
   margin: auto;
   transition: 0.3s ease-in-out;
+  height: inherit;
+  width: unset;
+
+  @media screen and (min-height: 768px) {
+    width: 500px;
+  }
 }

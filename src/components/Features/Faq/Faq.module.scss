@@ -7,11 +7,15 @@ $visited-link-color: $--color-alpha-6;
 $visited-link-color-hover: $--color-alpha-6-hover;
 $border-color: $--color-alpha-3;
 $background-answer: $--color-alpha-3;
+$menu-background-color: $--color-alpha;
 
 .faq {
   color: $color;
   overflow-y: auto;
   text-align: left;
+  background: $menu-background-color;
+  border-radius: 20px;
+  padding: 20px;
 
   a {
     color: $link-color;
@@ -61,7 +65,7 @@ $background-answer: $--color-alpha-3;
           z-index: 0;
           top: -10px;
           left: -20px;
-          width: 462px;
+          width: 423px;
           height: calc(100% + 20px);
           background-color: $background-answer;
           border-radius: 7px;

@@ -8,11 +8,18 @@ $balance-color: $--color-white;
   font-size: 14px;
   text-align: right;
   letter-spacing: 0.01em;
+  margin-left: 12px;
 
   .balanceRow {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-end;
+
+    .title {
+      width: 60px;
+      text-align: right;
+      margin: 0 0 0 auto;
+    }
 
     .balance {
       display: flex;
