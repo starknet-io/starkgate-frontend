@@ -22,16 +22,14 @@ export const useProgressModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, component, withButtons = false, type = ModalType.INFO) => {
+    (title, message, type = ModalType.INFO) => {
       showModal({
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
-          message,
-          component
+          message
         },
         title,
-        type,
-        withButtons
+        type
       });
     },
     [showModal]

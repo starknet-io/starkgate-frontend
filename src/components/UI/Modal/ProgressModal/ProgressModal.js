@@ -2,25 +2,22 @@ import {LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {RefreshWarningMessage} from '../ModalMessage';
+import {RefreshMessage} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';
 
-const ProgressModal = ({message, component}) => {
+const ProgressModal = ({message}) => {
   return (
     <>
       <LinearProgress />
       <ModalText>{message}</ModalText>
       <br />
-      {component}
-      <br />
-      <RefreshWarningMessage />
+      <RefreshMessage />
     </>
   );
 };
 
 ProgressModal.propTypes = {
-  message: PropTypes.string,
-  component: PropTypes.func
+  message: PropTypes.string
 };
 
 export default ProgressModal;

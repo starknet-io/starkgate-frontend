@@ -9,8 +9,7 @@ export const initialState = {
   componentProps: null,
   withButtons: false,
   isClosable: false,
-  body: '',
-  buttons: []
+  body: ''
 };
 
 export const reducer = (state, action) => {
