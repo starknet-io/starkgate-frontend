@@ -88,6 +88,10 @@ jobs:
           role-to-assume: arn:aws:iam::732425397060:role/repo-3s-upload
           aws-region: us-east-2
       - name: Show directory
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
         run: |
           helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
