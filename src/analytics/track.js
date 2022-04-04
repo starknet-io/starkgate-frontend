@@ -4,14 +4,13 @@ import utils from '../utils';
 
 const logger = utils.logger.getLogger('Analytics');
 
-export const track = (event, data) => {
+export const track = async (event, data) => {
   logger.debug('Sending track event...', {event, data});
-  splitbee.track(event, data).then(() => {
-    logger.debug('Track event sent.');
-  });
+  await splitbee.track(event, data);
+  logger.debug('Track event sent.');
 };
 
-export const setUser = data => {
+export const setUser = async data => {
   logger.debug('Set user', data);
-  splitbee.user.set(data).then();
+  await splitbee.user.set(data);
 };
