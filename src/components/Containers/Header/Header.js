@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {useMenu} from '../../../providers/MenuProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
-import {useBridgeActions} from '../../Features/Bridge/Bridge.hooks';
-import {useIsL1, useIsL2} from '../../Features/Transfer/Transfer.hooks';
 import {WalletButton} from '../../UI';
 import {BuyButton} from '../../UI';
 import styles from './Header.module.scss';
@@ -12,7 +12,7 @@ import {CHAIN_TXT} from './Header.strings';
 
 export const Header = () => {
   const {chainName, isConnected} = useWallets();
-  const {showAccountMenu, showTransferMenu} = useBridgeActions();
+  const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();

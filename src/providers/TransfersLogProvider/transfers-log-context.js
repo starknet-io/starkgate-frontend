@@ -1,6 +1,6 @@
 import {createContext} from 'react';
 
-export const TransfersContext = createContext({
+export const TransfersLogContext = createContext({
   transfers: [],
   addTransfer: t => t
 });
