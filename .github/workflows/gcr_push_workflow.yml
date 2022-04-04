@@ -82,6 +82,11 @@ jobs:
           credentials: ${{ secrets.gcp_token }}
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::732425397060:role/repo-3s-upload
+          aws-region: us-east-2
       - name: Show directory
         run: |
           helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
