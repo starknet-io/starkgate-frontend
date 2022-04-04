@@ -1,3 +1,10 @@
+## [1.0.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2022-04-04)
+
+
+### 🔧 Fixes
+
+* empty callback in promise .then ([#127](https://github.com/starkware-libs/starkgate-frontend/issues/127)) ([9d13c3b](https://github.com/starkware-libs/starkgate-frontend/commit/9d13c3bf01090b3f0db2d392ae3747d56fd3c9a5))
+
 ## [1.0.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v0.0.1...v1.0.0-dev.1) (2022-04-04)
 
 
