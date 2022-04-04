@@ -88,7 +88,7 @@ export const faqs = [
           </li>
         </ol>
         <p>
-          *Take a look at the <a href="https://starknet.io/documentation/starkgate-token-bridge/" target="_blank">documentation</a> to see the updated numbers, stay tuned.
+          *Take a look at the <a href="https://starknet.io/documentation/starkgate-token-bridge/#limitations" target="_blank">documentation</a> to see the updated numbers, stay tuned.
         </p>
         <p>
           We plan to gradually ease these limitations and lift them completely, as confidence grows.
