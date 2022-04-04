@@ -17,7 +17,7 @@ on:
         required: true
 
 jobs:
-  deploy:
+  build:
     name: Build tag and push docker images to GCR.
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +42,14 @@ jobs:
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
 
+      - name: Build and push images to GCR, with tag latest and git tag.
+        if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deploymentt' }}
+        run: |
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
+          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}
+
       - name: Build with production env and push with mainnet and stable tags.
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
@@ -58,3 +66,21 @@ jobs:
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
 
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
+
+  deploy:
+    if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deployment' }}
+    name: Deploy dev env using helm upgrade
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup GKE cluster
+        uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+        with:
+          cluster_name: web-devs
+          location: us-central1
+          credentials: ${{ secrets.gcp_token }}
+      - name: Show directory
+        run: |
+          ls
+          kubectl get ns
