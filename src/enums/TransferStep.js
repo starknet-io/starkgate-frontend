@@ -2,9 +2,9 @@ export const TransferStep = {
   APPROVE: 'Approve use funds',
   CONFIRM_TX: 'Confirm transaction',
   WAIT_FOR_TX: 'Wait for transaction to received',
-  INITIATE_WITHDRAW: 'Initiate withdraw',
-  WITHDRAW: 'Send withdraw',
-  DEPOSIT: 'Send deposit'
+  INITIATE_WITHDRAW: 'Initiate transfer',
+  WITHDRAW: 'Send L2→L1 transfer',
+  DEPOSIT: 'Send L1→L2 transfer'
 };
 
 export const TransferToL2Steps = [

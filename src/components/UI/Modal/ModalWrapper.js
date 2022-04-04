@@ -15,7 +15,11 @@ export const ModalWrapper = () => {
     <Modal show={modal.show} size={modal.size} type={modal.type}>
       <ModalHeader type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {modal.headerComponentPath && <CustomHeaderComponent {...modal.headerComponentProps} />}
+          {modal.headerComponentPath ? (
+            <CustomHeaderComponent {...modal.headerComponentProps} />
+          ) : (
+            <div />
+          )}
         </Suspense>
         {modal.title && <ModalTitle>{modal.title}</ModalTitle>}
       </ModalHeader>

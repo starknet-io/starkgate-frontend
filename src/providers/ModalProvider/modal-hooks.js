@@ -18,17 +18,20 @@ export const useHideModal = () => {
   }, [hideModal]);
 };
 
-export const useProgressModal = steps => {
+export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, activeStep, type = ModalType.INFO) => {
+    (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
-        headerComponentPath: 'UI/Stepper/Stepper',
-        headerComponentProps: {
-          steps,
-          activeStep
-        },
+        headerComponentPath: steps.length > 0 ? 'UI/Stepper/Stepper' : null,
+        headerComponentProps:
+          steps.length > 0
+            ? {
+                steps,
+                activeStep
+              }
+            : null,
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
           message

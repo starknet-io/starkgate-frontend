@@ -1,5 +1,5 @@
 export const openInNewTab = url => {
-  window.open(url);
+  window.open(url, '_blank').focus();
 };
 
 export const getUrlParameter = name => {
