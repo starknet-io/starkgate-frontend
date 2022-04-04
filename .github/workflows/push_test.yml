@@ -2,8 +2,8 @@ name: Docker build tag and push frontend images to GCR workflow.
 
 on:
   push:
-    branches:
-      - guy/master/dev_helm_deployment
+    tags:
+      - t*.*.*
 
 jobs:
   push-frontend-image:
