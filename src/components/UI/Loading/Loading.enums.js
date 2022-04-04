@@ -1,5 +1,5 @@
 export const LoadingSize = {
-  SMALL: 30,
+  SMALL: 20,
   MEDIUM: 50,
   LARGE: 70,
   XL: 110

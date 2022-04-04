@@ -35,7 +35,7 @@ describe('starknet blockchain utils', () => {
           to_address,
           selector,
           payload,
-          ChainType.GOERLI.id,
+          ChainType.L2.GOERLI,
           nonce
         )
       ).toEqual('0x6660a4a84d5c6665be0e97b863433afe3ce7ea6521f5f90e0693b3b772cda55');

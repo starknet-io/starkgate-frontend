@@ -9,8 +9,29 @@ $balance-color: $--color-white;
   text-align: right;
   letter-spacing: 0.01em;
 
-  .balance {
-    line-height: 24px;
-    color: $balance-color;
+  .balanceRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+
+    .balance {
+      display: flex;
+      line-height: 24px;
+      color: $balance-color;
+
+      .symbol {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &.loading {
+    .balanceRow {
+      .balance {
+        .symbol {
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }

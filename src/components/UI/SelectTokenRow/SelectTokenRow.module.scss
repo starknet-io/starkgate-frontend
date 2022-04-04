@@ -14,14 +14,14 @@ $balance-color-hover: $--color-white;
     pointer-events: none;
   }
 
+  hr {
+    border-color: $hr-color;
+  }
+
   &:first-child {
     hr {
       display: none;
     }
-  }
-
-  hr {
-    border-color: $hr-color;
   }
 
   .data {

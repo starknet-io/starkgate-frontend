@@ -12,12 +12,14 @@ import {
   VIEW_MORE_TXT
 } from './TransferLogContainer.strings';
 
-export const TransferLogContainer = ({transferIndex, children}) => {
+export const TransferLogContainer = ({transferIndex, children, onShowTransfers}) => {
   const {resetMenuProps} = useMenu();
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
-    transferIndex > -1 ? resetMenuProps() : setShowChildren(!showChildren);
+    const show = !showChildren;
+    transferIndex > -1 ? resetMenuProps() : setShowChildren(show);
+    show && onShowTransfers();
   };
 
   const renderChildren = () => {
@@ -52,5 +54,6 @@ export const TransferLogContainer = ({transferIndex, children}) => {
 
 TransferLogContainer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  transferIndex: PropTypes.number
+  transferIndex: PropTypes.number,
+  onShowTransfers: PropTypes.func
 };
