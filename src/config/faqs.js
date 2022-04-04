@@ -59,7 +59,7 @@ export const faqs = [
       'I performed a transfer from StarkNet to Ethereum a few hours ago, and my balance on Ethereum has not been updated yet. What should I do?',
     answer: `
     <p>
-      Our recomendation is to wait, and here is the reason why:
+      Our recommendation is to wait, and here is the reason why:
       The process of sending transactions from StarkNet to Ethereum is divided into <a href="https://starknet.io/documentation/starkgate-token-bridge/" target="_blank">two stages</a>.
     </p>
     <ol type="i">
@@ -92,7 +92,7 @@ export const faqs = [
         </p>
         <p>
           We plan to gradually ease these limitations and lift them completely, as confidence grows.
-          In the meantime, it will not be possible to perform an opration that exceeds one of the restrictions.
+          In the meantime, it will not be possible to perform an operation that exceeds one of the restrictions.
         </p>
       </div>
     `
@@ -134,7 +134,7 @@ export const faqs = [
     question: 'Why can’t I use StarkGate with {insert favorite}Token?',
     answer: `
       <p>
-        Initially, StarkGate Alpha will only support ETH. After time period of of successful use, we will add support for: 
+        Initially, StarkGate Alpha will only support ETH. After time period of successful use, we will add support for: 
         WBTC, USDC, USDT and Dai. All relevant contract addresses, both on Ethereum and StarkNet, are available in this <a href="https://github.com/starkware-libs/starknet-addresses" target="_blank">repo</a>.
         Further down the road, we will publish the mechanism for adding support for additional tokens.
       </p>
