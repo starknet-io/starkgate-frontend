@@ -43,7 +43,7 @@ jobs:
           docker push ${{ inputs.image_name }}
 
       - name: Build and push images to GCR, with tag latest and git tag.
-        if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deploymentt' }}
+        if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deployment' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
@@ -84,3 +84,15 @@ jobs:
         run: |
           ls
           kubectl get ns
+      - name: Deploy dev enc using helm upgrade
+        uses: WyriHaximus/github-action-helm3@v2
+        with:
+          exec: |
+            helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
+            helm repo add starkware s3://starkware-third-party/helm-repo/charts
+            helm repo update
+            helm upgrade starkgate starkware/webapp-general-helm --namespace=starkgate-devnet-guy \
+            --values deployment/development.yml \
+            --set-file configMap.frontend.envs=.env.testing \
+            --set frontend.image.tag=${{ github.ref_name }}
+          kubeconfig: '${{ secrets.KUBECONFIG }}'
