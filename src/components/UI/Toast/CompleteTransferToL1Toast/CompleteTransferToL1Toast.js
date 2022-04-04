@@ -38,7 +38,7 @@ export const CompleteTransferToL1Toast = ({
       leaveTo="opacity-0"
       show={t.visible}
     >
-      <div className={styles.CompleteTransferToL1Toast}>
+      <div className={styles.completeTransferToL1Toast}>
         <div className={styles.container}>
           <div className={styles.left}>
             <L1Logo style={{opacity: 0.5}} />

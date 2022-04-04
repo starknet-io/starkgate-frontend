@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
-import {useMaxAmount, useTransferToL1, useTransferToL2} from '../../../hooks';
+import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
@@ -16,7 +17,7 @@ import {
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_AMOUNT_ERROR_MSG} from './Transfer.strings';
+import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_DEPOSIT_ERROR_MSG} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isL1, swapToL1] = useIsL1();
@@ -26,13 +27,13 @@ export const Transfer = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
-  const {selectToken, selectedToken, action, symbol} = useTransfer();
-  const {tokens} = useTokens();
+  const {selectToken, selectedToken, action} = useTransfer();
+  const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const maxAmount = useMaxAmount();
+  const maxDeposit = useMaxDeposit();
 
   useEffect(() => {
     if (!selectedToken) {
@@ -43,27 +44,28 @@ export const Transfer = () => {
   useEffect(() => {
     if (selectedToken) {
       setHasInputError(false);
-      if (selectedToken.isLoading || Math.ceil(amount) === 0 || (isL1 && !maxAmount)) {
+      if (selectedToken.isLoading || Math.ceil(amount) === 0 || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         if (amount > selectedToken.balance) {
           setHasInputError(true);
           setErrorMsg(INSUFFICIENT_BALANCE_ERROR_MSG);
           setIsButtonDisabled(true);
-        } else if (isL1 && amount > maxAmount) {
+        } else if (isL1 && amount > maxDeposit) {
           setHasInputError(true);
-          setErrorMsg(MAX_AMOUNT_ERROR_MSG(maxAmount, symbol));
+          setErrorMsg(MAX_DEPOSIT_ERROR_MSG);
           setIsButtonDisabled(true);
         } else {
           setIsButtonDisabled(false);
         }
       }
     }
-  }, [amount, selectedToken, maxAmount, isL1]);
+  }, [amount, selectedToken, maxDeposit, isL1]);
 
   const onMaxClick = () => {
     try {
-      setAmount(String(Math.min(selectedToken.balance, Number(maxAmount))));
+      track(TrackEvent.TRANSFER.MAX_CLICK);
+      setAmount(String(Math.min(selectedToken.balance, Number(maxDeposit))));
     } catch (ex) {
       setAmount(selectedToken.balance);
     }
@@ -74,10 +76,21 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
+    track(TrackEvent.TRANSFER.SWAP_NETWORK);
     isL2 ? swapToL1() : swapToL2();
   };
 
   const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
+
+  const onNetworkTabClick = tab => {
+    if (action !== tab) {
+      onSwapClick();
+    }
+  };
+
+  const onRefreshTokenBalanceClick = () => {
+    updateTokenBalance(selectedToken.symbol);
+  };
 
   const renderTabs = () => {
     return Object.values(ActionType).map((tab, index) => {
@@ -86,7 +99,7 @@ export const Transfer = () => {
           key={index}
           isActive={action === tab}
           text={tab === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name}
-          onClick={() => action !== tab && onSwapClick()}
+          onClick={() => onNetworkTabClick(tab)}
         />
       );
     });
@@ -95,7 +108,12 @@ export const Transfer = () => {
   const renderL1Network = () => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isL1} networkData={NetworkType.L1} tokenData={tokenData}>
+      <NetworkMenu
+        isTarget={!isL1}
+        networkData={NetworkType.L1}
+        tokenData={tokenData}
+        onRefreshClick={onRefreshTokenBalanceClick}
+      >
         {isL1 && renderTransferInput()}
       </NetworkMenu>
     );
@@ -104,7 +122,12 @@ export const Transfer = () => {
   const renderL2Network = () => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
-      <NetworkMenu isTarget={!isL2} networkData={NetworkType.L2} tokenData={tokenData}>
+      <NetworkMenu
+        isTarget={!isL2}
+        networkData={NetworkType.L2}
+        tokenData={tokenData}
+        onRefreshClick={onRefreshTokenBalanceClick}
+      >
         {isL2 && renderTransferInput()}
       </NetworkMenu>
     );

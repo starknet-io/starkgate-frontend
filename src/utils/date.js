@@ -4,26 +4,33 @@ export const getDate = timestamp => {
   let dd = day.getDate();
   let mm = day.getMonth() + 1;
   if (dd < 10) {
-    dd = '0' + dd;
+    dd = `0${dd}`;
   }
   if (mm < 10) {
-    mm = '0' + mm;
+    mm = `0${mm}`;
   }
   return `${dd}/${mm}/${yyyy}`;
 };
 
 export const get24Time = timestamp => {
-  let ut = new Date(timestamp);
+  const ut = new Date(timestamp);
   let h, m, s;
   h = ut.getHours();
   m = ut.getMinutes();
   s = ut.getSeconds();
-  if (s <= 9) s = '0' + s;
-  if (m <= 9) m = '0' + m;
-  if (h <= 9) h = '0' + h;
+  if (s <= 9) s = `0${s}`;
+  if (m <= 9) m = `0${m}`;
+  if (h <= 9) h = `0${h}`;
   return `${h}:${m}:${s}`;
 };
 
 export const getFullTime = timestamp => {
   return `${getDate(timestamp)}, ${get24Time(timestamp)}`;
+};
+
+export const getMsFromHrs = hours => {
+  const parsed = parseFloat(hours, 10);
+  if (!isNaN(parsed)) {
+    return parsed * 60 * 60 * 1000;
+  }
 };

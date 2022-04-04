@@ -5,10 +5,11 @@ export const actions = {
 
 export const initialState = {
   show: false,
+  headerComponentPath: '',
+  headerComponentProps: null,
   componentPath: '',
   componentProps: null,
   withButtons: false,
-  isClosable: false,
   body: ''
 };
 
