@@ -103,7 +103,7 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       const message = error.message.replace(/\d+/g, match => {
         let msg = match;
-        const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)].NAME);
+        const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)]?.NAME);
         if (chainName) {
           msg += ` (${utils.string.capitalize(ChainInfo.L1[Number(match)].NAME)})`;
         }

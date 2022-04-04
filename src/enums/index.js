@@ -10,3 +10,5 @@ export * from './EventName';
 export * from './SelectorName';
 export * from './Breakpoint';
 export * from './ToastType';
+export * from './TransferError';
+export * from './TransferStep';

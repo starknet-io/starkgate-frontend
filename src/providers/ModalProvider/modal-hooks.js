@@ -18,12 +18,17 @@ export const useHideModal = () => {
   }, [hideModal]);
 };
 
-export const useProgressModal = () => {
+export const useProgressModal = steps => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, type = ModalType.INFO) => {
+    (title, message, activeStep, type = ModalType.INFO) => {
       showModal({
+        headerComponentPath: 'UI/Stepper/Stepper',
+        headerComponentProps: {
+          steps,
+          activeStep
+        },
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
           message
@@ -36,18 +41,23 @@ export const useProgressModal = () => {
   );
 };
 
-export const useTransactionSubmittedModal = () => {
+export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
     transfer => {
       showModal({
+        headerComponentPath: 'UI/Stepper/Stepper',
+        headerComponentProps: {
+          steps,
+          activeStep: steps.length
+        },
         componentPath: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
         componentProps: {
           transfer
         },
         title: utils.getTranslation('modals.transactionSubmitted.title_txt'),
-        isClosable: true
+        withButtons: true
       });
     },
     [showModal]
@@ -62,7 +72,7 @@ export const useErrorModal = () => {
       showModal({
         title,
         body,
-        isClosable: true,
+        withButtons: true,
         type: ModalType.ERROR
       });
     },
@@ -76,9 +86,8 @@ export const useOnboardingModal = () => {
   return useCallback(() => {
     showModal({
       componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
-      componentProps: null,
       title: utils.getTranslation('modals.onboarding.title_txt'),
-      isClosable: true
+      withButtons: true
     });
   }, [showModal]);
 };
