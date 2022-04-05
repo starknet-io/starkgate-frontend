@@ -60,7 +60,6 @@ export const Login = () => {
 
   useEffect(() => {
     switch (status) {
-      case WalletStatus.ERROR:
       case WalletStatus.CONNECTING:
         maybeShowModal();
         break;
