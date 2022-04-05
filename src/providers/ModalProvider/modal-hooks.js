@@ -18,6 +18,23 @@ export const useHideModal = () => {
   }, [hideModal]);
 };
 
+export const useConnectingWalletModal = () => {
+  const {showModal} = useContext(ModalContext);
+
+  return useCallback(
+    (title, message) => {
+      showModal({
+        componentPath: 'UI/Modal/ConnectingWallet/ConnectingWallet',
+        componentProps: {
+          message
+        },
+        title
+      });
+    },
+    [showModal]
+  );
+};
+
 export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
 

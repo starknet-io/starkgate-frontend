@@ -3,13 +3,10 @@ import React from 'react';
 import {toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 
-export const RefreshMessage = () => {
+export const DontRefreshMessage = () => {
   return (
     <div className={toClasses(styles.modalMessage, styles.refreshMessage)}>
-      <p>
-        Afetr Login, if you are still not prompt to connect to StarkGate- <br />
-        <b>reload this page</b>.
-      </p>
+      <b>Do not refresh or close the page</b> while waiting for the operation to be completed.
     </div>
   );
 };

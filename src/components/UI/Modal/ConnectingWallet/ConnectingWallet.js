@@ -2,23 +2,23 @@ import {LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {DontRefreshMessage} from '../ModalMessage';
+import {RefreshMessage} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';
 
-const ProgressModal = ({message}) => {
+const ConnectingWallet = ({message}) => {
   return (
     <>
       <LinearProgress />
       <br />
       <ModalText>{message}</ModalText>
       <br />
-      <DontRefreshMessage />
+      <RefreshMessage />
     </>
   );
 };
 
-ProgressModal.propTypes = {
+ConnectingWallet.propTypes = {
   message: PropTypes.string
 };
 
-export default ProgressModal;
+export default ConnectingWallet;

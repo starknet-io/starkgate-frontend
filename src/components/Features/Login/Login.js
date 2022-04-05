@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {track, TrackEvent} from '../../../analytics';
 import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
 import {useConfig, useWalletHandlerProvider} from '../../../hooks';
-import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
+import {useHideModal, useConnectingWalletModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
@@ -24,7 +24,7 @@ export const Login = () => {
   const [walletType, setWalletType] = useState(WalletType.L1);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
-  const showProgressModal = useProgressModal();
+  const showConnectingWalletModal = useConnectingWalletModal();
   const getWalletHandlers = useWalletHandlerProvider();
   const {status, error} = useWallets();
   const {connectWallet: connectL1Wallet, isConnected} = useL1Wallet();
@@ -117,7 +117,7 @@ export const Login = () => {
   const maybeShowModal = () => {
     maybeHideModal();
     modalTimeoutId.current = setTimeout(() => {
-      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName));
+      showConnectingWalletModal(selectedWalletName, MODAL_TXT(selectedWalletName));
     }, MODAL_TIMEOUT_DURATION);
   };
 
