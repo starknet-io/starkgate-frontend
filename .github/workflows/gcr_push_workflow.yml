@@ -15,7 +15,10 @@ on:
     secrets:
       gcp_token:
         required: true
-
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 jobs:
   build:
     name: Build tag and push docker images to GCR.
