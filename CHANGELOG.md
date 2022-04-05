@@ -1,3 +1,15 @@
+## [1.0.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2022-04-05)
+
+
+### 🧩 Features
+
+* support more tokens on testnet ([#132](https://github.com/starkware-libs/starkgate-frontend/issues/132)) ([c11a539](https://github.com/starkware-libs/starkgate-frontend/commit/c11a5390e2d3b3249f681a865ae684f69f521e4d))
+
+
+### 🔧 Fixes
+
+* after clicking max button on L2 it shows "0" ([#131](https://github.com/starkware-libs/starkgate-frontend/issues/131)) ([5a25a99](https://github.com/starkware-libs/starkgate-frontend/commit/5a25a99e30cc0071f6afe045def1fccb311a17e2))
+
 ## [1.0.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2022-04-04)
 
 ### 🔧 Fixes
