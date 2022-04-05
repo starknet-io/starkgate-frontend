@@ -3,7 +3,14 @@ import {useCallback} from 'react';
 import {track, TrackEvent} from '../analytics';
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
-import {ActionType, stepOf, TransactionHashPrefix, TransferError, TransferStep, TransferToL2Steps} from '../enums';
+import {
+  ActionType,
+  stepOf,
+  TransactionHashPrefix,
+  TransferError,
+  TransferStep,
+  TransferToL2Steps
+} from '../enums';
 import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
@@ -26,7 +33,6 @@ export const useTransferToL2 = () => {
   const progressOptions = useTransferProgress();
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
   const maxTotalBalance = useMaxTotalBalance();
-
 
   return useCallback(
     async amount => {
@@ -132,10 +138,10 @@ export const useTransferToL2 = () => {
         const tokenBridgeBalance = await (isEthToken
           ? ethBalanceOf(tokenBridgeAddress)
           : balanceOf({
-            account: tokenBridgeAddress,
-            contract: tokenContract,
-            decimals,
-          }));
+              account: tokenBridgeAddress,
+              contract: tokenContract,
+              decimals
+            }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 

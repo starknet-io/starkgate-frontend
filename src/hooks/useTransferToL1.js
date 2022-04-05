@@ -155,7 +155,7 @@ export const useCompleteTransferToL1 = () => {
       };
 
       const onLogWithdrawal = (error, event) => {
-        if (!transactionConfirmed){
+        if (!transactionConfirmed) {
           return;
         }
         if (!error) {
