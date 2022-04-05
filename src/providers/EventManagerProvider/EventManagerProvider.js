@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 
+import constants from '../../config/constants';
 import {EventName, SelectorName} from '../../enums';
 import {useL1TokenBridgeContract, useLogger, useStarknetContract} from '../../hooks';
 import {starknet} from '../../libs';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
-import constants from '../../config/constants'
 
 const {MONITOR_TX_INTERVAL_MS} = constants;
 
@@ -132,12 +132,12 @@ export const EventManagerProvider = ({children}) => {
       if (depositEvent) {
         const l2messageEvent = findL2MessageEvent(depositEvent.transactionHash);
         if (l2messageEvent) {
+          recordDeposits = false;
+          deposits.splice(0, deposits.length);
+          l2messages.splice(0, l2messages.length);
+          clearInterval(intervalId);
           callback(l2messageEvent);
         }
-        recordDeposits = false;
-        deposits.splice(0, deposits.length);
-        l2messages.splice(0, l2messages.length);
-        clearInterval(intervalId);
       }
     }, MONITOR_TX_INTERVAL_MS);
   };
