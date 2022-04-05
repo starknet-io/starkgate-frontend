@@ -6,6 +6,7 @@ import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import utils from '../../../utils';
 import {
   Loading,
   Menu,
@@ -17,7 +18,12 @@ import {
 } from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
-import {INSUFFICIENT_BALANCE_ERROR_MSG, MAX_DEPOSIT_ERROR_MSG} from './Transfer.strings';
+import {
+  INSUFFICIENT_BALANCE_ERROR_MSG,
+  MAX_DEPOSIT_ERROR_MSG,
+  NEGATIVE_VALUE_ERROR_MSG,
+  TOO_MANY_DIGITS_ERROR_MSG
+} from './Transfer.strings';
 
 export const Transfer = () => {
   const [isL1, swapToL1] = useIsL1();
@@ -44,23 +50,35 @@ export const Transfer = () => {
   useEffect(() => {
     if (selectedToken) {
       setHasInputError(false);
-      if (selectedToken.isLoading || Math.ceil(amount) === 0 || (isL1 && !maxDeposit)) {
+      if (selectedToken.isLoading || utils.number.isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
-        if (amount > selectedToken.balance) {
-          setHasInputError(true);
-          setErrorMsg(INSUFFICIENT_BALANCE_ERROR_MSG);
-          setIsButtonDisabled(true);
-        } else if (isL1 && amount > maxDeposit) {
-          setHasInputError(true);
-          setErrorMsg(MAX_DEPOSIT_ERROR_MSG);
-          setIsButtonDisabled(true);
-        } else {
-          setIsButtonDisabled(false);
-        }
+        validateAmount();
       }
     }
   }, [amount, selectedToken, maxDeposit, isL1]);
+
+  const validateAmount = () => {
+    let errorMsg = '';
+
+    if (utils.number.afterDecimal(amount) > selectedToken.decimals) {
+      errorMsg = TOO_MANY_DIGITS_ERROR_MSG;
+    } else if (utils.number.isNegative(amount)) {
+      errorMsg = NEGATIVE_VALUE_ERROR_MSG;
+    } else if (amount > selectedToken.balance) {
+      errorMsg = INSUFFICIENT_BALANCE_ERROR_MSG;
+    } else if (isL1 && amount > maxDeposit) {
+      errorMsg = MAX_DEPOSIT_ERROR_MSG;
+    }
+
+    if (errorMsg) {
+      setHasInputError(true);
+      setErrorMsg(errorMsg);
+      setIsButtonDisabled(true);
+    } else {
+      setIsButtonDisabled(false);
+    }
+  };
 
   const onMaxClick = () => {
     try {
