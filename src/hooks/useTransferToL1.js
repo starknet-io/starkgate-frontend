@@ -137,10 +137,6 @@ export const useCompleteTransferToL1 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (!transactionHash){
-          return;
-        }
-
         if (!error) {
           logger.log('Tx signed', {transactionHash});
           transactionConfirmed = true;
@@ -159,6 +155,9 @@ export const useCompleteTransferToL1 = () => {
       };
 
       const onLogWithdrawal = (error, event) => {
+        if (!transactionConfirmed){
+          return;
+        }
         if (!error) {
           const {transactionHash: l1hash} = event;
           logger.log('Done', l1hash);
