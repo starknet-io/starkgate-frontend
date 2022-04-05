@@ -45,14 +45,6 @@ jobs:
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
 
-      - name: Build and push images to GCR, with tag latest and git tag.
-        if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deployment' }}
-        run: |
-          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
-          docker push ${{ inputs.image_name }}:${{ github.ref_name }}
-          docker push ${{ inputs.image_name }}
-
       - name: Build with production env and push with mainnet and stable tags.
         if: ${{ inputs.branch_name == 'refs/heads/master' }}
         run: |
@@ -71,8 +63,9 @@ jobs:
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
 
   deploy:
-    if: ${{ inputs.branch_name == 'refs/heads/guy/master/dev_helm_deployment' }}
-    name: Deploy dev env using helm upgrade
+    if: ${{ inputs.branch_name == 'refs/heads/dev' }}
+    name: Upgrade starkgate devnet
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -85,7 +78,7 @@ jobs:
           credentials: ${{ secrets.gcp_token }}
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
-      - name: Show directory
+      - name: Download starkware-third-party repo from S3.
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -94,7 +87,9 @@ jobs:
           helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
           helm repo update
-          helm upgrade starkgate starkware/webapp-general-helm --namespace=starkgate-devnet-guy \
+      - name: Upgrade devnet using helm upgrade command.
+        run: |
+          helm upgrade starkgate starkware/webapp-general-helm --namespace=starkgate-devnet \
           --values deployment/development.yml \
           --set-file configMap.frontend.envs=.env.testing \
           --set frontend.image.tag=${{ github.ref_name }}
