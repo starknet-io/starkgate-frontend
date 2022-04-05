@@ -5,21 +5,20 @@ import React from 'react';
 import {RefreshMessage} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';
 
-const ProgressModal = ({message, refreshMessage}) => {
+const ProgressModal = ({message}) => {
   return (
     <>
       <LinearProgress />
       <br />
       <ModalText>{message}</ModalText>
       <br />
-      <RefreshMessage message={refreshMessage} />
+      <RefreshMessage />
     </>
   );
 };
 
 ProgressModal.propTypes = {
-  message: PropTypes.string,
-  refreshMessage: PropTypes.string
+  message: PropTypes.string
 };
 
 export default ProgressModal;

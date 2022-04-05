@@ -1,17 +1,10 @@
 import utils from '../../../utils';
 
-const {
-  title_txt,
-  subtitle_txt,
-  download_txt,
-  modal_txt,
-  unsupported_browser_txt,
-  refresh_after_login_txt
-} = utils.getTranslation('menus.login');
+const {title_txt, subtitle_txt, download_txt, modal_txt, unsupported_browser_txt} =
+  utils.getTranslation('menus.login');
 
 export const TITLE_TXT = title_txt;
 export const DOWNLOAD_TEXT = download_txt;
 export const UNSUPPORTED_BROWSER_TXT = unsupported_browser_txt;
 export const SUBTITLE_TXT = networkName => utils.object.evaluate(subtitle_txt, {networkName});
 export const MODAL_TXT = walletName => utils.object.evaluate(modal_txt, {walletName});
-export const REFRESH_AFTER_LOGIN_TXT = refresh_after_login_txt;

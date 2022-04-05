@@ -1,17 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import {toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 
-export const RefreshMessage = ({message}) => {
+export const RefreshMessage = () => {
   return (
     <div className={toClasses(styles.modalMessage, styles.refreshMessage)}>
-      <span dangerouslySetInnerHTML={{__html: message}} />
+      <b>Do not refresh or close the page</b> while waiting for the operation to be completed.
     </div>
   );
-};
-
-RefreshMessage.propTypes = {
-  message: PropTypes.string
 };

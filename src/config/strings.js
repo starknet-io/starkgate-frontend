@@ -17,8 +17,6 @@ const strings = {
       subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
       download_txt: ['Don’t have a wallet?', 'Download Here'],
       modal_txt: 'Waiting for confirmation from {{walletName}}',
-      refresh_after_login_txt:
-        'Complete Login with MetaMask. Then, if still not connected to StarkGate- reload this page',
       unsupported_browser_txt:
         "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect."
     },
@@ -88,9 +86,7 @@ const strings = {
       max_total_balance_error_msg:
         'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
       error_title: 'Transaction error',
-      limitation_error_title: 'Limitation error',
-      dont_refresh_txt:
-        '<b>Do not refresh or close the page</b> while waiting for the operation to be completed.'
+      limitation_error_title: 'Limitation error'
     },
     onboarding: {
       title_txt: 'Before takeoff, a few important notes!',
