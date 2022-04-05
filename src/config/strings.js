@@ -41,6 +41,8 @@ const strings = {
     transfer: {
       to_txt: 'to',
       from_txt: 'from',
+      negative_value_error_msg: 'Amount must be a positive number',
+      too_many_digits_error_msg: 'Too many decimal places',
       insufficient_balance_error_msg: 'Insufficient balance',
       max_deposit_error_msg:
         'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
