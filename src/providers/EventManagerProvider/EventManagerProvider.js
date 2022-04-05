@@ -7,10 +7,13 @@ import {starknet} from '../../libs';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
+import constants from '../../config/constants'
 
-const listeners = {};
+const {MONITOR_TX_INTERVAL_MS} = constants;
 
-const eventsQueue = {};
+const deposits = [];
+const withdrawals = [];
+const l2messages = [];
 
 export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
@@ -20,89 +23,35 @@ export const EventManagerProvider = ({children}) => {
   const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();
+  let recordWithdrawals = false;
+  let recordDeposits = false;
 
   useEffect(() => {
     addLogDepositWithdrawalListeners();
     addLogMessageToL2Listener();
   }, []);
 
-  const addListener = (eventName, callback) => {
-    logger.log(`Registered to ${eventName} event.`);
-    if (!listeners[eventName]) {
-      listeners[eventName] = [];
-    }
-    listeners[eventName].push(callback);
-  };
-
-  const insertEventToQueue = (eventName, event) => {
-    logger.log(`Insert event ${eventName} to queue.`);
-    if (!eventsQueue[eventName]) {
-      eventsQueue[eventName] = [];
-    }
-    eventsQueue[eventName].push(event);
-  };
-
-  const emitListeners = (eventName, error, event) => {
-    logger.log(`Event ${eventName} emitted to listeners.`, event);
-    listeners[eventName]?.forEach(listener => listener(error, event));
-    cleanListeners(eventName);
-  };
-
-  const cleanListeners = eventName => {
-    logger.log(`Clean listeners for event ${eventName}.`);
-    listeners[eventName] = [];
-  };
-
-  const removeFromQueue = (eventName, index) => {
-    logger.log(`Remove event ${eventName} at index ${index} from queue.`);
-    eventsQueue[eventName].splice(index, 1);
-  };
-
   const onLogWithdrawal = (error, event) => {
-    logger.log(`Event ${EventName.L1.LOG_WITHDRAWAL} dispatched internal.`, {error, event});
-    emitListeners(EventName.L1.LOG_WITHDRAWAL, error, event);
+    if (recordWithdrawals && event) {
+      logger.log(`Event ${EventName.L1.LOG_WITHDRAWAL} dispatched internal.`, {error, event});
+      withdrawals.push(event);
+      logger.log(`Withdrawal events`, withdrawals);
+    }
   };
 
   const onLogDeposit = (error, event) => {
-    logger.log(`Event ${EventName.L1.LOG_DEPOSIT} dispatched internal.`, {error, event});
-    const matchedLogMessageToL2EventIndex = eventsQueue[EventName.L1.LOG_MESSAGE_TO_L2]?.findIndex(
-      e => e.transactionHash === event.transactionHash
-    );
-    logger.log(`Searching matched ${EventName.L1.LOG_MESSAGE_TO_L2} event.`);
-    if (matchedLogMessageToL2EventIndex > -1) {
-      logger.log(
-        `Found matched ${EventName.L1.LOG_MESSAGE_TO_L2} event at index ${matchedLogMessageToL2EventIndex}.`,
-        eventsQueue
-      );
-      emitListeners(EventName.L1.LOG_DEPOSIT, error, event);
-      emitListeners(
-        EventName.L1.LOG_MESSAGE_TO_L2,
-        error,
-        eventsQueue[EventName.L1.LOG_MESSAGE_TO_L2][matchedLogMessageToL2EventIndex]
-      );
-      removeFromQueue(EventName.L1.LOG_MESSAGE_TO_L2, matchedLogMessageToL2EventIndex);
-    } else {
-      logger.log(`Didn't found matched ${EventName.L1.LOG_MESSAGE_TO_L2} event.`);
-      insertEventToQueue(EventName.L1.LOG_DEPOSIT, event);
-      emitListeners(EventName.L1.LOG_DEPOSIT, error, event);
+    if (recordDeposits && event) {
+      logger.log(`Event ${EventName.L1.LOG_DEPOSIT} dispatched internal.`, {error, event});
+      deposits.push(event);
+      logger.log(`Deposits events`, deposits);
     }
   };
 
   const onLogMessageToL2 = (error, event) => {
-    logger.log(`Event ${EventName.L1.LOG_MESSAGE_TO_L2} dispatched internal.`, {error, event});
-    const matchedLogDepositEventIndex = eventsQueue[EventName.L1.LOG_DEPOSIT]?.findIndex(
-      e => e.transactionHash === event.transactionHash
-    );
-    logger.log(`Searching matched ${EventName.L1.LOG_DEPOSIT} event.`);
-    if (matchedLogDepositEventIndex > -1) {
-      logger.log(
-        `Found matched ${EventName.L1.LOG_DEPOSIT} event at index ${matchedLogDepositEventIndex}.`
-      );
-      removeFromQueue(EventName.L1.LOG_DEPOSIT, matchedLogDepositEventIndex);
-      emitListeners(EventName.L1.LOG_MESSAGE_TO_L2, error, event);
-    } else {
-      logger.log(`Didn't found matched ${EventName.L1.LOG_DEPOSIT} event.`);
-      insertEventToQueue(EventName.L1.LOG_MESSAGE_TO_L2, event);
+    if (recordDeposits && event) {
+      logger.log(`Event ${EventName.L1.LOG_MESSAGE_TO_L2} dispatched internal.`, {error, event});
+      l2messages.push(event);
+      logger.log(`MessageToL2 events`, l2messages);
     }
   };
 
@@ -152,12 +101,63 @@ export const EventManagerProvider = ({children}) => {
       {
         filter
       },
-      (error, event) => handler(error, event)
+      handler
     );
   };
 
+  const addWithdrawalListener = (filter, callback) => {
+    recordWithdrawals = true;
+    const intervalId = setInterval(() => {
+      const withdrawalEvent = findWithdrawalEvent(filter);
+      if (withdrawalEvent) {
+        recordWithdrawals = false;
+        withdrawals.splice(0, deposits.length);
+        clearInterval(intervalId);
+        callback(withdrawalEvent);
+      }
+    }, MONITOR_TX_INTERVAL_MS);
+  };
+
+  const findWithdrawalEvent = filter => {
+    return withdrawals.find(event => {
+      const {recipient, amount} = event.returnValues;
+      return recipient === filter.recipient && amount === filter.amount;
+    });
+  };
+
+  const addDepositListener = (filter, callback) => {
+    recordDeposits = true;
+    const intervalId = setInterval(() => {
+      const depositEvent = findDepositEvent(filter);
+      if (depositEvent) {
+        const l2messageEvent = findL2MessageEvent(depositEvent.transactionHash);
+        if (l2messageEvent) {
+          callback(l2messageEvent);
+        }
+        recordDeposits = false;
+        deposits.splice(0, deposits.length);
+        l2messages.splice(0, l2messages.length);
+        clearInterval(intervalId);
+      }
+    }, MONITOR_TX_INTERVAL_MS);
+  };
+
+  const findDepositEvent = filter => {
+    return deposits.find(event => {
+      const {sender, amount, l2Recipient} = event.returnValues;
+      return (
+        sender === filter.sender && amount === filter.amount && l2Recipient === filter.l2Recipient
+      );
+    });
+  };
+
+  const findL2MessageEvent = transactionHash => {
+    return l2messages.find(event => event.transactionHash === transactionHash);
+  };
+
   const value = {
-    addListener
+    addDepositListener,
+    addWithdrawalListener
   };
 
   return <EventManagerContext.Provider value={value}>{children}</EventManagerContext.Provider>;

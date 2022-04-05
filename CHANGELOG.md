@@ -1,9 +1,8 @@
 ## [1.1.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2022-04-05)
 
-
 ### 🔧 Fixes
 
-* invalidation of negative amounts and too many decimal points ([#135](https://github.com/starkware-libs/starkgate-frontend/issues/135)) ([d94b8ea](https://github.com/starkware-libs/starkgate-frontend/commit/d94b8ea9cec4cf96da3b5fcd7e829b7f4ff5661c))
+- invalidation of negative amounts and too many decimal points ([#135](https://github.com/starkware-libs/starkgate-frontend/issues/135)) ([d94b8ea](https://github.com/starkware-libs/starkgate-frontend/commit/d94b8ea9cec4cf96da3b5fcd7e829b7f4ff5661c))
 
 ## [1.1.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0...v1.1.0-dev.1) (2022-04-05)
 
