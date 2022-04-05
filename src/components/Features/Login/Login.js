@@ -14,7 +14,8 @@ import {
   MODAL_TXT,
   SUBTITLE_TXT,
   TITLE_TXT,
-  UNSUPPORTED_BROWSER_TXT
+  UNSUPPORTED_BROWSER_TXT,
+  REFRESH_AFTER_LOGIN_TXT
 } from './Login.strings';
 
 export const Login = () => {
@@ -117,7 +118,7 @@ export const Login = () => {
   const maybeShowModal = () => {
     maybeHideModal();
     modalTimeoutId.current = setTimeout(() => {
-      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName));
+      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName), REFRESH_AFTER_LOGIN_TXT);
     }, MODAL_TIMEOUT_DURATION);
   };
 

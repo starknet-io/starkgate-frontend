@@ -4,6 +4,8 @@ import {ModalType} from '../../components/UI/Modal/Modal/Modal.constants';
 import utils from '../../utils';
 import {ModalContext} from './modal-context';
 
+const {dont_refresh_txt} = utils.getTranslation('modals.transferProgress');
+
 export const useModal = () => {
   return {
     ...useContext(ModalContext)
@@ -22,7 +24,7 @@ export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, activeStep = 0, type = ModalType.INFO) => {
+    (title, message, refreshMessage = dont_refresh_txt, activeStep = 0, type = ModalType.INFO) => {
       showModal({
         headerComponentPath: steps.length > 0 ? 'UI/Stepper/Stepper' : null,
         headerComponentProps:
@@ -34,7 +36,8 @@ export const useProgressModal = (steps = []) => {
             : null,
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
-          message
+          message,
+          refreshMessage
         },
         title,
         type
