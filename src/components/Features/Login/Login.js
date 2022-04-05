@@ -41,7 +41,7 @@ export const Login = () => {
       setErrorMsg(UNSUPPORTED_BROWSER_TXT);
       return;
     }
-    if (autoConnect) {
+    if (autoConnect && window.ethereum) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
         timeoutId = setTimeout(() => onWalletConnect(handlers[0]), AUTO_CONNECT_TIMEOUT_DURATION);
@@ -60,6 +60,7 @@ export const Login = () => {
 
   useEffect(() => {
     switch (status) {
+      case WalletStatus.ERROR:
       case WalletStatus.CONNECTING:
         maybeShowModal();
         break;
@@ -68,7 +69,6 @@ export const Login = () => {
         setErrorMsg('');
         maybeHideModal();
         break;
-      case WalletStatus.ERROR:
       case WalletStatus.DISCONNECTED:
         maybeHideModal();
         break;
