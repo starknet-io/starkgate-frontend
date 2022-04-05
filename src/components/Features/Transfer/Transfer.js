@@ -7,7 +7,15 @@ import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
-import {Loading, Menu, NetworkMenu, NetworkSwap, TokenInput, TransferButton, TransferMenuTab} from '../../UI';
+import {
+  Loading,
+  Menu,
+  NetworkMenu,
+  NetworkSwap,
+  TokenInput,
+  TransferButton,
+  TransferMenuTab
+} from '../../UI';
 import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
 import {

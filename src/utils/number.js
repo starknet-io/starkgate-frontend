@@ -1,5 +1,5 @@
 export const afterDecimal = num => {
-  if (Number.isInteger(num)) {
+  if (Number.isInteger(Number(num))) {
     return 0;
   }
   return num.toString().split('.')[1]?.length;
