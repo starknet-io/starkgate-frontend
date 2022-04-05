@@ -112,6 +112,7 @@ export const useCompleteTransferToL1 = () => {
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
   const addLogWithdrawalListener = useLogWithdrawalListener();
+  let transactionConfirmed = false;
 
   return useCallback(
     async transfer => {
@@ -136,8 +137,13 @@ export const useCompleteTransferToL1 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
+        if (!transactionHash){
+          return;
+        }
+
         if (!error) {
           logger.log('Tx signed', {transactionHash});
+          transactionConfirmed = true;
           handleProgress(
             progressOptions.withdraw(
               amount,

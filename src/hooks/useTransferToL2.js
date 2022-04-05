@@ -3,14 +3,7 @@ import {useCallback} from 'react';
 import {track, TrackEvent} from '../analytics';
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
-import {
-  ActionType,
-  stepOf,
-  TransactionHashPrefix,
-  TransferError,
-  TransferStep,
-  TransferToL2Steps
-} from '../enums';
+import {ActionType, stepOf, TransactionHashPrefix, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {starknet} from '../libs';
 import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
@@ -34,6 +27,7 @@ export const useTransferToL2 = () => {
   const addLogMessageToL2Listener = useLogMessageToL2Listener();
   const maxTotalBalance = useMaxTotalBalance();
 
+
   return useCallback(
     async amount => {
       const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
@@ -41,6 +35,7 @@ export const useTransferToL2 = () => {
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
       const isEthToken = utils.token.isEth(symbol);
       const tokenBridgeAddress = bridgeAddress[l1ChainId];
+      let transactionConfirmed = false;
 
       const readAllowance = () => {
         return allowance({
@@ -81,6 +76,7 @@ export const useTransferToL2 = () => {
       const onTransactionHash = (error, transactionHash) => {
         if (!error) {
           logger.log('Tx signed', {transactionHash});
+          transactionConfirmed = true;
           handleProgress(
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
           );
@@ -92,6 +88,9 @@ export const useTransferToL2 = () => {
       };
 
       const onLogMessageToL2 = (error, event) => {
+        if (!transactionConfirmed) {
+          return;
+        }
         if (!error) {
           logger.log('Done', event.transactionHash);
           handleData({
@@ -133,10 +132,10 @@ export const useTransferToL2 = () => {
         const tokenBridgeBalance = await (isEthToken
           ? ethBalanceOf(tokenBridgeAddress)
           : balanceOf({
-              account: tokenBridgeAddress,
-              decimals,
-              contract: tokenContract
-            }));
+            account: tokenBridgeAddress,
+            contract: tokenContract,
+            decimals,
+          }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
