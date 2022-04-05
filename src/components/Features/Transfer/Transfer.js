@@ -65,7 +65,7 @@ export const Transfer = () => {
   const onMaxClick = () => {
     try {
       track(TrackEvent.TRANSFER.MAX_CLICK);
-      setAmount(String(Math.min(selectedToken.balance, Number(maxDeposit))));
+      setAmount(String(Math.min(selectedToken.balance, isL1 ? Number(maxDeposit) : Infinity)));
     } catch (ex) {
       setAmount(selectedToken.balance);
     }
