@@ -29,7 +29,6 @@ export const useMessageToL2PastEvents = () => {
     const pastEvents = await getPastEvents(starknetContract, EventName.L1.LOG_MESSAGE_TO_L2, {
       fromBlock: blockNumber
     });
-    debugger;
     return pastEvents.find(e => e.transactionHash === transactionHash);
   }, []);
 };
