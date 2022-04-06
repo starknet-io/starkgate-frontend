@@ -42,7 +42,7 @@ export const EventManagerProvider = ({children}) => {
   const emitListeners = (eventName, error, event) => {
     logger.log(`Event ${eventName} emitted to listeners.`, event);
     listeners[eventName]?.forEach(listener => listener(error, event));
-    cleanListeners(eventName)
+    cleanListeners(eventName);
   };
 
   const cleanListeners = eventName => {
