@@ -12,7 +12,7 @@ import {
   TransferToL2Steps
 } from '../enums';
 import {starknet} from '../libs';
-import {useLogMessageToL2Listener} from '../providers/EventManagerProvider';
+import {useDepositListener, useMessageToL2PastEvents} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
@@ -31,7 +31,8 @@ export const useTransferToL2 = () => {
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const addLogMessageToL2Listener = useLogMessageToL2Listener();
+  const addDepositListener = useDepositListener();
+  const getMessageToL2Event = useMessageToL2PastEvents();
   const maxTotalBalance = useMaxTotalBalance();
 
   return useCallback(
@@ -91,18 +92,20 @@ export const useTransferToL2 = () => {
         }
       };
 
-      const onLogMessageToL2 = (error, event) => {
+      const onDeposit = async (error, event) => {
         if (!error) {
-          logger.log('Done', event.transactionHash);
-          handleData({
-            type: ActionType.TRANSFER_TO_L2,
-            sender: l1Account,
-            recipient: l2Account,
-            name,
-            symbol,
-            amount,
-            ...extractTransactionsHashFromEvent(event)
-          });
+          const l2MessageEvent = await getMessageToL2Event(event);
+          if (l2MessageEvent) {
+            handleData({
+              type: ActionType.TRANSFER_TO_L2,
+              sender: l1Account,
+              recipient: l2Account,
+              name,
+              symbol,
+              amount,
+              ...extractTransactionsHashFromEvent(l2MessageEvent)
+            });
+          }
         } else {
           track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
           logger.error(error.message);
@@ -169,7 +172,7 @@ export const useTransferToL2 = () => {
             stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
           )
         );
-        addLogMessageToL2Listener(onLogMessageToL2);
+        addDepositListener(onDeposit);
         logger.log('Calling deposit');
         await sendDeposit();
       } catch (ex) {
@@ -180,7 +183,7 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      addLogMessageToL2Listener,
+      addDepositListener,
       l1ChainId,
       l2ChainId,
       l1Account,
