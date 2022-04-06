@@ -15,7 +15,7 @@ const l1tokens = [
     symbol: 'WBTC',
     decimals: 8,
     bridgeAddress: {
-      [ChainType.MAIN]: '',
+      [ChainType.L1.MAIN]: '',
       [ChainType.L1.GOERLI]: '0xf29aE3446Ce4688fCc792b232C21D1B9581E7baC'
     },
     tokenAddress: {
