@@ -11,7 +11,9 @@ import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.con
 import styles from './Login.module.scss';
 import {
   DOWNLOAD_TEXT,
-  MODAL_TXT,
+  MODAL_TXT1,
+  MODAL_TXT2,
+  MODAL_TXT3,
   SUBTITLE_TXT,
   TITLE_TXT,
   UNSUPPORTED_BROWSER_TXT
@@ -116,7 +118,11 @@ export const Login = () => {
   const maybeShowModal = () => {
     maybeHideModal();
     modalTimeoutId.current = setTimeout(() => {
-      showConnectingWalletModal(selectedWalletName, MODAL_TXT(selectedWalletName));
+      showConnectingWalletModal(selectedWalletName, [
+        MODAL_TXT1(selectedWalletName),
+        MODAL_TXT2(selectedWalletName),
+        MODAL_TXT3
+      ]);
     }, MODAL_TIMEOUT_DURATION);
   };
 

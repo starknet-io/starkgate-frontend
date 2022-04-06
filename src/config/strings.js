@@ -16,9 +16,13 @@ const strings = {
       title_txt: 'Login',
       subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
       download_txt: ['Don’t have a wallet?', 'Download Here'],
-      modal_txt: 'Complete login and connect with {{walletName}}',
       unsupported_browser_txt:
-        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect."
+        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect.",
+      modal_txt: [
+        'Complete login with {{walletName}}',
+        'After completing login process with {{walletName}}, please ',
+        'reload this page.'
+      ]
     },
     account: {
       title_txt: '{{network}} Account',
