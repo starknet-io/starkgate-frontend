@@ -1,3 +1,17 @@
+## [1.1.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0...v1.1.0) (2022-04-06)
+
+
+### 🧩 Features
+
+* support more tokens on testnet ([#133](https://github.com/starkware-libs/starkgate-frontend/issues/133)) ([1e95d33](https://github.com/starkware-libs/starkgate-frontend/commit/1e95d330e5a47a4182f77bf7cb1af4d3a39adcbe))
+
+
+### 🔧 Fixes
+
+* invalidation of negative amounts and too many decimal points ([#135](https://github.com/starkware-libs/starkgate-frontend/issues/135)) ([d94b8ea](https://github.com/starkware-libs/starkgate-frontend/commit/d94b8ea9cec4cf96da3b5fcd7e829b7f4ff5661c))
+* new event driven implementation for deposit and withdraw ([#139](https://github.com/starkware-libs/starkgate-frontend/issues/139)) ([96d6b24](https://github.com/starkware-libs/starkgate-frontend/commit/96d6b240d0e6ec6e82b5cb3b418c7b1478541e09))
+* when clicking Max button on L2 network 0 is shown instead of max balance ([#134](https://github.com/starkware-libs/starkgate-frontend/issues/134)) ([fb4618b](https://github.com/starkware-libs/starkgate-frontend/commit/fb4618b4a0c4171296858e904fcc94b56e04215c))
+
 ## [1.1.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2022-04-06)
 
 
