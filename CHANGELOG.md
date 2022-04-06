@@ -1,3 +1,10 @@
+## [1.1.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2022-04-06)
+
+
+### 🔧 Fixes
+
+* new event driven implementation for deposit and withdraw ([#139](https://github.com/starkware-libs/starkgate-frontend/issues/139)) ([96d6b24](https://github.com/starkware-libs/starkgate-frontend/commit/96d6b240d0e6ec6e82b5cb3b418c7b1478541e09))
+
 ## [1.1.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2022-04-05)
 
 
