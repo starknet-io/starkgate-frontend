@@ -31,6 +31,56 @@ export const EventManagerProvider = ({children}) => {
     addLogMessageToL2Listener();
   }, []);
 
+  const addWithdrawalListener = (filter, callback) => {
+    recordWithdrawals = true;
+    const intervalId = setInterval(() => {
+      const withdrawalEvent = findWithdrawalEvent(filter);
+      if (withdrawalEvent) {
+        recordWithdrawals = false;
+        withdrawals.splice(0, deposits.length);
+        clearInterval(intervalId);
+        callback(withdrawalEvent);
+      }
+    }, MONITOR_TX_INTERVAL_MS);
+  };
+
+  const addDepositListener = (filter, callback) => {
+    recordDeposits = true;
+    const intervalId = setInterval(() => {
+      const depositEvent = findDepositEvent(filter);
+      if (depositEvent) {
+        const l2messageEvent = findL2MessageEvent(depositEvent.transactionHash);
+        if (l2messageEvent) {
+          recordDeposits = false;
+          deposits.splice(0, deposits.length);
+          l2messages.splice(0, l2messages.length);
+          clearInterval(intervalId);
+          callback(l2messageEvent);
+        }
+      }
+    }, MONITOR_TX_INTERVAL_MS);
+  };
+
+  const findDepositEvent = filter => {
+    return deposits.find(event => {
+      const {sender, amount, l2Recipient} = event.returnValues;
+      return (
+        sender === filter.sender && amount === filter.amount && l2Recipient === filter.l2Recipient
+      );
+    });
+  };
+
+  const findWithdrawalEvent = filter => {
+    return withdrawals.find(event => {
+      const {recipient, amount} = event.returnValues;
+      return recipient === filter.recipient && amount === filter.amount;
+    });
+  };
+
+  const findL2MessageEvent = transactionHash => {
+    return l2messages.find(event => event.transactionHash === transactionHash);
+  };
+
   const onLogWithdrawal = (error, event) => {
     if (recordWithdrawals && event) {
       logger.log(`Event ${EventName.L1.LOG_WITHDRAWAL} dispatched internal.`, {error, event});
@@ -103,56 +153,6 @@ export const EventManagerProvider = ({children}) => {
       },
       handler
     );
-  };
-
-  const addWithdrawalListener = (filter, callback) => {
-    recordWithdrawals = true;
-    const intervalId = setInterval(() => {
-      const withdrawalEvent = findWithdrawalEvent(filter);
-      if (withdrawalEvent) {
-        recordWithdrawals = false;
-        withdrawals.splice(0, deposits.length);
-        clearInterval(intervalId);
-        callback(withdrawalEvent);
-      }
-    }, MONITOR_TX_INTERVAL_MS);
-  };
-
-  const findWithdrawalEvent = filter => {
-    return withdrawals.find(event => {
-      const {recipient, amount} = event.returnValues;
-      return recipient === filter.recipient && amount === filter.amount;
-    });
-  };
-
-  const addDepositListener = (filter, callback) => {
-    recordDeposits = true;
-    const intervalId = setInterval(() => {
-      const depositEvent = findDepositEvent(filter);
-      if (depositEvent) {
-        const l2messageEvent = findL2MessageEvent(depositEvent.transactionHash);
-        if (l2messageEvent) {
-          recordDeposits = false;
-          deposits.splice(0, deposits.length);
-          l2messages.splice(0, l2messages.length);
-          clearInterval(intervalId);
-          callback(l2messageEvent);
-        }
-      }
-    }, MONITOR_TX_INTERVAL_MS);
-  };
-
-  const findDepositEvent = filter => {
-    return deposits.find(event => {
-      const {sender, amount, l2Recipient} = event.returnValues;
-      return (
-        sender === filter.sender && amount === filter.amount && l2Recipient === filter.l2Recipient
-      );
-    });
-  };
-
-  const findL2MessageEvent = transactionHash => {
-    return l2messages.find(event => event.transactionHash === transactionHash);
   };
 
   const value = {
