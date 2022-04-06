@@ -2,7 +2,7 @@ import React from 'react';
 
 import {IncognitoMessage} from '../ModalMessage';
 import styles from './OnboardingModal.module.scss';
-import {SUBTITLE_TXT, BULLETS_TXT} from './OnboardingModal.strings';
+import {SUBTITLE_TXT, BULLETS_TXT, INCOGNITO_TXT_PARTS} from './OnboardingModal.strings';
 
 const OnboardingModal = () => {
   return (
@@ -13,7 +13,7 @@ const OnboardingModal = () => {
           <li key={`b-${i}`}>{bullet}</li>
         ))}
       </ul>
-      <IncognitoMessage />
+      <IncognitoMessage txtParts={INCOGNITO_TXT_PARTS} />
     </div>
   );
 };

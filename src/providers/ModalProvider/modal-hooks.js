@@ -21,15 +21,17 @@ export const useHideModal = () => {
 
 export const useConnectingWalletModal = () => {
   const {showModal} = useContext(ModalContext);
+  const titleTxt = utils.getTranslation('modals.login.title_txt');
 
   return useCallback(
     (walletName, iconPath) => {
       showModal({
         componentPath: 'UI/Modal/ConnectingWalletModal/ConnectingWalletModal',
         componentProps: {
+          walletName,
           iconPath
         },
-        title: evaluate(utils.getTranslation('modals.login.title_txt'), {walletName})
+        title: evaluate(titleTxt, {walletName})
       });
     },
     [showModal]
@@ -64,6 +66,7 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
+  const title = utils.getTranslation('modals.transactionSubmitted.title_txt');
 
   return useCallback(
     transfer => {
@@ -77,7 +80,7 @@ export const useTransactionSubmittedModal = steps => {
         componentProps: {
           transfer
         },
-        title: utils.getTranslation('modals.transactionSubmitted.title_txt'),
+        title,
         withButtons: true
       });
     },
@@ -103,11 +106,12 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
+  const title = utils.getTranslation('modals.onboarding.title_txt');
 
   return useCallback(() => {
     showModal({
       componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
-      title: utils.getTranslation('modals.onboarding.title_txt'),
+      title,
       withButtons: true
     });
   }, [showModal]);

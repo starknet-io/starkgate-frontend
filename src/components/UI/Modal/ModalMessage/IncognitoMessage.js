@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import utils from '../../../../utils';
+import {LoginMessage} from './LoginMessage';
 
-const INCOGNITO_TXT_PARTS = utils.getTranslation('modals.onboarding.incognito_txt_parts');
-
-export const IncognitoMessage = () => {
+export const IncognitoMessage = ({txtParts}) => {
   return (
     <p>
-      {INCOGNITO_TXT_PARTS[0]} <b>{INCOGNITO_TXT_PARTS[1]}</b> {INCOGNITO_TXT_PARTS[2]}
+      {txtParts[0]} <b>{txtParts[1]}</b> {txtParts[2]}
     </p>
   );
+};
+
+LoginMessage.propTypes = {
+  txtParts: PropTypes.array
 };

@@ -1,15 +1,18 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import utils from '../../../../utils';
-import {toClasses} from '../../../../utils/object';
+import {evaluate, toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 
-const [LOGIN_TXT, RELOAD_TXT] = utils.getTranslation('modals.login.body_txt_parts');
-
-export const LoginMessage = () => {
+export const LoginMessage = ({walletName, txtParts}) => {
   return (
     <div className={toClasses(styles.modalMessage, styles.bottomMessage)}>
-      {LOGIN_TXT} <b>{RELOAD_TXT}</b>
+      {evaluate(txtParts[0], {walletName})} <b>{txtParts[1]}</b>
     </div>
   );
+};
+
+LoginMessage.propTypes = {
+  walletName: PropTypes.string,
+  txtParts: PropTypes.array
 };

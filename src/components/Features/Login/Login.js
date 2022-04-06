@@ -54,13 +54,10 @@ export const Login = () => {
 
   useEffect(() => {
     switch (status) {
-      case WalletStatus.DISCONNECTED:
       case WalletStatus.CONNECTING:
-      case WalletStatus.ERROR:
         maybeShowModal();
         break;
       case WalletStatus.CONNECTED:
-        setWalletConfig(null);
         setErrorMsg('');
         maybeHideModal();
         break;
@@ -102,6 +99,8 @@ export const Login = () => {
       });
       track(TrackEvent.LOGIN.LOGIN_ERROR, {message});
       setErrorMsg(message);
+    } else if (error.name === 'ConnectionRejectedError') {
+      maybeShowModal();
     }
   };
 
