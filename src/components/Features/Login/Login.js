@@ -2,26 +2,18 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import {track, TrackEvent} from '../../../analytics';
 import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
-import {useConfig, useWalletHandlerProvider} from '../../../hooks';
-import {useHideModal, useConnectingWalletModal} from '../../../providers/ModalProvider';
+import {useEnvs, useWalletHandlerProvider} from '../../../hooks';
+import {useConnectingWalletModal, useHideModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Menu, WalletLogin} from '../../UI';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
-import {
-  DOWNLOAD_TEXT,
-  MODAL_TXT1,
-  MODAL_TXT2,
-  MODAL_TXT3,
-  SUBTITLE_TXT,
-  TITLE_TXT,
-  UNSUPPORTED_BROWSER_TXT
-} from './Login.strings';
+import {DOWNLOAD_TEXT, SUBTITLE_TXT, TITLE_TXT, UNSUPPORTED_BROWSER_TXT} from './Login.strings';
 
 export const Login = () => {
-  const {autoConnect} = useConfig();
-  const [selectedWalletName, setSelectedWalletName] = useState('');
+  const {autoConnect} = useEnvs();
+  const [walletConfig, setWalletConfig] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [walletType, setWalletType] = useState(WalletType.L1);
   const modalTimeoutId = useRef(null);
@@ -43,10 +35,10 @@ export const Login = () => {
       setErrorMsg(UNSUPPORTED_BROWSER_TXT);
       return;
     }
-    if (autoConnect && window.ethereum) {
-      const handlers = getWalletHandlers(walletType);
-      if (handlers.length > 0) {
-        timeoutId = setTimeout(() => onWalletConnect(handlers[0]), AUTO_CONNECT_TIMEOUT_DURATION);
+    const walletHandler = getWalletHandlers(walletType)?.[0];
+    if (walletHandler) {
+      if (autoConnect && walletHandler.isInstalled()) {
+        timeoutId = setTimeout(() => onWalletConnect(walletHandler), AUTO_CONNECT_TIMEOUT_DURATION);
       }
     }
     return () => clearTimeout(timeoutId);
@@ -62,15 +54,14 @@ export const Login = () => {
 
   useEffect(() => {
     switch (status) {
+      case WalletStatus.DISCONNECTED:
       case WalletStatus.CONNECTING:
+      case WalletStatus.ERROR:
         maybeShowModal();
         break;
       case WalletStatus.CONNECTED:
-        setSelectedWalletName('');
+        setWalletConfig(null);
         setErrorMsg('');
-        maybeHideModal();
-        break;
-      case WalletStatus.DISCONNECTED:
         maybeHideModal();
         break;
       default:
@@ -79,16 +70,15 @@ export const Login = () => {
     return () => {
       maybeHideModal();
     };
-  }, [status]);
+  }, [status, walletConfig]);
 
   const onWalletConnect = walletHandler => {
     const {config} = walletHandler;
-    const {name} = config;
-    track(TrackEvent.LOGIN.WALLET_CLICK, {name});
+    track(TrackEvent.LOGIN.WALLET_CLICK, config.name);
     if (!walletHandler.isInstalled()) {
       return walletHandler.install();
     }
-    setSelectedWalletName(name);
+    setWalletConfig(config);
     return walletType === WalletType.L1 ? connectL1Wallet(config) : connectL2Wallet(config);
   };
 
@@ -116,14 +106,12 @@ export const Login = () => {
   };
 
   const maybeShowModal = () => {
-    maybeHideModal();
-    modalTimeoutId.current = setTimeout(() => {
-      showConnectingWalletModal(selectedWalletName, [
-        MODAL_TXT1(selectedWalletName),
-        MODAL_TXT2(selectedWalletName),
-        MODAL_TXT3
-      ]);
-    }, MODAL_TIMEOUT_DURATION);
+    if (walletConfig) {
+      maybeHideModal();
+      modalTimeoutId.current = setTimeout(() => {
+        showConnectingWalletModal(walletConfig.name, walletConfig.logoPath);
+      }, MODAL_TIMEOUT_DURATION);
+    }
   };
 
   const maybeHideModal = () => {

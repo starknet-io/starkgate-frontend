@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
-import {useConfig} from '../../hooks';
+import {useEnvs} from '../../hooks';
 import {starknet} from '../../libs';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
-  const {pollBlockNumberInterval} = useConfig();
+  const {pollBlockNumberInterval} = useEnvs();
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {

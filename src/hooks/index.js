@@ -11,6 +11,6 @@ export * from './usePrevious';
 export * from './useTransfer';
 export * from './useTransferToL1';
 export * from './useTransferToL2';
-export * from './useConfig';
+export * from './useEnvs';
 export * from './useTransferProgress';
 export * from './useTokenConstant';

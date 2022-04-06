@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 

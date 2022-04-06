@@ -2,6 +2,7 @@ import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../components/UI/Modal/Modal/Modal.constants';
 import utils from '../../utils';
+import {evaluate} from '../../utils/object';
 import {ModalContext} from './modal-context';
 
 export const useModal = () => {
@@ -22,13 +23,13 @@ export const useConnectingWalletModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message) => {
+    (walletName, iconPath) => {
       showModal({
-        componentPath: 'UI/Modal/ConnectingWallet/ConnectingWallet',
+        componentPath: 'UI/Modal/ConnectingWalletModal/ConnectingWalletModal',
         componentProps: {
-          message
+          iconPath
         },
-        title
+        title: evaluate(utils.getTranslation('modals.login.title_txt'), {walletName})
       });
     },
     [showModal]

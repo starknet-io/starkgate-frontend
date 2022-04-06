@@ -18,7 +18,7 @@ const strings = {
       download_txt: ['Don’t have a wallet?', 'Download Here'],
       unsupported_browser_txt:
         "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect.",
-      modal_txt: [
+      login_txt: [
         'Complete login with {{walletName}}',
         'After completing login process with {{walletName}}, please ',
         'reload this page.'
@@ -88,11 +88,14 @@ const strings = {
         type: '{{walletName}}',
         message: 'Waiting for confirmation from {{walletName}}'
       },
-      confirm_txt: 'Confirm this transaction in your wallet',
       max_total_balance_error_msg:
         'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
       error_title: 'Transaction error',
-      limitation_error_title: 'Limitation error'
+      limitation_error_title: 'Limitation error',
+      do_not_refresh_txt_parts: [
+        'Do not refresh or close the page',
+        'while waiting for the operation to be completed.'
+      ]
     },
     onboarding: {
       title_txt: 'Before takeoff, a few important notes!',
@@ -102,7 +105,16 @@ const strings = {
         'Refrain from switching browsers',
         'Do not refresh the page while the transfer is being processed',
         'Do not delete the local storage of the browser'
+      ],
+      incognito_txt_parts: [
+        'The current StarkGate Alpha version',
+        'does not',
+        'support browsing in incognito mode.'
       ]
+    },
+    login: {
+      title_txt: 'Login to {{walletName}}',
+      body_txt_parts: ['Please log in to {{walletName}} and then', 'reload the page.']
     }
   },
   toasts: {

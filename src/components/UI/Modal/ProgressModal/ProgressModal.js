@@ -1,19 +1,14 @@
-import {LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {DontRefreshMessage} from '../ModalMessage';
-import {ModalText} from '../ModalText/ModalText';
+import {OperationInProgressMessage} from '../ModalMessage';
+import {WithLoaderModal} from '../WithLoaderModal/WithLoaderModal';
 
 const ProgressModal = ({message}) => {
   return (
-    <>
-      <LinearProgress />
-      <br />
-      <ModalText>{message}</ModalText>
-      <br />
-      <DontRefreshMessage />
-    </>
+    <WithLoaderModal message={message}>
+      <OperationInProgressMessage />
+    </WithLoaderModal>
   );
 };
 
