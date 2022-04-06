@@ -20,7 +20,7 @@ export const useWithdrawalListener = () => {
   return useCallback(callback => addListener(EventName.L1.LOG_WITHDRAWAL, callback), [addListener]);
 };
 
-export const useMessageToL2PastEvents = () => {
+export const useDepositMessageToL2Event = () => {
   const {getPastEvents} = useContext(EventManagerContext);
   const starknetContract = useStarknetContract();
 

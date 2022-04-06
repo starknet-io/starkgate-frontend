@@ -12,7 +12,7 @@ import {
   TransferToL2Steps
 } from '../enums';
 import {starknet} from '../libs';
-import {useDepositListener, useMessageToL2PastEvents} from '../providers/EventManagerProvider';
+import {useDepositListener, useDepositMessageToL2Event} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
@@ -32,7 +32,7 @@ export const useTransferToL2 = () => {
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const addDepositListener = useDepositListener();
-  const getMessageToL2Event = useMessageToL2PastEvents();
+  const getDepositMessageToL2Event = useDepositMessageToL2Event();
   const maxTotalBalance = useMaxTotalBalance();
 
   return useCallback(
@@ -94,7 +94,7 @@ export const useTransferToL2 = () => {
 
       const onDeposit = async (error, event) => {
         if (!error) {
-          const l2MessageEvent = await getMessageToL2Event(event);
+          const l2MessageEvent = await getDepositMessageToL2Event(event);
           if (l2MessageEvent) {
             handleData({
               type: ActionType.TRANSFER_TO_L2,
