@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import envs from '../../../config/envs';
 import {
   isOnChain,
   isRejected,
@@ -10,18 +9,19 @@ import {
   TransactionStatusFriendlyMessage,
   TransactionStatusStep
 } from '../../../enums';
-import {useColors} from '../../../hooks';
+import {useColors, useEnvs} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
 import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
-import {COMPLETE_TRANSFER_BTN_TXT} from './TransferLog.strings';
-
-const {voyagerTxUrl, etherscanTxUrl} = envs;
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
+  const {completeTransferBtnTxt} = utils.getTranslation(
+    'menus.account.transferLogContainer.transferLog'
+  );
+  const {voyagerTxUrl, etherscanTxUrl} = useEnvs();
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
@@ -102,7 +102,7 @@ const CompleteTransferButton = ({onClick}) => {
         fontSize: '12px',
         padding: '14px'
       }}
-      text={COMPLETE_TRANSFER_BTN_TXT}
+      text={completeTransferBtnTxt}
       onClick={onClick}
     />
   );

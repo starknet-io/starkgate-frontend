@@ -1,10 +1,5 @@
 @import '../../../index';
 
-$color: $--color-alpha-6;
-$hr-color: $--color-alpha-3;
-$error-color: $--color-error;
-$marker-color: $--color-beta-1;
-
 .transferLog {
   display: flex;
   flex-direction: row;
@@ -39,10 +34,10 @@ $marker-color: $--color-beta-1;
 
   .data {
     font-size: 13px;
-    color: $color;
+    color: $--color-alpha-6;
 
     &.error {
-      color: $error-color;
+      color: $--color-error;
     }
   }
 
@@ -56,6 +51,6 @@ hr {
 
   &:not(:last-child) {
     display: block;
-    border: 1px solid $hr-color;
+    border: 1px solid $--color-alpha-3;
   }
 }

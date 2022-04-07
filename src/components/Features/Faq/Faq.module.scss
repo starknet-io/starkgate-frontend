@@ -1,30 +1,22 @@
 @import '../../../index';
 
-$color: $--color-white;
-$link-color: $--color-gamma;
-$link-color-hover: $--color-gamma-1;
-$visited-link-color: $--color-alpha-6;
-$visited-link-color-hover: $--color-alpha-6-hover;
-$border-color: $--color-alpha-3;
-$background-answer: $--color-alpha-3;
-
 .faq {
-  color: $color;
+  color: $--color-white;
   overflow-y: auto;
   text-align: left;
 
   a {
-    color: $link-color;
+    color: $--color-gamma;
 
     &:hover {
-      color: $link-color-hover;
+      color: $--color-gamma-1;
     }
 
     &:visited {
-      color: $visited-link-color;
+      color: $--color-alpha-6;
 
       &:hover {
-        color: $visited-link-color-hover;
+        color: $--color-alpha-6-hover;
       }
     }
   }
@@ -63,7 +55,7 @@ $background-answer: $--color-alpha-3;
           left: -20px;
           width: 462px;
           height: calc(100% + 20px);
-          background-color: $background-answer;
+          background-color: $--color-alpha-3;
           border-radius: 7px;
         }
       }
@@ -71,7 +63,7 @@ $background-answer: $--color-alpha-3;
   }
 
   .container {
-    color: $color;
+    color: $--color-white;
     padding: 15px;
     margin: 10px 0;
     overflow-y: auto;

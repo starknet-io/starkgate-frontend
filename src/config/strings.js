@@ -1,67 +1,67 @@
 const strings = {
   containers: {
     header: {
-      chain_txt: '{{chainName}} testnet',
-      wallet_btn_txt: 'Account | {{address}}',
-      tab_discord_txt: 'Discord',
-      tab_faq: 'FAQ'
+      chainTxt: '{{chainName}} testnet',
+      walletBtnTxt: 'Account | {{address}}',
+      tabDiscordTxt: 'Discord',
+      tabFaq: 'FAQ'
     },
     footer: {
-      rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
+      rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
     }
   },
   menus: {
-    back_btn_txt: 'Back',
+    backBtnTxt: 'Back',
     login: {
-      title_txt: 'Login',
-      subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
-      download_txt: ['Don’t have a wallet?', 'Download Here'],
-      modal_txt: 'Waiting for confirmation from {{walletName}}',
-      unsupported_browser_txt:
+      titleTxt: 'Login',
+      subtitleTxt: 'Please select {{networkName}} wallet to connect with this dApp:',
+      downloadTxt: ['Don’t have a wallet?', 'Download Here'],
+      modalTxt: 'Waiting for confirmation from {{walletName}}',
+      unsupportedBrowserTxt:
         "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect."
     },
     account: {
-      title_txt: '{{network}} Account',
-      copied_msg_txt: 'Copied!',
-      logout_btn_txt: 'Logout',
+      titleTxt: '{{network}} Account',
+      copiedMsgTxt: 'Copied!',
+      logoutBtnTxt: 'Logout',
       transferLogContainer: {
-        title_txt: 'Transfers log',
-        overview_txt: 'recent transfers',
-        empty_msg_txt: 'Transfers will appear here...',
-        view_more_txt: 'View more',
+        titleTxt: 'Transfers log',
+        overviewTxt: 'recent transfers',
+        emptyMsgTxt: 'Transfers will appear here...',
+        viewMoreTxt: 'View more',
         transferLog: {
-          complete_transfer_btn_txt: 'Complete transfer'
+          completeTransferBtnTxt: 'Complete transfer'
         }
       }
     },
     selectToken: {
-      title_txt: 'Select token from:',
-      search_placeholder: 'Token name, symbol, or address'
+      titleTxt: 'Select token from:',
+      searchPlaceholder: 'Token name, symbol, or address'
     },
     transfer: {
-      to_txt: 'to',
-      from_txt: 'from',
-      negative_value_error_msg: 'Amount must be a positive number',
-      too_many_digits_error_msg: 'Too many decimal places',
-      insufficient_balance_error_msg: 'Insufficient balance',
-      max_deposit_error_msg:
+      toTxt: 'to',
+      fromTxt: 'from',
+      negativeValueErrorMsg: 'Amount must be a positive number',
+      tooManyDigitsErrorMsg: 'Too many decimal places',
+      insufficientBalanceErrorMsg: 'Insufficient balance',
+      maxDepositErrorMsg:
         'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
-      max_btn_txt: 'Max',
-      balance_title_txt: 'Available balance',
-      input_placeholder_txt: '0.00',
+      maxBtnTxt: 'Max',
+      balanceTitleTxt: 'Available balance',
+      inputPlaceholderTxt: '0.00',
       transfer_btn_txt: 'Transfer'
     },
     faq: {
-      title_txt: 'FAQ'
+      titleTxt: 'FAQ'
     }
   },
   modals: {
     transactionSubmitted: {
-      title_txt: 'Transaction sent',
-      btn_txt: 'View on {{explorer}}',
-      transfer_to_l1_txt: 'Your transaction is now being processing on StarkNet.',
-      transfer_to_l2_txt: 'Your transaction has been successfully sent to StarkNet!',
-      complete_transfer_to_l1_txt: 'Your transfer is completed on Ethereum!'
+      titleTxt: 'Transaction sent',
+      btnTxt: 'View on {{explorer}}',
+      transferToL1Txt: 'Your transaction is now being processing on StarkNet.',
+      transferToL2Txt: 'Your transaction has been successfully sent to StarkNet!',
+      completeTransferToL1Txt: 'Your transfer is completed on Ethereum!'
     },
     transferProgress: {
       approval: {
@@ -84,16 +84,16 @@ const strings = {
         type: '{{walletName}}',
         message: 'Waiting for confirmation from {{walletName}}'
       },
-      confirm_txt: 'Confirm this transaction in your wallet',
-      max_total_balance_error_msg:
+      confirmTxt: 'Confirm this transaction in your wallet',
+      maxTotalBalanceErrorMsg:
         'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
-      error_title: 'Transaction error',
-      limitation_error_title: 'Limitation error'
+      errorTitle: 'Transaction error',
+      limitationErrorTitle: 'Limitation error'
     },
     onboarding: {
-      title_txt: 'Before takeoff, a few important notes!',
-      subtitle_txt: 'While using StarkGate Alpha:',
-      bullets_txt: [
+      titleTxt: 'Before takeoff, a few important notes!',
+      subtitleTxt: 'While using StarkGate Alpha:',
+      bulletsTxt: [
         'Use Google Chrome',
         'Refrain from switching browsers',
         'Do not refresh the page while the transfer is being processed',
@@ -102,20 +102,20 @@ const strings = {
     }
   },
   toasts: {
-    alpha_disclaimer_msg:
+    alphaDisclaimerMsg:
       'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
-    transfer_log_link: 'View on Transfer Log',
+    transferLogLink: 'View on Transfer Log',
     pendingTransfer: {
-      pending_txt: 'Waiting for transaction to be accepted on StarkNet',
-      consumed_txt: 'Transaction accepted on StarkNet',
-      rejected_txt: 'Transaction rejected on StarkNet'
+      pendingTxt: 'Waiting for transaction to be accepted on StarkNet',
+      consumedTxt: 'Transaction accepted on StarkNet',
+      rejectedTxt: 'Transaction rejected on StarkNet'
     },
     completeTransfer: {
-      title_txt: 'StarkNet finished processing your transfer!',
-      body_txt:
+      titleTxt: 'StarkNet finished processing your transfer!',
+      bodyTxt:
         'Click on Complete Transfer to transfer the funds from StarkNet Bridge to your Ethereum address.',
-      dismiss_btn_txt: 'Dismiss',
-      complete_transfer_btn_txt: 'Complete Transfer'
+      dismissBtnTxt: 'Dismiss',
+      completeTransferBtnTxt: 'Complete Transfer'
     }
   }
 };

@@ -3,20 +3,18 @@ import useBreakpoint from 'use-breakpoint';
 
 import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import constants from '../../../config/constants';
 import {Breakpoint} from '../../../enums';
-import {useColors} from '../../../hooks';
+import {useColors, useConstants, useTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT} from './Header.strings';
-
-const {DISCORD_LINK_URL} = constants;
 
 export const Header = () => {
+  const {DISCORD_LINK_URL} = useConstants();
+  const {tabDiscordTxt, tabFaqTxt, chainTxt} = useTranslation('containers.header');
   const {chainName, isConnected} = useWallets();
   const {showAccountMenu, showTransferMenu, showFaqMenu} = useMenu();
   const [, swapToL1] = useIsL1();
@@ -52,13 +50,15 @@ export const Header = () => {
           <StarkGateLogo />
         </div>
         {isConnected && (
-          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
+          <div className={utils.object.toClasses(styles.chain, 'row')}>
+            {utils.string.capitalize(utils.object.evaluate(chainTxt, {chainName}))}
+          </div>
         )}
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={showFaqMenu} />
-        <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
+        <Tab color={colorWhiteOp50} label={tabFaqTxt} onClick={showFaqMenu} />
+        <Tab color={colorDiscord} label={tabDiscordTxt} onClick={onTabDiscordClick} />
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}

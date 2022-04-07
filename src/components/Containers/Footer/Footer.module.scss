@@ -1,15 +1,12 @@
 @import '../../../index';
 
-$height: $--footer-height;
-$copyright-color: $--color-beta;
-
 .footer {
   font-size: 13px;
-  height: #{$height}px;
+  height: #{$--footer-height}px;
   border-top: 1px solid transparent;
 
   .copyright {
-    color: $copyright-color;
+    color: $--color-beta;
     display: flex;
     font-size: 12px;
     line-height: 24px;

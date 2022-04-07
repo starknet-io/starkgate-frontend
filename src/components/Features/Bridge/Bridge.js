@@ -2,17 +2,16 @@ import React, {useEffect} from 'react';
 
 import {Account, Faq, SelectToken, ToastProvider, Transfer} from '..';
 import {setUser, track, TrackEvent} from '../../../analytics';
-import envs from '../../../config/envs';
 import {MenuType} from '../../../enums';
+import {useEnvs} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useOnboardingModal} from '../../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import styles from './Bridge.module.scss';
 
-const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = envs;
-
 export const Bridge = () => {
+  const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = useEnvs();
   const {menu, menuProps} = useMenu();
   const {account: l1account} = useL1Wallet();
   const {account: l2account} = useL2Wallet();

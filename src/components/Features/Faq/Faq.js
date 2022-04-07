@@ -1,19 +1,20 @@
 import React from 'react';
 
 import {faqs} from '../../../config/faqs';
+import {useTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {BackButton, Menu, MenuTitle} from '../../UI';
 import styles from './Faq.module.scss';
-import {TITLE_TXT} from './Faq.strings';
 
 export const Faq = () => {
+  const {titleTxt} = useTranslation('menus.faq');
   const {showTransferMenu} = useMenu();
 
   return (
     <Menu>
       <div className={styles.faq}>
         <BackButton onClick={showTransferMenu} />
-        <MenuTitle text={TITLE_TXT} />
+        <MenuTitle text={titleTxt} />
         <div className={styles.container}>
           <ol>
             {faqs.map((faq, i) => (
