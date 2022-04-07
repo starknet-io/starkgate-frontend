@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import utils from '../../../utils';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo.enums';
+import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {LoadingSize} from '../Loading/Loading.enums';
 import {CryptoLogo, Loading} from '../index';
 import styles from './SelectTokenRow.module.scss';

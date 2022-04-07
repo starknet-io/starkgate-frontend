@@ -1,7 +1,5 @@
 @import '../../../index';
 
-$border-color: $--color-white;
-
 .loading {
   display: inline-block;
   position: relative;
@@ -10,7 +8,7 @@ $border-color: $--color-white;
 
   div {
     position: absolute;
-    border: 4px solid $border-color;
+    border: 4px solid $--color-white;
     opacity: 1;
     border-radius: 50%;
     animation: loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;

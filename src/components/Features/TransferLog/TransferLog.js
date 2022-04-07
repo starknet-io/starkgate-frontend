@@ -13,7 +13,7 @@ import {useColors, useEnvs} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {Button, CryptoLogo} from '../../UI';
-import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo.enums';
+import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
