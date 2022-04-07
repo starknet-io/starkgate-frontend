@@ -1,7 +1,8 @@
 import React from 'react';
 
+import {IncognitoMessage} from '../ModalMessage';
 import styles from './OnboardingModal.module.scss';
-import {SUBTITLE_TXT, BULLETS_TXT, INCOGNITO_TXT} from './OnboardingModal.strings';
+import {SUBTITLE_TXT, BULLETS_TXT} from './OnboardingModal.strings';
 
 const OnboardingModal = () => {
   return (
@@ -12,7 +13,7 @@ const OnboardingModal = () => {
           <li key={`b-${i}`}>{bullet}</li>
         ))}
       </ul>
-      <p dangerouslySetInnerHTML={{__html: INCOGNITO_TXT}} />
+      <IncognitoMessage />
     </div>
   );
 };

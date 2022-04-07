@@ -21,17 +21,15 @@ export const faqs = [
           <li>Make sure you are browsing from Chrome.</li>
           <li>Make sure you are not using incognito mode.</li>
           <li>
-            Ensure that you have successfully installed the required wallets (MetaMask +
+            Ensure that you have successfully installed the required wallets (MetaMask and
             Argent X). If you haven’t installed one of these wallets, please do so and
             refresh the page.
           </li>
           <li>
-            There are limitations on the usage of the bridge. Make sure you do not exceed
-            the permitted deposit amount, and that the bridge has not reached its upper
-            limit for total value locked.
+            There are <em>limitations on the usage of the StarkGate bridge</em>. Make sure you do not exceed these.
           </li>
           <li>
-            This is an alpha version; disruptions and delays are expected– especially when
+            This is an <b>alpha version</b>; disruptions and delays are expected – especially when
             there is high congestion. Please be patient and try again later :)
           </li>
         </ol>
@@ -43,14 +41,14 @@ export const faqs = [
     answer: `
       <ol type="a">
         <li>
-          This is a StarkGate Alpha version on an Alpha version of StarkNet. As a result,
-          significant delays may occur due to congestion of the system.
+        This is an Alpha version of StarkGate operating on an <b>Alpha</b> version of StarkNet.
+        As a result, significant delays may occure due to congestion of the system.
         </li>
         <li>
           If you encounter a significant delay, we recommend that you:
           <ol type="i">
             <li>Do not exit the browser and then re-enter.</li>
-            <li>Do not try to perform the same operation over and over again :)</li>
+            <li>Do not try to perform the same operation over and over again.</li>
           </ol>
         </li>
       </ol>
@@ -58,59 +56,49 @@ export const faqs = [
   },
   {
     question:
-      'I performed a StarkNet → Ethereum transfer a few hours ago, and my balance on Ethereum has not been updated yet. What should I do?',
+      'I performed a transfer from StarkNet to Ethereum a few hours ago, and my balance on Ethereum has not been updated yet. What should I do?',
     answer: `
-      <ol type="a">
-        <li>
-          The StarkNet → Ethereum transfer process is divided into two stages (docs).
-        </li>
-        <li>
-          Note:
-          <ol type="i">
-            <li>A waiting period of several hours is expected between the stages.</li>
-            <li>
-              At the end of the first step, you will be required to sign in order to
-              complete the transfer.
-            </li>
-            <li>
-              The StarkNet → Ethereum transfer must be completed using the same browser
-              (and PC) you used for the first step.
-            </li>
-          </ol>
-        </li>
-      </ol>
+    <p>
+      Our recommendation is to wait, and here is the reason why:
+      The process of sending transactions from StarkNet to Ethereum is divided into <a href="https://starknet.io/documentation/starkgate-token-bridge/" target="_blank">two stages</a>.
+    </p>
+    <ol type="i">
+      <li>A waiting period of several hours is expected between the stages.</li>
+      <li>
+        At the end of the first step, you will be required to sign in order to complete the transfer.
+        <b>The StarkNet to Ethereum transfer must be completed using the same browser (and PC) you used for the first step.</b>
+      </li>
+    </ol>
     `
   },
   {
     question:
-      'What are the limitations that are intentionally constrained by StarkGate Alpha? Why do they exist? And, what will happen if they reach the limits?',
+      'What are the limitations that are intentionally constrained on StarkGate Alpha? Why do they exist? And, what will happen if the limits are reached?',
     answer: `
       <div>
         <p>
           StarkGate Alpha has two limitations at its first stage in order to reduce risk:
         </p>
-
         <ol type="a">
           <li>
-            The total value locked (TVL) in the bridge on Etherum is limited for each token
-            type: currently, the limit is $100k for each token.
+            The total value locked (TVL) in the bridge on Ethereum is limited for each token type.
           </li>
           <li>
-            The maximum amount in each transaction sent from Ethereum to StarkNet via
-            StarkGate is limited: currently, the single transaction limit is $50.
+            The maximum amount in each transaction sent from Ethereum to StarkNet via StarkGate is limited.
           </li>
         </ol>
         <p>
-          We plan to gradually ease these limitations and lift them completely once we and
-          the StarkNet ecosystem are confident that the system is fully secure. In the
-          meantime, it will not be possible to perform an action that exceeds one of the
-          restrictions.
+          *Take a look at the <a href="https://starknet.io/documentation/starkgate-token-bridge/#limitations" target="_blank">documentation</a> to see the updated numbers, stay tuned.
+        </p>
+        <p>
+          We plan to gradually ease these limitations and lift them completely, as confidence grows.
+          In the meantime, it will not be possible to perform an operation that exceeds one of the restrictions.
         </p>
       </div>
     `
   },
   {
-    question: 'Why there are restrictions on using the browser?',
+    question: 'Why are there restrictions on using the browser?',
     answer: `
         <p>
           In StarkGate Alpha, your transfer’s log history is saved in the local storage of
@@ -119,12 +107,10 @@ export const faqs = [
         <p>As a result:</p>
         <ul>
           <li>
-            Clearing the local storage will cause this data to be lost Logging to StarkGate
-            using multiple devices/browsers can cause data inconsistency
+            Clearing the local storage will cause this data to be lost
           </li>
           <li>
-            Logging to StarkGate using multiple devices/browsers can cause data
-            inconsistency
+            Logging to StarkGate using multiple devices/browsers can cause data inconsistency
           </li>
         </ul>
         <p>Therefore, we recommend when using StarkGate Alpha:</p>
@@ -139,7 +125,19 @@ export const faqs = [
     question:
       "I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?",
     answer: `
-      <p>We have opened a <em>community channel on Discord</em> to help each other use StarkGate.</p>
+      <p>We have opened a 
+      <a href="https://discord.com/login?redirect_to=%2Fchannels%2F793094838509764618%2F957558236662366219" target="_blank">community channel on Discord</a> 
+      to help each other use StarkGate.</p>
+    `
+  },
+  {
+    question: 'Why can’t I use StarkGate with {insert favorite}Token?',
+    answer: `
+      <p>
+        Initially, StarkGate Alpha will only support ETH. After time period of successful use, we will add support for: 
+        WBTC, USDC, USDT and Dai. All relevant contract addresses, both on Ethereum and StarkNet, are available in this <a href="https://github.com/starkware-libs/starknet-addresses" target="_blank">repo</a>.
+        Further down the road, we will publish the mechanism for adding support for additional tokens.
+      </p>
     `
   }
 ];

@@ -88,7 +88,7 @@ module.exports = {
       {
         assets: ['package.json', 'yarn.lock', 'CHANGELOG.md'],
         message:
-          "<%= branch === 'dev' ? 'prerelease' : 'release' %>: <%= nextRelease.gitTag %> -  <%= new Date().toLocaleDateString('en-US', {timeZone: 'Asia/Jerusalem', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %> \n\n <%= nextRelease.notes %>"
+          "<%= branch === 'dev' ? 'prerelease' : 'release' %>: <%= nextRelease.gitTag %>\n\n <%= nextRelease.notes %>"
       }
     ],
     '@semantic-release/github'
