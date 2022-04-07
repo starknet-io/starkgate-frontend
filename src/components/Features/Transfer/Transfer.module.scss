@@ -1,10 +1,15 @@
 @import '../../../index';
 
+$menu-background-color: $--color-alpha;
 $background-color: $--color-alpha-1;
 $error-msg-color: $--color-error;
 
 .transfer {
   transition: 0.3s ease-in-out;
+  background: $menu-background-color;
+  border-radius: 20px;
+  padding: 20px;
+  width: 500px;
 
   .tabsContainer {
     display: flex;

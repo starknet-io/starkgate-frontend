@@ -12,3 +12,7 @@ export const isMobile = breakpoint => {
 export const isTablet = breakpoint => {
   return Breakpoint[breakpoint] === Breakpoint.TABLET;
 };
+
+export const isLaptop = breakpoint => {
+  return Breakpoint[breakpoint] === Breakpoint.LAPTOP;
+};

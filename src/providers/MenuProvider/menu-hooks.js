@@ -10,6 +10,7 @@ export const useMenu = () => {
     menu,
     menuProps,
     showFaqMenu: useShowMenu(MenuType.FAQ),
+    showTermsMenu: useShowMenu(MenuType.TERMS),
     showAccountMenu: useShowMenu(MenuType.ACCOUNT),
     showTransferMenu: useShowMenu(MenuType.TRANSFER),
     showSelectTokenMenu: useShowMenu(MenuType.SELECT_TOKEN),

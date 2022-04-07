@@ -80,6 +80,13 @@ footer {
   justify-content: space-between;
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .center {
   top: 50%;
   left: 50%;

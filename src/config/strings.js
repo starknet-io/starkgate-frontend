@@ -4,7 +4,8 @@ const strings = {
       chain_txt: '{{chainName}} testnet',
       wallet_btn_txt: 'Account | {{address}}',
       tab_discord_txt: 'Discord',
-      tab_faq: 'FAQ'
+      tab_faq: 'FAQ',
+      tab_terms: 'Terms'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'

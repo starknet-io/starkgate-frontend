@@ -7,11 +7,17 @@ $visited-link-color: $--color-alpha-6;
 $visited-link-color-hover: $--color-alpha-6-hover;
 $border-color: $--color-alpha-3;
 $background-answer: $--color-alpha-3;
+$menu-background-color: $--color-alpha;
 
 .faq {
   color: $color;
   overflow-y: auto;
   text-align: left;
+  background: $menu-background-color;
+  border-radius: 20px;
+  padding: 20px 0 0 20px;
+  width: 500px;
+  height: 572px;
 
   a {
     color: $link-color;
@@ -33,7 +39,7 @@ $background-answer: $--color-alpha-3;
     line-height: 1.6;
     padding-inline-start: 20px;
     margin-block-start: 0;
-    padding-right: 16px;
+    padding-right: 9px;
 
     .question {
       position: relative;
@@ -60,8 +66,8 @@ $background-answer: $--color-alpha-3;
           display: block;
           z-index: 0;
           top: -10px;
-          left: -20px;
-          width: 462px;
+          left: -8px;
+          width: 436px;
           height: calc(100% + 20px);
           background-color: $background-answer;
           border-radius: 7px;
@@ -72,10 +78,10 @@ $background-answer: $--color-alpha-3;
 
   .container {
     color: $color;
-    padding: 15px;
-    margin: 10px 0;
+    padding: 0 12px 0 0;
+    margin: 10px 12px 16px 0;
     overflow-y: auto;
-    max-height: 450px;
+    max-height: 438px;
 
     > ol {
       margin-top: -20px;

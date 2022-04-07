@@ -1,0 +1,10 @@
+@import '../../../index';
+
+$menu-background-color: $--color-alpha;
+
+.account {
+  background: $menu-background-color;
+  border-radius: 20px;
+  padding: 20px;
+  width: 500px;
+}

@@ -19,7 +19,7 @@ export const Main = () => {
   }, [windowSize]);
 
   return (
-    <main className={styles.main} style={{height}}>
+    <main className={styles.main} style={{minHeight: height}}>
       {isL1Connected && isL2Connected ? (
         <TokensProvider>
           <EventManagerProvider>

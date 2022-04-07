@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {Account, Faq, SelectToken, ToastProvider, Transfer} from '..';
+import {Account, Faq, SelectToken, ToastProvider, Transfer, Terms} from '..';
 import {setUser, track, TrackEvent} from '../../../analytics';
 import envs from '../../../config/envs';
 import {MenuType} from '../../../enums';
@@ -48,6 +48,8 @@ export const Bridge = () => {
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
       case MenuType.FAQ:
         return <Faq />;
+      case MenuType.TERMS:
+        return <Terms {...menuProps[MenuType.TERMS]} />;
       case MenuType.TRANSFER:
       default:
         return <Transfer />;
@@ -56,7 +58,7 @@ export const Bridge = () => {
 
   return (
     <div className={styles.bridge}>
-      <ToastProvider />
+      {menu !== MenuType.TERMS && <ToastProvider />}
       {renderMenu()}
     </div>
   );
