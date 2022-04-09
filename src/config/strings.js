@@ -4,6 +4,7 @@ const strings = {
       chain_txt: '{{chainName}} testnet',
       wallet_btn_txt: 'Account | {{address}}',
       tab_discord_txt: 'Discord',
+      tab_terms_txt: 'Terms',
       tab_faq: 'FAQ'
     },
     footer: {

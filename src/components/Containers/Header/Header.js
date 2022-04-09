@@ -1,4 +1,5 @@
 import React from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {track} from '../../../analytics';
@@ -12,11 +13,13 @@ import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsPr
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT} from './Header.strings';
+import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT, TAB_TERMS_TXT} from './Header.strings';
 
 const {DISCORD_LINK_URL} = constants;
 
 export const Header = () => {
+  const navigate = useNavigate();
+  const {pathname} = useLocation();
   const {chainName, isConnected} = useWallets();
   const {showAccountMenu, showTransferMenu, showFaqMenu} = useMenu();
   const [, swapToL1] = useIsL1();
@@ -26,18 +29,34 @@ export const Header = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50} = useColors();
 
+  const maybeNavigateToIndex = () => {
+    pathname !== '/' && navigate('/');
+  };
+
   const onL2WalletButtonClick = () => {
+    maybeNavigateToIndex();
     swapToL2();
     showAccountMenu();
   };
 
   const onL1WalletButtonClick = () => {
+    maybeNavigateToIndex();
     swapToL1();
     showAccountMenu();
   };
 
   const onLogoClick = () => {
+    maybeNavigateToIndex();
     showTransferMenu();
+  };
+
+  const onTabFaqClick = () => {
+    maybeNavigateToIndex();
+    showFaqMenu();
+  };
+
+  const onTabTermsClick = () => {
+    navigate('/terms');
   };
 
   const onTabDiscordClick = () => {
@@ -57,7 +76,8 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={showFaqMenu} />
+        <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
+        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
         <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
         {isL1AccountConnected && (
           <WalletButton
