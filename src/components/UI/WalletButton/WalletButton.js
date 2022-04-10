@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
-import {isMobile, isTablet, Breakpoint} from '../../../enums';
+import {isTablet, Breakpoint, isDesktop} from '../../../enums';
 import {useColors} from '../../../hooks';
 import utils from '../../../utils';
 import {toClasses} from '../../../utils/object';
@@ -17,12 +17,11 @@ export const WalletButton = ({account, logoPath, onClick}) => {
 
   const getText = () => {
     const address = utils.wallet.shortenAddress(account);
-    if (isTablet(breakpoint)) {
-      return address;
-    } else if (isMobile(breakpoint)) {
+    if (isDesktop(breakpoint)) {
+      return BTN_TXT(address);
+    } else {
       return '';
     }
-    return BTN_TXT(address);
   };
 
   return (
@@ -36,7 +35,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       icon={
         <DynamicIcon
           path={logoPath}
-          size={isMobile(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE}
+          size={isTablet(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE}
         />
       }
       text={getText()}

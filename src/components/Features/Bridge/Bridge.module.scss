@@ -4,16 +4,5 @@
   margin: auto;
   transition: 0.3s ease-in-out;
   height: inherit;
-  width: 500px;
-  max-height: 650px;
-  justify-content: center;
-
-
-  width: unset;
-  max-height: unset;
   justify-content: flex-start;
-
-  @media screen and (min-width: 769px) and (max-width: 1024px) {
-    width: unset;
-  }
 }
