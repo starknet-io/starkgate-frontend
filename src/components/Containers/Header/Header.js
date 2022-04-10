@@ -53,6 +53,7 @@ export const Header = () => {
           logoPath={'payments/Banxa/logo.svg'}
           onClick={onBuyButtonClick}
         />
+        <div className={utils.object.toClasses(styles.divider)}></div>
         {isL1AccountConnected && (
           <WalletButton
             account={l1Account}

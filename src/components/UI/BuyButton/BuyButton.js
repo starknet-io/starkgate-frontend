@@ -15,7 +15,7 @@ export const BuyButton = ({btnTxt, logoPath, onClick}) => {
       colorText={colorWhite}
       height={40}
       icon={<DynamicIcon path={logoPath} size={LOGO_SIZE} />}
-      style={{borderWidth: '2px'}}
+      style={{borderWidth: '2px', marginRight: '0px'}}
       text={btnTxt}
       onClick={onClick}
     />
