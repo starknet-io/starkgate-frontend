@@ -1,0 +1,27 @@
+@import '../../../index';
+
+$color: $--color-alpha-6;
+$color-hover: $--color-white;
+
+svg {
+  &.refreshIcon {
+    fill: $color;
+    margin: 2px 0 0 5px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      fill: $color-hover;
+    }
+  }
+
+  &.animate {
+    animation: spin 0.5s ease-in;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

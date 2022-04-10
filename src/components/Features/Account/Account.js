@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {track, TrackEvent} from '../../../analytics';
 import constants from '../../../config/constants';
+import envs from '../../../config/envs';
 import {useCompleteTransferToL1} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
@@ -18,16 +20,17 @@ import {
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
-import styles from './Account.module.scss';
 import {TITLE_TXT} from './Account.strings';
 
-const {LINKS} = constants;
+const {etherscanAccountUrl, voyagerAccountUrl} = envs;
+
+const {ETHERSCAN, VOYAGER} = constants;
 
 export const Account = ({transferId}) => {
   const {showTransferMenu} = useMenu();
-  const {account, chainId, resetWallet} = useWallets();
-  const transfers = useAccountTransfersLog(account);
+  const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();
+  const transfers = useAccountTransfersLog(account);
   const completeTransferToL1 = useCompleteTransferToL1();
 
   const renderTransfers = () => {
@@ -36,28 +39,58 @@ export const Account = ({transferId}) => {
           <TransferLog
             key={index}
             transfer={transfer}
-            onCompleteTransferClick={() => completeTransferToL1(transfer)}
+            onCompleteTransferClick={() => onCompleteTransferClick(transfer)}
+            onTxClick={onTxClick}
           />
         ))
       : null;
   };
 
+  const onTxClick = () => {
+    track(TrackEvent.ACCOUNT.TX_LINK_CLICK);
+  };
+
+  const onCompleteTransferClick = transfer => {
+    track(TrackEvent.ACCOUNT.COMPLETE_TRANSFER_CLICK);
+    completeTransferToL1(transfer);
+  };
+
+  const onAccountLinkClick = () => {
+    track(TrackEvent.ACCOUNT.ACCOUNT_LINK_CLICK);
+  };
+
+  const onShowTransfers = () => {
+    track(TrackEvent.ACCOUNT.VIEW_TRANSFERS_LOG);
+  };
+
+  const onAccountAddressClick = () => {
+    track(TrackEvent.ACCOUNT.ADDRESS_COPIED);
+  };
+
   return (
     <Menu>
-      <div className={styles.account}>
+      <div>
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
-        <AccountAddress address={account} />
+        <AccountAddress address={account} onClick={onAccountAddressClick} />
         {isL1 && (
           <LinkButton
-            text={LINKS.ETHERSCAN.text}
-            url={LINKS.ETHERSCAN.accountUrl(chainId, account)}
+            text={ETHERSCAN}
+            url={etherscanAccountUrl(account)}
+            onClick={onAccountLinkClick}
           />
         )}
         {isL2 && (
-          <LinkButton text={LINKS.VOYAGER.text} url={LINKS.VOYAGER.accountUrl(chainId, account)} />
+          <LinkButton
+            text={VOYAGER}
+            url={voyagerAccountUrl(account)}
+            onClick={onAccountLinkClick}
+          />
         )}
-        <TransferLogContainer transferIndex={utils.object.findIndexById(transfers, transferId)}>
+        <TransferLogContainer
+          transferIndex={utils.object.findIndexById(transfers, transferId)}
+          onShowTransfers={onShowTransfers}
+        >
           {renderTransfers()}
         </TransferLogContainer>
         <LogoutButton isDisabled={isL2} onClick={resetWallet} />

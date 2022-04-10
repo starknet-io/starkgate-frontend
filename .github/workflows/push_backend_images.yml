@@ -1,0 +1,16 @@
+name: Docker build tag and push backend images to GCR workflow.
+
+on:
+  push:
+    tags:
+      - backend*
+
+jobs:
+  push-backend-image:
+    uses: ./.github/workflows/gcr_push_workflow.yml
+    with:
+      image_name: us.gcr.io/starkware-dev/starknet/starkgate/backend
+      branch_name: ${{ github.event.base_ref }}
+      dockerfile: Dockerfile.backend
+    secrets:
+      gcp_token: ${{ secrets.STARKGATE_SA }}

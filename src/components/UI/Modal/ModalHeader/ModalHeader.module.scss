@@ -6,9 +6,13 @@ $error-color: $--color-error;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 
-  svg {
-    cursor: pointer;
+  .container {
+    svg {
+      cursor: pointer;
+      float: right;
+    }
   }
 
   &.error {

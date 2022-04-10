@@ -18,12 +18,20 @@ export const useHideModal = () => {
   }, [hideModal]);
 };
 
-export const useProgressModal = () => {
+export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, message, type = ModalType.INFO) => {
+    (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
+        headerComponentPath: steps.length > 0 ? 'UI/Stepper/Stepper' : null,
+        headerComponentProps:
+          steps.length > 0
+            ? {
+                steps,
+                activeStep
+              }
+            : null,
         componentPath: 'UI/Modal/ProgressModal/ProgressModal',
         componentProps: {
           message
@@ -36,18 +44,23 @@ export const useProgressModal = () => {
   );
 };
 
-export const useTransactionSubmittedModal = () => {
+export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
     transfer => {
       showModal({
+        headerComponentPath: 'UI/Stepper/Stepper',
+        headerComponentProps: {
+          steps,
+          activeStep: steps.length
+        },
         componentPath: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
         componentProps: {
           transfer
         },
         title: utils.getTranslation('modals.transactionSubmitted.title_txt'),
-        isClosable: true
+        withButtons: true
       });
     },
     [showModal]
@@ -62,10 +75,22 @@ export const useErrorModal = () => {
       showModal({
         title,
         body,
-        isClosable: true,
+        withButtons: true,
         type: ModalType.ERROR
       });
     },
     [showModal]
   );
+};
+
+export const useOnboardingModal = () => {
+  const {showModal} = useContext(ModalContext);
+
+  return useCallback(() => {
+    showModal({
+      componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
+      title: utils.getTranslation('modals.onboarding.title_txt'),
+      withButtons: true
+    });
+  }, [showModal]);
 };

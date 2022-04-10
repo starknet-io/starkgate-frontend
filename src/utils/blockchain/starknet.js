@@ -1,15 +1,15 @@
-import {byChainId, isRejected, TransactionStatusStep} from '../../enums';
+import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
 import {getStarknet, starknet} from '../../libs';
 
-const {compileCalldata, Contract, defaultProvider, stark, hash, number} = starknet;
+const {Contract, defaultProvider, stark, hash, number} = starknet;
 
 export const createContract = (address, ABI) => {
   return new Contract(ABI, address);
 };
 
-export const callContract = async (contract, method, args = [], blockIdentifier = null) => {
+export const callContract = async (contract, method, ...args) => {
   try {
-    return await contract.call(method, ...args, blockIdentifier);
+    return await contract.call(method, args);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -17,13 +17,13 @@ export const callContract = async (contract, method, args = [], blockIdentifier 
 
 export const sendTransaction = async (contract, method, args = {}) => {
   try {
-    const methodSelector = stark.getSelectorFromName(method);
-    const compiledCalldata = compileCalldata(args);
-    return getStarknet().signer.invokeFunction(
-      contract.connectedTo,
-      methodSelector,
-      compiledCalldata
-    );
+    const calldata = stark.compileCalldata(args);
+    const transaction = {
+      contractAddress: contract.address,
+      entrypoint: method,
+      calldata
+    };
+    return await getStarknet().account.execute(transaction);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -68,8 +68,7 @@ export const getTransactionHash = (
   ...additionalData
 ) => {
   const calldata = [number.hexToDecimalString(fromAddress), ...payload];
-  const calldataHash = hash.hashCalldata(calldata);
-  const {l2IdPrefix} = byChainId(chainId);
+  const calldataHash = hash.computeHashOnElements(calldata);
   return hash.computeHashOnElements([
     txHashPrefix,
     0, // version
@@ -77,13 +76,15 @@ export const getTransactionHash = (
     selector,
     calldataHash,
     0, // max_fee
-    l2IdPrefix,
+    ChainInfo.L2[chainId].ID_PREFIX,
     ...additionalData
   ]);
 };
 
 export const hashEquals = (...data) => {
-  return !!data.reduce((d1, d2) =>
-    starknet.hash.computeHashOnElements(d1) === starknet.hash.computeHashOnElements(d2) ? d1 : ''
-  );
+  return !!data.reduce((d1, d2) => {
+    return starknet.hash.computeHashOnElements(d1) === starknet.hash.computeHashOnElements(d2)
+      ? d1
+      : '';
+  });
 };

@@ -4,6 +4,7 @@ import {useWallet} from 'use-wallet';
 export const useIsLoading = deps => {
   const [isLoading, setIsLoading] = useState(true);
   const {isConnected, status} = useWallet();
+
   useEffect(() => {
     if (!isConnected()) {
       setIsLoading(false);
@@ -12,6 +13,7 @@ export const useIsLoading = deps => {
     } else {
       setIsLoading(true);
     }
-  }, [deps, status]);
+  }, [deps, status, isConnected]);
+
   return isLoading;
 };

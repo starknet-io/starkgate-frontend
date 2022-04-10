@@ -4,6 +4,7 @@ export const useFetchData = (func, deps = []) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
@@ -23,6 +24,7 @@ export const useFetchData = (func, deps = []) => {
     fetch();
     return () => (mounted = false);
   }, deps);
+
   return {
     isLoading,
     data,
