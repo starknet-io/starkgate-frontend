@@ -30,5 +30,6 @@ export * from './LogoutButton/LogoutButton';
 export * from './AccountAddress/AccountAddress';
 export * from './RefreshIcon/RefreshIcon';
 export * from './Stepper/Stepper';
+export * from './StyledBackground/StyledBackground';
 export * from './Modal';
 export * from './Toast';

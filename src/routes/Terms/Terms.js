@@ -1,19 +1,32 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
+import {track, TrackEvent} from '../../analytics';
 import {Button} from '../../components/UI';
 import {Breakpoint} from '../../enums';
 import {useColors, useConfig} from '../../hooks';
+import {useTerms} from '../../providers/AppProvider';
+import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import {toClasses} from '../../utils/object';
 import styles from './Terms.module.scss';
+import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, TITLE_TXT} from './Terms.strings';
 
 export const Terms = () => {
+  const navigate = useNavigate();
   const mainRef = useRef();
   const footerRef = useRef();
   const {appUrl} = useConfig();
+  const {isAcceptTerms, acceptTerms} = useTerms();
   const {colorGamma1, colorWhite} = useColors();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const [acceptButtonEnable, setAcceptButtonEnable] = useState(false);
+  const {account: l1account} = useL1Wallet();
+  const {account: l2account} = useL2Wallet();
+
+  useEffect(() => {
+    track(TrackEvent.TERMS_SCREEN);
+  }, []);
 
   const onScroll = () => {
     if (mainRef.current) {
@@ -22,6 +35,12 @@ export const Terms = () => {
         setAcceptButtonEnable(true);
       }
     }
+  };
+
+  const accept = () => {
+    track(TrackEvent.TERMS.ACCEPT_CLICK, {l1account, l2account});
+    acceptTerms();
+    navigate('/');
   };
 
   return (
@@ -33,26 +52,28 @@ export const Terms = () => {
         }}
         onScroll={onScroll}
       >
-        <h1>Terms of Service</h1>
-        <h4>Last Revised: April 4, 2022</h4>
+        <h1>{TITLE_TXT}</h1>
+        <h4>{LAST_REVISED_TXT}</h4>
         <div>
           <p>
             <a href="https://starkware.co/" rel="noreferrer" target="_blank">
               StarkWare Industries Ltd.
             </a>{' '}
-            ("<b>StarkWare</b>", "<b>we</b>", "<b>our</b>") welcomes you (the "<b>User(s)</b>", or "
-            <b>you</b>") to{' '}
+            (&quot<b>StarkWare</b>&quot, &quot<b>we</b>&quot, &quot<b>our</b>&quot) welcomes you
+            (the &quot<b>User(s)</b>&quot, or &quot
+            <b>you</b>&quot) to{' '}
             <a href={appUrl} rel="noreferrer" target="_blank">
               {appUrl}
             </a>{' '}
-            (the "<b>Site"</b>
-            ), a website that provides information and hosts a user interface (the "<b>Interface</b>
-            ") to a pair of smart contracts on the Ethereum blockchain and on the StarkNet network
-            that facilitates your ability to conduct transactions with your ETH and ERC-20 tokens
-            that reside on Layer 1 in a gas-efficient manner, via the StarkNet Alpha network and its
-            STARK-based computational compression capabilities (the "<b>Bridge</b>"). Each User may
-            use the Site, Interface and/or Bridge<sup>1</sup> in accordance with, and subject to,
-            the terms and conditions hereunder.
+            (the &quot<b>Site&quot</b>
+            ), a website that provides information and hosts a user interface (the &quot
+            <b>Interface</b>
+            &quot) to a pair of smart contracts on the Ethereum blockchain and on the StarkNet
+            network that facilitates your ability to conduct transactions with your ETH and ERC-20
+            tokens that reside on Layer 1 in a gas-efficient manner, via the StarkNet Alpha network
+            and its STARK-based computational compression capabilities (the &quot<b>Bridge</b>
+            &quot). Each User may use the Site, Interface and/or Bridge<sup>1</sup> in accordance
+            with, and subject to, the terms and conditions hereunder.
           </p>
           <ol>
             <li>
@@ -60,7 +81,7 @@ export const Terms = () => {
               <p>
                 By entering, connecting to, accessing or using the Site, Interface and/or the
                 Bridge, you acknowledge that you have read and understood the following Terms of
-                Service (collectively, the "<b>Terms</b>"), and the terms of our{' '}
+                Service (collectively, the &quot<b>Terms</b>&quot), and the terms of our{' '}
                 <b>Privacy Policy</b> available at https://starknet.io/privacy-policy/ and you agree
                 to be bound by them and to comply with all applicable laws and regulations regarding
                 your use of the Site, Interface and the Bridge, and you acknowledge that these Terms
@@ -311,15 +332,16 @@ export const Terms = () => {
               <h2>Disclaimers and No Warranties</h2>
               <p>
                 TO THE FULLEST EXTENT LEGALLY PERMISSIBLE, THE SITE AND THE INTERFACE ARE PROVIDED
-                ON AN "<b>AS IS</b>", "<b>WITH ALL FAULTS</b>" AND "<b>AS AVAILABLE</b>" BASIS, AND
-                STARKWARE, INCLUDING ITS VENDORS, OFFICERS, SHAREHOLDERS, SUB-CONTRACTORS,
-                DIRECTORS, EMPLOYEES, AFFILIATES, SUBSIDIARIES, LICENSORS, AGENTS AND SUPPLIERS
-                (COLLECTIVELY, "<b>STARKWARE’S REPRESENTATIVES</b>"), DISCLAIM ALL WARRANTIES OF ANY
-                KIND, EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
-                TITLE OR NON-INFRINGEMENT OR IMPLIED WARRANTIES OF USE, MERCHANTABILITY OR FITNESS
-                FOR A PARTICULAR PURPOSE AND THOSE ARISING FROM A COURSE OF DEALING OR USAGE OF
-                TRADE. YOU MAY HAVE ADDITIONAL CONSUMER RIGHTS UNDER YOUR LOCAL LAWS THAT THIS
-                AGREEMENT CANNOT CHANGE.
+                ON AN &quot<b>AS IS</b>&quot, &quot<b>WITH ALL FAULTS</b>&quot AND &quot
+                <b>AS AVAILABLE</b>&quot BASIS, AND STARKWARE, INCLUDING ITS VENDORS, OFFICERS,
+                SHAREHOLDERS, SUB-CONTRACTORS, DIRECTORS, EMPLOYEES, AFFILIATES, SUBSIDIARIES,
+                LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, &quot
+                <b>STARKWARE’S REPRESENTATIVES</b>&quot), DISCLAIM ALL WARRANTIES OF ANY KIND,
+                EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF TITLE OR
+                NON-INFRINGEMENT OR IMPLIED WARRANTIES OF USE, MERCHANTABILITY OR FITNESS FOR A
+                PARTICULAR PURPOSE AND THOSE ARISING FROM A COURSE OF DEALING OR USAGE OF TRADE. YOU
+                MAY HAVE ADDITIONAL CONSUMER RIGHTS UNDER YOUR LOCAL LAWS THAT THIS AGREEMENT CANNOT
+                CHANGE.
               </p>
               <p>
                 ADDITIONAL DISCLAIMERS AND WARRANTIES REGARDING THE BRIDGE MAY APPLY PURSUANT TO
@@ -416,12 +438,12 @@ export const Terms = () => {
                 case of any material change, we will make reasonable efforts to post a clear notice
                 on the Site regarding such change. Such material changes will take effect seven (7)
                 days after such notice was provided on our Site. Otherwise, all other changes to
-                these Terms are effective as of the stated "Last Revised" date and your continued
-                use of the Site or the Interface or the Bridge on or after the Last Revised date
-                will constitute acceptance of, and agreement to be bound by, those changes. In the
-                event that the Terms should be amended to comply with any legal requirements or
-                security concerns, the amendments may take effect immediately, or as required by the
-                law and without any prior notice.
+                these Terms are effective as of the stated &quotLast Revised&quot date and your
+                continued use of the Site or the Interface or the Bridge on or after the Last
+                Revised date will constitute acceptance of, and agreement to be bound by, those
+                changes. In the event that the Terms should be amended to comply with any legal
+                requirements or security concerns, the amendments may take effect immediately, or as
+                required by the law and without any prior notice.
               </p>
             </li>
             <li>
@@ -466,8 +488,9 @@ export const Terms = () => {
                 finally settled under the Rules of Arbitration of the International Chamber of
                 Commerce by one or more arbitrators appointed in accordance with the said Rules. The
                 arbitration will be conducted in the English language and held by teleconference or,
-                if teleconference is not possible, in Singapore (the "<b>Agreement to Arbitrate</b>
-                ").
+                if teleconference is not possible, in Singapore (the &quot
+                <b>Agreement to Arbitrate</b>
+                &quot).
               </p>
               <p>
                 You must bring any and all claims or disputes against us in your individual capacity
@@ -514,23 +537,29 @@ export const Terms = () => {
           </ol>
         </div>
       </main>
-      <footer ref={footerRef}>
-        <Button
-          colorBackground={colorGamma1}
-          colorBackgroundHover={colorGamma1}
-          colorBorder={colorGamma1}
-          colorText={colorWhite}
-          height={0}
-          isDisabled={!acceptButtonEnable}
-          style={{
-            width: '100%'
-          }}
-          text="I Accept"
-        />
-        <p>
-          By clicking the "I Accept" button, you are accepting our <a>Terms of Service</a>
-        </p>
-      </footer>
+      {!isAcceptTerms && (
+        <footer ref={footerRef}>
+          <Button
+            colorBackground={colorGamma1}
+            colorBackgroundHover={colorGamma1}
+            colorBorder={colorGamma1}
+            colorText={colorWhite}
+            height={0}
+            isDisabled={!acceptButtonEnable}
+            style={{
+              width: '100%'
+            }}
+            text={ACCEPT_BTN_TXT}
+            onClick={accept}
+          />
+          <p>
+            By clicking the &quotI Accept&quot button, you are accepting our{' '}
+            <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
+              Terms of Service
+            </a>
+          </p>
+        </footer>
+      )}
     </div>
   );
 };

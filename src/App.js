@@ -1,17 +1,39 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 
 import styles from './App.module.scss';
 import {Footer, Header} from './components/Containers';
-import {Index, Terms} from './pages';
+import {StyledBackground} from './components/UI';
+import {useApp} from './providers/AppProvider';
+import {Faq, Bridge, Login, ProtectedRoute, Terms} from './routes';
 
-export const App = () => (
-  <div className={styles.app}>
-    <Header />
-    <Routes>
-      <Route element={<Index />} path="/" />
-      <Route element={<Terms />} path="/terms" />
-    </Routes>
-    <Footer />
-  </div>
-);
+export const App = () => {
+  const {isLoggedIn, isAcceptTerms} = useApp();
+  const {pathname} = useLocation();
+  const informativeRoutes = ['/terms', '/faq'];
+
+  return (
+    <div className={styles.app}>
+      <Header />
+      <StyledBackground withLightAccent={!informativeRoutes.includes(pathname)}>
+        <Routes>
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={isLoggedIn && isAcceptTerms}
+                redirectPath={isLoggedIn ? '/terms' : '/login'}
+              >
+                <Bridge />
+              </ProtectedRoute>
+            }
+            path="/"
+          />
+          <Route element={<Terms />} path="/terms" />
+          <Route element={<Login />} path="/login" />
+          <Route element={<Faq />} path="/faq" />
+        </Routes>
+      </StyledBackground>
+      <Footer />
+    </div>
+  );
+};

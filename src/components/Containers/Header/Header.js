@@ -7,6 +7,7 @@ import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg
 import constants from '../../../config/constants';
 import {Breakpoint} from '../../../enums';
 import {useColors} from '../../../hooks';
+import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
@@ -20,14 +21,15 @@ const {DISCORD_LINK_URL} = constants;
 export const Header = () => {
   const navigate = useNavigate();
   const {pathname} = useLocation();
-  const {chainName, isConnected} = useWallets();
-  const {showAccountMenu, showTransferMenu, showFaqMenu} = useMenu();
+  const {chainName} = useWallets();
+  const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
   const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50} = useColors();
+  const {isLoggedIn} = useLogin();
 
   const maybeNavigateToIndex = () => {
     pathname !== '/' && navigate('/');
@@ -51,12 +53,11 @@ export const Header = () => {
   };
 
   const onTabFaqClick = () => {
-    maybeNavigateToIndex();
-    showFaqMenu();
+    navigate('faq', {replace: true});
   };
 
   const onTabTermsClick = () => {
-    navigate('/terms');
+    navigate('terms', {replace: true});
   };
 
   const onTabDiscordClick = () => {
@@ -70,13 +71,15 @@ export const Header = () => {
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {isConnected && (
+        {isLoggedIn && (
           <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
         )}
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
+        {isLoggedIn && (
+          <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
+        )}
         <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
         <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
         {isL1AccountConnected && (
