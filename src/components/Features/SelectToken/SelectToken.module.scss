@@ -2,13 +2,17 @@
 
 $color: $--color-white;
 $network-color: $--color-beta;
+$menu-background-color: $--color-alpha;
 
 .selectToken {
-  padding: 0 20px;
   position: relative;
   display: flex;
   flex-direction: column;
   max-height: 100%;
+  background: $menu-background-color;
+  border-radius: 20px;
+  padding: 20px;
+  width: 520px;
 
   .background {
     content: '';
