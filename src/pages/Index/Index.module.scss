@@ -1,5 +1,16 @@
+@import '../../index';
+
 .main {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: auto;
+  background-image: url('../../assets/img/stars.png'), url('../../assets/img/light-accent.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  top: #{$--header-height}px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

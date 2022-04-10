@@ -10,9 +10,7 @@ export const Footer = () => {
 
   return !isMobile(breakpoint) ? (
     <footer className={styles.footer}>
-      <div className={styles.copyright}>
-        <center>{RIGHTS_TXT}</center>
-      </div>
+      <div className={styles.copyright}>{RIGHTS_TXT}</div>
     </footer>
   ) : null;
 };

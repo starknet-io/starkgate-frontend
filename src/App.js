@@ -9,8 +9,8 @@ export const App = () => (
   <div className={styles.app}>
     <Header />
     <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/terms" element={<Terms />} />
+      <Route element={<Index />} path="/" />
+      <Route element={<Terms />} path="/terms" />
     </Routes>
     <Footer />
   </div>

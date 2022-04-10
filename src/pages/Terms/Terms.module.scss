@@ -1,0 +1,60 @@
+@import '../../index';
+
+.terms {
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0 300px;
+
+  &.laptop {
+    padding: 0 200px;
+  }
+
+  &.tablet {
+    padding: 0 100px;
+  }
+
+  &.mobile {
+    padding: 0 20px;
+  }
+
+  a {
+    color: $--color-gamma;
+  }
+
+  main {
+    padding-left: inherit;
+    padding-right: inherit;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: #{$--header-height}px;
+    bottom: #{$--footer-height}px;
+    transition: 0.3s ease-in-out;
+    overflow: auto;
+    color: $--color-white;
+    line-height: 1.7;
+
+    b {
+      letter-spacing: 0.5px;
+    }
+
+    li::marker {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  }
+
+  footer {
+    padding-left: inherit;
+    padding-right: inherit;
+    text-align: center;
+    color: $--color-white;
+    position: absolute;
+    bottom: #{$--footer-height}px;
+    left: 0;
+    right: 0;
+  }
+}
