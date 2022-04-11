@@ -146,8 +146,8 @@ export const faqs = [
     answer: `
     <p>Here:</p>
     <ul>
-      <li><a>StarkGate Alpha on Goerli</a></li>
-      <li><a>StarkGate Alpha on Mainnet</a></li>
+      <li><a href="https://forms.reform.app/starkware/StarkGate_Feedback/yhyalh" target='_blank'>StarkGate Alpha on Goerli</a></li>
+      <li><a href="https://forms.reform.app/TeRuSp/StarkGate-Feedback-Mainnet/bcoscx" target='_blank'>StarkGate Alpha on Mainnet</a></li>
     </ul>
     `
   }
