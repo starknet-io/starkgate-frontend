@@ -3,8 +3,7 @@ import React from 'react';
 
 import utils from '../../../utils';
 import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
-import {LoadingSize} from '../Loading/Loading.enums';
-import {CryptoLogo, Loading} from '../index';
+import {CryptoLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {

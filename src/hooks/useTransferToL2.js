@@ -94,7 +94,6 @@ export const useTransferToL2 = () => {
 
       const onDeposit = async (error, event) => {
         if (!error) {
-          debugger;
           const l2MessageEvent = await getDepositMessageToL2Event(event);
           if (l2MessageEvent) {
             handleData({

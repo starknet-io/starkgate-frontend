@@ -1,15 +1,17 @@
 import React from 'react';
 
+import {useTranslation} from '../../../../hooks';
 import {IncognitoMessage} from '../ModalMessage';
 import styles from './OnboardingModal.module.scss';
-import {SUBTITLE_TXT, BULLETS_TXT} from './OnboardingModal.strings';
 
 const OnboardingModal = () => {
+  const {subtitleTxt, bulletsTxt} = useTranslation('modals.onboarding');
+
   return (
     <div className={styles.onboardingModal}>
-      <h3>{SUBTITLE_TXT}</h3>
+      <h3>{subtitleTxt}</h3>
       <ul>
-        {BULLETS_TXT.map((bullet, i) => (
+        {bulletsTxt.map((bullet, i) => (
           <li key={`b-${i}`}>{bullet}</li>
         ))}
       </ul>

@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../hooks';
+import utils from '../../../utils';
 import {Button} from '../index';
-import {BTN_TXT} from './TransferButton.strings';
 
 export const TransferButton = props => {
   const {colorBeta, colorWhite} = useColors();
+  const {transferBtnTxt} = utils.getTranslation('menus.transfer');
 
   return (
     <Button
@@ -19,7 +20,7 @@ export const TransferButton = props => {
         borderRadius: '7px',
         fontSize: '16px'
       }}
-      text={BTN_TXT}
+      text={transferBtnTxt}
       {...props}
     />
   );

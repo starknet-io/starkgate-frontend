@@ -12,15 +12,11 @@ import {
 import {useColors, useEnvs} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
-import {Button, CryptoLogo} from '../../UI';
-import {CryptoLogoSize} from '../../UI/CryptoLogo/CryptoLogo';
+import {Button, CryptoLogo, CryptoLogoSize} from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
-  const {completeTransferBtnTxt} = utils.getTranslation(
-    'menus.account.transferLogContainer.transferLog'
-  );
   const {voyagerTxUrl, etherscanTxUrl} = useEnvs();
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
@@ -91,7 +87,11 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 };
 
 const CompleteTransferButton = ({onClick}) => {
+  const {completeTransferBtnTxt} = utils.getTranslation(
+    'menus.account.transferLogContainer.transferLog'
+  );
   const {colorBeta} = useColors();
+
   return (
     <Button
       colorBackground="transparent"

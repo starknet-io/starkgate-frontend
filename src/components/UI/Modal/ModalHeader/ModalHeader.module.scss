@@ -1,7 +1,5 @@
 @import '../../../../index';
 
-$error-color: $--color-error;
-
 .modalHeader {
   display: flex;
   justify-content: space-between;
@@ -16,6 +14,6 @@ $error-color: $--color-error;
   }
 
   &.error {
-    color: $error-color;
+    color: $--color-error;
   }
 }

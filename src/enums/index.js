@@ -12,3 +12,5 @@ export * from './Breakpoint';
 export * from './ToastType';
 export * from './TransferError';
 export * from './TransferStep';
+export * from './ModalSize';
+export * from './ModalType';

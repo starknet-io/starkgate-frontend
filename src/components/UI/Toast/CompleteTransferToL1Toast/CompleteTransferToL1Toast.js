@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as L1Logo} from '../../../../assets/svg/tokens/eth.svg';
-import {useColors} from '../../../../hooks';
+import {useColors, useTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
@@ -11,12 +11,6 @@ import {ToastFooter, TransferLogLink} from '../ToastFooter/ToastFooter';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
 import styles from './CompleteTransferToL1Toast.module.scss';
-import {
-  BODY_TXT,
-  DISMISS_BTN_TXT,
-  TITLE_TXT,
-  COMPLETE_TRANSFER_BTN_TXT
-} from './CompleteTransferToL1Toast.strings';
 
 export const CompleteTransferToL1Toast = ({
   t,
@@ -27,6 +21,9 @@ export const CompleteTransferToL1Toast = ({
   onClose
 }) => {
   const {colorBeta, colorOmega1} = useColors();
+  const {titleTxt, bodyTxt, dismissBtnTxt, completeTransferBtnTxt} =
+    useTranslation('toasts.completeTransfer');
+
   return (
     <Transition
       appear={true}
@@ -44,13 +41,13 @@ export const CompleteTransferToL1Toast = ({
             <L1Logo style={{opacity: 0.5}} />
           </div>
           <div className={styles.right}>
-            <ToastHeader title={TITLE_TXT} withClose={true} onClose={onClose} />
-            <ToastBody body={BODY_TXT} style={{paddingRight: '20px'}} />
+            <ToastHeader title={titleTxt} withClose={true} onClose={onClose} />
+            <ToastBody body={bodyTxt} style={{paddingRight: '20px'}} />
             <ToastButtons>
-              <ToastButton color={colorOmega1} text={DISMISS_BTN_TXT} onClick={onDismiss} />
+              <ToastButton color={colorOmega1} text={dismissBtnTxt} onClick={onDismiss} />
               <ToastButton
                 color={colorBeta}
-                text={COMPLETE_TRANSFER_BTN_TXT}
+                text={completeTransferBtnTxt}
                 onClick={onCompleteTransfer}
               />
             </ToastButtons>

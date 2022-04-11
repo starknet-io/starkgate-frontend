@@ -1,8 +1,5 @@
 @import '../../../index';
 
-$text-color: $--color-white;
-$background-color-hover: $--color-alpha-1;
-
 .walletLogin {
   display: flex;
   padding: 15px 20px;
@@ -30,14 +27,14 @@ $background-color-hover: $--color-alpha-1;
         display: flex;
         align-items: center;
         line-height: 150%;
-        color: $text-color;
+        color: $--color-white;
       }
 
       .description {
         font-size: 12px;
         display: flex;
         align-items: center;
-        color: $text-color;
+        color: $--color-white;
         opacity: 0.5;
         line-height: 150%;
       }
@@ -49,7 +46,7 @@ $background-color-hover: $--color-alpha-1;
   }
 
   &:hover {
-    background: $background-color-hover;
+    background: $--color-alpha-1;
     box-sizing: border-box;
     border-radius: 8px;
 

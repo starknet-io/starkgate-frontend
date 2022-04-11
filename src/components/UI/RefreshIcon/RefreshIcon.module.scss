@@ -1,17 +1,14 @@
 @import '../../../index';
 
-$color: $--color-alpha-6;
-$color-hover: $--color-white;
-
 svg {
   &.refreshIcon {
-    fill: $color;
+    fill: $--color-alpha-6;
     margin: 2px 0 0 5px;
     transition: 0.3s ease-in-out;
 
     &:hover {
       cursor: pointer;
-      fill: $color-hover;
+      fill: $--color-white;
     }
   }
 
