@@ -11,24 +11,21 @@ $shadow-color: $--color-black;
   left: 0;
   right: 0;
   position: absolute;
-  padding: 0 300px;
+  padding: 0 60px;
   top: 0;
   bottom: #{$--footer-height}px;
   color: $color;
   overflow: auto;
   text-shadow: 1px 1px $shadow-color;
   transition: 0.3s ease-in-out;
-
-  &.laptop {
-    padding: 0 200px;
-  }
-
-  &.tablet {
-    padding: 0 100px;
+  
+  & > * {
+    margin: 0 auto;
+    max-width: 1070px;
   }
 
   &.mobile {
-    padding: 0 20px;
+    padding: 0 40px;
   }
 
   a {
