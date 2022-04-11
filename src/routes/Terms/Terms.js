@@ -7,7 +7,7 @@ import {useColors, useConfig} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
-import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, TITLE_TXT} from './Terms.strings';
+import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, NOTES_TITLE_TXT, TITLE_TXT} from './Terms.strings';
 
 const STARKWARE_SITE_URL = 'https://starkware.co/';
 const STARKNET_DOCS_URL = 'https://starknet.io/documentation/';
@@ -530,7 +530,7 @@ export const Terms = () => {
           </ol>
         </div>
         <div className={styles.notes}>
-          <h3>Notes</h3>
+          <h3>{NOTES_TITLE_TXT}</h3>
           <hr />
           <ol>
             <li>

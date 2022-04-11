@@ -26,20 +26,20 @@
       line-height: 1;
       margin-top: 60px;
     }
-  
+
     hr {
       border-color: $--color-white;
     }
-  
+
     li {
       margin-bottom: 4px;
-  
+
       &::marker {
         font-size: 16px;
         font-weight: normal;
       }
     }
-  }  
+  }
 }
 
 .acceptButton {
