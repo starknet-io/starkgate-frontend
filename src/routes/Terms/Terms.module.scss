@@ -1,80 +1,32 @@
 @import '../../index';
 
-$color: $--color-white;
-$shadow-color: $--color-black;
-$link-color: $--color-gamma;
-$link-color-hover: $--color-gamma-1;
-$visited-link-color: $--color-alpha-6;
-$visited-link-color-hover: $--color-alpha-6-hover;
-
 .terms {
+  padding-left: inherit;
+  padding-right: inherit;
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
+  overflow: auto;
+  line-height: 1.7;
+
+  b {
+    letter-spacing: 0.5px;
+  }
+
+  li::marker {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.acceptButton {
+  padding-left: inherit;
+  padding-right: inherit;
+  text-align: center;
   position: absolute;
-  padding: 0 300px;
-  top: 0;
-  bottom: #{$--footer-height}px;
-
-  &.laptop {
-    padding: 0 200px;
-  }
-
-  &.tablet {
-    padding: 0 100px;
-  }
-
-  &.mobile {
-    padding: 0 20px;
-  }
-
-  a {
-    color: $link-color;
-
-    &:hover {
-      color: $link-color-hover;
-    }
-
-    &:visited {
-      color: $visited-link-color;
-
-      &:hover {
-        color: $visited-link-color-hover;
-      }
-    }
-  }
-
-  main {
-    padding-left: inherit;
-    padding-right: inherit;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: 0.3s ease-in-out;
-    overflow: auto;
-    color: $color;
-    line-height: 1.7;
-    text-shadow: 1px 1px $shadow-color;
-
-    b {
-      letter-spacing: 0.5px;
-    }
-
-    li::marker {
-      font-size: 24px;
-      font-weight: bold;
-    }
-  }
-
-  footer {
-    padding-left: inherit;
-    padding-right: inherit;
-    text-align: center;
-    color: $color;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

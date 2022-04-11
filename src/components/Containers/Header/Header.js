@@ -77,9 +77,7 @@ export const Header = () => {
       </div>
 
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        {isLoggedIn && (
-          <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
-        )}
+        <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
         <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
         <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
         {isL1AccountConnected && (

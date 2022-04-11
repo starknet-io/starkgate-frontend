@@ -1,54 +1,6 @@
 @import '../../index';
 
-$color: $--color-white;
-$shadow-color: $--color-black;
-$link-color: $--color-gamma;
-$link-color-hover: $--color-gamma-1;
-$visited-link-color: $--color-alpha-6;
-$visited-link-color-hover: $--color-alpha-6-hover;
-$border-color: $--color-alpha-3;
-$background-answer: $--color-alpha-3;
-
 .faq {
-  color: $color;
-  overflow: auto;
-  text-align: left;
-  left: 0;
-  right: 0;
-  position: absolute;
-  padding: 0 300px;
-  top: 0;
-  bottom: #{$--footer-height}px;
-  text-shadow: 1px 1px $shadow-color;
-
-  &.laptop {
-    padding: 0 200px;
-  }
-
-  &.tablet {
-    padding: 0 100px;
-  }
-
-  &.mobile {
-    padding: 0 20px;
-  }
-
-  a {
-    color: $link-color;
-
-    &:hover {
-      color: $link-color-hover;
-    }
-
-    &:visited {
-      color: $visited-link-color;
-
-      &:hover {
-        color: $visited-link-color-hover;
-      }
-    }
-  }
-
   ol {
     line-height: 1.6;
     padding-inline-start: 20px;
@@ -57,7 +9,10 @@ $background-answer: $--color-alpha-3;
 
     .question {
       position: relative;
-      margin-bottom: 40px;
+
+      &:not(:last-child) {
+        margin-bottom: 60px;
+      }
 
       &::marker {
         font-size: 24px;
@@ -71,21 +26,6 @@ $background-answer: $--color-alpha-3;
       & * {
         position: relative;
         z-index: 1;
-      }
-
-      .answer {
-        &::before {
-          content: '';
-          position: absolute;
-          display: block;
-          z-index: 0;
-          top: -10px;
-          left: -20px;
-          width: 100%;
-          height: calc(100% + 20px);
-          background-color: red;
-          border-radius: 7px;
-        }
       }
     }
   }

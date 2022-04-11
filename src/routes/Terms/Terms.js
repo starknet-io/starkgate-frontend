@@ -1,36 +1,41 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import useBreakpoint from 'use-breakpoint';
 
 import {track, TrackEvent} from '../../analytics';
 import {Button} from '../../components/UI';
-import {Breakpoint} from '../../enums';
+import {FullScreenContainer} from '../../components/UI/FullScreenContainer/FullScreenContainer';
 import {useColors, useConfig} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
-import {toClasses} from '../../utils/object';
 import styles from './Terms.module.scss';
 import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, TITLE_TXT} from './Terms.strings';
 
+const STARKWARE_SITE_URL = 'https://starkware.co/';
+const STARKNET_DOCS_URL = 'https://starknet.io/documentation/';
+const STARKGATE_MAIL_ADDRESS = 'starkgate@starknet.io';
+const STARKGATE_CONTRACTS_URL =
+  'https://github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate';
+
 export const Terms = () => {
   const navigate = useNavigate();
-  const mainRef = useRef();
-  const footerRef = useRef();
+  const termsRef = useRef();
+  const acceptButtonRef = useRef();
   const {appUrl} = useConfig();
   const {isAcceptTerms, acceptTerms} = useTerms();
   const {colorGamma1, colorWhite} = useColors();
-  const {breakpoint} = useBreakpoint(Breakpoint);
-  const [acceptButtonEnable, setAcceptButtonEnable] = useState(false);
   const {account: l1account} = useL1Wallet();
   const {account: l2account} = useL2Wallet();
+  const [marginBottom, setMarginBottom] = useState();
+  const [acceptButtonEnable, setAcceptButtonEnable] = useState(false);
 
   useEffect(() => {
     track(TrackEvent.TERMS_SCREEN);
+    setMarginBottom(acceptButtonRef?.current?.clientHeight);
   }, []);
 
   const onScroll = () => {
-    if (mainRef.current) {
-      const {scrollTop, scrollHeight, clientHeight} = mainRef.current;
+    if (termsRef.current) {
+      const {scrollTop, scrollHeight, clientHeight} = termsRef.current;
       if (scrollTop + clientHeight === scrollHeight) {
         setAcceptButtonEnable(true);
       }
@@ -44,11 +49,12 @@ export const Terms = () => {
   };
 
   return (
-    <div className={toClasses(styles.terms, styles[breakpoint.toLowerCase()])}>
-      <main
-        ref={mainRef}
+    <FullScreenContainer>
+      <div
+        ref={termsRef}
+        className={styles.terms}
         style={{
-          marginBottom: footerRef?.current?.clientHeight
+          marginBottom
         }}
         onScroll={onScroll}
       >
@@ -56,23 +62,23 @@ export const Terms = () => {
         <h4>{LAST_REVISED_TXT}</h4>
         <div>
           <p>
-            <a href="https://starkware.co/" rel="noreferrer" target="_blank">
+            <a href={STARKWARE_SITE_URL} rel="noreferrer" target="_blank">
               StarkWare Industries Ltd.
             </a>{' '}
-            (&quot<b>StarkWare</b>&quot, &quot<b>we</b>&quot, &quot<b>our</b>&quot) welcomes you
-            (the &quot<b>User(s)</b>&quot, or &quot
-            <b>you</b>&quot) to{' '}
+            (&#34;<b>StarkWare</b>&#34;, &#34;<b>we</b>&#34;, &#34;<b>our</b>&#34;) welcomes you
+            (the &#34;<b>User(s)</b>&#34;, or &#34;
+            <b>you</b>&#34;) to{' '}
             <a href={appUrl} rel="noreferrer" target="_blank">
               {appUrl}
             </a>{' '}
-            (the &quot<b>Site&quot</b>
-            ), a website that provides information and hosts a user interface (the &quot
+            (the &#34;<b>Site&#34;</b>
+            ), a website that provides information and hosts a user interface (the &#34;
             <b>Interface</b>
-            &quot) to a pair of smart contracts on the Ethereum blockchain and on the StarkNet
+            &#34;) to a pair of smart contracts on the Ethereum blockchain and on the StarkNet
             network that facilitates your ability to conduct transactions with your ETH and ERC-20
             tokens that reside on Layer 1 in a gas-efficient manner, via the StarkNet Alpha network
-            and its STARK-based computational compression capabilities (the &quot<b>Bridge</b>
-            &quot). Each User may use the Site, Interface and/or Bridge<sup>1</sup> in accordance
+            and its STARK-based computational compression capabilities (the &#34;<b>Bridge</b>
+            &#34;). Each User may use the Site, Interface and/or Bridge<sup>1</sup> in accordance
             with, and subject to, the terms and conditions hereunder.
           </p>
           <ol>
@@ -81,7 +87,7 @@ export const Terms = () => {
               <p>
                 By entering, connecting to, accessing or using the Site, Interface and/or the
                 Bridge, you acknowledge that you have read and understood the following Terms of
-                Service (collectively, the &quot<b>Terms</b>&quot), and the terms of our{' '}
+                Service (collectively, the &#34;<b>Terms</b>&#34;), and the terms of our{' '}
                 <b>Privacy Policy</b> available at https://starknet.io/privacy-policy/ and you agree
                 to be bound by them and to comply with all applicable laws and regulations regarding
                 your use of the Site, Interface and the Bridge, and you acknowledge that these Terms
@@ -142,11 +148,7 @@ export const Terms = () => {
               <p>
                 Use of the Bridge and any activity thereon is subject to any additional terms and
                 conditions that may be included in the Bridge, including those located at the{' '}
-                <a
-                  href="https://github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate"
-                  rel="noreferrer"
-                  target="_blank"
-                >
+                <a href={STARKGATE_CONTRACTS_URL} rel="noreferrer" target="_blank">
                   following link
                 </a>
                 .
@@ -159,11 +161,7 @@ export const Terms = () => {
               <p>
                 On the Site, you will have the ability via the Interface to access the Bridge. More
                 information about the Bridge is available{' '}
-                <a
-                  href="https://github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate"
-                  rel="noreferrer"
-                  target="_blank"
-                >
+                <a href={STARKGATE_CONTRACTS_URL} rel="noreferrer" target="_blank">
                   here
                 </a>
                 .
@@ -202,11 +200,7 @@ export const Terms = () => {
                 in such case shall display to you any applicable fees prior to you incurring the
                 fee. There are fees and costs associated with using the Bridge, a description of
                 which can be found{' '}
-                <a
-                  href="https://starknet.io/documentation/fee-mechanism/"
-                  rel="noreferrer"
-                  target="_blank"
-                >
+                <a href={`${STARKNET_DOCS_URL}/fee-mechanism`} rel="noreferrer" target="_blank">
                   here
                 </a>
                 .
@@ -280,7 +274,7 @@ export const Terms = () => {
               <h2>Contacting us via the Site</h2>
               <p>
                 In order to contact us, please email us at:{' '}
-                <a href="mailto:starkgate@starknet.io">starkgate@starknet.io</a>
+                <a href={`mailto:${STARKGATE_MAIL_ADDRESS}`}>{STARKGATE_MAIL_ADDRESS}</a>
               </p>
             </li>
             <li>
@@ -332,16 +326,16 @@ export const Terms = () => {
               <h2>Disclaimers and No Warranties</h2>
               <p>
                 TO THE FULLEST EXTENT LEGALLY PERMISSIBLE, THE SITE AND THE INTERFACE ARE PROVIDED
-                ON AN &quot<b>AS IS</b>&quot, &quot<b>WITH ALL FAULTS</b>&quot AND &quot
-                <b>AS AVAILABLE</b>&quot BASIS, AND STARKWARE, INCLUDING ITS VENDORS, OFFICERS,
+                ON AN &#34;<b>AS IS</b>&#34;, &#34;<b>WITH ALL FAULTS</b>&#34; AND &#34;
+                <b>AS AVAILABLE</b>&#34; BASIS, AND STARKWARE, INCLUDING ITS VENDORS, OFFICERS,
                 SHAREHOLDERS, SUB-CONTRACTORS, DIRECTORS, EMPLOYEES, AFFILIATES, SUBSIDIARIES,
-                LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, &quot
-                <b>STARKWARE’S REPRESENTATIVES</b>&quot), DISCLAIM ALL WARRANTIES OF ANY KIND,
-                EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF TITLE OR
-                NON-INFRINGEMENT OR IMPLIED WARRANTIES OF USE, MERCHANTABILITY OR FITNESS FOR A
-                PARTICULAR PURPOSE AND THOSE ARISING FROM A COURSE OF DEALING OR USAGE OF TRADE. YOU
-                MAY HAVE ADDITIONAL CONSUMER RIGHTS UNDER YOUR LOCAL LAWS THAT THIS AGREEMENT CANNOT
-                CHANGE.
+                LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, &#34;
+                <b>STARKWARE’S REPRESENTATIVES</b>
+                &#34;), DISCLAIM ALL WARRANTIES OF ANY KIND, EXPRESS, IMPLIED OR STATUTORY,
+                INCLUDING BUT NOT LIMITED TO WARRANTIES OF TITLE OR NON-INFRINGEMENT OR IMPLIED
+                WARRANTIES OF USE, MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE AND THOSE
+                ARISING FROM A COURSE OF DEALING OR USAGE OF TRADE. YOU MAY HAVE ADDITIONAL CONSUMER
+                RIGHTS UNDER YOUR LOCAL LAWS THAT THIS AGREEMENT CANNOT CHANGE.
               </p>
               <p>
                 ADDITIONAL DISCLAIMERS AND WARRANTIES REGARDING THE BRIDGE MAY APPLY PURSUANT TO
@@ -438,7 +432,7 @@ export const Terms = () => {
                 case of any material change, we will make reasonable efforts to post a clear notice
                 on the Site regarding such change. Such material changes will take effect seven (7)
                 days after such notice was provided on our Site. Otherwise, all other changes to
-                these Terms are effective as of the stated &quotLast Revised&quot date and your
+                these Terms are effective as of the stated &quotLast Revised&#34; date and your
                 continued use of the Site or the Interface or the Bridge on or after the Last
                 Revised date will constitute acceptance of, and agreement to be bound by, those
                 changes. In the event that the Terms should be amended to comply with any legal
@@ -488,9 +482,9 @@ export const Terms = () => {
                 finally settled under the Rules of Arbitration of the International Chamber of
                 Commerce by one or more arbitrators appointed in accordance with the said Rules. The
                 arbitration will be conducted in the English language and held by teleconference or,
-                if teleconference is not possible, in Singapore (the &quot
+                if teleconference is not possible, in Singapore (the &#34;
                 <b>Agreement to Arbitrate</b>
-                &quot).
+                &#34;).
               </p>
               <p>
                 You must bring any and all claims or disputes against us in your individual capacity
@@ -536,9 +530,9 @@ export const Terms = () => {
             </li>
           </ol>
         </div>
-      </main>
+      </div>
       {!isAcceptTerms && (
-        <footer ref={footerRef}>
+        <div ref={acceptButtonRef} className={styles.acceptButton}>
           <Button
             colorBackground={colorGamma1}
             colorBackgroundHover={colorGamma1}
@@ -553,13 +547,13 @@ export const Terms = () => {
             onClick={accept}
           />
           <p>
-            By clicking the &quotI Accept&quot button, you are accepting our{' '}
+            By clicking the &#34;I Accept&#34; button, you are accepting our{' '}
             <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
               Terms of Service
             </a>
           </p>
-        </footer>
+        </div>
       )}
-    </div>
+    </FullScreenContainer>
   );
 };
