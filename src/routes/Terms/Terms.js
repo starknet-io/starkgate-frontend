@@ -540,7 +540,7 @@ export const Terms = () => {
           </div>
         </div>
 
-        <dev className={styles.notes}>
+        <div className={styles.notes}>
           <h3>Notes</h3>
           <hr />
           <ol>
@@ -558,7 +558,7 @@ export const Terms = () => {
               accuracy.
             </li>
           </ol>
-        </dev>
+        </div>
       </main>
       {!isAcceptTerms && (
         <div ref={acceptButtonRef} className={styles.acceptButton}>
