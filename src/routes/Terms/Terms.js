@@ -532,6 +532,7 @@ export const Terms = () => {
       </div>
       {!isAcceptTerms && (
         <div ref={acceptButtonRef} className={styles.acceptButton}>
+          <p>By clicking the &#34;I Accept&#34; button, you are accepting these Terms of Service</p>
           <Button
             colorBackground={colorGamma1}
             colorBackgroundHover={colorGamma1}
@@ -545,12 +546,6 @@ export const Terms = () => {
             text={ACCEPT_BTN_TXT}
             onClick={accept}
           />
-          <p>
-            By clicking the &#34;I Accept&#34; button, you are accepting our{' '}
-            <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
-              Terms of Service
-            </a>
-          </p>
         </div>
       )}
     </FullScreenContainer>
