@@ -8,12 +8,17 @@ $chain-color: $--color-white-1;
   height: #{$height}px;
   border-bottom: 1px solid transparent;
   justify-content: space-between;
-  padding: 0 40px;
   background: $background-color;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 
   .left {
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -39,6 +44,7 @@ $chain-color: $--color-white-1;
   }
 
   .right {
+    padding: 30px;
     display: flex;
     flex-direction: row;
 
@@ -51,7 +57,6 @@ $chain-color: $--color-white-1;
 
   &.mobile {
     height: #{$height - 10}px;
-    padding: 0 30px;
 
     .left {
       .logo {
