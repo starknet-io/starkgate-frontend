@@ -4,12 +4,17 @@
   height: #{$--header-height}px;
   border-bottom: 1px solid transparent;
   justify-content: space-between;
-  padding: 0 40px;
   background: $--color-alpha-5;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
 
   .left {
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -35,6 +40,7 @@
   }
 
   .right {
+    padding: 30px;
     display: flex;
     flex-direction: row;
 
@@ -47,7 +53,6 @@
 
   &.mobile {
     height: #{$--header-height - 10}px;
-    padding: 0 30px;
 
     .left {
       .logo {

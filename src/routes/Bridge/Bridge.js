@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react';
 
-import {Account, Faq, SelectToken, ToastProvider, Transfer} from '..';
-import {setUser, track, TrackEvent} from '../../../analytics';
-import {MenuType} from '../../../enums';
-import {useEnvs} from '../../../hooks';
-import {useMenu} from '../../../providers/MenuProvider';
-import {useOnboardingModal} from '../../../providers/ModalProvider';
-import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
-import utils from '../../../utils';
+import {setUser, track, TrackEvent} from '../../analytics';
+import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
+import {MenuType} from '../../enums';
+import {useEnvs} from '../../hooks';
+import {EventManagerProvider} from '../../providers/EventManagerProvider';
+import {useMenu} from '../../providers/MenuProvider';
+import {useOnboardingModal} from '../../providers/ModalProvider';
+import {TokensProvider} from '../../providers/TokensProvider';
+import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
+import utils from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
@@ -45,8 +47,6 @@ export const Bridge = () => {
         return <SelectToken />;
       case MenuType.ACCOUNT:
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
-      case MenuType.FAQ:
-        return <Faq />;
       case MenuType.TRANSFER:
       default:
         return <Transfer />;
@@ -55,8 +55,14 @@ export const Bridge = () => {
 
   return (
     <div className={styles.bridge}>
-      <ToastProvider />
-      {renderMenu()}
+      <TokensProvider>
+        <EventManagerProvider>
+          <div className={styles.bridgeMenu}>
+            <ToastProvider />
+            {renderMenu()}
+          </div>
+        </EventManagerProvider>
+      </TokensProvider>
     </div>
   );
 };

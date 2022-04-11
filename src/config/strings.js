@@ -4,10 +4,22 @@ const strings = {
       chainTxt: '{{chainName}} testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
-      tabFaq: 'FAQ'
+      tabTermsTxt: 'Terms',
+      tabFaqTxt: 'FAQ'
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
+    }
+  },
+  screens: {
+    faq: {
+      titleTxt: 'FAQ'
+    },
+    terms: {
+      titleTxt: 'Terms of Service',
+      lastRevisedTxt: 'Last Revised: April 4, 2022',
+      notesTitleTxt: 'Notes',
+      acceptBtnTxt: 'I Accept'
     }
   },
   menus: {
@@ -49,10 +61,7 @@ const strings = {
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
-      transfer_btn_txt: 'Transfer'
-    },
-    faq: {
-      titleTxt: 'FAQ'
+      transferBtnTxt: 'Transfer'
     }
   },
   modals: {

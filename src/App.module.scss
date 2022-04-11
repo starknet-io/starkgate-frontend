@@ -1,9 +1,4 @@
 .app {
-  overflow: hidden;
-  flex-direction: column;
   display: flex;
-  background-image: url('assets/img/stars.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  flex-direction: column;
 }

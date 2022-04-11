@@ -1,7 +1,4 @@
 export * from './Account/Account';
-export * from './Bridge/Bridge';
-export * from './Login/Login';
-export * from './Faq/Faq';
 export * from './SelectToken/SelectToken';
 export * from './Transfer/Transfer';
 export * from './TransferLog/TransferLog';
