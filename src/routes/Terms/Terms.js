@@ -59,20 +59,20 @@ export const Terms = () => {
             <a href="https://starkware.co/" rel="noreferrer" target="_blank">
               StarkWare Industries Ltd.
             </a>{' '}
-            ("<b>StarkWare</b>", "<b>we</b>", "<b>our</b>") welcomes you
-            (the "<b>User(s)</b>", or "
-            <b>you</b>") to{' '}
+            (&quot<b>StarkWare</b>&quot, &quot<b>we</b>&quot, &quot<b>our</b>&quot) welcomes you
+            (the &quot<b>User(s)</b>&quot, or &quot
+            <b>you</b>&quot) to{' '}
             <a href={appUrl} rel="noreferrer" target="_blank">
               {appUrl}
             </a>{' '}
-            (the "<b>Site"</b>
-            ), a website that provides information and hosts a user interface (the "
+            (the &quot<b>Site&quot</b>
+            ), a website that provides information and hosts a user interface (the &quot
             <b>Interface</b>
-            ") to a pair of smart contracts on the Ethereum blockchain and on the StarkNet
+            &quot) to a pair of smart contracts on the Ethereum blockchain and on the StarkNet
             network that facilitates your ability to conduct transactions with your ETH and ERC-20
             tokens that reside on Layer 1 in a gas-efficient manner, via the StarkNet Alpha network
-            and its STARK-based computational compression capabilities (the "<b>Bridge</b>
-            "). Each User may use the Site, Interface and/or Bridge<sup>1</sup> in accordance
+            and its STARK-based computational compression capabilities (the &quot<b>Bridge</b>
+            &quot). Each User may use the Site, Interface and/or Bridge<sup>1</sup> in accordance
             with, and subject to, the terms and conditions hereunder.
           </p>
           <ol>
@@ -81,7 +81,7 @@ export const Terms = () => {
               <p>
                 By entering, connecting to, accessing or using the Site, Interface and/or the
                 Bridge, you acknowledge that you have read and understood the following Terms of
-                Service (collectively, the "<b>Terms</b>"), and the terms of our{' '}
+                Service (collectively, the &quot<b>Terms</b>&quot), and the terms of our{' '}
                 <b>Privacy Policy</b> available at https://starknet.io/privacy-policy/ and you agree
                 to be bound by them and to comply with all applicable laws and regulations regarding
                 your use of the Site, Interface and the Bridge, and you acknowledge that these Terms
@@ -332,11 +332,11 @@ export const Terms = () => {
               <h2>Disclaimers and No Warranties</h2>
               <p>
                 TO THE FULLEST EXTENT LEGALLY PERMISSIBLE, THE SITE AND THE INTERFACE ARE PROVIDED
-                ON AN "<b>AS IS</b>", "<b>WITH ALL FAULTS</b>" AND "
-                <b>AS AVAILABLE</b>" BASIS, AND STARKWARE, INCLUDING ITS VENDORS, OFFICERS,
+                ON AN &quot<b>AS IS</b>&quot, &quot<b>WITH ALL FAULTS</b>&quot AND &quot
+                <b>AS AVAILABLE</b>&quot BASIS, AND STARKWARE, INCLUDING ITS VENDORS, OFFICERS,
                 SHAREHOLDERS, SUB-CONTRACTORS, DIRECTORS, EMPLOYEES, AFFILIATES, SUBSIDIARIES,
-                LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, "
-                <b>STARKWARE’S REPRESENTATIVES</b>"), DISCLAIM ALL WARRANTIES OF ANY KIND,
+                LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, &quot
+                <b>STARKWARE’S REPRESENTATIVES</b>&quot), DISCLAIM ALL WARRANTIES OF ANY KIND,
                 EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF TITLE OR
                 NON-INFRINGEMENT OR IMPLIED WARRANTIES OF USE, MERCHANTABILITY OR FITNESS FOR A
                 PARTICULAR PURPOSE AND THOSE ARISING FROM A COURSE OF DEALING OR USAGE OF TRADE. YOU
@@ -438,7 +438,7 @@ export const Terms = () => {
                 case of any material change, we will make reasonable efforts to post a clear notice
                 on the Site regarding such change. Such material changes will take effect seven (7)
                 days after such notice was provided on our Site. Otherwise, all other changes to
-                these Terms are effective as of the stated &quotLast Revised" date and your
+                these Terms are effective as of the stated &quotLast Revised&quot date and your
                 continued use of the Site or the Interface or the Bridge on or after the Last
                 Revised date will constitute acceptance of, and agreement to be bound by, those
                 changes. In the event that the Terms should be amended to comply with any legal
@@ -488,9 +488,9 @@ export const Terms = () => {
                 finally settled under the Rules of Arbitration of the International Chamber of
                 Commerce by one or more arbitrators appointed in accordance with the said Rules. The
                 arbitration will be conducted in the English language and held by teleconference or,
-                if teleconference is not possible, in Singapore (the "
+                if teleconference is not possible, in Singapore (the &quot
                 <b>Agreement to Arbitrate</b>
-                ").
+                &quot).
               </p>
               <p>
                 You must bring any and all claims or disputes against us in your individual capacity
@@ -553,7 +553,7 @@ export const Terms = () => {
             onClick={accept}
           />
           <p>
-            By clicking the &quotI Accept" button, you are accepting our{' '}
+            By clicking the &quotI Accept&quot button, you are accepting our{' '}
             <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
               Terms of Service
             </a>
