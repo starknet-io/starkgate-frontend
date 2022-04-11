@@ -9,6 +9,7 @@ import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/Trans
 import utils from '../../../utils';
 import {
   Loading,
+  LoadingSize,
   Menu,
   NetworkMenu,
   NetworkSwap,
@@ -16,7 +17,6 @@ import {
   TransferButton,
   TransferMenuTab
 } from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
 
 export const Transfer = () => {

@@ -1,6 +1,6 @@
 import {useCallback, useContext} from 'react';
 
-import {ModalType} from '../../components/UI/Modal/Modal/Modal.constants';
+import {ModalType} from '../../enums';
 import utils from '../../utils';
 import {ModalContext} from './modal-context';
 
