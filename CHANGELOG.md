@@ -1,3 +1,10 @@
+## [1.2.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0-dev.1) (2022-04-11)
+
+
+### 🧩 Features
+
+* terms of use ([#141](https://github.com/starkware-libs/starkgate-frontend/issues/141)) ([8d9fe79](https://github.com/starkware-libs/starkgate-frontend/commit/8d9fe7957e09c739e1e79801eaf507178854f944))
+
 ## [1.1.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.0.0...v1.1.0) (2022-04-06)
 
 
