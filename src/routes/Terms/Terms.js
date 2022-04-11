@@ -7,7 +7,7 @@ import {useColors, useConfig} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
-import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, TITLE_TXT} from './Terms.strings';
+import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, NOTES_TITLE_TXT, TITLE_TXT} from './Terms.strings';
 
 const STARKWARE_SITE_URL = 'https://starkware.co/';
 const STARKNET_DOCS_URL = 'https://starknet.io/documentation/';
@@ -538,7 +538,26 @@ export const Terms = () => {
               </li>
             </ol>
           </div>
+        <div className={styles.notes}>
+          <h3>{NOTES_TITLE_TXT}</h3>
+          <hr />
+          <ol>
+            <li>
+              As the StarkNet becomes decentralized we may consider removing the Bridge from these
+              terms and taking the position that it is completely decentralized
+            </li>
+            <li>
+              TBD whether we could add a sentence that Starkware also cannot control or direct the
+              operation of the part of the Bridge that sits on the StarkNet in the pre-Universe
+              phase.
+            </li>
+            <li>
+              To discuss the extent to which we can make this statement, or can modify it for
+              accuracy.
+            </li>
+          </ol>
         </div>
+      </div>
         {!isAcceptTerms && (
           <div ref={acceptButtonRef} className={styles.acceptButton}>
             <Button
