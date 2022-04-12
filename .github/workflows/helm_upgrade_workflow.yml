@@ -47,6 +47,10 @@ jobs:
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
           helm repo update
       - name: Upgrade using helm upgrade command.
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
         run: |
           helm upgrade ${{ inputs.app_name }} starkware/webapp-general-helm \
           --namespace=${{ inputs.namespace_name }} \
