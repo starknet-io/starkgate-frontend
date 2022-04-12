@@ -66,18 +66,7 @@ body {
   width: 100%;
   font-family: $--primary-font;
   background-color: $--color-alpha-3;
-  background-image: url('assets/img/light-accent.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   transition: 0.3s;
-}
-
-header,
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .center {

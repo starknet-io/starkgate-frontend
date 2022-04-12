@@ -15,7 +15,7 @@ const filters = {};
 export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
   const getTokenBridgeContract = useL1TokenBridgeContract();
-  const {account: l1Account, chainId: l1ChainId, getBlockNumber} = useL1Wallet();
+  const {account: l1Account, chainId: l1ChainId} = useL1Wallet();
   const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();

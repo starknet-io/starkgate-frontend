@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
-import {track, TrackEvent} from '../../../analytics';
-import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../../enums';
-import {useConfig, useWalletHandlerProvider} from '../../../hooks';
-import {useHideModal, useProgressModal} from '../../../providers/ModalProvider';
-import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
-import utils from '../../../utils';
-import {Menu, WalletLogin} from '../../UI';
+import {track, TrackEvent} from '../../analytics';
+import {WalletLogin} from '../../components/UI';
+import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../enums';
+import {useConfig, useWalletHandlerProvider} from '../../hooks';
+import {useLogin} from '../../providers/AppProvider';
+import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
+import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
+import utils from '../../utils';
 import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
 import {
@@ -27,8 +29,10 @@ export const Login = () => {
   const showProgressModal = useProgressModal();
   const getWalletHandlers = useWalletHandlerProvider();
   const {status, error} = useWallets();
-  const {connectWallet: connectL1Wallet, isConnected} = useL1Wallet();
-  const {connectWallet: connectL2Wallet} = useL2Wallet();
+  const {connectWallet: connectL1Wallet, isConnected: isConnectedL1Wallet} = useL1Wallet();
+  const {connectWallet: connectL2Wallet, isConnected: isConnectedL2Wallet} = useL2Wallet();
+  const {login} = useLogin();
+  const navigate = useNavigate();
 
   useEffect(() => {
     track(TrackEvent.LOGIN_SCREEN);
@@ -51,8 +55,14 @@ export const Login = () => {
   }, [walletType, getWalletHandlers]);
 
   useEffect(() => {
-    isConnected && setWalletType(WalletType.L2);
-  }, [isConnected]);
+    if (isConnectedL1Wallet && isConnectedL2Wallet) {
+      login();
+      navigate('/');
+    }
+    if (isConnectedL1Wallet) {
+      setWalletType(WalletType.L2);
+    }
+  }, [isConnectedL1Wallet, isConnectedL2Wallet]);
 
   useEffect(() => {
     error && handleError(error);
@@ -148,21 +158,19 @@ export const Login = () => {
   };
 
   return (
-    <Menu>
-      <div className={utils.object.toClasses(styles.login, 'center')}>
-        <div className={styles.content}>
-          <div className={styles.title}>{TITLE_TXT}</div>
-          <p>
-            {SUBTITLE_TXT(walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name)}
-          </p>
-          <div className={styles.container}>{renderLoginWallets()}</div>
-          {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}
-        </div>
-        <div className={styles.separator} />
-        <div className={styles.download}>
-          {DOWNLOAD_TEXT[0]} <span onClick={onDownloadClick}>{DOWNLOAD_TEXT[1]}</span>
-        </div>
+    <div className={utils.object.toClasses(styles.login, 'center')}>
+      <div className={styles.content}>
+        <div className={styles.title}>{TITLE_TXT}</div>
+        <p>
+          {SUBTITLE_TXT(walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name)}
+        </p>
+        <div className={styles.container}>{renderLoginWallets()}</div>
+        {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}
       </div>
-    </Menu>
+      <div className={styles.separator} />
+      <div className={styles.download}>
+        {DOWNLOAD_TEXT[0]} <span onClick={onDownloadClick}>{DOWNLOAD_TEXT[1]}</span>
+      </div>
+    </div>
   );
 };
