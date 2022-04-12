@@ -11,7 +11,7 @@ import {
   TransferStep,
   TransferToL1Steps
 } from '../enums';
-import {useLogWithdrawalListener} from '../providers/EventManagerProvider';
+import {useWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
@@ -111,7 +111,7 @@ export const useCompleteTransferToL1 = () => {
   const progressOptions = useTransferProgress();
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
-  const addLogWithdrawalListener = useLogWithdrawalListener();
+  const addWithdrawalListener = useWithdrawalListener();
 
   return useCallback(
     async transfer => {
@@ -152,7 +152,7 @@ export const useCompleteTransferToL1 = () => {
         }
       };
 
-      const onLogWithdrawal = (error, event) => {
+      const onWithdrawal = (error, event) => {
         if (!error) {
           const {transactionHash: l1hash} = event;
           logger.log('Done', l1hash);
@@ -173,7 +173,7 @@ export const useCompleteTransferToL1 = () => {
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
-        addLogWithdrawalListener(onLogWithdrawal);
+        addWithdrawalListener(onWithdrawal);
         logger.log('Calling withdraw');
         await sendWithdrawal();
       } catch (ex) {
@@ -192,7 +192,7 @@ export const useCompleteTransferToL1 = () => {
       handleProgress,
       logger,
       progressOptions,
-      addLogWithdrawalListener
+      addWithdrawalListener
     ]
   );
 };

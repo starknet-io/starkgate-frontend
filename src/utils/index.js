@@ -3,6 +3,7 @@ import * as blockchain from './blockchain';
 import * as browser from './browser';
 import * as date from './date';
 import * as logger from './logger';
+import * as number from './number';
 import * as object from './object';
 import * as parser from './parser';
 import * as storage from './storage';
@@ -32,6 +33,7 @@ const utils = {
   blockchain,
   logger,
   storage,
+  number,
   printPackageInfo,
   getTranslation
 };

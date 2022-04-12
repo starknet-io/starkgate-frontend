@@ -4,10 +4,22 @@ const strings = {
       chain_txt: '{{chainName}} testnet',
       wallet_btn_txt: 'Account | {{address}}',
       tab_discord_txt: 'Discord',
-      tab_faq: 'FAQ'
+      tab_terms_txt: 'Terms',
+      tab_faq_txt: 'FAQ'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
+    }
+  },
+  screens: {
+    faq: {
+      title_txt: 'FAQ'
+    },
+    terms: {
+      title_txt: 'Terms of Service',
+      last_revised_txt: 'Last Revised: April 4, 2022',
+      notes_title_txt: 'Notes',
+      accept_btn_txt: 'I Accept'
     }
   },
   menus: {
@@ -41,6 +53,8 @@ const strings = {
     transfer: {
       to_txt: 'to',
       from_txt: 'from',
+      negative_value_error_msg: 'Amount must be a positive number',
+      too_many_digits_error_msg: 'Too many decimal places',
       insufficient_balance_error_msg: 'Insufficient balance',
       max_deposit_error_msg:
         'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
@@ -48,9 +62,6 @@ const strings = {
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
       transfer_btn_txt: 'Transfer'
-    },
-    faq: {
-      title_txt: 'FAQ'
     }
   },
   modals: {

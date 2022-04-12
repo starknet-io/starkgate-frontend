@@ -1,6 +1,7 @@
 import splitbee from '@splitbee/web';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 import {App} from './App';
 import {ModalWrapper} from './components/UI';
@@ -22,9 +23,11 @@ if (env === 'development' || utils.browser.getUrlParameter('debugApp')) {
 }
 
 ReactDOM.render(
-  <Providers>
-    <App />
-    <ModalWrapper />
-  </Providers>,
+  <BrowserRouter>
+    <Providers>
+      <App />
+      <ModalWrapper />
+    </Providers>
+  </BrowserRouter>,
   document.getElementById('root')
 );

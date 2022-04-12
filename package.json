@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "1.0.0",
+  "version": "1.2.0-dev.2",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -65,6 +65,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "6",
     "react-scripts": "4.0.3",
     "starknet": "^3.7.0",
     "use-async-memo": "^1.2.3",
