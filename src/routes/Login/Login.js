@@ -14,7 +14,8 @@ import {
   MODAL_TXT,
   SUBTITLE_TXT,
   TITLE_TXT,
-  UNSUPPORTED_BROWSER_TXT
+  UNSUPPORTED_BROWSER_TXT,
+  UNSUPPORTED_CHAIN_ID_TXT
 } from './Login.strings';
 
 export const Login = () => {
@@ -104,7 +105,9 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       setError({
         type: ErrorType.UNSUPPORTED_CHAIN_ID,
-        message: `Please select ${ChainInfo.L1[supportedChainId].NAME} in your wallet`
+        message: utils.object.evaluate(UNSUPPORTED_CHAIN_ID_TXT, {
+          chainName: ChainInfo.L1[supportedChainId].NAME
+        })
       });
     }
   };
