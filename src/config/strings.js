@@ -1,7 +1,7 @@
 const strings = {
   containers: {
     header: {
-      chainTxt: '{{chainName}} testnet',
+      chainTxt: 'Goerli testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
       tabTermsTxt: 'Terms',
@@ -29,6 +29,7 @@ const strings = {
       subtitleTxt: 'Please select {{networkName}} wallet to connect with this dApp:',
       downloadTxt: ['Don’t have a wallet?', 'Download Here'],
       modalTxt: 'Waiting for confirmation from {{walletName}}',
+      unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
       unsupportedBrowserTxt:
         "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect."
     },

@@ -6,7 +6,7 @@ const envs = {
   autoConnect: Boolean(process.env.REACT_APP_AUTO_CONNECT),
   pollBlockNumberInterval: Number(process.env.REACT_APP_POLL_BLOCK_NUMBER_INTERVAL),
   supportedTokens: process.env.REACT_APP_SUPPORTED_TOKENS.split(','),
-  supportedChainIds: process.env.REACT_APP_SUPPORTED_CHAIN_IDS.split(' ').map(id => Number(id)),
+  supportedChainId: Number(process.env.REACT_APP_SUPPORTED_CHAIN_ID),
   starknetContractAddress: process.env.REACT_APP_STARKNET_CONTRACT_ADDRESS,
   etherscanUrl: process.env.REACT_APP_ETHERSCAN_URL,
   etherscanTxUrl: tx =>

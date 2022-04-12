@@ -5,13 +5,13 @@ import {UseWalletProvider as UseWalletProviderWrapper} from 'use-wallet';
 import {useEnvs} from '../../hooks';
 
 export const WalletProvider = ({children}) => {
-  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainIds} = useEnvs();
+  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainId} = useEnvs();
   return (
     <UseWalletProviderWrapper
       autoConnect={false}
       connectors={{
         injected: {
-          chainId: supportedChainIds
+          chainId: [supportedChainId]
         }
       }}
       pollBalanceInterval={pollBalanceInterval}

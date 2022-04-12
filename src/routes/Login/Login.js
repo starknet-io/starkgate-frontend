@@ -1,11 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 
 import {track, TrackEvent} from '../../analytics';
-import {WalletLogin} from '../../components/UI';
-import {ChainInfo, NetworkType, WalletStatus, WalletType} from '../../enums';
+import {LoginErrorMessage, WalletLogin} from '../../components/UI';
+import {ChainInfo, ErrorType, NetworkType, WalletStatus, WalletType} from '../../enums';
 import {useEnvs, useTranslation, useWalletHandlerProvider} from '../../hooks';
-import {useLogin} from '../../providers/AppProvider';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
@@ -15,55 +13,53 @@ const MODAL_TIMEOUT_DURATION = 2000;
 const AUTO_CONNECT_TIMEOUT_DURATION = 100;
 
 export const Login = () => {
-  const {titleTxt, subtitleTxt, downloadTxt, modalTxt, unsupportedBrowserTxt} =
-    useTranslation('menus.login');
-  const {autoConnect} = useEnvs();
+  const {
+    titleTxt,
+    subtitleTxt,
+    downloadTxt,
+    modalTxt,
+    unsupportedBrowserTxt,
+    unsupportedChainIdTxt
+  } = useTranslation('menus.login');
+  const {autoConnect, supportedChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [error, setError] = useState(null);
   const [walletType, setWalletType] = useState(WalletType.L1);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const getWalletHandlers = useWalletHandlerProvider();
-  const {status, error} = useWallets();
+  const {status, error: walletError} = useWallets();
   const {connectWallet: connectL1Wallet, isConnected: isConnectedL1Wallet} = useL1Wallet();
-  const {connectWallet: connectL2Wallet, isConnected: isConnectedL2Wallet} = useL2Wallet();
-  const {login} = useLogin();
-  const navigate = useNavigate();
+  const {connectWallet: connectL2Wallet} = useL2Wallet();
 
   useEffect(() => {
     track(TrackEvent.LOGIN_SCREEN);
+    if (!utils.browser.isChrome()) {
+      setError({type: ErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
+    }
   }, []);
 
   useEffect(() => {
     let timeoutId;
-    if (!utils.browser.isChrome()) {
-      track(TrackEvent.LOGIN.LOGIN_ERROR, {message: unsupportedBrowserTxt});
-      setErrorMsg(unsupportedBrowserTxt);
-      return;
-    }
-    if (autoConnect) {
+    if (!error && autoConnect) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
         timeoutId = setTimeout(() => onWalletConnect(handlers[0]), AUTO_CONNECT_TIMEOUT_DURATION);
       }
     }
     return () => clearTimeout(timeoutId);
-  }, [walletType, getWalletHandlers]);
+  }, [error, walletType, getWalletHandlers]);
 
   useEffect(() => {
-    if (isConnectedL1Wallet && isConnectedL2Wallet) {
-      login();
-      navigate('/');
-    }
     if (isConnectedL1Wallet) {
       setWalletType(WalletType.L2);
     }
-  }, [isConnectedL1Wallet, isConnectedL2Wallet]);
+  }, [isConnectedL1Wallet]);
 
   useEffect(() => {
-    error && handleError(error);
-  }, [error]);
+    walletError && handleWalletError(walletError);
+  }, [walletError]);
 
   useEffect(() => {
     switch (status) {
@@ -72,7 +68,7 @@ export const Login = () => {
         break;
       case WalletStatus.CONNECTED:
         setSelectedWalletName('');
-        setErrorMsg('');
+        setError(null);
         maybeHideModal();
         break;
       case WalletStatus.ERROR:
@@ -106,18 +102,14 @@ export const Login = () => {
     }
   };
 
-  const handleError = error => {
+  const handleWalletError = error => {
     if (error.name === 'ChainUnsupportedError') {
-      const message = error.message.replace(/\d+/g, match => {
-        let msg = match;
-        const chainName = utils.string.capitalize(ChainInfo.L1[Number(match)]?.NAME);
-        if (chainName) {
-          msg += ` (${utils.string.capitalize(ChainInfo.L1[Number(match)].NAME)})`;
-        }
-        return msg;
+      setError({
+        type: ErrorType.UNSUPPORTED_CHAIN_ID,
+        message: utils.object.evaluate(unsupportedChainIdTxt, {
+          chainName: ChainInfo.L1[supportedChainId].NAME
+        })
       });
-      track(TrackEvent.LOGIN.LOGIN_ERROR, {message});
-      setErrorMsg(message);
     }
   };
 
@@ -167,7 +159,7 @@ export const Login = () => {
           })}
         </p>
         <div className={styles.container}>{renderLoginWallets()}</div>
-        {errorMsg && <div className={styles.errorMsg}>{errorMsg}</div>}
+        {error && <LoginErrorMessage message={error.message} />}
       </div>
       <div className={styles.separator} />
       <div className={styles.download}>

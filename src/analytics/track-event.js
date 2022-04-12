@@ -50,9 +50,10 @@ export const TrackEvent = {
   LOGIN_SCREEN: 'LOGIN_SCREEN',
   LOGIN: {
     DOWNLOAD_CLICK: 'LOGIN_SCREEN/download_click',
-    WALLET_CLICK: 'LOGIN_SCREEN/wallet_click',
-    LOGIN_ERROR: 'LOGIN_SCREEN/login_error'
+    WALLET_CLICK: 'LOGIN_SCREEN/wallet_click'
   },
+
+  APP_ERROR: 'APP_ERROR',
 
   /**
    * Terms screen
