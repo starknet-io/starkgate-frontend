@@ -1,3 +1,4 @@
+import {AppProvider} from './AppProvider';
 import {BlockHashProvider} from './BlockHashProvider';
 import {MenuProvider} from './MenuProvider';
 import {ModalProvider} from './ModalProvider';
@@ -8,6 +9,7 @@ import {WalletsProvider} from './WalletsProvider';
 import {combineProviders} from './combine-providers';
 
 export const Providers = combineProviders([
+  AppProvider,
   MenuProvider,
   TransferProvider,
   ModalProvider,

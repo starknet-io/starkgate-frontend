@@ -1,4 +1,4 @@
-import utils from '../../../utils';
+import utils from '../../utils';
 
 const {title_txt, subtitle_txt, download_txt, modal_txt, unsupported_browser_txt} =
   utils.getTranslation('menus.login');

@@ -1,0 +1,12 @@
+@import '../../../index';
+
+.styledBackground {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  top: #{$--header-height}px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
