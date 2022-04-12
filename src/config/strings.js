@@ -18,6 +18,7 @@ const strings = {
     terms: {
       title_txt: 'Terms of Service',
       last_revised_txt: 'Last Revised: April 4, 2022',
+      notes_title_txt: 'Notes',
       accept_btn_txt: 'I Accept'
     }
   },
