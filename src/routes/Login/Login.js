@@ -41,7 +41,9 @@ export const Login = () => {
 
   useEffect(() => {
     let timeoutId;
-    if (!error && autoConnect) {
+    if (error) {
+      track(TrackEvent.LOGIN.LOGIN_ERROR, error);
+    } else if (!error && autoConnect) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
         timeoutId = setTimeout(() => onWalletConnect(handlers[0]), AUTO_CONNECT_TIMEOUT_DURATION);
