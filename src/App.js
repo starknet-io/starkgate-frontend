@@ -27,7 +27,7 @@ export const App = () => {
           />
           <Route element={<Terms />} path="/terms" />
           <Route element={<Faq />} path="/faq" />
-          <Route replace element={<Navigate to="/" />} path="*" />
+          <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>
       <Footer />
