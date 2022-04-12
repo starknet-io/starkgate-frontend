@@ -62,7 +62,7 @@ export const faqs = [
       Our recommendation is to wait, and here is the reason why:
       The process of sending transactions from StarkNet to Ethereum is divided into <a href='https://starknet.io/documentation/starkgate-token-bridge/' target='_blank'>two stages</a>.
     </p>
-    <ol type='i'>
+    <ol type='a'>
       <li>A waiting period of several hours is expected between the stages.</li>
       <li>
         At the end of the first step, you will be required to sign in order to complete the transfer.
@@ -133,11 +133,16 @@ export const faqs = [
   {
     question: 'Why can’t I use StarkGate with {insert favorite}Token?',
     answer: `
-      <p>
-        Initially, StarkGate Alpha will only support ETH. After time period of successful use, we will add support for: 
-        WBTC, USDC, USDT and Dai. All relevant contract addresses, both on Ethereum and StarkNet, are available in this <a href='https://github.com/starkware-libs/starknet-addresses' target='_blank'>repo</a>.
-        Further down the road, we will publish the mechanism for adding support for additional tokens.
-      </p>
+    <ol type='a'>
+    <li>
+      StarkGate Alpha on Goerli supports ETH and a few other ERC-20 tokens. The full list and the relevant contract addresses on Goerli,
+      both on Ethereum and StarkNet, are available in this <a href='https://github.com/starkware-libs/starknet-addresses' target='_blank'>repo</a>.
+    </li>
+    <li>
+      On Mainnet, initially, StarkGate Alpha will only support ETH to allow use of the fee mechanism. 
+      Later on, we will add support for WBTC, USDC, USDT, and DAI. Further down the road, we will publish the mechanism for adding support for additional tokens. 
+      The relevant contract addresses on Mainnet are available in this <a href='https://github.com/starkware-libs/starknet-addresses/blob/master/bridged_tokens/mainnet.json' target='_blank'>repo</a>.
+    </li>
     `
   },
   {
