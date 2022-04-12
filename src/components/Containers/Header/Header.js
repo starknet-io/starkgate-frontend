@@ -5,6 +5,7 @@ import useBreakpoint from 'use-breakpoint';
 import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import constants from '../../../config/constants';
+import envs from '../../../config/envs';
 import {Breakpoint} from '../../../enums';
 import {useColors} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
@@ -17,6 +18,7 @@ import styles from './Header.module.scss';
 import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT, TAB_TERMS_TXT} from './Header.strings';
 
 const {DISCORD_LINK_URL} = constants;
+const {env} = envs;
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -70,7 +72,9 @@ export const Header = () => {
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT}</div>
+        {env !== 'production' && (
+          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT}</div>
+        )}
       </div>
       <div className={utils.object.toClasses(styles.right, 'row')}>
         <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
