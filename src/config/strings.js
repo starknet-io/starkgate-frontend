@@ -1,7 +1,7 @@
 const strings = {
   containers: {
     header: {
-      chain_txt: '{{chainName}} testnet',
+      chain_txt: 'Goerli testnet',
       wallet_btn_txt: 'Account | {{address}}',
       tab_discord_txt: 'Discord',
       tab_terms_txt: 'Terms',

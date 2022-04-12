@@ -1,5 +1,5 @@
 import React from 'react';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {track} from '../../../analytics';
@@ -10,7 +10,7 @@ import {useColors} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
-import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
@@ -21,43 +21,42 @@ const {DISCORD_LINK_URL} = constants;
 export const Header = () => {
   const navigate = useNavigate();
   const {pathname} = useLocation();
-  const {chainName} = useWallets();
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
-  const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
+  const {account: l1Account, config: l1Config} = useL1Wallet();
+  const {account: l2Account, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50} = useColors();
   const {isLoggedIn} = useLogin();
 
-  const maybeNavigateToIndex = () => {
+  const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
   };
 
   const onL2WalletButtonClick = () => {
-    maybeNavigateToIndex();
     swapToL2();
     showAccountMenu();
+    maybeNavigateToBridge();
   };
 
   const onL1WalletButtonClick = () => {
-    maybeNavigateToIndex();
     swapToL1();
     showAccountMenu();
+    maybeNavigateToBridge();
   };
 
   const onLogoClick = () => {
-    maybeNavigateToIndex();
     showTransferMenu();
+    maybeNavigateToBridge();
   };
 
   const onTabFaqClick = () => {
-    navigate('faq', {replace: true});
+    navigate('/faq');
   };
 
   const onTabTermsClick = () => {
-    navigate('terms', {replace: true});
+    navigate('/terms');
   };
 
   const onTabDiscordClick = () => {
@@ -71,23 +70,20 @@ export const Header = () => {
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {isLoggedIn && (
-          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
-        )}
+        <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT}</div>
       </div>
-
       <div className={utils.object.toClasses(styles.right, 'row')}>
+        <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
         <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
         <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
-        <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
-        {isL1AccountConnected && (
+        {isLoggedIn && (
           <WalletButton
             account={l1Account}
             logoPath={l1Config?.logoPath}
             onClick={onL1WalletButtonClick}
           />
         )}
-        {isL2AccountConnected && (
+        {isLoggedIn && (
           <WalletButton
             account={l2Account}
             logoPath={l2Config?.logoPath}

@@ -74,12 +74,12 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    const serialError = error ? {...error} : null;
+    const serializedError = status === 'error' ? {...error} : null;
     updateL1Wallet({
       account,
       status,
       chainId,
-      error: serialError,
+      error: serializedError,
       chainName: networkName,
       isConnected: isConnected()
     });
