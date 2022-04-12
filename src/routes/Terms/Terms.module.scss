@@ -1,0 +1,53 @@
+@import '../../index';
+
+.terms {
+  padding-left: inherit;
+  padding-right: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  line-height: 1.7;
+
+  b {
+    letter-spacing: 0.5px;
+  }
+
+  li::marker {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .notes {
+    h3 {
+      margin-bottom: 0;
+      line-height: 1;
+      margin-top: 50px;
+    }
+
+    hr {
+      border-color: $--color-white;
+    }
+
+    li {
+      margin-bottom: 4px;
+
+      &::marker {
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.acceptButton {
+  padding-left: inherit;
+  padding-right: inherit;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

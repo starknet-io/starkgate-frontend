@@ -1,0 +1,26 @@
+@import '../../index';
+
+$background-color: $--color-alpha;
+
+.bridge {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .bridgeMenu {
+    display: flex;
+    flex-direction: column;
+    background: $background-color;
+    border-radius: 20px;
+    padding: 20px;
+    width: 500px;
+    max-height: 650px;
+    margin: auto;
+    transition: 0.3s ease-in-out;
+  }
+}

@@ -5,7 +5,6 @@ export const TrackEvent = {
   SELECT_TOKEN_MENU: 'SELECT_TOKEN_MENU',
   ACCOUNT_MENU: 'ACCOUNT_MENU',
   TRANSFER_MENU: 'TRANSFER_MENU',
-  FAQ_MENU: 'FAQ_MENU',
 
   /**
    * Transfer menu
@@ -54,6 +53,16 @@ export const TrackEvent = {
     WALLET_CLICK: 'LOGIN_SCREEN/wallet_click',
     LOGIN_ERROR: 'LOGIN_SCREEN/login_error'
   },
+
+  /**
+   * Terms screen
+   */
+  TERMS_SCREEN: 'TERMS_SCREEN',
+  TERMS: {
+    ACCEPT_CLICK: 'TERMS_SCREEN/accept_click'
+  },
+
+  FAQ_SCREEN: 'FAQ_SCREEN',
 
   /**
    * Tabs

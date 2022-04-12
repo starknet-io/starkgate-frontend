@@ -2,6 +2,7 @@ import utils from '../utils';
 
 const envs = {
   env: process.env.NODE_ENV,
+  appUrl: process.env.REACT_APP_URL,
   autoConnect: Boolean(process.env.REACT_APP_AUTO_CONNECT),
   pollBlockNumberInterval: Number(process.env.REACT_APP_POLL_BLOCK_NUMBER_INTERVAL),
   supportedTokens: process.env.REACT_APP_SUPPORTED_TOKENS.split(','),
@@ -19,7 +20,8 @@ const envs = {
   localStorageTransfersLogKey: process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY,
   localStorageOnboardingExpirationTimestampKey:
     process.env.REACT_APP_LOCAL_STORAGE_ONBOARDING_TIMESTAMP_KEY,
-  onboardingModalTimeoutHrs: process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HRS
+  onboardingModalTimeoutHrs: process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HRS,
+  localStorageAcceptTermsKey: process.env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS
 };
 
 export default envs;
