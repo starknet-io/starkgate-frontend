@@ -1,3 +1,14 @@
+## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-12)
+
+
+### 🔧 Fixes
+
+* **Faq:** update question 8  ([#149](https://github.com/starkware-libs/starkgate-frontend/issues/149)) ([67f50f7](https://github.com/starkware-libs/starkgate-frontend/commit/67f50f762639e272676da2779a959690d0809a38))
+
+### 🔧 Fixes
+
+* **Terms:** add notes ([#144](https://github.com/starkware-libs/starkgate-frontend/issues/144)) ([b007f3e](https://github.com/starkware-libs/starkgate-frontend/commit/b007f3e2593b7f61716fc467ab5ce0b266ba0ba1))
+
 ## [1.2.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0-dev.1) (2022-04-11)
 
 
