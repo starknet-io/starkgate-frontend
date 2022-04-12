@@ -19,7 +19,7 @@ $shadow-color: $--color-black;
   text-shadow: 1px 1px $shadow-color;
   transition: 0.3s ease-in-out;
 
-  > * > *:last-child {
+  > *:first-child > *:last-child {
     margin-bottom: 70px;
   }
 
