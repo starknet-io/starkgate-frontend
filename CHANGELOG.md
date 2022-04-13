@@ -1,3 +1,10 @@
+## [1.2.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2022-04-13)
+
+
+### 🔧 Fixes
+
+* app crashed when trying to connect while ArgentX wasn't installed ([74e6861](https://github.com/starkware-libs/starkgate-frontend/commit/74e6861e3a7c00623e83fcfecfb0fcafbfc4a89e))
+
 ## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-13)
 
 
