@@ -1,5 +1,6 @@
 import {useContext} from 'react';
 
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {AppContext} from './app-context';
 
 export const useApp = () => useContext(AppContext);
@@ -11,7 +12,8 @@ export const useTerms = () => {
 };
 
 export const useLogin = () => {
-  const {isLoggedIn, login, logout} = useApp();
+  const {isConnected: isL1Connected} = useL1Wallet();
+  const {isConnected: isL2Connected} = useL2Wallet();
 
-  return {isLoggedIn, login, logout};
+  return {isLoggedIn: isL1Connected && isL2Connected};
 };
