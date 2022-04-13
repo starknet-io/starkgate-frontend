@@ -12,3 +12,4 @@ export * from './Breakpoint';
 export * from './ToastType';
 export * from './TransferError';
 export * from './TransferStep';
+export * from './ErrorType';

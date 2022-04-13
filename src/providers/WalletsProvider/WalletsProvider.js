@@ -41,8 +41,11 @@ export const WalletsProvider = ({children}) => {
   };
 
   const connectL2Wallet = async walletConfig => {
-    await getStarknet().enable(!autoConnect && {showModal: true});
-    setL2WalletConfig(walletConfig);
+    try {
+      await getStarknet().enable(!autoConnect && {showModal: true});
+      setL2WalletConfig(walletConfig);
+      // eslint-disable-next-line no-empty
+    } catch {}
   };
 
   const resetWallet = () => {
@@ -74,12 +77,12 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    const serialError = error ? {...error} : null;
+    const serializedError = status === 'error' ? {...error} : null;
     updateL1Wallet({
       account,
       status,
       chainId,
-      error: serialError,
+      error: serializedError,
       chainName: networkName,
       isConnected: isConnected()
     });
