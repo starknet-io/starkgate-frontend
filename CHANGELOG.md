@@ -1,3 +1,10 @@
+## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-13)
+
+
+### 🔧 Fixes
+
+* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([017ce0a](https://github.com/starkware-libs/starkgate-frontend/commit/017ce0a9a86942233cbc0d6affcaecc309714ac5))
+
 ## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-12)
 
 
