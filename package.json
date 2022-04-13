@@ -72,7 +72,7 @@
     "use-async-memo": "^1.2.3",
     "use-breakpoint": "^3.0.1",
     "use-deep-compare-effect": "^1.8.1",
-    "use-wallet": "^0.13.4",
+    "use-wallet": "^0.13.6",
     "uuid": "^8.3.2",
     "web3": "^1.7.0"
   },

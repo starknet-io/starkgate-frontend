@@ -12,19 +12,19 @@ export const ChainType = {
 export const ChainInfo = {
   L1: {
     [ChainType.L1.MAIN]: {
-      NAME: 'main'
+      NAME: 'Ethereum Mainnet'
     },
     [ChainType.L1.GOERLI]: {
-      NAME: 'goerli'
+      NAME: 'Goerli Testnet'
     }
   },
   L2: {
     [ChainType.L2.MAIN]: {
-      NAME: 'main',
+      NAME: 'Ethereum Mainnet',
       ID_PREFIX: '23448594291968334'
     },
     [ChainType.L2.GOERLI]: {
-      NAME: 'goerli',
+      NAME: 'Goerli Testnet',
       ID_PREFIX: '1536727068981429685321'
     }
   }
