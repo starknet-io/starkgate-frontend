@@ -35,7 +35,7 @@ export const Terms = () => {
   const onScroll = () => {
     if (termsRef.current) {
       const {scrollTop, scrollHeight, clientHeight} = termsRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
+      if (Math.ceil(scrollTop + clientHeight) >= scrollHeight) {
         setAcceptButtonEnable(true);
       }
     }
