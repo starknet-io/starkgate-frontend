@@ -528,25 +528,6 @@ export const Terms = () => {
               </p>
             </li>
           </ol>
-          <div className={styles.notes}>
-            <h3>{NOTES_TITLE_TXT}</h3>
-            <hr />
-            <ol>
-              <li>
-                As the StarkNet becomes decentralized we may consider removing the Bridge from these
-                terms and taking the position that it is completely decentralized
-              </li>
-              <li>
-                TBD whether we could add a sentence that StarkWare also cannot control or direct the
-                operation of the part of the Bridge that sits on the StarkNet in the pre-Universe
-                phase.
-              </li>
-              <li>
-                To discuss the extent to which we can make this statement, or can modify it for
-                accuracy.
-              </li>
-            </ol>
-          </div>
         </div>
       </div>
       {!isAcceptTerms && (
