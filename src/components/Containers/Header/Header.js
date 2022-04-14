@@ -1,43 +1,64 @@
 import React from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import constants from '../../../config/constants';
+import envs from '../../../config/envs';
 import {Breakpoint} from '../../../enums';
 import {useColors} from '../../../hooks';
+import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
-import {useL1Wallet, useL2Wallet, useWallets} from '../../../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT} from './Header.strings';
+import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT, TAB_TERMS_TXT} from './Header.strings';
 
 const {DISCORD_LINK_URL} = constants;
+const {env} = envs;
 
 export const Header = () => {
-  const {chainName, isConnected} = useWallets();
-  const {showAccountMenu, showTransferMenu, showFaqMenu} = useMenu();
+  const navigate = useNavigate();
+  const {pathname} = useLocation();
+  const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {account: l1Account, isConnected: isL1AccountConnected, config: l1Config} = useL1Wallet();
-  const {account: l2Account, isConnected: isL2AccountConnected, config: l2Config} = useL2Wallet();
+  const {account: l1Account, config: l1Config} = useL1Wallet();
+  const {account: l2Account, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50} = useColors();
+  const {isLoggedIn} = useLogin();
+
+  const maybeNavigateToBridge = () => {
+    pathname !== '/' && navigate('/');
+  };
 
   const onL2WalletButtonClick = () => {
     swapToL2();
     showAccountMenu();
+    maybeNavigateToBridge();
   };
 
   const onL1WalletButtonClick = () => {
     swapToL1();
     showAccountMenu();
+    maybeNavigateToBridge();
   };
 
   const onLogoClick = () => {
     showTransferMenu();
+    maybeNavigateToBridge();
+  };
+
+  const onTabFaqClick = () => {
+    navigate('/faq');
+  };
+
+  const onTabTermsClick = () => {
+    navigate('/terms');
   };
 
   const onTabDiscordClick = () => {
@@ -51,22 +72,22 @@ export const Header = () => {
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {isConnected && (
-          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT(chainName)}</div>
+        {env !== 'production' && (
+          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT}</div>
         )}
       </div>
-
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={showFaqMenu} />
         <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
-        {isL1AccountConnected && (
+        <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
+        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
+        {isLoggedIn && (
           <WalletButton
             account={l1Account}
             logoPath={l1Config?.logoPath}
             onClick={onL1WalletButtonClick}
           />
         )}
-        {isL2AccountConnected && (
+        {isLoggedIn && (
           <WalletButton
             account={l2Account}
             logoPath={l2Config?.logoPath}

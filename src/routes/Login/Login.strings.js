@@ -1,0 +1,15 @@
+import utils from '../../utils';
+
+const {
+  title_txt,
+  subtitle_txt,
+  download_txt,
+  unsupported_chain_id_txt,
+  unsupported_browser_txt
+} = utils.getTranslation('menus.login');
+
+export const TITLE_TXT = title_txt;
+export const DOWNLOAD_TEXT = download_txt;
+export const UNSUPPORTED_BROWSER_TXT = unsupported_browser_txt;
+export const SUBTITLE_TXT = networkName => utils.object.evaluate(subtitle_txt, {networkName});
+export const UNSUPPORTED_CHAIN_ID_TXT = unsupported_chain_id_txt;

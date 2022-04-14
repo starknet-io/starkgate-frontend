@@ -1,13 +1,25 @@
 const strings = {
   containers: {
     header: {
-      chain_txt: '{{chainName}} testnet',
+      chain_txt: 'Goerli testnet',
       wallet_btn_txt: 'Account | {{address}}',
       tab_discord_txt: 'Discord',
-      tab_faq: 'FAQ'
+      tab_terms_txt: 'Terms',
+      tab_faq_txt: 'FAQ'
     },
     footer: {
       rights_txt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
+    }
+  },
+  screens: {
+    faq: {
+      title_txt: 'FAQ'
+    },
+    terms: {
+      title_txt: 'Terms of Service',
+      last_revised_txt: 'Last Revised: April 4, 2022',
+      notes_title_txt: 'Notes',
+      accept_btn_txt: 'I Accept'
     }
   },
   menus: {
@@ -16,6 +28,8 @@ const strings = {
       title_txt: 'Login',
       subtitle_txt: 'Please select {{networkName}} wallet to connect with this dApp:',
       download_txt: ['Don’t have a wallet?', 'Download Here'],
+      modal_txt: 'Waiting for confirmation from {{walletName}}',
+      unsupported_chain_id_txt: 'Please select {{chainName}} in your wallet',
       unsupported_browser_txt:
         "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect.",
       login_txt: [
@@ -54,9 +68,6 @@ const strings = {
       balance_title_txt: 'Available balance',
       input_placeholder_txt: '0.00',
       transfer_btn_txt: 'Transfer'
-    },
-    faq: {
-      title_txt: 'FAQ'
     }
   },
   modals: {

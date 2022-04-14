@@ -3,7 +3,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
-    amd: true,
+    amd: true,g
     es6: true,
     es2020: true,
     jquery: false

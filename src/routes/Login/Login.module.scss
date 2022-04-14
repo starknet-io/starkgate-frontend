@@ -1,11 +1,10 @@
-@import '../../../index';
+@import '../../index';
 
 $background-color: $--color-alpha;
 $text-color: $--color-white;
 $download-color: $--color-white-1;
 $download-button-color: $--color-beta;
 $container-color: $--color-alpha-3;
-$error-color: $--color-error;
 
 .login {
   position: absolute;
@@ -39,17 +38,6 @@ $error-color: $--color-error;
       border: 1px solid $container-color;
       box-sizing: border-box;
       border-radius: 8px;
-    }
-
-    .errorMsg {
-      margin-top: 20px;
-      line-height: 20px;
-      padding: 7px;
-      font-size: 14px;
-      border: 1px solid $error-color;
-      color: $error-color;
-      background-color: $text-color;
-      border-radius: 7px;
     }
   }
 
