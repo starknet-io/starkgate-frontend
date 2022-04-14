@@ -18,7 +18,6 @@ const strings = {
     terms: {
       title_txt: 'Terms of Service',
       last_revised_txt: 'Last Revised: April 4, 2022',
-      notes_title_txt: 'Notes',
       accept_btn_txt: 'I Accept'
     }
   },
@@ -101,7 +100,7 @@ const strings = {
       limitation_error_title: 'Limitation error'
     },
     onboarding: {
-      title_txt: 'Before takeoff, a few important notes!',
+      title_txt: 'Before takeoff, a few important Notes!',
       subtitle_txt: 'While using StarkGate Alpha:',
       bullets_txt: [
         'Use Google Chrome',
