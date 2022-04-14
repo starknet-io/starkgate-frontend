@@ -1,3 +1,10 @@
+## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-14)
+
+
+### 🔧 Fixes
+
+* accept button stayed disabled when browser zoom is different from 100% ([#158](https://github.com/starkware-libs/starkgate-frontend/issues/158)) ([1e4afac](https://github.com/starkware-libs/starkgate-frontend/commit/1e4afac22a575945a585a76505d49766ca4ba7c2))
+
 ## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-14)
 
 
