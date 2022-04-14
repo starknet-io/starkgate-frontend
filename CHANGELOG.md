@@ -1,3 +1,11 @@
+## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-14)
+
+
+### 🔧 Fixes
+
+* app crashed when trying to connect while ArgentX wasn't installed ([55e25f7](https://github.com/starkware-libs/starkgate-frontend/commit/55e25f769bb175c436fdbcaf8a7ad992891380b9))
+* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([afa5294](https://github.com/starkware-libs/starkgate-frontend/commit/afa5294c5bdc428a7b0d4d569b0deefe884b54d8))
+
 ## [1.2.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2022-04-14)
 
 
