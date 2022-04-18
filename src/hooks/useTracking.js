@@ -3,11 +3,9 @@ import {useCallback} from 'react';
 import {track, TrackEvent} from '../analytics';
 
 export const useTracking = events => {
-  console.log(':::', events);
   if (typeof events === 'string') {
     events = [events];
   }
-  console.log(':::after', events);
 
   const trackEvent = useCallback(event => data => track(event, data), []);
 
