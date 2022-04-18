@@ -9,7 +9,10 @@ export const TransferToL1Message = () => {
     <div className={toClasses(styles.modalMessage, styles.transferMessage)}>
       <center>
         The StarkNet → Ethereum transfer divided into two stages (
-        <a href={STARKGATE_DOCS_URL} target='_blank'>Docs</a>):
+        <a href={STARKGATE_DOCS_URL} rel="noreferrer" target="_blank">
+          Docs
+        </a>
+        ):
       </center>
       <ul>
         <li>A waiting period of several hours is expected between the stages.</li>
