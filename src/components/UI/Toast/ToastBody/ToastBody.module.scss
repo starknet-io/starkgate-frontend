@@ -1,11 +1,9 @@
 @import '../../../../index';
 
-$color: $--color-omega-1;
-
 .toastBody {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 18px;
-  color: $color;
+  color: $--color-omega-1;
 }

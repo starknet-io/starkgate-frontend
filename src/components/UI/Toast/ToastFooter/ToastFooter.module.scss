@@ -1,7 +1,5 @@
 @import '../../../../index';
 
-$color: $--color-omega;
-
 .toastFooter {
   margin-bottom: 5px;
   display: flex;
@@ -12,7 +10,7 @@ $color: $--color-omega;
   cursor: pointer;
   font-size: 11px;
   line-height: 18px;
-  color: $color;
+  color: $--color-omega;
   width: 114px;
   text-decoration: underline;
   align-self: flex-end;

@@ -1,13 +1,8 @@
 @import '../../../index';
 
-$background-color: $--color-alpha-3;
-$color: $--color-white-1;
-$path-stroke-color-hover: $--color-gamma;
-$msg-color: $--color-gamma-1;
-
 .accountAddress {
-  background: $background-color;
-  color: $color;
+  background: $--color-alpha-3;
+  color: $--color-white-1;
   padding: 7px 10px 7px 15px;
   border-radius: 7px;
   font-size: 16px;
@@ -21,7 +16,7 @@ $msg-color: $--color-gamma-1;
 
     &:hover {
       path {
-        stroke: $path-stroke-color-hover;
+        stroke: $--color-gamma;
       }
     }
   }
@@ -30,7 +25,7 @@ $msg-color: $--color-gamma-1;
 .copiedMsg {
   opacity: 0;
   transition: 0.3s ease-in-out;
-  color: $msg-color;
+  color: $--color-gamma-1;
   font-size: 13px;
   float: right;
   text-transform: capitalize;

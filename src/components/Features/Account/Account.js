@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {track, TrackEvent} from '../../../analytics';
-import constants from '../../../config/constants';
-import envs from '../../../config/envs';
-import {useCompleteTransferToL1} from '../../../hooks';
+import {useCompleteTransferToL1, useConstants, useEnvs, useTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
@@ -20,13 +18,11 @@ import {
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
-import {TITLE_TXT} from './Account.strings';
-
-const {etherscanAccountUrl, voyagerAccountUrl} = envs;
-
-const {ETHERSCAN, VOYAGER} = constants;
 
 export const Account = ({transferId}) => {
+  const {titleTxt} = useTranslation('menus.account');
+  const {etherscanAccountUrl, voyagerAccountUrl} = useEnvs();
+  const {ETHERSCAN, VOYAGER} = useConstants();
   const {showTransferMenu} = useMenu();
   const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();
@@ -71,7 +67,7 @@ export const Account = ({transferId}) => {
     <Menu>
       <div>
         <BackButton onClick={() => showTransferMenu()} />
-        <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
+        <MenuTitle text={utils.object.evaluate(titleTxt, {network: fromNetwork.name})} />
         <AccountAddress address={account} onClick={onAccountAddressClick} />
         {isL1 && (
           <LinkButton

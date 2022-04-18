@@ -3,7 +3,7 @@ import React from 'react';
 
 import {ReactComponent as DownArrowIcon} from '../../../assets/svg/icons/collapse.svg';
 import {useColors} from '../../../hooks';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo.enums';
+import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {CryptoLogo, Icon} from '../index';
 import styles from './TokenSelector.module.scss';
 

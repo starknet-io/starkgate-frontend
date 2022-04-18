@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {useTranslation} from '../../../../hooks';
 import styles from './ToastFooter.module.scss';
-import {TRANSFER_LOG_LINK_BTN_TXT} from './ToastFooter.strings';
 
 export const ToastFooter = ({children}) => {
   return <div className={styles.toastFooter}>{children}</div>;
 };
 
 export const TransferLogLink = ({onClick}) => {
+  const {transferLogLink} = useTranslation('toasts');
+
   return (
     <div className={styles.transferLogLink} onClick={onClick}>
-      {TRANSFER_LOG_LINK_BTN_TXT}
+      {transferLogLink}
     </div>
   );
 };

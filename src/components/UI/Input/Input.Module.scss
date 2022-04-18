@@ -1,11 +1,8 @@
 @import '../../../index';
 
-$font: $--primary-font;
-$color: $--color-white;
-
 input {
   &.input {
-    font-family: $font;
+    font-family: $--primary-font;
     background-color: transparent;
     padding: 5px;
     border-radius: 5px;
@@ -13,7 +10,7 @@ input {
     font-size: 15px;
     line-height: 24px;
     outline: none;
-    color: $color;
+    color: $--color-white;
     transition: all 0.3s ease-out;
     display: inline-block;
     max-width: 100%;

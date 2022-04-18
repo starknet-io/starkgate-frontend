@@ -3,23 +3,19 @@ import {useNavigate} from 'react-router-dom';
 
 import {track, TrackEvent} from '../../analytics';
 import {Button, FullScreenContainer} from '../../components/UI';
-import {useColors, useConfig} from '../../hooks';
+import {useColors, useConstants, useEnvs, useTranslation} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
-import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, TITLE_TXT} from './Terms.strings';
-
-const STARKWARE_SITE_URL = 'https://starkware.co/';
-const STARKNET_DOCS_URL = 'https://starknet.io/documentation/';
-const STARKGATE_MAIL_ADDRESS = 'starkgate@starknet.io';
-const STARKGATE_CONTRACTS_URL =
-  'https://github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate';
 
 export const Terms = () => {
+  const {STARKWARE_SITE_URL, STARKNET_DOCS_URL, STARKGATE_MAIL_ADDRESS, STARKGATE_CONTRACTS_URL} =
+    useConstants();
+  const {titleTxt, lastRevisedTxt, acceptBtnTxt} = useTranslation('screens.terms');
   const navigate = useNavigate();
   const termsRef = useRef();
   const acceptButtonRef = useRef();
-  const {appUrl} = useConfig();
+  const {appUrl} = useEnvs();
   const {isAcceptTerms, acceptTerms} = useTerms();
   const {colorGamma1, colorWhite} = useColors();
   const {account: l1account} = useL1Wallet();
@@ -57,8 +53,8 @@ export const Terms = () => {
         }}
         onScroll={onScroll}
       >
-        <h1>{TITLE_TXT}</h1>
-        <h4>{LAST_REVISED_TXT}</h4>
+        <h1>{titleTxt}</h1>
+        <h4>{lastRevisedTxt}</h4>
         <div>
           <p>
             <a href={STARKWARE_SITE_URL} rel="noreferrer" target="_blank">
@@ -542,7 +538,7 @@ export const Terms = () => {
             style={{
               width: '100%'
             }}
-            text={ACCEPT_BTN_TXT}
+            text={acceptBtnTxt}
             onClick={accept}
           />
           <p>

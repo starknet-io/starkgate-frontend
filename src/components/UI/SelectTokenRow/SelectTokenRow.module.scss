@@ -1,12 +1,5 @@
 @import '../../../index';
 
-$hr-color: rgba(255, 255, 255, 0.05);
-$symbol-color: $--color-white;
-$name-color: $--color-alpha-6-hover;
-$balance-color: $--color-alpha-6-hover;
-$name-color-hover: $--color-white;
-$balance-color-hover: $--color-white;
-
 .selectTokenRow {
   cursor: pointer;
 
@@ -15,7 +8,7 @@ $balance-color-hover: $--color-white;
   }
 
   hr {
-    border-color: $hr-color;
+    border-color: rgba(255, 255, 255, 0.05);
   }
 
   &:first-child {
@@ -37,7 +30,7 @@ $balance-color-hover: $--color-white;
       align-items: center;
 
       .symbol {
-        color: $symbol-color;
+        color: $--color-white;
         font-weight: 600;
         font-size: 18px;
         text-transform: uppercase;
@@ -47,7 +40,7 @@ $balance-color-hover: $--color-white;
 
       .name {
         font-size: 16px;
-        color: $name-color;
+        color: $--color-alpha-6-hover;
         text-transform: capitalize;
         transition: 0.4s ease-in-out;
       }
@@ -59,7 +52,7 @@ $balance-color-hover: $--color-white;
       .balance {
         float: right;
         font-size: 18px;
-        color: $balance-color;
+        color: $--color-alpha-6-hover;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
       }
@@ -70,13 +63,13 @@ $balance-color-hover: $--color-white;
     .data {
       .left {
         .name {
-          color: $name-color-hover;
+          color: $--color-white;
         }
       }
 
       .right {
         .balance {
-          color: $balance-color-hover;
+          color: $--color-white;
         }
       }
     }

@@ -1,16 +1,10 @@
 @import '../../../index';
 
-$color: $--color-gamma-1;
-$border-color: $--color-gamma-1;
-$color-hover: $--color-gamma;
-$border-color-hover: $--color-gamma;
-$path-fill-color-hover: $--color-gamma;
-
 .linkButton {
-  color: $color;
+  color: $--color-gamma-1;
   padding: 3px 10px;
   border-radius: 7px;
-  border-color: $border-color;
+  border-color: $--color-gamma-1;
   border-style: solid;
   border-width: 1px;
   font-size: 12px;
@@ -29,12 +23,12 @@ $path-fill-color-hover: $--color-gamma;
   }
 
   &:hover {
-    color: $color-hover;
-    border-color: $border-color-hover;
+    color: $--color-gamma;
+    border-color: $--color-gamma;
 
     svg {
       path {
-        fill: $path-fill-color-hover;
+        fill: $--color-gamma;
       }
     }
   }

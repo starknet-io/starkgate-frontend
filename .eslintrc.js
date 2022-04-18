@@ -39,6 +39,7 @@ module.exports = {
     'no-confusing-arrow': ['error', {allowParens: true}],
     'no-console': 'warn',
     'no-var': 'warn',
+    'no-unused-vars': 'error',
     'object-shorthand': 'error',
     'prefer-const': 'warn',
     'prefer-template': 'warn',

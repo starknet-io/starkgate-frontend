@@ -1,15 +1,10 @@
 @import '../../../index';
 
-$color: $--color-white;
-$border-color: $--color-alpha-3;
-$empty-msg-color: $--color-white-1;
-$view-more-color: $--color-gamma-1;
-
 .transferLogContainer {
-  color: $color;
+  color: $--color-white;
   padding: 13px;
   border-radius: 7px;
-  border-color: $border-color;
+  border-color: $--color-alpha-3;
   border-style: solid;
   border-width: 2px;
   margin: 10px 0;
@@ -39,7 +34,7 @@ $view-more-color: $--color-gamma-1;
   }
 
   .empty {
-    color: $empty-msg-color;
+    color: $--color-white-1;
     font-size: 12px;
     opacity: 0.3;
   }
@@ -50,7 +45,7 @@ $view-more-color: $--color-gamma-1;
     span {
       cursor: pointer;
       text-transform: capitalize;
-      color: $view-more-color;
+      color: $--color-gamma-1;
     }
   }
 }

@@ -4,10 +4,8 @@ import useBreakpoint from 'use-breakpoint';
 
 import {track} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import constants from '../../../config/constants';
-import envs from '../../../config/envs';
 import {Breakpoint} from '../../../enums';
-import {useColors} from '../../../hooks';
+import {useColors, useConstants, useEnvs, useTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -15,12 +13,11 @@ import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
-import {CHAIN_TXT, TAB_DISCORD_TXT, TAB_FAQ_TXT, TAB_TERMS_TXT} from './Header.strings';
-
-const {DISCORD_LINK_URL} = constants;
-const {env} = envs;
 
 export const Header = () => {
+  const {DISCORD_LINK_URL} = useConstants();
+  const {env} = useEnvs();
+  const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useTranslation('containers.header');
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -73,13 +70,13 @@ export const Header = () => {
           <StarkGateLogo />
         </div>
         {env !== 'production' && (
-          <div className={utils.object.toClasses(styles.chain, 'row')}>{CHAIN_TXT}</div>
+          <div className={utils.object.toClasses(styles.chain, 'row')}>{chainTxt}</div>
         )}
       </div>
       <div className={utils.object.toClasses(styles.right, 'row')}>
-        <Tab color={colorDiscord} label={TAB_DISCORD_TXT} onClick={onTabDiscordClick} />
-        <Tab color={colorWhiteOp50} label={TAB_TERMS_TXT} onClick={onTabTermsClick} />
-        <Tab color={colorWhiteOp50} label={TAB_FAQ_TXT} onClick={onTabFaqClick} />
+        <Tab color={colorDiscord} label={tabDiscordTxt} onClick={onTabDiscordClick} />
+        <Tab color={colorWhiteOp50} label={tabTermsTxt} onClick={onTabTermsClick} />
+        <Tab color={colorWhiteOp50} label={tabFaqTxt} onClick={onTabFaqClick} />
         {isLoggedIn && (
           <WalletButton
             account={l1Account}
