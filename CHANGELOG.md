@@ -1,3 +1,10 @@
+### [1.2.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0...v1.2.1-dev.1) (2022-04-18)
+
+
+### 💉 Improvements
+
+* move to hooks useConstants, useEnvs, useTranslation ([#159](https://github.com/starkware-libs/starkgate-frontend/issues/159)) ([b77ba11](https://github.com/starkware-libs/starkgate-frontend/commit/b77ba118934e95859cb4409ba22be3c8ac25fd79))
+
 ## [1.2.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0) (2022-04-14)
 
 
