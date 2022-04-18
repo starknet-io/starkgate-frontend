@@ -39,7 +39,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       height={0}
       icon={
         logoPath.startsWith('data:image') ? (
-          <img alt={''} src={logoPath} width={logoSize} height={logoSize} />
+          <img alt={''} height={logoSize} src={logoPath} width={logoSize} />
         ) : (
           <DynamicIcon path={logoPath} size={logoSize} />
         )
