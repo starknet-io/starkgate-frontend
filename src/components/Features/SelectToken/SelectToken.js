@@ -3,16 +3,15 @@ import React, {useEffect, useState} from 'react';
 import {track, TrackEvent} from '../../../analytics';
 import L1Logo from '../../../assets/svg/tokens/eth.svg';
 import L2Logo from '../../../assets/svg/tokens/starknet.svg';
-import {useColors} from '../../../hooks';
+import {useColors, useTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
-import utils from '../../../utils';
 import {BackButton, Menu, MenuTitle, RefreshIcon, SearchToken, SelectTokenList} from '../../UI';
 import styles from './SelectToken.module.scss';
 
 export const SelectToken = () => {
-  const {titleTxt} = utils.getTranslation('menus.selectToken');
+  const {titleTxt} = useTranslation('menus.selectToken');
   const {tokens, updateTokenBalance} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useMenu();

@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
-import utils from '../../../utils';
+import {useColors, useTranslation} from '../../../hooks';
 import {Button} from '../index';
 
 export const TransferButton = props => {
   const {colorBeta, colorWhite} = useColors();
-  const {transferBtnTxt} = utils.getTranslation('menus.transfer');
+  const {transferBtnTxt} = useTranslation('menus.transfer');
 
   return (
     <Button

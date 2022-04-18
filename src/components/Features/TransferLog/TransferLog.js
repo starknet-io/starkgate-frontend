@@ -9,7 +9,7 @@ import {
   TransactionStatusFriendlyMessage,
   TransactionStatusStep
 } from '../../../enums';
-import {useColors, useEnvs} from '../../../hooks';
+import {useColors, useEnvs, useTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {Button, CryptoLogo, CryptoLogoSize} from '../../UI';
@@ -87,9 +87,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 };
 
 const CompleteTransferButton = ({onClick}) => {
-  const {completeTransferBtnTxt} = utils.getTranslation(
-    'menus.account.transferLogContainer.transferLog'
-  );
+  const {completeTransferBtnTxt} = useTranslation('menus.account.transferLogContainer.transferLog');
   const {colorBeta} = useColors();
 
   return (
