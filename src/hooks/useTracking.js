@@ -3,10 +3,15 @@ import {useCallback} from 'react';
 import {track, TrackEvent} from '../analytics';
 
 export const useTracking = events => {
+  console.log(':::', events);
   if (typeof events === 'string') {
     events = [events];
   }
-  return events.map(event => useCallback(data => track(event, data), []));
+  console.log(':::after', events);
+
+  const trackEvent = useCallback(event => data => track(event, data), []);
+
+  return events.map(trackEvent, [events]);
 };
 
 export const useMenuTracking = () => {

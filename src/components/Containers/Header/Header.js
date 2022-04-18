@@ -2,6 +2,7 @@ import React from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
+import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {Breakpoint} from '../../../enums';
 import {useColors, useConstants, useEnvs, useTracking, useTranslation} from '../../../hooks';
