@@ -1,3 +1,18 @@
+## [1.2.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0) (2022-04-14)
+
+
+### 🧩 Features
+
+* terms of use ([#141](https://github.com/starkware-libs/starkgate-frontend/issues/141)) ([8d9fe79](https://github.com/starkware-libs/starkgate-frontend/commit/8d9fe7957e09c739e1e79801eaf507178854f944))
+
+
+### 🔧 Fixes
+
+* accept button stayed disabled when browser zoom is different from 100% ([#158](https://github.com/starkware-libs/starkgate-frontend/issues/158)) ([1e4afac](https://github.com/starkware-libs/starkgate-frontend/commit/1e4afac22a575945a585a76505d49766ca4ba7c2))
+* app crashed when trying to connect while ArgentX wasn't installed ([55e25f7](https://github.com/starkware-libs/starkgate-frontend/commit/55e25f769bb175c436fdbcaf8a7ad992891380b9))
+* **Faq:** question 8 ([#157](https://github.com/starkware-libs/starkgate-frontend/issues/157)) ([51da4aa](https://github.com/starkware-libs/starkgate-frontend/commit/51da4aa7f8d5045c4e5dea34e59cef20a12363b9))
+* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([afa5294](https://github.com/starkware-libs/starkgate-frontend/commit/afa5294c5bdc428a7b0d4d569b0deefe884b54d8))
+
 ## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-14)
 
 
