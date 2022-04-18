@@ -11,7 +11,7 @@ import styles from './Terms.module.scss';
 export const Terms = () => {
   const {STARKWARE_SITE_URL, STARKNET_DOCS_URL, STARKGATE_MAIL_ADDRESS, STARKGATE_CONTRACTS_URL} =
     useConstants();
-  const {titleTxt, lastRevisedTxt, notesTitleTxt, acceptBtnTxt} = useTranslation('screens.terms');
+  const {titleTxt, lastRevisedTxt, acceptBtnTxt} = useTranslation('screens.terms');
   const navigate = useNavigate();
   const termsRef = useRef();
   const acceptButtonRef = useRef();
