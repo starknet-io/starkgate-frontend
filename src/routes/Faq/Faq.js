@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 
+import {TrackEvent} from '../../analytics';
 import {FullScreenContainer} from '../../components/UI';
 import {faqs} from '../../config/faqs';
 import {useTracking, useTranslation} from '../../hooks';
