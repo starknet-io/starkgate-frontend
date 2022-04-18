@@ -27,6 +27,8 @@ export const WalletButton = ({account, logoPath, onClick}) => {
     return utils.object.evaluate(walletBtnTxt, {address});
   };
 
+  const logoSize = isMobile(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE;
+
   return (
     <Button
       className={toClasses(styles.walletButton, styles[breakpoint.toLowerCase()])}
@@ -36,10 +38,11 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       colorText={colorWhite}
       height={0}
       icon={
-        <DynamicIcon
-          path={logoPath}
-          size={isMobile(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE}
-        />
+        logoPath.startsWith('data:image') ? (
+          <img alt={''} src={logoPath} width={logoSize} height={logoSize} />
+        ) : (
+          <DynamicIcon path={logoPath} size={logoSize} />
+        )
       }
       text={getText()}
       onClick={onClick}

@@ -42,7 +42,15 @@ export const WalletsProvider = ({children}) => {
 
   const connectL2Wallet = async walletConfig => {
     try {
-      await getStarknet().enable(!autoConnect && {showModal: true});
+      const wallet = getStarknet();
+      const enabled = await wallet
+        .enable(!autoConnect && {showModal: true})
+        .then(address => !!address?.length);
+      if (enabled) {
+        walletConfig.name = wallet.name || walletConfig.name;
+        walletConfig.logoPath = wallet.icon || walletConfig.logoPath;
+      }
+
       setL2WalletConfig(walletConfig);
       // eslint-disable-next-line no-empty
     } catch {}

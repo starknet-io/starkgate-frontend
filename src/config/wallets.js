@@ -10,11 +10,11 @@ const wallets = [
     logoPath: 'wallets/metamask/logo.svg'
   },
   {
-    id: 'argent',
-    name: 'Argent X',
+    id: 'gsw',
+    name: 'StarkNet Wallet',
     type: WalletType.L2,
     description: 'Login using a browser wallet',
-    logoPath: 'wallets/argent/logo.svg'
+    logoPath: 'wallets/gsw/logo.svg'
   }
 ];
 

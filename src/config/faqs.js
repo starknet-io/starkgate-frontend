@@ -22,7 +22,7 @@ export const faqs = [
           <li>Make sure you are not using incognito mode.</li>
           <li>
             Ensure that you have successfully installed the required wallets (MetaMask and
-            Argent X). If you haven’t installed one of these wallets, please do so and
+            a StarkNet wallet). If you haven’t installed one of these wallets, please do so and
             refresh the page.
           </li>
           <li>
