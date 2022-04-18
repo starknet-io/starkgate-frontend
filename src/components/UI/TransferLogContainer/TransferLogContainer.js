@@ -2,16 +2,14 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
-import {useTranslation} from '../../../hooks';
+import {useTransferLogContainerTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import utils from '../../../utils';
 import styles from './TransferLogContainer.module.scss';
 
 export const TransferLogContainer = ({transferIndex, children, onShowTransfers}) => {
   const {resetMenuProps} = useMenu();
-  const {titleTxt, overviewTxt, emptyMsgTxt, viewMoreTxt} = useTranslation(
-    'menus.account.transferLogContainer'
-  );
+  const {titleTxt, overviewTxt, emptyMsgTxt, viewMoreTxt} = useTransferLogContainerTranslation();
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {

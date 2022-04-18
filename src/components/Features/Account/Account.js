@@ -2,7 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {track, TrackEvent} from '../../../analytics';
-import {useCompleteTransferToL1, useConstants, useEnvs, useTranslation} from '../../../hooks';
+import {
+  useAccountTranslation,
+  useCompleteTransferToL1,
+  useConstants,
+  useEnvs
+} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
@@ -20,7 +25,7 @@ import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
 
 export const Account = ({transferId}) => {
-  const {titleTxt} = useTranslation('menus.account');
+  const {titleTxt} = useAccountTranslation();
   const {etherscanAccountUrl, voyagerAccountUrl} = useEnvs();
   const {ETHERSCAN, VOYAGER} = useConstants();
   const {showTransferMenu} = useMenu();

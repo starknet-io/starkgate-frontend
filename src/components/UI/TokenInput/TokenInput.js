@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useTranslation} from '../../../hooks';
+import {useTransferTranslation} from '../../../hooks';
 import utils from '../../../utils';
 import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
@@ -16,7 +16,7 @@ export const TokenInput = ({
   onTokenSelect,
   onInputChange
 }) => {
-  const {inputPlaceholderTxt} = useTranslation('menus.transfer');
+  const {inputPlaceholderTxt} = useTransferTranslation();
 
   return (
     <div className={utils.object.toClasses(styles.tokenInput, hasError && styles.hasError)}>

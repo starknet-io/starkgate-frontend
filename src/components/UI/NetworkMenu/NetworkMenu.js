@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useTranslation} from '../../../hooks';
+import {useTransferTranslation} from '../../../hooks';
 import {NetworkTitle} from '../NetworkTitle/NetworkTitle';
 import {TokenBalance} from '../TokenBalance/TokenBalance';
 import {Badge} from '../index';
 import styles from './NetworkMenu.module.scss';
 
 export const NetworkMenu = ({networkData, tokenData, isTarget, onRefreshClick, children}) => {
-  const {toTxt, fromTxt} = useTranslation('menus.transfer');
+  const {toTxt, fromTxt} = useTransferTranslation();
 
   return (
     <div className={styles.networkMenu}>

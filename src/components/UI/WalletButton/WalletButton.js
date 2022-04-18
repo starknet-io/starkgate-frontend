@@ -3,7 +3,7 @@ import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
-import {useColors, useTranslation} from '../../../hooks';
+import {useColors, useHeaderTranslation} from '../../../hooks';
 import utils from '../../../utils';
 import {toClasses} from '../../../utils/object';
 import {Button, DynamicIcon} from '../index';
@@ -14,7 +14,7 @@ const WALLET_LOGO_SIZE_MOBILE = 40;
 
 export const WalletButton = ({account, logoPath, onClick}) => {
   const {colorBeta, colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
-  const {walletBtnTxt} = useTranslation('containers.header');
+  const {walletBtnTxt} = useHeaderTranslation();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   const getText = () => {

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useTranslation} from '../../../hooks';
+import {useTransferTranslation} from '../../../hooks';
 import styles from './MaxButton.module.scss';
 
 export const MaxButton = ({onClick}) => {
-  const {maxBtnTxt} = useTranslation('menus.transfer');
+  const {maxBtnTxt} = useTransferTranslation();
 
   return (
     <div className={styles.maxButton} onClick={onClick}>
