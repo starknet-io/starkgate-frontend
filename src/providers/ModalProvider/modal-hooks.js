@@ -46,7 +46,7 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useTranslation('modal.transactionSubmitted');
+  const {titleTxt} = useTranslation('modals.transactionSubmitted');
 
   return useCallback(
     transfer => {
