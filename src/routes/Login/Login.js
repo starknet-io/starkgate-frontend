@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {track, TrackEvent} from '../../analytics';
 import {LoginErrorMessage, WalletLogin} from '../../components/UI';
 import {ChainInfo, ErrorType, NetworkType, WalletStatus, WalletType} from '../../enums';
-import {useEnvs, useTranslation, useWalletHandlerProvider} from '../../hooks';
+import {useEnvs, useLoginTracking, useTranslation, useWalletHandlerProvider} from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
@@ -21,6 +20,8 @@ export const Login = () => {
     unsupportedBrowserTxt,
     unsupportedChainIdTxt
   } = useTranslation('menus.login');
+  const [trackLoginScreen, trackDownloadClick, trackWalletClick, trackLoginError] =
+    useLoginTracking();
   const {autoConnect, supportedChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
@@ -34,7 +35,7 @@ export const Login = () => {
   const {connectWallet: connectL2Wallet} = useL2Wallet();
 
   useEffect(() => {
-    track(TrackEvent.LOGIN_SCREEN);
+    trackLoginScreen();
     if (!utils.browser.isChrome()) {
       setError({type: ErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
@@ -43,7 +44,7 @@ export const Login = () => {
   useEffect(() => {
     let timeoutId;
     if (error) {
-      track(TrackEvent.LOGIN.LOGIN_ERROR, error);
+      trackLoginError(error);
     } else if (!error && autoConnect) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
@@ -88,7 +89,7 @@ export const Login = () => {
   const onWalletConnect = walletHandler => {
     const {config} = walletHandler;
     const {name} = config;
-    track(TrackEvent.LOGIN.WALLET_CLICK, {name});
+    trackWalletClick(name);
     if (!walletHandler.isInstalled()) {
       return walletHandler.install();
     }
@@ -97,7 +98,7 @@ export const Login = () => {
   };
 
   const onDownloadClick = () => {
-    track(TrackEvent.LOGIN.DOWNLOAD_CLICK, {walletType});
+    trackDownloadClick(walletType);
     const handlers = getWalletHandlers(walletType);
     if (handlers.length > 0) {
       return handlers[0].install();
