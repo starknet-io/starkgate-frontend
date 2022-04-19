@@ -11,28 +11,36 @@ export const useConstitutiveTranslation = (basePath, path) => {
   return useTranslation(basePath);
 };
 
+export const useContainersTranslation = path => {
+  return useConstitutiveTranslation('containers', path);
+};
+
 export const useHeaderTranslation = () => {
-  return useTranslation('containers.header');
+  return useContainersTranslation('header');
 };
 
 export const useFooterTranslation = () => {
-  return useTranslation('containers.footer');
+  return useContainersTranslation('footer');
 };
 
-export const useAccountTranslation = path => {
-  return useConstitutiveTranslation('menus.account', path);
+export const useMenusTranslation = path => {
+  return useConstitutiveTranslation('menus', path);
+};
+
+export const useAccountTranslation = () => {
+  return useMenusTranslation('account');
 };
 
 export const useSelectTokenTranslation = () => {
-  return useTranslation('menus.selectToken');
+  return useMenusTranslation('selectToken');
 };
 
 export const useTransferTranslation = () => {
-  return useTranslation('menus.transfer');
+  return useMenusTranslation('transfer');
 };
 
 export const useLoginTranslation = () => {
-  return useTranslation('menus.login');
+  return useMenusTranslation('login');
 };
 
 export const useToastsTranslation = path => {
@@ -40,11 +48,11 @@ export const useToastsTranslation = path => {
 };
 
 export const useCompleteTransferToastTranslation = () => {
-  return useConstitutiveTranslation('completeTransfer');
+  return useToastsTranslation('completeTransfer');
 };
 
 export const usePendingTransferToastTranslation = () => {
-  return useConstitutiveTranslation('pendingTransfer');
+  return useToastsTranslation('pendingTransfer');
 };
 
 export const useModalsTranslation = path => {
@@ -63,12 +71,16 @@ export const useOnboardingModalTranslation = () => {
   return useModalsTranslation('onboarding');
 };
 
+export const useScreensTranslation = path => {
+  return useConstitutiveTranslation('screens', path);
+};
+
 export const useFaqTranslation = () => {
-  return useTranslation('screens.faq');
+  return useScreensTranslation('faq');
 };
 
 export const useTermsTranslation = () => {
-  return useTranslation('screens.terms');
+  return useScreensTranslation('terms');
 };
 
 export const useTransferLogContainerTranslation = () => {
