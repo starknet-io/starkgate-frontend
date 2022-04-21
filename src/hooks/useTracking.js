@@ -29,6 +29,7 @@ export const useMenuTracking = () => {
         trackSelectTokenMenu();
         break;
       case MenuType.TRANSFER:
+      default:
         trackTransferMenu();
         break;
     }

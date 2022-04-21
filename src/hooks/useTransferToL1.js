@@ -17,7 +17,7 @@ import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
-import {useTransferToL1Tracking} from './useTracking';
+import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -111,7 +111,7 @@ export const useCompleteTransferToL1 = () => {
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
   const addWithdrawalListener = useWithdrawalListener();
-  const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL1Tracking();
+  const [trackInitiated, trackSuccess, trackError, trackReject] = useCompleteTransferToL1Tracking();
 
   return useCallback(
     async transfer => {
