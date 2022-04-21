@@ -2,10 +2,10 @@ import React from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
-import {track} from '../../../analytics';
+import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {Breakpoint} from '../../../enums';
-import {useColors, useConstants, useEnvs, useHeaderTranslation} from '../../../hooks';
+import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -16,6 +16,7 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
+  const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {env} = useEnvs();
   const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export const Header = () => {
   };
 
   const onTabDiscordClick = () => {
-    track(TrackEvent.DISCORD_TAB_CLICK);
+    trackDiscordClick();
     utils.browser.openInNewTab(DISCORD_LINK_URL);
   };
 
