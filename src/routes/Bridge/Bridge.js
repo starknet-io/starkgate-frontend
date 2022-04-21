@@ -13,12 +13,16 @@ import utils from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
+  const trackMenu = useMenuTracking();
+  const showOnboardingModal = useOnboardingModal();
   const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = useEnvs();
-  const [trackAccountMenu, trackTransferMenu, trackSelectTokenMenu] = useMenuTracking();
   const {menu, menuProps} = useMenu();
   const {account: l1account} = useL1Wallet();
   const {account: l2account} = useL2Wallet();
-  const showOnboardingModal = useOnboardingModal();
+
+  useEffect(() => {
+    trackMenu(menu);
+  }, [menu]);
 
   useEffect(() => {
     setUser({l1account, l2account});
@@ -41,14 +45,11 @@ export const Bridge = () => {
   const renderMenu = () => {
     switch (menu) {
       case MenuType.SELECT_TOKEN:
-        trackSelectTokenMenu();
         return <SelectToken />;
       case MenuType.ACCOUNT:
-        trackAccountMenu();
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
       case MenuType.TRANSFER:
       default:
-        trackTransferMenu();
         return <Transfer />;
     }
   };

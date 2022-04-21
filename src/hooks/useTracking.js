@@ -1,6 +1,7 @@
 import {useCallback} from 'react';
 
 import {track, TrackEvent} from '../analytics';
+import {MenuType} from '../enums';
 
 export const useTracking = events => {
   if (typeof events === 'string') {
@@ -13,11 +14,25 @@ export const useTracking = events => {
 };
 
 export const useMenuTracking = () => {
-  return useTracking([
+  const [trackAccountMenu, trackTransferMenu, trackSelectTokenMenu] = useTracking([
     TrackEvent.ACCOUNT_MENU,
     TrackEvent.TRANSFER_MENU,
     TrackEvent.SELECT_TOKEN_MENU
   ]);
+
+  return useCallback(menu => {
+    switch (menu) {
+      case MenuType.ACCOUNT:
+        trackAccountMenu();
+        break;
+      case MenuType.SELECT_TOKEN:
+        trackSelectTokenMenu();
+        break;
+      case MenuType.TRANSFER:
+        trackTransferMenu();
+        break;
+    }
+  }, []);
 };
 
 export const useLoginTracking = () => {
