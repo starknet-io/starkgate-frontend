@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
-import constants from '../../config/constants';
-import {useLogger} from '../../hooks';
+import {useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
-const {FETCH_TOKEN_BALANCE_MAX_RETRY} = constants;
-
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
+  const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
   const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: l1Account} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo.enums';
+import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {CryptoLogo} from '../index';
 import styles from './NetworkTitle.module.scss';
 

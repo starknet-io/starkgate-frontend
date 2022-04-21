@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from 'react';
 
-import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
-import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
+import {
+  useMaxDeposit,
+  useTransferToL1,
+  useTransferToL2,
+  useTransferTracking,
+  useTranslation
+} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {
   Loading,
+  LoadingSize,
   Menu,
   NetworkMenu,
   NetworkSwap,
@@ -16,16 +22,16 @@ import {
   TransferButton,
   TransferMenuTab
 } from '../../UI';
-import {LoadingSize} from '../../UI/Loading/Loading.enums';
 import styles from './Transfer.module.scss';
-import {
-  INSUFFICIENT_BALANCE_ERROR_MSG,
-  MAX_DEPOSIT_ERROR_MSG,
-  NEGATIVE_VALUE_ERROR_MSG,
-  TOO_MANY_DIGITS_ERROR_MSG
-} from './Transfer.strings';
 
 export const Transfer = () => {
+  const {
+    insufficientBalanceErrorMsg,
+    maxDepositErrorMsg,
+    tooManyDigitsErrorMsg,
+    negativeValueErrorMsg
+  } = useTranslation('menus.transfer');
+  const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
   const [amount, setAmount] = useAmount();
@@ -62,13 +68,13 @@ export const Transfer = () => {
     let errorMsg = '';
 
     if (utils.number.afterDecimal(amount) > selectedToken.decimals) {
-      errorMsg = TOO_MANY_DIGITS_ERROR_MSG;
+      errorMsg = tooManyDigitsErrorMsg;
     } else if (utils.number.isNegative(amount)) {
-      errorMsg = NEGATIVE_VALUE_ERROR_MSG;
+      errorMsg = negativeValueErrorMsg;
     } else if (amount > selectedToken.balance) {
-      errorMsg = INSUFFICIENT_BALANCE_ERROR_MSG;
+      errorMsg = insufficientBalanceErrorMsg;
     } else if (isL1 && amount > maxDeposit) {
-      errorMsg = MAX_DEPOSIT_ERROR_MSG;
+      errorMsg = maxDepositErrorMsg;
     }
 
     if (errorMsg) {
@@ -82,7 +88,7 @@ export const Transfer = () => {
 
   const onMaxClick = () => {
     try {
-      track(TrackEvent.TRANSFER.MAX_CLICK);
+      trackMaxClick();
       setAmount(String(Math.min(selectedToken.balance, isL1 ? Number(maxDeposit) : Infinity)));
     } catch (ex) {
       setAmount(selectedToken.balance);
@@ -94,7 +100,7 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
-    track(TrackEvent.TRANSFER.SWAP_NETWORK);
+    trackSwapNetworks();
     isL2 ? swapToL1() : swapToL2();
   };
 

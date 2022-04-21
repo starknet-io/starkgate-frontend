@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import envs from '../../config/envs';
+import {useEnvs} from '../../hooks';
 import utils from '../../utils';
 import {AppContext} from './app-context';
 import {actions, initialState, reducer} from './app-reducer';
 
-const {localStorageAcceptTermsKey} = envs;
-
 export const AppProvider = ({children}) => {
+  const {localStorageAcceptTermsKey} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const login = () => {

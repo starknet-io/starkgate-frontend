@@ -3,8 +3,15 @@ import React from 'react';
 
 import {Circle} from '../Circle/Circle';
 import {DynamicIcon} from '../DynamicIcon/DynamicIcon';
-import {CIRCLE_LOGO_SIZE_DIFF} from './CryptoLogo.constants';
 import styles from './CryptoLogo.module.scss';
+
+const CIRCLE_LOGO_SIZE_DIFF = 14;
+
+export const CryptoLogoSize = {
+  SMALL: 30,
+  MEDIUM: 50,
+  LARGE: 70
+};
 
 export const CryptoLogo = ({symbol, color, size}) => {
   return symbol ? (

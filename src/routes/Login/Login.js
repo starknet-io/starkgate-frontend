@@ -1,25 +1,28 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {track, TrackEvent} from '../../analytics';
 import {LoginErrorMessage, WalletLogin} from '../../components/UI';
 import {ChainInfo, ErrorType, NetworkType, WalletStatus, WalletType} from '../../enums';
-import {useConfig, useWalletHandlerProvider} from '../../hooks';
+import {useEnvs, useLoginTracking, useTranslation, useWalletHandlerProvider} from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
-import {AUTO_CONNECT_TIMEOUT_DURATION, MODAL_TIMEOUT_DURATION} from './Login.constants';
 import styles from './Login.module.scss';
-import {
-  DOWNLOAD_TEXT,
-  MODAL_TXT,
-  SUBTITLE_TXT,
-  TITLE_TXT,
-  UNSUPPORTED_BROWSER_TXT,
-  UNSUPPORTED_CHAIN_ID_TXT
-} from './Login.strings';
+
+const MODAL_TIMEOUT_DURATION = 2000;
+const AUTO_CONNECT_TIMEOUT_DURATION = 100;
 
 export const Login = () => {
-  const {autoConnect} = useConfig();
+  const {
+    titleTxt,
+    subtitleTxt,
+    downloadTxt,
+    modalTxt,
+    unsupportedBrowserTxt,
+    unsupportedChainIdTxt
+  } = useTranslation('menus.login');
+  const [trackLoginScreen, trackDownloadClick, trackWalletClick, trackLoginError] =
+    useLoginTracking();
+  const {autoConnect, supportedChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
   const [walletType, setWalletType] = useState(WalletType.L1);
@@ -30,19 +33,18 @@ export const Login = () => {
   const {status, error: walletError} = useWallets();
   const {connectWallet: connectL1Wallet, isConnected: isConnectedL1Wallet} = useL1Wallet();
   const {connectWallet: connectL2Wallet} = useL2Wallet();
-  const {supportedChainId} = useConfig();
 
   useEffect(() => {
-    track(TrackEvent.LOGIN_SCREEN);
+    trackLoginScreen();
     if (!utils.browser.isChrome()) {
-      setError({type: ErrorType.UNSUPPORTED_BROWSER, message: UNSUPPORTED_BROWSER_TXT});
+      setError({type: ErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
   }, []);
 
   useEffect(() => {
     let timeoutId;
     if (error) {
-      track(TrackEvent.LOGIN.LOGIN_ERROR, error);
+      trackLoginError(error);
     } else if (!error && autoConnect) {
       const handlers = getWalletHandlers(walletType);
       if (handlers.length > 0) {
@@ -87,7 +89,7 @@ export const Login = () => {
   const onWalletConnect = walletHandler => {
     const {config} = walletHandler;
     const {name} = config;
-    track(TrackEvent.LOGIN.WALLET_CLICK, {name});
+    trackWalletClick(name);
     if (!walletHandler.isInstalled()) {
       return walletHandler.install();
     }
@@ -96,7 +98,7 @@ export const Login = () => {
   };
 
   const onDownloadClick = () => {
-    track(TrackEvent.LOGIN.DOWNLOAD_CLICK, {walletType});
+    trackDownloadClick(walletType);
     const handlers = getWalletHandlers(walletType);
     if (handlers.length > 0) {
       return handlers[0].install();
@@ -107,7 +109,7 @@ export const Login = () => {
     if (error.name === 'ChainUnsupportedError') {
       setError({
         type: ErrorType.UNSUPPORTED_CHAIN_ID,
-        message: utils.object.evaluate(UNSUPPORTED_CHAIN_ID_TXT, {
+        message: utils.object.evaluate(unsupportedChainIdTxt, {
           chainName: ChainInfo.L1[supportedChainId].NAME
         })
       });
@@ -117,7 +119,10 @@ export const Login = () => {
   const maybeShowModal = () => {
     maybeHideModal();
     modalTimeoutId.current = setTimeout(() => {
-      showProgressModal(selectedWalletName, MODAL_TXT(selectedWalletName));
+      showProgressModal(
+        selectedWalletName,
+        utils.object.evaluate(modalTxt, {walletName: selectedWalletName})
+      );
     }, MODAL_TIMEOUT_DURATION);
   };
 
@@ -150,16 +155,18 @@ export const Login = () => {
   return (
     <div className={utils.object.toClasses(styles.login, 'center')}>
       <div className={styles.content}>
-        <div className={styles.title}>{TITLE_TXT}</div>
+        <div className={styles.title}>{titleTxt}</div>
         <p>
-          {SUBTITLE_TXT(walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name)}
+          {utils.object.evaluate(subtitleTxt, {
+            networkName: walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name
+          })}
         </p>
         <div className={styles.container}>{renderLoginWallets()}</div>
         {error && <LoginErrorMessage message={error.message} />}
       </div>
       <div className={styles.separator} />
       <div className={styles.download}>
-        {DOWNLOAD_TEXT[0]} <span onClick={onDownloadClick}>{DOWNLOAD_TEXT[1]}</span>
+        {downloadTxt[0]} <span onClick={onDownloadClick}>{downloadTxt[1]}</span>
       </div>
     </div>
   );

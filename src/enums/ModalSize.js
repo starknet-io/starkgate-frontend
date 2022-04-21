@@ -12,10 +12,3 @@ export const ModalSize = {
     height: 500
   }
 };
-
-export const ModalType = {
-  INFO: 'info',
-  SUCCESS: 'success',
-  WARNING: 'warning',
-  ERROR: 'error'
-};

@@ -1,11 +1,8 @@
 @import '../../../index';
 
-$height: $--footer-height;
-$copyright-color: $--color-beta;
-
 .footer {
   font-size: 13px;
-  height: #{$height}px;
+  height: #{$--footer-height}px;
   border-top: 1px solid transparent;
   width: 100%;
   display: flex;
@@ -19,7 +16,7 @@ $copyright-color: $--color-beta;
   background: transparent;
 
   .copyright {
-    color: $copyright-color;
+    color: $--color-beta;
     font-size: 12px;
     line-height: 24px;
   }

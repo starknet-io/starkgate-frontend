@@ -2,11 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {UseWalletProvider as UseWalletProviderWrapper} from 'use-wallet';
 
-import {useConfig} from '../../hooks';
+import {useEnvs} from '../../hooks';
 
 export const WalletProvider = ({children}) => {
-  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainId} = useConfig();
-
+  const {pollBalanceInterval, pollBlockNumberInterval, supportedChainId} = useEnvs();
   return (
     <UseWalletProviderWrapper
       autoConnect={false}
