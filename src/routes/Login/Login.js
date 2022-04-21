@@ -2,7 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import {LoginErrorMessage, WalletLogin} from '../../components/UI';
 import {ChainInfo, ErrorType, NetworkType, WalletStatus, WalletType} from '../../enums';
-import {useEnvs, useLoginTracking, useTranslation, useWalletHandlerProvider} from '../../hooks';
+import {
+  useEnvs,
+  useLoginTracking,
+  useLoginTranslation,
+  useWalletHandlerProvider
+} from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
@@ -19,7 +24,7 @@ export const Login = () => {
     modalTxt,
     unsupportedBrowserTxt,
     unsupportedChainIdTxt
-  } = useTranslation('menus.login');
+  } = useLoginTranslation();
   const [trackLoginScreen, trackDownloadClick, trackWalletClick, trackLoginError] =
     useLoginTracking();
   const {autoConnect, supportedChainId} = useEnvs();

@@ -6,7 +6,7 @@ import {
   useCompleteTransferToL1,
   useConstants,
   useEnvs,
-  useTranslation
+  useAccountTranslation
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
@@ -25,7 +25,7 @@ import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
 
 export const Account = ({transferId}) => {
-  const {titleTxt} = useTranslation('menus.account');
+  const {titleTxt} = useAccountTranslation();
   const [
     trackTxLinkClick,
     trackAccountLinkClick,

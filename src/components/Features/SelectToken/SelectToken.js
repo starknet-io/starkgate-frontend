@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import L1Logo from '../../../assets/svg/tokens/eth.svg';
 import L2Logo from '../../../assets/svg/tokens/starknet.svg';
-import {useColors, useTranslation, useSelectTokenTracking} from '../../../hooks';
+import {useColors, useSelectTokenTranslation, useSelectTokenTracking} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
@@ -11,7 +11,7 @@ import styles from './SelectToken.module.scss';
 
 export const SelectToken = () => {
   const [trackSelectToken] = useSelectTokenTracking();
-  const {titleTxt} = useTranslation('menus.selectToken');
+  const {titleTxt} = useSelectTokenTranslation();
   const {tokens, updateTokenBalance} = useTokens();
   const {colorBeta} = useColors();
   const {showTransferMenu} = useMenu();

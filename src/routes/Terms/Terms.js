@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 import {Button, FullScreenContainer} from '../../components/UI';
-import {useColors, useConstants, useEnvs, useTermsTracking, useTranslation} from '../../hooks';
+import {useColors, useConstants, useEnvs, useTermsTracking, useTermsTranslation} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
@@ -11,7 +11,7 @@ export const Terms = () => {
   const {STARKWARE_SITE_URL, STARKNET_DOCS_URL, STARKGATE_MAIL_ADDRESS, STARKGATE_CONTRACTS_URL} =
     useConstants();
   const [trackTermsScreen, trackAcceptClick] = useTermsTracking();
-  const {titleTxt, lastRevisedTxt, acceptBtnTxt} = useTranslation('screens.terms');
+  const {titleTxt, lastRevisedTxt, acceptBtnTxt} = useTermsTranslation();
   const navigate = useNavigate();
   const termsRef = useRef();
   const acceptButtonRef = useRef();

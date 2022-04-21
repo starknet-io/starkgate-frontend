@@ -4,7 +4,12 @@ import React from 'react';
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/tokens/starknet.svg';
 import {ActionType} from '../../../../enums';
-import {useColors, useConstants, useEnvs, useTranslation} from '../../../../hooks';
+import {
+  useColors,
+  useConstants,
+  useEnvs,
+  useTransactionSubmittedModalTranslation
+} from '../../../../hooks';
 import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
@@ -15,9 +20,8 @@ import styles from './TransactionSubmittedModal.module.scss';
 const TransactionSubmittedModal = ({transfer}) => {
   const {ETHERSCAN, VOYAGER} = useConstants();
   const {etherscanTxUrl, voyagerTxUrl} = useEnvs();
-  const {completeTransferToL1Txt, transferToL1Txt, transferToL2Txt} = useTranslation(
-    'modals.transactionSubmitted'
-  );
+  const {completeTransferToL1Txt, transferToL1Txt, transferToL2Txt} =
+    useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
   const explorerButtons = [];
@@ -77,7 +81,7 @@ const TransactionSubmittedModal = ({transfer}) => {
 
 const TransactionSubmittedModalButton = ({networkName, networkLogo, onClick}) => {
   const {colorAlpha3, colorWhite, colorWhite1} = useColors();
-  const {btnTxt} = useTranslation('modals.transactionSubmitted');
+  const {btnTxt} = useTransactionSubmittedModalTranslation();
 
   return (
     <Button

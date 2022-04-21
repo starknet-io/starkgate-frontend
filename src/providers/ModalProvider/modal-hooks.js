@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../enums';
-import {useTranslation} from '../../hooks';
+import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
 export const useModal = () => {
@@ -46,7 +46,7 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useTranslation('modals.transactionSubmitted');
+  const {titleTxt} = useTransactionSubmittedModalTranslation();
 
   return useCallback(
     transfer => {
@@ -86,7 +86,7 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useTranslation('modals.onboarding');
+  const {titleTxt} = useOnboardingModalTranslation();
 
   return useCallback(() => {
     showModal({

@@ -6,7 +6,7 @@ import {
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
-  useTranslation
+  useTransferTranslation
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
@@ -30,7 +30,7 @@ export const Transfer = () => {
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
     negativeValueErrorMsg
-  } = useTranslation('menus.transfer');
+  } = useTransferTranslation();
   const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();

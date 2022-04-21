@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 
 import {ReactComponent as CopyIcon} from '../../../assets/svg/icons/copy.svg';
-import {useAnimation, useTranslation} from '../../../hooks';
+import {useAccountTranslation, useAnimation} from '../../../hooks';
 import utils from '../../../utils';
 import styles from './AccountAddress.module.scss';
 
 const COPIED_ANIMATION_TIMEOUT_INTERVAL = 1000;
 
 export const AccountAddress = ({address, onClick}) => {
-  const {copiedMsgTxt} = useTranslation('menus.account');
+  const {copiedMsgTxt} = useAccountTranslation();
   const [isAnimate, startAnimation] = useAnimation(COPIED_ANIMATION_TIMEOUT_INTERVAL);
   const ref = useRef();
 
