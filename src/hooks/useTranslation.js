@@ -27,8 +27,8 @@ export const useMenusTranslation = path => {
   return useConstitutiveTranslation('menus', path);
 };
 
-export const useAccountTranslation = () => {
-  return useMenusTranslation('account');
+export const useAccountTranslation = path => {
+  return useMenusTranslation('account', path);
 };
 
 export const useSelectTokenTranslation = () => {
