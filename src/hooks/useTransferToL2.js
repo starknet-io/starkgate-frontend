@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
 
-import {track, TrackEvent} from '../analytics';
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
 import {
@@ -19,11 +18,13 @@ import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useMaxTotalBalance} from './useTokenConstant';
+import {useTransferToL2Tracking} from './useTracking';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
 
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
+  const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL2Tracking();
   const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
   const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
@@ -62,7 +63,7 @@ export const useTransferToL2 = () => {
       };
 
       const sendDeposit = () => {
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_INITIATED, {
+        trackInitiated({
           from_address: l1Account,
           to_address: l2Account,
           amount,
@@ -86,7 +87,7 @@ export const useTransferToL2 = () => {
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
           );
         } else {
-          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT, error);
+          trackReject(error);
           logger.error(error.message);
           handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
@@ -107,7 +108,7 @@ export const useTransferToL2 = () => {
             });
           }
         } else {
-          track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, error);
+          trackError(error);
           logger.error(error.message);
           handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
@@ -125,7 +126,7 @@ export const useTransferToL2 = () => {
           l2ChainId,
           nonce
         );
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_SUCCESS, {l1hash, l2hash});
+        trackSuccess({l1hash, l2hash});
         return {
           l1hash,
           l2hash
@@ -146,10 +147,7 @@ export const useTransferToL2 = () => {
       try {
         logger.log('TransferToL2 called');
         if (await isMaxBalanceExceeded()) {
-          track(
-            TrackEvent.TRANSFER.TRANSFER_TO_L2_REJECT,
-            progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR)
-          );
+          trackReject(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
           handleError(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
           return;
@@ -176,7 +174,7 @@ export const useTransferToL2 = () => {
         logger.log('Calling deposit');
         await sendDeposit();
       } catch (ex) {
-        track(TrackEvent.TRANSFER.TRANSFER_TO_L2_ERROR, ex);
+        trackError(ex);
         logger.error(ex.message, {ex});
         handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
