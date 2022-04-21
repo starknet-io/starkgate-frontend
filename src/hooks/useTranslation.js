@@ -4,15 +4,8 @@ import utils from '../utils';
 
 export const useTranslation = path => useMemo(() => utils.getTranslation(path), [path]);
 
-export const useConstitutiveTranslation = (basePath, path) => {
-  if (path) {
-    basePath = `${basePath}.${path}`;
-  }
-  return useTranslation(basePath);
-};
-
 export const useContainersTranslation = path => {
-  return useConstitutiveTranslation('containers', path);
+  return useTranslation(chainPath('containers', path));
 };
 
 export const useHeaderTranslation = () => {
@@ -24,27 +17,27 @@ export const useFooterTranslation = () => {
 };
 
 export const useMenusTranslation = path => {
-  return useConstitutiveTranslation('menus', path);
+  return useTranslation(chainPath('menus', path));
 };
 
 export const useAccountTranslation = path => {
-  return useMenusTranslation('account', path);
+  return useMenusTranslation(chainPath('account', path));
 };
 
-export const useSelectTokenTranslation = () => {
-  return useMenusTranslation('selectToken');
+export const useSelectTokenTranslation = path => {
+  return useMenusTranslation(chainPath('selectToken', path));
 };
 
-export const useTransferTranslation = () => {
-  return useMenusTranslation('transfer');
+export const useTransferTranslation = path => {
+  return useMenusTranslation(chainPath('transfer', path));
 };
 
-export const useLoginTranslation = () => {
-  return useMenusTranslation('login');
+export const useLoginTranslation = path => {
+  return useMenusTranslation(chainPath('login', path));
 };
 
 export const useToastsTranslation = path => {
-  return useConstitutiveTranslation('toasts', path);
+  return useTranslation(chainPath('toasts', path));
 };
 
 export const useCompleteTransferToastTranslation = () => {
@@ -56,7 +49,7 @@ export const usePendingTransferToastTranslation = () => {
 };
 
 export const useModalsTranslation = path => {
-  return useConstitutiveTranslation('modals', path);
+  return useTranslation(chainPath('modals', path));
 };
 
 export const useTransferProgressModalTranslation = () => {
@@ -72,7 +65,7 @@ export const useOnboardingModalTranslation = () => {
 };
 
 export const useScreensTranslation = path => {
-  return useConstitutiveTranslation('screens', path);
+  return useTranslation(chainPath('screens', path));
 };
 
 export const useFaqTranslation = () => {
@@ -89,4 +82,8 @@ export const useTransferLogContainerTranslation = () => {
 
 export const useTransferLogTranslation = () => {
   return useAccountTranslation('transferLogContainer.transferLog');
+};
+
+const chainPath = (basePath, constitutivePath) => {
+  return constitutivePath ? `${basePath}.${constitutivePath}` : basePath;
 };
