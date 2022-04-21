@@ -18,7 +18,6 @@ const strings = {
     terms: {
       titleTxt: 'Terms of Service',
       lastRevisedTxt: 'Last Revised: April 4, 2022',
-      notesTitleTxt: 'Notes',
       acceptBtnTxt: 'I Accept'
     }
   },
