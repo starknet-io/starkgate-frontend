@@ -1,3 +1,10 @@
+### [1.2.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.2...v1.2.1-dev.3) (2022-04-21)
+
+
+### 💉 Improvements
+
+* useTranslation hooks ([#162](https://github.com/starkware-libs/starkgate-frontend/issues/162)) ([92e0927](https://github.com/starkware-libs/starkgate-frontend/commit/92e092764ec53d622eacc8d8a27038869131cde5))
+
 ### [1.2.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.1...v1.2.1-dev.2) (2022-04-21)
 
 
