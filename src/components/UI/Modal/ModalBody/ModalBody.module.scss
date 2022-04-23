@@ -9,6 +9,8 @@
   white-space: break-spaces;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: inherit;
+  overflow-wrap: break-word;
 
   &.error {
     color: $--color-error;

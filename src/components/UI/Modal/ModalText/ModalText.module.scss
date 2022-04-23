@@ -2,16 +2,19 @@
   font-weight: 400;
   font-size: 17px;
   letter-spacing: 0.03em;
+  max-width: inherit;
 
   .wrap {
     float: left;
     position: relative;
     left: 50%;
+    max-width: inherit;
 
     .content {
       float: left;
       position: relative;
       left: -50%;
+      max-width: inherit;
     }
   }
 }
