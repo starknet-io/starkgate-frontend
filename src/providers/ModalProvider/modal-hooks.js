@@ -2,6 +2,7 @@ import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../enums';
 import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
+import utils from '../../utils';
 import {evaluate} from '../../utils/object';
 import {ModalContext} from './modal-context';
 

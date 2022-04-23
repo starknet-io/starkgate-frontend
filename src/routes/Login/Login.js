@@ -8,7 +8,7 @@ import {
   useLoginTranslation,
   useWalletHandlerProvider
 } from '../../hooks';
-import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
+import {useConnectingWalletModal, useHideModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
 import styles from './Login.module.scss';

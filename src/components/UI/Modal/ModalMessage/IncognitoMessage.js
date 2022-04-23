@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {LoginMessage} from './LoginMessage';
-
 export const IncognitoMessage = ({txtParts}) => {
   return (
     <p>
@@ -11,6 +9,6 @@ export const IncognitoMessage = ({txtParts}) => {
   );
 };
 
-LoginMessage.propTypes = {
+IncognitoMessage.propTypes = {
   txtParts: PropTypes.array
 };

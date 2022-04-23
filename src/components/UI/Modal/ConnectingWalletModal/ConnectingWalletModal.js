@@ -12,7 +12,7 @@ const ConnectingWalletModal = ({walletName, iconPath}) => {
       <center>
         <DynamicIcon path={iconPath} size={100} />
       </center>
-      <LoginMessage walletName={walletName} txtParts={BODY_TXT_PARTS} />
+      <LoginMessage txtParts={BODY_TXT_PARTS} walletName={walletName} />
     </WithLoaderModal>
   );
 };
