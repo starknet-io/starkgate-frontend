@@ -1,9 +1,7 @@
 @import '../../../index';
 
-$background-color: $--color-gamma;
-
 .badge {
-  background: $background-color;
+  background: $--color-gamma;
   border-radius: 3px;
   text-transform: uppercase;
   font-weight: bold;

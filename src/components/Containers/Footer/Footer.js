@@ -1,16 +1,17 @@
 import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
-import {isMobile, Breakpoint} from '../../../enums';
+import {Breakpoint, isMobile} from '../../../enums';
+import {useFooterTranslation} from '../../../hooks';
 import styles from './Footer.module.scss';
-import {RIGHTS_TXT} from './Footer.strings';
 
 export const Footer = () => {
+  const {rightsTxt} = useFooterTranslation();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   return !isMobile(breakpoint) ? (
     <footer className={styles.footer}>
-      <div className={styles.copyright}>{RIGHTS_TXT}</div>
+      <div className={styles.copyright}>{rightsTxt}</div>
     </footer>
   ) : null;
 };

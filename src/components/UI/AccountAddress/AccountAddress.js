@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 
 import {ReactComponent as CopyIcon} from '../../../assets/svg/icons/copy.svg';
-import {useAnimation} from '../../../hooks';
+import {useAccountTranslation, useAnimation} from '../../../hooks';
 import utils from '../../../utils';
-import {COPIED_ANIMATION_TIMEOUT_INTERVAL} from './AccountAddress.constants';
 import styles from './AccountAddress.module.scss';
-import {COPIED_MSG_TXT} from './AccountAddress.strings';
+
+const COPIED_ANIMATION_TIMEOUT_INTERVAL = 1000;
 
 export const AccountAddress = ({address, onClick}) => {
+  const {copiedMsgTxt} = useAccountTranslation();
   const [isAnimate, startAnimation] = useAnimation(COPIED_ANIMATION_TIMEOUT_INTERVAL);
   const ref = useRef();
 
@@ -26,7 +27,7 @@ export const AccountAddress = ({address, onClick}) => {
         <CopyIcon onClick={onCopyClick} />
       </div>
       <div className={utils.object.toClasses(styles.copiedMsg, isAnimate && styles.copied)}>
-        {COPIED_MSG_TXT}
+        {copiedMsgTxt}
       </div>
     </>
   );

@@ -1,8 +1,15 @@
 import React, {lazy, Suspense} from 'react';
 
 import {useHideModal, useModal} from '../../../providers/ModalProvider';
-import {LoadingSize} from '../Loading/Loading.enums';
-import {Loading, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle} from '../index';
+import {
+  Loading,
+  LoadingSize,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle
+} from '../index';
 import {ModalText} from './ModalText/ModalText';
 
 export const ModalWrapper = () => {

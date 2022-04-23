@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
+import {useAccountTranslation, useColors} from '../../../hooks';
 import {Button} from '../index';
-import {BTN_TXT} from './LogoutButton.strings';
 
 export const LogoutButton = ({onClick, isDisabled}) => {
+  const {logoutBtnTxt} = useAccountTranslation();
   const {colorAlpha5, colorWhite} = useColors();
 
   return (
@@ -21,7 +21,7 @@ export const LogoutButton = ({onClick, isDisabled}) => {
         borderRadius: '7px',
         fontSize: '16px'
       }}
-      text={BTN_TXT}
+      text={logoutBtnTxt}
       onClick={onClick}
     />
   );

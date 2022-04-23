@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import envs from '../../config/envs';
 import {isCompleted, isConsumed} from '../../enums';
-import {useLogger} from '../../hooks';
+import {useEnvs, useLogger} from '../../hooks';
 import {starknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
@@ -12,9 +11,8 @@ import {useTokens} from '../TokensProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
-const {localStorageTransfersLogKey} = envs;
-
 export const TransfersLogProvider = ({children}) => {
+  const {localStorageTransfersLogKey} = useEnvs();
   const logger = useLogger(TransfersLogProvider.displayName);
   const [transfers, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();

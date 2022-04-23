@@ -3,37 +3,35 @@ import React from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/tokens/starknet.svg';
-import constants from '../../../../config/constants';
-import envs from '../../../../config/envs';
 import {ActionType} from '../../../../enums';
-import {useColors} from '../../../../hooks';
+import {
+  useColors,
+  useConstants,
+  useEnvs,
+  useTransactionSubmittedModalTranslation
+} from '../../../../hooks';
 import utils from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';
 import styles from './TransactionSubmittedModal.module.scss';
-import {
-  BTN_TEXT,
-  COMPLETE_TRANSFER_TO_L1_TXT,
-  TRANSFER_TO_L1_TXT,
-  TRANSFER_TO_L2_TXT
-} from './TransactionSubmittedModal.strings';
-
-const {ETHERSCAN, VOYAGER} = constants;
-const {etherscanTxUrl, voyagerTxUrl} = envs;
 
 const TransactionSubmittedModal = ({transfer}) => {
+  const {ETHERSCAN, VOYAGER} = useConstants();
+  const {etherscanTxUrl, voyagerTxUrl} = useEnvs();
+  const {completeTransferToL1Txt, transferToL1Txt, transferToL2Txt} =
+    useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
   const explorerButtons = [];
 
   const textMessage =
     type === ActionType.TRANSFER_TO_L2
-      ? TRANSFER_TO_L2_TXT
+      ? transferToL2Txt
       : isTransferCompleted
-      ? COMPLETE_TRANSFER_TO_L1_TXT
-      : TRANSFER_TO_L1_TXT;
+      ? completeTransferToL1Txt
+      : transferToL1Txt;
 
   const messageComponent =
     type === ActionType.TRANSFER_TO_L2 ? (
@@ -83,6 +81,8 @@ const TransactionSubmittedModal = ({transfer}) => {
 
 const TransactionSubmittedModalButton = ({networkName, networkLogo, onClick}) => {
   const {colorAlpha3, colorWhite, colorWhite1} = useColors();
+  const {btnTxt} = useTransactionSubmittedModalTranslation();
+
   return (
     <Button
       colorBackground={colorWhite}
@@ -93,7 +93,7 @@ const TransactionSubmittedModalButton = ({networkName, networkLogo, onClick}) =>
           {networkLogo}
         </Circle>
       }
-      text={BTN_TEXT(networkName)}
+      text={utils.object.evaluate(btnTxt, {explorer: networkName})}
       onClick={onClick}
     />
   );

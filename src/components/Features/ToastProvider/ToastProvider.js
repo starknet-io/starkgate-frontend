@@ -14,19 +14,19 @@ import {
   NetworkType,
   ToastType
 } from '../../../enums';
-import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
+import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
-import {ALPHA_DISCLAIMER_MSG} from './ToastProvider.strings';
 
 const toastsMap = {};
 const toastsDismissed = {};
 
 export const ToastProvider = () => {
+  const {alphaDisclaimerMsg} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();
@@ -61,7 +61,7 @@ export const ToastProvider = () => {
   };
 
   const showAlphaDisclaimerToast = () => {
-    toast.success(ALPHA_DISCLAIMER_MSG, {
+    toast.success(alphaDisclaimerMsg, {
       id: 'alphaDisclaimer',
       position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-left',
       icon: '❗'

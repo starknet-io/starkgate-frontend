@@ -1,4 +1,25 @@
-## [1.2.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0) (2022-04-13)
+### [1.2.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.2...v1.2.1-dev.3) (2022-04-21)
+
+
+### 💉 Improvements
+
+* useTranslation hooks ([#162](https://github.com/starkware-libs/starkgate-frontend/issues/162)) ([92e0927](https://github.com/starkware-libs/starkgate-frontend/commit/92e092764ec53d622eacc8d8a27038869131cde5))
+
+### [1.2.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.1...v1.2.1-dev.2) (2022-04-21)
+
+
+### 💉 Improvements
+
+* useTracking ([#160](https://github.com/starkware-libs/starkgate-frontend/issues/160)) ([a8cad80](https://github.com/starkware-libs/starkgate-frontend/commit/a8cad802e13fcd7b940eed5d60a8f943d82662a9))
+
+### [1.2.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0...v1.2.1-dev.1) (2022-04-18)
+
+
+### 💉 Improvements
+
+* move to hooks useConstants, useEnvs, useTranslation ([#159](https://github.com/starkware-libs/starkgate-frontend/issues/159)) ([b77ba11](https://github.com/starkware-libs/starkgate-frontend/commit/b77ba118934e95859cb4409ba22be3c8ac25fd79))
+
+## [1.2.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0) (2022-04-14)
 
 
 ### 🧩 Features
@@ -8,38 +29,32 @@
 
 ### 🔧 Fixes
 
-* app crashed when trying to connect while ArgentX wasn't installed ([74e6861](https://github.com/starkware-libs/starkgate-frontend/commit/74e6861e3a7c00623e83fcfecfb0fcafbfc4a89e))
-* **Faq:** update question 8  ([#149](https://github.com/starkware-libs/starkgate-frontend/issues/149)) ([67f50f7](https://github.com/starkware-libs/starkgate-frontend/commit/67f50f762639e272676da2779a959690d0809a38))
-* **Terms:** add notes ([#144](https://github.com/starkware-libs/starkgate-frontend/issues/144)) ([b007f3e](https://github.com/starkware-libs/starkgate-frontend/commit/b007f3e2593b7f61716fc467ab5ce0b266ba0ba1))
-* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([017ce0a](https://github.com/starkware-libs/starkgate-frontend/commit/017ce0a9a86942233cbc0d6affcaecc309714ac5))
+* accept button stayed disabled when browser zoom is different from 100% ([#158](https://github.com/starkware-libs/starkgate-frontend/issues/158)) ([1e4afac](https://github.com/starkware-libs/starkgate-frontend/commit/1e4afac22a575945a585a76505d49766ca4ba7c2))
+* app crashed when trying to connect while ArgentX wasn't installed ([55e25f7](https://github.com/starkware-libs/starkgate-frontend/commit/55e25f769bb175c436fdbcaf8a7ad992891380b9))
+* **Faq:** question 8 ([#157](https://github.com/starkware-libs/starkgate-frontend/issues/157)) ([51da4aa](https://github.com/starkware-libs/starkgate-frontend/commit/51da4aa7f8d5045c4e5dea34e59cef20a12363b9))
+* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([afa5294](https://github.com/starkware-libs/starkgate-frontend/commit/afa5294c5bdc428a7b0d4d569b0deefe884b54d8))
 
-## [1.2.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.4...v1.2.0-dev.5) (2022-04-13)
-
-
-### 🔧 Fixes
-
-* app crashed when trying to connect while ArgentX wasn't installed ([74e6861](https://github.com/starkware-libs/starkgate-frontend/commit/74e6861e3a7c00623e83fcfecfb0fcafbfc4a89e))
-
-## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-13)
+## [1.2.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.3...v1.2.0-dev.4) (2022-04-14)
 
 
 ### 🔧 Fixes
 
-* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([017ce0a](https://github.com/starkware-libs/starkgate-frontend/commit/017ce0a9a86942233cbc0d6affcaecc309714ac5))
+* accept button stayed disabled when browser zoom is different from 100% ([#158](https://github.com/starkware-libs/starkgate-frontend/issues/158)) ([1e4afac](https://github.com/starkware-libs/starkgate-frontend/commit/1e4afac22a575945a585a76505d49766ca4ba7c2))
 
-## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-12)
-
-
-### 🔧 Fixes
-
-* **Faq:** update question 8  ([#149](https://github.com/starkware-libs/starkgate-frontend/issues/149)) ([67f50f7](https://github.com/starkware-libs/starkgate-frontend/commit/67f50f762639e272676da2779a959690d0809a38))
-
-## [1.2.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2022-04-11)
+## [1.2.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.2...v1.2.0-dev.3) (2022-04-14)
 
 
 ### 🔧 Fixes
 
-* **Terms:** add notes ([#144](https://github.com/starkware-libs/starkgate-frontend/issues/144)) ([b007f3e](https://github.com/starkware-libs/starkgate-frontend/commit/b007f3e2593b7f61716fc467ab5ce0b266ba0ba1))
+* app crashed when trying to connect while ArgentX wasn't installed ([55e25f7](https://github.com/starkware-libs/starkgate-frontend/commit/55e25f769bb175c436fdbcaf8a7ad992891380b9))
+* unsupported chain id does not showing  ([#151](https://github.com/starkware-libs/starkgate-frontend/issues/151)) ([afa5294](https://github.com/starkware-libs/starkgate-frontend/commit/afa5294c5bdc428a7b0d4d569b0deefe884b54d8))
+
+## [1.2.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0-dev.1...v1.2.0-dev.2) (2022-04-14)
+
+
+### 🔧 Fixes
+
+* **Faq:** question 8 ([#157](https://github.com/starkware-libs/starkgate-frontend/issues/157)) ([51da4aa](https://github.com/starkware-libs/starkgate-frontend/commit/51da4aa7f8d5045c4e5dea34e59cef20a12363b9))
 
 ## [1.2.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0...v1.2.0-dev.1) (2022-04-11)
 
@@ -70,6 +85,7 @@
 * new event driven implementation for deposit and withdraw ([#139](https://github.com/starkware-libs/starkgate-frontend/issues/139)) ([96d6b24](https://github.com/starkware-libs/starkgate-frontend/commit/96d6b240d0e6ec6e82b5cb3b418c7b1478541e09))
 
 ## [1.1.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2022-04-05)
+
 
 ### 🔧 Fixes
 

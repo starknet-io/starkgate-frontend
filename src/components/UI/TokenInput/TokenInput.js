@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {useTransferTranslation} from '../../../hooks';
 import utils from '../../../utils';
 import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
 import {Input} from '../index';
 import styles from './TokenInput.module.scss';
-import {INPUT_PLACEHOLDER} from './TokenInput.strings';
 
 export const TokenInput = ({
   value,
@@ -15,22 +15,26 @@ export const TokenInput = ({
   onMaxClick,
   onTokenSelect,
   onInputChange
-}) => (
-  <div className={utils.object.toClasses(styles.tokenInput, hasError && styles.hasError)}>
-    <Input
-      placeholder={INPUT_PLACEHOLDER}
-      style={{
-        fontSize: '24px',
-        fontWeight: '600'
-      }}
-      type="number"
-      value={value}
-      onChange={onInputChange}
-    />
-    <MaxButton onClick={onMaxClick} />
-    <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
-  </div>
-);
+}) => {
+  const {inputPlaceholderTxt} = useTransferTranslation();
+
+  return (
+    <div className={utils.object.toClasses(styles.tokenInput, hasError && styles.hasError)}>
+      <Input
+        placeholder={inputPlaceholderTxt}
+        style={{
+          fontSize: '24px',
+          fontWeight: '600'
+        }}
+        type="number"
+        value={value}
+        onChange={onInputChange}
+      />
+      <MaxButton onClick={onMaxClick} />
+      <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
+    </div>
+  );
+};
 
 TokenInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

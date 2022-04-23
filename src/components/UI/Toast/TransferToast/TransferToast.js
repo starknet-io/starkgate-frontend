@@ -2,23 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {isConsumed, isPending, isRejected} from '../../../../enums';
+import {usePendingTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastFooter, TransferLogLink} from '../ToastFooter/ToastFooter';
 import {ToastHeader} from '../ToastHeader/ToastHeader';
 import {ToastSeparator} from '../ToastSeparator/ToastSeparator';
-import {CONSUMED_TXT, PENDING_TXT, REJECTED_TXT} from './TransferToast.strings';
 
 export const TransferToast = ({transfer, isLoading, onTransferLogLinkClick, onClose}) => {
+  const {pendingTxt, consumedTxt, rejectedTxt} = usePendingTransferToastTranslation();
+
   const getTitle = () => {
     const {status} = transfer;
     if (isPending(status)) {
-      return PENDING_TXT;
+      return pendingTxt;
     }
     if (isConsumed(status)) {
-      return CONSUMED_TXT;
+      return consumedTxt;
     }
     if (isRejected(status)) {
-      return REJECTED_TXT;
+      return rejectedTxt;
     }
   };
 

@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {track, TrackEvent} from '../../../analytics';
-import constants from '../../../config/constants';
-import envs from '../../../config/envs';
-import {useCompleteTransferToL1} from '../../../hooks';
+import {
+  useAccountTracking,
+  useCompleteTransferToL1,
+  useConstants,
+  useEnvs,
+  useAccountTranslation
+} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
@@ -20,13 +23,18 @@ import {
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
-import {TITLE_TXT} from './Account.strings';
-
-const {etherscanAccountUrl, voyagerAccountUrl} = envs;
-
-const {ETHERSCAN, VOYAGER} = constants;
 
 export const Account = ({transferId}) => {
+  const {titleTxt} = useAccountTranslation();
+  const [
+    trackTxLinkClick,
+    trackAccountLinkClick,
+    trackViewTransfersLog,
+    trackCompleteTransferClick,
+    trackAddressCopied
+  ] = useAccountTracking();
+  const {etherscanAccountUrl, voyagerAccountUrl} = useEnvs();
+  const {ETHERSCAN, VOYAGER} = useConstants();
   const {showTransferMenu} = useMenu();
   const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();
@@ -40,56 +48,40 @@ export const Account = ({transferId}) => {
             key={index}
             transfer={transfer}
             onCompleteTransferClick={() => onCompleteTransferClick(transfer)}
-            onTxClick={onTxClick}
+            onTxClick={trackTxLinkClick}
           />
         ))
       : null;
   };
 
-  const onTxClick = () => {
-    track(TrackEvent.ACCOUNT.TX_LINK_CLICK);
-  };
-
   const onCompleteTransferClick = transfer => {
-    track(TrackEvent.ACCOUNT.COMPLETE_TRANSFER_CLICK);
+    trackCompleteTransferClick();
     completeTransferToL1(transfer);
-  };
-
-  const onAccountLinkClick = () => {
-    track(TrackEvent.ACCOUNT.ACCOUNT_LINK_CLICK);
-  };
-
-  const onShowTransfers = () => {
-    track(TrackEvent.ACCOUNT.VIEW_TRANSFERS_LOG);
-  };
-
-  const onAccountAddressClick = () => {
-    track(TrackEvent.ACCOUNT.ADDRESS_COPIED);
   };
 
   return (
     <Menu>
       <div>
         <BackButton onClick={() => showTransferMenu()} />
-        <MenuTitle text={TITLE_TXT(fromNetwork.name)} />
-        <AccountAddress address={account} onClick={onAccountAddressClick} />
+        <MenuTitle text={utils.object.evaluate(titleTxt, {network: fromNetwork.name})} />
+        <AccountAddress address={account} onClick={trackAddressCopied} />
         {isL1 && (
           <LinkButton
             text={ETHERSCAN}
             url={etherscanAccountUrl(account)}
-            onClick={onAccountLinkClick}
+            onClick={trackAccountLinkClick}
           />
         )}
         {isL2 && (
           <LinkButton
             text={VOYAGER}
             url={voyagerAccountUrl(account)}
-            onClick={onAccountLinkClick}
+            onClick={trackAccountLinkClick}
           />
         )}
         <TransferLogContainer
           transferIndex={utils.object.findIndexById(transfers, transferId)}
-          onShowTransfers={onShowTransfers}
+          onShowTransfers={trackViewTransfersLog}
         >
           {renderTransfers()}
         </TransferLogContainer>

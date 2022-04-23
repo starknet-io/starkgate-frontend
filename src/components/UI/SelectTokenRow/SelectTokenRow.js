@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import utils from '../../../utils';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo.enums';
-import {LoadingSize} from '../Loading/Loading.enums';
-import {CryptoLogo, Loading} from '../index';
+import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
+import {CryptoLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {

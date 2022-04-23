@@ -1,14 +1,10 @@
 @import '../../../index';
 
-$height: $--header-height;
-$background-color: $--color-alpha-5;
-$chain-color: $--color-white-1;
-
 .header {
-  height: #{$height}px;
+  height: #{$--header-height}px;
   border-bottom: 1px solid transparent;
   justify-content: space-between;
-  background: $background-color;
+  background: $--color-alpha-5;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
   position: absolute;
@@ -35,7 +31,7 @@ $chain-color: $--color-white-1;
 
     .chain {
       transition: 0.3s ease-in-out;
-      color: $chain-color;
+      color: $--color-white-1;
       font-size: 13px;
       font-weight: 500;
       opacity: 0.6;
@@ -56,7 +52,7 @@ $chain-color: $--color-white-1;
   }
 
   &.mobile {
-    height: #{$height - 10}px;
+    height: #{$--header-height - 10}px;
 
     .left {
       .logo {

@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as SearchIcon} from '../../../assets/svg/icons/search.svg';
+import {useSelectTokenTranslation} from '../../../hooks';
 import {Input} from '../index';
 import styles from './SearchToken.module.scss';
-import {SEARCH_PLACEHOLDER} from './SearchToken.strings';
 
 export const SearchToken = ({tokens, onSearchResults}) => {
+  const {searchPlaceholder} = useSelectTokenTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = event => {
@@ -22,7 +23,7 @@ export const SearchToken = ({tokens, onSearchResults}) => {
     <div className={styles.searchToken}>
       <SearchIcon />
       <Input
-        placeholder={SEARCH_PLACEHOLDER}
+        placeholder={searchPlaceholder}
         style={{fontSize: '20px', width: '100%'}}
         value={searchTerm}
         onChange={handleChange}

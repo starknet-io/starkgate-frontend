@@ -1,7 +1,5 @@
 @import '../../../../index';
 
-$color-title: $--color-black;
-
 .toastHeader {
   display: flex;
   margin-bottom: 5px;
@@ -11,7 +9,7 @@ $color-title: $--color-black;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
-    color: $color-title;
+    color: $--color-black;
   }
 
   .close {

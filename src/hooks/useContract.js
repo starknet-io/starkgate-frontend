@@ -2,14 +2,12 @@ import {useCallback, useMemo} from 'react';
 
 import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
-import envs from '../config/envs';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
-
-const {starknetContractAddress} = envs;
+import {useEnvs} from './useEnvs';
 
 const cache = {};
 
@@ -80,6 +78,7 @@ export const useL1TokenContract = () => {
 };
 
 export const useStarknetContract = () => {
+  const {starknetContractAddress} = useEnvs();
   const {chainId} = useL1Wallet();
   const getContract = useContract(
     L1_MESSAGING_ABI,

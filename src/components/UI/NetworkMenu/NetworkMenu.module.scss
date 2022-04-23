@@ -1,11 +1,8 @@
 @import '../../../index';
 
-$background-color: $--color-alpha-1;
-$box-shadow-color: rgba(0, 0, 0, 0.1);
-
 .networkMenu {
-  background: $background-color;
-  box-shadow: 0 4px 30px $box-shadow-color;
+  background: $--color-alpha-1;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   height: 100%;
   margin-top: 10px;

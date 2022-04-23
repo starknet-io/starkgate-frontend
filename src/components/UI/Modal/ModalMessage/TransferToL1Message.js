@@ -1,14 +1,20 @@
 import React from 'react';
 
+import {useConstants} from '../../../../hooks';
 import {toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 
 export const TransferToL1Message = () => {
+  const {STARKGATE_DOCS_URL} = useConstants();
+
   return (
     <div className={toClasses(styles.modalMessage, styles.transferMessage)}>
       <center>
         The StarkNet → Ethereum transfer divided into two stages (
-        <a href="https://starknet.io/documentation/starkgate-token-bridge/">Docs</a>):
+        <a href={STARKGATE_DOCS_URL} rel="noreferrer" target="_blank">
+          Docs
+        </a>
+        ):
       </center>
       <ul>
         <li>A waiting period of several hours is expected between the stages.</li>

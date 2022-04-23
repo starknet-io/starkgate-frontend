@@ -1,21 +1,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-import {track, TrackEvent} from '../../analytics';
 import {Button, FullScreenContainer} from '../../components/UI';
-import {useColors, useEnvs} from '../../hooks';
+import {useColors, useConstants, useEnvs, useTermsTracking, useTermsTranslation} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
-import {ACCEPT_BTN_TXT, LAST_REVISED_TXT, NOTES_TITLE_TXT, TITLE_TXT} from './Terms.strings';
-
-const STARKWARE_SITE_URL = 'https://starkware.co/';
-const STARKNET_DOCS_URL = 'https://starknet.io/documentation/';
-const STARKGATE_MAIL_ADDRESS = 'starkgate@starknet.io';
-const STARKGATE_CONTRACTS_URL =
-  'https://github.com/starkware-libs/starkgate-contracts/tree/main/src/starkware/starknet/apps/starkgate';
 
 export const Terms = () => {
+  const {STARKWARE_SITE_URL, STARKNET_DOCS_URL, STARKGATE_MAIL_ADDRESS, STARKGATE_CONTRACTS_URL} =
+    useConstants();
+  const [trackTermsScreen, trackAcceptClick] = useTermsTracking();
+  const {titleTxt, lastRevisedTxt, acceptBtnTxt} = useTermsTranslation();
   const navigate = useNavigate();
   const termsRef = useRef();
   const acceptButtonRef = useRef();
@@ -28,21 +24,21 @@ export const Terms = () => {
   const [acceptButtonEnable, setAcceptButtonEnable] = useState(false);
 
   useEffect(() => {
-    track(TrackEvent.TERMS_SCREEN);
+    trackTermsScreen();
     setMarginBottom(acceptButtonRef?.current?.clientHeight);
   }, []);
 
   const onScroll = () => {
     if (termsRef.current) {
       const {scrollTop, scrollHeight, clientHeight} = termsRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
+      if (Math.ceil(scrollTop + clientHeight) >= scrollHeight) {
         setAcceptButtonEnable(true);
       }
     }
   };
 
   const accept = () => {
-    track(TrackEvent.TERMS.ACCEPT_CLICK, {l1account, l2account});
+    trackAcceptClick({l1account, l2account});
     acceptTerms();
     navigate('/');
   };
@@ -57,8 +53,8 @@ export const Terms = () => {
         }}
         onScroll={onScroll}
       >
-        <h1>{TITLE_TXT}</h1>
-        <h4>{LAST_REVISED_TXT}</h4>
+        <h1>{titleTxt}</h1>
+        <h4>{lastRevisedTxt}</h4>
         <div>
           <p>
             <a href={STARKWARE_SITE_URL} rel="noreferrer" target="_blank">
@@ -529,25 +525,6 @@ export const Terms = () => {
             </li>
           </ol>
         </div>
-        <div className={styles.notes}>
-          <h3>{NOTES_TITLE_TXT}</h3>
-          <hr />
-          <ol>
-            <li>
-              As the StarkNet becomes decentralized we may consider removing the Bridge from these
-              terms and taking the position that it is completely decentralized
-            </li>
-            <li>
-              TBD whether we could add a sentence that Starkware also cannot control or direct the
-              operation of the part of the Bridge that sits on the StarkNet in the pre-Universe
-              phase.
-            </li>
-            <li>
-              To discuss the extent to which we can make this statement, or can modify it for
-              accuracy.
-            </li>
-          </ol>
-        </div>
       </div>
       {!isAcceptTerms && (
         <div ref={acceptButtonRef} className={styles.acceptButton}>
@@ -561,7 +538,7 @@ export const Terms = () => {
             style={{
               width: '100%'
             }}
-            text={ACCEPT_BTN_TXT}
+            text={acceptBtnTxt}
             onClick={accept}
           />
           <p>

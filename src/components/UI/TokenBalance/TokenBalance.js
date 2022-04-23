@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {useTransferTranslation} from '../../../hooks';
 import utils from '../../../utils';
 import {toClasses} from '../../../utils/object';
-import {LoadingSize} from '../Loading/Loading.enums';
-import {Loading, RefreshIcon} from '../index';
+import {Loading, LoadingSize, RefreshIcon} from '../index';
 import styles from './TokenBalance.module.scss';
-import {TITLE_TXT} from './TokenBalance.strings';
 
 export const TokenBalance = ({tokenData, onRefreshClick}) => {
   const {symbol, isLoading, balance} = tokenData;
+  const {balanceTitleTxt} = useTransferTranslation();
 
   return (
     <div className={toClasses(styles.tokenBalance, isLoading && styles.loading)}>
-      <span>{TITLE_TXT}</span>
+      <span>{balanceTitleTxt}</span>
       <div className={styles.balanceRow}>
         <div className={styles.balance}>
           {isLoading ? <Loading size={LoadingSize.SMALL} /> : utils.wallet.formatBalance(balance)}

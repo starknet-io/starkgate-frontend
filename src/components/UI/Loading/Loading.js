@@ -4,6 +4,13 @@ import React, {useEffect, useState} from 'react';
 import {Keyframes} from '../KeyFrames/KeyFrames';
 import styles from './Loading.module.scss';
 
+export const LoadingSize = {
+  SMALL: 20,
+  MEDIUM: 50,
+  LARGE: 70,
+  XL: 110
+};
+
 export const Loading = ({size, color}) => {
   const [keyFrameSize, setKeyFrameSize] = useState(size - size / 10);
 

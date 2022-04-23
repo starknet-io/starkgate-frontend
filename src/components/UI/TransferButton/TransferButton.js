@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
+import {useColors, useTransferTranslation} from '../../../hooks';
 import {Button} from '../index';
-import {BTN_TXT} from './TransferButton.strings';
 
 export const TransferButton = props => {
   const {colorBeta, colorWhite} = useColors();
+  const {transferBtnTxt} = useTransferTranslation();
 
   return (
     <Button
@@ -19,7 +19,7 @@ export const TransferButton = props => {
         borderRadius: '7px',
         fontSize: '16px'
       }}
-      text={BTN_TXT}
+      text={transferBtnTxt}
       {...props}
     />
   );

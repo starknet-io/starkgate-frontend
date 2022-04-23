@@ -3,16 +3,18 @@ import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
-import {useColors} from '../../../hooks';
+import {useColors, useHeaderTranslation} from '../../../hooks';
 import utils from '../../../utils';
 import {toClasses} from '../../../utils/object';
 import {Button, DynamicIcon} from '../index';
-import {WALLET_LOGO_SIZE, WALLET_LOGO_SIZE_MOBILE} from './WalletButton.constants';
 import styles from './WalletButton.module.scss';
-import {BTN_TXT} from './WalletButton.strings';
+
+const WALLET_LOGO_SIZE = 30;
+const WALLET_LOGO_SIZE_MOBILE = 40;
 
 export const WalletButton = ({account, logoPath, onClick}) => {
   const {colorBeta, colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
+  const {walletBtnTxt} = useHeaderTranslation();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   const getText = () => {
@@ -22,7 +24,7 @@ export const WalletButton = ({account, logoPath, onClick}) => {
     } else if (!isDesktop(breakpoint)) {
       return address;
     }
-    return BTN_TXT(address);
+    return utils.object.evaluate(walletBtnTxt, {address});
   };
 
   return (

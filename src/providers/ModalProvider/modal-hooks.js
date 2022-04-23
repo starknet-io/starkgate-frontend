@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react';
 
-import {ModalType} from '../../components/UI/Modal/Modal/Modal.constants';
-import utils from '../../utils';
+import {ModalType} from '../../enums';
+import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
 import {evaluate} from '../../utils/object';
 import {ModalContext} from './modal-context';
 
@@ -66,7 +66,7 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
-  const title = utils.getTranslation('modals.transactionSubmitted.title_txt');
+  const {titleTxt} = useTransactionSubmittedModalTranslation();
 
   return useCallback(
     transfer => {
@@ -80,7 +80,7 @@ export const useTransactionSubmittedModal = steps => {
         componentProps: {
           transfer
         },
-        title,
+        title: titleTxt,
         withButtons: true
       });
     },
@@ -106,12 +106,12 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
-  const title = utils.getTranslation('modals.onboarding.title_txt');
+  const {titleTxt} = useOnboardingModalTranslation();
 
   return useCallback(() => {
     showModal({
       componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
-      title,
+      title: titleTxt,
       withButtons: true
     });
   }, [showModal]);

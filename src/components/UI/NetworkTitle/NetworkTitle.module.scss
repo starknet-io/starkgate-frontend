@@ -1,12 +1,10 @@
 @import '../../../index';
 
-$color: $--color-white;
-
 .networkTitle {
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 15px;
-  color: $color;
+  color: $--color-white;
   text-transform: capitalize;
 }
