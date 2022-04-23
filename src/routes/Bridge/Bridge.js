@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 
-import {setUser, track, TrackEvent} from '../../analytics';
+import {setUser} from '../../analytics';
 import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
 import {MenuType} from '../../enums';
-import {useEnvs} from '../../hooks';
+import {useEnvs, useMenuTracking} from '../../hooks';
 import {EventManagerProvider} from '../../providers/EventManagerProvider';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
@@ -13,20 +13,21 @@ import utils from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
+  const trackMenu = useMenuTracking();
+  const showOnboardingModal = useOnboardingModal();
   const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = useEnvs();
   const {menu, menuProps} = useMenu();
   const {account: l1account} = useL1Wallet();
   const {account: l2account} = useL2Wallet();
-  const showOnboardingModal = useOnboardingModal();
+
+  useEffect(() => {
+    trackMenu(menu);
+  }, [menu]);
 
   useEffect(() => {
     setUser({l1account, l2account});
     maybeShowOnboardingModal();
   }, []);
-
-  useEffect(() => {
-    track(TrackEvent[`${menu}_MENU`]);
-  }, [menu]);
 
   const maybeShowOnboardingModal = () => {
     const onboardingTimestamp = utils.storage.getItem(localStorageOnboardingExpirationTimestampKey);

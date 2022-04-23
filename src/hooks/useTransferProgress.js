@@ -2,10 +2,10 @@ import {useMemo} from 'react';
 
 import {TransferError} from '../enums';
 import utils from '../utils';
-import {useTranslation} from './useTranslation';
+import {useTransferProgressModalTranslation} from './useTranslation';
 
 export const useTransferProgress = () => {
-  const transferProgressStrings = useTranslation('modals.transferProgress');
+  const transferProgressStrings = useTransferProgressModalTranslation();
 
   return useMemo(
     () => ({

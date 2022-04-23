@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as SearchIcon} from '../../../assets/svg/icons/search.svg';
-import {useTranslation} from '../../../hooks';
+import {useSelectTokenTranslation} from '../../../hooks';
 import {Input} from '../index';
 import styles from './SearchToken.module.scss';
 
 export const SearchToken = ({tokens, onSearchResults}) => {
-  const {searchPlaceholder} = useTranslation('menus.selectToken');
+  const {searchPlaceholder} = useSelectTokenTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = event => {

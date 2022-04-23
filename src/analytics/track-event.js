@@ -12,18 +12,24 @@ export const TrackEvent = {
   TRANSFER: {
     SWAP_NETWORK: 'TRANSFER_MENU/swap_network',
     MAX_CLICK: 'TRANSFER_MENU/max_click',
-    TRANSFER_TO_L2_INITIATED: 'TRANSFER_MENU/transfer_to_l2_initiated',
-    TRANSFER_TO_L2_SUCCESS: 'TRANSFER_MENU/transfer_to_l2_success',
-    TRANSFER_TO_L2_REJECT: 'TRANSFER_MENU/transfer_to_l2_reject',
-    TRANSFER_TO_L2_ERROR: 'TRANSFER_MENU/transfer_to_l2_error',
-    TRANSFER_TO_L1_INITIATED: 'TRANSFER_MENU/transfer_to_l1_initiated',
-    TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/transfer_to_l1_success',
-    TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/transfer_to_l1_reject',
-    TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/transfer_to_l1_error',
-    COMPLETE_TRANSFER_TO_L1_INITIATED: 'TRANSFER_MENU/complete_transfer_to_l1_initiated',
-    COMPLETE_TRANSFER_TO_L1_SUCCESS: 'TRANSFER_MENU/complete_transfer_to_l1_success',
-    COMPLETE_TRANSFER_TO_L1_REJECT: 'TRANSFER_MENU/complete_transfer_to_l1_reject',
-    COMPLETE_TRANSFER_TO_L1_ERROR: 'TRANSFER_MENU/complete_transfer_to_l1_error'
+    TRANSFER_TO_L2: {
+      INITIATED: 'TRANSFER_MENU/transfer_to_l2_initiated',
+      SUCCESS: 'TRANSFER_MENU/transfer_to_l2_success',
+      ERROR: 'TRANSFER_MENU/transfer_to_l2_error',
+      REJECT: 'TRANSFER_MENU/transfer_to_l2_reject'
+    },
+    TRANSFER_TO_L1: {
+      INITIATED: 'TRANSFER_MENU/transfer_to_l1_initiated',
+      SUCCESS: 'TRANSFER_MENU/transfer_to_l1_success',
+      ERROR: 'TRANSFER_MENU/transfer_to_l1_error',
+      REJECT: 'TRANSFER_MENU/transfer_to_l1_reject'
+    },
+    COMPLETE_TRANSFER_TO_L1: {
+      INITIATED: 'TRANSFER_MENU/complete_transfer_to_l1_initiated',
+      SUCCESS: 'TRANSFER_MENU/complete_transfer_to_l1_success',
+      ERROR: 'TRANSFER_MENU/complete_transfer_to_l1_error',
+      REJECT: 'TRANSFER_MENU/complete_transfer_to_l1_reject'
+    }
   },
 
   /**

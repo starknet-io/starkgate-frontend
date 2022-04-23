@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors, useTranslation} from '../../../hooks';
+import {useAccountTranslation, useColors} from '../../../hooks';
 import {Button} from '../index';
 
 export const LogoutButton = ({onClick, isDisabled}) => {
-  const {logoutBtnTxt} = useTranslation('menus.account');
+  const {logoutBtnTxt} = useAccountTranslation();
   const {colorAlpha5, colorWhite} = useColors();
 
   return (

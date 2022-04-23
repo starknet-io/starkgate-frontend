@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {useTranslation} from '../../../../hooks';
+import {useOnboardingModalTranslation} from '../../../../hooks';
 import {IncognitoMessage} from '../ModalMessage';
 import styles from './OnboardingModal.module.scss';
 
 const OnboardingModal = () => {
-  const {subtitleTxt, bulletsTxt} = useTranslation('modals.onboarding');
+  const {subtitleTxt, bulletsTxt} = useOnboardingModalTranslation();
 
   return (
     <div className={styles.onboardingModal}>
