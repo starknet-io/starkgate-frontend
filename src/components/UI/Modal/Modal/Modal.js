@@ -12,7 +12,10 @@ export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, chi
   return show
     ? createPortal(
         <div className={utils.object.toClasses(styles.modal, styles[type])}>
-          <div className={utils.object.toClasses(styles.container, styles[type])} style={{width}}>
+          <div
+            className={utils.object.toClasses(styles.container, styles[type])}
+            style={{width, maxWidth: width}}
+          >
             {children}
           </div>
         </div>,

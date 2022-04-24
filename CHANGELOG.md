@@ -1,3 +1,24 @@
+### [1.2.1-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.3...v1.2.1-dev.4) (2022-04-23)
+
+
+### 🔧 Fixes
+
+* bad overflow in modal for content with very long strings ([#161](https://github.com/starkware-libs/starkgate-frontend/issues/161)) ([36a1c6f](https://github.com/starkware-libs/starkgate-frontend/commit/36a1c6ffd1d367db917a0bffc6f3a33ba37be6a9))
+
+### [1.2.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.2...v1.2.1-dev.3) (2022-04-21)
+
+
+### 💉 Improvements
+
+* useTranslation hooks ([#162](https://github.com/starkware-libs/starkgate-frontend/issues/162)) ([92e0927](https://github.com/starkware-libs/starkgate-frontend/commit/92e092764ec53d622eacc8d8a27038869131cde5))
+
+### [1.2.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.1...v1.2.1-dev.2) (2022-04-21)
+
+
+### 💉 Improvements
+
+* useTracking ([#160](https://github.com/starkware-libs/starkgate-frontend/issues/160)) ([a8cad80](https://github.com/starkware-libs/starkgate-frontend/commit/a8cad802e13fcd7b940eed5d60a8f943d82662a9))
+
 ### [1.2.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0...v1.2.1-dev.1) (2022-04-18)
 
 

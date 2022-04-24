@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useTranslation} from '../../../../hooks';
+import {useToastsTranslation} from '../../../../hooks';
 import styles from './ToastFooter.module.scss';
 
 export const ToastFooter = ({children}) => {
@@ -9,7 +9,7 @@ export const ToastFooter = ({children}) => {
 };
 
 export const TransferLogLink = ({onClick}) => {
-  const {transferLogLink} = useTranslation('toasts');
+  const {transferLogLink} = useToastsTranslation();
 
   return (
     <div className={styles.transferLogLink} onClick={onClick}>

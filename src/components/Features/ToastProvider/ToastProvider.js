@@ -14,7 +14,7 @@ import {
   NetworkType,
   ToastType
 } from '../../../enums';
-import {useCompleteTransferToL1, usePrevious, useTranslation} from '../../../hooks';
+import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
@@ -26,7 +26,7 @@ const toastsMap = {};
 const toastsDismissed = {};
 
 export const ToastProvider = () => {
-  const {alphaDisclaimerMsg} = useTranslation('toasts');
+  const {alphaDisclaimerMsg} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();

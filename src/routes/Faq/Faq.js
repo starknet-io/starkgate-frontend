@@ -1,16 +1,17 @@
 import React, {useEffect} from 'react';
 
-import {track, TrackEvent} from '../../analytics';
+import {TrackEvent} from '../../analytics';
 import {FullScreenContainer} from '../../components/UI';
 import {faqs} from '../../config/faqs';
-import {useTranslation} from '../../hooks';
+import {useTracking, useFaqTranslation} from '../../hooks';
 import styles from './Faq.module.scss';
 
 export const Faq = () => {
-  const {titleTxt} = useTranslation('screens.faq');
+  const {titleTxt} = useFaqTranslation();
+  const [trackFaqScreen] = useTracking(TrackEvent.FAQ_SCREEN);
 
   useEffect(() => {
-    track(TrackEvent.FAQ_SCREEN);
+    trackFaqScreen();
   }, []);
 
   return (

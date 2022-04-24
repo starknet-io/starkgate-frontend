@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as L1Logo} from '../../../../assets/svg/tokens/eth.svg';
-import {useColors, useTranslation} from '../../../../hooks';
+import {useColors, useCompleteTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
@@ -22,7 +22,7 @@ export const CompleteTransferToL1Toast = ({
 }) => {
   const {colorBeta, colorOmega1} = useColors();
   const {titleTxt, bodyTxt, dismissBtnTxt, completeTransferBtnTxt} =
-    useTranslation('toasts.completeTransfer');
+    useCompleteTransferToastTranslation();
 
   return (
     <Transition

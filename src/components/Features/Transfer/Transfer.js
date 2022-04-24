@@ -1,8 +1,13 @@
 import React, {useEffect, useState} from 'react';
 
-import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
-import {useMaxDeposit, useTransferToL1, useTransferToL2, useTranslation} from '../../../hooks';
+import {
+  useMaxDeposit,
+  useTransferToL1,
+  useTransferToL2,
+  useTransferTracking,
+  useTransferTranslation
+} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
@@ -25,7 +30,8 @@ export const Transfer = () => {
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
     negativeValueErrorMsg
-  } = useTranslation('menus.transfer');
+  } = useTransferTranslation();
+  const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
   const [amount, setAmount] = useAmount();
@@ -82,7 +88,7 @@ export const Transfer = () => {
 
   const onMaxClick = () => {
     try {
-      track(TrackEvent.TRANSFER.MAX_CLICK);
+      trackMaxClick();
       setAmount(String(Math.min(selectedToken.balance, isL1 ? Number(maxDeposit) : Infinity)));
     } catch (ex) {
       setAmount(selectedToken.balance);
@@ -94,7 +100,7 @@ export const Transfer = () => {
   };
 
   const onSwapClick = () => {
-    track(TrackEvent.TRANSFER.SWAP_NETWORK);
+    trackSwapNetworks();
     isL2 ? swapToL1() : swapToL2();
   };
 
