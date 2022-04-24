@@ -170,9 +170,9 @@ export const useTransferToL2 = () => {
             stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
           )
         );
-        addDepositListener(onDeposit);
         logger.log('Calling deposit');
         await sendDeposit();
+        addDepositListener(onDeposit);
       } catch (ex) {
         trackError(ex);
         logger.error(ex.message, {ex});

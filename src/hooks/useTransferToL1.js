@@ -173,9 +173,9 @@ export const useCompleteTransferToL1 = () => {
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
-        addWithdrawalListener(onWithdrawal);
         logger.log('Calling withdraw');
         await sendWithdrawal();
+        addWithdrawalListener(onWithdrawal);
       } catch (ex) {
         trackError(ex);
         logger.error(ex.message, {ex});
