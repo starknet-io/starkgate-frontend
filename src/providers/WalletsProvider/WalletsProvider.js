@@ -3,14 +3,12 @@ import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {ChainType, WalletStatus} from '../../enums';
-import {useEnvs} from '../../hooks';
 import {getStarknet} from '../../libs';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {actions, initialState, reducer} from './wallets-reducer';
 
 export const WalletsProvider = ({children}) => {
-  const {autoConnect} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
   const {selectedAddress, isConnected: isL2Connected, enable} = getStarknet();
@@ -42,7 +40,7 @@ export const WalletsProvider = ({children}) => {
 
   const connectL2Wallet = async walletConfig => {
     try {
-      await getStarknet().enable(!autoConnect && {showModal: true});
+      await getStarknet().enable();
       setL2WalletConfig(walletConfig);
       // eslint-disable-next-line no-empty
     } catch {}

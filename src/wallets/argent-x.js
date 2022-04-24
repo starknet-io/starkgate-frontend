@@ -6,10 +6,15 @@ export class ArgentX {
   }
 
   isInstalled() {
-    return Boolean(window.starknet);
+    const version = window.starknet?.version;
+    return version && version !== 'uninstalled';
   }
 
-  install() {
-    return getStarknet().enable({showModal: true});
+  async install() {
+    try {
+      const starknet = getStarknet();
+      return await starknet.enable({showModal: true});
+      // eslint-disable-next-line no-empty
+    } catch {}
   }
 }
