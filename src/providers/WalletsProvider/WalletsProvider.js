@@ -50,7 +50,7 @@ export const WalletsProvider = ({children}) => {
         walletConfig.name = wallet.name || walletConfig.name;
         walletConfig.logoPath = wallet.icon || walletConfig.logoPath;
         setL2WalletConfig(walletConfig);
-        }
+      }
       // eslint-disable-next-line no-empty
     } catch {}
   };
