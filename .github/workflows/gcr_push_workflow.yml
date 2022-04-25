@@ -35,7 +35,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and push images to GCR, with tag latest and git tag.
-        if: ${{ inputs.branch_name == 'refs/heads/hotfix-v1.2.0' }}
+        if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
@@ -43,7 +43,7 @@ jobs:
           docker push ${{ inputs.image_name }}
 
       - name: Build with production env and push with mainnet and stable tags.
-        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        if: ${{ inputs.branch_name == 'refs/heads/hotfix-v1.2.0' }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=production
           docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
@@ -52,7 +52,7 @@ jobs:
           docker push ${{ inputs.image_name }}:stable
 
       - name: Build with testing env and push with goerli tag.
-        if: ${{ inputs.branch_name == 'refs/heads/master' }}
+        if: ${{ inputs.branch_name == 'refs/heads/hotfix-v1.2.0' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=testing
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
