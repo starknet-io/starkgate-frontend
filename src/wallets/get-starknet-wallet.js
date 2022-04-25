@@ -1,6 +1,6 @@
 import {getStarknet} from '../libs';
 
-export class ArgentX {
+export class GetStarknetWallet {
   constructor(config) {
     this.config = config;
   }
