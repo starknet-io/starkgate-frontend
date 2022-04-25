@@ -1,3 +1,10 @@
+## [1.3.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.5...v1.3.0-dev.1) (2022-04-25)
+
+
+### 🧩 Features
+
+* integrated with get-starknet-wallet ([#163](https://github.com/starkware-libs/starkgate-frontend/issues/163)) ([e0f996a](https://github.com/starkware-libs/starkgate-frontend/commit/e0f996a7c5a7b7fa4a395695048275a8c234dd76))
+
 ### [1.2.1-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.4...v1.2.1-dev.5) (2022-04-25)
 
 
