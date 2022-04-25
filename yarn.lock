@@ -120,11 +120,6 @@
     "@web3-react/types" "^6.0.7"
     tiny-warning "^1.0.3"
 
-"@argent/get-starknet@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@argent/get-starknet/-/get-starknet-3.0.1.tgz#b3f80fd54528d4281bc5f3162d2576bb47c1c786"
-  integrity sha512-4jWzAU/vc6WWCrS5CabyrEVeQhYcYO6bLMgbJld+QRV6zlwgtRcsjjyfyxL9gKqP2IJI6V6dBHUdmvbxheUPQA==
-
 "@babel/cli@^7.16.0":
   version "7.17.6"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.17.6.tgz#169e5935f1795f0b62ded5a2accafeedfe5c5363"
@@ -6055,7 +6050,7 @@ bottleneck@^2.18.1:
   resolved "https://registry.yarnpkg.com/bottleneck/-/bottleneck-2.19.5.tgz#5df0b90f59fd47656ebe63c78a98419205cadd91"
   integrity sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==
 
-bowser@^2.9.0:
+bowser@^2.11.0, bowser@^2.9.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.11.0.tgz#5ca3c35757a7aa5771500c70a73a9f91ef420a8f"
   integrity sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==
@@ -10398,6 +10393,13 @@ get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
+
+get-starknet-wallet@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/get-starknet-wallet/-/get-starknet-wallet-0.0.5.tgz#dad317677d2367972af7a586bf73cd0069e636ab"
+  integrity sha512-OVOenKfqrC6TzRdyp58pSr4+APr6VaY66tlhlC3zbpK3lLgLl3XCZjnOUuI1sX8TsmhBRBlQJeO1guDnmu3b7w==
+  dependencies:
+    bowser "^2.11.0"
 
 get-stdin@^4.0.1:
   version "4.0.1"
