@@ -1,3 +1,10 @@
+### [1.2.1-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.4...v1.2.1-dev.5) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* add ETH mainnet addresses ([#167](https://github.com/starkware-libs/starkgate-frontend/issues/167)) ([56fa74b](https://github.com/starkware-libs/starkgate-frontend/commit/56fa74b4510971d516824d5c0faae611da20d63b))
+
 ### [1.2.1-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.3...v1.2.1-dev.4) (2022-04-23)
 
 
