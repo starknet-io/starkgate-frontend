@@ -1,3 +1,10 @@
+## [1.3.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.2...v1.3.0-dev.3) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* **deps:** bump gsw version ([6c01ae5](https://github.com/starkware-libs/starkgate-frontend/commit/6c01ae5e518947294a0abd7c6e489ac0074edf38))
+
 ## [1.3.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2022-04-25)
 
 
