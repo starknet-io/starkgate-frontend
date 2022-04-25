@@ -1,3 +1,10 @@
+## [1.3.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* canceled transfers shown in transfer log ([#166](https://github.com/starkware-libs/starkgate-frontend/issues/166)) ([69324e8](https://github.com/starkware-libs/starkgate-frontend/commit/69324e8c838674eddc9759a282c1e4d4040c0553))
+
 ## [1.3.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.5...v1.3.0-dev.1) (2022-04-25)
 
 
