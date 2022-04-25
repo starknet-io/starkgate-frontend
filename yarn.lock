@@ -10394,10 +10394,10 @@ get-package-type@^0.1.0:
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
-get-starknet-wallet@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/get-starknet-wallet/-/get-starknet-wallet-0.0.5.tgz#dad317677d2367972af7a586bf73cd0069e636ab"
-  integrity sha512-OVOenKfqrC6TzRdyp58pSr4+APr6VaY66tlhlC3zbpK3lLgLl3XCZjnOUuI1sX8TsmhBRBlQJeO1guDnmu3b7w==
+get-starknet-wallet@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/get-starknet-wallet/-/get-starknet-wallet-0.0.8.tgz#3c586423fc91817cb262e1b09433d81c9835a7de"
+  integrity sha512-VhFY1kXxLri4Vs6G9GwcyjdAPqSLDdNGPqvuCx0VsMdE4fQdJD5qGeOf+BASjO8/ZN2SYIjuEvDfV5SGs3teYA==
   dependencies:
     bowser "^2.11.0"
 

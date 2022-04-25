@@ -60,7 +60,7 @@
     "@mui/material": "^5.5.3",
     "@mui/styles": "^5.5.0",
     "@splitbee/web": "^0.3.0",
-    "get-starknet-wallet": "^0.0.5",
+    "get-starknet-wallet": "^0.0.8",
     "js-logger": "^1.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
