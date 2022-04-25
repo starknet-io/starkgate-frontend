@@ -84,7 +84,7 @@ export const useTransferToL1 = () => {
           l2hash
         });
       } catch (ex) {
-        logger.error(ex.message, {ex});
+        logger.error(ex.message, ex);
         track(TrackEvent.TRANSFER.TRANSFER_TO_L1_ERROR, ex);
         handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
@@ -111,7 +111,7 @@ export const useCompleteTransferToL1 = () => {
   const progressOptions = useTransferProgress();
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
-  const addWithdrawalListener = useWithdrawalListener();
+  const {addListener, removeListener} = useWithdrawalListener();
 
   return useCallback(
     async transfer => {
@@ -136,7 +136,9 @@ export const useCompleteTransferToL1 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (!error) {
+        if (error) {
+          onError(error);
+        } else {
           logger.log('Tx signed', {transactionHash});
           handleProgress(
             progressOptions.withdraw(
@@ -145,24 +147,25 @@ export const useCompleteTransferToL1 = () => {
               stepOf(TransferStep.WITHDRAW, CompleteTransferToL1Steps)
             )
           );
-        } else {
-          track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_REJECT, error);
-          logger.error(error.message);
-          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
       };
 
       const onWithdrawal = (error, event) => {
-        if (!error) {
+        if (error) {
+          onError(error);
+        } else {
           const {transactionHash: l1hash} = event;
           logger.log('Done', l1hash);
           track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_SUCCESS, {l1hash});
           handleData({...transfer, l1hash});
-        } else {
-          track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_ERROR, error);
-          logger.error(error.message);
-          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
+      };
+
+      const onError = error => {
+        removeListener();
+        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_ERROR, error);
+        logger.error(error?.message, error);
+        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
       };
 
       try {
@@ -173,13 +176,11 @@ export const useCompleteTransferToL1 = () => {
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
-        addWithdrawalListener(onWithdrawal);
+        addListener(onWithdrawal);
         logger.log('Calling withdraw');
         await sendWithdrawal();
       } catch (ex) {
-        track(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1_ERROR, ex);
-        logger.error(ex.message, {ex});
-        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
+        onError(ex);
       }
     },
     [
@@ -192,7 +193,8 @@ export const useCompleteTransferToL1 = () => {
       handleProgress,
       logger,
       progressOptions,
-      addWithdrawalListener
+      addListener,
+      removeListener
     ]
   );
 };

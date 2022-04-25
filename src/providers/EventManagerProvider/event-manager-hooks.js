@@ -4,20 +4,25 @@ import {EventName} from '../../enums';
 import {useStarknetContract} from '../../hooks';
 import {EventManagerContext} from './event-manager-context';
 
-export const useEventListener = () => {
-  return useContext(EventManagerContext);
+export const useEventListener = eventName => {
+  const {addListener, removeListeners} = useContext(EventManagerContext);
+
+  const _addListener = useCallback(callback => addListener(eventName, callback), [addListener]);
+
+  const _removeListeners = useCallback(() => removeListeners(eventName), [removeListeners]);
+
+  return {
+    addListener: _addListener,
+    removeListener: _removeListeners
+  };
 };
 
 export const useDepositListener = () => {
-  const {addListener} = useContext(EventManagerContext);
-
-  return useCallback(callback => addListener(EventName.L1.LOG_DEPOSIT, callback), [addListener]);
+  return useEventListener(EventName.L1.LOG_DEPOSIT);
 };
 
 export const useWithdrawalListener = () => {
-  const {addListener} = useContext(EventManagerContext);
-
-  return useCallback(callback => addListener(EventName.L1.LOG_WITHDRAWAL, callback), [addListener]);
+  return useEventListener(EventName.L1.LOG_WITHDRAWAL);
 };
 
 export const useDepositMessageToL2Event = () => {
