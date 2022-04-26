@@ -1,2 +1,2 @@
-export * from './argent-x';
+export * from './get-starknet-wallet';
 export * from './metamask';

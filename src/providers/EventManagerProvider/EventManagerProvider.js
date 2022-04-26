@@ -31,6 +31,11 @@ export const EventManagerProvider = ({children}) => {
     listeners[eventName].push(callback);
   };
 
+  const removeListeners = eventName => {
+    logger.log(`Remove listeners for event ${eventName}.`);
+    listeners[eventName] = [];
+  };
+
   const getPastEvents = (contract, eventName, options = {}) => {
     logger.log(`Getting ${eventName} past events.`);
     return contract.getPastEvents(eventName, {
@@ -42,12 +47,7 @@ export const EventManagerProvider = ({children}) => {
   const emitListeners = (eventName, error, event) => {
     logger.log(`Event ${eventName} emitted to listeners.`, event);
     listeners[eventName]?.forEach(listener => listener(error, event));
-    cleanListeners(eventName);
-  };
-
-  const cleanListeners = eventName => {
-    logger.log(`Clean listeners for event ${eventName}.`);
-    listeners[eventName] = [];
+    removeListeners(eventName);
   };
 
   const onWithdrawal = (error, event) => {
@@ -111,7 +111,8 @@ export const EventManagerProvider = ({children}) => {
 
   const value = {
     addListener,
-    getPastEvents
+    getPastEvents,
+    removeListeners
   };
 
   return <EventManagerContext.Provider value={value}>{children}</EventManagerContext.Provider>;

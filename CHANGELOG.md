@@ -1,3 +1,38 @@
+## [1.3.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.3...v1.3.0-dev.4) (2022-04-26)
+
+
+### 🧩 Features
+
+* validate starknet wallet chain ID ([#168](https://github.com/starkware-libs/starkgate-frontend/issues/168)) ([2551a7f](https://github.com/starkware-libs/starkgate-frontend/commit/2551a7f296de1fcdfc5dd4a819982850e6294306))
+
+## [1.3.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.2...v1.3.0-dev.3) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* **deps:** bump gsw version ([6c01ae5](https://github.com/starkware-libs/starkgate-frontend/commit/6c01ae5e518947294a0abd7c6e489ac0074edf38))
+
+## [1.3.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.1...v1.3.0-dev.2) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* canceled transfers shown in transfer log ([#166](https://github.com/starkware-libs/starkgate-frontend/issues/166)) ([69324e8](https://github.com/starkware-libs/starkgate-frontend/commit/69324e8c838674eddc9759a282c1e4d4040c0553))
+
+## [1.3.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.5...v1.3.0-dev.1) (2022-04-25)
+
+
+### 🧩 Features
+
+* integrated with get-starknet-wallet ([#163](https://github.com/starkware-libs/starkgate-frontend/issues/163)) ([e0f996a](https://github.com/starkware-libs/starkgate-frontend/commit/e0f996a7c5a7b7fa4a395695048275a8c234dd76))
+
+### [1.2.1-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.4...v1.2.1-dev.5) (2022-04-25)
+
+
+### 🔧 Fixes
+
+* add ETH mainnet addresses ([#167](https://github.com/starkware-libs/starkgate-frontend/issues/167)) ([56fa74b](https://github.com/starkware-libs/starkgate-frontend/commit/56fa74b4510971d516824d5c0faae611da20d63b))
+
 ### [1.2.1-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.1-dev.3...v1.2.1-dev.4) (2022-04-23)
 
 

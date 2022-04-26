@@ -1,6 +1,6 @@
 import {getStarknet} from '../libs';
 
-export class ArgentX {
+export class GetStarknetWallet {
   constructor(config) {
     this.config = config;
   }
@@ -12,8 +12,7 @@ export class ArgentX {
 
   async install() {
     try {
-      const starknet = getStarknet();
-      return await starknet.enable({showModal: true});
+      return await getStarknet().enable({showModal: true});
       // eslint-disable-next-line no-empty
     } catch {}
   }

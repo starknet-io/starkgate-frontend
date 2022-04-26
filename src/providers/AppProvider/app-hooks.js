@@ -1,5 +1,6 @@
 import {useContext} from 'react';
 
+import {WalletStatus} from '../../enums';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {AppContext} from './app-context';
 
@@ -12,8 +13,14 @@ export const useTerms = () => {
 };
 
 export const useLogin = () => {
-  const {isConnected: isL1Connected} = useL1Wallet();
-  const {isConnected: isL2Connected} = useL2Wallet();
+  const {status: l1Status, config: l1Config} = useL1Wallet();
+  const {status: l2Status, config: l2Config} = useL2Wallet();
 
-  return {isLoggedIn: isL1Connected && isL2Connected};
+  return {
+    isLoggedIn:
+      l1Status === WalletStatus.CONNECTED &&
+      !!l1Config &&
+      l2Status === WalletStatus.CONNECTED &&
+      !!l2Config
+  };
 };

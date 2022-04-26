@@ -32,7 +32,7 @@ export const useTransferToL2 = () => {
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const addDepositListener = useDepositListener();
+  const {addListener, removeListener} = useDepositListener();
   const getDepositMessageToL2Event = useDepositMessageToL2Event();
   const maxTotalBalance = useMaxTotalBalance();
 
@@ -81,20 +81,20 @@ export const useTransferToL2 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (!error) {
+        if (error) {
+          onError(error);
+        } else {
           logger.log('Tx signed', {transactionHash});
           handleProgress(
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
           );
-        } else {
-          trackReject(error);
-          logger.error(error.message);
-          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
       };
 
       const onDeposit = async (error, event) => {
-        if (!error) {
+        if (error) {
+          onError(error);
+        } else {
           const l2MessageEvent = await getDepositMessageToL2Event(event);
           if (l2MessageEvent) {
             handleData({
@@ -107,10 +107,6 @@ export const useTransferToL2 = () => {
               ...extractTransactionsHashFromEvent(l2MessageEvent)
             });
           }
-        } else {
-          trackError(error);
-          logger.error(error.message);
-          handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
         }
       };
 
@@ -144,6 +140,13 @@ export const useTransferToL2 = () => {
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
+      const onError = error => {
+        removeListener();
+        trackError(error);
+        logger.error(error?.message, error);
+        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
+      };
+
       try {
         logger.log('TransferToL2 called');
         if (await isMaxBalanceExceeded()) {
@@ -170,18 +173,17 @@ export const useTransferToL2 = () => {
             stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
           )
         );
-        addDepositListener(onDeposit);
+        addListener(onDeposit);
         logger.log('Calling deposit');
         await sendDeposit();
       } catch (ex) {
-        trackError(ex);
-        logger.error(ex.message, {ex});
-        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
+        onError(ex);
       }
     },
     [
       selectedToken,
-      addDepositListener,
+      addListener,
+      removeListener,
       l1ChainId,
       l2ChainId,
       l1Account,
