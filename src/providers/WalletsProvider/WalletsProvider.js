@@ -2,69 +2,55 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
-import {ChainType, WalletStatus} from '../../enums';
-import {useEnvs} from '../../hooks';
-import {getStarknet} from '../../libs';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
+import {useStarknetWallet} from './wallets-hooks';
 import {actions, initialState, reducer} from './wallets-reducer';
+import {WalletStatus} from '../../enums';
 
 export const WalletsProvider = ({children}) => {
-  const {autoConnect} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
-  const {selectedAddress, isConnected: isL2Connected, enable} = getStarknet();
+  const {
+    status: l2Status,
+    connect: l2Connect,
+    isConnected: l2IsConnected,
+    error: l2Error,
+    account: l2Account,
+    chainId: l2ChainId,
+    networkName: l2NetworkName
+  } = useStarknetWallet();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
 
-  // Handles starknet wallet changes
   useEffect(() => {
     (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
-  }, [selectedAddress, isL2Connected]);
+  }, [l2Status, l2Error, l2Account, l2ChainId, l2NetworkName]);
 
-  // Handles ethereum wallet changes
   useEffect(() => {
     (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
   }, [status, error, account, chainId, networkName]);
 
   const connectWallet = async walletConfig => {
-    if (isL1) {
-      return connectL1Wallet(walletConfig);
-    }
-    return connectL2Wallet(walletConfig);
+    return isL1 ? connectL1Wallet(walletConfig) : connectL2Wallet(walletConfig);
+  };
+
+  const resetWallet = () => {
+    return isL1 ? resetL1Wallet() : resetL2Wallet();
   };
 
   const connectL1Wallet = async walletConfig => {
     const {connectorId} = walletConfig;
-    await connect(connectorId);
-    setL1WalletConfig(walletConfig);
-  };
-
-  const connectL2Wallet = async walletConfig => {
-    try {
-      const wallet = getStarknet();
-      const enabled = await wallet
-        .enable(!autoConnect && {showModal: true})
-        .then(address => !!address?.length);
-      if (enabled) {
-        walletConfig.name = wallet.name || walletConfig.name;
-        walletConfig.logoPath = wallet.icon || walletConfig.logoPath;
-        setL2WalletConfig(walletConfig);
-      }
-      // eslint-disable-next-line no-empty
-    } catch {}
-  };
-
-  const resetWallet = () => {
-    if (isL1) {
-      return resetL1Wallet();
-    }
-    return resetL2Wallet();
+    return connect(connectorId).then(() => setL1WalletConfig(walletConfig));
   };
 
   const resetL1Wallet = () => {
     setL1WalletConfig(null);
     return reset();
+  };
+
+  const connectL2Wallet = async walletConfig => {
+    return l2Connect(walletConfig).then(() => setL2WalletConfig(walletConfig));
   };
 
   const resetL2Wallet = () => {
@@ -78,13 +64,13 @@ export const WalletsProvider = ({children}) => {
       maybeUpdateL1Wallet();
     } else if (state.l2Wallet.config && !state.l1Wallet.config) {
       swapToL2();
-      await maybeUpdateL2Wallet();
+      maybeUpdateL2Wallet();
     }
   };
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    const serializedError = status === 'error' ? {...error} : null;
+    const serializedError = status === WalletStatus.ERROR ? {...error} : null;
     updateL1Wallet({
       account,
       status,
@@ -95,28 +81,17 @@ export const WalletsProvider = ({children}) => {
     });
   };
 
-  const maybeUpdateL2Wallet = async () => {
-    let status,
-      error = null;
-    try {
-      await enable();
-      status = WalletStatus.CONNECTED;
-    } catch (ex) {
-      error = ex;
-      status = WalletStatus.ERROR;
-    } finally {
-      updateL2Wallet({
-        status,
-        error,
-        chainId: chainId === ChainType.L1.MAIN ? ChainType.L2.MAIN : ChainType.L2.GOERLI,
-        isConnected: isL2Connected,
-        account: selectedAddress,
-        chainName: networkName
-      });
-    }
+  const maybeUpdateL2Wallet = () => {
+    updateL2Wallet({
+      status: l2Status,
+      error: l2Error,
+      chainId: l2ChainId,
+      isConnected: l2IsConnected,
+      account: l2Account,
+      chainName: l2NetworkName
+    });
   };
 
-  // Dispatchers
   const updateL1Wallet = payload => {
     dispatch({
       type: actions.UPDATE_L1_WALLET,
@@ -145,7 +120,6 @@ export const WalletsProvider = ({children}) => {
     });
   };
 
-  // context
   const context = {
     ...state,
     connectWallet,
