@@ -1,3 +1,10 @@
+## [1.3.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.3...v1.3.0-dev.4) (2022-04-26)
+
+
+### 🧩 Features
+
+* validate starknet wallet chain ID ([#168](https://github.com/starkware-libs/starkgate-frontend/issues/168)) ([2551a7f](https://github.com/starkware-libs/starkgate-frontend/commit/2551a7f296de1fcdfc5dd4a819982850e6294306))
+
 ## [1.3.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.2...v1.3.0-dev.3) (2022-04-25)
 
 
