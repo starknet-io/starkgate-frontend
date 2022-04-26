@@ -10,7 +10,7 @@ export class GetStarknetWallet {
     return version && version !== 'uninstalled';
   }
 
-  async install() {
+  install() {
     return getStarknet().enable({showModal: true});
   }
 }
