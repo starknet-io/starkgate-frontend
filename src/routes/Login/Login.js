@@ -1,7 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react';
 
 import {LoginErrorMessage, WalletLogin} from '../../components/UI';
-import {ChainInfo, ErrorType, NetworkType, WalletStatus, WalletType} from '../../enums';
+import {
+  ChainInfo,
+  LoginErrorType,
+  NetworkType,
+  WalletErrorType,
+  WalletStatus,
+  WalletType
+} from '../../enums';
 import {
   useEnvs,
   useLoginTracking,
@@ -9,7 +16,8 @@ import {
   useWalletHandlerProvider
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
-import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
+import {useIsL1, useIsL2} from '../../providers/TransferProvider';
+import {useWallets} from '../../providers/WalletsProvider';
 import utils from '../../utils';
 import styles from './Login.module.scss';
 
@@ -35,15 +43,16 @@ export const Login = () => {
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
   const getWalletHandlers = useWalletHandlerProvider();
-  const {status, error: walletError} = useWallets();
-  const {connectWallet: connectL1Wallet, isConnected: isConnectedL1Wallet} = useL1Wallet();
-  const {connectWallet: connectL2Wallet} = useL2Wallet();
+  const {status, error: walletError, connectWallet, isConnected} = useWallets();
+  const [, swapToL1] = useIsL1();
+  const [, swapToL2] = useIsL2();
 
   useEffect(() => {
     trackLoginScreen();
     if (!utils.browser.isChrome()) {
-      setError({type: ErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
+      setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
+    return () => swapToL1();
   }, []);
 
   useEffect(() => {
@@ -60,10 +69,11 @@ export const Login = () => {
   }, [error, walletType, getWalletHandlers]);
 
   useEffect(() => {
-    if (isConnectedL1Wallet) {
+    if (isConnected) {
       setWalletType(WalletType.L2);
+      swapToL2();
     }
-  }, [isConnectedL1Wallet]);
+  }, [isConnected]);
 
   useEffect(() => {
     walletError && handleWalletError(walletError);
@@ -99,7 +109,7 @@ export const Login = () => {
       return walletHandler.install();
     }
     setSelectedWalletName(name);
-    return walletType === WalletType.L1 ? connectL1Wallet(config) : connectL2Wallet(config);
+    return connectWallet(config);
   };
 
   const onDownloadClick = () => {
@@ -111,9 +121,9 @@ export const Login = () => {
   };
 
   const handleWalletError = error => {
-    if (error.name === 'ChainUnsupportedError') {
+    if (error.name === WalletErrorType.CHAIN_UNSUPPORTED_ERROR) {
       setError({
-        type: ErrorType.UNSUPPORTED_CHAIN_ID,
+        type: LoginErrorType.UNSUPPORTED_CHAIN_ID,
         message: utils.object.evaluate(unsupportedChainIdTxt, {
           chainName: ChainInfo.L1[supportedChainId].NAME
         })

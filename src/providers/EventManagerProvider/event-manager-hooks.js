@@ -7,15 +7,9 @@ import {EventManagerContext} from './event-manager-context';
 export const useEventListener = eventName => {
   const {addListener, removeListeners} = useContext(EventManagerContext);
 
-  const _addListener = useCallback(
-    callback => addListener(eventName, callback),
-    [addListener]
-  );
+  const _addListener = useCallback(callback => addListener(eventName, callback), [addListener]);
 
-  const _removeListeners = useCallback(
-    () => removeListeners(eventName),
-    [removeListeners]
-  );
+  const _removeListeners = useCallback(() => removeListeners(eventName), [removeListeners]);
 
   return {
     addListener: _addListener,
