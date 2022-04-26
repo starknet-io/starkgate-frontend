@@ -11,9 +11,6 @@ export class GetStarknetWallet {
   }
 
   async install() {
-    try {
-      return await getStarknet().enable({showModal: true});
-      // eslint-disable-next-line no-empty
-    } catch {}
+    return getStarknet().enable({showModal: true});
   }
 }
