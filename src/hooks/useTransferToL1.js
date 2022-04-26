@@ -111,7 +111,7 @@ export const useCompleteTransferToL1 = () => {
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
   const {addListener, removeListener} = useWithdrawalListener();
-  const [trackInitiated, trackSuccess, trackError, trackReject] = useCompleteTransferToL1Tracking();
+  const [trackInitiated, trackSuccess, trackError] = useCompleteTransferToL1Tracking();
 
   return useCallback(
     async transfer => {
