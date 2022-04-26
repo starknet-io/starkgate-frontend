@@ -6,6 +6,7 @@ import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {useStarknetWallet} from './wallets-hooks';
 import {actions, initialState, reducer} from './wallets-reducer';
+import {WalletStatus} from '../../enums';
 
 export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -69,7 +70,7 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL1Wallet = () => {
     // To support serializable object in the store
-    const serializedError = status === 'error' ? {...error} : null;
+    const serializedError = status === WalletStatus.ERROR ? {...error} : null;
     updateL1Wallet({
       account,
       status,
