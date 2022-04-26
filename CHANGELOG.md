@@ -1,3 +1,10 @@
+## [1.3.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.4...v1.3.0-dev.5) (2022-04-26)
+
+
+### 🔧 Fixes
+
+* isInstalled() check for gsw ([#165](https://github.com/starkware-libs/starkgate-frontend/issues/165)) ([1881192](https://github.com/starkware-libs/starkgate-frontend/commit/18811924e99f63477e0edd4dcdbf9d35fd32cc43))
+
 ## [1.3.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.3...v1.3.0-dev.4) (2022-04-26)
 
 
