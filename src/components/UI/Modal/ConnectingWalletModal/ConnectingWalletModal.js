@@ -4,15 +4,17 @@ import React from 'react';
 import {DynamicIcon} from '../../DynamicIcon/DynamicIcon';
 import {LoginMessage} from '../ModalMessage';
 import {WithLoaderModal} from '../WithLoaderModal/WithLoaderModal';
-import {BODY_TXT_PARTS} from './ConnectingWalletModal.strings';
+import {useConnectingWalletModalTranslation} from '../../../../hooks';
 
 const ConnectingWalletModal = ({walletName, iconPath}) => {
+  const {bodyTxtParts} = useConnectingWalletModalTranslation();
+
   return (
     <WithLoaderModal>
       <center>
         <DynamicIcon path={iconPath} size={100} />
       </center>
-      <LoginMessage txtParts={BODY_TXT_PARTS} walletName={walletName} />
+      <LoginMessage txtParts={bodyTxtParts} walletName={walletName} />
     </WithLoaderModal>
   );
 };

@@ -22,7 +22,7 @@ export const useHideModal = () => {
 
 export const useConnectingWalletModal = () => {
   const {showModal} = useContext(ModalContext);
-  const titleTxt = utils.getTranslation('modals.login.title_txt');
+  const {titleTxt} = useConnectingWalletModal();
 
   return useCallback(
     (walletName, iconPath) => {
