@@ -1,3 +1,10 @@
+## [1.3.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.5...v1.3.0-dev.6) (2022-04-27)
+
+
+### 🔧 Fixes
+
+* calc L2 tx hash in the background ([#169](https://github.com/starkware-libs/starkgate-frontend/issues/169)) ([80d23d2](https://github.com/starkware-libs/starkgate-frontend/commit/80d23d22e9a806e5f19acc47e1dc2ccfb44fffca))
+
 ## [1.3.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.4...v1.3.0-dev.5) (2022-04-26)
 
 
