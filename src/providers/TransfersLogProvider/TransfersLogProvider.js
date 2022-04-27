@@ -2,21 +2,25 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {isCompleted, isConsumed} from '../../enums';
+import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
 import {starknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
+import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
+import {useL2Wallet} from '../WalletsProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
 export const TransfersLogProvider = ({children}) => {
+  const [transfers, dispatch] = useReducer(reducer, initialState);
   const {localStorageTransfersLogKey} = useEnvs();
   const logger = useLogger(TransfersLogProvider.displayName);
-  const [transfers, dispatch] = useReducer(reducer, initialState);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
+  const {chainId: l2ChainId} = useL2Wallet();
+  const getDepositMessageToL2Event = useDepositMessageToL2Event();
 
   useEffect(() => {
     const storedTransfers = getTransfersFromStorage();
@@ -58,7 +62,9 @@ export const TransfersLogProvider = ({children}) => {
 
       const newTransfers = [];
       for (const transfer of transfers) {
-        const newTransfer = await checkTransaction(transfer);
+        const newTransfer = await (!transfer.l2hash
+          ? calcL2TransactionHash(transfer)
+          : checkTransaction(transfer));
         newTransfers.push(newTransfer);
       }
       if (newTransfers.length) {
@@ -69,6 +75,26 @@ export const TransfersLogProvider = ({children}) => {
     };
     updateTransfers();
   }, [blockHash, transfers]);
+
+  const calcL2TransactionHash = async transfer => {
+    const l2MessageEvent = await getDepositMessageToL2Event(transfer.event);
+    if (l2MessageEvent) {
+      const {to_address, from_address, selector, payload, nonce} = l2MessageEvent.returnValues;
+      delete transfer.event;
+      return {
+        ...transfer,
+        l2hash: utils.blockchain.starknet.getTransactionHash(
+          TransactionHashPrefix.L1_HANDLER,
+          from_address,
+          to_address,
+          selector,
+          payload,
+          l2ChainId,
+          nonce
+        )
+      };
+    }
+  };
 
   const updateTransfer = transfer => {
     dispatch({

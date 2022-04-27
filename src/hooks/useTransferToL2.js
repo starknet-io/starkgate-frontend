@@ -2,16 +2,9 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
-import {
-  ActionType,
-  stepOf,
-  TransactionHashPrefix,
-  TransferError,
-  TransferStep,
-  TransferToL2Steps
-} from '../enums';
+import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {starknet} from '../libs';
-import {useDepositListener, useDepositMessageToL2Event} from '../providers/EventManagerProvider';
+import {useDepositListener} from '../providers/EventManagerProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
@@ -26,14 +19,13 @@ export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
   const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL2Tracking();
   const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
-  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
+  const {account: l2Account} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const {addListener, removeListener} = useDepositListener();
-  const getDepositMessageToL2Event = useDepositMessageToL2Event();
   const maxTotalBalance = useMaxTotalBalance();
 
   return useCallback(
@@ -81,9 +73,7 @@ export const useTransferToL2 = () => {
       };
 
       const onTransactionHash = (error, transactionHash) => {
-        if (error) {
-          onError(error);
-        } else {
+        if (!error) {
           logger.log('Tx signed', {transactionHash});
           handleProgress(
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
@@ -92,41 +82,20 @@ export const useTransferToL2 = () => {
       };
 
       const onDeposit = async (error, event) => {
-        if (error) {
-          onError(error);
-        } else {
-          const l2MessageEvent = await getDepositMessageToL2Event(event);
-          if (l2MessageEvent) {
-            handleData({
-              type: ActionType.TRANSFER_TO_L2,
-              sender: l1Account,
-              recipient: l2Account,
-              name,
-              symbol,
-              amount,
-              ...extractTransactionsHashFromEvent(l2MessageEvent)
-            });
-          }
+        if (!error) {
+          logger.log('Deposit event dispatched', event);
+          trackSuccess(event.transactionHash);
+          handleData({
+            type: ActionType.TRANSFER_TO_L2,
+            sender: l1Account,
+            recipient: l2Account,
+            l1hash: event.transactionHash,
+            name,
+            symbol,
+            amount,
+            event
+          });
         }
-      };
-
-      const extractTransactionsHashFromEvent = event => {
-        const {to_address, from_address, selector, payload, nonce} = event.returnValues;
-        const l1hash = event.transactionHash;
-        const l2hash = utils.blockchain.starknet.getTransactionHash(
-          TransactionHashPrefix.L1_HANDLER,
-          from_address,
-          to_address,
-          selector,
-          payload,
-          l2ChainId,
-          nonce
-        );
-        trackSuccess({l1hash, l2hash});
-        return {
-          l1hash,
-          l2hash
-        };
       };
 
       const isMaxBalanceExceeded = async () => {
@@ -138,13 +107,6 @@ export const useTransferToL2 = () => {
               contract: tokenContract
             }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
-      };
-
-      const onError = error => {
-        removeListener();
-        trackError(error);
-        logger.error(error?.message, error);
-        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
       };
 
       try {
@@ -177,7 +139,10 @@ export const useTransferToL2 = () => {
         logger.log('Calling deposit');
         await sendDeposit();
       } catch (ex) {
-        onError(ex);
+        removeListener();
+        trackError(ex);
+        logger.error(ex?.message, ex);
+        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
     },
     [
@@ -185,7 +150,6 @@ export const useTransferToL2 = () => {
       addListener,
       removeListener,
       l1ChainId,
-      l2ChainId,
       l1Account,
       l2Account,
       l1Config,

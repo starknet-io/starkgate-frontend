@@ -2,11 +2,11 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import {useWallet} from 'use-wallet';
 
+import {WalletStatus} from '../../enums';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {useStarknetWallet} from './wallets-hooks';
 import {actions, initialState, reducer} from './wallets-reducer';
-import {WalletStatus} from '../../enums';
 
 export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
