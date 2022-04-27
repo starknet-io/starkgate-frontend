@@ -157,13 +157,6 @@ export const useCompleteTransferToL1 = () => {
         }
       };
 
-      const onError = error => {
-        removeListener();
-        trackError(error);
-        logger.error(error?.message, error);
-        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, error));
-      };
-
       try {
         logger.log('CompleteTransferToL1 called');
         handleProgress(
@@ -176,7 +169,10 @@ export const useCompleteTransferToL1 = () => {
         logger.log('Calling withdraw');
         await sendWithdrawal();
       } catch (ex) {
-        onError(ex);
+        removeListener();
+        trackError(ex);
+        logger.error(ex?.message, ex);
+        handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
     },
     [
