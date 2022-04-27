@@ -7,7 +7,7 @@ import {App} from './App';
 import {ModalWrapper} from './components/UI';
 import envs from './config/envs';
 import './index.scss';
-import {Providers} from './providers';
+import {AppProviders} from './providers';
 import utils from './utils';
 
 const {env} = envs;
@@ -24,10 +24,10 @@ if (env === 'development' || utils.browser.getUrlParameter('debugApp')) {
 
 ReactDOM.render(
   <BrowserRouter>
-    <Providers>
+    <AppProviders>
       <App />
       <ModalWrapper />
-    </Providers>
+    </AppProviders>
   </BrowserRouter>,
   document.getElementById('root')
 );

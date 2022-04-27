@@ -29,11 +29,15 @@ export const useDepositMessageToL2Event = () => {
   const {getPastEvents} = useContext(EventManagerContext);
   const starknetContract = useStarknetContract();
 
-  return useCallback(async depositEvent => {
-    const {blockNumber, transactionHash} = depositEvent;
-    const pastEvents = await getPastEvents(starknetContract, EventName.L1.LOG_MESSAGE_TO_L2, {
-      fromBlock: blockNumber
-    });
-    return pastEvents.find(e => e.transactionHash === transactionHash);
-  }, []);
+  return useCallback(
+    async depositEvent => {
+      const {blockNumber, transactionHash} = depositEvent;
+      const pastEvents = await getPastEvents(starknetContract, EventName.L1.LOG_MESSAGE_TO_L2, {
+        fromBlock: blockNumber - 1,
+        toBlock: 'latest'
+      });
+      return pastEvents.find(e => e.transactionHash === transactionHash);
+    },
+    [starknetContract]
+  );
 };
