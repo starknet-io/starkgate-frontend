@@ -4,10 +4,9 @@ import {setUser} from '../../analytics';
 import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
 import {MenuType} from '../../enums';
 import {useEnvs, useMenuTracking} from '../../hooks';
-import {EventManagerProvider} from '../../providers/EventManagerProvider';
+import {BridgeProviders} from '../../providers';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
-import {TokensProvider} from '../../providers/TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import utils from '../../utils';
 import styles from './Bridge.module.scss';
@@ -56,14 +55,12 @@ export const Bridge = () => {
 
   return (
     <div className={styles.bridge}>
-      <TokensProvider>
-        <EventManagerProvider>
-          <div className={styles.bridgeMenu}>
-            <ToastProvider />
-            {renderMenu()}
-          </div>
-        </EventManagerProvider>
-      </TokensProvider>
+      <BridgeProviders>
+        <div className={styles.bridgeMenu}>
+          <ToastProvider />
+          {renderMenu()}
+        </div>
+      </BridgeProviders>
     </div>
   );
 };

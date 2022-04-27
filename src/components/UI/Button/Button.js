@@ -39,6 +39,7 @@ export const Button = ({
         styles.button,
         isDisabled && styles.isDisabled,
         isLoading && styles.isLoading,
+        text && styles.hasText,
         className
       )}
       style={styleObj}

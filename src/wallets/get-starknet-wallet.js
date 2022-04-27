@@ -1,12 +1,13 @@
 import {getStarknet} from '../libs';
 
-export class ArgentX {
+export class GetStarknetWallet {
   constructor(config) {
     this.config = config;
   }
 
   isInstalled() {
-    return Boolean(window.starknet);
+    const version = window.starknet?.version;
+    return version && version !== 'uninstalled';
   }
 
   install() {

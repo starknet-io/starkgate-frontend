@@ -48,10 +48,7 @@ const TransactionSubmittedModal = ({transfer}) => {
     });
   }
 
-  if (
-    (type === ActionType.TRANSFER_TO_L1 && !isTransferCompleted) ||
-    type === ActionType.TRANSFER_TO_L2
-  ) {
+  if (type === ActionType.TRANSFER_TO_L1 && !isTransferCompleted) {
     explorerButtons.push({
       explorerName: VOYAGER,
       explorerUrl: voyagerTxUrl(l2hash),
