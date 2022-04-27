@@ -34,37 +34,11 @@ export const TransfersLogProvider = ({children}) => {
       if (!blockHash) {
         return;
       }
-      const checkTransaction = async transfer => {
-        if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
-          return transfer;
-        }
-        try {
-          logger.log(`Checking tx status ${transfer.l2hash}`);
-          const {tx_status} = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
-          if (transfer.status !== tx_status) {
-            logger.log(`Status changed from ${transfer.status}->${tx_status}`);
-          } else {
-            logger.log(`Status is still ${tx_status}`);
-          }
-          if (isConsumed(tx_status)) {
-            updateTokenBalance(transfer.symbol);
-          }
-          return {
-            ...transfer,
-            status: tx_status,
-            lastChecked: blockHash
-          };
-        } catch (error) {
-          logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
-        }
-        return transfer;
-      };
-
       const newTransfers = [];
       for (const transfer of transfers) {
-        const newTransfer = await (!transfer.l2hash
-          ? calcL2TransactionHash(transfer)
-          : checkTransaction(transfer));
+        const newTransfer = await (transfer.l2hash
+          ? checkTransaction(transfer)
+          : calcL2TransactionHash(transfer));
         newTransfers.push(newTransfer);
       }
       if (newTransfers.length) {
@@ -75,6 +49,32 @@ export const TransfersLogProvider = ({children}) => {
     };
     updateTransfers();
   }, [blockHash, transfers]);
+
+  const checkTransaction = async transfer => {
+    if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
+      return transfer;
+    }
+    try {
+      logger.log(`Checking tx status ${transfer.l2hash}`);
+      const {tx_status} = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
+      if (transfer.status !== tx_status) {
+        logger.log(`Status changed from ${transfer.status}->${tx_status}`);
+        if (isConsumed(tx_status)) {
+          updateTokenBalance(transfer.symbol);
+        }
+      } else {
+        logger.log(`Status is still ${tx_status}`);
+      }
+      return {
+        ...transfer,
+        status: tx_status,
+        lastChecked: blockHash
+      };
+    } catch (error) {
+      logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
+    }
+    return transfer;
+  };
 
   const calcL2TransactionHash = async transfer => {
     const l2MessageEvent = await getDepositMessageToL2Event(transfer.event);
@@ -94,6 +94,7 @@ export const TransfersLogProvider = ({children}) => {
         )
       };
     }
+    return transfer;
   };
 
   const updateTransfer = transfer => {
