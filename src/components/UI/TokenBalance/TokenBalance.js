@@ -16,7 +16,11 @@ export const TokenBalance = ({tokenData, onRefreshClick}) => {
       <span>{balanceTitleTxt}</span>
       <div className={styles.balanceRow}>
         <div className={styles.balance}>
-          {isLoading ? <Loading size={LoadingSize.SMALL} /> : utils.wallet.formatBalance(balance)}
+          {isLoading ? (
+            <Loading size={LoadingSize.SMALL} />
+          ) : (
+            utils.wallet.shortenBalance(utils.wallet.formatBalance(balance))
+          )}
           <div className={styles.symbol}>{symbol}</div>
         </div>
         <RefreshIcon size={18} onClick={onRefreshClick} />
