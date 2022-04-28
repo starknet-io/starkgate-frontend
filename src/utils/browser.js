@@ -3,10 +3,11 @@ export const openInNewTab = url => {
 };
 
 export const getUrlParameter = name => {
-  name = name.replace(/[[]/, '[').replace(/[\]]/, '\\]');
-  const regex = new RegExp(`[&]${name}=([^&#]*)`);
-  const results = regex.exec(window.location.search);
-  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  const results = new RegExp(`[?&]${name}=([^&#]*)`).exec(window.location.href);
+  if (results === null) {
+    return null;
+  }
+  return decodeURI(results[1]) || 0;
 };
 
 export const isChrome = () => {
