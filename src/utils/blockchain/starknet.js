@@ -4,7 +4,7 @@ import {getStarknet, starknet} from '../../libs';
 const {Contract, defaultProvider, stark, hash, number} = starknet;
 
 export const createContract = (address, ABI) => {
-  return new Contract(ABI, address);
+  return new Contract(ABI, address, getStarknet().provider);
 };
 
 export const callContract = async (contract, method, ...args) => {
