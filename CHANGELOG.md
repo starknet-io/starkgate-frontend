@@ -1,3 +1,11 @@
+## [1.3.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.6...v1.3.0-dev.7) (2022-04-28)
+
+
+### 🔧 Fixes
+
+* handle display of exponential balances ([44c675b](https://github.com/starkware-libs/starkgate-frontend/commit/44c675b7c4bfadee6cdbce9f25daf4e93442aa58))
+* **utils:** get url params returns undefined ([cde6401](https://github.com/starkware-libs/starkgate-frontend/commit/cde64015af4393d9d4586c33722feeb1eb8dfccb))
+
 ## [1.3.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.5...v1.3.0-dev.6) (2022-04-27)
 
 
