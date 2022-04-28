@@ -1,3 +1,10 @@
+## [1.3.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.7...v1.3.0-dev.8) (2022-04-28)
+
+
+### 🔧 Fixes
+
+* use getStarknet() provider on starknet contracts ([1d6b023](https://github.com/starkware-libs/starkgate-frontend/commit/1d6b0230555f102473ae674467b76e2c2343d729))
+
 ## [1.3.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.6...v1.3.0-dev.7) (2022-04-28)
 
 
