@@ -3,7 +3,7 @@ import utils from '../../utils';
 const {afterDecimal, isNegative, isZero} = utils.number;
 
 describe('afterDecimal', () => {
-  it.only('should return number of decimals places', () => {
+  it('should return number of decimals places', () => {
     expect(afterDecimal('')).toEqual(0);
     expect(afterDecimal(0)).toEqual(0);
     expect(afterDecimal('0')).toEqual(0);
