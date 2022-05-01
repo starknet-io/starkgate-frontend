@@ -1,7 +1,7 @@
 import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
 import {getStarknet, starknet} from '../../libs';
 
-const {Contract, defaultProvider, stark, hash, number} = starknet;
+const {Contract, stark, hash, number} = starknet;
 
 export const createContract = (address, ABI) => {
   return new Contract(ABI, address, getStarknet().provider);
@@ -34,7 +34,7 @@ export const waitForTransaction = async (transactionHash, requiredStatus, retryI
     let processing = false;
     const intervalId = setInterval(async () => {
       if (processing) return;
-      const statusPromise = defaultProvider.getTransactionStatus(transactionHash);
+      const statusPromise = getStarknet().provider.getTransactionStatus(transactionHash);
       processing = true;
       try {
         const {tx_status} = await statusPromise;
