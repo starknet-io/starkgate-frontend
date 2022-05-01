@@ -1,3 +1,10 @@
+## [1.3.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.8...v1.3.0-dev.9) (2022-05-01)
+
+
+### 🔧 Fixes
+
+* use wallet provider for all provider calls ([#170](https://github.com/starkware-libs/starkgate-frontend/issues/170)) ([646feee](https://github.com/starkware-libs/starkgate-frontend/commit/646feeee58e1720833b0252983b2091815fba10a))
+
 ## [1.3.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.7...v1.3.0-dev.8) (2022-04-28)
 
 
