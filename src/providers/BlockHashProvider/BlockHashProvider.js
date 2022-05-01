@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useCallback, useEffect, useState} from 'react';
 
 import {useConfig} from '../../hooks';
-import {starknet} from '../../libs';
+import {getStarknet} from '../../libs';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
@@ -10,7 +10,7 @@ export const BlockHashProvider = ({children}) => {
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    const {block_hash} = await starknet.defaultProvider.getBlock();
+    const {block_hash} = await getStarknet().provider.getBlock();
     setBlockHash(block_hash);
   }, []);
 

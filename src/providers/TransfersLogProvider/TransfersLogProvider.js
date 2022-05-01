@@ -5,7 +5,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import envs from '../../config/envs';
 import {isCompleted, isConsumed} from '../../enums';
 import {useLogger} from '../../hooks';
-import {starknet} from '../../libs';
+import {getStarknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
@@ -38,7 +38,7 @@ export const TransfersLogProvider = ({children}) => {
         }
         try {
           logger.log(`Checking tx status ${transfer.l2hash}`);
-          const {tx_status} = await starknet.defaultProvider.getTransactionStatus(transfer.l2hash);
+          const {tx_status} = await getStarknet().provider.getTransactionStatus(transfer.l2hash);
           if (transfer.status !== tx_status) {
             logger.log(`Status changed from ${transfer.status}->${tx_status}`);
           } else {
