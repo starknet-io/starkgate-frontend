@@ -30,7 +30,10 @@ export const TokenInput = ({
         value={value}
         onChange={onInputChange}
       />
+      {/*
+      TODO: Temporary remove the max button until estimateGas logic will be added
       <MaxButton onClick={onMaxClick} />
+      */}
       <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
     </div>
   );
