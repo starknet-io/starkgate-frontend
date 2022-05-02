@@ -18,7 +18,7 @@ export const TokensProvider = ({children}) => {
 
   useEffect(() => {
     updateTokenBalance();
-  }, []);
+  }, [l1Account, l2Account]);
 
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');

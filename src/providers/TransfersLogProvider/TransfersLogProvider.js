@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
+import {ActionType, isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
 import {getStarknet} from '../../libs';
 import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
-import {useL2Wallet} from '../WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
@@ -19,7 +19,8 @@ export const TransfersLogProvider = ({children}) => {
   const logger = useLogger(TransfersLogProvider.displayName);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
-  const {chainId: l2ChainId} = useL2Wallet();
+  const {chainId: l2ChainId, account: l2Account} = useL2Wallet();
+  const {account: l1Account} = useL1Wallet();
   const getDepositMessageToL2Event = useDepositMessageToL2Event();
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export const TransfersLogProvider = ({children}) => {
     if (Array.isArray(storedTransfers)) {
       setTransfers(storedTransfers);
     }
-  }, []);
+  }, [l1Account, l2Account]);
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
@@ -119,7 +120,19 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    return utils.storage.getItem(localStorageTransfersLogKey);
+    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
+    if (Array.isArray(storedTransfers)) {
+      return storedTransfers.filter(
+        t =>
+          (t.sender === l1Account &&
+            t.recipient === l2Account &&
+            t.type === ActionType.TRANSFER_TO_L2) ||
+          (t.sender === l2Account &&
+            t.recipient === l1Account &&
+            t.type === ActionType.TRANSFER_TO_L1)
+      );
+    }
+    return [];
   };
 
   const saveTransfersToStorage = transfers => {

@@ -18,6 +18,7 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
+import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
@@ -33,6 +34,8 @@ export const ToastProvider = () => {
   const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export const ToastProvider = () => {
       const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
       handleToast(transfer, prevTransfer);
     });
-  }, [transfers]);
+  }, [transfers, l1Account, l2Account]);
 
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;
