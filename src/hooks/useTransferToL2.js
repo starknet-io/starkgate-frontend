@@ -5,10 +5,12 @@ import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
 import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {starknet} from '../libs';
 import {useDepositListener} from '../providers/EventManagerProvider';
+import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
+import {useEnvs} from './useEnvs';
 import {useLogger} from './useLogger';
 import {useMaxTotalBalance} from './useTokenConstant';
 import {useTransferToL2Tracking} from './useTracking';
@@ -17,9 +19,10 @@ import {useTransferProgress} from './useTransferProgress';
 
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
+  const {localStorageAddedAssetsKey} = useEnvs();
   const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL2Tracking();
   const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
@@ -27,6 +30,7 @@ export const useTransferToL2 = () => {
   const progressOptions = useTransferProgress();
   const {addListener, removeListener} = useDepositListener();
   const maxTotalBalance = useMaxTotalBalance();
+  const getL2Token = useL2Token();
 
   return useCallback(
     async amount => {
@@ -35,6 +39,7 @@ export const useTransferToL2 = () => {
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
       const isEthToken = utils.token.isEth(symbol);
       const tokenBridgeAddress = bridgeAddress[l1ChainId];
+      const l2TokenAddress = getL2Token(symbol)?.tokenAddress[l2ChainId];
 
       const readAllowance = () => {
         return allowance({
@@ -85,6 +90,7 @@ export const useTransferToL2 = () => {
         if (!error) {
           logger.log('Deposit event dispatched', event);
           trackSuccess(event.transactionHash);
+          maybeAddToken(l2TokenAddress);
           handleData({
             type: ActionType.TRANSFER_TO_L2,
             sender: l1Account,
@@ -95,6 +101,18 @@ export const useTransferToL2 = () => {
             amount,
             event
           });
+        }
+      };
+
+      const maybeAddToken = async () => {
+        const addedAssets = utils.storage.getItem(localStorageAddedAssetsKey) || [];
+        if (!addedAssets.includes(l2TokenAddress)) {
+          try {
+            await utils.token.addToken(l2TokenAddress);
+            utils.storage.setItem(localStorageAddedAssetsKey, [...addedAssets, l2TokenAddress]);
+          } catch (ex) {
+            logger.warn(ex.message);
+          }
         }
       };
 

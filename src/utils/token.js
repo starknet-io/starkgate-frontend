@@ -1,4 +1,5 @@
 import {NetworkType} from '../enums';
+import {getStarknet} from '../libs';
 
 export const isEth = tokenData => {
   let symbol = '';
@@ -9,4 +10,20 @@ export const isEth = tokenData => {
     symbol = tokenData;
   }
   return symbol === NetworkType.L1.symbol;
+};
+
+export const addToken = async address => {
+  try {
+    await getStarknet().request({
+      type: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address
+        }
+      }
+    });
+  } catch (ex) {
+    return Promise.reject(ex);
+  }
 };
