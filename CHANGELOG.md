@@ -1,3 +1,32 @@
+## [1.3.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0...v1.3.0) (2022-05-02)
+
+
+### 💉 Improvements
+
+* move to hooks useConstants, useEnvs, useTranslation ([#159](https://github.com/starkware-libs/starkgate-frontend/issues/159)) ([b77ba11](https://github.com/starkware-libs/starkgate-frontend/commit/b77ba118934e95859cb4409ba22be3c8ac25fd79))
+* useTracking ([#160](https://github.com/starkware-libs/starkgate-frontend/issues/160)) ([a8cad80](https://github.com/starkware-libs/starkgate-frontend/commit/a8cad802e13fcd7b940eed5d60a8f943d82662a9))
+* useTranslation hooks ([#162](https://github.com/starkware-libs/starkgate-frontend/issues/162)) ([92e0927](https://github.com/starkware-libs/starkgate-frontend/commit/92e092764ec53d622eacc8d8a27038869131cde5))
+
+
+### 🧩 Features
+
+* integrated with get-starknet-wallet ([#163](https://github.com/starkware-libs/starkgate-frontend/issues/163)) ([e0f996a](https://github.com/starkware-libs/starkgate-frontend/commit/e0f996a7c5a7b7fa4a395695048275a8c234dd76))
+* validate starknet wallet chain ID ([#168](https://github.com/starkware-libs/starkgate-frontend/issues/168)) ([2551a7f](https://github.com/starkware-libs/starkgate-frontend/commit/2551a7f296de1fcdfc5dd4a819982850e6294306))
+
+
+### 🔧 Fixes
+
+* add ETH mainnet addresses ([#167](https://github.com/starkware-libs/starkgate-frontend/issues/167)) ([56fa74b](https://github.com/starkware-libs/starkgate-frontend/commit/56fa74b4510971d516824d5c0faae611da20d63b))
+* bad overflow in modal for content with very long strings ([#161](https://github.com/starkware-libs/starkgate-frontend/issues/161)) ([36a1c6f](https://github.com/starkware-libs/starkgate-frontend/commit/36a1c6ffd1d367db917a0bffc6f3a33ba37be6a9))
+* calc L2 tx hash in the background ([#169](https://github.com/starkware-libs/starkgate-frontend/issues/169)) ([80d23d2](https://github.com/starkware-libs/starkgate-frontend/commit/80d23d22e9a806e5f19acc47e1dc2ccfb44fffca))
+* canceled transfers shown in transfer log ([#166](https://github.com/starkware-libs/starkgate-frontend/issues/166)) ([69324e8](https://github.com/starkware-libs/starkgate-frontend/commit/69324e8c838674eddc9759a282c1e4d4040c0553))
+* **deps:** bump gsw version ([6c01ae5](https://github.com/starkware-libs/starkgate-frontend/commit/6c01ae5e518947294a0abd7c6e489ac0074edf38))
+* handle display of exponential balances ([44c675b](https://github.com/starkware-libs/starkgate-frontend/commit/44c675b7c4bfadee6cdbce9f25daf4e93442aa58))
+* isInstalled() check for gsw ([#165](https://github.com/starkware-libs/starkgate-frontend/issues/165)) ([1881192](https://github.com/starkware-libs/starkgate-frontend/commit/18811924e99f63477e0edd4dcdbf9d35fd32cc43))
+* use getStarknet() provider on starknet contracts ([1d6b023](https://github.com/starkware-libs/starkgate-frontend/commit/1d6b0230555f102473ae674467b76e2c2343d729))
+* use wallet provider for all provider calls ([#170](https://github.com/starkware-libs/starkgate-frontend/issues/170)) ([646feee](https://github.com/starkware-libs/starkgate-frontend/commit/646feeee58e1720833b0252983b2091815fba10a))
+* **utils:** get url params returns undefined ([cde6401](https://github.com/starkware-libs/starkgate-frontend/commit/cde64015af4393d9d4586c33722feeb1eb8dfccb))
+
 ## [1.3.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0-dev.8...v1.3.0-dev.9) (2022-05-01)
 
 
