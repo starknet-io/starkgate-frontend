@@ -44,6 +44,6 @@ describe('shortenBalance', () => {
 
   it('should return the same balance for short balance', () => {
     expect(shortenBalance('0.00001')).toEqual('0.00001');
-    expect(shortenBalance(0.123)).toEqual('0.123');
+    expect(shortenBalance(0.123)).toEqual(0.123);
   });
 });
