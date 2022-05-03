@@ -6,15 +6,6 @@ on:
       - v*
 
 jobs:
-  push-frontend-image:
-    uses: ./.github/workflows/gcr_push_workflow.yml
-    with:
-      image_name: us.gcr.io/starkware-dev/starknet/starkgate/frontend
-      branch_name: ${{ github.event.base_ref }}
-      dockerfile: Dockerfile.frontend
-    secrets:
-      gcp_token: ${{ secrets.STARKGATE_SA }}
-
   deploy_testnet:
     if: github.event.base_ref == 'refs/heads/test-image-tag'
     needs: [push-frontend-image]
