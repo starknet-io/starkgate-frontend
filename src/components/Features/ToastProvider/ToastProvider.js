@@ -47,9 +47,7 @@ export const ToastProvider = () => {
   }, [transfers]);
 
   useEffect(() => {
-    return () => {
-      clearToasts();
-    };
+    return () => clearToasts();
   }, []);
 
   const handleToast = (transfer, prevTransfer) => {
