@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {WalletStatus} from '../../enums';
+import utils from '../../utils';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {useStarknetWallet} from './wallets-hooks';
@@ -22,6 +23,7 @@ export const WalletsProvider = ({children}) => {
   } = useStarknetWallet();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
+  const [accountHash, setAccountHash] = useState('');
 
   useEffect(() => {
     (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
@@ -30,6 +32,12 @@ export const WalletsProvider = ({children}) => {
   useEffect(() => {
     (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
   }, [status, error, account, chainId, networkName]);
+
+  useEffect(() => {
+    if (account && l2Account) {
+      setAccountHash(utils.wallet.calcAccountHash(account, l2Account));
+    }
+  }, [account, l2Account]);
 
   const connectWallet = async walletConfig => {
     return isL1 ? connectL1Wallet(walletConfig) : connectL2Wallet(walletConfig);
@@ -122,6 +130,7 @@ export const WalletsProvider = ({children}) => {
 
   const context = {
     ...state,
+    accountHash,
     connectWallet,
     connectL1Wallet,
     connectL2Wallet,
