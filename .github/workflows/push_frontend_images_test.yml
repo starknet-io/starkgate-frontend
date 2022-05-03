@@ -30,7 +30,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   deploy_testnet:
-    if: github.event.base_ref == 'refs/heads/master'
+    if: github.event.base_ref == 'refs/heads/test-image-tag'
     needs: [push-frontend-image]
     uses: ./.github/workflows/helm_upgrade_workflow.yml
     with:
@@ -38,7 +38,7 @@ jobs:
       namespace_name: starkgate-goerli
       values_file: deployment/testing.yml
       env_file: .env.testing
-      image_tag: ${{ github.ref_name }}-goerli
+      image_tag: ${{ github.ref_name }}-test
     secrets:
       gcp_token: ${{ secrets.STARKGATE_SA }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

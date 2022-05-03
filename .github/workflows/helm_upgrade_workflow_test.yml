@@ -1,0 +1,37 @@
+name: Push docker image to GCR reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      app_name:
+        required: true
+        type: string
+      namespace_name:
+        required: true
+        type: string
+      values_file:
+        required: true
+        type: string
+      env_file:
+        required: true
+        type: string
+      image_tag:
+        required: false
+        type: string
+    secrets:
+      gcp_token:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+jobs:
+  deploy:
+    name: Upgrade helm chart
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set image tag
+        id: get_image_tag
+        run: echo "::set-output name=tag::${{ inputs.image_tag || github.ref_name }}"
+      - name: Echo result
+        run: echo ${{ steps.get_image_tag.outputs.tag }}
