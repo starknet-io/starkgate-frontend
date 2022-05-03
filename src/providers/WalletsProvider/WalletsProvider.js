@@ -27,6 +27,14 @@ export const WalletsProvider = ({children}) => {
   const [accountHash, setAccountHash] = useState('');
 
   useEffect(() => {
+    (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
+  }, [l2Status, l2Error, l2Account, l2ChainId, l2NetworkName]);
+
+  useEffect(() => {
+    (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
+  }, [status, error, account, chainId, networkName]);
+
+  useEffect(() => {
     if (account && l2Account) {
       setAccountHash(
         starknet.hash.computeHashOnElements([
@@ -36,14 +44,6 @@ export const WalletsProvider = ({children}) => {
       );
     }
   }, [account, l2Account]);
-
-  useEffect(() => {
-    (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
-  }, [l2Status, l2Error, l2Account, l2ChainId, l2NetworkName]);
-
-  useEffect(() => {
-    (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
-  }, [status, error, account, chainId, networkName]);
 
   const connectWallet = async walletConfig => {
     return isL1 ? connectL1Wallet(walletConfig) : connectL2Wallet(walletConfig);
