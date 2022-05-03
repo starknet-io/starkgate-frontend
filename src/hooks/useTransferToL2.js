@@ -105,14 +105,10 @@ export const useTransferToL2 = () => {
       };
 
       const maybeAddToken = async () => {
-        const addedAssets = utils.storage.getItem(localStorageAddedAssetsKey) || [];
-        if (!addedAssets.includes(l2TokenAddress)) {
-          try {
-            await utils.token.addToken(l2TokenAddress);
-            utils.storage.setItem(localStorageAddedAssetsKey, [...addedAssets, l2TokenAddress]);
-          } catch (ex) {
-            logger.warn(ex.message);
-          }
+        try {
+          await utils.token.addToken(l2TokenAddress);
+        } catch (ex) {
+          logger.warn(ex.message);
         }
       };
 
@@ -120,10 +116,10 @@ export const useTransferToL2 = () => {
         const tokenBridgeBalance = await (isEthToken
           ? ethBalanceOf(tokenBridgeAddress)
           : balanceOf({
-              account: tokenBridgeAddress,
-              decimals,
-              contract: tokenContract
-            }));
+            account: tokenBridgeAddress,
+            decimals,
+            contract: tokenContract
+          }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
