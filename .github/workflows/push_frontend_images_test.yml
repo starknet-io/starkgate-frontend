@@ -1,4 +1,4 @@
-name: Docker build tag and push frontend images to GCR workflow.
+name: Docker build tag and push frontend images to GCR workflow test.
 
 on:
   push:
