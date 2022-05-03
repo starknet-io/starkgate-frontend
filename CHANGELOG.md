@@ -1,3 +1,10 @@
+## [1.4.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.5...v1.4.0-dev.1) (2022-05-03)
+
+
+### 🧩 Features
+
+* add asset to SN wallet after a successful deposit ([#171](https://github.com/starkware-libs/starkgate-frontend/issues/171)) ([30d8ec3](https://github.com/starkware-libs/starkgate-frontend/commit/30d8ec3a7cdb5d2cb6da9c32ec3cac6ff0f6b363))
+
 ### [1.3.1-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.4...v1.3.1-dev.5) (2022-05-03)
 
 
