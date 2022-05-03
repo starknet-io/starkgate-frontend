@@ -1,3 +1,17 @@
+### [1.3.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.1...v1.3.1-dev.2) (2022-05-03)
+
+
+### 🔧 Fixes
+
+* cancel toFixed when format balances ([#172](https://github.com/starkware-libs/starkgate-frontend/issues/172)) ([2906e3e](https://github.com/starkware-libs/starkgate-frontend/commit/2906e3e46d65023771f06a0c62d9d4ea46d22f53))
+
+### [1.3.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0...v1.3.1-dev.1) (2022-05-03)
+
+
+### 🔧 Fixes
+
+* temporary disable max button ([#173](https://github.com/starkware-libs/starkgate-frontend/issues/173)) ([1d3038d](https://github.com/starkware-libs/starkgate-frontend/commit/1d3038d1d38d832b67c147fe325fecbe6838a6aa))
+
 ## [1.3.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.2.0...v1.3.0) (2022-05-02)
 
 
