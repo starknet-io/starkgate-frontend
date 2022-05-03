@@ -3,10 +3,10 @@ import utils from '../../utils';
 const {formatBalance, shortenAddress, shortenBalance} = utils.wallet;
 
 describe('formatBalance', () => {
-  it('should format balance to 5 digits precision', () => {
-    expect(formatBalance(1.222243232)).toEqual(1.22224);
-    expect(formatBalance(3000.232143123212)).toEqual(3000.23214);
-    expect(formatBalance(10.000000001)).toEqual(10);
+  it('should format balance as string', () => {
+    expect(formatBalance(1.222243232)).toEqual('1.222243232');
+    expect(formatBalance(3000.232143123212)).toEqual('3000.232143123212');
+    expect(formatBalance(10.000000001)).toEqual('10.000000001');
   });
 
   it('should handle exponential balances', () => {

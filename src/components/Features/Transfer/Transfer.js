@@ -74,7 +74,8 @@ export const Transfer = () => {
     } else if (amount > selectedToken.balance) {
       errorMsg = insufficientBalanceErrorMsg;
     } else if (isL1 && amount > maxDeposit) {
-      errorMsg = maxDepositErrorMsg;
+      const {symbol} = selectedToken;
+      errorMsg = utils.object.evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
     if (errorMsg) {
