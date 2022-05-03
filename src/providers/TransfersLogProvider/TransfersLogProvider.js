@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer, useRef} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
-import {getStarknet, starknet} from '../../libs';
+import {getStarknet} from '../../libs';
 import utils from '../../utils';
-import {parseToFelt} from '../../utils/parser';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
-import {useAccountHash, useL1Wallet, useL2Wallet, useWallets} from '../WalletsProvider';
+import {useAccountHash, useL2Wallet} from '../WalletsProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
@@ -36,8 +35,7 @@ export const TransfersLogProvider = ({children}) => {
       }
       const newTransfers = [];
       for (const transfer of transfers) {
-        const {l2hash} = transfer;
-        const newTransfer = await (!!l2hash?.length
+        const newTransfer = await (transfer.l2hash
           ? checkTransaction(transfer)
           : calcL2TransactionHash(transfer));
         newTransfers.push(newTransfer);
