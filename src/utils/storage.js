@@ -28,11 +28,6 @@ Storage.prototype.setObjectHash = function (key, myObject) {
 Storage.prototype.getObjectHash = function (key) {
   let myObject = this.getItem(key);
   if (!myObject) return null;
-  // For backward compatibility
-  if (myObject.startsWith('[') && myObject.endsWith(']')) {
-    this.setObjectHash(key, myObject);
-    myObject = this.getItem(key);
-  }
   return (
     b64d(myObject) &&
     JSON.parse(b64d(myObject), function (key) {
