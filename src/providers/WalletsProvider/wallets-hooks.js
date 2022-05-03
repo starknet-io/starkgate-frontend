@@ -2,7 +2,7 @@ import {useCallback, useContext, useEffect, useState} from 'react';
 
 import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
-import {getStarknet} from '../../libs';
+import {getStarknet, getStarknetWallet} from '../../libs';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
@@ -70,8 +70,11 @@ export const useStarknetWallet = () => {
 
   const connect = async walletConfig => {
     try {
+      const wallet = await getStarknetWallet();
+      if (!wallet) {
+        return;
+      }
       setStatus(WalletStatus.CONNECTING);
-      const wallet = getStarknet();
       const enabled = await wallet
         .enable(!autoConnect && {showModal: true})
         .then(address => !!address?.length);

@@ -1,3 +1,17 @@
+### [1.3.1-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.3...v1.3.1-dev.4) (2022-05-03)
+
+
+### 🔧 Fixes
+
+* connection modal overrides gsw selection modal ([#175](https://github.com/starkware-libs/starkgate-frontend/issues/175)) ([73b1f21](https://github.com/starkware-libs/starkgate-frontend/commit/73b1f2188ba7c2d60d641034c9f8c1c8001961fc))
+
+### [1.3.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.2...v1.3.1-dev.3) (2022-05-03)
+
+
+### 🔧 Fixes
+
+* update text for the attempt to deposit more than the allowable amount ([#174](https://github.com/starkware-libs/starkgate-frontend/issues/174)) ([d8f3da8](https://github.com/starkware-libs/starkgate-frontend/commit/d8f3da8e30725b7e85d3cfafce5973dc981b9138))
+
 ### [1.3.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.1...v1.3.1-dev.2) (2022-05-03)
 
 
