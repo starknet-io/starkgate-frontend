@@ -8,7 +8,6 @@ on:
 jobs:
   deploy_testnet:
     if: github.event.base_ref == 'refs/heads/test-image-tag'
-    needs: [push-frontend-image]
     uses: ./.github/workflows/helm_upgrade_workflow_test.yml
     with:
       app_name: starkgate
