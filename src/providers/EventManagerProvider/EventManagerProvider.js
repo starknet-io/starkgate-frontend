@@ -11,6 +11,7 @@ import {EventManagerContext} from './event-manager-context';
 
 const listeners = {};
 const filters = {};
+const emitters = [];
 
 export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
@@ -23,6 +24,12 @@ export const EventManagerProvider = ({children}) => {
   useEffect(() => {
     setEventFilters();
     addDepositWithdrawalListeners();
+    return () => {
+      logger.log('Remove all listeners.');
+      emitters.forEach(emitter => emitter.removeAllListeners());
+      logger.log('Clean emitters.');
+      emitters.splice(0, emitters.length);
+    };
   }, []);
 
   const addListener = (eventName, callback) => {
@@ -101,11 +108,13 @@ export const EventManagerProvider = ({children}) => {
   };
 
   const addContractEventListener = (contract, eventName, filter, handler) => {
-    contract.events[eventName](
-      {
-        filter
-      },
-      handler
+    emitters.push(
+      contract.events[eventName](
+        {
+          filter
+        },
+        handler
+      )
     );
   };
 
