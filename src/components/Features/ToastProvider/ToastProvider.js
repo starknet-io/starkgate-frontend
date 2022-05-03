@@ -34,8 +34,6 @@ export const ToastProvider = () => {
   const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {account: l1Account} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   useEffect(() => {
@@ -47,7 +45,7 @@ export const ToastProvider = () => {
       const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
       handleToast(transfer, prevTransfer);
     });
-  }, [transfers, l1Account, l2Account]);
+  }, [transfers]);
 
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;

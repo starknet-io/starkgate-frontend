@@ -25,10 +25,8 @@ export const TransfersLogProvider = ({children}) => {
 
   useEffect(() => {
     const storedTransfers = getTransfersFromStorage();
-    if (Array.isArray(storedTransfers)) {
-      setTransfers(storedTransfers);
-    }
-  }, [l1Account, l2Account]);
+    setTransfers(storedTransfers);
+  }, []);
 
   useDeepCompareEffect(() => {
     const updateTransfers = async () => {
