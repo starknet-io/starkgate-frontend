@@ -1,3 +1,10 @@
+### [1.3.1-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.4...v1.3.1-dev.5) (2022-05-03)
+
+
+### 🔧 Fixes
+
+* update app state on accountsChanged event ([#176](https://github.com/starkware-libs/starkgate-frontend/issues/176)) ([3161cc9](https://github.com/starkware-libs/starkgate-frontend/commit/3161cc9f35179bbe2549df0ead2cbf3442cb5696))
+
 ### [1.3.1-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.3...v1.3.1-dev.4) (2022-05-03)
 
 
