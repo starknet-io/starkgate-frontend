@@ -15,13 +15,9 @@ export const TokensProvider = ({children}) => {
   const {account: l2Account} = useL2Wallet();
   const getL1TokenBalance = useL1TokenBalance(l1Account);
   const getL2TokenBalance = useL2TokenBalance(l2Account);
-  const isMounted = useRef(true);
 
   useEffect(() => {
     updateTokenBalance();
-    return () => {
-      isMounted.current = false;
-    };
   }, []);
 
   const updateTokenBalance = symbol => {
@@ -56,7 +52,6 @@ export const TokensProvider = ({children}) => {
   };
 
   const updateToken = (index, props) => {
-    if (!isMounted.current) return;
     dispatch({
       type: actions.UPDATE_TOKEN,
       payload: {
