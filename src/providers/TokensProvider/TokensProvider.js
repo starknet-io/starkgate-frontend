@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useRef, useState} from 'react';
 
 import {useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
@@ -18,7 +18,7 @@ export const TokensProvider = ({children}) => {
 
   useEffect(() => {
     updateTokenBalance();
-  }, [l1Account, l2Account]);
+  }, []);
 
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
