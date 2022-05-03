@@ -114,10 +114,10 @@ export const useTransferToL2 = () => {
         const tokenBridgeBalance = await (isEthToken
           ? ethBalanceOf(tokenBridgeAddress)
           : balanceOf({
-            account: tokenBridgeAddress,
-            decimals,
-            contract: tokenContract
-          }));
+              account: tokenBridgeAddress,
+              decimals,
+              contract: tokenContract
+            }));
         return maxTotalBalance < tokenBridgeBalance + Number(amount);
       };
 
