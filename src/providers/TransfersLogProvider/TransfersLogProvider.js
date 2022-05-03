@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useRef} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ActionType, isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
+import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
-import {getStarknet} from '../../libs';
+import {getStarknet, starknet} from '../../libs';
 import utils from '../../utils';
+import {parseToFelt} from '../../utils/parser';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
@@ -22,8 +23,13 @@ export const TransfersLogProvider = ({children}) => {
   const {chainId: l2ChainId, account: l2Account} = useL2Wallet();
   const {account: l1Account} = useL1Wallet();
   const getDepositMessageToL2Event = useDepositMessageToL2Event();
+  const hashKey = useRef();
 
   useEffect(() => {
+    hashKey.current = starknet.hash.computeHashOnElements([
+      parseToFelt(l1Account).toString(),
+      parseToFelt(l2Account).toString()
+    ]);
     const storedTransfers = getTransfersFromStorage();
     setTransfers(storedTransfers);
   }, []);
@@ -118,23 +124,14 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
-    if (Array.isArray(storedTransfers)) {
-      return storedTransfers.filter(
-        t =>
-          (t.sender === l1Account &&
-            t.recipient === l2Account &&
-            t.type === ActionType.TRANSFER_TO_L2) ||
-          (t.sender === l2Account &&
-            t.recipient === l1Account &&
-            t.type === ActionType.TRANSFER_TO_L1)
-      );
-    }
-    return [];
+    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
+    return storedTransfers[hashKey.current] || [];
   };
 
   const saveTransfersToStorage = transfers => {
-    utils.storage.setItem(localStorageTransfersLogKey, transfers);
+    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
+    const updatedTransfers = Object.assign(storedTransfers, {[hashKey.current]: transfers});
+    utils.storage.setItem(localStorageTransfersLogKey, updatedTransfers);
   };
 
   const context = {
