@@ -18,7 +18,6 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
