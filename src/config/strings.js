@@ -57,7 +57,7 @@ const strings = {
       tooManyDigitsErrorMsg: 'Too many decimal places',
       insufficientBalanceErrorMsg: 'Insufficient balance',
       maxDepositErrorMsg:
-        'You have exceeded the maximum transfer amount. Please reduce the amount and try again.',
+        'You have exceeded the maximum transfer amount ({{maxDeposit}} {{symbol}}). Please reduce the amount and try again.',
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',

@@ -1,9 +1,5 @@
 export const formatBalance = balance => {
-  if (typeof balance === 'number') {
-    balance = fromExponential(balance);
-    return typeof balance === 'string' ? balance : parseFloat(balance.toFixed(5));
-  }
-  return 'N/A';
+  return typeof balance === 'number' ? String(fromExponential(balance)) : 'N/A';
 };
 
 export const shortenBalance = balance => {
