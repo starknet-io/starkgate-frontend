@@ -89,6 +89,7 @@ export const useStarknetWallet = () => {
 
   const addAccountChangedListener = () => {
     getStarknet().on('accountsChanged', () => {
+      setStatus(WalletStatus.DISCONNECTED);
       updateAccount();
     });
   };
