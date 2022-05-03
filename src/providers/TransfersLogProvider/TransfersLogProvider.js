@@ -120,7 +120,15 @@ export const TransfersLogProvider = ({children}) => {
   const getTransfersFromStorage = () => {
     const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
     if (Array.isArray(storedTransfers)) {
-      return storedTransfers;
+      return storedTransfers.filter(
+        t =>
+          (t.sender === l1Account &&
+            t.recipient === l2Account &&
+            t.type === ActionType.TRANSFER_TO_L2) ||
+          (t.sender === l2Account &&
+            t.recipient === l1Account &&
+            t.type === ActionType.TRANSFER_TO_L1)
+      );
     }
     return [];
   };
@@ -130,15 +138,7 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const context = {
-    transfers: transfers.filter(
-      t =>
-        (t.sender === l1Account &&
-          t.recipient === l2Account &&
-          t.type === ActionType.TRANSFER_TO_L2) ||
-        (t.sender === l2Account &&
-          t.recipient === l1Account &&
-          t.type === ActionType.TRANSFER_TO_L1)
-    ),
+    transfers,
     addTransfer,
     updateTransfer
   };
