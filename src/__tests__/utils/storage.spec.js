@@ -65,14 +65,4 @@ describe('StorageManager', () => {
     expect(getItem('testNumber')).toEqual(testNumber);
     expect(getItem('testString')).toEqual(testString);
   });
-
-  it('should backward compatible for saved arrays', () => {
-    const jsonArray = JSON.stringify(testArray);
-    localStorage.setItem('test', jsonArray);
-    expect(localStorage.getItem('test')).toEqual(jsonArray);
-    expect(getItem('test')).toEqual(testArray);
-    expect(localStorage.getItem('test')).toEqual(
-      'eyIwIjoiV3c9PSIsIjEiOiJldz09IiwiMiI6IklnPT0iLCIzIjoiWVE9PSIsIjQiOiJJZz09IiwiNSI6Ik9nPT0iLCI2IjoiTVE9PSIsIjciOiJmUT09IiwiOCI6IlhRPT0ifQ=='
-    );
-  });
 });
