@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer} from 'react';
 
 import {useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
