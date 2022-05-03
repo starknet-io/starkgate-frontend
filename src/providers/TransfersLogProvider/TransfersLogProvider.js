@@ -97,7 +97,9 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
+    let storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
+    // for backward compatibility
+    storedTransfers = maybeTransformTransfersArrayToObject(storedTransfers) || {};
     return storedTransfers[accountHash] || [];
   };
 
@@ -105,6 +107,21 @@ export const TransfersLogProvider = ({children}) => {
     const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
     const updatedTransfers = Object.assign(storedTransfers, {[accountHash]: transfers});
     utils.storage.setItem(localStorageTransfersLogKey, updatedTransfers);
+  };
+
+  const maybeTransformTransfersArrayToObject = storedTransfers => {
+    if (Array.isArray(storedTransfers)) {
+      const transfersObject = {};
+      storedTransfers.forEach(storedTransfer => {
+        const {sender, recipient} = storedTransfer;
+        const accountHash = utils.wallet.calcAccountHash(sender, recipient);
+        transfersObject[accountHash] = transfersObject[accountHash] || [];
+        transfersObject[accountHash].push(storedTransfer);
+      });
+      utils.storage.setItem(localStorageTransfersLogKey, transfersObject);
+      return transfersObject;
+    }
+    return storedTransfers;
   };
 
   const updateTransfer = transfer => {
