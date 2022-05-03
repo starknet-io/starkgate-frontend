@@ -3,7 +3,7 @@ name: Docker build tag and push frontend images to GCR workflow.
 on:
   push:
     tags:
-      - v*.*.*
+      - v*
 
 jobs:
   push-frontend-image:
