@@ -88,7 +88,6 @@ export const useTransferToL2 = () => {
         if (!error) {
           logger.log('Deposit event dispatched', event);
           trackSuccess(event.transactionHash);
-          maybeAddToken(l2TokenAddress);
           handleData({
             type: ActionType.TRANSFER_TO_L2,
             sender: l1Account,
@@ -150,6 +149,7 @@ export const useTransferToL2 = () => {
         addListener(onDeposit);
         logger.log('Calling deposit');
         await sendDeposit();
+        await maybeAddToken(l2TokenAddress);
       } catch (ex) {
         removeListener();
         trackError(ex);

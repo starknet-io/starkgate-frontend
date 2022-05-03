@@ -13,17 +13,13 @@ export const isEth = tokenData => {
 };
 
 export const addToken = async address => {
-  try {
-    await getStarknet().request({
-      type: 'wallet_watchAsset',
-      params: {
-        type: 'ERC20',
-        options: {
-          address
-        }
+  await getStarknet().request({
+    type: 'wallet_watchAsset',
+    params: {
+      type: 'ERC20',
+      options: {
+        address
       }
-    });
-  } catch (ex) {
-    return Promise.reject(ex);
-  }
+    }
+  });
 };
