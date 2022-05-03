@@ -10,7 +10,6 @@ import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import utils from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
-import {useEnvs} from './useEnvs';
 import {useLogger} from './useLogger';
 import {useMaxTotalBalance} from './useTokenConstant';
 import {useTransferToL2Tracking} from './useTracking';
@@ -19,7 +18,6 @@ import {useTransferProgress} from './useTransferProgress';
 
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
-  const {localStorageAddedAssetsKey} = useEnvs();
   const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL2Tracking();
   const {account: l1Account, chainId: l1ChainId, config: l1Config} = useL1Wallet();
   const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
