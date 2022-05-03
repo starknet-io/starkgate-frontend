@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {WalletStatus} from '../../enums';
+import {starknet} from '../../libs';
+import {parseToFelt} from '../../utils/parser';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {useStarknetWallet} from './wallets-hooks';
@@ -22,6 +24,18 @@ export const WalletsProvider = ({children}) => {
   } = useStarknetWallet();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
+  const [accountHash, setAccountHash] = useState('');
+
+  useEffect(() => {
+    if (account && l2Account) {
+      setAccountHash(
+        starknet.hash.computeHashOnElements([
+          parseToFelt(account).toString(),
+          parseToFelt(l2Account).toString()
+        ])
+      );
+    }
+  }, [account, l2Account]);
 
   useEffect(() => {
     (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
@@ -122,6 +136,7 @@ export const WalletsProvider = ({children}) => {
 
   const context = {
     ...state,
+    accountHash,
     connectWallet,
     connectL1Wallet,
     connectL2Wallet,

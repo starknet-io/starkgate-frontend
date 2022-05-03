@@ -22,8 +22,8 @@ import utils from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 
-const toastsMap = {};
-const toastsDismissed = {};
+let toastsMap = {};
+let toastsDismissed = {};
 
 export const ToastProvider = () => {
   const {alphaDisclaimerMsg} = useToastsTranslation();
@@ -45,6 +45,12 @@ export const ToastProvider = () => {
       handleToast(transfer, prevTransfer);
     });
   }, [transfers]);
+
+  useEffect(() => {
+    return () => {
+      clearToasts();
+    };
+  }, []);
 
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;
@@ -153,6 +159,16 @@ export const ToastProvider = () => {
   const goToTransferLog = transfer => {
     transfer.type === ActionType.TRANSFER_TO_L2 ? swapToL1() : swapToL2();
     showAccountMenu({transferId: transfer.id});
+  };
+
+  const clearToasts = () => {
+    Object.values(toastsMap).forEach(toasts => {
+      Object.keys(toasts).forEach(id => {
+        toast.dismiss(id);
+      });
+    });
+    toastsMap = {};
+    toastsDismissed = {};
   };
 
   return (
