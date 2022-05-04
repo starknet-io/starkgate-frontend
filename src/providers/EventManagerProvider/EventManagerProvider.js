@@ -84,8 +84,8 @@ export const EventManagerProvider = ({children}) => {
 
   const setEventFilters = () => {
     // LogMessageToL2 filter
-    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[l1ChainId]);
-    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[l2ChainId]);
+    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress);
+    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress);
     filters[EventName.L1.LOG_MESSAGE_TO_L2] = {
       from_address: l1BridgesAddresses,
       to_address: l2BridgesAddress,

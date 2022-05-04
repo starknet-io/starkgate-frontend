@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
-import {useConstants, useLogger} from '../../hooks';
+import {l1Tokens, l2Tokens} from '../../config/tokens';
+import {useConstants, useEnvs, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
@@ -9,30 +10,56 @@ import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
+  const {supportedTokens} = useEnvs();
   const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
   const [tokens, dispatch] = useReducer(reducer, initialState);
-  const {account: l1Account} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {account: l1Account, chainId: l1ChainId} = useL1Wallet();
+  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
   const getL1TokenBalance = useL1TokenBalance(l1Account);
   const getL2TokenBalance = useL2TokenBalance(l2Account);
 
   useEffect(() => {
-    updateTokenBalance();
+    const tokens = initTokens();
+    setTokens(tokens);
+    updateTokensBalances(tokens);
   }, []);
 
+  const initTokens = () => {
+    return [
+      ...l1Tokens
+        .filter(t => supportedTokens.includes(t.symbol))
+        .map(t => ({
+          ...t,
+          isL1: true,
+          bridgeAddress: t.bridgeAddress?.[l1ChainId],
+          tokenAddress: t.tokenAddress?.[l1ChainId]
+        })),
+      ...l2Tokens
+        .filter(t => supportedTokens.includes(t.symbol))
+        .map(t => ({
+          ...t,
+          isL2: true,
+          bridgeAddress: t.bridgeAddress?.[l2ChainId],
+          tokenAddress: t.tokenAddress?.[l2ChainId]
+        }))
+    ];
+  };
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
-    const tokensToUpdate = tokens
-      .map((t, index) => ({...t, index}))
-      .filter(t => !symbol || t.symbol === symbol);
-    logger.log('Tokens to update:', {tokensToUpdate});
+    const tokensToUpdate = tokens.filter(t => !symbol || t.symbol === symbol);
+    updateTokensBalances(tokensToUpdate);
+  };
 
-    tokensToUpdate.forEach(token => {
-      if (!token.isLoading) {
-        updateToken(token.index, {isLoading: true});
-        fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
-      }
-    });
+  const updateTokensBalances = tokens => {
+    logger.log('Tokens to update', tokens);
+    tokens
+      .map((t, index) => ({...t, index}))
+      .forEach(token => {
+        if (!token.isLoading) {
+          updateToken(token.index, {isLoading: true});
+          return fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
+        }
+      });
   };
 
   const fetchBalance = async (fn, token, retry = 1) => {
@@ -49,6 +76,13 @@ export const TokensProvider = ({children}) => {
       }
       return fetchBalance(fn, token, retry + 1);
     }
+  };
+
+  const setTokens = tokens => {
+    dispatch({
+      type: actions.SET_TOKENS,
+      tokens
+    });
   };
 
   const updateToken = (index, props) => {

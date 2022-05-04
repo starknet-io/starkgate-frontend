@@ -1,6 +1,6 @@
 import {ChainType, NetworkType} from '../enums';
 
-const l1tokens = [
+export const l1Tokens = [
   {
     name: NetworkType.L1.tokenName,
     symbol: NetworkType.L1.symbol,
@@ -77,7 +77,7 @@ const l1tokens = [
   }
 ];
 
-const l2tokens = [
+export const l2Tokens = [
   {
     name: NetworkType.L1.tokenName,
     symbol: NetworkType.L1.symbol,
@@ -157,5 +157,3 @@ const l2tokens = [
     }
   }
 ];
-
-export {l1tokens, l2tokens};

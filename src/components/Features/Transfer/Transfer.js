@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {
@@ -47,11 +48,11 @@ export const Transfer = () => {
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
 
-  useEffect(() => {
-    if (!selectedToken) {
+  useDeepCompareEffect(() => {
+    if (tokens.length > 0 && !selectedToken) {
       selectToken(tokens[0].symbol);
     }
-  }, []);
+  }, [tokens]);
 
   useEffect(() => {
     if (selectedToken) {
