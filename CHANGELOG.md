@@ -1,3 +1,19 @@
+## [1.4.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0...v1.4.0) (2022-05-04)
+
+
+### 🔧 Fixes
+
+* cancel toFixed when format balances ([#172](https://github.com/starkware-libs/starkgate-frontend/issues/172)) ([2906e3e](https://github.com/starkware-libs/starkgate-frontend/commit/2906e3e46d65023771f06a0c62d9d4ea46d22f53))
+* connection modal overrides gsw selection modal ([#175](https://github.com/starkware-libs/starkgate-frontend/issues/175)) ([73b1f21](https://github.com/starkware-libs/starkgate-frontend/commit/73b1f2188ba7c2d60d641034c9f8c1c8001961fc))
+* temporary disable max button ([#173](https://github.com/starkware-libs/starkgate-frontend/issues/173)) ([1d3038d](https://github.com/starkware-libs/starkgate-frontend/commit/1d3038d1d38d832b67c147fe325fecbe6838a6aa))
+* update app state on accountsChanged event ([#176](https://github.com/starkware-libs/starkgate-frontend/issues/176)) ([3161cc9](https://github.com/starkware-libs/starkgate-frontend/commit/3161cc9f35179bbe2549df0ead2cbf3442cb5696))
+* update text for the attempt to deposit more than the allowable amount ([#174](https://github.com/starkware-libs/starkgate-frontend/issues/174)) ([d8f3da8](https://github.com/starkware-libs/starkgate-frontend/commit/d8f3da8e30725b7e85d3cfafce5973dc981b9138))
+
+
+### 🧩 Features
+
+* add asset to SN wallet after a successful deposit ([#171](https://github.com/starkware-libs/starkgate-frontend/issues/171)) ([30d8ec3](https://github.com/starkware-libs/starkgate-frontend/commit/30d8ec3a7cdb5d2cb6da9c32ec3cac6ff0f6b363))
+
 ## [1.4.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.1-dev.5...v1.4.0-dev.1) (2022-05-03)
 
 
