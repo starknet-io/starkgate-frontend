@@ -32,6 +32,11 @@ export const useWallets = () => {
   };
 };
 
+export const useAccountHash = () => {
+  const {accountHash} = useContext(WalletsContext);
+  return accountHash;
+};
+
 export const useL1Wallet = () => {
   const wallets = useContext(WalletsContext);
 
@@ -92,6 +97,7 @@ export const useStarknetWallet = () => {
 
   const addAccountChangedListener = () => {
     getStarknet().on('accountsChanged', () => {
+      setStatus(WalletStatus.DISCONNECTED);
       updateAccount();
     });
   };

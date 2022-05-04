@@ -1,3 +1,6 @@
+import {starknet} from '../libs';
+import {parseToFelt} from './parser';
+
 export const formatBalance = balance => {
   return typeof balance === 'number' ? String(fromExponential(balance)) : 'N/A';
 };
@@ -12,6 +15,13 @@ export const shortenAddress = account => {
       ? account
       : `${account.substring(0, 5)}...${account.substring(account.length - 3)}`
     : '';
+};
+
+export const calcAccountHash = (account1, account2) => {
+  return starknet.hash.computeHashOnElements([
+    parseToFelt(account1).toString(),
+    parseToFelt(account2).toString()
+  ]);
 };
 
 const fromExponential = x => {

@@ -9,7 +9,7 @@ import utils from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
-import {useL2Wallet} from '../WalletsProvider';
+import {useAccountHash, useL2Wallet} from '../WalletsProvider';
 import {TransfersLogContext} from './transfers-log-context';
 import {actions, initialState, reducer} from './transfers-log-reducer';
 
@@ -21,12 +21,11 @@ export const TransfersLogProvider = ({children}) => {
   const {updateTokenBalance} = useTokens();
   const {chainId: l2ChainId} = useL2Wallet();
   const getDepositMessageToL2Event = useDepositMessageToL2Event();
+  const accountHash = useAccountHash();
 
   useEffect(() => {
     const storedTransfers = getTransfersFromStorage();
-    if (Array.isArray(storedTransfers)) {
-      setTransfers(storedTransfers);
-    }
+    setTransfers(storedTransfers);
   }, []);
 
   useDeepCompareEffect(() => {
@@ -97,6 +96,34 @@ export const TransfersLogProvider = ({children}) => {
     return transfer;
   };
 
+  const getTransfersFromStorage = () => {
+    let storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
+    // for backward compatibility
+    storedTransfers = maybeTransformTransfersArrayToObject(storedTransfers) || {};
+    return storedTransfers[accountHash] || [];
+  };
+
+  const saveTransfersToStorage = transfers => {
+    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
+    const updatedTransfers = Object.assign(storedTransfers, {[accountHash]: transfers});
+    utils.storage.setItem(localStorageTransfersLogKey, updatedTransfers);
+  };
+
+  const maybeTransformTransfersArrayToObject = storedTransfers => {
+    if (Array.isArray(storedTransfers)) {
+      const transfersObject = {};
+      storedTransfers.forEach(storedTransfer => {
+        const {sender, recipient} = storedTransfer;
+        const accountHash = utils.wallet.calcAccountHash(sender, recipient);
+        transfersObject[accountHash] = transfersObject[accountHash] || [];
+        transfersObject[accountHash].push(storedTransfer);
+      });
+      utils.storage.setItem(localStorageTransfersLogKey, transfersObject);
+      return transfersObject;
+    }
+    return storedTransfers;
+  };
+
   const updateTransfer = transfer => {
     dispatch({
       type: actions.UPDATE_TRANSFER,
@@ -116,14 +143,6 @@ export const TransfersLogProvider = ({children}) => {
       type: actions.SET_TRANSFERS,
       transfers
     });
-  };
-
-  const getTransfersFromStorage = () => {
-    return utils.storage.getItem(localStorageTransfersLogKey);
-  };
-
-  const saveTransfersToStorage = transfers => {
-    utils.storage.setItem(localStorageTransfersLogKey, transfers);
   };
 
   const context = {
