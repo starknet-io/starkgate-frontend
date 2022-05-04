@@ -21,7 +21,7 @@ export const TokensProvider = ({children}) => {
   useEffect(() => {
     const tokens = initTokens();
     setTokens(tokens);
-    updateTokensBalances(tokens);
+    fetchTokensBalances(tokens);
   }, []);
 
   const initTokens = () => {
@@ -47,10 +47,10 @@ export const TokensProvider = ({children}) => {
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
     const tokensToUpdate = tokens.filter(t => !symbol || t.symbol === symbol);
-    updateTokensBalances(tokensToUpdate);
+    fetchTokensBalances(tokensToUpdate);
   };
 
-  const updateTokensBalances = tokens => {
+  const fetchTokensBalances = tokens => {
     logger.log('Tokens to update', tokens);
     tokens
       .map((t, index) => ({...t, index}))
