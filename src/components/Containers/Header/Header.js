@@ -4,7 +4,7 @@ import useBreakpoint from 'use-breakpoint';
 
 import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {Breakpoint} from '../../../enums';
+import {Breakpoint, ChainType} from '../../../enums';
 import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -17,7 +17,7 @@ import styles from './Header.module.scss';
 export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
-  const {env} = useEnvs();
+  const {supportedChainId} = useEnvs();
   const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
@@ -70,7 +70,7 @@ export const Header = () => {
         <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {env !== 'production' && (
+        {supportedChainId === ChainType.L1.GOERLI && (
           <div className={utils.object.toClasses(styles.chain, 'row')}>{chainTxt}</div>
         )}
       </div>
