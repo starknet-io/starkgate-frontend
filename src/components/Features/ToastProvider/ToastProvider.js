@@ -40,15 +40,19 @@ export const ToastProvider = () => {
   }, [breakpoint]);
 
   useDeepCompareEffect(() => {
-    transfers.forEach(transfer => {
-      const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
-      handleToast(transfer, prevTransfer);
-    });
+    renderToasts();
   }, [transfers]);
 
   useEffect(() => {
     return () => clearToasts();
   }, []);
+
+  const renderToasts = () => {
+    transfers.forEach(transfer => {
+      const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
+      handleToast(transfer, prevTransfer);
+    });
+  };
 
   const handleToast = (transfer, prevTransfer) => {
     const {status, type} = transfer;
@@ -59,8 +63,13 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
-      return showCompleteTransferToL1Toast(transfer);
+    if (type === ActionType.TRANSFER_TO_L1) {
+      if (!transfer.l1hash && isOnChain(status)) {
+        return showCompleteTransferToL1Toast(transfer);
+      }
+      if (transfer.l1hash && isToastRendered(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
+        return dismissToast(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1);
+      }
     }
   };
 
