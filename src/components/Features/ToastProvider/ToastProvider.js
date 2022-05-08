@@ -55,7 +55,7 @@ export const ToastProvider = () => {
   };
 
   const handleToast = (transfer, prevTransfer) => {
-    const {status, type} = transfer;
+    const {status, type, l1hash} = transfer;
     const isChanged = prevTransfer && status !== prevTransfer.status;
     if (isChanged && isConsumed(status)) {
       return showConsumedTransferToast(transfer);
@@ -64,10 +64,10 @@ export const ToastProvider = () => {
       return showRejectedTransferToast(transfer);
     }
     if (type === ActionType.TRANSFER_TO_L1) {
-      if (!transfer.l1hash && isOnChain(status)) {
+      if (!l1hash && isOnChain(status)) {
         return showCompleteTransferToL1Toast(transfer);
       }
-      if (transfer.l1hash && isToastRendered(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
+      if (l1hash && isToastRendered(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
         return dismissToast(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1);
       }
     }
