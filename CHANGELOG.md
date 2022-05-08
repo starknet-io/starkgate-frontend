@@ -1,3 +1,10 @@
+### [1.4.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.0...v1.4.1-dev.1) (2022-05-08)
+
+
+### 🔧 Fixes
+
+* CompleteTransferToL1 toast remains on display after tx is done ([#179](https://github.com/starkware-libs/starkgate-frontend/issues/179)) ([219b860](https://github.com/starkware-libs/starkgate-frontend/commit/219b8608ab546d1e822f92978b210ed557dc57c5))
+
 ## [1.4.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.3.0...v1.4.0) (2022-05-04)
 
 
