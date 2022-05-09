@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
 import {useEnvs} from '../../hooks';
-import {setItem} from '../../utils';
+import {setStorageItem} from '../../utils';
 import {AppContext} from './app-context';
 import {actions, initialState, reducer} from './app-reducer';
 
@@ -25,7 +25,7 @@ export const AppProvider = ({children}) => {
   };
 
   const acceptTerms = () => {
-    setItem(localStorageAcceptTermsKey, true);
+    setStorageItem(localStorageAcceptTermsKey, true);
     dispatch({
       type: actions.SET_ACCEPT_TERMS
     });

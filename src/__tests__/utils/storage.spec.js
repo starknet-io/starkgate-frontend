@@ -1,4 +1,4 @@
-import {getItem, setItem} from '../../utils';
+import {getStorageItem, setStorageItem} from '../../utils';
 
 class LocalStorageMock {
   constructor() {
@@ -33,14 +33,14 @@ describe('StorageManager', () => {
   });
 
   it('should return null for empty key', () => {
-    expect(getItem('test')).toBeNull();
+    expect(getStorageItem('test')).toBeNull();
   });
 
   it('should get item hash from local storage', () => {
-    setItem('testObject', testObject);
-    setItem('testArray', testArray);
-    setItem('testNumber', testNumber);
-    setItem('testString', testString);
+    setStorageItem('testObject', testObject);
+    setStorageItem('testArray', testArray);
+    setStorageItem('testNumber', testNumber);
+    setStorageItem('testString', testString);
     expect(localStorage.getItem('testObject')).toEqual(
       'eyIwIjoiZXc9PSIsIjEiOiJJZz09IiwiMiI6IllRPT0iLCIzIjoiSWc9PSIsIjQiOiJPZz09IiwiNSI6Ik1RPT0iLCI2IjoiZlE9PSJ9'
     );
@@ -54,13 +54,13 @@ describe('StorageManager', () => {
   });
 
   it('should get item from storage manager', () => {
-    setItem('testObject', testObject);
-    setItem('testArray', testArray);
-    setItem('testNumber', testNumber);
-    setItem('testString', testString);
-    expect(getItem('testObject')).toEqual(testObject);
-    expect(getItem('testArray')).toEqual(testArray);
-    expect(getItem('testNumber')).toEqual(testNumber);
-    expect(getItem('testString')).toEqual(testString);
+    setStorageItem('testObject', testObject);
+    setStorageItem('testArray', testArray);
+    setStorageItem('testNumber', testNumber);
+    setStorageItem('testString', testString);
+    expect(getStorageItem('testObject')).toEqual(testObject);
+    expect(getStorageItem('testArray')).toEqual(testArray);
+    expect(getStorageItem('testNumber')).toEqual(testNumber);
+    expect(getStorageItem('testString')).toEqual(testString);
   });
 });

@@ -5,7 +5,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
 import {getStarknet} from '../../libs';
-import {calcAccountHash, getItem, setItem, getTransactionHash} from '../../utils';
+import {calcAccountHash, getStorageItem, setStorageItem, getTransactionHash} from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
@@ -97,16 +97,16 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    let storedTransfers = getItem(localStorageTransfersLogKey);
+    let storedTransfers = getStorageItem(localStorageTransfersLogKey);
     // for backward compatibility
     storedTransfers = maybeTransformTransfersArrayToObject(storedTransfers) || {};
     return storedTransfers[accountHash] || [];
   };
 
   const saveTransfersToStorage = transfers => {
-    const storedTransfers = getItem(localStorageTransfersLogKey) || {};
+    const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
     const updatedTransfers = Object.assign(storedTransfers, {[accountHash]: transfers});
-    setItem(localStorageTransfersLogKey, updatedTransfers);
+    setStorageItem(localStorageTransfersLogKey, updatedTransfers);
   };
 
   const maybeTransformTransfersArrayToObject = storedTransfers => {
@@ -118,7 +118,7 @@ export const TransfersLogProvider = ({children}) => {
         transfersObject[accountHash] = transfersObject[accountHash] || [];
         transfersObject[accountHash].push(storedTransfer);
       });
-      setItem(localStorageTransfersLogKey, transfersObject);
+      setStorageItem(localStorageTransfersLogKey, transfersObject);
       return transfersObject;
     }
     return storedTransfers;

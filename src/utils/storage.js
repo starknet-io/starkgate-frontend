@@ -1,4 +1,4 @@
-export const setItem = (key, item) => {
+export const setStorageItem = (key, item) => {
   if (localStorage) {
     localStorage.setObjectHash(key, JSON.stringify(item));
     return true;
@@ -6,7 +6,7 @@ export const setItem = (key, item) => {
   return false;
 };
 
-export const getItem = key => {
+export const getStorageItem = key => {
   if (localStorage) {
     const item = localStorage.getObjectHash(key);
     try {
