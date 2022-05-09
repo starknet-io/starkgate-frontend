@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 
 import {TrackEvent} from '../../analytics';
 import {FullScreenContainer} from '../../components/UI';
-import {faqs} from '../../config/faqs';
+import Faqs from '../../config/faqs';
 import {useTracking, useFaqTranslation} from '../../hooks';
 import styles from './Faq.module.scss';
 
@@ -19,7 +19,7 @@ export const Faq = () => {
       <div className={styles.faq}>
         <h1>{titleTxt}</h1>
         <ol>
-          {faqs.map((faq, i) => (
+          {Faqs.map((faq, i) => (
             <li key={`faq-${i}`} className={styles.question}>
               <h2 dangerouslySetInnerHTML={{__html: faq.question}} />
               <div dangerouslySetInnerHTML={{__html: faq.answer}} />

@@ -1,5 +1,5 @@
-import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
-import {getStarknet, starknet} from '../../libs';
+import {ChainInfo, isRejected, TransactionStatusStep} from '../enums';
+import {getStarknet, starknet} from '../libs';
 
 const {Contract, stark, hash, number} = starknet;
 
@@ -79,12 +79,4 @@ export const getTransactionHash = (
     ChainInfo.L2[chainId].ID_PREFIX,
     ...additionalData
   ]);
-};
-
-export const hashEquals = (...data) => {
-  return !!data.reduce((d1, d2) => {
-    return starknet.hash.computeHashOnElements(d1) === starknet.hash.computeHashOnElements(d2)
-      ? d1
-      : '';
-  });
 };

@@ -8,7 +8,7 @@ import {BridgeProviders} from '../../providers';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
-import utils from '../../utils';
+import {getItem, getMsFromHrs, setItem} from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
@@ -29,15 +29,12 @@ export const Bridge = () => {
   }, []);
 
   const maybeShowOnboardingModal = () => {
-    const onboardingTimestamp = utils.storage.getItem(localStorageOnboardingExpirationTimestampKey);
+    const onboardingTimestamp = getItem(localStorageOnboardingExpirationTimestampKey);
     const now = Date.now();
-    const onboardingModalTimeoutMs = utils.date.getMsFromHrs(onboardingModalTimeoutHrs);
+    const onboardingModalTimeoutMs = getMsFromHrs(onboardingModalTimeoutHrs);
     if (!onboardingTimestamp || onboardingTimestamp < now) {
       showOnboardingModal();
-      utils.storage.setItem(
-        localStorageOnboardingExpirationTimestampKey,
-        now + onboardingModalTimeoutMs
-      );
+      setItem(localStorageOnboardingExpirationTimestampKey, now + onboardingModalTimeoutMs);
     }
   };
 

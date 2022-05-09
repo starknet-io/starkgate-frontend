@@ -1,7 +1,5 @@
-import envs from '../../config/envs';
-import utils from '../../utils';
-
-const {localStorageAcceptTermsKey} = envs;
+import {localStorageAcceptTermsKey} from '../../config/envs';
+import {getItem} from '../../utils';
 
 export const actions = {
   SET_ACCEPT_TERMS: 'App/SET_ACCEPT_TERMS',
@@ -9,7 +7,7 @@ export const actions = {
 };
 
 export const initialState = {
-  isAcceptTerms: utils.storage.getItem(localStorageAcceptTermsKey),
+  isAcceptTerms: getItem(localStorageAcceptTermsKey),
   isLoggedIn: false
 };
 

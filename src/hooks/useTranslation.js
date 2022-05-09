@@ -1,8 +1,9 @@
 import {useMemo} from 'react';
 
-import utils from '../utils';
+import Strings from '../config/strings';
+import {getPropertyPath} from '../utils';
 
-export const useTranslation = path => useMemo(() => utils.getTranslation(path), [path]);
+export const useTranslation = path => useMemo(() => getTranslation(path), [path]);
 
 export const useContainersTranslation = path => {
   return useTranslation(chainPath('containers', path));
@@ -87,3 +88,5 @@ export const useTransferLogTranslation = () => {
 const chainPath = (basePath, constitutivePath) => {
   return constitutivePath ? `${basePath}.${constitutivePath}` : basePath;
 };
+
+const getTranslation = path => getPropertyPath(Strings, path);

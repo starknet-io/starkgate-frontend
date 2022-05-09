@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {getItem, setItem} = utils.storage;
+import {getItem, setItem} from '../../utils';
 
 class LocalStorageMock {
   constructor() {

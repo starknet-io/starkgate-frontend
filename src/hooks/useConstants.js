@@ -1,5 +1,5 @@
 import {useMemo} from 'react';
 
-import constants from '../config/constants';
+import * as constants from '../config/constants';
 
 export const useConstants = () => useMemo(() => constants, []);

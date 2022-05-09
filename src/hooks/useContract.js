@@ -6,7 +6,8 @@ import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import utils from '../utils';
+import {createContract as createL1Contract} from '../utils/ethereum';
+import {createContract as createL2Contract} from '../utils/starknet';
 import {useEnvs} from './useEnvs';
 
 const cache = {};
@@ -65,14 +66,14 @@ export const useTokenBridgeContract = () => {
 
 export const useL2TokenContract = () => {
   const {chainId} = useL2Wallet();
-  const getContract = useContract(L2_ERC20_ABI, chainId, utils.blockchain.starknet.createContract);
+  const getContract = useContract(L2_ERC20_ABI, chainId, createL2Contract);
 
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
 
 export const useL1TokenContract = () => {
   const {chainId} = useL1Wallet();
-  const getContract = useContract(L1_ERC20_ABI, chainId, utils.blockchain.ethereum.createContract);
+  const getContract = useContract(L1_ERC20_ABI, chainId, createL1Contract);
 
   return useCallback(tokenAddresses => getContract(tokenAddresses), [getContract]);
 };
@@ -80,34 +81,22 @@ export const useL1TokenContract = () => {
 export const useStarknetContract = () => {
   const {starknetContractAddress} = useEnvs();
   const {chainId} = useL1Wallet();
-  const getContract = useContract(
-    L1_MESSAGING_ABI,
-    chainId,
-    utils.blockchain.ethereum.createContract
-  );
+  const getContract = useContract(L1_MESSAGING_ABI, chainId, createL1Contract);
 
   return useMemo(() => getContract(starknetContractAddress), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
   const {chainId} = useL2Wallet();
-  const getContract = useContract(L2_BRIDGE_ABI, chainId, utils.blockchain.starknet.createContract);
+  const getContract = useContract(L2_BRIDGE_ABI, chainId, createL2Contract);
 
   return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 
 export const useL1TokenBridgeContract = () => {
   const {chainId} = useL1Wallet();
-  const getTokenBridgeContract = useContract(
-    L1_ERC20_BRIDGE_ABI,
-    chainId,
-    utils.blockchain.ethereum.createContract
-  );
-  const getEthBridgeContract = useContract(
-    L1_ETH_BRIDGE_ABI,
-    chainId,
-    utils.blockchain.ethereum.createContract
-  );
+  const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, chainId, createL1Contract);
+  const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, chainId, createL1Contract);
   const ethToken = useL1Token()(NetworkType.L1.symbol);
 
   return useCallback(

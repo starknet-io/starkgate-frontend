@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {formatBalance, shortenAddress, shortenBalance} = utils.wallet;
+import {formatBalance, shortenAddress, shortenBalance} from '../../utils';
 
 describe('formatBalance', () => {
   it('should format balance as string', () => {

@@ -1,4 +1,4 @@
-import {web3} from '../../libs';
+import {web3} from '../libs';
 
 export const createContract = (address, ABI) => {
   return new web3.eth.Contract(ABI, address);

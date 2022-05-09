@@ -1,27 +1,17 @@
 import {TransactionStatus} from '../enums';
 import {web3} from '../libs';
-import utils from '../utils';
+import {parseFromDecimals, parseFromUint256} from '../utils';
+import {sendTransaction, callContract as callL1Contract} from '../utils/ethereum';
+import {callContract as callL2Contract} from '../utils/starknet';
 
 export const approve = async ({spender, value, contract, options}) => {
-  try {
-    return await utils.blockchain.ethereum.sendTransaction(
-      contract,
-      'approve',
-      [spender, value],
-      options
-    );
-  } catch (ex) {
-    return Promise.reject(ex);
-  }
+  return sendTransaction(contract, 'approve', [spender, value], options);
 };
 
 export const allowance = async ({owner, spender, decimals, contract}) => {
   try {
-    const allow = await utils.blockchain.ethereum.callContract(contract, 'allowance', [
-      owner,
-      spender
-    ]);
-    return utils.parser.parseFromDecimals(allow, decimals);
+    const allow = await callL1Contract(contract, 'allowance', [owner, spender]);
+    return parseFromDecimals(allow, decimals);
   } catch (ex) {
     return Promise.reject(ex);
   }
@@ -30,18 +20,13 @@ export const allowance = async ({owner, spender, decimals, contract}) => {
 export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
   try {
     if (isL1) {
-      const balance = await utils.blockchain.ethereum.callContract(contract, 'balanceOf', [
-        account
-      ]);
-      return utils.parser.parseFromDecimals(balance, decimals);
+      const balance = await callL1Contract(contract, 'balanceOf', [account]);
+      return parseFromDecimals(balance, decimals);
     } else {
-      const {balance} = await utils.blockchain.starknet.callContract(
-        contract,
-        'balanceOf',
-        account,
-        {blockIdentifier: TransactionStatus.PENDING.toLowerCase()}
-      );
-      return utils.parser.parseFromUint256(balance, decimals);
+      const {balance} = await callL2Contract(contract, 'balanceOf', account, {
+        blockIdentifier: TransactionStatus.PENDING.toLowerCase()
+      });
+      return parseFromUint256(balance, decimals);
     }
   } catch (ex) {
     return Promise.reject(ex);
@@ -51,7 +36,7 @@ export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
 export const ethBalanceOf = async account => {
   try {
     const balance = await web3.eth.getBalance(account);
-    return utils.parser.parseFromDecimals(balance);
+    return parseFromDecimals(balance);
   } catch (ex) {
     return Promise.reject(ex);
   }

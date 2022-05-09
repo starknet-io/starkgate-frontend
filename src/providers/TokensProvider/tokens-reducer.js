@@ -1,13 +1,13 @@
-import envs from '../../config/envs';
-import {l1tokens, l2tokens} from '../../config/tokens';
+import {supportedTokens} from '../../config/envs';
+import Tokens from '../../config/tokens';
 
 export const actions = {
   UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN'
 };
 
 export const initialState = [
-  ...l1tokens.filter(t => envs.supportedTokens.includes(t.symbol)).map(t => ({...t, isL1: true})),
-  ...l2tokens.filter(t => envs.supportedTokens.includes(t.symbol)).map(t => ({...t, isL2: true}))
+  ...Tokens.L1.filter(t => supportedTokens.includes(t.symbol)).map(t => ({...t, isL1: true})),
+  ...Tokens.L2.filter(t => supportedTokens.includes(t.symbol)).map(t => ({...t, isL2: true}))
 ];
 
 export const reducer = (state, action) => {
