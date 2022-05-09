@@ -26,7 +26,7 @@ Storage.prototype.setObjectHash = function (key, myObject) {
 };
 
 Storage.prototype.getObjectHash = function (key) {
-  let myObject = this.getItem(key);
+  const myObject = this.getItem(key);
   if (!myObject) return null;
   return (
     b64d(myObject) &&
