@@ -48,7 +48,7 @@ export const Transfer = () => {
   const maxDeposit = useMaxDeposit();
 
   useEffect(() => {
-    if (tokens.length > 0 && !selectedToken) {
+    if (!selectedToken) {
       selectToken(tokens[0].symbol);
     }
   }, []);
