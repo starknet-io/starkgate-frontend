@@ -1,3 +1,10 @@
+### [1.4.2-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.1...v1.4.2-dev.1) (2022-05-10)
+
+
+### 💉 Improvements
+
+* export convention ([#180](https://github.com/starkware-libs/starkgate-frontend/issues/180)) ([b5585ad](https://github.com/starkware-libs/starkgate-frontend/commit/b5585add93d5ff2918e68a6941a86e535eb39251))
+
 ### [1.4.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.0...v1.4.1) (2022-05-08)
 
 
