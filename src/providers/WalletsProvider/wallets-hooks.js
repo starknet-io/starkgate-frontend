@@ -1,5 +1,6 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 
+import {supportedL2ChainId} from '../../config/envs';
 import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
 import {getStarknet, getStarknetWallet} from '../../libs';
@@ -66,7 +67,7 @@ export const useL2Wallet = () => {
 };
 
 export const useStarknetWallet = () => {
-  const {autoConnect, supportedChainId} = useEnvs();
+  const {autoConnect, supportedL2ChainId} = useEnvs();
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
@@ -121,15 +122,8 @@ export const useStarknetWallet = () => {
     }
   };
 
-  const isChainValid = chainId => {
-    return (
-      (chainId === ChainType.L2.MAIN && supportedChainId === ChainType.L1.MAIN) ||
-      (chainId === ChainType.L2.GOERLI && supportedChainId === ChainType.L1.GOERLI)
-    );
-  };
-
   const handleChain = chainId => {
-    if (isChainValid(chainId)) {
+    if (chainId === supportedL2ChainId) {
       setStatus(WalletStatus.CONNECTED);
       setError(null);
     } else {

@@ -1,16 +1,27 @@
+import {supportedL1ChainId, supportedL2ChainId, supportedTokens} from '../../config/envs';
+import Tokens from '../../config/tokens';
+
 export const actions = {
-  UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN',
-  SET_TOKENS: 'Tokens/SET_TOKENS'
+  UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN'
 };
 
-export const initialState = [];
+export const initialState = [
+  ...Tokens.L1.filter(t => supportedTokens.includes(t.symbol)).map(t => ({
+    ...t,
+    isL1: true,
+    bridgeAddress: t.bridgeAddress?.[supportedL1ChainId],
+    tokenAddress: t.tokenAddress?.[supportedL1ChainId]
+  })),
+  ...Tokens.L2.filter(t => supportedTokens.includes(t.symbol)).map(t => ({
+    ...t,
+    isL2: true,
+    bridgeAddress: t.bridgeAddress?.[supportedL2ChainId],
+    tokenAddress: t.tokenAddress?.[supportedL2ChainId]
+  }))
+];
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.SET_TOKENS: {
-      return action.tokens;
-    }
-
     case actions.UPDATE_TOKEN: {
       const {index, props} = action.payload;
       const newToken = {...state[index], ...props};

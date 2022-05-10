@@ -35,7 +35,7 @@ export const Login = () => {
   } = useLoginTranslation();
   const [trackLoginScreen, trackDownloadClick, trackWalletClick, trackLoginError] =
     useLoginTracking();
-  const {autoConnect, supportedChainId} = useEnvs();
+  const {autoConnect, supportedL1ChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
   const [, swapToL1] = useIsL1();
@@ -125,7 +125,7 @@ export const Login = () => {
       setError({
         type: LoginErrorType.UNSUPPORTED_CHAIN_ID,
         message: evaluate(unsupportedChainIdTxt, {
-          chainName: ChainInfo.L1[supportedChainId].NAME
+          chainName: ChainInfo.L1[supportedL1ChainId].NAME
         })
       });
     }
