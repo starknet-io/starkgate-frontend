@@ -1,13 +1,13 @@
-import {ChainInfo, isRejected, TransactionStatusStep} from '../../enums';
-import {getStarknet, starknet} from '../../libs';
+import {ChainInfo, isRejected, TransactionStatusStep} from '../enums';
+import {getStarknet, starknet} from '../libs';
 
 const {Contract, stark, hash, number} = starknet;
 
-export const createContract = (address, ABI) => {
+export const createL2Contract = (address, ABI) => {
   return new Contract(ABI, address, getStarknet().provider);
 };
 
-export const callContract = async (contract, method, ...args) => {
+export const callL2Contract = async (contract, method, ...args) => {
   try {
     return await contract.call(method, args);
   } catch (ex) {
@@ -15,7 +15,7 @@ export const callContract = async (contract, method, ...args) => {
   }
 };
 
-export const sendTransaction = async (contract, method, args = {}) => {
+export const sendL2Transaction = async (contract, method, args = {}) => {
   try {
     const calldata = stark.compileCalldata(args);
     const transaction = {
@@ -79,12 +79,4 @@ export const getTransactionHash = (
     ChainInfo.L2[chainId].ID_PREFIX,
     ...additionalData
   ]);
-};
-
-export const hashEquals = (...data) => {
-  return !!data.reduce((d1, d2) => {
-    return starknet.hash.computeHashOnElements(d1) === starknet.hash.computeHashOnElements(d2)
-      ? d1
-      : '';
-  });
 };

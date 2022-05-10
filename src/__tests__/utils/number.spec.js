@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {afterDecimal, isNegative, isZero} = utils.number;
+import {afterDecimal, isNegative, isZero} from '../../utils';
 
 describe('afterDecimal', () => {
   it('should return number of decimals places', () => {

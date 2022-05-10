@@ -5,7 +5,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
 import {getStarknet} from '../../libs';
-import utils from '../../utils';
+import {calcAccountHash, getStorageItem, setStorageItem, getTransactionHash} from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
@@ -82,7 +82,7 @@ export const TransfersLogProvider = ({children}) => {
       delete transfer.event;
       return {
         ...transfer,
-        l2hash: utils.blockchain.starknet.getTransactionHash(
+        l2hash: getTransactionHash(
           TransactionHashPrefix.L1_HANDLER,
           from_address,
           to_address,
@@ -97,16 +97,16 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    let storedTransfers = utils.storage.getItem(localStorageTransfersLogKey);
+    let storedTransfers = getStorageItem(localStorageTransfersLogKey);
     // for backward compatibility
     storedTransfers = maybeTransformTransfersArrayToObject(storedTransfers) || {};
     return storedTransfers[accountHash] || [];
   };
 
   const saveTransfersToStorage = transfers => {
-    const storedTransfers = utils.storage.getItem(localStorageTransfersLogKey) || {};
+    const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
     const updatedTransfers = Object.assign(storedTransfers, {[accountHash]: transfers});
-    utils.storage.setItem(localStorageTransfersLogKey, updatedTransfers);
+    setStorageItem(localStorageTransfersLogKey, updatedTransfers);
   };
 
   const maybeTransformTransfersArrayToObject = storedTransfers => {
@@ -114,11 +114,11 @@ export const TransfersLogProvider = ({children}) => {
       const transfersObject = {};
       storedTransfers.forEach(storedTransfer => {
         const {sender, recipient} = storedTransfer;
-        const accountHash = utils.wallet.calcAccountHash(sender, recipient);
+        const accountHash = calcAccountHash(sender, recipient);
         transfersObject[accountHash] = transfersObject[accountHash] || [];
         transfersObject[accountHash].push(storedTransfer);
       });
-      utils.storage.setItem(localStorageTransfersLogKey, transfersObject);
+      setStorageItem(localStorageTransfersLogKey, transfersObject);
       return transfersObject;
     }
     return storedTransfers;

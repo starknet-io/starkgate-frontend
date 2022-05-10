@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {get24Time, getDate, getMsFromHrs} = utils.date;
+import {get24Time, getDate, getMsFromHrs} from '../../utils';
 
 describe('getDate', () => {
   it('should return date of the form DD/MM/YYYY from timestamp', () => {

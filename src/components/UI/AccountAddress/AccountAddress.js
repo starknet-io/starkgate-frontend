@@ -3,7 +3,7 @@ import React, {useRef} from 'react';
 
 import {ReactComponent as CopyIcon} from '../../../assets/svg/icons/copy.svg';
 import {useAccountTranslation, useAnimation} from '../../../hooks';
-import utils from '../../../utils';
+import {toClasses} from '../../../utils';
 import styles from './AccountAddress.module.scss';
 
 const COPIED_ANIMATION_TIMEOUT_INTERVAL = 1000;
@@ -26,9 +26,7 @@ export const AccountAddress = ({address, onClick}) => {
         {address.length <= 42 ? address : `${address.substring(0, 42)}...`}
         <CopyIcon onClick={onCopyClick} />
       </div>
-      <div className={utils.object.toClasses(styles.copiedMsg, isAnimate && styles.copied)}>
-        {copiedMsgTxt}
-      </div>
+      <div className={toClasses(styles.copiedMsg, isAnimate && styles.copied)}>{copiedMsgTxt}</div>
     </>
   );
 };

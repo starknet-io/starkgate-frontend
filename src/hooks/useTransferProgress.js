@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 
 import {TransferError} from '../enums';
-import utils from '../utils';
+import {evaluate} from '../utils';
 import {useTransferProgressModalTranslation} from './useTranslation';
 
 export const useTransferProgress = () => {
@@ -11,7 +11,7 @@ export const useTransferProgress = () => {
     () => ({
       approval: (symbol, activeStep) => {
         const {approval} = transferProgressStrings;
-        const message = utils.object.evaluate(approval.message, {symbol});
+        const message = evaluate(approval.message, {symbol});
         return {
           type: approval.type,
           message,
@@ -20,7 +20,7 @@ export const useTransferProgress = () => {
       },
       deposit: (amount, symbol, activeStep) => {
         const {deposit} = transferProgressStrings;
-        const message = utils.object.evaluate(deposit.message, {amount, symbol});
+        const message = evaluate(deposit.message, {amount, symbol});
         return {
           type: deposit.type,
           message,
@@ -29,7 +29,7 @@ export const useTransferProgress = () => {
       },
       initiateWithdraw: (amount, symbol, activeStep) => {
         const {initiateWithdraw} = transferProgressStrings;
-        const message = utils.object.evaluate(initiateWithdraw.message, {amount, symbol});
+        const message = evaluate(initiateWithdraw.message, {amount, symbol});
         return {
           type: initiateWithdraw.type,
           message,
@@ -38,8 +38,8 @@ export const useTransferProgress = () => {
       },
       waitForConfirm: (walletName, activeStep) => {
         const {waitForConfirm} = transferProgressStrings;
-        const type = utils.object.evaluate(waitForConfirm.type, {walletName});
-        const message = utils.object.evaluate(waitForConfirm.message, {walletName});
+        const type = evaluate(waitForConfirm.type, {walletName});
+        const message = evaluate(waitForConfirm.message, {walletName});
         return {
           type,
           message,
@@ -48,7 +48,7 @@ export const useTransferProgress = () => {
       },
       withdraw: (amount, symbol, activeStep) => {
         const {withdraw} = transferProgressStrings;
-        const message = utils.object.evaluate(withdraw.message, {amount, symbol});
+        const message = evaluate(withdraw.message, {amount, symbol});
         return {
           type: withdraw.type,
           message,

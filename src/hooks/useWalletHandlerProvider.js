@@ -1,32 +1,32 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useMemo} from 'react';
 
-import WalletsConfig from '../config/wallets.js';
+import Wallets from '../config/wallets.js';
+import {ActionType} from '../enums';
 import {GetStarknetWallet, MetaMask} from '../wallets';
 
-const SUPPORTED_HANDLERS_REGISTRY = {
-  metamask: MetaMask,
+const SUPPORTED_L1_HANDLERS_REGISTRY = {
+  metamask: MetaMask
+};
+
+const SUPPORTED_L2_HANDLERS_REGISTRY = {
   gsw: GetStarknetWallet
 };
 
-export const useWalletHandlerProvider = () => {
-  const [handlers, setHandlers] = useState([]);
-
-  useEffect(() => {
-    const walletHandlers = [];
-    WalletsConfig.forEach(walletConfig => {
+export const useWalletHandlerProvider = (actionType = ActionType.TRANSFER_TO_L2) => {
+  return useMemo(() => {
+    const walletsConfig = actionType === ActionType.TRANSFER_TO_L2 ? Wallets.L1 : Wallets.L2;
+    const registry =
+      actionType === ActionType.TRANSFER_TO_L2
+        ? SUPPORTED_L1_HANDLERS_REGISTRY
+        : SUPPORTED_L2_HANDLERS_REGISTRY;
+    const handlers = [];
+    walletsConfig.forEach(walletConfig => {
       const {id} = walletConfig;
-      const WalletHandler = SUPPORTED_HANDLERS_REGISTRY[id];
+      const WalletHandler = registry[id];
       if (WalletHandler) {
-        walletHandlers.push(new WalletHandler(walletConfig));
+        handlers.push(new WalletHandler(walletConfig));
       }
     });
-    setHandlers(walletHandlers);
-  }, []);
-
-  return useCallback(
-    type => {
-      return type ? handlers.filter(walletHandler => walletHandler.config.type === type) : handlers;
-    },
-    [handlers]
-  );
+    return handlers;
+  }, [actionType]);
 };

@@ -43,6 +43,7 @@ module.exports = {
     'object-shorthand': 'error',
     'prefer-const': 'warn',
     'prefer-template': 'warn',
+    'import/no-anonymous-default-export': 'off',
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',

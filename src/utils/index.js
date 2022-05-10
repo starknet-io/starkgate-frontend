@@ -1,41 +1,21 @@
-import strings from '../config/strings';
-import * as blockchain from './blockchain';
-import * as browser from './browser';
-import * as date from './date';
-import * as logger from './logger';
-import * as number from './number';
-import * as object from './object';
-import * as parser from './parser';
-import * as storage from './storage';
-import * as string from './string';
-import * as token from './token';
-import * as wallet from './wallet';
+import {getLogger, getLogLevel, setLogLevel} from './logger';
 
-const {getLogger, getLogLevel, setLogLevel} = logger;
+export * from './browser';
+export * from './date';
+export * from './logger';
+export * from './number';
+export * from './object';
+export * from './parser';
+export * from './storage';
+export * from './string';
+export * from './token';
+export * from './wallet';
+export * from './starknet';
+export * from './ethereum';
 
-const printPackageInfo = (name, version, color) => {
+export const printPackageInfo = (name, version, color) => {
   const currentLogLevel = getLogLevel();
   setLogLevel(getLogger().INFO);
   getLogger().info(`%c ${name} v${version}`, `color: ${color || '#ff98f9'};  font-size: large`);
   setLogLevel(currentLogLevel);
 };
-
-const getTranslation = path => object.getPropertyPath(strings, path);
-
-const utils = {
-  wallet,
-  browser,
-  string,
-  token,
-  parser,
-  date,
-  object,
-  blockchain,
-  logger,
-  storage,
-  number,
-  printPackageInfo,
-  getTranslation
-};
-
-export default utils;

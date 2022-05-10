@@ -1,4 +1,4 @@
-const strings = {
+export default {
   containers: {
     header: {
       chainTxt: 'Goerli testnet',
@@ -128,5 +128,3 @@ const strings = {
     }
   }
 };
-
-export default strings;

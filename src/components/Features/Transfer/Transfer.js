@@ -11,7 +11,7 @@ import {
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
-import utils from '../../../utils';
+import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,
@@ -56,7 +56,7 @@ export const Transfer = () => {
   useEffect(() => {
     if (selectedToken) {
       setHasInputError(false);
-      if (selectedToken.isLoading || utils.number.isZero(amount) || (isL1 && !maxDeposit)) {
+      if (selectedToken.isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
@@ -67,15 +67,15 @@ export const Transfer = () => {
   const validateAmount = () => {
     let errorMsg = '';
 
-    if (utils.number.afterDecimal(amount) > selectedToken.decimals) {
+    if (afterDecimal(amount) > selectedToken.decimals) {
       errorMsg = tooManyDigitsErrorMsg;
-    } else if (utils.number.isNegative(amount)) {
+    } else if (isNegative(amount)) {
       errorMsg = negativeValueErrorMsg;
     } else if (amount > selectedToken.balance) {
       errorMsg = insufficientBalanceErrorMsg;
     } else if (isL1 && amount > maxDeposit) {
       const {symbol} = selectedToken;
-      errorMsg = utils.object.evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
+      errorMsg = evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
     if (errorMsg) {

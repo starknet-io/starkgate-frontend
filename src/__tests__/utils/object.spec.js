@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {evaluate, findIndexById, getPropertyPath, toClasses} = utils.object;
+import {evaluate, findIndexById, getPropertyPath, toClasses} from '../../utils';
 
 describe('getPropertyPath', () => {
   const obj = {
