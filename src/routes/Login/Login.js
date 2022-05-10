@@ -2,12 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import {LoginErrorMessage, WalletLogin} from '../../components/UI';
 import {
+  ActionType,
   ChainInfo,
   LoginErrorType,
   NetworkType,
   WalletErrorType,
-  WalletStatus,
-  WalletType
+  WalletStatus
 } from '../../enums';
 import {
   useEnvs,
@@ -16,9 +16,9 @@ import {
   useWalletHandlerProvider
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
-import {useIsL1, useIsL2} from '../../providers/TransferProvider';
+import {useIsL1, useIsL2, useTransfer} from '../../providers/TransferProvider';
 import {useWallets} from '../../providers/WalletsProvider';
-import utils from '../../utils';
+import {evaluate, isChrome, toClasses} from '../../utils';
 import styles from './Login.module.scss';
 
 const MODAL_TIMEOUT_DURATION = 2000;
@@ -38,18 +38,18 @@ export const Login = () => {
   const {autoConnect, supportedChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
-  const [walletType, setWalletType] = useState(WalletType.L1);
+  const [, swapToL1] = useIsL1();
+  const [, swapToL2] = useIsL2();
+  const {action} = useTransfer();
+  const {status, error: walletError, connectWallet, isConnected} = useWallets();
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
-  const getWalletHandlers = useWalletHandlerProvider();
-  const {status, error: walletError, connectWallet, isConnected} = useWallets();
-  const [, swapToL1] = useIsL1();
-  const [, swapToL2] = useIsL2();
+  const walletHandlers = useWalletHandlerProvider(action);
 
   useEffect(() => {
     trackLoginScreen();
-    if (!utils.browser.isChrome()) {
+    if (!isChrome()) {
       setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
     return () => swapToL1();
@@ -60,17 +60,18 @@ export const Login = () => {
     if (error) {
       trackLoginError(error);
     } else if (!error && autoConnect) {
-      const handlers = getWalletHandlers(walletType);
-      if (handlers.length > 0) {
-        timeoutId = setTimeout(() => onWalletConnect(handlers[0]), AUTO_CONNECT_TIMEOUT_DURATION);
+      if (walletHandlers.length > 0) {
+        timeoutId = setTimeout(
+          () => onWalletConnect(walletHandlers[0]),
+          AUTO_CONNECT_TIMEOUT_DURATION
+        );
       }
     }
     return () => clearTimeout(timeoutId);
-  }, [error, walletType, getWalletHandlers]);
+  }, [error, walletHandlers]);
 
   useEffect(() => {
     if (isConnected) {
-      setWalletType(WalletType.L2);
       swapToL2();
     }
   }, [isConnected]);
@@ -113,10 +114,9 @@ export const Login = () => {
   };
 
   const onDownloadClick = () => {
-    trackDownloadClick(walletType);
-    const handlers = getWalletHandlers(walletType);
-    if (handlers.length > 0) {
-      return handlers[0].install();
+    trackDownloadClick();
+    if (walletHandlers.length > 0) {
+      return walletHandlers[0].install();
     }
   };
 
@@ -124,7 +124,7 @@ export const Login = () => {
     if (error.name === WalletErrorType.CHAIN_UNSUPPORTED_ERROR) {
       setError({
         type: LoginErrorType.UNSUPPORTED_CHAIN_ID,
-        message: utils.object.evaluate(unsupportedChainIdTxt, {
+        message: evaluate(unsupportedChainIdTxt, {
           chainName: ChainInfo.L1[supportedChainId].NAME
         })
       });
@@ -134,10 +134,7 @@ export const Login = () => {
   const maybeShowModal = () => {
     maybeHideModal();
     modalTimeoutId.current = setTimeout(() => {
-      showProgressModal(
-        selectedWalletName,
-        utils.object.evaluate(modalTxt, {walletName: selectedWalletName})
-      );
+      showProgressModal(selectedWalletName, evaluate(modalTxt, {walletName: selectedWalletName}));
     }, MODAL_TIMEOUT_DURATION);
   };
 
@@ -150,7 +147,7 @@ export const Login = () => {
   };
 
   const renderLoginWallets = () => {
-    return getWalletHandlers(walletType).map(walletHandler => {
+    return walletHandlers.map(walletHandler => {
       const {
         config: {id, description, name, logoPath}
       } = walletHandler;
@@ -158,7 +155,7 @@ export const Login = () => {
         <WalletLogin
           key={id}
           description={description}
-          isDisabled={!utils.browser.isChrome()}
+          isDisabled={!isChrome()}
           logoPath={logoPath}
           name={name}
           onClick={() => onWalletConnect(walletHandler)}
@@ -168,12 +165,13 @@ export const Login = () => {
   };
 
   return (
-    <div className={utils.object.toClasses(styles.login, 'center')}>
+    <div className={toClasses(styles.login, 'center')}>
       <div className={styles.content}>
         <div className={styles.title}>{titleTxt}</div>
         <p>
-          {utils.object.evaluate(subtitleTxt, {
-            networkName: walletType === WalletType.L1 ? NetworkType.L1.name : NetworkType.L2.name
+          {evaluate(subtitleTxt, {
+            networkName:
+              action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name
           })}
         </p>
         <div className={styles.container}>{renderLoginWallets()}</div>

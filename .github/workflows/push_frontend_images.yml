@@ -38,6 +38,7 @@ jobs:
       namespace_name: starkgate-goerli
       values_file: deployment/testing.yml
       env_file: .env.testing
+      image_tag: ${{ github.ref_name }}-goerli
     secrets:
       gcp_token: ${{ secrets.STARKGATE_SA }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

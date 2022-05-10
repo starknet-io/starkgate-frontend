@@ -5,21 +5,19 @@ import {BrowserRouter} from 'react-router-dom';
 
 import {App} from './App';
 import {ModalWrapper} from './components/UI';
-import envs from './config/envs';
+import {env} from './config/envs';
 import './index.scss';
 import {AppProviders} from './providers';
-import utils from './utils';
+import {getLogger, getUrlParameter, printPackageInfo, setLogLevel} from './utils';
 
-const {env} = envs;
-
-utils.printPackageInfo(process.env.REACT_APP_NAME, process.env.REACT_APP_VERSION, '#734d7e');
+printPackageInfo(process.env.REACT_APP_NAME, process.env.REACT_APP_VERSION, '#734d7e');
 
 if (env !== 'development') {
   splitbee.init();
 }
 
-if (env === 'development' || utils.browser.getUrlParameter('debugApp')) {
-  utils.logger.setLogLevel(utils.logger.getLogger().DEBUG);
+if (env === 'development' || getUrlParameter('debugApp')) {
+  setLogLevel(getLogger().DEBUG);
 }
 
 ReactDOM.render(

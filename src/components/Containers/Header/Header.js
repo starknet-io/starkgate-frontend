@@ -4,20 +4,20 @@ import useBreakpoint from 'use-breakpoint';
 
 import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {Breakpoint} from '../../../enums';
+import {Breakpoint, ChainType} from '../../../enums';
 import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
-import utils from '../../../utils';
+import {openInNewTab, toClasses} from '../../../utils';
 import {Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
-  const {env} = useEnvs();
+  const {supportedChainId} = useEnvs();
   const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
@@ -61,20 +61,20 @@ export const Header = () => {
 
   const onTabDiscordClick = () => {
     trackDiscordClick();
-    utils.browser.openInNewTab(DISCORD_LINK_URL);
+    openInNewTab(DISCORD_LINK_URL);
   };
 
   return (
-    <div className={utils.object.toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
-      <div className={utils.object.toClasses(styles.left, 'row')}>
-        <div className={utils.object.toClasses(styles.logo, 'row')} onClick={onLogoClick}>
+    <div className={toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
+      <div className={toClasses(styles.left, 'row')}>
+        <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {env !== 'production' && (
-          <div className={utils.object.toClasses(styles.chain, 'row')}>{chainTxt}</div>
+        {supportedChainId === ChainType.L1.GOERLI && (
+          <div className={toClasses(styles.chain, 'row')}>{chainTxt}</div>
         )}
       </div>
-      <div className={utils.object.toClasses(styles.right, 'row')}>
+      <div className={toClasses(styles.right, 'row')}>
         <Tab color={colorDiscord} label={tabDiscordTxt} onClick={onTabDiscordClick} />
         <Tab color={colorWhiteOp50} label={tabTermsTxt} onClick={onTabTermsClick} />
         <Tab color={colorWhiteOp50} label={tabFaqTxt} onClick={onTabFaqClick} />

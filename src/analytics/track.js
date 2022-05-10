@@ -1,8 +1,8 @@
 import splitbee from '@splitbee/web';
 
-import utils from '../utils';
+import {getLogger} from '../utils';
 
-const logger = utils.logger.getLogger('Analytics');
+const logger = getLogger('Analytics');
 
 export const track = async (event, data) => {
   logger.debug('Sending track event...', {event, data});

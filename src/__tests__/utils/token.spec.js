@@ -1,6 +1,4 @@
-import utils from '../../utils';
-
-const {isEth} = utils.token;
+import {isEth} from '../../utils';
 
 describe('isEth', () => {
   it('should return true for eth symbol as string', () => {

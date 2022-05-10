@@ -15,6 +15,9 @@ on:
       env_file:
         required: true
         type: string
+      image_tag:
+        required: false
+        type: string
     secrets:
       gcp_token:
         required: true
@@ -46,6 +49,9 @@ jobs:
           helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
           helm repo update
+      - name: Set image tag
+        id: get_image_tag
+        run: echo "::set-output name=tag::${{ inputs.image_tag || github.ref_name }}"
       - name: Upgrade using helm upgrade command.
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -56,4 +62,4 @@ jobs:
           --namespace=${{ inputs.namespace_name }} \
           --values ${{ inputs.values_file}} \
           --set-file configMap.frontend.envs=${{ inputs.env_file }} \
-          --set frontend.image.tag=${{ github.ref_name }}
+          --set frontend.image.tag=${{ steps.get_image_tag.outputs.tag }}

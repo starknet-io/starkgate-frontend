@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import utils from '../../../utils';
+import {formatBalance, toClasses} from '../../../utils';
 import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {CryptoLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';
@@ -11,7 +11,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
 
   return (
     <div
-      className={utils.object.toClasses(styles.selectTokenRow, isLoading && styles.isLoading)}
+      className={toClasses(styles.selectTokenRow, isLoading && styles.isLoading)}
       onClick={() => onClick(tokenData)}
     >
       <hr />
@@ -27,7 +27,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
           <>
             {!isLoading ? (
               <div className={styles.balance}>
-                {utils.wallet.formatBalance(balance)} {symbol}
+                {formatBalance(balance)} {symbol}
               </div>
             ) : (
               <Loading size={LoadingSize.SMALL} />

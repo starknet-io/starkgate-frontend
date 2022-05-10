@@ -1,21 +1,19 @@
-import {WalletType} from '../enums';
-
-const wallets = [
-  {
-    id: 'metamask',
-    name: 'MetaMask',
-    connectorId: 'injected',
-    type: WalletType.L1,
-    description: 'Login using a browser wallet',
-    logoPath: 'wallets/metamask/logo.svg'
-  },
-  {
-    id: 'gsw',
-    name: 'StarkNet Wallet',
-    type: WalletType.L2,
-    description: 'Login using a browser wallet',
-    logoPath: 'wallets/gsw/logo.svg'
-  }
-];
-
-export default wallets;
+export default {
+  L1: [
+    {
+      id: 'metamask',
+      name: 'MetaMask',
+      connectorId: 'injected',
+      description: 'Login using a browser wallet',
+      logoPath: 'wallets/metamask/logo.svg'
+    }
+  ],
+  L2: [
+    {
+      id: 'gsw',
+      name: 'StarkNet Wallet',
+      description: 'Login using a browser wallet',
+      logoPath: 'wallets/gsw/logo.svg'
+    }
+  ]
+};

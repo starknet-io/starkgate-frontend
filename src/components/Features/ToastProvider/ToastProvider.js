@@ -18,7 +18,7 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import utils from '../../../utils';
+import {getFullTime} from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 
@@ -40,18 +40,22 @@ export const ToastProvider = () => {
   }, [breakpoint]);
 
   useDeepCompareEffect(() => {
-    transfers.forEach(transfer => {
-      const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
-      handleToast(transfer, prevTransfer);
-    });
+    renderToasts();
   }, [transfers]);
 
   useEffect(() => {
     return () => clearToasts();
   }, []);
 
+  const renderToasts = () => {
+    transfers.forEach(transfer => {
+      const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
+      handleToast(transfer, prevTransfer);
+    });
+  };
+
   const handleToast = (transfer, prevTransfer) => {
-    const {status, type} = transfer;
+    const {status, type, l1hash} = transfer;
     const isChanged = prevTransfer && status !== prevTransfer.status;
     if (isChanged && isConsumed(status)) {
       return showConsumedTransferToast(transfer);
@@ -59,8 +63,13 @@ export const ToastProvider = () => {
     if (isChanged && isRejected(status)) {
       return showRejectedTransferToast(transfer);
     }
-    if (!transfer.l1hash && type === ActionType.TRANSFER_TO_L1 && isOnChain(status)) {
-      return showCompleteTransferToL1Toast(transfer);
+    if (type === ActionType.TRANSFER_TO_L1) {
+      if (!l1hash && isOnChain(status)) {
+        return showCompleteTransferToL1Toast(transfer);
+      }
+      if (l1hash && isToastRendered(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
+        return dismissToast(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1);
+      }
     }
   };
 
@@ -192,7 +201,7 @@ export const TransferData = ({transfer, style}) => {
         style={style}
       />
       <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
-      <ToastBody body={utils.date.getFullTime(transfer.timestamp)} style={style} />
+      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
     </>
   );
 };

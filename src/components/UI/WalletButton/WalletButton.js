@@ -4,8 +4,7 @@ import useBreakpoint from 'use-breakpoint';
 
 import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
 import {useColors, useHeaderTranslation} from '../../../hooks';
-import utils from '../../../utils';
-import {toClasses} from '../../../utils/object';
+import {evaluate, shortenAddress, toClasses} from '../../../utils';
 import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
 
@@ -18,13 +17,13 @@ export const WalletButton = ({account, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
 
   const getText = () => {
-    const address = utils.wallet.shortenAddress(account);
+    const address = shortenAddress(account);
     if (isMobileOrTablet(breakpoint)) {
       return '';
     } else if (!isDesktop(breakpoint)) {
       return address;
     }
-    return utils.object.evaluate(walletBtnTxt, {address});
+    return evaluate(walletBtnTxt, {address});
   };
 
   const renderWalletLogo = () => {

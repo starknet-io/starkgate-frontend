@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import utils from '../../../utils';
+import {toClasses} from '../../../utils';
 import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
 import {Input} from '../index';
@@ -19,7 +19,7 @@ export const TokenInput = ({
   const {inputPlaceholderTxt} = useTransferTranslation();
 
   return (
-    <div className={utils.object.toClasses(styles.tokenInput, hasError && styles.hasError)}>
+    <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
       <Input
         placeholder={inputPlaceholderTxt}
         style={{

@@ -5,7 +5,7 @@ import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
-import utils from '../utils';
+import {createL1Contract, createL2Contract} from '../utils';
 import {useEnvs} from './useEnvs';
 
 const cache = {};
@@ -51,39 +51,33 @@ export const useTokenBridgeContract = () => {
 };
 
 export const useL2TokenContract = () => {
-  const getContract = useContract(L2_ERC20_ABI, utils.blockchain.starknet.createContract);
+  const getContract = useContract(L2_ERC20_ABI, createL2Contract);
 
   return useCallback(tokenAddress => getContract(tokenAddress), [getContract]);
 };
 
 export const useL1TokenContract = () => {
-  const getContract = useContract(L1_ERC20_ABI, utils.blockchain.ethereum.createContract);
+  const getContract = useContract(L1_ERC20_ABI, createL1Contract);
 
   return useCallback(tokenAddress => getContract(tokenAddress), [getContract]);
 };
 
 export const useStarknetContract = () => {
   const {starknetContractAddress} = useEnvs();
-  const getContract = useContract(L1_MESSAGING_ABI, utils.blockchain.ethereum.createContract);
+  const getContract = useContract(L1_MESSAGING_ABI, createL1Contract);
 
   return useMemo(() => getContract(starknetContractAddress), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
-  const getContract = useContract(L2_BRIDGE_ABI, utils.blockchain.starknet.createContract);
+  const getContract = useContract(L2_BRIDGE_ABI, createL2Contract);
 
   return useCallback(bridgeAddress => getContract(bridgeAddress), [getContract]);
 };
 
 export const useL1TokenBridgeContract = () => {
-  const getTokenBridgeContract = useContract(
-    L1_ERC20_BRIDGE_ABI,
-    utils.blockchain.ethereum.createContract
-  );
-  const getEthBridgeContract = useContract(
-    L1_ETH_BRIDGE_ABI,
-    utils.blockchain.ethereum.createContract
-  );
+  const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, chainId, createL1Contract);
+  const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, chainId, createL1Contract);
   const ethToken = useL1Token()(NetworkType.L1.symbol);
 
   return useCallback(

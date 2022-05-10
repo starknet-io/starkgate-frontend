@@ -8,7 +8,7 @@ import {useDepositListener} from '../providers/EventManagerProvider';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import utils from '../utils';
+import {addToken, isEth} from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useMaxTotalBalance} from './useTokenConstant';
@@ -35,7 +35,7 @@ export const useTransferToL2 = () => {
       const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
       const tokenContract = getTokenContract(tokenAddress);
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
-      const isEthToken = utils.token.isEth(symbol);
+      const isEthToken = isEth(symbol);
       const l2TokenAddress = getL2Token(symbol)?.tokenAddress;
 
       const readAllowance = () => {
@@ -102,7 +102,7 @@ export const useTransferToL2 = () => {
 
       const maybeAddToken = async () => {
         try {
-          await utils.token.addToken(l2TokenAddress);
+          await addToken(l2TokenAddress);
         } catch (ex) {
           logger.warn(ex.message);
         }
