@@ -76,8 +76,8 @@ export const useL2TokenBridgeContract = () => {
 };
 
 export const useL1TokenBridgeContract = () => {
-  const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, chainId, createL1Contract);
-  const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, chainId, createL1Contract);
+  const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, createL1Contract);
+  const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, createL1Contract);
   const ethToken = useL1Token()(NetworkType.L1.symbol);
 
   return useCallback(

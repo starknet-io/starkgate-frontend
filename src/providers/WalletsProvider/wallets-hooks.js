@@ -1,6 +1,5 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 
-import {supportedL2ChainId} from '../../config/envs';
 import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
 import {getStarknet, getStarknetWallet} from '../../libs';
