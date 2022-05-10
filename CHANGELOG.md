@@ -1,3 +1,10 @@
+### [1.4.2-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.1...v1.4.2-dev.2) (2022-05-10)
+
+
+### 💉 Improvements
+
+* tokens addresses ([#178](https://github.com/starkware-libs/starkgate-frontend/issues/178)) ([c75a88a](https://github.com/starkware-libs/starkgate-frontend/commit/c75a88a667689d92294adad86d11bfd6ed6c0c52))
+
 ### [1.4.2-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.1...v1.4.2-dev.1) (2022-05-10)
 
 
