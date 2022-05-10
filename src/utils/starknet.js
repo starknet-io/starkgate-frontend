@@ -3,11 +3,11 @@ import {getStarknet, starknet} from '../libs';
 
 const {Contract, stark, hash, number} = starknet;
 
-export const createContract = (address, ABI) => {
+export const createL2Contract = (address, ABI) => {
   return new Contract(ABI, address, getStarknet().provider);
 };
 
-export const callContract = async (contract, method, ...args) => {
+export const callL2Contract = async (contract, method, ...args) => {
   try {
     return await contract.call(method, args);
   } catch (ex) {
@@ -15,7 +15,7 @@ export const callContract = async (contract, method, ...args) => {
   }
 };
 
-export const sendTransaction = async (contract, method, args = {}) => {
+export const sendL2Transaction = async (contract, method, args = {}) => {
   try {
     const calldata = stark.compileCalldata(args);
     const transaction = {

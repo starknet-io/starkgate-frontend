@@ -1,11 +1,15 @@
 import {TransactionStatus} from '../enums';
 import {web3} from '../libs';
-import {parseFromDecimals, parseFromUint256} from '../utils';
-import {sendTransaction, callContract as callL1Contract} from '../utils/ethereum';
-import {callContract as callL2Contract} from '../utils/starknet';
+import {
+  sendL1Transaction,
+  callL1Contract,
+  callL2Contract,
+  parseFromDecimals,
+  parseFromUint256
+} from '../utils';
 
 export const approve = async ({spender, value, contract, options}) => {
-  return sendTransaction(contract, 'approve', [spender, value], options);
+  return sendL1Transaction(contract, 'approve', [spender, value], options);
 };
 
 export const allowance = async ({owner, spender, decimals, contract}) => {

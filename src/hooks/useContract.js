@@ -6,8 +6,7 @@ import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {createContract as createL1Contract} from '../utils/ethereum';
-import {createContract as createL2Contract} from '../utils/starknet';
+import {createL1Contract, createL2Contract} from '../utils';
 import {useEnvs} from './useEnvs';
 
 const cache = {};

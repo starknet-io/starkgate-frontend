@@ -1,6 +1,12 @@
-import {parseFromDecimals, parseToDecimals, parseToFelt, parseToUint256} from '../utils';
-import {sendTransaction as sendL1Transaction, callContract} from '../utils/ethereum';
-import {sendTransaction as sendL2Transaction} from '../utils/starknet';
+import {
+  sendL1Transaction,
+  callL1Contract,
+  sendL2Transaction,
+  parseFromDecimals,
+  parseToDecimals,
+  parseToFelt,
+  parseToUint256
+} from '../utils';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
   return sendL1Transaction(
@@ -39,7 +45,7 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
 
 export const maxDeposit = async ({decimals, contract}) => {
   try {
-    const maxDeposit = await callContract(contract, 'maxDeposit');
+    const maxDeposit = await callL1Contract(contract, 'maxDeposit');
     return parseFromDecimals(maxDeposit, decimals);
   } catch (ex) {
     return Promise.reject(ex);
@@ -48,7 +54,7 @@ export const maxDeposit = async ({decimals, contract}) => {
 
 export const maxTotalBalance = async ({decimals, contract}) => {
   try {
-    const maxTotalBalance = await callContract(contract, 'maxTotalBalance');
+    const maxTotalBalance = await callL1Contract(contract, 'maxTotalBalance');
     return parseFromDecimals(maxTotalBalance, decimals);
   } catch (ex) {
     return Promise.reject(ex);
