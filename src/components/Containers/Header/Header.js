@@ -17,7 +17,7 @@ import styles from './Header.module.scss';
 export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
-  const {supportedChainId} = useEnvs();
+  const {supportedL1ChainId} = useEnvs();
   const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
@@ -70,7 +70,7 @@ export const Header = () => {
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {supportedChainId === ChainType.L1.GOERLI && (
+        {supportedL1ChainId === ChainType.L1.GOERLI && (
           <div className={toClasses(styles.chain, 'row')}>{chainTxt}</div>
         )}
       </div>

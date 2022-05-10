@@ -1,4 +1,4 @@
-import {supportedTokens} from '../../config/envs';
+import {supportedL1ChainId, supportedL2ChainId, supportedTokens} from '../../config/envs';
 import Tokens from '../../config/tokens';
 
 export const actions = {
@@ -6,8 +6,18 @@ export const actions = {
 };
 
 export const initialState = [
-  ...Tokens.L1.filter(t => supportedTokens.includes(t.symbol)).map(t => ({...t, isL1: true})),
-  ...Tokens.L2.filter(t => supportedTokens.includes(t.symbol)).map(t => ({...t, isL2: true}))
+  ...Tokens.L1.filter(t => supportedTokens.includes(t.symbol)).map(t => ({
+    ...t,
+    isL1: true,
+    bridgeAddress: t.bridgeAddress?.[supportedL1ChainId],
+    tokenAddress: t.tokenAddress?.[supportedL1ChainId]
+  })),
+  ...Tokens.L2.filter(t => supportedTokens.includes(t.symbol)).map(t => ({
+    ...t,
+    isL2: true,
+    bridgeAddress: t.bridgeAddress?.[supportedL2ChainId],
+    tokenAddress: t.tokenAddress?.[supportedL2ChainId]
+  }))
 ];
 
 export const reducer = (state, action) => {
