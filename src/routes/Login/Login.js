@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {LoginErrorMessage, WalletLogin} from '../../components/UI';
+import {MultiChoiceMenu} from '../../components/UI';
 import {
   ActionType,
   ChainInfo,
@@ -18,7 +18,7 @@ import {
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useIsL1, useIsL2, useTransfer} from '../../providers/TransferProvider';
 import {useWallets} from '../../providers/WalletsProvider';
-import {evaluate, isChrome, toClasses} from '../../utils';
+import {evaluate, isChrome} from '../../utils';
 import styles from './Login.module.scss';
 
 const MODAL_TIMEOUT_DURATION = 2000;
@@ -146,41 +146,38 @@ export const Login = () => {
     hideModal();
   };
 
-  const renderLoginWallets = () => {
+  const mapLoginWalletsToChoices = () => {
     return walletHandlers.map(walletHandler => {
       const {
         config: {id, description, name, logoPath}
       } = walletHandler;
-      return (
-        <WalletLogin
-          key={id}
-          description={description}
-          isDisabled={!isChrome()}
-          logoPath={logoPath}
-          name={name}
-          onClick={() => onWalletConnect(walletHandler)}
-        />
-      );
+      return {
+        id,
+        description,
+        isDisabled: !isChrome(),
+        logoPath,
+        name,
+        onClick: () => onWalletConnect(walletHandler)
+      };
     });
   };
 
   return (
-    <div className={toClasses(styles.login, 'center')}>
-      <div className={styles.content}>
-        <div className={styles.title}>{titleTxt}</div>
-        <p>
-          {evaluate(subtitleTxt, {
-            networkName:
-              action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name
-          })}
-        </p>
-        <div className={styles.container}>{renderLoginWallets()}</div>
-        {error && <LoginErrorMessage message={error.message} />}
-      </div>
-      <div className={styles.separator} />
-      <div className={styles.download}>
-        {downloadTxt[0]} <span onClick={onDownloadClick}>{downloadTxt[1]}</span>
-      </div>
+    <div className={styles.login}>
+      <MultiChoiceMenu
+        choices={mapLoginWalletsToChoices()}
+        description={evaluate(subtitleTxt, {
+          networkName:
+            action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name
+        })}
+        error={error}
+        footer={
+          <div className={styles.download}>
+            {downloadTxt[0]} <span onClick={onDownloadClick}>{downloadTxt[1]}</span>
+          </div>
+        }
+        title={titleTxt}
+      />
     </div>
   );
 };
