@@ -20,7 +20,7 @@ export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {supportedL1ChainId} = useEnvs();
-  const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
+  const {tabBuyTxt, tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -62,6 +62,45 @@ export const Header = () => {
     openInNewTab(DISCORD_LINK_URL);
   };
 
+  const tabs = [
+    {
+      color: colorDiscord,
+      icon: <DiscordIcon />,
+      text: tabDiscordTxt,
+      divider: true,
+      onClick: onTabDiscordClick
+    },
+    {
+      color: colorGamma,
+      icon: <BuyIcon />,
+      text: tabBuyTxt,
+      divider: true,
+      onClick: () => onRouteTabClick('buy')
+    },
+    {
+      color: colorWhiteOp50,
+      text: tabTermsTxt,
+      onClick: () => onRouteTabClick('terms')
+    },
+    {
+      color: colorWhiteOp50,
+      text: tabFaqTxt,
+      onClick: () => onRouteTabClick('faq'),
+      divider: true
+    }
+  ];
+
+  const renderTabs = () => {
+    return tabs.map(tab => {
+      return (
+        <>
+          <Tab colorBorder={tab.color} icon={tab.icon} text={tab.text} onClick={tab.onClick} />
+          {tab.divider && <Divider />}
+        </>
+      );
+    });
+  };
+
   return (
     <div className={toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
       <div className={toClasses(styles.left, 'row')}>
@@ -73,26 +112,7 @@ export const Header = () => {
         )}
       </div>
       <div className={toClasses(styles.right, 'row')}>
-        <Tab
-          colorBorder={colorDiscord}
-          icon={<DiscordIcon />}
-          text={tabDiscordTxt}
-          onClick={onTabDiscordClick}
-        />
-        <Divider />
-        <Tab
-          colorBorder={colorGamma}
-          icon={<BuyIcon />}
-          text={'Buy onto L2'}
-          onClick={() => onRouteTabClick('buy')}
-        />
-        <Divider />
-        <Tab
-          colorBorder={colorWhiteOp50}
-          text={tabTermsTxt}
-          onClick={() => onRouteTabClick('terms')}
-        />
-        <Tab colorBorder={colorWhiteOp50} text={tabFaqTxt} onClick={() => onRouteTabClick('faq')} />
+        {renderTabs()}
         {isLoggedIn && (
           <>
             <Divider />

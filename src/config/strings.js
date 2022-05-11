@@ -5,7 +5,8 @@ export default {
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
       tabTermsTxt: 'Terms',
-      tabFaqTxt: 'FAQ'
+      tabFaqTxt: 'FAQ',
+      tabBuyTxt: 'Buy onto L2'
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
