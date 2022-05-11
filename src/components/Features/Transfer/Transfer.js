@@ -46,6 +46,18 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+  const tabs = [
+    {
+      text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
+      isActive: action === ActionType.TRANSFER_TO_L2,
+      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L2)
+    },
+    {
+      text: `${NetworkType.L2.name} -> ${NetworkType.L1.name}`,
+      isActive: action === ActionType.TRANSFER_TO_L1,
+      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L1)
+    }
+  ];
 
   useEffect(() => {
     if (!selectedToken) {
@@ -118,13 +130,13 @@ export const Transfer = () => {
   };
 
   const renderTabs = () => {
-    return Object.values(ActionType).map((tab, index) => {
+    return tabs.map((tab, index) => {
       return (
         <TransferMenuTab
           key={index}
-          isActive={action === tab}
-          text={tab === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name}
-          onClick={() => onNetworkTabClick(tab)}
+          isActive={tab.isActive}
+          text={tab.text}
+          onClick={tab.onClick}
         />
       );
     });
