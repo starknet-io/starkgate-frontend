@@ -1,3 +1,15 @@
+## [1.5.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.2...v1.5.0-dev.1) (2022-05-11)
+
+
+### 🧩 Features
+
+* MultiChoiceMenu component ([#181](https://github.com/starkware-libs/starkgate-frontend/issues/181)) ([bbf19ba](https://github.com/starkware-libs/starkgate-frontend/commit/bbf19ba3df28b460a3665678e29ecd66b5b9970b))
+
+
+### 🔧 Fixes
+
+* change transfer tabs names ([#182](https://github.com/starkware-libs/starkgate-frontend/issues/182)) ([e795f1c](https://github.com/starkware-libs/starkgate-frontend/commit/e795f1c4dafafc0d76189d80fe2bdfc344d61fb0))
+
 ### [1.4.2-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.1...v1.4.2-dev.2) (2022-05-10)
 
 
