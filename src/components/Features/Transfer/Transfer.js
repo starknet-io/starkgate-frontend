@@ -1,11 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {track, TrackEvent} from '../../../analytics';
 import {ActionType, NetworkType} from '../../../enums';
 import {useMaxDeposit, useTransferToL1, useTransferToL2} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
-import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import {
+  TransferContext,
+  useAmount,
+  useIsL1,
+  useIsL2,
+  useTransfer
+} from '../../../providers/TransferProvider';
 import utils from '../../../utils';
 import {
   Loading,
@@ -40,6 +46,9 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+
+  const {isFastTransferToL1Available, isFastTransferToL1, setIsFastTransferToL1} =
+    useContext(TransferContext);
 
   useEffect(() => {
     if (!selectedToken) {
@@ -162,6 +171,16 @@ export const Transfer = () => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
+        {isFastTransferToL1Available && (
+          <div style={{color: 'white'}}>
+            <label>Go fast through the wormhole</label>
+            <input
+              type="checkbox"
+              checked={isFastTransferToL1}
+              onChange={setIsFastTransferToL1}
+            />
+          </div>
+        )}
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
         <TransferButton isDisabled={isButtonDisabled} onClick={onTransferClick} />
       </>
