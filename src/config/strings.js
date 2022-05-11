@@ -19,6 +19,11 @@ export default {
       titleTxt: 'Terms of Service',
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
+    },
+    buy: {
+      titleTxt: 'Buy onto L2',
+      descriptionTxt:
+        'Convert fiat money into L2 cryptocurrencies using one of the following providers:'
     }
   },
   menus: {

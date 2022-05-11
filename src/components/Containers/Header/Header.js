@@ -4,6 +4,8 @@ import useBreakpoint from 'use-breakpoint';
 
 import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
+import {ReactComponent as DiscordIcon} from '../../../assets/svg/tabs/discord.svg';
 import {Breakpoint, ChainType} from '../../../enums';
 import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
@@ -11,7 +13,7 @@ import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import {openInNewTab, toClasses} from '../../../utils';
-import {Tab, WalletButton} from '../../UI';
+import {Divider, Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
@@ -27,7 +29,7 @@ export const Header = () => {
   const {account: l1Account, config: l1Config} = useL1Wallet();
   const {account: l2Account, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorDiscord, colorWhiteOp50} = useColors();
+  const {colorDiscord, colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
 
   const maybeNavigateToBridge = () => {
@@ -51,12 +53,8 @@ export const Header = () => {
     maybeNavigateToBridge();
   };
 
-  const onTabFaqClick = () => {
-    navigate('/faq');
-  };
-
-  const onTabTermsClick = () => {
-    navigate('/terms');
+  const onRouteTabClick = route => {
+    navigate(`/${route}`);
   };
 
   const onTabDiscordClick = () => {
@@ -75,22 +73,40 @@ export const Header = () => {
         )}
       </div>
       <div className={toClasses(styles.right, 'row')}>
-        <Tab color={colorDiscord} label={tabDiscordTxt} onClick={onTabDiscordClick} />
-        <Tab color={colorWhiteOp50} label={tabTermsTxt} onClick={onTabTermsClick} />
-        <Tab color={colorWhiteOp50} label={tabFaqTxt} onClick={onTabFaqClick} />
+        <Tab
+          colorBorder={colorDiscord}
+          icon={<DiscordIcon />}
+          text={tabDiscordTxt}
+          onClick={onTabDiscordClick}
+        />
+        <Divider />
+        <Tab
+          colorBorder={colorGamma}
+          icon={<BuyIcon />}
+          text={'Buy onto L2'}
+          onClick={() => onRouteTabClick('buy')}
+        />
+        <Divider />
+        <Tab
+          colorBorder={colorWhiteOp50}
+          text={tabTermsTxt}
+          onClick={() => onRouteTabClick('terms')}
+        />
+        <Tab colorBorder={colorWhiteOp50} text={tabFaqTxt} onClick={() => onRouteTabClick('faq')} />
         {isLoggedIn && (
-          <WalletButton
-            account={l1Account}
-            logoPath={l1Config?.logoPath}
-            onClick={onL1WalletButtonClick}
-          />
-        )}
-        {isLoggedIn && (
-          <WalletButton
-            account={l2Account}
-            logoPath={l2Config?.logoPath}
-            onClick={onL2WalletButtonClick}
-          />
+          <>
+            <Divider />
+            <WalletButton
+              account={l1Account}
+              logoPath={l1Config?.logoPath}
+              onClick={onL1WalletButtonClick}
+            />
+            <WalletButton
+              account={l2Account}
+              logoPath={l2Config?.logoPath}
+              onClick={onL2WalletButtonClick}
+            />
+          </>
         )}
       </div>
     </div>

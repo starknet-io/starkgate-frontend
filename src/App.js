@@ -5,7 +5,7 @@ import styles from './App.module.scss';
 import {Footer, Header} from './components/Containers';
 import {StyledBackground} from './components/UI';
 import {useApp, useLogin} from './providers/AppProvider';
-import {Bridge, Faq, Login, ProtectedRoute, Terms} from './routes';
+import {Bridge, Buy, Faq, Login, ProtectedRoute, Terms} from './routes';
 
 export const App = () => {
   const {isAcceptTerms} = useApp();
@@ -27,6 +27,7 @@ export const App = () => {
           />
           <Route element={<Terms />} path="/terms" />
           <Route element={<Faq />} path="/faq" />
+          <Route element={<Buy />} path="/buy" />
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>
