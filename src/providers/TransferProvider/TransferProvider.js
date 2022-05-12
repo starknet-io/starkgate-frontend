@@ -37,11 +37,19 @@ export const TransferProvider = ({children}) => {
     });
   };
 
+  const setIsFastTransferToL1 = () => {
+    dispatch({
+      type: actions.SET_IS_FAST_TRANSFER_TO_L1,
+      isFastTransferToL1: !state.isFastTransferToL1
+    });
+  };
+
   const value = {
     ...state,
     setAmount,
     selectToken,
     setActionType,
+    setIsFastTransferToL1,
     isL1,
     isL2,
     toNetwork,

@@ -56,11 +56,15 @@ export default {
       decimals: 18,
       bridgeAddress: {
         [ChainType.L1.MAIN]: '',
-        [ChainType.L1.GOERLI]: '0xd8beAa22894Cd33F24075459cFba287a10a104E4'
+        [ChainType.L1.GOERLI]: '0xb3abdf76D7B0c69cFC17CA78Dfa8783672c679Bd'
+      },
+      gatewayAddress: {
+        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.GOERLI]: '0xE0a9C2FDf5e1a0e2E00c4D793Dc1aA89B39F1C50'
       },
       tokenAddress: {
         [ChainType.L1.MAIN]: '',
-        [ChainType.L1.GOERLI]: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844'
+        [ChainType.L1.GOERLI]: '0xd7F24C609825a4348dEc3C856Aa8796696355Fcd'
       }
     },
     {
@@ -136,11 +140,15 @@ export default {
       decimals: 18,
       bridgeAddress: {
         [ChainType.L2.MAIN]: '',
-        [ChainType.L2.GOERLI]: '0x0278f24c3e74cbf7a375ec099df306289beb0605a346277d200b791a7f811a19'
+        [ChainType.L2.GOERLI]: '0x04244983b58869b7fedd1497ba17196b8c3676351b47aa9b85fbca1c476cb95c'
+      },
+      gatewayAddress: {
+        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.GOERLI]: '0x0197f9e93cfaf7068ca2daf3ec89c2b91d051505c2231a0a0b9f70801a91fb24'
       },
       tokenAddress: {
         [ChainType.L2.MAIN]: '',
-        [ChainType.L2.GOERLI]: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9'
+        [ChainType.L2.GOERLI]: '0x052713f43368f9f8ca407174f7bf44f68b6cba77f1fa386d320c0bb096145675'
       }
     },
     {

@@ -1,7 +1,13 @@
 import {useCallback, useMemo} from 'react';
 
-import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
-import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
+import {
+  L1_ERC20_ABI,
+  L1_ERC20_BRIDGE_ABI,
+  ORACLE_AUTH_ABI,
+  L1_ETH_BRIDGE_ABI,
+  L1_MESSAGING_ABI
+} from '../abis/l1';
+import {L2_BRIDGE_ABI, L2_ERC20_ABI, L2_DAI_GATEWAY_ABI} from '../abis/l2';
 import {NetworkType} from '../enums';
 import {useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
@@ -88,4 +94,16 @@ export const useL1TokenBridgeContract = () => {
     },
     [getTokenBridgeContract, getEthBridgeContract, ethToken]
   );
+};
+
+export const useL2TokenGatewayContract = () => {
+  const getContract = useContract(L2_DAI_GATEWAY_ABI, createL2Contract);
+
+  return useCallback(gatewayAddress => getContract(gatewayAddress), [getContract]);
+};
+
+export const useOracleAuthContract = () => {
+  const getContract = useContract(ORACLE_AUTH_ABI, createL1Contract);
+
+  return useCallback(oracleAuthAddress => getContract(oracleAuthAddress), [getContract]);
 };

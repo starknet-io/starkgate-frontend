@@ -18,6 +18,70 @@ export const deposit = async ({recipient, amount, decimals, contract, options, e
   );
 };
 
+export const finalizeRegisterWormhole = async ({
+  sourceDomain,
+  targetDomain,
+  receiver,
+  operator,
+  amount,
+  decimals,
+  nonce,
+  timestamp,
+  contract,
+  options,
+  emitter
+}) => {
+  return sendL1Transaction(
+    contract,
+    'finalizeRegisterWormhole',
+    [
+      sourceDomain,
+      targetDomain,
+      receiver,
+      operator,
+      parseToDecimals(amount, decimals),
+      nonce,
+      timestamp
+    ],
+    options,
+    emitter
+  );
+};
+
+export const requestMint = async ({
+  sourceDomain,
+  targetDomain,
+  receiver,
+  operator,
+  amount,
+  decimals,
+  nonce,
+  timestamp,
+  signatures,
+  contract,
+  options,
+  emitter
+}) => {
+  return sendL1Transaction(
+    contract,
+    'deposit',
+    [
+      sourceDomain,
+      targetDomain,
+      receiver,
+      operator,
+      parseToDecimals(amount, decimals),
+      nonce,
+      timestamp,
+      signatures,
+      0,
+      0
+    ],
+    options,
+    emitter
+  );
+};
+
 export const depositEth = async ({recipient, amount, contract, options, emitter}) => {
   return sendL1Transaction(
     contract,
@@ -65,5 +129,21 @@ export const initiateWithdraw = async ({recipient, amount, decimals, contract}) 
   return sendL2Transaction(contract, 'initiate_withdraw', {
     l1Recipient: parseToFelt(recipient),
     amount: parseToUint256(amount, decimals)
+  });
+};
+
+export const initiateWormhole = async ({
+  targetDomain,
+  receiver,
+  amount,
+  decimals,
+  operator,
+  contract
+}) => {
+  return sendL2Transaction(contract, 'initiate_wormhole', {
+    target_domain: parseToFelt(targetDomain),
+    receiver: parseToFelt(receiver),
+    amount: parseToDecimals(amount, decimals),
+    operator: parseToFelt(operator)
   });
 };

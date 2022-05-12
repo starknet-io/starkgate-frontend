@@ -1,16 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {
   useMaxDeposit,
   useTransferToL1,
+  useWormholeToL1,
   useTransferToL2,
   useTransferTracking,
   useTransferTranslation
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
-import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import {
+  TransferContext,
+  useAmount,
+  useIsL1,
+  useIsL2,
+  useTransfer
+} from '../../../providers/TransferProvider';
 import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
@@ -43,9 +50,12 @@ export const Transfer = () => {
   const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
+  const wormholeToL1 = useWormholeToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+  const {isFastTransferToL1Available, isFastTransferToL1, setIsFastTransferToL1} =
+    useContext(TransferContext);
   const tabs = [
     {
       text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
@@ -117,8 +127,9 @@ export const Transfer = () => {
     isL2 ? swapToL1() : swapToL2();
   };
 
-  const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
-
+  const onTransferClick = async () => {
+    isL1 ? transferToL2(amount) : isFastTransferToL1 ? wormholeToL1(amount) : transferToL1(amount);
+  };
   const onNetworkTabClick = tab => {
     if (action !== tab) {
       onSwapClick();
@@ -181,6 +192,12 @@ export const Transfer = () => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
+        {isFastTransferToL1Available && (
+          <div style={{color: 'white'}}>
+            <label>Go fast through the wormhole</label>
+            <input checked={isFastTransferToL1} type="checkbox" onChange={setIsFastTransferToL1} />
+          </div>
+        )}
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
         <TransferButton isDisabled={isButtonDisabled} onClick={onTransferClick} />
       </>
