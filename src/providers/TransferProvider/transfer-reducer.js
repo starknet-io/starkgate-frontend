@@ -7,12 +7,6 @@ export const actions = {
   SET_IS_FAST_TRANSFER_TO_L1: 'Transfer/SET_IS_FAST_TRANSFER_TO_L1'
 };
 
-function addIsFastTransferToL1Available(state) {
-  const {symbol, action} = state;
-  const isFastTransferToL1Available = symbol === 'DAI' && action === ActionType.TRANSFER_TO_L1;
-  return {...state, isFastTransferToL1Available};
-}
-
 export const initialState = {
   action: ActionType.TRANSFER_TO_L2,
   symbol: '',
@@ -25,12 +19,10 @@ export const initialState = {
 function addIsFastTransferToL1Available(state) {
   const {symbol, action} = state;
   const isFastTransferToL1Available = symbol === 'DAI' && action === ActionType.TRANSFER_TO_L1;
-  console.log({symbol, action, isFastTransferToL1Available});
   return {...state, isFastTransferToL1Available};
 }
 
 export const reducer = (state, action) => {
-  console.log(action, {action: state.action});
   switch (action.type) {
     case actions.SET_ACTION_TYPE: {
       return addIsFastTransferToL1Available({
