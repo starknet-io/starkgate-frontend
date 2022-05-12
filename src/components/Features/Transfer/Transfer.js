@@ -69,6 +69,9 @@ export const Transfer = () => {
     }
   ];
 
+  const {isFastTransferToL1Available, isFastTransferToL1, setIsFastTransferToL1} =
+    useContext(TransferContext);
+
   useEffect(() => {
     if (!selectedToken) {
       selectToken(tokens[0].symbol);
@@ -195,7 +198,11 @@ export const Transfer = () => {
         {isFastTransferToL1Available && (
           <div style={{color: 'white'}}>
             <label>Go fast through the wormhole</label>
-            <input checked={isFastTransferToL1} type="checkbox" onChange={setIsFastTransferToL1} />
+            <input
+              type="checkbox"
+              checked={isFastTransferToL1}
+              onChange={setIsFastTransferToL1}
+            />
           </div>
         )}
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}

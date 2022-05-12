@@ -78,3 +78,10 @@ const useSelectToken = () => {
     [selectToken]
   );
 };
+
+// const useDAIFastWithdrawal = () => {
+//   const {selectedToken} = useSelectedToken()
+//   const isDAI = selectedToken === 'DAI'
+//   const
+//   return [isDAI]
+// }
