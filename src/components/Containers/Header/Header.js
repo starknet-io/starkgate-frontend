@@ -115,7 +115,6 @@ export const Header = () => {
         {renderTabs()}
         {isLoggedIn && (
           <>
-            <Divider />
             <WalletButton
               account={l1Account}
               logoPath={l1Config?.logoPath}
