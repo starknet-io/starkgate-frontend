@@ -69,9 +69,6 @@ export const Transfer = () => {
     }
   ];
 
-  const {isFastTransferToL1Available, isFastTransferToL1, setIsFastTransferToL1} =
-    useContext(TransferContext);
-
   useEffect(() => {
     if (!selectedToken) {
       selectToken(tokens[0].symbol);
