@@ -193,13 +193,9 @@ export const Transfer = () => {
           onTokenSelect={showSelectTokenMenu}
         />
         {isFastTransferToL1Available && (
-          <div style={{color: 'white'}}>
-            <label>Go fast through the wormhole</label>
-            <input
-              type="checkbox"
-              checked={isFastTransferToL1}
-              onChange={setIsFastTransferToL1}
-            />
+          <div id="check" style={{color: 'white'}}>
+            <label htmlFor="check">Go fast through the wormhole</label>
+            <input checked={isFastTransferToL1} type="checkbox" onChange={setIsFastTransferToL1} />
           </div>
         )}
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
