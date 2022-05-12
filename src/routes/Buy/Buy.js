@@ -1,19 +1,19 @@
 import React from 'react';
 
 import {MultiChoiceMenu} from '../../components/UI';
-import BuyProviders from '../../config/buy';
-import {useBuyTranslation} from '../../hooks';
+import {useBuyProviders, useBuyTranslation} from '../../hooks';
 import {openInNewTab} from '../../utils';
 
 export const Buy = () => {
   const {titleTxt, descriptionTxt} = useBuyTranslation();
+  const buyProviders = useBuyProviders();
 
   const mapBuyProviders = () => {
-    return BuyProviders.map(provider => {
+    return buyProviders.map(p => {
       return {
-        ...provider,
+        ...p,
         onClick: () => {
-          openInNewTab(provider.url);
+          openInNewTab(p.url);
         }
       };
     });

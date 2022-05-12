@@ -8,10 +8,10 @@ import styles from './MultiChoiceMenu.module.scss';
 
 export const MultiChoiceMenu = ({title, description, choices, error, footer}) => {
   const renderChoiceItems = () => {
-    return choices.map((choice, index) => {
+    return choices.map(choice => {
       return (
         <MultiChoiceItem
-          key={choice.id || index}
+          key={choice.id}
           description={choice.description}
           isDisabled={choice.isDisabled || false}
           logoPath={choice.logoPath}

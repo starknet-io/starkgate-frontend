@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
@@ -7,7 +7,14 @@ import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg
 import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
 import {ReactComponent as DiscordIcon} from '../../../assets/svg/tabs/discord.svg';
 import {Breakpoint, ChainType} from '../../../enums';
-import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
+import {
+  useColors,
+  useConstants,
+  useEnvs,
+  useTracking,
+  useHeaderTranslation,
+  useBuyProviders
+} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -31,6 +38,7 @@ export const Header = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
+  const buyProviders = useBuyProviders();
 
   const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
@@ -74,6 +82,7 @@ export const Header = () => {
       color: colorGamma,
       icon: <BuyIcon />,
       text: tabBuyTxt,
+      disable: !buyProviders.length,
       divider: true,
       onClick: () => onRouteTabClick('buy')
     },
@@ -85,18 +94,19 @@ export const Header = () => {
     {
       color: colorWhiteOp50,
       text: tabFaqTxt,
-      onClick: () => onRouteTabClick('faq'),
-      divider: true
+      onClick: () => onRouteTabClick('faq')
     }
   ];
 
   const renderTabs = () => {
-    return tabs.map(tab => {
+    return tabs.map((tab, index) => {
       return (
-        <>
-          <Tab colorBorder={tab.color} icon={tab.icon} text={tab.text} onClick={tab.onClick} />
-          {tab.divider && <Divider />}
-        </>
+        !tab.disable && (
+          <Fragment key={index}>
+            <Tab colorBorder={tab.color} icon={tab.icon} text={tab.text} onClick={tab.onClick} />
+            {tab.divider && <Divider />}
+          </Fragment>
+        )
       );
     });
   };
@@ -115,6 +125,7 @@ export const Header = () => {
         {renderTabs()}
         {isLoggedIn && (
           <>
+            <Divider />
             <WalletButton
               account={l1Account}
               logoPath={l1Config?.logoPath}
