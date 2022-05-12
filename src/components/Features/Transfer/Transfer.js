@@ -4,7 +4,7 @@ import {ActionType, NetworkType} from '../../../enums';
 import {
   useMaxDeposit,
   useTransferToL1,
-  useWormholeToL1,
+  useFastTransferToL1,
   useTransferToL2,
   useTransferTracking,
   useTransferTranslation
@@ -50,7 +50,7 @@ export const Transfer = () => {
   const {tokens, updateTokenBalance} = useTokens();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
-  const wormholeToL1 = useWormholeToL1();
+  const fastTransferToL1 = useFastTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
@@ -128,7 +128,11 @@ export const Transfer = () => {
   };
 
   const onTransferClick = async () => {
-    isL1 ? transferToL2(amount) : isFastTransferToL1 ? wormholeToL1(amount) : transferToL1(amount);
+    isL1
+      ? transferToL2(amount)
+      : isFastTransferToL1
+      ? fastTransferToL1(amount)
+      : transferToL1(amount);
   };
   const onNetworkTabClick = tab => {
     if (action !== tab) {

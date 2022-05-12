@@ -85,6 +85,14 @@ export default {
         type: 'Initiate transfer',
         message: 'Initiating transfer of {{amount}} {{symbol}} from StarkNet...'
       },
+      initiateWormhole: {
+        type: 'Initiate fast transfer',
+        message: 'Initiating fast transfer of {{amount}} {{symbol}} from StarkNet...'
+      },
+      requestMint: {
+        type: 'Request mint',
+        message: 'Requesting mint of {{amount}} {{symbol}} from StarkNet...'
+      },
       withdraw: {
         type: 'Transfer in progress',
         message: 'Transferring {{amount}} {{symbol}} to Ethereum...'

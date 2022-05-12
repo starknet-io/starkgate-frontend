@@ -10,7 +10,8 @@ import {
   TransactionStatus,
   TransferError,
   TransferStep,
-  TransferToL1Steps
+  TransferToL1Steps,
+  FastTransferToL1Steps
 } from '../enums';
 import {useWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
@@ -25,7 +26,11 @@ import {
   useOracleAuthContract
 } from './useContract';
 import {useLogger} from './useLogger';
-import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
+import {
+  useCompleteTransferToL1Tracking,
+  useTransferToL1Tracking,
+  useFastTransferToL1Tracking
+} from './useTracking';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
 
@@ -111,59 +116,27 @@ export const useTransferToL1 = () => {
   );
 };
 
-export const useWormholeToL1 = () => {
-  const logger = useLogger('useWormholeToL1');
-  const [trackInitiated, trackSuccess, trackError] = useTransferToL1Tracking();
+export const useFastTransferToL1 = () => {
+  const logger = useLogger('useFastTransferToL1');
+  const [trackInitiated, trackSuccess, trackError] = useFastTransferToL1Tracking();
   const {account: l1Account} = useL1Wallet();
   const {account: l2Account, config: l2Config} = useL2Wallet();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenGatewayContract = useL2TokenGatewayContract();
   const getOracleAuthContract = useOracleAuthContract();
-  const {handleProgress, handleData, handleError} = useTransfer(TransferToL1Steps);
+  const {handleProgress, handleData, handleError} = useTransfer(FastTransferToL1Steps);
   const progressOptions = useTransferProgress();
-
-  const fetchAttestations = async txHash => {
-    const response = await axios.get(ORACLE_API_URL, {
-      params: {
-        type: 'wormhole',
-        index: txHash
-      }
-    });
-
-    const results = response.data || [];
-
-    const signatures = `0x${results.map(oracle => oracle.signatures.ethereum.signature).join('')}`;
-
-    let wormholeGUID = {};
-    if (results.length > 0) {
-      const wormholeData = results[0].data.event.match(/.{64}/g).map(hex => `0x${hex}`);
-      wormholeGUID = decodeWormholeData(wormholeData);
-    }
-
-    const oracleAuthContract = getOracleAuthContract('0x455f17Bdd98c19e3417129e7a821605661623aD7');
-    requestMint({
-      sourceDomain: wormholeGUID.sourceDomain,
-      targetDomain: wormholeGUID.targetDomain,
-      receiver: wormholeGUID.receiver,
-      operator: wormholeGUID.operator,
-      amount: wormholeGUID.amount,
-      nonce: wormholeGUID.nonce,
-      timestamp: wormholeGUID.timestamp,
-      signatures,
-      contract: oracleAuthContract
-    });
-  };
 
   return useCallback(
     async amount => {
-      const {decimals, tokenAddress, gatewayAddress, symbol} = selectedToken;
+      const {decimals, tokenAddress, gatewayAddress, name, symbol} = selectedToken;
       const tokenContract = getTokenContract(tokenAddress);
 
       const readAllowance = () => {
         return allowanceL2({
           owner: l2Account,
-          spender: gatewayAddress.SN_GOERLI,
+          spender: gatewayAddress,
           decimals,
           contract: tokenContract
         });
@@ -171,7 +144,7 @@ export const useWormholeToL1 = () => {
 
       const sendApproval = async () => {
         return approveL2({
-          spender: gatewayAddress.SN_GOERLI,
+          spender: gatewayAddress,
           amount: '115792089237316195423570985008687907853269984665640564039457584007913129639935',
           contract: tokenContract
         });
@@ -195,20 +168,69 @@ export const useWormholeToL1 = () => {
         });
       };
 
+      const fetchAttestations = async txHash => {
+        const response = await axios.get(ORACLE_API_URL, {
+          params: {
+            type: 'wormhole',
+            index: txHash
+          }
+        });
+
+        const results = response.data || [];
+
+        const signatures = `0x${results
+          .map(oracle => oracle.signatures.ethereum.signature)
+          .join('')}`;
+
+        let wormholeGUID = {};
+        if (results.length > 0) {
+          const wormholeData = results[0].data.event.match(/.{64}/g).map(hex => `0x${hex}`);
+          wormholeGUID = decodeWormholeData(wormholeData);
+        }
+
+        const oracleAuthContract = getOracleAuthContract(
+          '0x455f17Bdd98c19e3417129e7a821605661623aD7'
+        );
+        requestMint({
+          sourceDomain: wormholeGUID.sourceDomain,
+          targetDomain: wormholeGUID.targetDomain,
+          receiver: wormholeGUID.receiver,
+          operator: wormholeGUID.operator,
+          amount: wormholeGUID.amount,
+          nonce: wormholeGUID.nonce,
+          timestamp: wormholeGUID.timestamp,
+          signatures,
+          contract: oracleAuthContract,
+          options: {from: l1Account},
+          emitter: onTransactionHash
+        });
+      };
+
+      const onTransactionHash = (error, transactionHash) => {
+        if (!error) {
+          logger.log('Tx signed', {transactionHash});
+          handleProgress(
+            progressOptions.requestMint(
+              amount,
+              symbol,
+              stepOf(TransferStep.FAST_WITHDRAW, FastTransferToL1Steps)
+            )
+          );
+        }
+      };
+
       try {
         logger.log('Wormhole called');
         handleProgress(
           progressOptions.waitForConfirm(
             l2Config.name,
-            stepOf(TransferStep.CONFIRM_TX, TransferToL1Steps)
+            stepOf(TransferStep.CONFIRM_TX, FastTransferToL1Steps)
           )
         );
         logger.log('Token needs approval');
-        /*
         handleProgress(
-          progressOptions.approval(symbol, stepOf(TransferStep.APPROVE, TransferToL2Steps))
+          progressOptions.approval(symbol, stepOf(TransferStep.APPROVE, FastTransferToL1Steps))
         );
-        */
         const allow = await readAllowance();
         logger.log('Current allow value', {allow});
         if (allow < amount) {
@@ -218,21 +240,18 @@ export const useWormholeToL1 = () => {
         logger.log('Calling initiate wormhole');
         const {transaction_hash: l2hash} = await sendInitiateWormhole();
         logger.log('Tx hash received', {l2hash});
-        /*
         handleProgress(
           progressOptions.initiateWormhole(
             amount,
             symbol,
-            stepOf(TransferStep.INITIATE_WORMHOLE, TransferToL1Steps)
+            stepOf(TransferStep.INITIATE_FAST_WITHDRAW, FastTransferToL1Steps)
           )
         );
-        */
         logger.log('Waiting for tx to be received on L2');
-        await waitForTransaction(l2hash, TransactionStatus.RECEIVED);
+        await waitForTransaction(l2hash, TransactionStatus.ACCEPTED_ON_L2);
         logger.log('Done', {l2hash});
         await fetchAttestations(l2hash);
         trackSuccess(l2hash);
-        /*
         handleData({
           type: ActionType.WORMHOLE_TO_L1,
           sender: l2Account,
@@ -242,7 +261,6 @@ export const useWormholeToL1 = () => {
           amount,
           l2hash
         });
-        */
       } catch (ex) {
         logger.error(ex.message, ex);
         trackError(ex);

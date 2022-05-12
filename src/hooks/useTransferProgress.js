@@ -36,6 +36,24 @@ export const useTransferProgress = () => {
           activeStep
         };
       },
+      initiateWormhole: (amount, symbol, activeStep) => {
+        const {initiateWormhole} = transferProgressStrings;
+        const message = evaluate(initiateWormhole.message, {amount, symbol});
+        return {
+          type: initiateWormhole.type,
+          message,
+          activeStep
+        };
+      },
+      requestMint: (amount, symbol, activeStep) => {
+        const {requestMint} = transferProgressStrings;
+        const message = evaluate(requestMint.message, {amount, symbol});
+        return {
+          type: requestMint.type,
+          message,
+          activeStep
+        };
+      },
       waitForConfirm: (walletName, activeStep) => {
         const {waitForConfirm} = transferProgressStrings;
         const type = evaluate(waitForConfirm.type, {walletName});

@@ -54,7 +54,6 @@ export const requestMint = async ({
   receiver,
   operator,
   amount,
-  decimals,
   nonce,
   timestamp,
   signatures,
@@ -64,19 +63,8 @@ export const requestMint = async ({
 }) => {
   return sendL1Transaction(
     contract,
-    'deposit',
-    [
-      sourceDomain,
-      targetDomain,
-      receiver,
-      operator,
-      parseToDecimals(amount, decimals),
-      nonce,
-      timestamp,
-      signatures,
-      0,
-      0
-    ],
+    'requestMint',
+    [[sourceDomain, targetDomain, receiver, operator, amount, nonce, timestamp], signatures, 0, 0],
     options,
     emitter
   );

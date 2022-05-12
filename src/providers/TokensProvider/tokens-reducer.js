@@ -10,13 +10,15 @@ export const initialState = [
     ...t,
     isL1: true,
     bridgeAddress: t.bridgeAddress?.[supportedL1ChainId],
-    tokenAddress: t.tokenAddress?.[supportedL1ChainId]
+    tokenAddress: t.tokenAddress?.[supportedL1ChainId],
+    gatewayAddress: t.gatewayAddress?.[supportedL1ChainId]
   })),
   ...Tokens.L2.filter(t => supportedTokens.includes(t.symbol)).map(t => ({
     ...t,
     isL2: true,
     bridgeAddress: t.bridgeAddress?.[supportedL2ChainId],
-    tokenAddress: t.tokenAddress?.[supportedL2ChainId]
+    tokenAddress: t.tokenAddress?.[supportedL2ChainId],
+    gatewayAddress: t.gatewayAddress?.[supportedL2ChainId]
   }))
 ];
 

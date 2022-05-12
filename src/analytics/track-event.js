@@ -24,6 +24,12 @@ export const TrackEvent = {
       ERROR: 'TRANSFER_MENU/transfer_to_l1_error',
       REJECT: 'TRANSFER_MENU/transfer_to_l1_reject'
     },
+    FAST_TRANSFER_TO_L1: {
+      INITIATED: 'TRANSFER_MENU/fast_transfer_to_l1_initiated',
+      SUCCESS: 'TRANSFER_MENU/fast_transfer_to_l1_success',
+      ERROR: 'TRANSFER_MENU/fast_transfer_to_l1_error',
+      REJECT: 'TRANSFER_MENU/fast_transfer_to_l1_reject'
+    },
     COMPLETE_TRANSFER_TO_L1: {
       INITIATED: 'TRANSFER_MENU/complete_transfer_to_l1_initiated',
       SUCCESS: 'TRANSFER_MENU/complete_transfer_to_l1_success',

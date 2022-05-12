@@ -56,6 +56,10 @@ export const useTransferToL2Tracking = () => {
   return useTracking([...Object.values(TrackEvent.TRANSFER.TRANSFER_TO_L2)]);
 };
 
+export const useFastTransferToL1Tracking = () => {
+  return useTracking([...Object.values(TrackEvent.TRANSFER.FAST_TRANSFER_TO_L1)]);
+};
+
 export const useCompleteTransferToL1Tracking = () => {
   return useTracking([...Object.values(TrackEvent.TRANSFER.COMPLETE_TRANSFER_TO_L1)]);
 };
