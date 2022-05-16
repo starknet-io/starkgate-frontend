@@ -23,9 +23,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-2
 
-    - name: Delete Helm Chart
-      run: helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
+      - name: Delete Helm Chart
+        run: helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
 
-    - name: Delete Namespace
-      if: always()
-      run: kubectl namespace delete pr-${{ github.event.pull_request.number }}
+      - name: Delete Namespace
+        if: always()
+        run: kubectl namespace delete pr-${{ github.event.pull_request.number }}
+
