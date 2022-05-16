@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
+import {ReactComponent as DiscordIcon} from '../../../assets/svg/tabs/discord.svg';
 import {Breakpoint, ChainType} from '../../../enums';
-import {useColors, useConstants, useEnvs, useTracking, useHeaderTranslation} from '../../../hooks';
+import {
+  useColors,
+  useConstants,
+  useEnvs,
+  useTracking,
+  useHeaderTranslation,
+  useBuyProviders
+} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import {openInNewTab, toClasses} from '../../../utils';
-import {Tab, WalletButton} from '../../UI';
+import {Divider, Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {supportedL1ChainId} = useEnvs();
-  const {tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
+  const {tabBuyTxt, tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -27,8 +36,9 @@ export const Header = () => {
   const {account: l1Account, config: l1Config} = useL1Wallet();
   const {account: l2Account, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorDiscord, colorWhiteOp50} = useColors();
+  const {colorDiscord, colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
+  const buyProviders = useBuyProviders();
 
   const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
@@ -51,17 +61,54 @@ export const Header = () => {
     maybeNavigateToBridge();
   };
 
-  const onTabFaqClick = () => {
-    navigate('/faq');
-  };
-
-  const onTabTermsClick = () => {
-    navigate('/terms');
+  const onRouteTabClick = route => {
+    navigate(`/${route}`);
   };
 
   const onTabDiscordClick = () => {
     trackDiscordClick();
     openInNewTab(DISCORD_LINK_URL);
+  };
+
+  const tabs = [
+    {
+      color: colorDiscord,
+      icon: <DiscordIcon />,
+      text: tabDiscordTxt,
+      divider: true,
+      onClick: onTabDiscordClick
+    },
+    {
+      color: colorGamma,
+      icon: <BuyIcon />,
+      text: tabBuyTxt,
+      disable: !buyProviders.length,
+      divider: true,
+      onClick: () => onRouteTabClick('buy')
+    },
+    {
+      color: colorWhiteOp50,
+      text: tabTermsTxt,
+      onClick: () => onRouteTabClick('terms')
+    },
+    {
+      color: colorWhiteOp50,
+      text: tabFaqTxt,
+      onClick: () => onRouteTabClick('faq')
+    }
+  ];
+
+  const renderTabs = () => {
+    return tabs.map((tab, index) => {
+      return (
+        !tab.disable && (
+          <Fragment key={index}>
+            <Tab colorBorder={tab.color} icon={tab.icon} text={tab.text} onClick={tab.onClick} />
+            {tab.divider && <Divider />}
+          </Fragment>
+        )
+      );
+    });
   };
 
   return (
@@ -75,22 +122,21 @@ export const Header = () => {
         )}
       </div>
       <div className={toClasses(styles.right, 'row')}>
-        <Tab color={colorDiscord} label={tabDiscordTxt} onClick={onTabDiscordClick} />
-        <Tab color={colorWhiteOp50} label={tabTermsTxt} onClick={onTabTermsClick} />
-        <Tab color={colorWhiteOp50} label={tabFaqTxt} onClick={onTabFaqClick} />
+        {renderTabs()}
         {isLoggedIn && (
-          <WalletButton
-            account={l1Account}
-            logoPath={l1Config?.logoPath}
-            onClick={onL1WalletButtonClick}
-          />
-        )}
-        {isLoggedIn && (
-          <WalletButton
-            account={l2Account}
-            logoPath={l2Config?.logoPath}
-            onClick={onL2WalletButtonClick}
-          />
+          <>
+            <Divider />
+            <WalletButton
+              account={l1Account}
+              logoPath={l1Config?.logoPath}
+              onClick={onL1WalletButtonClick}
+            />
+            <WalletButton
+              account={l2Account}
+              logoPath={l2Config?.logoPath}
+              onClick={onL2WalletButtonClick}
+            />
+          </>
         )}
       </div>
     </div>
