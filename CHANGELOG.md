@@ -1,3 +1,10 @@
+## [1.5.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.1...v1.5.0-dev.2) (2022-05-16)
+
+
+### 🧩 Features
+
+* buy into L2 (fiat on ramp) + Banxa provider  ([#183](https://github.com/starkware-libs/starkgate-frontend/issues/183)) ([6df9b4d](https://github.com/starkware-libs/starkgate-frontend/commit/6df9b4dc7b5c1155bc529844da6e72aa37924e20))
+
 ## [1.5.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.2...v1.5.0-dev.1) (2022-05-11)
 
 
