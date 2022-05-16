@@ -40,6 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [push]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Setup GKE cluster
         uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
         with:
