@@ -69,4 +69,5 @@ jobs:
           --namespace=pr-${{ github.event.pull_request.number }} \
           --values $VALUES_FILE \
           --set-file configMap.frontend.envs=$ENV_FILE \
-          --set frontend.image.tag=pr-${{ github.event.pull_request.number }}
+          --set frontend.image.tag=pr-${{ github.event.pull_request.number }} \
+          --set ingress.host=pr-${{ github.event.pull_request.number }}.starkgate.starknet.io
