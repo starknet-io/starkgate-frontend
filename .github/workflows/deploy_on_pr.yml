@@ -1,7 +1,7 @@
 name: 'Deploy helm chart on Pull Request triger'
 on:
   pull_request:
-    types: [labeled]
+    types: [opened, reopened]
 
 env:
   BACKEND_IMAGE_NAME: us.gcr.io/starkware-dev/starknet/starkgate/backend
