@@ -4,11 +4,10 @@ on:
     types: [closed]
 
 jobs:
-  cleanup-pr:
+  destroy:
     name: 'Cleanup Pull Request'
     runs-on: ubuntu-latest
     continue-on-error: true
-
     steps:
       - name: Setup GKE cluster
         uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
