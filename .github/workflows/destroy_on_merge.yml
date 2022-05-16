@@ -1,0 +1,42 @@
+name: 'Destroy deployment when Pull Request closed'
+on:
+  pull_request:
+    types: [closed]
+env:
+  BACKEND_IMAGE_NAME: us.gcr.io/starkware-dev/starknet/starkgate/backend
+  FRONTEND_IMAGE_NAME: us.gcr.io/starkware-dev/starknet/starkgate/frontend
+
+jobs:
+  destroy:
+    name: 'Cleanup Pull Request'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Setup GKE cluster
+        uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+        with:
+          cluster_name: web-devs
+          location: us-central1
+          credentials: ${{ secrets.STARKGATE_SA }}
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v2.0
+      - name: Download starkware-third-party repo from S3.
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
+        run: |
+          helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
+          helm repo add starkware s3://starkware-third-party/helm-repo/charts
+          helm repo update
+
+      - name: Delete Helm Chart
+        run: helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
+
+      - name: Delete Namespace
+        if: always()
+        run: kubectl delete namespace pr-${{ github.event.pull_request.number }}
+
+      - name: Delete pull request image from gcr.
+        run: |
+          gcloud container images delete --quiet $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
