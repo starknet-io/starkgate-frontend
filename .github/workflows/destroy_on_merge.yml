@@ -1,4 +1,4 @@
-name: 'Destroy deploy after Pull Request'
+name: 'Destroy deployment when Pull Request closed'
 on:
   pull_request:
     types: [closed]
@@ -32,5 +32,5 @@ jobs:
 
       - name: Delete Namespace
         if: always()
-        run: kubectl namespace delete pr-${{ github.event.pull_request.number }}
+        run: kubectl delete namespace pr-${{ github.event.pull_request.number }}
 

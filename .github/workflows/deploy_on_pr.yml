@@ -1,4 +1,4 @@
-name: 'Deploy helm chart on Pull Request triger'
+name: 'Deploy helm chart on Pull Request trigger'
 on:
   pull_request:
 
@@ -13,7 +13,7 @@ env:
 
 jobs:
   push:
-    name: 'Deploy Pull Request'
+    name: 'Build and push pull request image to gcr.'
     runs-on: ubuntu-latest
     steps:
       - name: Login to Gcloud using starkgate service account.
@@ -36,7 +36,7 @@ jobs:
           docker push $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
 
   deploy:
-    name: 'Deploy Pull Request'
+    name: 'Deploy helm chart'
     runs-on: ubuntu-latest
     needs: [push]
     steps:
