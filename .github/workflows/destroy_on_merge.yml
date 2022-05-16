@@ -1,0 +1,32 @@
+name: 'Destroy deploy after Pull Request'
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-pr:
+    name: 'Cleanup Pull Request'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Setup GKE cluster
+        uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+        with:
+          cluster_name: web-devs
+          location: us-central1
+          credentials: ${{ secrets.STARKGATE_SA }}
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v2.0
+      - name: Download starkware-third-party repo from S3.
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2
+
+    - name: Delete Helm Chart
+      run: helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
+
+    - name: Delete Namespace
+      if: always()
+      run: kubectl namespace delete pr-${{ github.event.pull_request.number }}
