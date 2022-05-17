@@ -5,7 +5,8 @@ export default {
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
       tabTermsTxt: 'Terms',
-      tabFaqTxt: 'FAQ'
+      tabFaqTxt: 'FAQ',
+      tabBuyTxt: 'Buy into L2'
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
@@ -19,6 +20,11 @@ export default {
       titleTxt: 'Terms of Service',
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
+    },
+    buy: {
+      titleTxt: 'Buy into L2',
+      descriptionTxt:
+        'Convert fiat money into L2 cryptocurrencies using one of the following providers:'
     }
   },
   menus: {
