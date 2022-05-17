@@ -8,6 +8,7 @@ env:
 
 jobs:
   destroy:
+    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
     name: 'Cleanup Pull Request'
     runs-on: ubuntu-latest
     continue-on-error: true
