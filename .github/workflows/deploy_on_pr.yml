@@ -4,7 +4,7 @@ on:
 
 jobs:
   deploy:
-    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
+    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat') || contains(github.head_ref, 'guy')
     name: 'Deploy helm chart'
     runs-on: ubuntu-latest
     steps:
