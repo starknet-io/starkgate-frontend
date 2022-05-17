@@ -3,8 +3,8 @@ on:
   pull_request:
 
 jobs:
-  if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
   deploy:
+    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
     name: 'Deploy helm chart'
     runs-on: ubuntu-latest
     steps:
