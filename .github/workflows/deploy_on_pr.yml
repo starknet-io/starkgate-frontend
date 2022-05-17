@@ -2,90 +2,13 @@ name: 'Deploy helm chart on Pull Request trigger'
 on:
   pull_request:
 
-env:
-  BACKEND_IMAGE_NAME: us.gcr.io/starkware-dev/starknet/starkgate/backend
-  FRONTEND_IMAGE_NAME: us.gcr.io/starkware-dev/starknet/starkgate/frontend
-  BUILD_ENV: testing
-  BACKEND_DOCKER_FILE: Dockerfile.backend
-  FRONTEND_DOCKER_FILE: Dockerfile.frontend
-  ENV_FILE: .env.testing
-  VALUES_FILE: deployment/testing.yml
-
 jobs:
-  push:
-    name: 'Build and push pull request image to gcr.'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Login to Gcloud using starkgate service account.
-        uses: google-github-actions/setup-gcloud@v0
-        with:
-          project_id: ${{ secrets.PROJECT_ID }}
-          service_account_email: ${{ secrets.STARKGATE_SA_EMAIL }}
-          service_account_key: ${{ secrets.STARKGATE_SA }}
-
-      - name: Configure Docker
-        run: gcloud auth configure-docker --quiet
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Build and push images to GCR, with pull request number.
-        run: |
-          docker build . -t $FRONTEND_IMAGE_NAME -f $FRONTEND_DOCKER_FILE --build-arg BUILD_ENV=$BUILD_ENV
-          docker tag $FRONTEND_IMAGE_NAME $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
-          docker push $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
-
+  if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
   deploy:
     name: 'Deploy helm chart'
     runs-on: ubuntu-latest
     needs: [push]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup GKE cluster
-        uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-        with:
-          cluster_name: web-devs
-          location: us-central1
-          credentials: ${{ secrets.STARKGATE_SA }}
-      - name: Helm tool installer
-        uses: Azure/setup-helm@v2.0
-      - name: Download starkware-third-party repo from S3.
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-east-2
+      - name: test
         run: |
-          helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
-          helm repo add starkware s3://starkware-third-party/helm-repo/charts
-          helm repo update
-      - name: Delete old helm cahrt deployment
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
-      - name: Deploy using helm install command.
-        if: always()
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
-        run: |
-          helm upgrade pr-${{ github.event.pull_request.number }} starkware/webapp-general-helm \
-          --create-namespace \
-          --install \
-          --namespace=pr-${{ github.event.pull_request.number }} \
-          --values $VALUES_FILE \
-          --set-file configMap.frontend.envs=$ENV_FILE \
-          --set frontend.image.tag=pr-${{ github.event.pull_request.number }} \
-          --set ingress.host=pr-${{ github.event.pull_request.number }}.starkgate.starknet.io
-      - name: Post comment to Pull Request.
-        if: always()
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          msg: "Your Pull Request Deployment is ready for review at https://pr-${{ github.event.pull_request.number }}.starkgate.starknet.io"
-          check_for_duplicate_msg: true
+          echo 1
