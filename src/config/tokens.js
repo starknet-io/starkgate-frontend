@@ -55,11 +55,11 @@ export default {
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x659a00c33263d9254Fed382dE81349426C795BB6',
         [ChainType.L1.GOERLI]: '0xd8beAa22894Cd33F24075459cFba287a10a104E4'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         [ChainType.L1.GOERLI]: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844'
       }
     },
@@ -135,11 +135,11 @@ export default {
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x001108cdbe5d82737b9057590adaf97d34e74b5452f0628161d237746b6fe69e',
         [ChainType.L2.GOERLI]: '0x0278f24c3e74cbf7a375ec099df306289beb0605a346277d200b791a7f811a19'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x00da114221cb83fa859dbdb4c44beeaa0bb37c7537ad5ae66fe5e0efd20e6eb3',
         [ChainType.L2.GOERLI]: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9'
       }
     },
