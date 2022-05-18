@@ -57,15 +57,15 @@ export const useTransferProgress = () => {
       },
       error: (type, err) => {
         if (type === TransferError.MAX_TOTAL_BALANCE_ERROR) {
-          const {limitation_error_title, max_total_balance_error_msg} = transferProgressStrings;
+          const {limitationErrorTitle, maxTotalBalanceErrorMsg} = transferProgressStrings;
           return {
-            type: limitation_error_title,
-            message: max_total_balance_error_msg
+            type: limitationErrorTitle,
+            message: maxTotalBalanceErrorMsg
           };
         }
-        const {error_title} = transferProgressStrings;
+        const {errorTitle} = transferProgressStrings;
         return {
-          type: error_title,
+          type: errorTitle,
           message: err.message
         };
       }
