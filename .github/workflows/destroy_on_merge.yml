@@ -8,7 +8,7 @@ env:
 
 jobs:
   destroy:
-#    if: ${{ startsWith(github.head_ref, 'refactor') || startsWith(github.head_ref, 'fix') || startsWith(github.head_ref, 'feat') }}
+    if: ${{ contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat') }}
     name: Cleanup pull request
     runs-on: ubuntu-latest
     continue-on-error: true

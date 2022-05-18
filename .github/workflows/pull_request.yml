@@ -46,7 +46,7 @@ jobs:
         run: yarn run test --passWithNoTests
 
   push:
-#    if: ${{ startsWith(github.head_ref, 'refactor') || startsWith(github.head_ref, 'fix') || startsWith(github.head_ref, 'feat') }}
+    if: ${{ contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat') }}
     name: Build and push pull request image to gcr
     runs-on: ubuntu-latest
     needs: [lint, test]
