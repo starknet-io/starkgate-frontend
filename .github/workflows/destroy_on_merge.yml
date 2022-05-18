@@ -31,10 +31,10 @@ jobs:
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
           helm repo update
       - name: Delete helm chart
-        run: helm delete pr-${{ github.event.pull_request.number }}-goerli --namespace pr-${{ github.event.pull_request.number }}-goerli
+        run: helm delete pr${{ github.event.pull_request.number }}-goerli --namespace pr${{ github.event.pull_request.number }}-goerli
       - name: Delete namespace
         if: always()
-        run: kubectl delete namespace pr-${{ github.event.pull_request.number }}-goerli
+        run: kubectl delete namespace pr${{ github.event.pull_request.number }}-goerli
       - name: Delete pull request image from gcr
         run: |
-          gcloud container images delete --quiet $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}-goerli
+          gcloud container images delete --quiet $FRONTEND_IMAGE_NAME:pr${{ github.event.pull_request.number }}-goerli

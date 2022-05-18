@@ -67,8 +67,8 @@ jobs:
       - name: Build and push images to GCR, with pull request number.
         run: |
           docker build . -t $FRONTEND_IMAGE_NAME -f $FRONTEND_DOCKER_FILE --build-arg BUILD_ENV=$BUILD_ENV
-          docker tag $FRONTEND_IMAGE_NAME $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}-goerli
-          docker push $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}-goerli
+          docker tag $FRONTEND_IMAGE_NAME $FRONTEND_IMAGE_NAME:pr${{ github.event.pull_request.number }}-goerli
+          docker push $FRONTEND_IMAGE_NAME:pr${{ github.event.pull_request.number }}-goerli
 
   deploy:
     name: Deploy helm chart
@@ -96,7 +96,7 @@ jobs:
           helm repo update
       - name: Delete old helm chart deployment
         run: |
-          helm delete pr-${{ github.event.pull_request.number }}-goerli --namespace pr-${{ github.event.pull_request.number }}-goerli
+          helm delete pr${{ github.event.pull_request.number }}-goerli --namespace pr${{ github.event.pull_request.number }}-goerli
       - name: Deploy using helm install command.
         if: always()
         env:
@@ -104,13 +104,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          helm install pr-${{ github.event.pull_request.number }}-goerli starkware/webapp-general-helm \
+          helm install pr${{ github.event.pull_request.number }}-goerli starkware/webapp-general-helm \
           --create-namespace \
-          --namespace=pr-${{ github.event.pull_request.number }}-goerli \
+          --namespace=pr${{ github.event.pull_request.number }}-goerli \
           --values $VALUES_FILE \
           --set-file configMap.frontend.envs=$ENV_FILE \
-          --set frontend.image.tag=pr-${{ github.event.pull_request.number }}-goerli \
-          --set ingress.host=pr-${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io
+          --set frontend.image.tag=pr${{ github.event.pull_request.number }}-goerli \
+          --set ingress.host=pr${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io
       - name: Post comment to Pull Request.
         if: always()
         uses: unsplash/comment-on-pr@master
@@ -118,5 +118,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           msg: "This branch was successfully deployed :rocket:\n
-          https://pr-${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io"
+          https://pr${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io"
           check_for_duplicate_msg: true
