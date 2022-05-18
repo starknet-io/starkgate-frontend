@@ -3,7 +3,7 @@ import React from 'react';
 import {createPortal} from 'react-dom';
 
 import {ModalSize, ModalType} from '../../../../enums';
-import utils from '../../../../utils';
+import {toClasses} from '../../../../utils';
 import styles from './Modal.module.scss';
 
 export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, children}) => {
@@ -11,9 +11,9 @@ export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, chi
 
   return show
     ? createPortal(
-        <div className={utils.object.toClasses(styles.modal, styles[type])}>
+        <div className={toClasses(styles.modal, styles[type])}>
           <div
-            className={utils.object.toClasses(styles.container, styles[type])}
+            className={toClasses(styles.container, styles[type])}
             style={{width, maxWidth: width}}
           >
             {children}

@@ -14,7 +14,7 @@ import {useWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import utils from '../utils';
+import {waitForTransaction} from '../utils';
 import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
@@ -70,7 +70,7 @@ export const useTransferToL1 = () => {
           )
         );
         logger.log('Waiting for tx to be received on L2');
-        await utils.blockchain.starknet.waitForTransaction(l2hash, TransactionStatus.RECEIVED);
+        await waitForTransaction(l2hash, TransactionStatus.RECEIVED);
         logger.log('Done', {l2hash});
         trackSuccess(l2hash);
         handleData({

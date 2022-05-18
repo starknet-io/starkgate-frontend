@@ -11,7 +11,7 @@ import {
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
-import utils from '../../../utils';
+import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,
@@ -46,6 +46,18 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
+  const tabs = [
+    {
+      text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
+      isActive: action === ActionType.TRANSFER_TO_L2,
+      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L2)
+    },
+    {
+      text: `${NetworkType.L2.name} -> ${NetworkType.L1.name}`,
+      isActive: action === ActionType.TRANSFER_TO_L1,
+      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L1)
+    }
+  ];
 
   useEffect(() => {
     if (!selectedToken) {
@@ -56,7 +68,7 @@ export const Transfer = () => {
   useEffect(() => {
     if (selectedToken) {
       setHasInputError(false);
-      if (selectedToken.isLoading || utils.number.isZero(amount) || (isL1 && !maxDeposit)) {
+      if (selectedToken.isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
@@ -67,15 +79,15 @@ export const Transfer = () => {
   const validateAmount = () => {
     let errorMsg = '';
 
-    if (utils.number.afterDecimal(amount) > selectedToken.decimals) {
+    if (afterDecimal(amount) > selectedToken.decimals) {
       errorMsg = tooManyDigitsErrorMsg;
-    } else if (utils.number.isNegative(amount)) {
+    } else if (isNegative(amount)) {
       errorMsg = negativeValueErrorMsg;
     } else if (amount > selectedToken.balance) {
       errorMsg = insufficientBalanceErrorMsg;
     } else if (isL1 && amount > maxDeposit) {
       const {symbol} = selectedToken;
-      errorMsg = utils.object.evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
+      errorMsg = evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
     if (errorMsg) {
@@ -118,13 +130,13 @@ export const Transfer = () => {
   };
 
   const renderTabs = () => {
-    return Object.values(ActionType).map((tab, index) => {
+    return tabs.map((tab, index) => {
       return (
         <TransferMenuTab
           key={index}
-          isActive={action === tab}
-          text={tab === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name}
-          onClick={() => onNetworkTabClick(tab)}
+          isActive={tab.isActive}
+          text={tab.text}
+          onClick={tab.onClick}
         />
       );
     });

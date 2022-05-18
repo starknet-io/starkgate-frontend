@@ -17,22 +17,25 @@ export const TokensProvider = ({children}) => {
   const getL2TokenBalance = useL2TokenBalance(l2Account);
 
   useEffect(() => {
-    updateTokenBalance();
+    fetchBalances(tokens);
   }, []);
 
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
-    const tokensToUpdate = tokens
-      .map((t, index) => ({...t, index}))
-      .filter(t => !symbol || t.symbol === symbol);
-    logger.log('Tokens to update:', {tokensToUpdate});
+    const filteredTokens = tokens.filter(t => !symbol || t.symbol === symbol);
+    fetchBalances(filteredTokens);
+  };
 
-    tokensToUpdate.forEach(token => {
-      if (!token.isLoading) {
-        updateToken(token.index, {isLoading: true});
-        fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
-      }
-    });
+  const fetchBalances = tokens => {
+    logger.log('Tokens to update', tokens);
+    tokens
+      .map((t, index) => ({...t, index}))
+      .forEach(token => {
+        if (!token.isLoading) {
+          updateToken(token.index, {isLoading: true});
+          return fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
+        }
+      });
   };
 
   const fetchBalance = async (fn, token, retry = 1) => {

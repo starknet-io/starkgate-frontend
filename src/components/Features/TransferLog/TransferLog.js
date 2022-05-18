@@ -11,7 +11,7 @@ import {
 } from '../../../enums';
 import {useColors, useEnvs, useTransferLogTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
-import utils from '../../../utils';
+import {getFullTime, toClasses} from '../../../utils';
 import {Button, CryptoLogo, CryptoLogoSize} from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
@@ -28,7 +28,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 
   const renderTransferStatus = () => {
     return !isOnChain(status) ? (
-      <div className={utils.object.toClasses(styles.data, isRejected(status) && styles.error)}>
+      <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
         {TransactionStatusFriendlyMessage[status]}
       </div>
     ) : null;
@@ -67,7 +67,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
           <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
           <div>
             {name}
-            <div className={styles.data}>{`${utils.date.getFullTime(timestamp)}`}</div>
+            <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>
           </div>
         </div>
         <div className={styles.right}>

@@ -12,7 +12,7 @@ import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import utils from '../../../utils';
+import {evaluate, findIndexById} from '../../../utils';
 import {
   AccountAddress,
   BackButton,
@@ -63,7 +63,7 @@ export const Account = ({transferId}) => {
     <Menu>
       <div>
         <BackButton onClick={() => showTransferMenu()} />
-        <MenuTitle text={utils.object.evaluate(titleTxt, {network: fromNetwork.name})} />
+        <MenuTitle text={evaluate(titleTxt, {network: fromNetwork.name})} />
         <AccountAddress address={account} onClick={trackAddressCopied} />
         {isL1 && (
           <LinkButton
@@ -80,7 +80,7 @@ export const Account = ({transferId}) => {
           />
         )}
         <TransferLogContainer
-          transferIndex={utils.object.findIndexById(transfers, transferId)}
+          transferIndex={findIndexById(transfers, transferId)}
           onShowTransfers={trackViewTransfersLog}
         >
           {renderTransfers()}

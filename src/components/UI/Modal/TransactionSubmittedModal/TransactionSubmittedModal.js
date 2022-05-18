@@ -10,7 +10,7 @@ import {
   useEnvs,
   useTransactionSubmittedModalTranslation
 } from '../../../../hooks';
-import utils from '../../../../utils';
+import {evaluate, openInNewTab} from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
@@ -62,7 +62,7 @@ const TransactionSubmittedModal = ({transfer}) => {
         key={index}
         networkLogo={eb.explorerLogo}
         networkName={eb.explorerName}
-        onClick={() => utils.browser.openInNewTab(eb.explorerUrl)}
+        onClick={() => openInNewTab(eb.explorerUrl)}
       />
     ));
   };
@@ -90,7 +90,7 @@ const TransactionSubmittedModalButton = ({networkName, networkLogo, onClick}) =>
           {networkLogo}
         </Circle>
       }
-      text={utils.object.evaluate(btnTxt, {explorer: networkName})}
+      text={evaluate(btnTxt, {explorer: networkName})}
       onClick={onClick}
     />
   );

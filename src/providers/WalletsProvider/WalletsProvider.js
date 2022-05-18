@@ -3,7 +3,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 import {useWallet} from 'use-wallet';
 
 import {WalletStatus} from '../../enums';
-import utils from '../../utils';
+import {calcAccountHash} from '../../utils';
 import {useIsL1, useIsL2} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 import {useStarknetWallet} from './wallets-hooks';
@@ -35,7 +35,7 @@ export const WalletsProvider = ({children}) => {
 
   useEffect(() => {
     if (account && l2Account) {
-      setAccountHash(utils.wallet.calcAccountHash(account, l2Account));
+      setAccountHash(calcAccountHash(account, l2Account));
     }
   }, [account, l2Account]);
 

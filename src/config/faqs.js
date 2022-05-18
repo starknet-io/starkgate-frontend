@@ -1,4 +1,4 @@
-export const faqs = [
+export default [
   {
     question: 'Where can I find more in-depth information on how StarkGate works?',
     answer: `

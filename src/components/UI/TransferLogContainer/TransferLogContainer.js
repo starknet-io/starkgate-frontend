@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {useTransferLogContainerTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
-import utils from '../../../utils';
+import {toClasses} from '../../../utils';
 import styles from './TransferLogContainer.module.scss';
 
 export const TransferLogContainer = ({transferIndex, children, onShowTransfers}) => {
@@ -35,7 +35,7 @@ export const TransferLogContainer = ({transferIndex, children, onShowTransfers})
 
   return (
     <div className={styles.transferLogContainer}>
-      <div className={utils.object.toClasses(styles.title, showChildren && styles.showChildren)}>
+      <div className={toClasses(styles.title, showChildren && styles.showChildren)}>
         {titleTxt}
         {children && (
           <div>
