@@ -10,7 +10,7 @@ jobs:
     uses: ./.github/workflows/gcr_push_workflow.yml
     with:
       image_name: us.gcr.io/starkware-dev/starknet/starkgate/frontend
-      branch_name: ${{ github.event.base_ref }}
+      branch_name: ${{ github.event.base_ref || github.event.ref }}
       dockerfile: Dockerfile.frontend
     secrets:
       gcp_token: ${{ secrets.STARKGATE_SA }}
