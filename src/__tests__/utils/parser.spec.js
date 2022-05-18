@@ -1,13 +1,11 @@
-import utils from '../../utils';
-
-const {
+import {
   parseFromDecimals,
   parseFromFelt,
   parseFromUint256,
   parseToDecimals,
   parseToUint256,
   UNIT_MAP
-} = utils.parser;
+} from '../../utils';
 
 describe('UNIT_MAP', () => {
   it('should init unit map', () => {

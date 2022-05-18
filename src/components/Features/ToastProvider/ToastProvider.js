@@ -18,7 +18,7 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import utils from '../../../utils';
+import {getFullTime} from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import styles from './ToastProvider.module.scss';
 
@@ -201,7 +201,7 @@ export const TransferData = ({transfer, style}) => {
         style={style}
       />
       <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
-      <ToastBody body={utils.date.getFullTime(transfer.timestamp)} style={style} />
+      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
     </>
   );
 };

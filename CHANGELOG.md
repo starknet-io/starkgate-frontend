@@ -1,3 +1,36 @@
+## [1.5.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.1...v1.5.0-dev.2) (2022-05-16)
+
+
+### 🧩 Features
+
+* buy into L2 (fiat on ramp) + Banxa provider  ([#183](https://github.com/starkware-libs/starkgate-frontend/issues/183)) ([6df9b4d](https://github.com/starkware-libs/starkgate-frontend/commit/6df9b4dc7b5c1155bc529844da6e72aa37924e20))
+
+## [1.5.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.2...v1.5.0-dev.1) (2022-05-11)
+
+
+### 🧩 Features
+
+* MultiChoiceMenu component ([#181](https://github.com/starkware-libs/starkgate-frontend/issues/181)) ([bbf19ba](https://github.com/starkware-libs/starkgate-frontend/commit/bbf19ba3df28b460a3665678e29ecd66b5b9970b))
+
+
+### 🔧 Fixes
+
+* change transfer tabs names ([#182](https://github.com/starkware-libs/starkgate-frontend/issues/182)) ([e795f1c](https://github.com/starkware-libs/starkgate-frontend/commit/e795f1c4dafafc0d76189d80fe2bdfc344d61fb0))
+
+### [1.4.2-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.2-dev.1...v1.4.2-dev.2) (2022-05-10)
+
+
+### 💉 Improvements
+
+* tokens addresses ([#178](https://github.com/starkware-libs/starkgate-frontend/issues/178)) ([c75a88a](https://github.com/starkware-libs/starkgate-frontend/commit/c75a88a667689d92294adad86d11bfd6ed6c0c52))
+
+### [1.4.2-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.1...v1.4.2-dev.1) (2022-05-10)
+
+
+### 💉 Improvements
+
+* export convention ([#180](https://github.com/starkware-libs/starkgate-frontend/issues/180)) ([b5585ad](https://github.com/starkware-libs/starkgate-frontend/commit/b5585add93d5ff2918e68a6941a86e535eb39251))
+
 ### [1.4.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.0...v1.4.1) (2022-05-08)
 
 

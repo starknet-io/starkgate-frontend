@@ -16,8 +16,8 @@ let emitters = [];
 export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
   const getTokenBridgeContract = useL1TokenBridgeContract();
-  const {account: l1Account, chainId: l1ChainId} = useL1Wallet();
-  const {account: l2Account, chainId: l2ChainId} = useL2Wallet();
+  const {account: l1Account} = useL1Wallet();
+  const {account: l2Account} = useL2Wallet();
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();
 
@@ -84,8 +84,8 @@ export const EventManagerProvider = ({children}) => {
 
   const setEventFilters = () => {
     // LogMessageToL2 filter
-    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress[l1ChainId]);
-    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress[l2ChainId]);
+    const l1BridgesAddresses = l1Tokens.map(token => token.bridgeAddress);
+    const l2BridgesAddress = l2Tokens.map(token => token.bridgeAddress);
     filters[EventName.L1.LOG_MESSAGE_TO_L2] = {
       from_address: l1BridgesAddresses,
       to_address: l2BridgesAddress,

@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import utils from '../../../utils';
-import {toClasses} from '../../../utils/object';
+import {formatBalance, shortenBalance, toClasses} from '../../../utils';
 import {Loading, LoadingSize, RefreshIcon} from '../index';
 import styles from './TokenBalance.module.scss';
 
@@ -19,7 +18,7 @@ export const TokenBalance = ({tokenData, onRefreshClick}) => {
           {isLoading ? (
             <Loading size={LoadingSize.SMALL} />
           ) : (
-            utils.wallet.shortenBalance(utils.wallet.formatBalance(balance))
+            shortenBalance(formatBalance(balance))
           )}
           <div className={styles.symbol}>{symbol}</div>
         </div>
