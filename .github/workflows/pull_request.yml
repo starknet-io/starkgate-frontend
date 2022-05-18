@@ -46,12 +46,12 @@ jobs:
         run: yarn run test --passWithNoTests
 
   push:
-    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
-    name: 'Build and push pull request image to gcr.'
+    if: ${{ startsWith(github.head_ref, 'refactor') || startsWith(github.head_ref, 'fix') || startsWith(github.head_ref, 'feat') }}
+    name: Build and push pull request image to gcr.
     runs-on: ubuntu-latest
     needs: [lint, test]
     steps:
-      - name: Login to Gcloud using starkgate service account.
+      - name: Login to Gcloud using starkgate service account
         uses: google-github-actions/setup-gcloud@v0
         with:
           project_id: ${{ secrets.PROJECT_ID }}
@@ -67,12 +67,11 @@ jobs:
       - name: Build and push images to GCR, with pull request number.
         run: |
           docker build . -t $FRONTEND_IMAGE_NAME -f $FRONTEND_DOCKER_FILE --build-arg BUILD_ENV=$BUILD_ENV
-          docker tag $FRONTEND_IMAGE_NAME $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
-          docker push $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}
+          docker tag $FRONTEND_IMAGE_NAME $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}-goerli
+          docker push $FRONTEND_IMAGE_NAME:pr-${{ github.event.pull_request.number }}-goerli
 
   deploy:
-    if: contains(github.head_ref, 'refactor') || contains(github.head_ref, 'fix') || contains(github.head_ref, 'feat')
-    name: 'Deploy helm chart'
+    name: Deploy helm chart
     runs-on: ubuntu-latest
     needs: [push]
     steps:
@@ -95,9 +94,9 @@ jobs:
           helm plugin install https://starkware-third-party.s3.us-east-2.amazonaws.com/k8s/helm-s3/helm-s3-v0.9.2.tar.gz
           helm repo add starkware s3://starkware-third-party/helm-repo/charts
           helm repo update
-      - name: Delete old helm cahrt deployment
+      - name: Delete old helm chart deployment
         run: |
-          helm delete pr-${{ github.event.pull_request.number }} --namespace pr-${{ github.event.pull_request.number }}
+          helm delete pr-${{ github.event.pull_request.number }}-goerli --namespace pr-${{ github.event.pull_request.number }}-goerli
       - name: Deploy using helm install command.
         if: always()
         env:
@@ -105,18 +104,18 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          helm install pr-${{ github.event.pull_request.number }} starkware/webapp-general-helm \
+          helm install pr-${{ github.event.pull_request.number }}-goerli starkware/webapp-general-helm \
           --create-namespace \
-          --namespace=pr-${{ github.event.pull_request.number }} \
+          --namespace=pr-${{ github.event.pull_request.number }}-goerli \
           --values $VALUES_FILE \
           --set-file configMap.frontend.envs=$ENV_FILE \
-          --set frontend.image.tag=pr-${{ github.event.pull_request.number }} \
-          --set ingress.host=pr-${{ github.event.pull_request.number }}.starkgate.starknet.io
+          --set frontend.image.tag=pr-${{ github.event.pull_request.number }}-goerli \
+          --set ingress.host=pr-${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io
       - name: Post comment to Pull Request.
         if: always()
         uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: "Your Pull Request Deployment is ready for review at https://pr-${{ github.event.pull_request.number }}.starkgate.starknet.io"
+          msg: ":rocket: This branch was successfully deployed!\nCheck it out in following URL:\nhttps://pr-${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io"
           check_for_duplicate_msg: true
