@@ -1,3 +1,10 @@
+## [1.5.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.2...v1.5.0-dev.3) (2022-05-18)
+
+
+### 🔧 Fixes
+
+* modal error messages not displayed ([#194](https://github.com/starkware-libs/starkgate-frontend/issues/194)) ([353c3b4](https://github.com/starkware-libs/starkgate-frontend/commit/353c3b4910e5358e18adde1a394aa8f603daba72))
+
 ## [1.5.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.1...v1.5.0-dev.2) (2022-05-16)
 
 
