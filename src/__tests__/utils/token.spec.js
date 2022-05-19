@@ -16,6 +16,6 @@ describe('isDai', () => {
   });
 
   it('should return false for non-eth symbol', () => {
-    expect(isEth('ETH')).toBeFalsy();
+    expect(isDai('ETH')).toBeFalsy();
   });
 });
