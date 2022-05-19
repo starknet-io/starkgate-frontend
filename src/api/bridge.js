@@ -52,9 +52,12 @@ export const maxDeposit = async ({decimals, contract}) => {
   }
 };
 
-export const maxTotalBalance = async ({decimals, contract}) => {
+export const maxTotalBalance = async ({decimals, symbol, contract}) => {
   try {
-    const maxTotalBalance = await callL1Contract(contract, 'maxTotalBalance');
+    const maxTotalBalance = await callL1Contract(
+      contract,
+      symbol === 'DAI' ? 'ceiling' : 'maxTotalBalance'
+    );
     return parseFromDecimals(maxTotalBalance, decimals);
   } catch (ex) {
     return Promise.reject(ex);

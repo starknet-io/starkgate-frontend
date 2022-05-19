@@ -1,9 +1,15 @@
 import {useCallback, useMemo} from 'react';
 
-import {L1_ERC20_ABI, L1_ERC20_BRIDGE_ABI, L1_ETH_BRIDGE_ABI, L1_MESSAGING_ABI} from '../abis/l1';
-import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/l2';
+import {
+  L1_DAI_BRIDGE_ABI,
+  L1_ERC20_ABI,
+  L1_ERC20_BRIDGE_ABI,
+  L1_ETH_BRIDGE_ABI,
+  L1_MESSAGING_ABI
+} from '../abis/L1';
+import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/L2';
 import {NetworkType} from '../enums';
-import {useL1Token} from '../providers/TokensProvider';
+import {useL1Dai, useL1Eth, useL1Token} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
 import {createL1Contract, createL2Contract} from '../utils';
 import {useEnvs} from './useEnvs';
@@ -77,15 +83,22 @@ export const useL2TokenBridgeContract = () => {
 
 export const useL1TokenBridgeContract = () => {
   const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, createL1Contract);
+  const getDAIBridgeContract = useContract(L1_DAI_BRIDGE_ABI, createL1Contract);
   const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, createL1Contract);
-  const ethToken = useL1Token()(NetworkType.L1.symbol);
+  const ethToken = useL1Eth();
+  const daiToken = useL1Dai();
 
   return useCallback(
     bridgeAddress => {
-      return bridgeAddress === ethToken.bridgeAddress
-        ? getEthBridgeContract(bridgeAddress)
-        : getTokenBridgeContract(bridgeAddress);
+      switch (bridgeAddress) {
+        case ethToken.bridgeAddress:
+          return getEthBridgeContract(bridgeAddress);
+        case daiToken.bridgeAddress:
+          return getDAIBridgeContract(bridgeAddress);
+        default:
+          return getTokenBridgeContract(bridgeAddress);
+      }
     },
-    [getTokenBridgeContract, getEthBridgeContract, ethToken]
+    [getTokenBridgeContract, getEthBridgeContract, getDAIBridgeContract, ethToken, daiToken]
   );
 };

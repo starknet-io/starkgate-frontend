@@ -19,9 +19,9 @@ const useTokenConstant = (methodName, methodHandler) => {
   const getTokenBridgeContract = useTokenBridgeContract();
 
   const fetchTokenConstant = () => {
-    const {decimals, bridgeAddress} = selectedToken;
+    const {decimals, symbol, bridgeAddress} = selectedToken;
     const contract = getTokenBridgeContract(bridgeAddress);
-    return methodHandler({decimals, contract});
+    return methodHandler({decimals, symbol, contract});
   };
 
   return useAsyncMemo(async () => {
