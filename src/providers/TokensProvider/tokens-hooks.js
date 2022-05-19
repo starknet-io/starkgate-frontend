@@ -1,6 +1,6 @@
 import {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 
-import {NetworkType} from '../../enums';
+import Tokens from '../../config/tokens';
 import {useTransfer} from '../TransferProvider';
 import {TokensContext} from './tokens-context';
 
@@ -45,11 +45,11 @@ export const useL1Token = () => {
 export const useL1Eth = () => {
   const getL1Token = useL1Token();
 
-  return useMemo(() => getL1Token(NetworkType.L1.symbol), [getL1Token]);
+  return useMemo(() => getL1Token(Tokens.L1.ETH.symbol), [getL1Token]);
 };
 
 export const useL1Dai = () => {
   const getL1Token = useL1Token();
 
-  return useMemo(() => getL1Token('DAI'), [getL1Token]);
+  return useMemo(() => getL1Token(Tokens.L1.DAI.symbol), [getL1Token]);
 };

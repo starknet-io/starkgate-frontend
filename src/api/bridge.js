@@ -1,3 +1,4 @@
+import Tokens from '../config/tokens';
 import {
   sendL1Transaction,
   callL1Contract,
@@ -5,7 +6,8 @@ import {
   parseFromDecimals,
   parseToDecimals,
   parseToFelt,
-  parseToUint256
+  parseToUint256,
+  isDai
 } from '../utils';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
@@ -56,7 +58,7 @@ export const maxTotalBalance = async ({decimals, symbol, contract}) => {
   try {
     const maxTotalBalance = await callL1Contract(
       contract,
-      symbol === 'DAI' ? 'ceiling' : 'maxTotalBalance'
+      isDai(symbol) ? 'ceiling' : 'maxTotalBalance'
     );
     return parseFromDecimals(maxTotalBalance, decimals);
   } catch (ex) {
