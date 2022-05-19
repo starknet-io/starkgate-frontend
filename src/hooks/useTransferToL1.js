@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useCallback} from 'react';
 
-import {initiateWithdraw, initiateWormhole, withdraw, requestMint} from '../api/bridge';
+import {initiateWithdraw, initiateTeleport, withdraw, requestMint} from '../api/bridge';
 import {approveL2, allowanceL2} from '../api/erc20';
 import {
   ActionType,
@@ -150,7 +150,7 @@ export const useFastTransferToL1 = () => {
         });
       };
 
-      const sendInitiateWormhole = () => {
+      const sendInitiateTeleport = () => {
         trackInitiated({
           from_address: l2Account,
           to_address: l1Account,
@@ -158,7 +158,7 @@ export const useFastTransferToL1 = () => {
           symbol
         });
         const gatewayContract = getTokenGatewayContract(gatewayAddress);
-        return initiateWormhole({
+        return initiateTeleport({
           targetDomain: `0x${Buffer.from('GOERLI-MASTER-1', 'utf8').toString('hex')}`,
           receiver: l1Account,
           operator: l1Account,
@@ -168,10 +168,10 @@ export const useFastTransferToL1 = () => {
         });
       };
 
-      const fetchAttestations = async txHash => {
+      const fetchAttestationsAndMint = async txHash => {
         const response = await axios.get(ORACLE_API_URL, {
           params: {
-            type: 'wormhole',
+            type: 'teleport',
             index: txHash
           }
         });
@@ -182,23 +182,23 @@ export const useFastTransferToL1 = () => {
           .map(oracle => oracle.signatures.ethereum.signature)
           .join('')}`;
 
-        let wormholeGUID = {};
+        let teleportGUID = {};
         if (results.length > 0) {
-          const wormholeData = results[0].data.event.match(/.{64}/g).map(hex => `0x${hex}`);
-          wormholeGUID = decodeWormholeData(wormholeData);
+          const teleportData = results[0].data.event.match(/.{64}/g).map(hex => `0x${hex}`);
+          teleportGUID = decodeTeleportData(teleportData);
         }
 
         const oracleAuthContract = getOracleAuthContract(
           '0x455f17Bdd98c19e3417129e7a821605661623aD7'
         );
         requestMint({
-          sourceDomain: wormholeGUID.sourceDomain,
-          targetDomain: wormholeGUID.targetDomain,
-          receiver: wormholeGUID.receiver,
-          operator: wormholeGUID.operator,
-          amount: wormholeGUID.amount,
-          nonce: wormholeGUID.nonce,
-          timestamp: wormholeGUID.timestamp,
+          sourceDomain: teleportGUID.sourceDomain,
+          targetDomain: teleportGUID.targetDomain,
+          receiver: teleportGUID.receiver,
+          operator: teleportGUID.operator,
+          amount: teleportGUID.amount,
+          nonce: teleportGUID.nonce,
+          timestamp: teleportGUID.timestamp,
           signatures,
           contract: oracleAuthContract,
           options: {from: l1Account},
@@ -220,7 +220,7 @@ export const useFastTransferToL1 = () => {
       };
 
       try {
-        logger.log('Wormhole called');
+        logger.log('Teleport called');
         handleProgress(
           progressOptions.waitForConfirm(
             l2Config.name,
@@ -237,11 +237,11 @@ export const useFastTransferToL1 = () => {
           logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
           await sendApproval();
         }
-        logger.log('Calling initiate wormhole');
-        const {transaction_hash: l2hash} = await sendInitiateWormhole();
+        logger.log('Calling initiate teleport');
+        const {transaction_hash: l2hash} = await sendInitiateTeleport();
         logger.log('Tx hash received', {l2hash});
         handleProgress(
-          progressOptions.initiateWormhole(
+          progressOptions.initiateTeleport(
             amount,
             symbol,
             stepOf(TransferStep.INITIATE_FAST_WITHDRAW, FastTransferToL1Steps)
@@ -250,7 +250,7 @@ export const useFastTransferToL1 = () => {
         logger.log('Waiting for tx to be received on L2');
         await waitForTransaction(l2hash, TransactionStatus.ACCEPTED_ON_L2);
         logger.log('Done', {l2hash});
-        await fetchAttestations(l2hash);
+        await fetchAttestationsAndMint(l2hash);
         trackSuccess(l2hash);
         handleData({
           type: ActionType.WORMHOLE_TO_L1,
@@ -372,15 +372,15 @@ export const useCompleteTransferToL1 = () => {
 
 const ORACLE_API_URL = 'http://23.242.90.215:8080';
 
-function decodeWormholeData(wormholeData) {
-  const wormholeGUID = {
-    sourceDomain: wormholeData[0],
-    targetDomain: wormholeData[1],
-    receiver: wormholeData[2],
-    operator: wormholeData[3],
-    amount: wormholeData[4],
-    nonce: wormholeData[5],
-    timestamp: wormholeData[6]
+function decodeTeleportData(teleportData) {
+  const teleportGUID = {
+    sourceDomain: teleportData[0],
+    targetDomain: teleportData[1],
+    receiver: teleportData[2],
+    operator: teleportData[3],
+    amount: teleportData[4],
+    nonce: teleportData[5],
+    timestamp: teleportData[6]
   };
-  return wormholeGUID;
+  return teleportGUID;
 }

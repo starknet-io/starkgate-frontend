@@ -18,7 +18,7 @@ export const deposit = async ({recipient, amount, decimals, contract, options, e
   );
 };
 
-export const finalizeRegisterWormhole = async ({
+export const finalizeRegisterTeleport = async ({
   sourceDomain,
   targetDomain,
   receiver,
@@ -33,7 +33,7 @@ export const finalizeRegisterWormhole = async ({
 }) => {
   return sendL1Transaction(
     contract,
-    'finalizeRegisterWormhole',
+    'finalizeRegisterTeleport',
     [
       sourceDomain,
       targetDomain,
@@ -120,7 +120,7 @@ export const initiateWithdraw = async ({recipient, amount, decimals, contract}) 
   });
 };
 
-export const initiateWormhole = async ({
+export const initiateTeleport = async ({
   targetDomain,
   receiver,
   amount,
@@ -128,7 +128,7 @@ export const initiateWormhole = async ({
   operator,
   contract
 }) => {
-  return sendL2Transaction(contract, 'initiate_wormhole', {
+  return sendL2Transaction(contract, 'initiate_teleport', {
     target_domain: parseToFelt(targetDomain),
     receiver: parseToFelt(receiver),
     amount: parseToDecimals(amount, decimals),

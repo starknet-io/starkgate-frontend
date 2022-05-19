@@ -39,12 +39,12 @@
             "type": "uint48"
           }
         ],
-        "internalType": "struct WormholeGUID",
-        "name": "wormhole",
+        "internalType": "struct TeleportGUID",
+        "name": "teleport",
         "type": "tuple"
       }
     ],
-    "name": "finalizeRegisterWormhole",
+    "name": "finalizeRegisterTeleport",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

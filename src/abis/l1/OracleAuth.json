@@ -39,8 +39,8 @@
             "type": "uint48"
           }
         ],
-        "internalType": "struct WormholeGUID",
-        "name": "wormholeGUID",
+        "internalType": "struct TeleportGUID",
+        "name": "teleportGUID",
         "type": "tuple"
       },
       {
