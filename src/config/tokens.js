@@ -1,4 +1,4 @@
-import {ChainType, NetworkType} from '../enums';
+import {ChainType} from '../enums';
 
 export default {
   L1: {

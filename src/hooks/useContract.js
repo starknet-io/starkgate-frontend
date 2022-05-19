@@ -8,8 +8,7 @@ import {
   L1_MESSAGING_ABI
 } from '../abis/L1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/L2';
-import {NetworkType} from '../enums';
-import {useL1Dai, useL1Eth, useL1Token} from '../providers/TokensProvider';
+import {useL1Dai, useL1Eth} from '../providers/TokensProvider';
 import {useTransfer} from '../providers/TransferProvider';
 import {createL1Contract, createL2Contract} from '../utils';
 import {useEnvs} from './useEnvs';
