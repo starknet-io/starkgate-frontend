@@ -1,4 +1,3 @@
-import Tokens from '../config/tokens';
 import {
   sendL1Transaction,
   callL1Contract,
