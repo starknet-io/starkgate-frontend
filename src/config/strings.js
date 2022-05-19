@@ -85,7 +85,7 @@ export default {
         type: 'Initiate transfer',
         message: 'Initiating transfer of {{amount}} {{symbol}} from StarkNet...'
       },
-      initiateTeleport: {
+      initiateWormhole: {
         type: 'Initiate fast transfer',
         message: 'Initiating fast transfer of {{amount}} {{symbol}} from StarkNet...'
       },

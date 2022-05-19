@@ -48,7 +48,7 @@
             }
         ],
         "keys": [],
-        "name": "TeleportInitialized",
+        "name": "WormholeInitialized",
         "type": "event"
     },
     {
@@ -70,7 +70,7 @@
                 "type": "felt"
             }
         ],
-        "name": "initiate_teleport",
+        "name": "initiate_wormhole",
         "outputs": [],
         "type": "function"
     },
@@ -101,7 +101,7 @@
                 "type": "felt"
             }
         ],
-        "name": "finalize_register_teleport",
+        "name": "finalize_register_wormhole",
         "outputs": [],
         "type": "function"
     }

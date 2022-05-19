@@ -36,11 +36,11 @@ export const useTransferProgress = () => {
           activeStep
         };
       },
-      initiateTeleport: (amount, symbol, activeStep) => {
-        const {initiateTeleport} = transferProgressStrings;
-        const message = evaluate(initiateTeleport.message, {amount, symbol});
+      initiateWormhole: (amount, symbol, activeStep) => {
+        const {initiateWormhole} = transferProgressStrings;
+        const message = evaluate(initiateWormhole.message, {amount, symbol});
         return {
-          type: initiateTeleport.type,
+          type: initiateWormhole.type,
           message,
           activeStep
         };

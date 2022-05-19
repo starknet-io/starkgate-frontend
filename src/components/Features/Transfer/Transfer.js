@@ -198,7 +198,7 @@ export const Transfer = () => {
         />
         {isFastTransferToL1Available && (
           <div id="check" style={{color: 'white'}}>
-            <label htmlFor="check">Go fast through the teleport</label>
+            <label htmlFor="check">Go fast through the wormhole</label>
             <input checked={isFastTransferToL1} type="checkbox" onChange={setIsFastTransferToL1} />
           </div>
         )}
