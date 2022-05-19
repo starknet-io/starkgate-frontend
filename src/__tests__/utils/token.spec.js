@@ -1,19 +1,21 @@
-import {isEth} from '../../utils';
+import {isDai, isEth} from '../../utils';
 
 describe('isEth', () => {
-  it('should return true for eth symbol as string', () => {
+  it('should return true for eth symbol', () => {
     expect(isEth('ETH')).toBeTruthy();
   });
 
-  it('should return true for eth token as object', () => {
-    expect(isEth({symbol: 'ETH'})).toBeTruthy();
-  });
-
-  it('should return false for non-eth symbol as string', () => {
+  it('should return false for non-eth symbol', () => {
     expect(isEth('DAI')).toBeFalsy();
   });
+});
 
-  it('should return false for non-eth token as object', () => {
-    expect(isEth({symbol: 'DAI'})).toBeFalsy();
+describe('isDai', () => {
+  it('should return true for eth symbol', () => {
+    expect(isDai('DAI')).toBeTruthy();
+  });
+
+  it('should return false for non-eth symbol', () => {
+    expect(isEth('ETH')).toBeFalsy();
   });
 });
