@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {EventName, SelectorName} from '../../enums';
-import {useL1TokenBridgeContract, useLogger} from '../../hooks';
+import {useAccountChange, useL1TokenBridgeContract, useLogger} from '../../hooks';
 import {starknet} from '../../libs';
 import {parseToFelt} from '../../utils';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
-import {useAccountHash, useL1Wallet, useL2Wallet} from '../WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
 
 const listeners = {};
@@ -17,16 +17,13 @@ export const EventManagerProvider = ({children}) => {
   const getTokenBridgeContract = useL1TokenBridgeContract();
   const {account: l1Account} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();
-  const accountHash = useAccountHash();
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();
 
-  useEffect(() => {
-    if (accountHash) {
-      setEventFilters();
-      addListeners();
-    }
-  }, [accountHash]);
+  useAccountChange(() => {
+    setEventFilters();
+    addListeners();
+  });
 
   const addListener = (eventName, callback) => {
     logger.log(`Registered to ${eventName} event.`);

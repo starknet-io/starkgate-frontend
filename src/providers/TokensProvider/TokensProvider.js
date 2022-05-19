@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useReducer} from 'react';
 
-import {useConstants, useLogger} from '../../hooks';
+import {useAccountChange, useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
-import {useAccountHash, useL1Wallet, useL2Wallet} from '../WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
 
@@ -13,15 +13,12 @@ export const TokensProvider = ({children}) => {
   const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: l1Account} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();
-  const accountHash = useAccountHash();
   const getL1TokenBalance = useL1TokenBalance(l1Account);
   const getL2TokenBalance = useL2TokenBalance(l2Account);
 
-  useEffect(() => {
-    if (accountHash) {
-      fetchBalances(tokens);
-    }
-  }, [accountHash]);
+  useAccountChange(() => {
+    fetchBalances(tokens);
+  });
 
   const updateTokenBalance = symbol => {
     logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
