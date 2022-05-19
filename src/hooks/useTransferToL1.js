@@ -168,7 +168,7 @@ export const useFastTransferToL1 = () => {
         });
       };
 
-      const fetchAttestations = async txHash => {
+      const fetchAttestationsAndMint = async txHash => {
         const response = await axios.get(ORACLE_API_URL, {
           params: {
             type: 'wormhole',
@@ -250,7 +250,7 @@ export const useFastTransferToL1 = () => {
         logger.log('Waiting for tx to be received on L2');
         await waitForTransaction(l2hash, TransactionStatus.ACCEPTED_ON_L2);
         logger.log('Done', {l2hash});
-        await fetchAttestations(l2hash);
+        await fetchAttestationsAndMint(l2hash);
         trackSuccess(l2hash);
         handleData({
           type: ActionType.WORMHOLE_TO_L1,
