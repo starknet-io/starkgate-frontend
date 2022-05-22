@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 import {useEnvs} from '../../hooks';
 import {setStorageItem} from '../../utils';
@@ -9,6 +10,12 @@ import {actions, initialState, reducer} from './app-reducer';
 export const AppProvider = ({children}) => {
   const {localStorageAcceptTermsKey} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const {pathname} = useLocation();
+  const navigate = useNavigate();
+
+  const navigateToRoute = route => {
+    pathname !== route && navigate(route);
+  };
 
   const login = () => {
     dispatch({
@@ -33,6 +40,7 @@ export const AppProvider = ({children}) => {
 
   const value = {
     ...state,
+    navigateToRoute,
     acceptTerms,
     login,
     logout

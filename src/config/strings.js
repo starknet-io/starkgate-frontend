@@ -4,9 +4,11 @@ export default {
       chainTxt: 'Goerli testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
-      tabTermsTxt: 'Terms',
-      tabFaqTxt: 'FAQ',
-      tabBuyTxt: 'Buy into L2'
+      tabBuyTxt: 'Buy into L2',
+      burgerMenu: {
+        termsTxt: 'Terms',
+        faqTxt: 'FAQ'
+      }
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'

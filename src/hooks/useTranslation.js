@@ -9,8 +9,8 @@ export const useContainersTranslation = path => {
   return useTranslation(chainPath('containers', path));
 };
 
-export const useHeaderTranslation = () => {
-  return useContainersTranslation('header');
+export const useHeaderTranslation = path => {
+  return useContainersTranslation(chainPath('header', path));
 };
 
 export const useFooterTranslation = () => {
@@ -87,6 +87,10 @@ export const useTransferLogContainerTranslation = () => {
 
 export const useTransferLogTranslation = () => {
   return useAccountTranslation('transferLogContainer.transferLog');
+};
+
+export const useBurgerMenuTranslation = () => {
+  return useHeaderTranslation('burgerMenu');
 };
 
 const chainPath = (basePath, constitutivePath) => {
