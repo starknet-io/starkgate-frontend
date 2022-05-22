@@ -65,9 +65,27 @@ export const maxTotalBalance = async ({decimals, symbol, contract}) => {
   }
 };
 
-export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
-  return sendL2Transaction(contract, 'initiate_withdraw', {
-    l1Recipient: parseToFelt(recipient),
-    amount: parseToUint256(amount, decimals)
-  });
+export const initiateWithdraw = async ({recipient, amount, decimals, bridge, token, symbol}) => {
+  return sendL2Transaction([
+    ...(symbol === 'DAI'
+      ? [
+          {
+            contract: token,
+            method: 'increaseAllowance',
+            args: {
+              spender: bridge.address,
+              amount: parseToUint256(amount, decimals)
+            }
+          }
+        ]
+      : []),
+    {
+      contract: bridge,
+      method: 'initiate_withdraw',
+      args: {
+        l1Recipient: parseToFelt(recipient),
+        amount: parseToUint256(amount, decimals)
+      }
+    }
+  ]);
 };
