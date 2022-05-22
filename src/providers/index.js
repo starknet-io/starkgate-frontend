@@ -17,11 +17,8 @@ export const AppProviders = combineProviders([
   ModalProvider,
   WalletProvider,
   WalletsProvider,
-  BlockHashProvider
+  TokensProvider,
+  EventManagerProvider
 ]);
 
-export const BridgeProviders = combineProviders([
-  TokensProvider,
-  EventManagerProvider,
-  TransfersLogProvider
-]);
+export const BridgeProviders = combineProviders([BlockHashProvider, TransfersLogProvider]);

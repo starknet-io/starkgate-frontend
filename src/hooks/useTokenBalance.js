@@ -34,8 +34,8 @@ export const useL1TokenBalance = account => {
 
   return useCallback(
     async token => {
-      const {tokenAddress, decimals} = token;
-      return isEth(token)
+      const {tokenAddress, symbol, decimals} = token;
+      return isEth(symbol)
         ? await ethBalanceOf(account)
         : await balanceOf(
             {

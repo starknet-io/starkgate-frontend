@@ -1,17 +1,17 @@
-import {ChainType, NetworkType} from '../enums';
+import {ChainType} from '../enums';
 
 export default {
-  L1: [
-    {
-      name: NetworkType.L1.tokenName,
-      symbol: NetworkType.L1.symbol,
+  L1: {
+    ETH: {
+      name: 'Ether',
+      symbol: 'ETH',
       decimals: 18,
       bridgeAddress: {
         [ChainType.L1.MAIN]: '0xae0Ee0A63A2cE6BaeEFFE56e7714FB4EFE48D419',
         [ChainType.L1.GOERLI]: '0xc3511006C04EF1d78af4C8E0e74Ec18A6E64Ff9e'
       }
     },
-    {
+    WBTC: {
       name: 'Wrapped BTC',
       symbol: 'WBTC',
       decimals: 8,
@@ -24,7 +24,7 @@ export default {
         [ChainType.L1.GOERLI]: '0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05'
       }
     },
-    {
+    USDC: {
       name: 'Goerli USD Coin',
       symbol: 'USDC',
       decimals: 6,
@@ -37,7 +37,7 @@ export default {
         [ChainType.L1.GOERLI]: '0x07865c6e87b9f70255377e024ace6630c1eaa37f'
       }
     },
-    {
+    USDT: {
       name: 'Tether USD',
       symbol: 'USDT',
       decimals: 6,
@@ -50,7 +50,7 @@ export default {
         [ChainType.L1.GOERLI]: '0x509Ee0d083DdF8AC028f2a56731412edD63223B9'
       }
     },
-    {
+    DAI: {
       name: 'DAI',
       symbol: 'DAI',
       decimals: 18,
@@ -63,7 +63,7 @@ export default {
         [ChainType.L1.GOERLI]: '0x11fE4B6AE13d2a6055C8D9cF65c55bac32B5d844'
       }
     },
-    {
+    SLF: {
       name: 'SelfService',
       symbol: 'SLF',
       decimals: 6,
@@ -76,11 +76,11 @@ export default {
         [ChainType.L1.GOERLI]: '0xd44BB808bfE43095dBb94c83077766382D63952a'
       }
     }
-  ],
-  L2: [
-    {
-      name: NetworkType.L1.tokenName,
-      symbol: NetworkType.L1.symbol,
+  },
+  L2: {
+    ETH: {
+      name: 'Ether',
+      symbol: 'ETH',
       decimals: 18,
       bridgeAddress: {
         [ChainType.L2.MAIN]: '0x073314940630fd6dcda0d772d4c972c4e0a9946bef9dabf4ef84eda8ef542b82',
@@ -91,7 +91,7 @@ export default {
         [ChainType.L2.GOERLI]: '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7'
       }
     },
-    {
+    WBTC: {
       name: 'Wrapped BTC',
       symbol: 'WBTC',
       decimals: 8,
@@ -104,7 +104,7 @@ export default {
         [ChainType.L2.GOERLI]: '0x12d537dc323c439dc65c976fad242d5610d27cfb5f31689a0a319b8be7f3d56'
       }
     },
-    {
+    USDC: {
       name: 'Goerli USD Coin',
       symbol: 'USDC',
       decimals: 6,
@@ -117,7 +117,7 @@ export default {
         [ChainType.L2.GOERLI]: '0x005a643907b9a4bc6a55e9069c4fd5fd1f5c79a22470690f75556c4736e34426'
       }
     },
-    {
+    USDT: {
       name: 'Tether USD',
       symbol: 'USDT',
       decimals: 6,
@@ -130,7 +130,7 @@ export default {
         [ChainType.L2.GOERLI]: '0x386e8d061177f19b3b485c20e31137e6f6bc497cc635ccdfcab96fadf5add6a'
       }
     },
-    {
+    DAI: {
       name: 'DAI',
       symbol: 'DAI',
       decimals: 18,
@@ -143,7 +143,7 @@ export default {
         [ChainType.L2.GOERLI]: '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9'
       }
     },
-    {
+    SLF: {
       name: 'SelfService',
       symbol: 'SLF',
       decimals: 6,
@@ -156,5 +156,5 @@ export default {
         [ChainType.L2.GOERLI]: '0x07a39a50bf689e9430fc81fba0f4d46e245e1657e77455548ed7e32c808cfc10'
       }
     }
-  ]
+  }
 };

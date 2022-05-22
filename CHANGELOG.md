@@ -1,3 +1,10 @@
+## [1.5.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.3...v1.5.0-dev.4) (2022-05-22)
+
+
+### 🔧 Fixes
+
+* move EventManagerProvider to app-level ([#197](https://github.com/starkware-libs/starkgate-frontend/issues/197)) ([7fbd4fe](https://github.com/starkware-libs/starkgate-frontend/commit/7fbd4fe7ed812d6d8834dcae71248ac1e387bd09))
+
 ## [1.5.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.2...v1.5.0-dev.3) (2022-05-18)
 
 

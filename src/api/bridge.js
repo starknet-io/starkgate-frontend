@@ -5,7 +5,8 @@ import {
   parseFromDecimals,
   parseToDecimals,
   parseToFelt,
-  parseToUint256
+  parseToUint256,
+  isDai
 } from '../utils';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
@@ -52,9 +53,12 @@ export const maxDeposit = async ({decimals, contract}) => {
   }
 };
 
-export const maxTotalBalance = async ({decimals, contract}) => {
+export const maxTotalBalance = async ({decimals, symbol, contract}) => {
   try {
-    const maxTotalBalance = await callL1Contract(contract, 'maxTotalBalance');
+    const maxTotalBalance = await callL1Contract(
+      contract,
+      isDai(symbol) ? 'ceiling' : 'maxTotalBalance'
+    );
     return parseFromDecimals(maxTotalBalance, decimals);
   } catch (ex) {
     return Promise.reject(ex);

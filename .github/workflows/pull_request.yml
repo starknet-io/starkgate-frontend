@@ -117,6 +117,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: "This branch was successfully deployed :rocket:\n
-          https://pr${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io"
+          msg: "This branch was successfully deployed :rocket:\nhttps://pr${{ github.event.pull_request.number }}-goerli.starkgate.starknet.io"
           check_for_duplicate_msg: true
