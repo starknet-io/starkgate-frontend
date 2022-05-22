@@ -15,3 +15,4 @@ export * from './useConstants';
 export * from './useTranslation';
 export * from './useTracking';
 export * from './useBuyProviders';
+export * from './useAccountChange';

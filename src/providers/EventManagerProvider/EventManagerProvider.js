@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {EventName, SelectorName} from '../../enums';
-import {useL1TokenBridgeContract, useLogger} from '../../hooks';
+import {useAccountChange, useL1TokenBridgeContract, useLogger} from '../../hooks';
 import {starknet} from '../../libs';
-import {parseToFelt} from '../../utils/parser';
+import {parseToFelt} from '../../utils';
 import {useL1Tokens, useL2Tokens} from '../TokensProvider';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {EventManagerContext} from './event-manager-context';
 
 const listeners = {};
 const filters = {};
-let emitters = [];
 
 export const EventManagerProvider = ({children}) => {
   const logger = useLogger(EventManagerProvider.displayName);
@@ -21,11 +20,10 @@ export const EventManagerProvider = ({children}) => {
   const l1Tokens = useL1Tokens();
   const l2Tokens = useL2Tokens();
 
-  useEffect(() => {
+  useAccountChange(() => {
     setEventFilters();
-    addDepositWithdrawalListeners();
-    return () => cleanEmittersAndRemoveListeners();
-  }, []);
+    addListeners();
+  });
 
   const addListener = (eventName, callback) => {
     logger.log(`Registered to ${eventName} event.`);
@@ -62,7 +60,7 @@ export const EventManagerProvider = ({children}) => {
     emitListeners(EventName.L1.LOG_DEPOSIT, error, event);
   };
 
-  const addDepositWithdrawalListeners = () => {
+  const addListeners = () => {
     l1Tokens.forEach(l1Token => {
       const bridgeContract = getTokenBridgeContract(l1Token.bridgeAddress);
       logger.log(`Add ${EventName.L1.LOG_DEPOSIT} listener for token ${l1Token.symbol}.`);
@@ -103,21 +101,12 @@ export const EventManagerProvider = ({children}) => {
   };
 
   const addContractEventListener = (contract, eventName, filter, handler) => {
-    emitters.push(
-      contract.events[eventName](
-        {
-          filter
-        },
-        handler
-      )
+    contract.events[eventName](
+      {
+        filter
+      },
+      handler
     );
-  };
-
-  const cleanEmittersAndRemoveListeners = () => {
-    logger.log('Remove all listeners.');
-    emitters.forEach(emitter => emitter.removeAllListeners());
-    logger.log('Clean emitters.');
-    emitters = [];
   };
 
   const value = {
