@@ -1,15 +1,12 @@
-import {NetworkType} from '../enums';
+import Tokens from '../config/tokens';
 import {getStarknet} from '../libs';
 
-export const isEth = tokenData => {
-  let symbol = '';
-  if (typeof tokenData === 'object') {
-    /* eslint-disable-next-line prefer-destructuring */
-    symbol = tokenData.symbol;
-  } else if (typeof tokenData === 'string') {
-    symbol = tokenData;
-  }
-  return symbol === NetworkType.L1.symbol;
+export const isEth = symbol => {
+  return symbol === Tokens.L1.ETH.symbol;
+};
+
+export const isDai = symbol => {
+  return symbol === Tokens.L1.DAI.symbol;
 };
 
 export const addToken = async address => {
