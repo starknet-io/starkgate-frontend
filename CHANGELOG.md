@@ -1,3 +1,10 @@
+## [1.5.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.4...v1.5.0-dev.5) (2022-05-22)
+
+
+### 🔧 Fixes
+
+* **GATE-7:** Call 'ceiling' on DAI bridge instead of 'maxTotalBalance' ([#196](https://github.com/starkware-libs/starkgate-frontend/issues/196)) ([50a2780](https://github.com/starkware-libs/starkgate-frontend/commit/50a2780807f10471c41cb1ec8ae418e8ae64579c))
+
 ## [1.5.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.3...v1.5.0-dev.4) (2022-05-22)
 
 
