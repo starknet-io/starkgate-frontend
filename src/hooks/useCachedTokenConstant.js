@@ -13,7 +13,7 @@ export const useCachedTokenConstant = () => {
         logger.log(`Trying to fetch ${symbol} value to cache`);
         const {decimals, bridgeAddress} = selectedToken;
         const contract = getTokenBridgeContract(bridgeAddress);
-        const value = await fn({decimals, contract});
+        const value = await fn({decimals, symbol, contract});
         logger.log(`Setting ${symbol} value to cache - ${value}`, cache);
         cache[symbol] = value;
         return value;

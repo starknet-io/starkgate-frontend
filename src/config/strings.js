@@ -117,12 +117,12 @@ export default {
     }
   },
   toasts: {
-    maxTotalBalanceError: {
+    bridgeFullNotice: {
       titleTxt: 'Bridge is full',
       bodyTxt:
         'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.'
     },
-    alphaDisclaimer: {
+    alphaDisclaimerNotice: {
       titleTxt: 'StarkNet Alpha',
       bodyTxt:
         'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.'

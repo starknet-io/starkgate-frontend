@@ -29,7 +29,7 @@ const BRIDGE_FULL_TOAST_ID = 'bridgeFull';
 const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
 export const ToastProvider = () => {
-  const {alphaDisclaimer, maxTotalBalanceError} = useToastsTranslation();
+  const {alphaDisclaimerNotice, bridgeFullNotice} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();
@@ -86,8 +86,8 @@ export const ToastProvider = () => {
       () => (
         <ErrorToast
           isCollapsable={false}
-          msg={alphaDisclaimer.bodyTxt}
-          title={alphaDisclaimer.titleTxt}
+          msg={alphaDisclaimerNotice.bodyTxt}
+          title={alphaDisclaimerNotice.titleTxt}
         />
       ),
       {
@@ -103,8 +103,8 @@ export const ToastProvider = () => {
         () => (
           <ErrorToast
             isCollapsable={true}
-            msg={maxTotalBalanceError.bodyTxt}
-            title={maxTotalBalanceError.titleTxt}
+            msg={bridgeFullNotice.bodyTxt}
+            title={bridgeFullNotice.titleTxt}
           />
         ),
         {

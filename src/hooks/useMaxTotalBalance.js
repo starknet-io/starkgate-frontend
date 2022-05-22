@@ -5,7 +5,9 @@ import {useTransfer} from '../providers/TransferProvider';
 import {useCachedTokenConstant} from './useCachedTokenConstant';
 import {useLogger} from './useLogger';
 
-const cache = {};
+const cache = {
+  ETH: 150
+};
 
 export const useMaxTotalBalance = () => {
   const logger = useLogger('useMaxTotalBalance');
