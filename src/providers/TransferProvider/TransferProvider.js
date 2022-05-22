@@ -16,6 +16,13 @@ export const TransferProvider = ({children}) => {
       ? state.transferToL2Amount
       : state.transferToL1Amount;
 
+  const setBridgeIsFull = bridgeIsFull => {
+    dispatch({
+      type: actions.SET_BRIDGE_IS_FULL,
+      bridgeIsFull
+    });
+  };
+
   const setActionType = actionType => {
     dispatch({
       type: actions.SET_ACTION_TYPE,
@@ -42,6 +49,7 @@ export const TransferProvider = ({children}) => {
     setAmount,
     selectToken,
     setActionType,
+    setBridgeIsFull,
     isL1,
     isL2,
     toNetwork,

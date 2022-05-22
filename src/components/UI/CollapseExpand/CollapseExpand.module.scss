@@ -1,0 +1,9 @@
+.collapseExpand {
+  height: 6px;
+  width: 50px;
+  cursor: pointer;
+
+  &.collapsed {
+    transform: scale(1, -1);
+  }
+}

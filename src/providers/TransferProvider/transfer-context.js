@@ -8,6 +8,7 @@ export const TransferContext = createContext({
   setAmount: amount => amount,
   selectToken: symbol => symbol,
   setActionType: actionType => actionType,
+  setBridgeIsFull: bridgeIsFull => bridgeIsFull,
   isL1: false,
   isL2: false,
   fromNetwork: NetworkType.L1,

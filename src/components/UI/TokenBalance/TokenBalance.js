@@ -6,12 +6,18 @@ import {formatBalance, shortenBalance, toClasses} from '../../../utils';
 import {Loading, LoadingSize, RefreshIcon} from '../index';
 import styles from './TokenBalance.module.scss';
 
-export const TokenBalance = ({tokenData, onRefreshClick}) => {
+export const TokenBalance = ({tokenData, isDisabled, onRefreshClick}) => {
   const {symbol, isLoading, balance} = tokenData;
   const {balanceTitleTxt} = useTransferTranslation();
 
   return (
-    <div className={toClasses(styles.tokenBalance, isLoading && styles.loading)}>
+    <div
+      className={toClasses(
+        styles.tokenBalance,
+        isLoading && styles.loading,
+        isDisabled && styles.isDisabled
+      )}
+    >
       <span>{balanceTitleTxt}</span>
       <div className={styles.balanceRow}>
         <div className={styles.balance}>
@@ -30,5 +36,6 @@ export const TokenBalance = ({tokenData, onRefreshClick}) => {
 
 TokenBalance.propTypes = {
   tokenData: PropTypes.object,
+  isDisabled: PropTypes.bool,
   onRefreshClick: PropTypes.func
 };

@@ -22,6 +22,10 @@
     }
   }
 
+  &.isDisabled {
+    opacity: 0.2;
+  }
+
   &.loading {
     .balanceRow {
       .balance {

@@ -101,7 +101,7 @@ export default {
       },
       confirmTxt: 'Confirm this transaction in your wallet',
       maxTotalBalanceErrorMsg:
-        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to transfer the amount you have chosen now.\n\nPlease reduce the amount and try again.',
       errorTitle: 'Transaction error',
       limitationErrorTitle: 'Limitation error'
     },
@@ -117,8 +117,16 @@ export default {
     }
   },
   toasts: {
-    alphaDisclaimerMsg:
-      'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
+    maxTotalBalanceError: {
+      titleTxt: 'Bridge is full',
+      bodyTxt:
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.'
+    },
+    alphaDisclaimer: {
+      titleTxt: 'StarkNet Alpha',
+      bodyTxt:
+        'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.'
+    },
     transferLogLink: 'View on Transfer Log',
     pendingTransfer: {
       pendingTxt: 'Waiting for transaction to be accepted on StarkNet',

@@ -36,5 +36,6 @@ export * from './MultiChoiceErrorMessage/MultiChoiceErrorMessage';
 export * from './MultiChoiceMenu/MultiChoiceMenu';
 export * from './MultiChoiceItem/MultiChoiceItem';
 export * from './Divider/Divider';
+export * from './CollapseExpand/CollapseExpand';
 export * from './Modal';
 export * from './Toast';

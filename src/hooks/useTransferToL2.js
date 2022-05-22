@@ -1,7 +1,7 @@
 import {useCallback} from 'react';
 
 import {deposit, depositEth} from '../api/bridge';
-import {allowance, approve, balanceOf, ethBalanceOf} from '../api/erc20';
+import {allowance, approve} from '../api/erc20';
 import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {starknet} from '../libs';
 import {useDepositListener} from '../providers/EventManagerProvider';
@@ -10,8 +10,8 @@ import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {addToken, isEth} from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
+import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
-import {useMaxTotalBalance} from './useTokenConstant';
 import {useTransferToL2Tracking} from './useTracking';
 import {useTransfer} from './useTransfer';
 import {useTransferProgress} from './useTransferProgress';
@@ -22,13 +22,13 @@ export const useTransferToL2 = () => {
   const {account: l1Account, config: l1Config} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
+  const {addListener, removeListener} = useDepositListener();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
-  const {addListener, removeListener} = useDepositListener();
-  const maxTotalBalance = useMaxTotalBalance();
   const getL2Token = useL2Token();
+  const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
 
   return useCallback(
     async amount => {
@@ -108,20 +108,9 @@ export const useTransferToL2 = () => {
         }
       };
 
-      const isMaxBalanceExceeded = async () => {
-        const tokenBridgeBalance = await (isEthToken
-          ? ethBalanceOf(bridgeAddress)
-          : balanceOf({
-              account: bridgeAddress,
-              decimals,
-              contract: tokenContract
-            }));
-        return maxTotalBalance < tokenBridgeBalance + Number(amount);
-      };
-
       try {
         logger.log('TransferToL2 called');
-        if (await isMaxBalanceExceeded()) {
+        if (await isMaxTotalBalanceExceeded(amount)) {
           trackReject(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
           logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
           handleError(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
@@ -170,7 +159,7 @@ export const useTransferToL2 = () => {
       handleProgress,
       logger,
       progressOptions,
-      maxTotalBalance
+      isMaxTotalBalanceExceeded
     ]
   );
 };
