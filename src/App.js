@@ -4,15 +4,15 @@ import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
 import styles from './App.module.scss';
 import {Footer, Header} from './components/Containers';
 import {StyledBackground} from './components/UI';
-import {useBuyProviders} from './hooks';
+import {useLiquidityProviders} from './hooks';
 import {useApp, useLogin} from './providers/AppProvider';
-import {Bridge, Buy, Faq, Login, ProtectedRoute, Terms} from './routes';
+import {Bridge, Liquidity, Faq, Login, ProtectedRoute, Terms} from './routes';
 
 export const App = () => {
   const {isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {isLoggedIn} = useLogin();
-  const buyProviders = useBuyProviders();
+  const liquidityProviders = useLiquidityProviders();
 
   return (
     <div className={styles.app}>
@@ -29,7 +29,7 @@ export const App = () => {
           />
           <Route element={<Terms />} path="/terms" />
           <Route element={<Faq />} path="/faq" />
-          {!!buyProviders.length && <Route element={<Buy />} path="/buy" />}
+          {!!liquidityProviders.length && <Route element={<Liquidity />} path="/liquidity" />}
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>

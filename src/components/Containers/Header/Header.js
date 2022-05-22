@@ -4,8 +4,8 @@ import useBreakpoint from 'use-breakpoint';
 
 import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
 import {ReactComponent as DiscordIcon} from '../../../assets/svg/tabs/discord.svg';
+import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
 import {Breakpoint, ChainType} from '../../../enums';
 import {
   useColors,
@@ -13,7 +13,7 @@ import {
   useEnvs,
   useTracking,
   useHeaderTranslation,
-  useBuyProviders
+  useLiquidityProviders
 } from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -27,7 +27,7 @@ export const Header = () => {
   const {DISCORD_LINK_URL} = useConstants();
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {supportedL1ChainId} = useEnvs();
-  const {tabBuyTxt, tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
+  const {tabLiquidityTxt, tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -38,7 +38,7 @@ export const Header = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorDiscord, colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
-  const buyProviders = useBuyProviders();
+  const liquidityProviders = useLiquidityProviders();
 
   const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
@@ -80,11 +80,11 @@ export const Header = () => {
     },
     {
       color: colorGamma,
-      icon: <BuyIcon />,
-      text: tabBuyTxt,
-      disable: !buyProviders.length,
+      icon: <LiquidityIcon />,
+      text: tabLiquidityTxt,
+      disable: !liquidityProviders.length,
       divider: true,
-      onClick: () => onRouteTabClick('buy')
+      onClick: () => onRouteTabClick('liquidity')
     },
     {
       color: colorWhiteOp50,
