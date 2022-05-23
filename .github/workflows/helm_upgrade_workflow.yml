@@ -59,6 +59,7 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2
         run: |
           helm upgrade ${{ inputs.app_name }} starkware/webapp-general-helm \
+          --install \
           --namespace=${{ inputs.namespace_name }} \
           --values ${{ inputs.values_file}} \
           --set-file configMap.frontend.envs=${{ inputs.env_file }} \

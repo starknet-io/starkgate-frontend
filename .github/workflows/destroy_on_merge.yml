@@ -19,6 +19,12 @@ jobs:
           cluster_name: web-devs
           location: us-central1
           credentials: ${{ secrets.STARKGATE_SA }}
+      - name: Login to Gcloud using starkgate service account.
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: starkware-dev
+          service_account_email: ${{ secrets.STARKGATE_SA_EMAIL }}
+          service_account_key: ${{ secrets.STARKGATE_SA }}
       - name: Helm tool installer
         uses: Azure/setup-helm@v2.0
       - name: Download starkware-third-party repo from S3.

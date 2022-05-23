@@ -96,7 +96,10 @@ jobs:
           helm repo update
       - name: Delete old helm chart deployment
         run: |
-          helm delete pr${{ github.event.pull_request.number }}-goerli --namespace pr${{ github.event.pull_request.number }}-goerli
+          export HELM_REALSE=$(helm list --filter pr${{ github.event.pull_request.number }}-goerli --namespace pr${{ github.event.pull_request.number }}-goerli | awk 'NR > 1 {print $1}')
+          if [[ $HELM_REALSE ]]; then
+            helm delete pr${{ github.event.pull_request.number }}-goerli --namespace pr${{ github.event.pull_request.number }}-goerli
+          fi
       - name: Deploy using helm install command.
         if: always()
         env:
@@ -107,6 +110,8 @@ jobs:
           helm install pr${{ github.event.pull_request.number }}-goerli starkware/webapp-general-helm \
           --create-namespace \
           --namespace=pr${{ github.event.pull_request.number }}-goerli \
+          --wait \
+          --wait-for-jobs \
           --values $VALUES_FILE \
           --set-file configMap.frontend.envs=$ENV_FILE \
           --set frontend.image.tag=pr${{ github.event.pull_request.number }}-goerli \
