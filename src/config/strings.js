@@ -4,9 +4,11 @@ export default {
       chainTxt: 'Goerli testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
-      tabTermsTxt: 'Terms',
-      tabFaqTxt: 'FAQ',
-      tabBuyTxt: 'Buy into L2'
+      tabLiquidityTxt: 'Deposit into L2',
+      burgerMenu: {
+        termsTxt: 'Terms',
+        faqTxt: 'FAQ'
+      }
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
@@ -21,10 +23,8 @@ export default {
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
     },
-    buy: {
-      titleTxt: 'Buy into L2',
-      descriptionTxt:
-        'Convert fiat money into L2 cryptocurrencies using one of the following providers:'
+    liquidity: {
+      titleTxt: 'Deposit into L2'
     }
   },
   menus: {

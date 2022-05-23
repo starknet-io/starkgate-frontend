@@ -14,7 +14,7 @@ export * from './useCachedTokenConstant';
 export * from './useConstants';
 export * from './useTranslation';
 export * from './useTracking';
-export * from './useBuyProviders';
+export * from './useLiquidityProviders';
 export * from './useAccountChange';
 export * from './useIsMaxTotalBalanceExceeded';
 export * from './useMaxTotalBalance';
