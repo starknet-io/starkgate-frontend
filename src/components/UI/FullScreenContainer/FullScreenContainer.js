@@ -3,7 +3,7 @@ import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {Breakpoint} from '../../../enums';
-import {toClasses} from '../../../utils/object';
+import {toClasses} from '../../../utils';
 import styles from './FullScreenContainer.module.scss';
 
 export const FullScreenContainer = ({children}) => {
