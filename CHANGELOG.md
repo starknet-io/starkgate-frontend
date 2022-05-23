@@ -1,3 +1,10 @@
+## [1.5.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.8...v1.5.0-dev.9) (2022-05-23)
+
+
+### 🧩 Features
+
+* lock bridge ([#198](https://github.com/starkware-libs/starkgate-frontend/issues/198)) ([4f433e6](https://github.com/starkware-libs/starkgate-frontend/commit/4f433e62fa48a13ddf3032a9d1aaebf4bedb6e74))
+
 ## [1.5.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.7...v1.5.0-dev.8) (2022-05-23)
 
 
