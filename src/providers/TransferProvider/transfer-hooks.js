@@ -15,7 +15,6 @@ export const useTransfer = () => {
 };
 
 export const useBridgeIsFull = () => {
-  const [isL1] = useIsL1();
   const {setBridgeIsFull, bridgeIsFull} = useContext(TransferContext);
 
   const lockBridge = useCallback(() => {
@@ -27,7 +26,7 @@ export const useBridgeIsFull = () => {
   }, []);
 
   return {
-    bridgeIsFull: bridgeIsFull && isL1,
+    bridgeIsFull,
     lockBridge,
     unlockBridge
   };

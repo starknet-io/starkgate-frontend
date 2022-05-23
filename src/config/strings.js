@@ -101,7 +101,7 @@ export default {
       },
       confirmTxt: 'Confirm this transaction in your wallet',
       maxTotalBalanceErrorMsg:
-        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to transfer the amount you have chosen now.\n\nPlease reduce the amount and try again.',
+        "The maximal value allowed on StarkGate right now is {{maxTotalBalance}} {{symbol}} and the current value on StarkGate is {{currentTotalBalance}} {{symbol}}, so it's not possible to complete your deposit of {{amount}} {{symbol}}.\n\nPlease reduce your deposit amount and try again.",
       errorTitle: 'Transaction error',
       limitationErrorTitle: 'Limitation error'
     },

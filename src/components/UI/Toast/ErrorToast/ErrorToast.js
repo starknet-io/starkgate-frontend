@@ -23,7 +23,7 @@ export const ErrorToast = ({title, msg, isCollapsable}) => {
           {!isCollapsed && <div className={styles.msg}>{msg}</div>}
         </div>
         {isCollapsable && (
-          <CollapseExpand isCollapsed={isCollapsed} onClick={onCollapseExpandClick} />
+          <CollapseExpand isCollapsed={isCollapsed} size={20} onClick={onCollapseExpandClick} />
         )}
       </div>
     </div>

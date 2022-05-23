@@ -48,13 +48,12 @@ export const Transfer = () => {
   const {showSelectTokenMenu} = useMenu();
   const {selectToken, selectedToken, action} = useTransfer();
   const {tokens, updateTokenBalance} = useTokens();
-  const {bridgeIsFull, lockBridge, unlockBridge} = useBridgeIsFull();
+  const {bridgeIsFull} = useBridgeIsFull();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const maxDeposit = useMaxDeposit();
-  const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
   const tabs = [
     {
       text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
@@ -73,19 +72,6 @@ export const Transfer = () => {
       selectToken(tokens[0].symbol);
     }
   }, []);
-
-  useEffect(() => {
-    async function maybeLockBridge() {
-      const isBridgeFull = await isMaxTotalBalanceExceeded();
-      if (isBridgeFull) {
-        lockBridge();
-      } else {
-        unlockBridge();
-      }
-    }
-
-    maybeLockBridge();
-  }, [isMaxTotalBalanceExceeded, selectedToken]);
 
   useEffect(() => {
     if (selectedToken) {

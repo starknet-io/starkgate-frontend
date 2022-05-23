@@ -5,10 +5,14 @@ import {ReactComponent as CollapseExpandIcon} from '../../../assets/svg/icons/co
 import {toClasses} from '../../../utils';
 import styles from './CollapseExpand.module.scss';
 
-export const CollapseExpand = ({isCollapsed, onClick}) => {
+export const CollapseExpand = ({isCollapsed, size, onClick}) => {
   return (
     <CollapseExpandIcon
-      className={toClasses(styles.collapseExpand, isCollapsed && styles.collapsed)}
+      style={{
+        height: `${size}px`,
+        width: `${size}px`
+      }}
+      className={toClasses(styles.collapseExpand, isCollapsed && styles.isCollapsed)}
       onClick={onClick}
     />
   );

@@ -12,7 +12,7 @@
   transition: 0.3s ease-in-out;
 
   .container {
-    padding: 15px 0;
+    padding: 15px 5px;
     align-items: flex-start;
     display: flex;
     margin-right: 8px;
@@ -34,21 +34,21 @@
       .title {
         font-weight: 500;
         font-size: 18px;
-        color: #15174e;
+        color: $--color-alpha;
       }
 
       .msg {
         margin-top: 10px;
         font-weight: 400;
         font-size: 16px;
-        color: #15174e;
+        color: $--color-alpha;
       }
     }
   }
 
   &.collapsed {
     .container {
-      padding: 5px 0;
+      padding: 5px;
       align-items: center;
     }
   }

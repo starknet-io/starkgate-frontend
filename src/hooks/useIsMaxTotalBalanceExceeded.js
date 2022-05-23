@@ -16,8 +16,14 @@ export const useIsMaxTotalBalanceExceeded = () => {
     async (amount = 0) => {
       if (maxTotalBalance && isL1) {
         const tokenBridgeBalance = await getTokenBridgeBalance(selectedToken);
-        return maxTotalBalance < tokenBridgeBalance + Number(amount);
+        const exceeded = maxTotalBalance < tokenBridgeBalance + Number(amount);
+        return {
+          exceeded,
+          maxTotalBalance,
+          currentTotalBalance: tokenBridgeBalance
+        };
       }
+      return {exceeded: false};
     },
     [getTokenContract, selectedToken, maxTotalBalance, isL1, getTokenBridgeBalance]
   );

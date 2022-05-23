@@ -35,7 +35,6 @@ export const useTransferToL2 = () => {
       const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
       const tokenContract = getTokenContract(tokenAddress);
       const bridgeContract = getTokenBridgeContract(bridgeAddress);
-      const isEthToken = isEth(symbol);
       const l2TokenAddress = getL2Token(symbol)?.tokenAddress;
 
       const readAllowance = () => {
@@ -63,7 +62,7 @@ export const useTransferToL2 = () => {
           amount,
           symbol
         });
-        const depositHandler = isEthToken ? depositEth : deposit;
+        const depositHandler = isEth(symbol) ? depositEth : deposit;
         return depositHandler({
           recipient: l2Account,
           contract: bridgeContract,
@@ -110,34 +109,43 @@ export const useTransferToL2 = () => {
 
       try {
         logger.log('TransferToL2 called');
-        if (await isMaxTotalBalanceExceeded(amount)) {
-          trackReject(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
-          logger.error(`Prevented ${symbol} deposit due to max balance exceeded`);
-          handleError(progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR));
-          return;
-        }
-        if (!isEthToken) {
-          logger.log('Token needs approval');
-          handleProgress(
-            progressOptions.approval(symbol, stepOf(TransferStep.APPROVE, TransferToL2Steps))
-          );
-          const allow = await readAllowance();
-          logger.log('Current allow value', {allow});
-          if (allow < amount) {
-            logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
-            await sendApproval();
-          }
-        }
-        handleProgress(
-          progressOptions.waitForConfirm(
-            l1Config.name,
-            stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
-          )
+        const {exceeded, currentTotalBalance, maxTotalBalance} = await isMaxTotalBalanceExceeded(
+          amount
         );
-        addListener(onDeposit);
-        logger.log('Calling deposit');
-        await sendDeposit();
-        await maybeAddToken(l2TokenAddress);
+        if (exceeded) {
+          const error = progressOptions.error(TransferError.MAX_TOTAL_BALANCE_ERROR, null, {
+            maxTotalBalance,
+            symbol,
+            currentTotalBalance,
+            amount
+          });
+          logger.error(`Prevented ${symbol} deposit due to maxTotalBalance exceeded`);
+          trackReject(error);
+          handleError(error);
+        } else {
+          if (!isEth(symbol)) {
+            logger.log('Token needs approval');
+            handleProgress(
+              progressOptions.approval(symbol, stepOf(TransferStep.APPROVE, TransferToL2Steps))
+            );
+            const allow = await readAllowance();
+            logger.log('Current allow value', {allow});
+            if (allow < amount) {
+              logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
+              await sendApproval();
+            }
+          }
+          handleProgress(
+            progressOptions.waitForConfirm(
+              l1Config.name,
+              stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
+            )
+          );
+          addListener(onDeposit);
+          logger.log('Calling deposit');
+          await sendDeposit();
+          await maybeAddToken(l2TokenAddress);
+        }
       } catch (ex) {
         removeListener();
         trackError(ex);
