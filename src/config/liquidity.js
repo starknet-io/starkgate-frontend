@@ -18,7 +18,7 @@ export default [
     description: 'Move crypto from Coinbase, Binance or FTX to StarkNet',
     url: {
       [ChainType.L1.GOERLI]: 'https://testnet.layerswap.io/?destNetwork=starknet_goerli',
-      [ChainType.L1.MAIN]: 'https://www.layerswap.io/?destNetwork=starknet_mainnet'
+      [ChainType.L1.MAIN]: 'https://layerswap.io/?destNetwork=starknet_mainnet'
     }
   }
 ];
