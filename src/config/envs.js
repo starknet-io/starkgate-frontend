@@ -23,5 +23,5 @@ export const localStorageOnboardingExpirationTimestampKey =
   process.env.REACT_APP_LOCAL_STORAGE_ONBOARDING_TIMESTAMP_KEY;
 export const onboardingModalTimeoutHrs = process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HRS;
 export const localStorageAcceptTermsKey = process.env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS;
-export const supportedBuyProviders =
-  process.env.REACT_APP_SUPPORTED_BUY_PROVIDERS?.split(',') || [];
+export const supportedLiquidityProviders =
+  process.env.REACT_APP_SUPPORTED_LIQUIDITY_PROVIDERS?.split(',') || [];

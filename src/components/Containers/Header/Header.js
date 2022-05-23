@@ -2,32 +2,21 @@ import React, {Fragment} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
-import {TrackEvent} from '../../../analytics';
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
-import {ReactComponent as DiscordIcon} from '../../../assets/svg/tabs/discord.svg';
+import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
 import {Breakpoint, ChainType} from '../../../enums';
-import {
-  useColors,
-  useConstants,
-  useEnvs,
-  useTracking,
-  useHeaderTranslation,
-  useBuyProviders
-} from '../../../hooks';
+import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
-import {openInNewTab, toClasses} from '../../../utils';
+import {toClasses} from '../../../utils';
 import {Divider, Tab, WalletButton} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const {DISCORD_LINK_URL} = useConstants();
-  const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {supportedL1ChainId} = useEnvs();
-  const {tabBuyTxt, tabDiscordTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
+  const {tabLiquidityTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -36,9 +25,9 @@ export const Header = () => {
   const {account: l1Account, config: l1Config} = useL1Wallet();
   const {account: l2Account, config: l2Config} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorDiscord, colorWhiteOp50, colorGamma} = useColors();
+  const {colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
-  const buyProviders = useBuyProviders();
+  const liquidityProviders = useLiquidityProviders();
 
   const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
@@ -65,26 +54,14 @@ export const Header = () => {
     navigate(`/${route}`);
   };
 
-  const onTabDiscordClick = () => {
-    trackDiscordClick();
-    openInNewTab(DISCORD_LINK_URL);
-  };
-
   const tabs = [
     {
-      color: colorDiscord,
-      icon: <DiscordIcon />,
-      text: tabDiscordTxt,
-      divider: true,
-      onClick: onTabDiscordClick
-    },
-    {
       color: colorGamma,
-      icon: <BuyIcon />,
-      text: tabBuyTxt,
-      disable: !buyProviders.length,
+      icon: <LiquidityIcon />,
+      text: tabLiquidityTxt,
+      disable: !liquidityProviders.length,
       divider: true,
-      onClick: () => onRouteTabClick('buy')
+      onClick: () => onRouteTabClick('liquidity')
     },
     {
       color: colorWhiteOp50,

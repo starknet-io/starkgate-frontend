@@ -14,5 +14,5 @@ export * from './useTokenConstant';
 export * from './useConstants';
 export * from './useTranslation';
 export * from './useTracking';
-export * from './useBuyProviders';
+export * from './useLiquidityProviders';
 export * from './useAccountChange';
