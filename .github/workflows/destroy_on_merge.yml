@@ -22,7 +22,7 @@ jobs:
       - name: Login to Gcloud using starkgate service account.
         uses: google-github-actions/setup-gcloud@v0
         with:
-          project_id: starkware-dev
+          project_id: ${{ secrets.PROJECT_ID }}
           service_account_email: ${{ secrets.STARKGATE_SA_EMAIL }}
           service_account_key: ${{ secrets.STARKGATE_SA }}
       - name: Helm tool installer
