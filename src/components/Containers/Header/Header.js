@@ -3,9 +3,9 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
+import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
 import {Breakpoint, ChainType} from '../../../enums';
-import {useColors, useEnvs, useHeaderTranslation, useBuyProviders} from '../../../hooks';
+import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -16,7 +16,7 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   const {supportedL1ChainId} = useEnvs();
-  const {tabBuyTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
+  const {tabLiquidityTxt, tabFaqTxt, tabTermsTxt, chainTxt} = useHeaderTranslation();
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const {showAccountMenu, showTransferMenu} = useMenu();
@@ -27,7 +27,7 @@ export const Header = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorWhiteOp50, colorGamma} = useColors();
   const {isLoggedIn} = useLogin();
-  const buyProviders = useBuyProviders();
+  const liquidityProviders = useLiquidityProviders();
 
   const maybeNavigateToBridge = () => {
     pathname !== '/' && navigate('/');
@@ -57,11 +57,11 @@ export const Header = () => {
   const tabs = [
     {
       color: colorGamma,
-      icon: <BuyIcon />,
-      text: tabBuyTxt,
-      disable: !buyProviders.length,
+      icon: <LiquidityIcon />,
+      text: tabLiquidityTxt,
+      disable: !liquidityProviders.length,
       divider: true,
-      onClick: () => onRouteTabClick('buy')
+      onClick: () => onRouteTabClick('liquidity')
     },
     {
       color: colorWhiteOp50,
