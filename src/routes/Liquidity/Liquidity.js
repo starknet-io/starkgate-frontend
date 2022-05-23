@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {MultiChoiceMenu} from '../../components/UI';
+import {Menu, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
 import {openInNewTab} from '../../utils';
 
@@ -20,10 +20,12 @@ export const Liquidity = () => {
   };
 
   return (
-    <MultiChoiceMenu
-      choices={mapLiquidityProviders()}
-      description={descriptionTxt}
-      title={titleTxt}
-    />
+    <Menu>
+      <MultiChoiceMenu
+        choices={mapLiquidityProviders()}
+        description={descriptionTxt}
+        title={titleTxt}
+      />
+    </Menu>
   );
 };
