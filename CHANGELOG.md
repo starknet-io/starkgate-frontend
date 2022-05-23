@@ -1,3 +1,10 @@
+## [1.5.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.7...v1.5.0-dev.8) (2022-05-23)
+
+
+### 🧩 Features
+
+* move Terms and FAQ routes to burger menu ([#202](https://github.com/starkware-libs/starkgate-frontend/issues/202)) ([264b550](https://github.com/starkware-libs/starkgate-frontend/commit/264b5504dab6ecdaa35617f281e46388042f475b))
+
 ## [1.5.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.6...v1.5.0-dev.7) (2022-05-23)
 
 
