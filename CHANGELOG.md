@@ -1,3 +1,10 @@
+## [1.5.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.6...v1.5.0-dev.7) (2022-05-23)
+
+
+### 🧩 Features
+
+* add LayerSwap to liquidity providers ([#201](https://github.com/starkware-libs/starkgate-frontend/issues/201)) ([4f8aa97](https://github.com/starkware-libs/starkgate-frontend/commit/4f8aa97cc0b8e8a159e0b2ba8935422751cf3226))
+
 ## [1.5.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.5...v1.5.0-dev.6) (2022-05-23)
 
 
