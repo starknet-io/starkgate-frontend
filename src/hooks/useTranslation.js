@@ -73,8 +73,8 @@ export const useFaqTranslation = () => {
   return useScreensTranslation('faq');
 };
 
-export const useBuyTranslation = () => {
-  return useScreensTranslation('buy');
+export const useLiquidityTranslation = () => {
+  return useScreensTranslation('liquidity');
 };
 
 export const useTermsTranslation = () => {

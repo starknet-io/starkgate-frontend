@@ -2,9 +2,9 @@ import React, {Fragment} from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {ReactComponent as BuyIcon} from '../../../assets/svg/tabs/buy.svg';
+import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
 import {Breakpoint, ChainType} from '../../../enums';
-import {useColors, useEnvs, useHeaderTranslation, useBuyProviders} from '../../../hooks';
+import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useApp, useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
@@ -15,7 +15,7 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   const {supportedL1ChainId} = useEnvs();
-  const {tabBuyTxt, chainTxt} = useHeaderTranslation();
+  const {tabLiquidityTxt, chainTxt} = useHeaderTranslation();
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
@@ -25,7 +25,7 @@ export const Header = () => {
   const {colorGamma} = useColors();
   const {navigateToRoute} = useApp();
   const {isLoggedIn} = useLogin();
-  const buyProviders = useBuyProviders();
+  const liquidityProviders = useLiquidityProviders();
 
   const onL2WalletButtonClick = () => {
     swapToL2();
@@ -47,10 +47,10 @@ export const Header = () => {
   const tabs = [
     {
       color: colorGamma,
-      icon: <BuyIcon />,
-      text: tabBuyTxt,
-      disable: !buyProviders.length,
-      onClick: () => navigateToRoute('buy')
+      icon: <LiquidityIcon />,
+      text: tabLiquidityTxt,
+      disable: !liquidityProviders.length,
+      onClick: () => navigateToRoute('liquidity')
     }
   ];
 

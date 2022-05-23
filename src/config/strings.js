@@ -4,7 +4,7 @@ export default {
       chainTxt: 'Goerli testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
-      tabBuyTxt: 'Buy into L2',
+      tabLiquidityTxt: 'Deposit into L2',
       burgerMenu: {
         termsTxt: 'Terms',
         faqTxt: 'FAQ'
@@ -23,10 +23,8 @@ export default {
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
     },
-    buy: {
-      titleTxt: 'Buy into L2',
-      descriptionTxt:
-        'Convert fiat money into L2 cryptocurrencies using one of the following providers:'
+    liquidity: {
+      titleTxt: 'Deposit into L2'
     }
   },
   menus: {
