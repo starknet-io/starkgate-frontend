@@ -20,17 +20,6 @@
     font-weight: 600;
     text-transform: capitalize;
     margin-bottom: 10px;
-
-    svg {
-      transition: 0.3s ease-in-out;
-      cursor: pointer;
-    }
-
-    &.showChildren {
-      svg {
-        transform: scale(1, -1);
-      }
-    }
   }
 
   .empty {

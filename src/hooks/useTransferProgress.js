@@ -55,12 +55,12 @@ export const useTransferProgress = () => {
           activeStep
         };
       },
-      error: (type, err) => {
+      error: (type, err, data) => {
         if (type === TransferError.MAX_TOTAL_BALANCE_ERROR) {
           const {limitationErrorTitle, maxTotalBalanceErrorMsg} = transferProgressStrings;
           return {
             type: limitationErrorTitle,
-            message: maxTotalBalanceErrorMsg
+            message: evaluate(maxTotalBalanceErrorMsg, data)
           };
         }
         const {errorTitle} = transferProgressStrings;

@@ -1,6 +1,8 @@
 export * from './BackButton/BackButton';
 export * from './Badge/Badge';
 export * from './Button/Button';
+export * from './Modal';
+export * from './Toast';
 export * from './Circle/Circle';
 export * from './CryptoLogo/CryptoLogo';
 export * from './Icon/Icon';
@@ -38,5 +40,4 @@ export * from './MultiChoiceItem/MultiChoiceItem';
 export * from './Divider/Divider';
 export * from './BurgerMenu/BurgerMenu';
 export * from './BurgerMenuItem/BurgerMenuItem';
-export * from './Modal';
-export * from './Toast';
+export * from './CollapseExpand/CollapseExpand';
