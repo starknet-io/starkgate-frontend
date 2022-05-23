@@ -1,7 +1,9 @@
 $--header-height: 80;
 $--footer-height: 50;
+$--scroll-width: 7;
 $--main-offset: $--header-height + $--footer-height + 2;
 
 :export {
   mainOffset: $--main-offset;
+  scrollWidth: $--scroll-width;
 }

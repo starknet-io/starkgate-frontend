@@ -48,8 +48,8 @@ $burger-symbol-size-2: 27px;
   }
 
   .burgerMenu {
-    margin: 5px;
-    z-index: 1000;
+    margin: 5px #{$--scroll-width}px 5px 5px;
+    z-index: 100000;
     position: absolute;
     transition: 0.3s ease-in-out;
     padding: 15px 60px 15px 10px;

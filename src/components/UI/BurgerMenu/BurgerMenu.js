@@ -4,6 +4,7 @@ import {useBurgerMenuTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {toClasses} from '../../../utils';
 import {BurgerMenuItem} from '../BurgerMenuItem/BurgerMenuItem';
+import {Menu} from '../Menu/Menu';
 import styles from './BurgerMenu.module.scss';
 
 export const BurgerMenu = () => {
