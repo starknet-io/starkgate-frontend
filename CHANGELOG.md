@@ -1,3 +1,10 @@
+## [1.5.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.10...v1.5.0-dev.11) (2022-05-24)
+
+
+### 🔧 Fixes
+
+* **GATE-2:** change documentation links on FAQ page ([#206](https://github.com/starkware-libs/starkgate-frontend/issues/206)) ([ec0741a](https://github.com/starkware-libs/starkgate-frontend/commit/ec0741aeab25c64baa890470be13118c9ff74be6))
+
 ## [1.5.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.9...v1.5.0-dev.10) (2022-05-24)
 
 
