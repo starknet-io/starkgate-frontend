@@ -1,13 +1,9 @@
 @import '../../index';
 
 .terms {
-  padding-left: inherit;
-  padding-right: inherit;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: auto;
   line-height: 1.7;
 

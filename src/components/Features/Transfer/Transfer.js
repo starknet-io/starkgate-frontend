@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {
-  useIsMaxTotalBalanceExceeded,
   useMaxDeposit,
   useTransferToL1,
   useTransferToL2,

@@ -11,10 +11,10 @@ export const SideButton = ({icon, onClick}) => {
 
   return (
     <div
+      className={styles.sideButton}
       style={{
         right: isScrollActive ? `${scrollWidth}px` : 0
       }}
-      className={styles.sideButton}
       onClick={onClick}
     >
       {icon}

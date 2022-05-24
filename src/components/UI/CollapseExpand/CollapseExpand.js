@@ -8,11 +8,11 @@ import styles from './CollapseExpand.module.scss';
 export const CollapseExpand = ({isCollapsed, size, onClick}) => {
   return (
     <CollapseExpandIcon
+      className={toClasses(styles.collapseExpand, isCollapsed && styles.isCollapsed)}
       style={{
         height: `${size}px`,
         width: `${size}px`
       }}
-      className={toClasses(styles.collapseExpand, isCollapsed && styles.isCollapsed)}
       onClick={onClick}
     />
   );
@@ -20,5 +20,6 @@ export const CollapseExpand = ({isCollapsed, size, onClick}) => {
 
 CollapseExpand.propTypes = {
   isCollapsed: PropTypes.bool,
+  size: PropTypes.number,
   onClick: PropTypes.func
 };

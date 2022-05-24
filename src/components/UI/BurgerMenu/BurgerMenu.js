@@ -1,23 +1,26 @@
 import React, {useState} from 'react';
+import {useLocation} from 'react-router-dom';
 
 import {useBurgerMenuTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {toClasses} from '../../../utils';
 import {BurgerMenuItem} from '../BurgerMenuItem/BurgerMenuItem';
-import {Menu} from '../Menu/Menu';
 import styles from './BurgerMenu.module.scss';
 
 export const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {termsTxt, faqTxt} = useBurgerMenuTranslation();
+  const {pathname} = useLocation();
   const {navigateToRoute} = useApp();
   const items = [
     {
       text: termsTxt,
+      isActive: pathname === '/terms',
       onClick: () => navigateToRoute('/terms')
     },
     {
       text: faqTxt,
+      isActive: pathname === '/faq',
       onClick: () => navigateToRoute('/faq')
     }
   ];
@@ -28,7 +31,14 @@ export const BurgerMenu = () => {
 
   const renderItems = () => {
     return items.map((item, index) => {
-      return <BurgerMenuItem key={index} label={item.text} onClick={item.onClick} />;
+      return (
+        <BurgerMenuItem
+          key={index}
+          isActive={item.isActive}
+          label={item.text}
+          onClick={item.onClick}
+        />
+      );
     });
   };
 

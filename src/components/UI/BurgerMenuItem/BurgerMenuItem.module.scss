@@ -11,6 +11,7 @@
   opacity: 0.5;
   transition: 0.3s ease-in-out;
 
+  &.isActive,
   &:hover {
     opacity: 1;
   }
