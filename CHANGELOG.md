@@ -1,3 +1,10 @@
+## [1.5.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.11...v1.5.0-dev.12) (2022-05-24)
+
+
+### 💉 Improvements
+
+* terms screen ([#207](https://github.com/starkware-libs/starkgate-frontend/issues/207)) ([0feca18](https://github.com/starkware-libs/starkgate-frontend/commit/0feca185b86d4b2e40e0e564b5fad4964af77477))
+
 ## [1.5.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.10...v1.5.0-dev.11) (2022-05-24)
 
 
