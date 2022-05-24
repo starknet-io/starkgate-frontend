@@ -22,7 +22,7 @@ export const initialState = [
       bridgeAddress: t.bridgeAddress?.[supportedL2ChainId],
       tokenAddress: t.tokenAddress?.[supportedL2ChainId]
     }))
-];
+].map((t, index) => ({...t, index}));
 
 export const reducer = (state, action) => {
   switch (action.type) {

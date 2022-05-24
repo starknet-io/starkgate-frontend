@@ -28,14 +28,12 @@ export const TokensProvider = ({children}) => {
 
   const fetchBalances = tokens => {
     logger.log('Tokens to update', tokens);
-    tokens
-      .map((t, index) => ({...t, index}))
-      .forEach(token => {
-        if (!token.isLoading) {
-          updateToken(token.index, {isLoading: true});
-          return fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
-        }
-      });
+    tokens.forEach(token => {
+      if (!token.isLoading) {
+        updateToken(token.index, {isLoading: true});
+        return fetchBalance(token.isL1 ? getL1TokenBalance : getL2TokenBalance, token);
+      }
+    });
   };
 
   const fetchBalance = async (fn, token, retry = 1) => {

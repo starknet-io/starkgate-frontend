@@ -27,7 +27,7 @@ export const App = () => {
   return (
     <div className={styles.app}>
       <Header />
-      <StyledBackground withLightAccent={isScrollActive}>
+      <StyledBackground withLightAccent={!isScrollActive}>
         <Routes>
           <Route
             element={
