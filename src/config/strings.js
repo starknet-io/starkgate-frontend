@@ -16,7 +16,8 @@ export default {
   },
   screens: {
     faq: {
-      titleTxt: 'FAQ'
+      titleTxt: 'Frequently asked questions',
+      subtitleTxt: 'Everything you need to know about StarkGate.'
     },
     terms: {
       titleTxt: 'Terms of Service',

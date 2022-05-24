@@ -37,7 +37,7 @@ export const TransferLogContainer = ({transferIndex, children, onShowTransfers})
     <div className={styles.transferLogContainer}>
       <div className={toClasses(styles.title, showChildren && styles.showChildren)}>
         {titleTxt}
-        <CollapseExpand size={15} isCollapsed={showChildren} onClick={toggleShowChildren} />
+        <CollapseExpand isCollapsed={showChildren} size={15} onClick={toggleShowChildren} />
       </div>
       {renderChildren()}
     </div>

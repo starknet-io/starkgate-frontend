@@ -1,48 +1,28 @@
 @import '../../../index';
 
-$link-color: $--color-gamma;
-$link-color-hover: $--color-gamma-1;
-$visited-link-color: $--color-alpha-6;
-$visited-link-color-hover: $--color-alpha-6-hover;
-$color: $--color-white;
-$shadow-color: $--color-black;
-
 .fullScreenContainer {
   left: 0;
   right: 0;
   position: absolute;
-  padding: 0 300px;
   top: 0;
   bottom: #{$--footer-height}px;
-  color: $color;
+  color: $--color-white;
   overflow: auto;
-  text-shadow: 1px 1px $shadow-color;
+  text-shadow: 1px 1px $--color-black;
   transition: 0.3s ease-in-out;
 
-  &.laptop {
-    padding: 0 200px;
-  }
-
-  &.tablet {
-    padding: 0 100px;
-  }
-
-  &.mobile {
-    padding: 0 20px;
-  }
-
   a {
-    color: $link-color;
+    color: $--color-gamma;
 
     &:hover {
-      color: $link-color-hover;
+      color: $--color-gamma-1;
     }
 
     &:visited {
-      color: $visited-link-color;
+      color: $--color-alpha-6;
 
       &:hover {
-        color: $visited-link-color-hover;
+        color: $--color-alpha-6-hover;
       }
     }
   }

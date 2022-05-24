@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {toClasses} from '../../../utils';
 import styles from './BurgerMenuItem.module.scss';
 
-export const BurgerMenuItem = ({label, onClick}) => {
+export const BurgerMenuItem = ({label, isActive, onClick}) => {
   return (
-    <div className={styles.burgerMenuItem} onClick={onClick}>
+    <div
+      className={toClasses(styles.burgerMenuItem, isActive && styles.isActive)}
+      onClick={onClick}
+    >
       {label}
     </div>
   );
@@ -13,5 +17,6 @@ export const BurgerMenuItem = ({label, onClick}) => {
 
 BurgerMenuItem.propTypes = {
   label: PropTypes.string,
+  isActive: PropTypes.bool,
   onClick: PropTypes.func
 };
