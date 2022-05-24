@@ -1,3 +1,10 @@
+## [1.5.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.9...v1.5.0-dev.10) (2022-05-24)
+
+
+### 🔧 Fixes
+
+* handle Discord button on scroll ([#205](https://github.com/starkware-libs/starkgate-frontend/issues/205)) ([5fdce7e](https://github.com/starkware-libs/starkgate-frontend/commit/5fdce7ede0ee1f88ffc25c8956a6cc3ba088bbfe))
+
 ## [1.5.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.8...v1.5.0-dev.9) (2022-05-23)
 
 
