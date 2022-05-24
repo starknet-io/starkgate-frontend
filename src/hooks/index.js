@@ -19,3 +19,4 @@ export * from './useAccountChange';
 export * from './useIsMaxTotalBalanceExceeded';
 export * from './useMaxTotalBalance';
 export * from './useMaxDeposit';
+export * from './useVars';

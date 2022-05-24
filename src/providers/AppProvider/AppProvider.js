@@ -12,6 +12,7 @@ export const AppProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {pathname} = useLocation();
   const navigate = useNavigate();
+  const isScrollActive = ['/terms', '/faq'].includes(pathname);
 
   const navigateToRoute = route => {
     pathname !== route && navigate(route);
@@ -40,6 +41,7 @@ export const AppProvider = ({children}) => {
 
   const value = {
     ...state,
+    isScrollActive,
     navigateToRoute,
     acceptTerms,
     login,
