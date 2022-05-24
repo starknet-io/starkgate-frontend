@@ -1,3 +1,38 @@
+## [1.5.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.11...v1.5.0-dev.12) (2022-05-24)
+
+
+### 💉 Improvements
+
+* terms screen ([#207](https://github.com/starkware-libs/starkgate-frontend/issues/207)) ([0feca18](https://github.com/starkware-libs/starkgate-frontend/commit/0feca185b86d4b2e40e0e564b5fad4964af77477))
+
+## [1.5.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.10...v1.5.0-dev.11) (2022-05-24)
+
+
+### 🔧 Fixes
+
+* **GATE-2:** change documentation links on FAQ page ([#206](https://github.com/starkware-libs/starkgate-frontend/issues/206)) ([ec0741a](https://github.com/starkware-libs/starkgate-frontend/commit/ec0741aeab25c64baa890470be13118c9ff74be6))
+
+## [1.5.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.9...v1.5.0-dev.10) (2022-05-24)
+
+
+### 🔧 Fixes
+
+* handle Discord button on scroll ([#205](https://github.com/starkware-libs/starkgate-frontend/issues/205)) ([5fdce7e](https://github.com/starkware-libs/starkgate-frontend/commit/5fdce7ede0ee1f88ffc25c8956a6cc3ba088bbfe))
+
+## [1.5.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.8...v1.5.0-dev.9) (2022-05-23)
+
+
+### 🧩 Features
+
+* lock bridge ([#198](https://github.com/starkware-libs/starkgate-frontend/issues/198)) ([4f433e6](https://github.com/starkware-libs/starkgate-frontend/commit/4f433e62fa48a13ddf3032a9d1aaebf4bedb6e74))
+
+## [1.5.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.7...v1.5.0-dev.8) (2022-05-23)
+
+
+### 🧩 Features
+
+* move Terms and FAQ routes to burger menu ([#202](https://github.com/starkware-libs/starkgate-frontend/issues/202)) ([264b550](https://github.com/starkware-libs/starkgate-frontend/commit/264b5504dab6ecdaa35617f281e46388042f475b))
+
 ## [1.5.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.6...v1.5.0-dev.7) (2022-05-23)
 
 

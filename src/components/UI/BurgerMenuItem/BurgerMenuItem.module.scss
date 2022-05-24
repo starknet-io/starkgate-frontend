@@ -1,0 +1,18 @@
+@import '../../../index';
+
+.burgerMenuItem {
+  cursor: pointer;
+  margin: 5px 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.01em;
+  color: $--color-white;
+  opacity: 0.5;
+  transition: 0.3s ease-in-out;
+
+  &.isActive,
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -4,9 +4,11 @@ export default {
       chainTxt: 'Goerli testnet',
       walletBtnTxt: 'Account | {{address}}',
       tabDiscordTxt: 'Discord',
-      tabTermsTxt: 'Terms',
-      tabFaqTxt: 'FAQ',
-      tabLiquidityTxt: 'Deposit into L2'
+      tabLiquidityTxt: 'Deposit into L2',
+      burgerMenu: {
+        termsTxt: 'Terms',
+        faqTxt: 'FAQ'
+      }
     },
     footer: {
       rightsTxt: '© 2022 StarkWare Industries Ltd. All Rights Reserved'
@@ -14,7 +16,8 @@ export default {
   },
   screens: {
     faq: {
-      titleTxt: 'FAQ'
+      titleTxt: 'Frequently asked questions',
+      subtitleTxt: 'Everything you need to know about StarkGate.'
     },
     terms: {
       titleTxt: 'Terms of Service',
@@ -99,7 +102,7 @@ export default {
       },
       confirmTxt: 'Confirm this transaction in your wallet',
       maxTotalBalanceErrorMsg:
-        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.',
+        "The maximal value allowed on StarkGate right now is {{maxTotalBalance}} {{symbol}} and the current value on StarkGate is {{currentTotalBalance}} {{symbol}}, so it's not possible to complete your deposit of {{amount}} {{symbol}}.\n\nPlease reduce your deposit amount and try again.",
       errorTitle: 'Transaction error',
       limitationErrorTitle: 'Limitation error'
     },
@@ -115,8 +118,16 @@ export default {
     }
   },
   toasts: {
-    alphaDisclaimerMsg:
-      'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.',
+    bridgeFullNotice: {
+      titleTxt: 'Bridge is full',
+      bodyTxt:
+        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.'
+    },
+    alphaDisclaimerNotice: {
+      titleTxt: 'StarkNet Alpha',
+      bodyTxt:
+        'This is an ALPHA version of StarkNet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.'
+    },
     transferLogLink: 'View on Transfer Log',
     pendingTransfer: {
       pendingTxt: 'Waiting for transaction to be accepted on StarkNet',

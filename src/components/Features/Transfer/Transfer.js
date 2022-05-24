@@ -10,7 +10,13 @@ import {
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
-import {useAmount, useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import {
+  useAmount,
+  useIsL1,
+  useIsL2,
+  useBridgeIsFull,
+  useTransfer
+} from '../../../providers/TransferProvider';
 import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
@@ -41,6 +47,7 @@ export const Transfer = () => {
   const {showSelectTokenMenu} = useMenu();
   const {selectToken, selectedToken, action} = useTransfer();
   const {tokens, updateTokenBalance} = useTokens();
+  const {bridgeIsFull} = useBridgeIsFull();
   const transferToL2 = useTransferToL2();
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
@@ -146,6 +153,7 @@ export const Transfer = () => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
       <NetworkMenu
+        isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkData={NetworkType.L1}
         tokenData={tokenData}
@@ -160,6 +168,7 @@ export const Transfer = () => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
       <NetworkMenu
+        isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkData={NetworkType.L2}
         tokenData={tokenData}
@@ -175,6 +184,7 @@ export const Transfer = () => {
       <>
         <TokenInput
           hasError={hasInputError}
+          isDisabled={bridgeIsFull}
           tokenData={selectedToken}
           value={amount}
           onInputChange={onInputChange}
@@ -182,7 +192,7 @@ export const Transfer = () => {
           onTokenSelect={showSelectTokenMenu}
         />
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
-        <TransferButton isDisabled={isButtonDisabled} onClick={onTransferClick} />
+        <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
       </>
     );
   };

@@ -1,0 +1,8 @@
+.collapseExpand {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &.isCollapsed {
+    transform: scale(1, -1);
+  }
+}

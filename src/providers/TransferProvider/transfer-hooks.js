@@ -14,6 +14,24 @@ export const useTransfer = () => {
   };
 };
 
+export const useBridgeIsFull = () => {
+  const {setBridgeIsFull, bridgeIsFull} = useContext(TransferContext);
+
+  const lockBridge = useCallback(() => {
+    setBridgeIsFull(true);
+  }, []);
+
+  const unlockBridge = useCallback(() => {
+    setBridgeIsFull(false);
+  }, []);
+
+  return {
+    bridgeIsFull,
+    lockBridge,
+    unlockBridge
+  };
+};
+
 export const useSelectedToken = () => {
   const {symbol, isL1} = useContext(TransferContext);
   const l1Token = useL1Token()(symbol);

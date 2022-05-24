@@ -1,0 +1,66 @@
+@import '../../../../index';
+
+.errorToast {
+  background: $--color-white;
+  border: 1px solid $--color-error-2;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.14), 0 1px 18px rgba(0, 0, 0, 0.12),
+    0 3px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  width: 450px;
+  align-items: flex-start;
+  display: flex;
+  transition: 0.3s ease-in-out;
+
+  .container {
+    padding: 15px 5px;
+    align-items: flex-start;
+    display: flex;
+    margin-right: 8px;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+
+    svg {
+      &.warning {
+        margin-top: 5px;
+        width: 80px;
+      }
+    }
+
+    .text {
+      transition: 0.3s ease-in-out;
+      white-space: pre-line;
+      width: 100%;
+
+      .title {
+        font-weight: 500;
+        font-size: 18px;
+        color: $--color-alpha;
+      }
+
+      .msg {
+        margin-top: 10px;
+        font-weight: 400;
+        font-size: 16px;
+        color: $--color-alpha;
+      }
+    }
+  }
+
+  &.collapsed {
+    .container {
+      padding: 5px;
+      align-items: center;
+    }
+  }
+
+  .leftBorder {
+    background: $--color-error-2;
+    opacity: 0.4;
+    height: 100%;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    width: 10px;
+  }
+}

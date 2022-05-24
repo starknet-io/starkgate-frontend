@@ -10,4 +10,8 @@
   display: inline-block;
   padding: 0 10px;
   margin-bottom: 15px;
+
+  &.isDisabled {
+    opacity: 0.2;
+  }
 }

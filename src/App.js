@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigate, Route, Routes, useLocation} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import styles from './App.module.scss';
 import {TrackEvent} from './analytics';
@@ -15,11 +15,9 @@ import {openInNewTab} from './utils';
 export const App = () => {
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {DISCORD_LINK_URL} = useConstants();
-  const {isAcceptTerms} = useApp();
-  const {pathname} = useLocation();
+  const {isAcceptTerms, isScrollActive} = useApp();
   const {isLoggedIn} = useLogin();
   const liquidityProviders = useLiquidityProviders();
-  const isBridgeRoute = !['/terms', '/faq'].includes(pathname);
 
   const onDiscordClick = () => {
     trackDiscordClick();
@@ -29,7 +27,7 @@ export const App = () => {
   return (
     <div className={styles.app}>
       <Header />
-      <StyledBackground withLightAccent={isBridgeRoute}>
+      <StyledBackground withLightAccent={isScrollActive}>
         <Routes>
           <Route
             element={
@@ -45,7 +43,7 @@ export const App = () => {
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>
-      {isBridgeRoute && <SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />}
+      <SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />
       <Footer />
     </div>
   );

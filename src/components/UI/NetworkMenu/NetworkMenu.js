@@ -7,15 +7,26 @@ import {TokenBalance} from '../TokenBalance/TokenBalance';
 import {Badge} from '../index';
 import styles from './NetworkMenu.module.scss';
 
-export const NetworkMenu = ({networkData, tokenData, isTarget, onRefreshClick, children}) => {
+export const NetworkMenu = ({
+  networkData,
+  tokenData,
+  isTarget,
+  isDisabled,
+  onRefreshClick,
+  children
+}) => {
   const {toTxt, fromTxt} = useTransferTranslation();
 
   return (
     <div className={styles.networkMenu}>
-      <Badge text={isTarget ? toTxt : fromTxt} />
+      <Badge isDisabled={isDisabled} text={isTarget ? toTxt : fromTxt} />
       <div className={styles.networkContainer}>
-        <NetworkTitle networkData={networkData} />
-        <TokenBalance tokenData={tokenData} onRefreshClick={onRefreshClick} />
+        <NetworkTitle isDisabled={isDisabled} networkData={networkData} />
+        <TokenBalance
+          isDisabled={isDisabled}
+          tokenData={tokenData}
+          onRefreshClick={onRefreshClick}
+        />
       </div>
       <div className={styles.transferContainer}>{children}</div>
     </div>
@@ -26,6 +37,7 @@ NetworkMenu.propTypes = {
   networkData: PropTypes.object,
   tokenData: PropTypes.object,
   isTarget: PropTypes.bool,
+  isDisabled: PropTypes.bool,
   onRefreshClick: PropTypes.func,
   children: PropTypes.any
 };

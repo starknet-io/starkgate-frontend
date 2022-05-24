@@ -1,21 +1,19 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import useBreakpoint from 'use-breakpoint';
+import React, {forwardRef} from 'react';
 
-import {Breakpoint} from '../../../enums';
-import {toClasses} from '../../../utils';
 import styles from './FullScreenContainer.module.scss';
 
-export const FullScreenContainer = ({children}) => {
-  const {breakpoint} = useBreakpoint(Breakpoint);
-
+export const FullScreenContainer = forwardRef((props, ref) => {
   return (
-    <div className={toClasses(styles.fullScreenContainer, styles[breakpoint.toLowerCase()])}>
-      {children}
+    <div ref={ref} className={styles.fullScreenContainer} {...props}>
+      {props.children}
     </div>
   );
-};
+});
+
+FullScreenContainer.displayName = 'FullScreenContainer';
 
 FullScreenContainer.propTypes = {
+  onScroll: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
