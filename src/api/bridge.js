@@ -65,27 +65,31 @@ export const maxTotalBalance = async ({decimals, symbol, contract}) => {
   }
 };
 
-export const initiateWithdraw = async ({recipient, amount, decimals, bridge, token, symbol}) => {
-  return sendL2Transaction([
-    ...(symbol === 'DAI'
-      ? [
-          {
-            contract: token,
-            method: 'increaseAllowance',
-            args: {
-              spender: bridge.address,
-              amount: parseToUint256(amount, decimals)
-            }
-          }
-        ]
-      : []),
-    {
-      contract: bridge,
-      method: 'initiate_withdraw',
-      args: {
-        l1Recipient: parseToFelt(recipient),
-        amount: parseToUint256(amount, decimals)
-      }
+const initiateWithdrawCall = ({bridge, recipient, amount, decimals}) => {
+  return {
+    contract: bridge,
+    method: 'initiate_withdraw',
+    args: {
+      l1Recipient: parseToFelt(recipient),
+      amount: parseToUint256(amount, decimals)
     }
+  };
+};
+
+const increaseAllowanceCall = ({bridge, token, amount, decimals}) => {
+  return {
+    contract: token,
+    method: 'increaseAllowance',
+    args: {
+      spender: bridge.address,
+      amount: parseToUint256(amount, decimals)
+    }
+  };
+};
+
+export const initiateWithdraw = async ({symbol, bridge, token, recipient, amount, decimals}) => {
+  return sendL2Transaction([
+    ...(isDai(symbol) ? [increaseAllowanceCall({bridge, token, amount, decimals})] : []),
+    initiateWithdrawCall({bridge, recipient, amount, decimals})
   ]);
 };
