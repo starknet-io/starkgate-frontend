@@ -1,3 +1,10 @@
+## [1.5.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.14...v1.5.0-dev.15) (2022-05-25)
+
+
+### 💉 Improvements
+
+* promise handler instead of try/catch statement ([#209](https://github.com/starkware-libs/starkgate-frontend/issues/209)) ([1f56c38](https://github.com/starkware-libs/starkgate-frontend/commit/1f56c38cc7fbb739c37f9eb8a9cdf7ebdc436e67))
+
 ## [1.5.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.13...v1.5.0-dev.14) (2022-05-25)
 
 
