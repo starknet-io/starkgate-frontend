@@ -14,7 +14,7 @@ import {starknet} from '../libs';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {addToken, isEth, listenOnce, parseToFelt} from '../utils';
+import {addToken, isEth, listenOnce, parseToFelt, promiseHandler} from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
@@ -114,10 +114,9 @@ export const useTransferToL2 = () => {
       };
 
       const maybeAddToken = async () => {
-        try {
-          await addToken(l2TokenAddress);
-        } catch (ex) {
-          logger.warn(ex.message);
+        const [, error] = await promiseHandler(addToken(l2TokenAddress));
+        if (error) {
+          logger.warn(error.message);
         }
       };
 

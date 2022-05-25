@@ -5,7 +5,8 @@ import {
   callL1Contract,
   callL2Contract,
   parseFromDecimals,
-  parseFromUint256
+  parseFromUint256,
+  promiseHandler
 } from '../utils';
 
 export const approve = async ({spender, value, contract, options}) => {
@@ -13,35 +14,45 @@ export const approve = async ({spender, value, contract, options}) => {
 };
 
 export const allowance = async ({owner, spender, decimals, contract}) => {
-  try {
-    const allow = await callL1Contract(contract, 'allowance', [owner, spender]);
-    return parseFromDecimals(allow, decimals);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const [allow, error] = await promiseHandler(
+    callL1Contract(contract, 'allowance', [owner, spender])
+  );
+  if (error) {
+    return Promise.reject(error);
   }
+  return parseFromDecimals(allow, decimals);
 };
 
 export const balanceOf = async ({account, decimals, contract}, isL1 = true) => {
-  try {
-    if (isL1) {
-      const balance = await callL1Contract(contract, 'balanceOf', [account]);
-      return parseFromDecimals(balance, decimals);
-    } else {
-      const {balance} = await callL2Contract(contract, 'balanceOf', account, {
-        blockIdentifier: TransactionStatus.PENDING.toLowerCase()
-      });
-      return parseFromUint256(balance, decimals);
-    }
-  } catch (ex) {
-    return Promise.reject(ex);
-  }
+  return isL1
+    ? balanceOfL1({account, decimals, contract})
+    : balanceOfL2({account, decimals, contract});
 };
 
 export const ethBalanceOf = async account => {
-  try {
-    const balance = await web3.eth.getBalance(account);
-    return parseFromDecimals(balance);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const [balance, error] = await promiseHandler(web3.eth.getBalance(account));
+  if (error) {
+    return Promise.reject(error);
   }
+  return parseFromDecimals(balance);
+};
+
+const balanceOfL1 = async ({account, decimals, contract}) => {
+  const [balance, error] = await promiseHandler(callL1Contract(contract, 'balanceOf', [account]));
+  if (error) {
+    return Promise.reject(error);
+  }
+  return parseFromDecimals(balance, decimals);
+};
+
+const balanceOfL2 = async ({account, decimals, contract}) => {
+  const [{balance}, error] = await promiseHandler(
+    callL2Contract(contract, 'balanceOf', account, {
+      blockIdentifier: TransactionStatus.PENDING.toLowerCase()
+    })
+  );
+  if (error) {
+    return Promise.reject(error);
+  }
+  return parseFromUint256(balance, decimals);
 };

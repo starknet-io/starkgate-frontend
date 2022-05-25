@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useCallback, useEffect, useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {EventName, isCompleted, isConsumed, SelectorName, TransactionHashPrefix} from '../../enums';
@@ -10,7 +10,8 @@ import {
   getStorageItem,
   setStorageItem,
   getTransactionHash,
-  getPastEvents
+  getPastEvents,
+  promiseHandler
 } from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
@@ -58,26 +59,27 @@ export const TransfersLogProvider = ({children}) => {
     if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
       return transfer;
     }
-    try {
-      logger.log(`Checking tx status ${transfer.l2hash}`);
-      const {tx_status} = await getStarknet().provider.getTransactionStatus(transfer.l2hash);
-      if (transfer.status !== tx_status) {
-        logger.log(`Status changed from ${transfer.status}->${tx_status}`);
-        if (isConsumed(tx_status)) {
-          updateTokenBalance(transfer.symbol);
-        }
-      } else {
-        logger.log(`Status is still ${tx_status}`);
-      }
-      return {
-        ...transfer,
-        status: tx_status,
-        lastChecked: blockHash
-      };
-    } catch (error) {
+    logger.log(`Checking tx status ${transfer.l2hash}`);
+    const [{tx_status}, error] = await promiseHandler(
+      getStarknet().provider.getTransactionStatus(transfer.l2hash)
+    );
+    if (error) {
       logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
+      return transfer;
     }
-    return transfer;
+    if (transfer.status !== tx_status) {
+      logger.log(`Status changed from ${transfer.status}->${tx_status}`);
+      if (isConsumed(tx_status)) {
+        updateTokenBalance(transfer.symbol);
+      }
+    } else {
+      logger.log(`Status is still ${tx_status}`);
+    }
+    return {
+      ...transfer,
+      status: tx_status,
+      lastChecked: blockHash
+    };
   };
 
   const getMessageToL2 = async depositEvent => {
