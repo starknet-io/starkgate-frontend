@@ -4,17 +4,17 @@ import {initiateWithdraw, withdraw} from '../api/bridge';
 import {
   ActionType,
   CompleteTransferToL1Steps,
+  EventName,
   stepOf,
   TransactionStatus,
   TransferError,
   TransferStep,
   TransferToL1Steps
 } from '../enums';
-import {useWithdrawalListener} from '../providers/EventManagerProvider';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {waitForTransaction} from '../utils';
+import {listenOnce, parseToFelt, waitForTransaction} from '../utils';
 import {useL1TokenBridgeContract, useL2TokenContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
@@ -116,12 +116,13 @@ export const useCompleteTransferToL1 = () => {
   const progressOptions = useTransferProgress();
   const getL1Token = useL1Token();
   const getL1TokenBridgeContract = useL1TokenBridgeContract();
-  const {addListener, removeListener} = useWithdrawalListener();
   const [trackInitiated, trackSuccess, trackError] = useCompleteTransferToL1Tracking();
 
   return useCallback(
     async transfer => {
       const {symbol, amount, l2hash} = transfer;
+      const {bridgeAddress, decimals} = getL1Token(symbol);
+      const bridgeContract = getL1TokenBridgeContract(bridgeAddress);
 
       const sendWithdrawal = () => {
         trackInitiated({
@@ -130,11 +131,9 @@ export const useCompleteTransferToL1 = () => {
           amount,
           symbol
         });
-        const {bridgeAddress, decimals} = getL1Token(symbol);
-        const tokenBridgeContract = getL1TokenBridgeContract(bridgeAddress);
         return withdraw({
           recipient: l1Account,
-          contract: tokenBridgeContract,
+          contract: bridgeContract,
           emitter: onTransactionHash,
           amount,
           decimals
@@ -144,6 +143,14 @@ export const useCompleteTransferToL1 = () => {
       const onTransactionHash = (error, transactionHash) => {
         if (!error) {
           logger.log('Tx signed', {transactionHash});
+          listenOnce({
+            contract: bridgeContract,
+            eventName: EventName.L1.LOG_WITHDRAWAL,
+            filter: {
+              recipient: l1Account
+            },
+            callback: onWithdrawal
+          });
           handleProgress(
             progressOptions.withdraw(
               amount,
@@ -171,11 +178,9 @@ export const useCompleteTransferToL1 = () => {
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
-        addListener(onWithdrawal);
         logger.log('Calling withdraw');
         await sendWithdrawal();
       } catch (ex) {
-        removeListener();
         trackError(ex);
         logger.error(ex?.message, ex);
         handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
@@ -190,9 +195,7 @@ export const useCompleteTransferToL1 = () => {
       handleError,
       handleProgress,
       logger,
-      progressOptions,
-      addListener,
-      removeListener
+      progressOptions
     ]
   );
 };
