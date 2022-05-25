@@ -1,3 +1,10 @@
+## [1.5.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.12...v1.5.0-dev.13) (2022-05-25)
+
+
+### 🔧 Fixes
+
+* **GATE-9:** incorrect DAI amount ([#208](https://github.com/starkware-libs/starkgate-frontend/issues/208)) ([46b80bd](https://github.com/starkware-libs/starkgate-frontend/commit/46b80bdff45e6f7705fcbad0acd748b22e1c31d6))
+
 ## [1.5.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.11...v1.5.0-dev.12) (2022-05-24)
 
 
