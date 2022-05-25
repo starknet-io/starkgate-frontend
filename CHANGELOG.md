@@ -1,3 +1,10 @@
+## [1.5.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.13...v1.5.0-dev.14) (2022-05-25)
+
+
+### 🧩 Features
+
+* **DAI withdrawals:** call `increaseAllowance` before calling `initiate_withdraw` ([#200](https://github.com/starkware-libs/starkgate-frontend/issues/200)) ([7a2c284](https://github.com/starkware-libs/starkgate-frontend/commit/7a2c2843ab88502c95cff17b5effa237e94365c7))
+
 ## [1.5.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.12...v1.5.0-dev.13) (2022-05-25)
 
 
