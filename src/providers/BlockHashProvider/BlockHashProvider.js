@@ -10,8 +10,10 @@ export const BlockHashProvider = ({children}) => {
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    const {block_hash} = await getStarknet().provider.getBlock();
-    setBlockHash(block_hash);
+    try {
+      const {block_hash} = await getStarknet().provider.getBlock();
+      setBlockHash(block_hash);
+    } catch {}
   }, []);
 
   useEffect(() => {

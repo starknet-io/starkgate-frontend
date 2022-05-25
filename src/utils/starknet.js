@@ -33,11 +33,10 @@ export const waitForTransaction = async (transactionHash, requiredStatus, retryI
   return new Promise((resolve, reject) => {
     let processing = false;
     const intervalId = setInterval(async () => {
-      if (processing) return;
-      const statusPromise = getStarknet().provider.getTransactionStatus(transactionHash);
-      processing = true;
       try {
-        const {tx_status} = await statusPromise;
+        if (processing) return;
+        processing = true;
+        const {tx_status} = await getStarknet().provider.getTransactionStatus(transactionHash);
         if (
           tx_status === requiredStatus ||
           (TransactionStatusStep[tx_status] > TransactionStatusStep[requiredStatus] &&
