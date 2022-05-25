@@ -14,7 +14,7 @@ import {
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {listenOnce, parseToFelt, waitForTransaction} from '../utils';
+import {listenOnce, waitForTransaction} from '../utils';
 import {useL1TokenBridgeContract, useL2TokenContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
