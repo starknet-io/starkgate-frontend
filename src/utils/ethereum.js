@@ -18,13 +18,24 @@ export const sendL1Transaction = async (
   method,
   args = [],
   options = {},
-  cb = () => {}
+  callback = () => {}
 ) => {
   const [response, error] = await promiseHandler(
-    contract.methods?.[method](...args).send(options, cb)
+    contract.methods?.[method](...args).send(options, callback)
   );
   if (error) {
     return Promise.reject(error);
   }
   return response;
+};
+
+export const listenOnce = ({contract, eventName, filter, callback}) => {
+  contract.once(eventName, {filter}, callback);
+};
+
+export const getPastEvents = (contract, eventName, filter, options = {}) => {
+  return contract.getPastEvents(eventName, {
+    filter,
+    ...options
+  });
 };

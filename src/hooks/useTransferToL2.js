@@ -2,13 +2,19 @@ import {useCallback} from 'react';
 
 import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
-import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
+import {
+  ActionType,
+  EventName,
+  stepOf,
+  TransferError,
+  TransferStep,
+  TransferToL2Steps
+} from '../enums';
 import {starknet} from '../libs';
-import {useDepositListener} from '../providers/EventManagerProvider';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {addToken, isEth, promiseHandler} from '../utils';
+import {addToken, isEth, listenOnce, parseToFelt, promiseHandler} from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
@@ -22,7 +28,6 @@ export const useTransferToL2 = () => {
   const {account: l1Account, config: l1Config} = useL1Wallet();
   const {account: l2Account} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
-  const {addListener, removeListener} = useDepositListener();
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
   const getTokenBridgeContract = useTokenBridgeContract();
@@ -76,6 +81,15 @@ export const useTransferToL2 = () => {
       const onTransactionHash = (error, transactionHash) => {
         if (!error) {
           logger.log('Tx signed', {transactionHash});
+          listenOnce({
+            contract: bridgeContract,
+            eventName: EventName.L1.LOG_DEPOSIT,
+            filter: {
+              sender: l1Account,
+              l2Recipient: parseToFelt(l2Account).toString()
+            },
+            callback: onDeposit
+          });
           handleProgress(
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
           );
@@ -140,13 +154,11 @@ export const useTransferToL2 = () => {
               stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
             )
           );
-          addListener(onDeposit);
           logger.log('Calling deposit');
           await sendDeposit();
           await maybeAddToken(l2TokenAddress);
         }
       } catch (ex) {
-        removeListener();
         trackError(ex);
         logger.error(ex?.message, ex);
         handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
@@ -154,8 +166,6 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      addListener,
-      removeListener,
       l1Account,
       l2Account,
       l1Config,

@@ -2,18 +2,18 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
-import {useEnvs, useLogger} from '../../hooks';
-import {getStarknet} from '../../libs';
+import {EventName, isCompleted, isConsumed, SelectorName, TransactionHashPrefix} from '../../enums';
+import {useEnvs, useLogger, useStarknetContract} from '../../hooks';
+import {getStarknet, starknet} from '../../libs';
 import {
   calcAccountHash,
   getStorageItem,
   setStorageItem,
   getTransactionHash,
+  getPastEvents,
   promiseHandler
 } from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
-import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
 import {useAccountHash, useL2Wallet} from '../WalletsProvider';
 import {TransfersLogContext} from './transfers-log-context';
@@ -26,7 +26,7 @@ export const TransfersLogProvider = ({children}) => {
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
   const {chainId: l2ChainId} = useL2Wallet();
-  const getDepositMessageToL2Event = useDepositMessageToL2Event();
+  const starknetContract = useStarknetContract();
   const accountHash = useAccountHash();
 
   useEffect(() => {
@@ -82,8 +82,30 @@ export const TransfersLogProvider = ({children}) => {
     };
   };
 
+  const getMessageToL2 = async depositEvent => {
+    const {blockNumber, transactionHash} = depositEvent;
+    const [pastEvents, error] = await promiseHandler(
+      getPastEvents(
+        starknetContract,
+        EventName.L1.LOG_MESSAGE_TO_L2,
+        {
+          from_address: depositEvent.address,
+          selector: starknet.hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
+        },
+        {
+          fromBlock: blockNumber - 1,
+          toBlock: 'latest'
+        }
+      )
+    );
+    if (error) {
+      return null;
+    }
+    return pastEvents.find(e => e.transactionHash === transactionHash);
+  };
+
   const calcL2TransactionHash = async transfer => {
-    const l2MessageEvent = await getDepositMessageToL2Event(transfer.event);
+    const l2MessageEvent = await getMessageToL2(transfer.event);
     if (l2MessageEvent) {
       const {to_address, from_address, selector, payload, nonce} = l2MessageEvent.returnValues;
       delete transfer.event;
