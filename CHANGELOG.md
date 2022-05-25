@@ -1,3 +1,10 @@
+## [1.5.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.15...v1.5.0-dev.16) (2022-05-25)
+
+
+### 🔧 Fixes
+
+* **GATE-5:** "Transfer in progress" popup doesn't close even after transaction is successful ([#210](https://github.com/starkware-libs/starkgate-frontend/issues/210)) ([4e11653](https://github.com/starkware-libs/starkgate-frontend/commit/4e1165300e1b4c7cdde6cb1ae1fcecdc7c9c05dc))
+
 ## [1.5.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.14...v1.5.0-dev.15) (2022-05-25)
 
 
