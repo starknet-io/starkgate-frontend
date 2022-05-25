@@ -51,7 +51,7 @@ export default {
       }
     },
     DAI: {
-      name: 'DAI',
+      name: 'Dai Stablecoin',
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {
@@ -131,7 +131,7 @@ export default {
       }
     },
     DAI: {
-      name: 'DAI',
+      name: 'Dai Stablecoin',
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {

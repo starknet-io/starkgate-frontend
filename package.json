@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "1.5.0-dev.12",
+  "version": "1.5.0-dev.13",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -12,7 +12,7 @@
     "eject": "react-scripts eject",
     "lint:scripts": "eslint **/*.{js,jsx}",
     "lint:styles": "stylelint **/*.{css,scss}",
-    "lint:prettier": "prettier --check s**/*.{js,jsx,css,scss}",
+    "lint:prettier": "prettier --check **/*.{js,jsx,css,scss}",
     "lint": "yarn run -s lint:scripts & yarn run -s lint:styles & yarn run -s lint:prettier",
     "format:scripts": "eslint --fix **/*.{js,jsx}",
     "format:styles": "stylelint --fix **/*.{css,scss}",
