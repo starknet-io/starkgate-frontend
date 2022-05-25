@@ -25,8 +25,14 @@ jobs:
       - name: Install node_modules
         run: yarn
 
-      - name: Run ESLint check
-        run: yarn run lint
+      - name: Run scripts check
+        run: yarn run lint:scripts
+
+      - name: Run styles check
+        run: yarn run lint:styles
+
+      - name: Run prettier check
+        run: yarn run lint:prettier
 
   test:
     name: Running unit tests

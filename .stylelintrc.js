@@ -8,7 +8,10 @@ module.exports = {
   plugins: ['stylelint-scss', 'stylelint-prettier'],
   ignoreFiles: ['**/*.js', '**/*.jsx'],
   rules: {
-    'property-no-unknown': [true, {ignoreProperties: ['/^color/', 'mainOffset', 'primaryFont']}],
+    'property-no-unknown': [
+      true,
+      {ignoreProperties: ['/^color/', 'scrollWidth', 'mainOffset', 'primaryFont']}
+    ],
     'selector-pseudo-class-no-unknown': [true, {ignorePseudoClasses: ['export']}],
     'selector-class-pattern': '^[a-z][a-zA-Z0-9]+$',
     'selector-pseudo-element-no-unknown': [true, {ignorePseudoElements: ['input-placeholder']}],
