@@ -106,7 +106,6 @@ export const TransfersLogProvider = ({children}) => {
 
   const calcL2TransactionHash = async transfer => {
     const l2MessageEvent = await getMessageToL2(transfer.event);
-    debugger;
     if (l2MessageEvent) {
       const {to_address, from_address, selector, payload, nonce} = l2MessageEvent.returnValues;
       delete transfer.event;
