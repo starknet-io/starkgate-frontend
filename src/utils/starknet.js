@@ -15,15 +15,14 @@ export const callL2Contract = async (contract, method, ...args) => {
   }
 };
 
-export const sendL2Transaction = async (contract, method, args = {}) => {
+export const sendL2Transaction = async calls => {
   try {
-    const calldata = stark.compileCalldata(args);
-    const transaction = {
+    const transactions = calls.map(({contract, method, args = {}}) => ({
       contractAddress: contract.address,
       entrypoint: method,
-      calldata
-    };
-    return await getStarknet().account.execute(transaction);
+      calldata: stark.compileCalldata(args)
+    }));
+    return await getStarknet().account.execute(transactions);
   } catch (ex) {
     return Promise.reject(ex);
   }
