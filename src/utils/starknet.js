@@ -1,5 +1,6 @@
 import {ChainInfo, isRejected, TransactionStatusStep} from '../enums';
 import {getStarknet, starknet} from '../libs';
+import {promiseHandler} from './index';
 
 const {Contract, stark, hash, number} = starknet;
 
@@ -8,49 +9,51 @@ export const createL2Contract = (address, ABI) => {
 };
 
 export const callL2Contract = async (contract, method, ...args) => {
-  try {
-    return await contract.call(method, args);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const [response, error] = await promiseHandler(contract.call(method, args));
+  if (error) {
+    return Promise.reject(error);
   }
+  return response;
 };
 
 export const sendL2Transaction = async (contract, method, args = {}) => {
-  try {
-    const calldata = stark.compileCalldata(args);
-    const transaction = {
-      contractAddress: contract.address,
-      entrypoint: method,
-      calldata
-    };
-    return await getStarknet().account.execute(transaction);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const calldata = stark.compileCalldata(args);
+  const transaction = {
+    contractAddress: contract.address,
+    entrypoint: method,
+    calldata
+  };
+  const [response, error] = await promiseHandler(getStarknet().account.execute(transaction));
+  if (error) {
+    return Promise.reject(error);
   }
+  return response;
 };
 
 export const waitForTransaction = async (transactionHash, requiredStatus, retryInterval = 5000) => {
   return new Promise((resolve, reject) => {
     let processing = false;
     const intervalId = setInterval(async () => {
-      try {
-        if (processing) return;
-        processing = true;
-        const {tx_status} = await getStarknet().provider.getTransactionStatus(transactionHash);
-        if (
-          tx_status === requiredStatus ||
-          (TransactionStatusStep[tx_status] > TransactionStatusStep[requiredStatus] &&
-            !isRejected(tx_status))
-        ) {
-          clearInterval(intervalId);
-          resolve(tx_status);
-        } else if (isRejected(tx_status)) {
-          clearInterval(intervalId);
-          reject();
-        } else {
-          processing = false;
-        }
-      } catch (ex) {
+      if (processing) return;
+      processing = true;
+      const [{tx_status}, error] = await promiseHandler(
+        getStarknet().provider.getTransactionStatus(transactionHash)
+      );
+      if (error) {
+        processing = false;
+        return;
+      }
+      if (
+        tx_status === requiredStatus ||
+        (TransactionStatusStep[tx_status] > TransactionStatusStep[requiredStatus] &&
+          !isRejected(tx_status))
+      ) {
+        clearInterval(intervalId);
+        resolve(tx_status);
+      } else if (isRejected(tx_status)) {
+        clearInterval(intervalId);
+        reject();
+      } else {
         processing = false;
       }
     }, retryInterval);

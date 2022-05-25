@@ -1,5 +1,7 @@
 import {useEffect, useState} from 'react';
 
+import {promiseHandler} from '../utils';
+
 export const useFetchData = (func, deps = []) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -9,16 +11,14 @@ export const useFetchData = (func, deps = []) => {
     async function fetch() {
       setIsLoading(true);
       setError(null);
-      try {
-        const data = await func();
-        if (!mounted) return;
-        setData(data);
-        setIsLoading(false);
-      } catch (ex) {
-        if (!mounted) return;
-        setError(ex);
+      const [data, error] = await promiseHandler(func());
+      if (!mounted) return;
+      if (error) {
+        setError(error);
         setIsLoading(false);
       }
+      setData(data);
+      setIsLoading(false);
     }
     let mounted = true;
     fetch();

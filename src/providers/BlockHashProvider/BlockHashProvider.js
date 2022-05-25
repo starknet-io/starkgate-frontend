@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 
 import {useEnvs} from '../../hooks';
 import {getStarknet} from '../../libs';
+import {promiseHandler} from '../../utils';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
@@ -10,10 +11,10 @@ export const BlockHashProvider = ({children}) => {
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
-    try {
-      const {block_hash} = await getStarknet().provider.getBlock();
+    const [{block_hash}, error] = await promiseHandler(getStarknet().provider.getBlock());
+    if (!error) {
       setBlockHash(block_hash);
-    } catch {}
+    }
   }, []);
 
   useEffect(() => {

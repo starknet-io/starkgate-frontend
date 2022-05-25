@@ -6,7 +6,8 @@ import {
   parseToDecimals,
   parseToFelt,
   parseToUint256,
-  isDai
+  isDai,
+  promiseHandler
 } from '../utils';
 
 export const deposit = async ({recipient, amount, decimals, contract, options, emitter}) => {
@@ -45,24 +46,21 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
 };
 
 export const maxDeposit = async ({decimals, contract}) => {
-  try {
-    const maxDeposit = await callL1Contract(contract, 'maxDeposit');
-    return parseFromDecimals(maxDeposit, decimals);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const [maxDeposit, error] = await promiseHandler(callL1Contract(contract, 'maxDeposit'));
+  if (error) {
+    return Promise.reject(error);
   }
+  return parseFromDecimals(maxDeposit, decimals);
 };
 
 export const maxTotalBalance = async ({decimals, symbol, contract}) => {
-  try {
-    const maxTotalBalance = await callL1Contract(
-      contract,
-      isDai(symbol) ? 'ceiling' : 'maxTotalBalance'
-    );
-    return parseFromDecimals(maxTotalBalance, decimals);
-  } catch (ex) {
-    return Promise.reject(ex);
+  const [maxTotalBalance, error] = await promiseHandler(
+    callL1Contract(contract, isDai(symbol) ? 'ceiling' : 'maxTotalBalance')
+  );
+  if (error) {
+    return Promise.reject(error);
   }
+  return parseFromDecimals(maxTotalBalance, decimals);
 };
 
 export const initiateWithdraw = async ({recipient, amount, decimals, contract}) => {
