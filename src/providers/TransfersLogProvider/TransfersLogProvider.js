@@ -84,18 +84,23 @@ export const TransfersLogProvider = ({children}) => {
 
   const getMessageToL2 = async depositEvent => {
     const {blockNumber, transactionHash} = depositEvent;
-    const pastEvents = await getPastEvents(
-      starknetContract,
-      EventName.L1.LOG_MESSAGE_TO_L2,
-      {
-        from_address: depositEvent.address,
-        selector: starknet.hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
-      },
-      {
-        fromBlock: blockNumber - 1,
-        toBlock: 'latest'
-      }
+    const [pastEvents, error] = await promiseHandler(
+      getPastEvents(
+        starknetContract,
+        EventName.L1.LOG_MESSAGE_TO_L2,
+        {
+          from_address: depositEvent.address,
+          selector: starknet.hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
+        },
+        {
+          fromBlock: blockNumber - 1,
+          toBlock: 'latest'
+        }
+      )
     );
+    if (error) {
+      return null;
+    }
     return pastEvents.find(e => e.transactionHash === transactionHash);
   };
 
