@@ -16,14 +16,13 @@ export const callL2Contract = async (contract, method, ...args) => {
   return response;
 };
 
-export const sendL2Transaction = async (contract, method, args = {}) => {
-  const calldata = stark.compileCalldata(args);
-  const transaction = {
+export const sendL2Transaction = async calls => {
+  const transactions = calls.map(({contract, method, args = {}}) => ({
     contractAddress: contract.address,
     entrypoint: method,
-    calldata
-  };
-  const [response, error] = await promiseHandler(getStarknet().account.execute(transaction));
+    calldata: stark.compileCalldata(args)
+  }));
+  const [response, error] = await promiseHandler(getStarknet().account.execute(transactions));
   if (error) {
     return Promise.reject(error);
   }

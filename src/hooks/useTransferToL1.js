@@ -15,7 +15,7 @@ import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {waitForTransaction} from '../utils';
-import {useL1TokenBridgeContract, useTokenBridgeContract} from './useContract';
+import {useL1TokenBridgeContract, useL2TokenContract, useTokenBridgeContract} from './useContract';
 import {useLogger} from './useLogger';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
 import {useTransfer} from './useTransfer';
@@ -28,12 +28,13 @@ export const useTransferToL1 = () => {
   const {account: l2Account, config: l2Config} = useL2Wallet();
   const selectedToken = useSelectedToken();
   const getTokenBridgeContract = useTokenBridgeContract();
+  const getL2TokenContract = useL2TokenContract();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL1Steps);
   const progressOptions = useTransferProgress();
 
   return useCallback(
     async amount => {
-      const {decimals, bridgeAddress, name, symbol} = selectedToken;
+      const {decimals, bridgeAddress, tokenAddress, name, symbol} = selectedToken;
 
       const sendInitiateWithdraw = () => {
         trackInitiated({
@@ -42,10 +43,15 @@ export const useTransferToL1 = () => {
           amount,
           symbol
         });
+
         const bridgeContract = getTokenBridgeContract(bridgeAddress);
+        const tokenContract = getL2TokenContract(tokenAddress);
+
         return initiateWithdraw({
           recipient: l1Account,
-          contract: bridgeContract,
+          bridge: bridgeContract,
+          token: tokenContract,
+          symbol,
           amount,
           decimals
         });
