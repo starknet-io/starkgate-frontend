@@ -19,3 +19,11 @@ export const printPackageInfo = (name, version, color) => {
   getLogger().info(`%c ${name} v${version}`, `color: ${color || '#ff98f9'};  font-size: large`);
   setLogLevel(currentLogLevel);
 };
+
+export const promiseHandler = async promise => {
+  try {
+    return [await promise, null];
+  } catch (err) {
+    return [null, err];
+  }
+};

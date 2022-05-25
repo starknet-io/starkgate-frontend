@@ -5,7 +5,13 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import {isCompleted, isConsumed, TransactionHashPrefix} from '../../enums';
 import {useEnvs, useLogger} from '../../hooks';
 import {getStarknet} from '../../libs';
-import {calcAccountHash, getStorageItem, setStorageItem, getTransactionHash} from '../../utils';
+import {
+  calcAccountHash,
+  getStorageItem,
+  setStorageItem,
+  getTransactionHash,
+  promiseHandler
+} from '../../utils';
 import {useBlockHash} from '../BlockHashProvider';
 import {useDepositMessageToL2Event} from '../EventManagerProvider';
 import {useTokens} from '../TokensProvider';
@@ -53,26 +59,27 @@ export const TransfersLogProvider = ({children}) => {
     if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
       return transfer;
     }
-    try {
-      logger.log(`Checking tx status ${transfer.l2hash}`);
-      const {tx_status} = await getStarknet().provider.getTransactionStatus(transfer.l2hash);
-      if (transfer.status !== tx_status) {
-        logger.log(`Status changed from ${transfer.status}->${tx_status}`);
-        if (isConsumed(tx_status)) {
-          updateTokenBalance(transfer.symbol);
-        }
-      } else {
-        logger.log(`Status is still ${tx_status}`);
-      }
-      return {
-        ...transfer,
-        status: tx_status,
-        lastChecked: blockHash
-      };
-    } catch (error) {
+    logger.log(`Checking tx status ${transfer.l2hash}`);
+    const [{tx_status}, error] = await promiseHandler(
+      getStarknet().provider.getTransactionStatus(transfer.l2hash)
+    );
+    if (error) {
       logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
+      return transfer;
     }
-    return transfer;
+    if (transfer.status !== tx_status) {
+      logger.log(`Status changed from ${transfer.status}->${tx_status}`);
+      if (isConsumed(tx_status)) {
+        updateTokenBalance(transfer.symbol);
+      }
+    } else {
+      logger.log(`Status is still ${tx_status}`);
+    }
+    return {
+      ...transfer,
+      status: tx_status,
+      lastChecked: blockHash
+    };
   };
 
   const calcL2TransactionHash = async transfer => {
