@@ -1,3 +1,38 @@
+## [1.5.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.0...v1.5.0) (2022-05-26)
+
+
+### 🧩 Features
+
+* add LayerSwap to liquidity providers ([#201](https://github.com/starkware-libs/starkgate-frontend/issues/201)) ([4f8aa97](https://github.com/starkware-libs/starkgate-frontend/commit/4f8aa97cc0b8e8a159e0b2ba8935422751cf3226))
+* buy into L2 (fiat on ramp) + Banxa provider  ([#183](https://github.com/starkware-libs/starkgate-frontend/issues/183)) ([6df9b4d](https://github.com/starkware-libs/starkgate-frontend/commit/6df9b4dc7b5c1155bc529844da6e72aa37924e20))
+* **DAI withdrawals:** call `increaseAllowance` before calling `initiate_withdraw` ([#200](https://github.com/starkware-libs/starkgate-frontend/issues/200)) ([7a2c284](https://github.com/starkware-libs/starkgate-frontend/commit/7a2c2843ab88502c95cff17b5effa237e94365c7))
+* lock bridge ([#198](https://github.com/starkware-libs/starkgate-frontend/issues/198)) ([4f433e6](https://github.com/starkware-libs/starkgate-frontend/commit/4f433e62fa48a13ddf3032a9d1aaebf4bedb6e74))
+* move Terms and FAQ routes to burger menu ([#202](https://github.com/starkware-libs/starkgate-frontend/issues/202)) ([264b550](https://github.com/starkware-libs/starkgate-frontend/commit/264b5504dab6ecdaa35617f281e46388042f475b))
+* move the discord tab to a side button ([#199](https://github.com/starkware-libs/starkgate-frontend/issues/199)) ([0570a92](https://github.com/starkware-libs/starkgate-frontend/commit/0570a922b90a7069e7b71c14bbc75b707fb34c54))
+* MultiChoiceMenu component ([#181](https://github.com/starkware-libs/starkgate-frontend/issues/181)) ([bbf19ba](https://github.com/starkware-libs/starkgate-frontend/commit/bbf19ba3df28b460a3665678e29ecd66b5b9970b))
+
+
+### 💉 Improvements
+
+* export convention ([#180](https://github.com/starkware-libs/starkgate-frontend/issues/180)) ([b5585ad](https://github.com/starkware-libs/starkgate-frontend/commit/b5585add93d5ff2918e68a6941a86e535eb39251))
+* promise handler instead of try/catch statement ([#209](https://github.com/starkware-libs/starkgate-frontend/issues/209)) ([1f56c38](https://github.com/starkware-libs/starkgate-frontend/commit/1f56c38cc7fbb739c37f9eb8a9cdf7ebdc436e67))
+* terms screen ([#207](https://github.com/starkware-libs/starkgate-frontend/issues/207)) ([0feca18](https://github.com/starkware-libs/starkgate-frontend/commit/0feca185b86d4b2e40e0e564b5fad4964af77477))
+* tokens addresses ([#178](https://github.com/starkware-libs/starkgate-frontend/issues/178)) ([c75a88a](https://github.com/starkware-libs/starkgate-frontend/commit/c75a88a667689d92294adad86d11bfd6ed6c0c52))
+
+
+### 🔧 Fixes
+
+* change transfer tabs names ([#182](https://github.com/starkware-libs/starkgate-frontend/issues/182)) ([e795f1c](https://github.com/starkware-libs/starkgate-frontend/commit/e795f1c4dafafc0d76189d80fe2bdfc344d61fb0))
+* CompleteTransferToL1 toast remains on display after tx is done ([#179](https://github.com/starkware-libs/starkgate-frontend/issues/179)) ([219b860](https://github.com/starkware-libs/starkgate-frontend/commit/219b8608ab546d1e822f92978b210ed557dc57c5))
+* **GATE-2:** change documentation links on FAQ page ([#206](https://github.com/starkware-libs/starkgate-frontend/issues/206)) ([ec0741a](https://github.com/starkware-libs/starkgate-frontend/commit/ec0741aeab25c64baa890470be13118c9ff74be6))
+* **GATE-5:** "Transfer in progress" popup doesn't close even after transaction is successful ([#210](https://github.com/starkware-libs/starkgate-frontend/issues/210)) ([4e11653](https://github.com/starkware-libs/starkgate-frontend/commit/4e1165300e1b4c7cdde6cb1ae1fcecdc7c9c05dc))
+* **GATE-7:** Call 'ceiling' on DAI bridge instead of 'maxTotalBalance' ([#196](https://github.com/starkware-libs/starkgate-frontend/issues/196)) ([50a2780](https://github.com/starkware-libs/starkgate-frontend/commit/50a2780807f10471c41cb1ec8ae418e8ae64579c))
+* **GATE-9:** incorrect DAI amount ([#208](https://github.com/starkware-libs/starkgate-frontend/issues/208)) ([46b80bd](https://github.com/starkware-libs/starkgate-frontend/commit/46b80bdff45e6f7705fcbad0acd748b22e1c31d6))
+* handle Discord button on scroll ([#205](https://github.com/starkware-libs/starkgate-frontend/issues/205)) ([5fdce7e](https://github.com/starkware-libs/starkgate-frontend/commit/5fdce7ede0ee1f88ffc25c8956a6cc3ba088bbfe))
+* **Header:** testnet title not displayed ([4169584](https://github.com/starkware-libs/starkgate-frontend/commit/4169584471ab25102737f382be3c66871a296784))
+* modal error messages not displayed ([#194](https://github.com/starkware-libs/starkgate-frontend/issues/194)) ([353c3b4](https://github.com/starkware-libs/starkgate-frontend/commit/353c3b4910e5358e18adde1a394aa8f603daba72))
+* move EventManagerProvider to app-level ([#197](https://github.com/starkware-libs/starkgate-frontend/issues/197)) ([7fbd4fe](https://github.com/starkware-libs/starkgate-frontend/commit/7fbd4fe7ed812d6d8834dcae71248ac1e387bd09))
+
 ## [1.5.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0-dev.15...v1.5.0-dev.16) (2022-05-25)
 
 
