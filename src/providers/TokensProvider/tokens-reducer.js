@@ -5,7 +5,7 @@ export const actions = {
   UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN'
 };
 
-export const initialState = [
+const tokens = [
   ...Object.values(Tokens.L1)
     .filter(t => supportedTokens.includes(t.symbol))
     .map(t => ({
@@ -23,6 +23,8 @@ export const initialState = [
       tokenAddress: t.tokenAddress?.[supportedL2ChainId]
     }))
 ].map((t, index) => ({...t, index}));
+
+export const initialState = tokens;
 
 export const reducer = (state, action) => {
   switch (action.type) {

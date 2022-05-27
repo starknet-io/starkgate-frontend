@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 import {ActionType, NetworkType} from '../../../enums';
 import {
-  useMaxDeposit,
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
@@ -52,7 +51,6 @@ export const Transfer = () => {
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const maxDeposit = useMaxDeposit();
   const tabs = [
     {
       text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
@@ -74,26 +72,27 @@ export const Transfer = () => {
 
   useEffect(() => {
     if (selectedToken) {
+      const {isLoading, maxDeposit} = selectedToken;
       setHasInputError(false);
-      if (selectedToken.isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
+      if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
       }
     }
-  }, [amount, selectedToken, maxDeposit, isL1]);
+  }, [amount, selectedToken, isL1]);
 
   const validateAmount = () => {
     let errorMsg = '';
+    const {decimals, balance, maxDeposit, symbol} = selectedToken;
 
-    if (afterDecimal(amount) > selectedToken.decimals) {
+    if (afterDecimal(amount) > decimals) {
       errorMsg = tooManyDigitsErrorMsg;
     } else if (isNegative(amount)) {
       errorMsg = negativeValueErrorMsg;
-    } else if (amount > selectedToken.balance) {
+    } else if (amount > balance) {
       errorMsg = insufficientBalanceErrorMsg;
     } else if (isL1 && amount > maxDeposit) {
-      const {symbol} = selectedToken;
       errorMsg = evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
@@ -107,11 +106,12 @@ export const Transfer = () => {
   };
 
   const onMaxClick = () => {
+    const {balance, maxDeposit} = selectedToken;
     try {
       trackMaxClick();
-      setAmount(String(Math.min(selectedToken.balance, isL1 ? Number(maxDeposit) : Infinity)));
+      setAmount(String(Math.min(balance, isL1 ? Number(maxDeposit) : Infinity)));
     } catch (ex) {
-      setAmount(selectedToken.balance);
+      setAmount(balance);
     }
   };
 

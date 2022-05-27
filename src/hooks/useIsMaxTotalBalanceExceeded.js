@@ -1,30 +1,26 @@
 import {useCallback} from 'react';
 
 import {useSelectedToken, useTransfer} from '../providers/TransferProvider';
-import {useL1TokenContract} from './useContract';
-import {useMaxTotalBalance} from './useMaxTotalBalance';
 import {useL1TokenBalance} from './useTokenBalance';
 
 export const useIsMaxTotalBalanceExceeded = () => {
   const selectedToken = useSelectedToken();
-  const maxTotalBalance = useMaxTotalBalance();
-  const getTokenContract = useL1TokenContract();
   const getTokenBridgeBalance = useL1TokenBalance(selectedToken?.bridgeAddress);
   const {isL1} = useTransfer();
 
   return useCallback(
     async (amount = 0) => {
-      if (maxTotalBalance && isL1) {
-        const tokenBridgeBalance = await getTokenBridgeBalance(selectedToken);
-        const exceeded = maxTotalBalance < tokenBridgeBalance + Number(amount);
+      if (selectedToken && isL1) {
+        const {maxTotalBalance} = selectedToken;
+        const currentTotalBalance = await getTokenBridgeBalance(selectedToken);
         return {
-          exceeded,
           maxTotalBalance,
-          currentTotalBalance: tokenBridgeBalance
+          currentTotalBalance,
+          exceeded: maxTotalBalance <= currentTotalBalance + Number(amount)
         };
       }
       return {exceeded: false};
     },
-    [getTokenContract, selectedToken, maxTotalBalance, isL1, getTokenBridgeBalance]
+    [selectedToken, isL1, getTokenBridgeBalance]
   );
 };
