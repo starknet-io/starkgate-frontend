@@ -8,8 +8,9 @@ import {
   L1_MESSAGING_ABI
 } from '../abis/L1';
 import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/L2';
-import {useL1Dai, useL1Eth} from '../providers/TokensProvider';
+import Tokens from '../config/tokens';
 import {useTransfer} from '../providers/TransferProvider';
+import {useL1Wallet} from '../providers/WalletsProvider';
 import {createL1Contract, createL2Contract} from '../utils';
 import {useEnvs} from './useEnvs';
 
@@ -84,20 +85,19 @@ export const useL1TokenBridgeContract = () => {
   const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, createL1Contract);
   const getDAIBridgeContract = useContract(L1_DAI_BRIDGE_ABI, createL1Contract);
   const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, createL1Contract);
-  const ethToken = useL1Eth();
-  const daiToken = useL1Dai();
+  const {chainId} = useL1Wallet();
 
   return useCallback(
     bridgeAddress => {
       switch (bridgeAddress) {
-        case ethToken.bridgeAddress:
+        case Tokens.L1.ETH.bridgeAddress[chainId]:
           return getEthBridgeContract(bridgeAddress);
-        case daiToken.bridgeAddress:
+        case Tokens.L1.DAI.bridgeAddress[chainId]:
           return getDAIBridgeContract(bridgeAddress);
         default:
           return getTokenBridgeContract(bridgeAddress);
       }
     },
-    [getTokenBridgeContract, getEthBridgeContract, getDAIBridgeContract, ethToken, daiToken]
+    [getTokenBridgeContract, getEthBridgeContract, getDAIBridgeContract, chainId]
   );
 };

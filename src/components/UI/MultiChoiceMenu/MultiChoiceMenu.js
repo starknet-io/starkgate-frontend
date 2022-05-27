@@ -48,5 +48,5 @@ MultiChoiceMenu.propTypes = {
   description: PropTypes.string,
   choices: PropTypes.arrayOf(PropTypes.object),
   error: PropTypes.object,
-  footer: PropTypes.oneOfType(PropTypes.array, PropTypes.object)
+  footer: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };
