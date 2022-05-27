@@ -1,3 +1,10 @@
+### [1.5.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0...v1.5.1-dev.1) (2022-05-27)
+
+
+### 🔧 Fixes
+
+* save tokens data (maxTotalBalance, maxDeposit) in store ([#211](https://github.com/starkware-libs/starkgate-frontend/issues/211)) ([3c32630](https://github.com/starkware-libs/starkgate-frontend/commit/3c3263011a31750fea3cb60e7f2a955f87277008))
+
 ## [1.5.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.4.0...v1.5.0) (2022-05-26)
 
 
