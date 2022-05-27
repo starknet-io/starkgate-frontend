@@ -27,6 +27,12 @@ export const TokensProvider = ({children}) => {
     fetchTokensBalance(tokens);
   });
 
+  const updateTokenBalance = symbol => {
+    logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
+    const filteredTokens = tokens.filter(t => !symbol || t.symbol === symbol);
+    fetchTokensBalance(filteredTokens);
+  };
+
   const fetchTokensBalance = tokens => {
     async function fetchBalance(fn, token, retry = 1) {
       const [balance, error] = await promiseHandler(fn(token));
@@ -75,15 +81,7 @@ export const TokensProvider = ({children}) => {
     }
 
     logger.log('Fetching tokens data', tokens);
-    tokens.forEach(async token => {
-      return fetchData(token);
-    });
-  };
-
-  const updateTokenBalance = symbol => {
-    logger.log(symbol ? `Update ${symbol} token balance` : 'Update all tokens balances');
-    const filteredTokens = tokens.filter(t => !symbol || t.symbol === symbol);
-    fetchTokensBalance(filteredTokens);
+    tokens.forEach(async token => fetchData(token));
   };
 
   const updateToken = (index, props) => {
