@@ -81,36 +81,25 @@ export const useTransferToL2 = () => {
       const onTransactionHash = (error, transactionHash) => {
         if (!error) {
           logger.log('Tx signed', {transactionHash});
-          listenOnce({
-            contract: bridgeContract,
-            eventName: EventName.L1.LOG_DEPOSIT,
-            filter: {
-              sender: l1Account,
-              l2Recipient: parseToFelt(l2Account).toString()
-            },
-            callback: onDeposit
-          });
           handleProgress(
             progressOptions.deposit(amount, symbol, stepOf(TransferStep.DEPOSIT, TransferToL2Steps))
           );
         }
       };
 
-      const onDeposit = async (error, event) => {
-        if (!error) {
-          logger.log('Deposit event dispatched', event);
-          trackSuccess(event.transactionHash);
-          handleData({
-            type: ActionType.TRANSFER_TO_L2,
-            sender: l1Account,
-            recipient: l2Account,
-            l1hash: event.transactionHash,
-            name,
-            symbol,
-            amount,
-            event
-          });
-        }
+      const onDeposit = event => {
+        logger.log('Deposit event dispatched', event);
+        trackSuccess(event.transactionHash);
+        handleData({
+          type: ActionType.TRANSFER_TO_L2,
+          sender: l1Account,
+          recipient: l2Account,
+          l1hash: event.transactionHash,
+          name,
+          symbol,
+          amount,
+          event
+        });
       };
 
       const maybeAddToken = async () => {
@@ -155,7 +144,8 @@ export const useTransferToL2 = () => {
             )
           );
           logger.log('Calling deposit');
-          await sendDeposit();
+          const receipt = await sendDeposit();
+          onDeposit(receipt.events[EventName.L1.LOG_DEPOSIT]);
           await maybeAddToken(l2TokenAddress);
         }
       } catch (ex) {

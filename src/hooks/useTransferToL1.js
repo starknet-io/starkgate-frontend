@@ -143,14 +143,6 @@ export const useCompleteTransferToL1 = () => {
       const onTransactionHash = (error, transactionHash) => {
         if (!error) {
           logger.log('Tx signed', {transactionHash});
-          listenOnce({
-            contract: bridgeContract,
-            eventName: EventName.L1.LOG_WITHDRAWAL,
-            filter: {
-              recipient: l1Account
-            },
-            callback: onWithdrawal
-          });
           handleProgress(
             progressOptions.withdraw(
               amount,
@@ -161,13 +153,11 @@ export const useCompleteTransferToL1 = () => {
         }
       };
 
-      const onWithdrawal = (error, event) => {
-        if (!error) {
-          logger.log('Withdrawal event dispatched', event);
-          const {transactionHash: l1hash} = event;
-          trackSuccess(l1hash);
-          handleData({...transfer, l1hash});
-        }
+      const onWithdrawal = event => {
+        logger.log('Withdrawal event dispatched', event);
+        const {transactionHash: l1hash} = event;
+        trackSuccess(l1hash);
+        handleData({...transfer, l1hash});
       };
 
       try {
@@ -179,7 +169,8 @@ export const useCompleteTransferToL1 = () => {
           )
         );
         logger.log('Calling withdraw');
-        await sendWithdrawal();
+        const receipt = await sendWithdrawal();
+        onWithdrawal(receipt.events[EventName.L1.LOG_WITHDRAWAL]);
       } catch (ex) {
         trackError(ex);
         logger.error(ex?.message, ex);

@@ -33,7 +33,7 @@ export const listenOnce = ({contract, eventName, filter, callback}) => {
   contract.once(eventName, {filter}, callback);
 };
 
-export const getPastEvents = (contract, eventName, filter, options = {}) => {
+export const getPastEvents = ({contract, eventName, filter, options = {}}) => {
   return contract.getPastEvents(eventName, {
     filter,
     ...options
