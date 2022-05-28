@@ -1,8 +1,13 @@
+@import '../../../../index';
+
 .modalText {
   font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.03em;
   max-width: inherit;
+  line-height: 20px;
+  text-align: center;
+  color: $--color-omega;
 
   .wrap {
     float: left;

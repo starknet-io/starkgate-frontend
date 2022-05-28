@@ -1,5 +1,13 @@
+@import '../../../../index';
+
 .modalMessage {
-  font-size: 15px;
+  color: $--color-black;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  background: rgba(255, 79, 10, 0.15);
+  border-radius: 7px;
+  padding: 5px;
 
   &.transferMessage {
     margin-top: 20px;

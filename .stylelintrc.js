@@ -13,7 +13,7 @@ module.exports = {
       {ignoreProperties: ['/^color/', 'scrollWidth', 'mainOffset', 'primaryFont']}
     ],
     'selector-pseudo-class-no-unknown': [true, {ignorePseudoClasses: ['export']}],
-    'selector-class-pattern': '^[a-z][a-zA-Z0-9]+$',
+    'selector-class-pattern': '^[a-z][a-zA-Z0-9]+$|^Mui*',
     'selector-pseudo-element-no-unknown': [true, {ignorePseudoElements: ['input-placeholder']}],
     'alpha-value-notation': 'number',
     'color-function-notation': 'legacy',
