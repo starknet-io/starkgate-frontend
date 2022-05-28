@@ -1,3 +1,10 @@
+### [1.5.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.2...v1.5.1-dev.3) (2022-05-28)
+
+
+### 🔧 Fixes
+
+* modal UI fixes ([#213](https://github.com/starkware-libs/starkgate-frontend/issues/213)) ([9588cc1](https://github.com/starkware-libs/starkgate-frontend/commit/9588cc12f00f6bb9058e2f6472b0807b73b6e9b9))
+
 ### [1.5.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.1...v1.5.1-dev.2) (2022-05-28)
 
 
