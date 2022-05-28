@@ -14,7 +14,7 @@ import {starknet} from '../libs';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {addToken, isEth, listenOnce, parseToFelt, promiseHandler} from '../utils';
+import {addToken, isEth, promiseHandler} from '../utils';
 import {useTokenBridgeContract, useTokenContract} from './useContract';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
