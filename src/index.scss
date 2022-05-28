@@ -99,3 +99,20 @@ body {
   max-width: 7px;
   max-height: 7px;
 }
+
+.MuiStep-root {
+  .MuiSvgIcon-root {
+    &.Mui-completed,
+    &.Mui-active {
+      color: $--color-alpha !important;
+    }
+  }
+}
+
+.MuiLinearProgress-root {
+  background-color: rgba($--color-beta, 0.3) !important;
+
+  .MuiLinearProgress-bar {
+    background-color: $--color-beta !important;
+  }
+}
