@@ -1,3 +1,10 @@
+### [1.5.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.1...v1.5.1-dev.2) (2022-05-28)
+
+
+### 🔧 Fixes
+
+* **useTransferToL1/2:** use promise instead of contract event ([#212](https://github.com/starkware-libs/starkgate-frontend/issues/212)) ([29710e7](https://github.com/starkware-libs/starkgate-frontend/commit/29710e7b533401c067b46d9f8c64e749eb097a38))
+
 ### [1.5.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0...v1.5.1-dev.1) (2022-05-27)
 
 
