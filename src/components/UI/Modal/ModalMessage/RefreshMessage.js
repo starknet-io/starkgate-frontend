@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {toClasses} from '../../../../utils/object';
+import {toClasses} from '../../../../utils';
 import styles from './ModalMessage.module.scss';
 
 export const RefreshMessage = () => {

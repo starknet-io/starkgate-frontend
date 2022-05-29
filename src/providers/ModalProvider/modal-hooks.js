@@ -24,19 +24,30 @@ export const useProgressModal = (steps = []) => {
   return useCallback(
     (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
-        headerComponentPath: steps.length > 0 ? 'UI/Stepper/Stepper' : null,
-        headerComponentProps:
-          steps.length > 0
-            ? {
-                steps,
-                activeStep
-              }
-            : null,
-        componentPath: 'UI/Modal/ProgressModal/ProgressModal',
-        componentProps: {
-          message
+        header: {
+          title,
+          components: [
+            steps.length > 0
+              ? {
+                  path: 'UI/Stepper/Stepper',
+                  props: {
+                    steps,
+                    activeStep
+                  }
+                }
+              : null
+          ]
         },
-        title,
+        body: {
+          components: [
+            {
+              path: 'UI/Modal/ProgressModal/ProgressModal',
+              props: {
+                message
+              }
+            }
+          ]
+        },
         type
       });
     },
@@ -51,17 +62,40 @@ export const useTransactionSubmittedModal = steps => {
   return useCallback(
     transfer => {
       showModal({
-        headerComponentPath: 'UI/Stepper/Stepper',
-        headerComponentProps: {
-          steps,
-          activeStep: steps.length
+        header: {
+          title: titleTxt,
+          icon: 'icons/rocket.svg',
+          components: [
+            {
+              path: 'UI/Stepper/Stepper',
+              props: {
+                steps,
+                activeStep: steps.length
+              }
+            }
+          ]
         },
-        componentPath: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
-        componentProps: {
-          transfer
+        body: {
+          components: [
+            {
+              path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
+              props: {
+                transfer
+              }
+            }
+          ]
         },
-        title: titleTxt,
-        withButtons: true
+        footer: {
+          withButtons: true,
+          components: [
+            {
+              path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModalButton',
+              props: {
+                transfer
+              }
+            }
+          ]
+        }
       });
     },
     [showModal]
@@ -72,11 +106,17 @@ export const useErrorModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (title, body) => {
+    (title, text) => {
       showModal({
-        title,
-        body,
-        withButtons: true,
+        header: {
+          title
+        },
+        body: {
+          text
+        },
+        footer: {
+          withButtons: true
+        },
         type: ModalType.ERROR
       });
     },
@@ -90,9 +130,19 @@ export const useOnboardingModal = () => {
 
   return useCallback(() => {
     showModal({
-      componentPath: 'UI/Modal/OnboardingModal/OnboardingModal',
-      title: titleTxt,
-      withButtons: true
+      header: {
+        title: titleTxt
+      },
+      body: {
+        components: [
+          {
+            path: 'UI/Modal/OnboardingModal/OnboardingModal'
+          }
+        ]
+      },
+      footer: {
+        withButtons: true
+      }
     });
   }, [showModal]);
 };

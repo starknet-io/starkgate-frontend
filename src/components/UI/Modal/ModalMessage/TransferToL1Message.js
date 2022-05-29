@@ -1,12 +1,11 @@
 import {useConstants} from '../../../../hooks';
-import {toClasses} from '../../../../utils/object';
 import styles from './ModalMessage.module.scss';
 
 export const TransferToL1Message = () => {
   const {STARKGATE_DOCS_URL} = useConstants();
 
   return (
-    <div className={toClasses(styles.modalMessage, styles.transferMessage)}>
+    <div className={styles.modalMessage}>
       <center>
         The StarkNet → Ethereum transfer divided into two stages (
         <a href={STARKGATE_DOCS_URL} rel="noreferrer" target="_blank">

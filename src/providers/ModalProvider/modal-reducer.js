@@ -5,12 +5,19 @@ export const actions = {
 
 export const initialState = {
   show: false,
-  headerComponentPath: '',
-  headerComponentProps: null,
-  componentPath: '',
-  componentProps: null,
-  withButtons: false,
-  body: ''
+  header: {
+    title: '',
+    icon: '',
+    components: []
+  },
+  body: {
+    text: '',
+    components: []
+  },
+  footer: {
+    withButtons: false,
+    components: []
+  }
 };
 
 export const reducer = (state, action) => {

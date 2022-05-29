@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from 'react';
 
 import {useHideModal, useModal} from '../../../providers/ModalProvider';
 import {
+  DynamicIcon,
   Loading,
   LoadingSize,
   Modal,
@@ -15,31 +16,57 @@ import {ModalText} from './ModalText/ModalText';
 export const ModalWrapper = () => {
   const modal = useModal();
   const handleOnClose = useHideModal();
-  const CustomComponent = lazy(() => import(`../../${modal.componentPath}`));
-  const CustomHeaderComponent = lazy(() => import(`../../${modal.headerComponentPath}`));
+
+  const {header, body, footer} = modal;
+
+  const getComponents = components => {
+    return components
+      ? components.map(c => ({
+          component: lazy(() => import(`../../${c.path}`)),
+          props: c.props
+        }))
+      : [];
+  };
+
+  const headerComponents = getComponents(header.components);
+  const bodyComponents = getComponents(body.components);
+  const footerComponents = getComponents(footer.components);
 
   return (
     <Modal show={modal.show} size={modal.size} type={modal.type}>
       <ModalHeader type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {modal.headerComponentPath ? (
-            <CustomHeaderComponent {...modal.headerComponentProps} />
+          {headerComponents.length > 0 ? (
+            headerComponents.map((c, i) => <c.component key={i} {...c.props} />)
           ) : (
             <div />
           )}
         </Suspense>
-        {modal.title && <ModalTitle>{modal.title}</ModalTitle>}
+        {header.title && (
+          <ModalTitle>
+            {header.icon && <DynamicIcon path={header.icon} size={50} />}
+            {header.title}
+          </ModalTitle>
+        )}
       </ModalHeader>
       <ModalBody type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {modal.componentPath ? (
-            <CustomComponent {...modal.componentProps} />
+          {bodyComponents.length > 0 ? (
+            bodyComponents.map((c, i) => <c.component key={i} {...c.props} />)
           ) : (
-            <ModalText>{modal.body}</ModalText>
+            <ModalText>{body.text}</ModalText>
           )}
         </Suspense>
       </ModalBody>
-      {modal.withButtons && <ModalFooter type={modal.type} onClose={handleOnClose} {...modal} />}
+      {footer.withButtons && (
+        <ModalFooter type={modal.type} onClose={handleOnClose}>
+          <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
+            {footerComponents.length > 0
+              ? footerComponents.map((c, i) => <c.component key={i} {...c.props} />)
+              : undefined}
+          </Suspense>
+        </ModalFooter>
+      )}
     </Modal>
   );
 };

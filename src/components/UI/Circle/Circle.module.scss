@@ -6,4 +6,9 @@
     $--color-white;
   border-radius: 50%;
   display: flex;
+
+  img,
+  svg {
+    margin: auto !important;
+  }
 }

@@ -6,6 +6,16 @@
   align-items: center;
   flex-direction: column;
 
+  & > * {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
   .container {
     svg {
       cursor: pointer;

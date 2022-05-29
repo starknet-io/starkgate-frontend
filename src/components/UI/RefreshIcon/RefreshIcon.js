@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as RefreshSvg} from '../../../assets/svg/icons/refresh.svg';
-import {toClasses} from '../../../utils/object';
+import {toClasses} from '../../../utils';
 import styles from './RefreshIcon.module.scss';
 
 export const RefreshIcon = ({size, onClick}) => {

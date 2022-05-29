@@ -20,6 +20,16 @@
     padding: 20px 40px;
     overflow: auto;
 
+    & > * {
+      &:not(:first-child) {
+        margin-top: 30px;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
+
     &.error {
       border: 1px solid $--color-error;
     }
