@@ -1,0 +1,14 @@
+.progressModal{
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+}
