@@ -1,3 +1,10 @@
+## [1.6.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.3...v1.6.0-dev.1) (2022-05-31)
+
+
+### 🧩 Features
+
+* extend modal to receive components in footer and header ([#214](https://github.com/starkware-libs/starkgate-frontend/issues/214)) ([71bab8a](https://github.com/starkware-libs/starkgate-frontend/commit/71bab8acac0fa5112fd797072d961635ef6a7580))
+
 ### [1.5.1-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.2...v1.5.1-dev.3) (2022-05-28)
 
 
