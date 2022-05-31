@@ -26,16 +26,14 @@ export const useProgressModal = (steps = []) => {
       showModal({
         header: {
           title,
-          components: [
-            steps.length > 0
-              ? {
-                  path: 'UI/Stepper/Stepper',
-                  props: {
-                    steps,
-                    activeStep
-                  }
-                }
-              : null
+          components: steps.length > 0 && [
+            {
+              path: 'UI/Stepper/Stepper',
+              props: {
+                steps,
+                activeStep
+              }
+            }
           ]
         },
         body: {

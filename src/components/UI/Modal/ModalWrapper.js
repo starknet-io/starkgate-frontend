@@ -28,6 +28,10 @@ export const ModalWrapper = () => {
       : [];
   };
 
+  const renderComponents = components => {
+    return components.map((c, i) => <c.component key={i} {...c.props} />);
+  };
+
   const headerComponents = getComponents(header.components);
   const bodyComponents = getComponents(body.components);
   const footerComponents = getComponents(footer.components);
@@ -36,11 +40,7 @@ export const ModalWrapper = () => {
     <Modal show={modal.show} size={modal.size} type={modal.type}>
       <ModalHeader type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {headerComponents.length > 0 ? (
-            headerComponents.map((c, i) => <c.component key={i} {...c.props} />)
-          ) : (
-            <div />
-          )}
+          {headerComponents.length ? renderComponents(headerComponents) : <div />}
         </Suspense>
         {header.title && (
           <ModalTitle>
@@ -52,7 +52,7 @@ export const ModalWrapper = () => {
       <ModalBody type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
           {bodyComponents.length > 0 ? (
-            bodyComponents.map((c, i) => <c.component key={i} {...c.props} />)
+            renderComponents(bodyComponents)
           ) : (
             <ModalText>{body.text}</ModalText>
           )}
@@ -61,9 +61,7 @@ export const ModalWrapper = () => {
       {footer.withButtons && (
         <ModalFooter type={modal.type} onClose={handleOnClose}>
           <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-            {footerComponents.length > 0
-              ? footerComponents.map((c, i) => <c.component key={i} {...c.props} />)
-              : undefined}
+            {footerComponents.length > 0 && renderComponents(footerComponents)}
           </Suspense>
         </ModalFooter>
       )}
