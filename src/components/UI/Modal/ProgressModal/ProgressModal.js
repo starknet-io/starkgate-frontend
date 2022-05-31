@@ -4,16 +4,15 @@ import React from 'react';
 
 import {RefreshMessage} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';
+import styles from './ProgressModal.module.scss';
 
 const ProgressModal = ({message}) => {
   return (
-    <>
+    <div className={styles.progressModal}>
       <LinearProgress />
-      <br />
       <ModalText>{message}</ModalText>
-      <br />
       <RefreshMessage />
-    </>
+    </div>
   );
 };
 
