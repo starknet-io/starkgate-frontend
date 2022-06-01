@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {EventName, isCompleted, isConsumed, SelectorName, TransactionHashPrefix} from '../../enums';
-import {useEnvs, useLogger, useStarknetContract} from '../../hooks';
+import {useAccountChange, useEnvs, useLogger, useStarknetContract} from '../../hooks';
 import {getStarknet, starknet} from '../../libs';
 import {
-  calcAccountHash,
   getStorageItem,
   setStorageItem,
   getTransactionHash,
@@ -29,60 +28,70 @@ export const TransfersLogProvider = ({children}) => {
   const starknetContract = useStarknetContract();
   const accountHash = useAccountHash();
 
-  useEffect(() => {
+  useAccountChange(() => {
     const storedTransfers = getTransfersFromStorage();
+    logger.log('Extract transfers from local storage', storedTransfers);
     setTransfers(storedTransfers);
-  }, []);
+  });
 
   useDeepCompareEffect(() => {
-    const updateTransfers = async () => {
+    if (transfers.length > 0) {
+      logger.log('Transfers changed, save updated transfers to local storage', transfers);
+      saveTransfersToStorage(transfers);
+    }
+  }, [transfers]);
+
+  useAccountChange(() => {
+    const checkTransfers = async () => {
+      logger.log('Block hash updated. Checking transfers...', {blockHash});
       if (!blockHash) {
         return;
       }
       const newTransfers = [];
       for (const transfer of transfers) {
-        const newTransfer = await (transfer.l2hash
+        const {l2hash} = transfer;
+        const newTransfer = await (l2hash
           ? checkTransaction(transfer)
           : calcL2TransactionHash(transfer));
-        newTransfers.push(newTransfer);
+        if (newTransfer) {
+          newTransfers.push(newTransfer);
+        }
       }
       if (newTransfers.length) {
-        logger.log('Transfers updated', {newTransfers});
-        setTransfers(newTransfers);
-        saveTransfersToStorage(newTransfers);
+        logger.log('Following transfers updated', newTransfers);
+        updateTransfers(newTransfers);
       }
     };
-    updateTransfers();
-  }, [blockHash, transfers]);
+
+    checkTransfers();
+  }, [blockHash]);
 
   const checkTransaction = async transfer => {
-    if (isCompleted(transfer.status) || transfer.lastChecked === blockHash) {
-      return transfer;
-    }
-    logger.log(`Checking tx status ${transfer.l2hash}`);
-    const [{tx_status}, error] = await promiseHandler(
-      getStarknet().provider.getTransactionStatus(transfer.l2hash)
-    );
-    if (error) {
-      logger.error(`Failed to check transaction status: ${transfer.l2hash}`);
-      return transfer;
-    }
-    if (transfer.status !== tx_status) {
-      logger.log(`Status changed from ${transfer.status}->${tx_status}`);
-      if (isConsumed(tx_status)) {
-        updateTokenBalance(transfer.symbol);
+    if (!(isCompleted(transfer.status) || transfer.lastChecked === blockHash)) {
+      logger.log(`Checking tx status ${transfer.l2hash}`);
+      const [{tx_status}, error] = await promiseHandler(
+        getStarknet().provider.getTransactionStatus(transfer.l2hash)
+      );
+      if (!error) {
+        if (transfer.status !== tx_status) {
+          logger.log(`Status changed from ${transfer.status}->${tx_status}`);
+          if (isConsumed(tx_status)) {
+            updateTokenBalance(transfer.symbol);
+          }
+        } else {
+          logger.log(`Status is still ${tx_status}`);
+        }
+        return {
+          ...transfer,
+          status: tx_status,
+          lastChecked: blockHash
+        };
       }
-    } else {
-      logger.log(`Status is still ${tx_status}`);
     }
-    return {
-      ...transfer,
-      status: tx_status,
-      lastChecked: blockHash
-    };
   };
 
   const getMessageToL2 = async depositEvent => {
+    logger.log('Getting L2 message for deposit event', {depositEvent});
     const {blockNumber, transactionHash} = depositEvent;
     const [pastEvents, error] = await promiseHandler(
       getPastEvents({
@@ -107,6 +116,7 @@ export const TransfersLogProvider = ({children}) => {
   const calcL2TransactionHash = async transfer => {
     const l2MessageEvent = await getMessageToL2(transfer.event);
     if (l2MessageEvent) {
+      logger.log('Found L2 message. calculating L2 transaction hash...', {l2MessageEvent});
       const {to_address, from_address, selector, payload, nonce} = l2MessageEvent.returnValues;
       delete transfer.event;
       return {
@@ -126,37 +136,23 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    let storedTransfers = getStorageItem(localStorageTransfersLogKey);
-    // for backward compatibility
-    storedTransfers = maybeTransformTransfersArrayToObject(storedTransfers) || {};
+    const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
     return storedTransfers[accountHash] || [];
   };
 
   const saveTransfersToStorage = transfers => {
     const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
-    const updatedTransfers = Object.assign(storedTransfers, {[accountHash]: transfers});
+    const updatedTransfers = {
+      ...storedTransfers,
+      [accountHash]: transfers
+    };
     setStorageItem(localStorageTransfersLogKey, updatedTransfers);
   };
 
-  const maybeTransformTransfersArrayToObject = storedTransfers => {
-    if (Array.isArray(storedTransfers)) {
-      const transfersObject = {};
-      storedTransfers.forEach(storedTransfer => {
-        const {sender, recipient} = storedTransfer;
-        const accountHash = calcAccountHash(sender, recipient);
-        transfersObject[accountHash] = transfersObject[accountHash] || [];
-        transfersObject[accountHash].push(storedTransfer);
-      });
-      setStorageItem(localStorageTransfersLogKey, transfersObject);
-      return transfersObject;
-    }
-    return storedTransfers;
-  };
-
-  const updateTransfer = transfer => {
+  const updateTransfers = updatedTransfers => {
     dispatch({
-      type: actions.UPDATE_TRANSFER,
-      transfer
+      type: actions.UPDATE_TRANSFERS,
+      updatedTransfers: Array.isArray(updatedTransfers) ? updatedTransfers : [updatedTransfers]
     });
   };
 
@@ -177,7 +173,7 @@ export const TransfersLogProvider = ({children}) => {
   const context = {
     transfers,
     addTransfer,
-    updateTransfer
+    updateTransfers
   };
 
   return <TransfersLogContext.Provider value={context}>{children}</TransfersLogContext.Provider>;

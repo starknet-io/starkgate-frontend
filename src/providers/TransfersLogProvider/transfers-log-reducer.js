@@ -3,7 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 export const actions = {
   SET_TRANSFERS: 'TransfersLog/SET_TRANSFERS',
   ADD_TRANSFER: 'TransfersLog/ADD_TRANSFER',
-  UPDATE_TRANSFER: 'TransfersLog/UPDATE_TRANSFER'
+  UPDATE_TRANSFERS: 'TransfersLog/UPDATE_TRANSFERS'
 };
 
 export const initialState = [];
@@ -18,15 +18,16 @@ export const reducer = (state, action) => {
       return [{id: uuidv4(), timestamp: new Date().getTime(), ...newTransfer}, ...state];
     }
 
-    case actions.UPDATE_TRANSFER: {
-      const {transfer} = action;
-      const index = state.findIndex(t => t.id === transfer.id);
-      if (index > -1) {
-        const transfers = [...state];
-        transfers[index] = transfer;
-        return transfers;
-      }
-      return state;
+    case actions.UPDATE_TRANSFERS: {
+      const {updatedTransfers} = action;
+      const transfers = [...state];
+      updatedTransfers.forEach(updatedTransfer => {
+        const index = transfers.findIndex(t => t.id === updatedTransfer.id);
+        if (index > -1) {
+          transfers[index] = updatedTransfer;
+        }
+      });
+      return transfers;
     }
 
     default:

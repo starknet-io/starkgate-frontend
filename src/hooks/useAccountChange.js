@@ -2,12 +2,15 @@ import {useEffect} from 'react';
 
 import {useAccountHash} from '../providers/WalletsProvider';
 
-export const useAccountChange = fn => {
+export const useAccountChange = (fn, deps = []) => {
   const accountHash = useAccountHash();
 
   useEffect(() => {
     if (accountHash) {
-      fn();
+      const unmountFn = fn();
+      return () => {
+        unmountFn && unmountFn();
+      };
     }
-  }, [accountHash]);
+  }, [accountHash, ...deps]);
 };

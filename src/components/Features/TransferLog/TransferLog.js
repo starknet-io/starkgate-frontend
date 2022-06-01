@@ -29,7 +29,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
   const renderTransferStatus = () => {
     return !isOnChain(status) ? (
       <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
-        {TransactionStatusFriendlyMessage[status]}
+        {TransactionStatusFriendlyMessage[status || TransactionStatus.NOT_RECEIVED]}
       </div>
     ) : null;
   };
@@ -49,14 +49,16 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 
   const renderL2TxButton = () => {
     return (
-      <>
-        <LinkButton
-          isDisabled={TransactionStatusStep[status] > TransactionStatus.NOT_RECEIVED}
-          text={`${NetworkType.L2.name} Tx`}
-          url={voyagerTxUrl(l2hash)}
-          onClick={onTxClick}
-        />
-      </>
+      <LinkButton
+        isDisabled={
+          !l2hash ||
+          !status ||
+          TransactionStatusStep[status] < TransactionStatusStep[TransactionStatus.PENDING]
+        }
+        text={`${NetworkType.L2.name} Tx`}
+        url={voyagerTxUrl(l2hash)}
+        onClick={onTxClick}
+      />
     );
   };
 
