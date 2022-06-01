@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
 
 import Wallets from '../config/wallets.js';
-import {ActionType} from '../enums';
+import {useIsL1} from '../providers/TransferProvider';
 import {GetStarknetWallet, MetaMask} from '../wallets';
 
 const SUPPORTED_L1_HANDLERS_REGISTRY = {
@@ -12,13 +12,12 @@ const SUPPORTED_L2_HANDLERS_REGISTRY = {
   gsw: GetStarknetWallet
 };
 
-export const useWalletHandlerProvider = (actionType = ActionType.TRANSFER_TO_L2) => {
+export const useWalletHandlerProvider = () => {
+  const [isL1] = useIsL1();
+
   return useMemo(() => {
-    const walletsConfig = actionType === ActionType.TRANSFER_TO_L2 ? Wallets.L1 : Wallets.L2;
-    const registry =
-      actionType === ActionType.TRANSFER_TO_L2
-        ? SUPPORTED_L1_HANDLERS_REGISTRY
-        : SUPPORTED_L2_HANDLERS_REGISTRY;
+    const walletsConfig = isL1 ? Wallets.L1 : Wallets.L2;
+    const registry = isL1 ? SUPPORTED_L1_HANDLERS_REGISTRY : SUPPORTED_L2_HANDLERS_REGISTRY;
     const handlers = [];
     walletsConfig.forEach(walletConfig => {
       const {id} = walletConfig;
@@ -28,5 +27,5 @@ export const useWalletHandlerProvider = (actionType = ActionType.TRANSFER_TO_L2)
       }
     });
     return handlers;
-  }, [actionType]);
+  }, [isL1]);
 };

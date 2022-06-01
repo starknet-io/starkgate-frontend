@@ -16,8 +16,8 @@ import {
   useWalletHandlerProvider
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
-import {useIsL1, useIsL2, useTransfer} from '../../providers/TransferProvider';
-import {useWallets} from '../../providers/WalletsProvider';
+import {useIsL1, useIsL2} from '../../providers/TransferProvider';
+import {useL1Wallet, useL2Wallet, useWallets} from '../../providers/WalletsProvider';
 import {evaluate, isChrome} from '../../utils';
 import styles from './Login.module.scss';
 
@@ -38,14 +38,15 @@ export const Login = () => {
   const {autoConnect, supportedL1ChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
-  const [, swapToL1] = useIsL1();
+  const [isL1, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {action} = useTransfer();
-  const {status, error: walletError, connectWallet, isConnected} = useWallets();
+  const {status, error: walletError, connectWallet} = useWallets();
+  const {isConnected: isL1Connected} = useL1Wallet();
+  const {isConnected: isL2Connected} = useL2Wallet();
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
-  const walletHandlers = useWalletHandlerProvider(action);
+  const walletHandlers = useWalletHandlerProvider();
 
   useEffect(() => {
     trackLoginScreen();
@@ -71,10 +72,12 @@ export const Login = () => {
   }, [error, walletHandlers]);
 
   useEffect(() => {
-    if (isConnected) {
+    if (!isL1Connected) {
+      swapToL1();
+    } else if (!isL2Connected) {
       swapToL2();
     }
-  }, [isConnected]);
+  }, [isL1Connected, isL2Connected]);
 
   useEffect(() => {
     walletError && handleWalletError(walletError);
@@ -167,8 +170,7 @@ export const Login = () => {
       <MultiChoiceMenu
         choices={mapLoginWalletsToChoices()}
         description={evaluate(subtitleTxt, {
-          networkName:
-            action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name
+          networkName: isL1 ? NetworkType.L1.name : NetworkType.L2.name
         })}
         error={error}
         footer={
