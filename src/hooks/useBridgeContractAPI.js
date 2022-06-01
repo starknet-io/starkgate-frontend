@@ -1,5 +1,6 @@
 import {useCallback} from 'react';
 
+import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {
@@ -20,11 +21,12 @@ import {
 } from './useContract';
 
 export const useBridgeContractAPI = () => {
+  const {account: accountL1} = useL1Wallet();
   const selectedToken = useSelectedToken();
   const getL1BridgeContract = useL1TokenBridgeContract();
   const getL2BridgeContract = useL2TokenBridgeContract();
   const getL2TokenContract = useL2TokenContract();
-  const {account: accountL1} = useL1Wallet();
+  const getL1Token = useL1Token();
 
   const deposit = useCallback(
     ({recipient, amount, emitter}) => {
@@ -39,7 +41,7 @@ export const useBridgeContractAPI = () => {
         emitter
       );
     },
-    [selectedToken, getL1BridgeContract]
+    [selectedToken, accountL1, getL1BridgeContract]
   );
 
   const depositEth = useCallback(
@@ -58,12 +60,12 @@ export const useBridgeContractAPI = () => {
         emitter
       );
     },
-    [selectedToken, getL1BridgeContract]
+    [selectedToken, accountL1, getL1BridgeContract]
   );
 
   const withdraw = useCallback(
-    ({recipient, amount, emitter}) => {
-      const {bridgeAddress, decimals} = selectedToken;
+    ({recipient, amount, symbol, emitter}) => {
+      const {bridgeAddress, decimals} = symbol ? getL1Token(symbol) : selectedToken;
       const contract = getL1BridgeContract(bridgeAddress);
 
       return sendL1Transaction(
@@ -76,7 +78,7 @@ export const useBridgeContractAPI = () => {
         emitter
       );
     },
-    [selectedToken, getL1BridgeContract]
+    [selectedToken, getL1BridgeContract, getL1Token]
   );
 
   const maxDeposit = useCallback(

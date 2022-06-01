@@ -15,7 +15,7 @@ import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {addToken, isEth, promiseHandler} from '../utils';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
-import { useTokenContract} from './useContract';
+import {useTokenContract} from './useContract';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
 import {useTransferToL2Tracking} from './useTracking';
