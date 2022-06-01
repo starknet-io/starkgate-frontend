@@ -1,3 +1,10 @@
+## [1.6.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.1...v1.6.0-dev.2) (2022-06-01)
+
+
+### 💉 Improvements
+
+* better tracking for transfers log ([#216](https://github.com/starkware-libs/starkgate-frontend/issues/216)) ([d4bcc2f](https://github.com/starkware-libs/starkgate-frontend/commit/d4bcc2fe68e9911e9ab20656983fe0c40cc116d6))
+
 ## [1.6.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.1-dev.3...v1.6.0-dev.1) (2022-05-31)
 
 
