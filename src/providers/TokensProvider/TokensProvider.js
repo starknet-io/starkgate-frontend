@@ -1,17 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import {
-  maxDeposit as fetchMaxDeposit,
-  maxTotalBalance as fetchMaxTotalBalance
-} from '../../api/bridge';
-import {
-  useAccountChange,
-  useBridgeContractAPI,
-  useConstants,
-  useL1TokenBridgeContract,
-  useLogger
-} from '../../hooks';
+import {useAccountChange, useBridgeContractAPI, useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {promiseHandler} from '../../utils';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';

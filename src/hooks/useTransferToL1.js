@@ -162,6 +162,15 @@ export const useCompleteTransferToL1 = () => {
         handleError(progressOptions.error(TransferError.TRANSACTION_ERROR, ex));
       }
     },
-    [l1Account, l1Config, handleData, handleError, handleProgress, logger, progressOptions]
+    [
+      withdraw,
+      l1Account,
+      l1Config,
+      handleData,
+      handleError,
+      handleProgress,
+      logger,
+      progressOptions
+    ]
   );
 };
