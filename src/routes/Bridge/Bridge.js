@@ -4,7 +4,6 @@ import {setUser} from '../../analytics';
 import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
 import {MenuType} from '../../enums';
 import {useEnvs, useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
-import {BridgeProviders} from '../../providers';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
 import {useBridgeIsFull, useSelectedToken} from '../../providers/TransferProvider';
@@ -64,12 +63,10 @@ export const Bridge = () => {
 
   return (
     <div className={styles.bridge}>
-      <BridgeProviders>
-        <div className={styles.bridgeMenu}>
-          <ToastProvider />
-          {renderMenu()}
-        </div>
-      </BridgeProviders>
+      <div className={styles.bridgeMenu}>
+        <ToastProvider />
+        {renderMenu()}
+      </div>
     </div>
   );
 };

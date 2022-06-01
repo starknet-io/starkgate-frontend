@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
-import {useEnvs} from '../../hooks';
+import {useAccountChange, useEnvs, useLogger} from '../../hooks';
 import {getStarknet} from '../../libs';
 import {promiseHandler} from '../../utils';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
+  const logger = useLogger(BlockHashProvider.displayName);
   const {pollBlockNumberInterval} = useEnvs();
   const [blockHash, setBlockHash] = useState();
 
@@ -17,16 +18,22 @@ export const BlockHashProvider = ({children}) => {
     }
   }, []);
 
-  useEffect(() => {
+  useAccountChange(() => {
+    logger.log('Starting blockHash fetching');
     fetchBlockHash();
     const intervalId = setInterval(() => {
       fetchBlockHash();
     }, pollBlockNumberInterval);
-    return () => clearInterval(intervalId);
-  }, [fetchBlockHash, pollBlockNumberInterval]);
+    return () => {
+      logger.log('Stopping blockHash fetching');
+      clearInterval(intervalId);
+    };
+  });
 
   return <BlockHashContext.Provider value={blockHash}>{children}</BlockHashContext.Provider>;
 };
+
+BlockHashProvider.displayName = 'BlockHashProvider';
 
 BlockHashProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])

@@ -28,8 +28,10 @@ export const ModalWrapper = () => {
       : [];
   };
 
-  const renderComponents = components => {
-    return components.map((c, i) => <c.component key={i} {...c.props} />);
+  const renderComponents = (components, fallbackComponent) => {
+    return components.length > 0
+      ? components.map((c, i) => <c.component key={i} {...c.props} />)
+      : fallbackComponent;
   };
 
   const headerComponents = getComponents(header.components);
@@ -40,7 +42,7 @@ export const ModalWrapper = () => {
     <Modal show={modal.show} size={modal.size} type={modal.type}>
       <ModalHeader type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {headerComponents.length ? renderComponents(headerComponents) : <div />}
+          {renderComponents(headerComponents)}
         </Suspense>
         {header.title && (
           <ModalTitle>
@@ -51,17 +53,13 @@ export const ModalWrapper = () => {
       </ModalHeader>
       <ModalBody type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {bodyComponents.length > 0 ? (
-            renderComponents(bodyComponents)
-          ) : (
-            <ModalText>{body.text}</ModalText>
-          )}
+          {renderComponents(bodyComponents, <ModalText>{body.text}</ModalText>)}
         </Suspense>
       </ModalBody>
       {footer.withButtons && (
         <ModalFooter type={modal.type} onClose={handleOnClose}>
           <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-            {footerComponents.length > 0 && renderComponents(footerComponents)}
+            {renderComponents(footerComponents)}
           </Suspense>
         </ModalFooter>
       )}
