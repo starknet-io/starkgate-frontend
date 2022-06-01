@@ -1,6 +1,5 @@
 import {useCallback} from 'react';
 
-import {deposit, depositEth} from '../api/bridge';
 import {allowance, approve} from '../api/erc20';
 import {
   ActionType,
@@ -15,7 +14,8 @@ import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {addToken, isEth, promiseHandler} from '../utils';
-import {useTokenBridgeContract, useTokenContract} from './useContract';
+import {useBridgeContractAPI} from './useBridgeContractAPI';
+import { useTokenContract} from './useContract';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';
 import {useTransferToL2Tracking} from './useTracking';
@@ -25,12 +25,12 @@ import {useTransferProgress} from './useTransferProgress';
 export const useTransferToL2 = () => {
   const logger = useLogger('useTransferToL2');
   const [trackInitiated, trackSuccess, trackError, trackReject] = useTransferToL2Tracking();
-  const {account: l1Account, config: l1Config} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
+  const {deposit, depositEth} = useBridgeContractAPI();
+  const {account: accountL1, config: configL1} = useL1Wallet();
+  const {account: accountL2} = useL2Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL2Steps);
   const selectedToken = useSelectedToken();
   const getTokenContract = useTokenContract();
-  const getTokenBridgeContract = useTokenBridgeContract();
   const progressOptions = useTransferProgress();
   const getL2Token = useL2Token();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
@@ -39,12 +39,11 @@ export const useTransferToL2 = () => {
     async amount => {
       const {symbol, decimals, name, tokenAddress, bridgeAddress} = selectedToken;
       const tokenContract = getTokenContract(tokenAddress);
-      const bridgeContract = getTokenBridgeContract(bridgeAddress);
       const l2TokenAddress = getL2Token(symbol)?.tokenAddress;
 
       const readAllowance = () => {
         return allowance({
-          owner: l1Account,
+          owner: accountL1,
           spender: bridgeAddress,
           contract: tokenContract,
           decimals
@@ -56,25 +55,22 @@ export const useTransferToL2 = () => {
           spender: bridgeAddress,
           value: starknet.constants.MASK_250,
           contract: tokenContract,
-          options: {from: l1Account}
+          options: {from: accountL1}
         });
       };
 
       const sendDeposit = () => {
         trackInitiated({
-          from_address: l1Account,
-          to_address: l2Account,
+          from_address: accountL1,
+          to_address: accountL2,
           amount,
           symbol
         });
         const depositHandler = isEth(symbol) ? depositEth : deposit;
         return depositHandler({
-          recipient: l2Account,
-          contract: bridgeContract,
-          options: {from: l1Account},
-          emitter: onTransactionHash,
+          recipient: accountL2,
           amount,
-          decimals
+          emitter: onTransactionHash
         });
       };
 
@@ -92,8 +88,8 @@ export const useTransferToL2 = () => {
         trackSuccess(event.transactionHash);
         handleData({
           type: ActionType.TRANSFER_TO_L2,
-          sender: l1Account,
-          recipient: l2Account,
+          sender: accountL1,
+          recipient: accountL2,
           l1hash: event.transactionHash,
           name,
           symbol,
@@ -139,7 +135,7 @@ export const useTransferToL2 = () => {
           }
           handleProgress(
             progressOptions.waitForConfirm(
-              l1Config.name,
+              configL1.name,
               stepOf(TransferStep.CONFIRM_TX, TransferToL2Steps)
             )
           );
@@ -156,10 +152,11 @@ export const useTransferToL2 = () => {
     },
     [
       selectedToken,
-      l1Account,
-      l2Account,
-      l1Config,
-      getTokenBridgeContract,
+      deposit,
+      depositEth,
+      accountL1,
+      accountL2,
+      configL1,
       getTokenContract,
       handleData,
       handleError,

@@ -45,24 +45,6 @@ export const withdraw = async ({recipient, amount, decimals, contract, emitter})
   );
 };
 
-export const maxDeposit = async ({decimals, contract}) => {
-  const [maxDeposit, error] = await promiseHandler(callL1Contract(contract, 'maxDeposit'));
-  if (error) {
-    return Promise.reject(error);
-  }
-  return parseFromDecimals(maxDeposit, decimals);
-};
-
-export const maxTotalBalance = async ({decimals, symbol, contract}) => {
-  const [maxTotalBalance, error] = await promiseHandler(
-    callL1Contract(contract, isDai(symbol) ? 'ceiling' : 'maxTotalBalance')
-  );
-  if (error) {
-    return Promise.reject(error);
-  }
-  return parseFromDecimals(maxTotalBalance, decimals);
-};
-
 const initiateWithdrawCall = ({bridge, recipient, amount, decimals}) => {
   return {
     contract: bridge,

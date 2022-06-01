@@ -17,3 +17,4 @@ export * from './useLiquidityProviders';
 export * from './useAccountChange';
 export * from './useIsMaxTotalBalanceExceeded';
 export * from './useVars';
+export * from './useBridgeContractAPI';
