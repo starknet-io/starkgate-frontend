@@ -1,3 +1,10 @@
+## [1.6.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.2...v1.6.0-dev.3) (2022-06-02)
+
+
+### 💉 Improvements
+
+* move bridge and token API to hooks ([#217](https://github.com/starkware-libs/starkgate-frontend/issues/217)) ([bd3a2fa](https://github.com/starkware-libs/starkgate-frontend/commit/bd3a2fa22c051829916b002497eaa287407a0aff))
+
 ## [1.6.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.1...v1.6.0-dev.2) (2022-06-01)
 
 
