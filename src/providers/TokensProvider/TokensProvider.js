@@ -12,10 +12,10 @@ export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
   const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
   const [tokens, dispatch] = useReducer(reducer, initialState);
-  const {account: l1Account} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
-  const getL1TokenBalance = useL1TokenBalance(l1Account);
-  const getL2TokenBalance = useL2TokenBalance(l2Account);
+  const {account: accountL1} = useL1Wallet();
+  const {account: accountL2} = useL2Wallet();
+  const getL1TokenBalance = useL1TokenBalance(accountL1);
+  const getL2TokenBalance = useL2TokenBalance(accountL2);
   const {maxDeposit: fetchMaxDeposit, maxTotalBalance: fetchMaxTotalBalance} =
     useBridgeContractAPI();
 

@@ -16,8 +16,8 @@ export const Bridge = () => {
   const showOnboardingModal = useOnboardingModal();
   const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = useEnvs();
   const {menu, menuProps} = useMenu();
-  const {account: l1account} = useL1Wallet();
-  const {account: l2account} = useL2Wallet();
+  const {account: accountL1} = useL1Wallet();
+  const {account: accountL2} = useL2Wallet();
   const {lockBridge, unlockBridge} = useBridgeIsFull();
   const selectedToken = useSelectedToken();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
@@ -27,7 +27,7 @@ export const Bridge = () => {
   }, [menu]);
 
   useEffect(() => {
-    setUser({l1account, l2account});
+    setUser({accountL1, accountL2});
     maybeShowOnboardingModal();
   }, []);
 

@@ -102,7 +102,7 @@ export const useCompleteTransferToL1 = () => {
   const logger = useLogger('useCompleteTransferToL1');
   const [trackInitiated, trackSuccess, trackError] = useCompleteTransferToL1Tracking();
   const {withdraw} = useBridgeContractAPI();
-  const {account: l1Account, config: l1Config} = useL1Wallet();
+  const {account: accountL1, config: configL1} = useL1Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(CompleteTransferToL1Steps);
   const progressOptions = useTransferProgress();
 
@@ -112,13 +112,13 @@ export const useCompleteTransferToL1 = () => {
 
       const sendWithdrawal = () => {
         trackInitiated({
-          to_address: l1Account,
+          to_address: accountL1,
           l2hash,
           amount,
           symbol
         });
         return withdraw({
-          recipient: l1Account,
+          recipient: accountL1,
           symbol,
           amount,
           emitter: onTransactionHash
@@ -149,7 +149,7 @@ export const useCompleteTransferToL1 = () => {
         logger.log('CompleteTransferToL1 called');
         handleProgress(
           progressOptions.waitForConfirm(
-            l1Config.name,
+            configL1.name,
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
@@ -164,8 +164,8 @@ export const useCompleteTransferToL1 = () => {
     },
     [
       withdraw,
-      l1Account,
-      l1Config,
+      accountL1,
+      configL1,
       handleData,
       handleError,
       handleProgress,

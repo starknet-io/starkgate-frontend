@@ -37,7 +37,7 @@ export const useTransferToL2 = () => {
   return useCallback(
     async amount => {
       const {symbol, name, bridgeAddress} = selectedToken;
-      const l2TokenAddress = getL2Token(symbol)?.tokenAddress;
+      const tokenAddressL2 = getL2Token(symbol)?.tokenAddress;
 
       const sendDeposit = () => {
         trackInitiated({
@@ -79,7 +79,7 @@ export const useTransferToL2 = () => {
       };
 
       const maybeAddToken = async () => {
-        const [, error] = await promiseHandler(addToken(l2TokenAddress));
+        const [, error] = await promiseHandler(addToken(tokenAddressL2));
         if (error) {
           logger.warn(error.message);
         }
@@ -128,7 +128,7 @@ export const useTransferToL2 = () => {
           logger.log('Calling deposit');
           const receipt = await sendDeposit();
           onDeposit(receipt.events[EventName.L1.LOG_DEPOSIT]);
-          await maybeAddToken(l2TokenAddress);
+          await maybeAddToken(tokenAddressL2);
         }
       } catch (ex) {
         trackError(ex);

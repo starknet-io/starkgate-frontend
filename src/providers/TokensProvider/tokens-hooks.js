@@ -5,14 +5,14 @@ import {TokensContext} from './tokens-context';
 
 export const useTokens = () => {
   const {isL1} = useTransfer();
-  const l2Tokens = useL2Tokens();
-  const l1Tokens = useL1Tokens();
+  const tokensL1 = useL1Tokens();
+  const tokensL2 = useL2Tokens();
   const {updateTokenBalance} = useContext(TokensContext);
-  const [tokens, setTokens] = useState(isL1 ? l1Tokens : l2Tokens);
+  const [tokens, setTokens] = useState(isL1 ? tokensL1 : tokensL2);
 
   useEffect(() => {
-    setTokens(isL1 ? l1Tokens : l2Tokens);
-  }, [isL1, l2Tokens, l1Tokens]);
+    setTokens(isL1 ? tokensL1 : tokensL2);
+  }, [isL1, tokensL2, tokensL1]);
 
   return {tokens, updateTokenBalance};
 };
@@ -30,13 +30,13 @@ export const useL1Tokens = () => {
 };
 
 export const useL2Token = () => {
-  const l2Tokens = useL2Tokens();
+  const tokensL2 = useL2Tokens();
 
-  return useCallback(symbol => l2Tokens.find(token => token.symbol === symbol), [l2Tokens]);
+  return useCallback(symbol => tokensL2.find(token => token.symbol === symbol), [tokensL2]);
 };
 
 export const useL1Token = () => {
-  const l1Tokens = useL1Tokens();
+  const tokensL1 = useL1Tokens();
 
-  return useCallback(symbol => l1Tokens.find(token => token.symbol === symbol), [l1Tokens]);
+  return useCallback(symbol => tokensL1.find(token => token.symbol === symbol), [tokensL1]);
 };

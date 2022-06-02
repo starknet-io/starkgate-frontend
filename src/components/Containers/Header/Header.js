@@ -19,8 +19,8 @@ export const Header = () => {
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {account: l1Account, config: l1Config} = useL1Wallet();
-  const {account: l2Account, config: l2Config} = useL2Wallet();
+  const {account: accountL1, config: configL1} = useL1Wallet();
+  const {account: accountL2, config: configL2} = useL2Wallet();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorGamma} = useColors();
   const {navigateToRoute} = useApp();
@@ -83,13 +83,13 @@ export const Header = () => {
           <>
             <Divider />
             <WalletButton
-              account={l1Account}
-              logoPath={l1Config?.logoPath}
+              account={accountL1}
+              logoPath={configL1?.logoPath}
               onClick={onL1WalletButtonClick}
             />
             <WalletButton
-              account={l2Account}
-              logoPath={l2Config?.logoPath}
+              account={accountL2}
+              logoPath={configL2?.logoPath}
               onClick={onL2WalletButtonClick}
             />
           </>

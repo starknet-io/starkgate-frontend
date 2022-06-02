@@ -18,10 +18,10 @@ const initialWalletState = {
 };
 
 export const initialState = {
-  l1Wallet: {
+  walletL1: {
     ...initialWalletState
   },
-  l2Wallet: {
+  walletL2: {
     ...initialWalletState
   }
 };
@@ -31,20 +31,20 @@ export const reducer = (state, action) => {
     case actions.UPDATE_L1_WALLET:
       return {
         ...state,
-        l1Wallet: {...state.l1Wallet, ...action.payload}
+        walletL1: {...state.walletL1, ...action.payload}
       };
 
     case actions.UPDATE_L2_WALLET:
       return {
         ...state,
-        l2Wallet: {...state.l2Wallet, ...action.payload}
+        walletL2: {...state.walletL2, ...action.payload}
       };
 
     case actions.SET_L1_WALLET_CONFIG:
       return {
         ...state,
-        l1Wallet: {
-          ...state.l1Wallet,
+        walletL1: {
+          ...state.walletL1,
           config: action.payload
         }
       };
@@ -52,8 +52,8 @@ export const reducer = (state, action) => {
     case actions.SET_L2_WALLET_CONFIG:
       return {
         ...state,
-        l2Wallet: {
-          ...state.l2Wallet,
+        walletL2: {
+          ...state.walletL2,
           config: action.payload
         }
       };

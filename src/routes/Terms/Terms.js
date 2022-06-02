@@ -56,12 +56,12 @@ const AcceptButton = ({isDisabled}) => {
   const {appUrl} = useEnvs();
   const {acceptTerms} = useTerms();
   const {colorGamma1, colorWhite} = useColors();
-  const {account: l1account} = useL1Wallet();
-  const {account: l2account} = useL2Wallet();
+  const {account: accountL1} = useL1Wallet();
+  const {account: accountL2} = useL2Wallet();
   const navigate = useNavigate();
 
   const accept = () => {
-    trackAcceptClick({l1account, l2account});
+    trackAcceptClick({accountL1, accountL2});
     acceptTerms();
     navigate('/');
   };
