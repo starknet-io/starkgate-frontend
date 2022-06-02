@@ -34,10 +34,10 @@ export const useBridgeIsFull = () => {
 
 export const useSelectedToken = () => {
   const {symbol, isL1} = useContext(TransferContext);
-  const l1Token = useL1Token()(symbol);
-  const l2Token = useL2Token()(symbol);
+  const tokenL1 = useL1Token()(symbol);
+  const tokenL2 = useL2Token()(symbol);
 
-  return useMemo(() => (isL1 ? l1Token : l2Token), [symbol, isL1, l1Token, l2Token]);
+  return useMemo(() => (isL1 ? tokenL1 : tokenL2), [symbol, isL1, tokenL1, tokenL2]);
 };
 
 export const useAmount = () => {

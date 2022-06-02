@@ -1,11 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import {
-  maxDeposit as fetchMaxDeposit,
-  maxTotalBalance as fetchMaxTotalBalance
-} from '../../api/bridge';
-import {useAccountChange, useConstants, useL1TokenBridgeContract, useLogger} from '../../hooks';
+import {useAccountChange, useBridgeContractAPI, useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {promiseHandler} from '../../utils';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
@@ -16,11 +12,12 @@ export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
   const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
   const [tokens, dispatch] = useReducer(reducer, initialState);
-  const {account: l1Account} = useL1Wallet();
-  const {account: l2Account} = useL2Wallet();
-  const getL1BridgeContract = useL1TokenBridgeContract();
-  const getL1TokenBalance = useL1TokenBalance(l1Account);
-  const getL2TokenBalance = useL2TokenBalance(l2Account);
+  const {account: accountL1} = useL1Wallet();
+  const {account: accountL2} = useL2Wallet();
+  const getL1TokenBalance = useL1TokenBalance(accountL1);
+  const getL2TokenBalance = useL2TokenBalance(accountL2);
+  const {maxDeposit: fetchMaxDeposit, maxTotalBalance: fetchMaxTotalBalance} =
+    useBridgeContractAPI();
 
   useAccountChange(() => {
     fetchTokensData(tokens.filter(t => t.isL1));
@@ -60,15 +57,8 @@ export const TokensProvider = ({children}) => {
 
   const fetchTokensData = tokens => {
     async function fetchData(token) {
-      const bridge = getL1BridgeContract(token.bridgeAddress);
       const [[maxTotalBalance, maxDeposit], error] = await promiseHandler(
-        Promise.all([
-          fetchMaxTotalBalance({...token, contract: bridge}),
-          fetchMaxDeposit({
-            ...token,
-            contract: bridge
-          })
-        ])
+        Promise.all([fetchMaxTotalBalance(token), fetchMaxDeposit(token)])
       );
       if (!error) {
         logger.log(

@@ -13,14 +13,14 @@ export const useTerms = () => {
 };
 
 export const useLogin = () => {
-  const {status: l1Status, config: l1Config} = useL1Wallet();
-  const {status: l2Status, config: l2Config} = useL2Wallet();
+  const {status: statusL1, config: configL1} = useL1Wallet();
+  const {status: statusL2, config: configL2} = useL2Wallet();
 
   return {
     isLoggedIn:
-      l1Status === WalletStatus.CONNECTED &&
-      !!l1Config &&
-      l2Status === WalletStatus.CONNECTED &&
-      !!l2Config
+      statusL1 === WalletStatus.CONNECTED &&
+      !!configL1 &&
+      statusL2 === WalletStatus.CONNECTED &&
+      !!configL2
   };
 };

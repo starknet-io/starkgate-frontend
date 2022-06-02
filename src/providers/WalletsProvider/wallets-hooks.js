@@ -9,7 +9,7 @@ import {WalletsContext} from './wallets-context';
 export const useWallets = () => {
   const wallets = useContext(WalletsContext);
   const {isL1} = useTransfer();
-  const [activeWallet, setActiveWallet] = useState(wallets.l1Wallet);
+  const [activeWallet, setActiveWallet] = useState(wallets.walletL1);
 
   const connectWallet = useCallback(
     walletConfig => wallets.connectWallet(walletConfig),
@@ -21,7 +21,7 @@ export const useWallets = () => {
   const swapWallets = useCallback(() => wallets.swapWallets(), [isL1, wallets]);
 
   useEffect(() => {
-    setActiveWallet(isL1 ? wallets.l1Wallet : wallets.l2Wallet);
+    setActiveWallet(isL1 ? wallets.walletL1 : wallets.walletL2);
   }, [isL1, wallets]);
 
   return {
@@ -47,7 +47,7 @@ export const useL1Wallet = () => {
 
   return {
     connectWallet,
-    ...wallets.l1Wallet
+    ...wallets.walletL1
   };
 };
 
@@ -61,7 +61,7 @@ export const useL2Wallet = () => {
 
   return {
     connectWallet,
-    ...wallets.l2Wallet
+    ...wallets.walletL2
   };
 };
 

@@ -1,14 +1,14 @@
 import {useCallback} from 'react';
 
-import {balanceOf, ethBalanceOf} from '../api/erc20';
 import {useTransfer} from '../providers/TransferProvider';
 import {isEth} from '../utils';
-import {useL1TokenContract, useL2TokenContract} from './useContract';
+import {useTokenContractAPI} from './useTokenContractAPI';
 
 export const useTokenBalance = account => {
   const getL2TokenBalance = useL2TokenBalance(account);
   const getL1TokenBalance = useL1TokenBalance(account);
   const {isL1} = useTransfer();
+
   return useCallback(
     tokenAddresses => {
       return isL1 ? getL1TokenBalance(tokenAddresses) : getL2TokenBalance(tokenAddresses);
@@ -18,34 +18,29 @@ export const useTokenBalance = account => {
 };
 
 export const useL2TokenBalance = account => {
-  const getContract = useL2TokenContract();
+  const {balanceOfL2} = useTokenContractAPI();
 
   return useCallback(
     async token => {
-      const {tokenAddress, decimals} = token;
-      return await balanceOf({account, decimals, contract: getContract(tokenAddress)}, false);
+      return await balanceOfL2({account, token});
     },
-    [account, getContract]
+    [account, balanceOfL2]
   );
 };
 
 export const useL1TokenBalance = account => {
-  const getContract = useL1TokenContract();
+  const {balanceOfL1, balanceOfEth} = useTokenContractAPI();
 
   return useCallback(
     async token => {
-      const {tokenAddress, symbol, decimals} = token;
+      const {symbol} = token;
       return isEth(symbol)
-        ? await ethBalanceOf(account)
-        : await balanceOf(
-            {
-              account,
-              decimals,
-              contract: getContract(tokenAddress)
-            },
-            true
-          );
+        ? await balanceOfEth(account)
+        : await balanceOfL1({
+            account,
+            token
+          });
     },
-    [account, getContract]
+    [account, balanceOfL1, balanceOfEth]
   );
 };

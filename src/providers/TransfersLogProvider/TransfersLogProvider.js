@@ -24,7 +24,7 @@ export const TransfersLogProvider = ({children}) => {
   const logger = useLogger(TransfersLogProvider.displayName);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
-  const {chainId: l2ChainId} = useL2Wallet();
+  const {chainId: chainIdL2} = useL2Wallet();
   const starknetContract = useStarknetContract();
   const accountHash = useAccountHash();
 
@@ -114,10 +114,10 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const calcL2TransactionHash = async transfer => {
-    const l2MessageEvent = await getMessageToL2(transfer.event);
-    if (l2MessageEvent) {
-      logger.log('Found L2 message. calculating L2 transaction hash...', {l2MessageEvent});
-      const {to_address, from_address, selector, payload, nonce} = l2MessageEvent.returnValues;
+    const messageToL2Event = await getMessageToL2(transfer.event);
+    if (messageToL2Event) {
+      logger.log('Found L2 message. calculating L2 transaction hash...', {messageToL2Event});
+      const {to_address, from_address, selector, payload, nonce} = messageToL2Event.returnValues;
       delete transfer.event;
       return {
         ...transfer,
@@ -127,7 +127,7 @@ export const TransfersLogProvider = ({children}) => {
           to_address,
           selector,
           payload,
-          l2ChainId,
+          chainIdL2,
           nonce
         )
       };

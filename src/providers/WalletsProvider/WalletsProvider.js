@@ -13,31 +13,31 @@ export const WalletsProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {status, connect, reset, isConnected, error, account, chainId, networkName} = useWallet();
   const {
-    status: l2Status,
-    connect: l2Connect,
-    isConnected: l2IsConnected,
-    error: l2Error,
-    account: l2Account,
-    chainId: l2ChainId,
-    networkName: l2NetworkName
+    status: statusL2,
+    connect: connectL2,
+    isConnected: isConnectedL2,
+    error: errorL2,
+    account: accountL2,
+    chainId: chainIdL2,
+    networkName: networkNameL2
   } = useStarknetWallet();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
   const [accountHash, setAccountHash] = useState('');
 
   useEffect(() => {
-    (isL2 || state.l2Wallet.config) && maybeUpdateL2Wallet();
-  }, [l2Status, l2Error, l2Account, l2ChainId, l2NetworkName]);
+    (isL2 || state.walletL2.config) && maybeUpdateL2Wallet();
+  }, [statusL2, errorL2, accountL2, chainIdL2, networkNameL2]);
 
   useEffect(() => {
-    (isL1 || state.l1Wallet.config) && maybeUpdateL1Wallet();
+    (isL1 || state.walletL1.config) && maybeUpdateL1Wallet();
   }, [status, error, account, chainId, networkName]);
 
   useEffect(() => {
-    if (account && l2Account) {
-      setAccountHash(calcAccountHash(account, l2Account));
+    if (account && accountL2) {
+      setAccountHash(calcAccountHash(account, accountL2));
     }
-  }, [account, l2Account]);
+  }, [account, accountL2]);
 
   const connectWallet = async walletConfig => {
     return isL1 ? connectL1Wallet(walletConfig) : connectL2Wallet(walletConfig);
@@ -58,7 +58,7 @@ export const WalletsProvider = ({children}) => {
   };
 
   const connectL2Wallet = async walletConfig => {
-    return l2Connect(walletConfig).then(() => setL2WalletConfig(walletConfig));
+    return connectL2(walletConfig).then(() => setL2WalletConfig(walletConfig));
   };
 
   const resetL2Wallet = () => {
@@ -67,10 +67,10 @@ export const WalletsProvider = ({children}) => {
   };
 
   const swapWallets = async () => {
-    if (state.l1Wallet.config && !state.l2Wallet.config) {
+    if (state.walletL1.config && !state.walletL2.config) {
       swapToL1();
       maybeUpdateL1Wallet();
-    } else if (state.l2Wallet.config && !state.l1Wallet.config) {
+    } else if (state.walletL2.config && !state.walletL1.config) {
       swapToL2();
       maybeUpdateL2Wallet();
     }
@@ -91,12 +91,12 @@ export const WalletsProvider = ({children}) => {
 
   const maybeUpdateL2Wallet = () => {
     updateL2Wallet({
-      status: l2Status,
-      error: l2Error,
-      chainId: l2ChainId,
-      isConnected: l2IsConnected,
-      account: l2Account,
-      chainName: l2NetworkName
+      status: statusL2,
+      error: errorL2,
+      chainId: chainIdL2,
+      isConnected: isConnectedL2,
+      account: accountL2,
+      chainName: networkNameL2
     });
   };
 
