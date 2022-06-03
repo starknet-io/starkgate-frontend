@@ -1,14 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 
 import {MultiChoiceMenu} from '../../components/UI';
-import {
-  ActionType,
-  ChainInfo,
-  LoginErrorType,
-  NetworkType,
-  WalletErrorType,
-  WalletStatus
-} from '../../enums';
+import {ChainInfo, LoginErrorType, NetworkType, WalletErrorType, WalletStatus} from '../../enums';
 import {
   useEnvs,
   useLoginTracking,
@@ -16,8 +9,7 @@ import {
   useWalletHandlerProvider
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
-import {useIsL1, useIsL2, useTransfer} from '../../providers/TransferProvider';
-import {useWallets} from '../../providers/WalletsProvider';
+import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import {evaluate, isChrome} from '../../utils';
 import styles from './Login.module.scss';
 
@@ -38,22 +30,34 @@ export const Login = () => {
   const {autoConnect, supportedL1ChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
-  const [, swapToL1] = useIsL1();
-  const [, swapToL2] = useIsL2();
-  const {action} = useTransfer();
-  const {status, error: walletError, connectWallet, isConnected} = useWallets();
+  const [network, setNetwork] = useState(NetworkType.L1.name);
+  const {isConnected: isConnectedL1, ...walletL1} = useL1Wallet();
+  const {isConnected: isConnectedL2, ...walletL2} = useL2Wallet();
+  const walletHandlers = useWalletHandlerProvider(network);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
-  const walletHandlers = useWalletHandlerProvider(action);
+
+  const {
+    error: walletError,
+    status: walletStatus,
+    connectWallet
+  } = network === NetworkType.L1.name ? walletL1 : walletL2;
 
   useEffect(() => {
     trackLoginScreen();
     if (!isChrome()) {
       setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
-    return () => swapToL1();
   }, []);
+
+  useEffect(() => {
+    if (!isConnectedL1) {
+      setNetwork(NetworkType.L1.name);
+    } else if (!isConnectedL2) {
+      setNetwork(NetworkType.L2.name);
+    }
+  }, [isConnectedL1, isConnectedL2]);
 
   useEffect(() => {
     let timeoutId;
@@ -71,17 +75,11 @@ export const Login = () => {
   }, [error, walletHandlers]);
 
   useEffect(() => {
-    if (isConnected) {
-      swapToL2();
-    }
-  }, [isConnected]);
-
-  useEffect(() => {
     walletError && handleWalletError(walletError);
   }, [walletError]);
 
   useEffect(() => {
-    switch (status) {
+    switch (walletStatus) {
       case WalletStatus.CONNECTING:
         maybeShowModal();
         break;
@@ -100,7 +98,7 @@ export const Login = () => {
     return () => {
       maybeHideModal();
     };
-  }, [status]);
+  }, [walletStatus]);
 
   const onWalletConnect = walletHandler => {
     const {config} = walletHandler;
@@ -155,6 +153,7 @@ export const Login = () => {
         id,
         description,
         isDisabled: !isChrome(),
+        isLoading: walletStatus === WalletStatus.CONNECTING,
         logoPath,
         name,
         onClick: () => onWalletConnect(walletHandler)
@@ -166,10 +165,7 @@ export const Login = () => {
     <div className={styles.login}>
       <MultiChoiceMenu
         choices={mapLoginWalletsToChoices()}
-        description={evaluate(subtitleTxt, {
-          networkName:
-            action === ActionType.TRANSFER_TO_L2 ? NetworkType.L1.name : NetworkType.L2.name
-        })}
+        description={evaluate(subtitleTxt, {networkName: network})}
         error={error}
         footer={
           <div className={styles.download}>

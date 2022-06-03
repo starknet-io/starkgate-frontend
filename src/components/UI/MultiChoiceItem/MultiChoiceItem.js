@@ -1,3 +1,4 @@
+import {LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -6,7 +7,7 @@ import {toClasses, capitalize} from '../../../utils';
 import {DynamicIcon} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 
-export const MultiChoiceItem = ({name, description, logoPath, isDisabled, onClick}) => (
+export const MultiChoiceItem = ({name, description, logoPath, isDisabled, isLoading, onClick}) => (
   <>
     <div
       className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
@@ -21,6 +22,7 @@ export const MultiChoiceItem = ({name, description, logoPath, isDisabled, onClic
       </div>
       <ForwardIcon />
     </div>
+    {isLoading && <LinearProgress />}
     <div className={styles.separator} />
   </>
 );
@@ -30,5 +32,6 @@ MultiChoiceItem.propTypes = {
   description: PropTypes.string,
   logoPath: PropTypes.string,
   isDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool,
   onClick: PropTypes.func
 };
