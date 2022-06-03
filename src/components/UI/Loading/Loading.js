@@ -1,6 +1,11 @@
-import {CircularProgress} from '@mui/material';
+import {CircularProgress, LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+export const LoadingType = {
+  CIRCULAR: 0,
+  LINEAR: 1
+};
 
 export const LoadingSize = {
   XS: 13,
@@ -10,10 +15,11 @@ export const LoadingSize = {
   XL: 110
 };
 
-export const Loading = ({size}) => {
-  return <CircularProgress size={size} />;
+export const Loading = ({size, type = LoadingType.CIRCULAR}) => {
+  return type === LoadingType.LINEAR ? <LinearProgress /> : <CircularProgress size={size} />;
 };
 
 Loading.propTypes = {
-  size: PropTypes.number
+  size: PropTypes.number,
+  type: PropTypes.number
 };

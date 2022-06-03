@@ -1,10 +1,9 @@
-import {LinearProgress} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import {toClasses, capitalize} from '../../../utils';
-import {DynamicIcon} from '../index';
+import {DynamicIcon, Loading, LoadingType} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 
 export const MultiChoiceItem = ({name, description, logoPath, isDisabled, isLoading, onClick}) => (
@@ -22,7 +21,7 @@ export const MultiChoiceItem = ({name, description, logoPath, isDisabled, isLoad
       </div>
       <ForwardIcon />
     </div>
-    {isLoading && <LinearProgress />}
+    {isLoading && <Loading type={LoadingType.LINEAR} />}
     <div className={styles.separator} />
   </>
 );
