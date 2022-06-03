@@ -1,8 +1,10 @@
 import MetaMaskOnboarding from '@metamask/onboarding';
 
-export class MetaMask {
+import {WalletHandler} from './wallet-handler';
+
+export class MetaMask extends WalletHandler {
   constructor(config) {
-    this.config = config;
+    super(config);
     this.onboarding = new MetaMaskOnboarding();
   }
 

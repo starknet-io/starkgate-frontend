@@ -3,6 +3,7 @@ import {useMemo} from 'react';
 import Wallets from '../config/wallets.js';
 import {NetworkType} from '../enums';
 import {GetStarknetWallet, MetaMask} from '../wallets';
+import {WalletHandler} from '../wallets/wallet-handler';
 
 const configMap = {
   [NetworkType.L1.name]: {
@@ -22,12 +23,15 @@ const configMap = {
 export const useWalletHandlerProvider = network => {
   return useMemo(() => {
     const {wallets, registry} = configMap[network];
-    return wallets.map(walletConfig => {
-      const {id} = walletConfig;
-      const WalletHandler = registry[id];
-      if (WalletHandler) {
-        return new WalletHandler(walletConfig);
-      }
-    });
+    return wallets
+      .map(walletConfig => {
+        const {id} = walletConfig;
+        const WalletHandler = registry[id];
+        if (WalletHandler) {
+          return new WalletHandler(walletConfig);
+        }
+        return null;
+      })
+      .filter(walletHandler => walletHandler instanceof WalletHandler);
   }, [network]);
 };
