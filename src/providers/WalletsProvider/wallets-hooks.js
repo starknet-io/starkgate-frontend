@@ -11,15 +11,15 @@ export const useWallets = () => {
   const {isL1} = useTransfer();
 
   const connectWallet = useCallback(
-    walletConfig =>
-      isL1 ? wallets.connectWalletL1(walletConfig) : wallets.connectWalletL2(walletConfig),
+    walletConfig => {
+      return isL1 ? wallets.connectWalletL1(walletConfig) : wallets.connectWalletL2(walletConfig);
+    },
     [isL1, wallets]
   );
 
-  const resetWallet = useCallback(
-    () => (isL1 ? wallets.resetWalletL1() : wallets.resetWalletL2()),
-    [isL1, wallets]
-  );
+  const resetWallet = useCallback(() => {
+    return isL1 ? wallets.resetWalletL1() : wallets.resetWalletL2();
+  }, [isL1, wallets]);
 
   return {
     ...(isL1 ? wallets.walletL1 : wallets.walletL2),
