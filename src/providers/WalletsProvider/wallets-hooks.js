@@ -2,7 +2,7 @@ import {useCallback, useContext, useState} from 'react';
 
 import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
-import {getStarknet, getStarknetWallet} from '../../libs';
+import {getStarknet, getStarknetWallet, resetStarknetWallet} from '../../libs';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
@@ -91,6 +91,14 @@ export const useStarknetWallet = () => {
     }
   };
 
+  const reset = () => {
+    const disconnected = resetStarknetWallet({clearLastWallet: true, clearDefaultWallet: true});
+    if (disconnected) {
+      setStatus(WalletStatus.DISCONNECTED);
+      setAccount('');
+    }
+  };
+
   const addAccountChangedListener = () => {
     getStarknet().on('accountsChanged', () => {
       setStatus(WalletStatus.DISCONNECTED);
@@ -134,6 +142,7 @@ export const useStarknetWallet = () => {
     status,
     error,
     connect,
+    reset,
     isConnected: getStarknet().isConnected
   };
 };

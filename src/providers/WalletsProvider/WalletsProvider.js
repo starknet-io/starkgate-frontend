@@ -24,6 +24,7 @@ export const WalletsProvider = ({children}) => {
   const {
     status: statusL2,
     connect: connectL2,
+    reset: resetL2,
     isConnected: isConnectedL2,
     error: errorL2,
     account: accountL2,
@@ -77,7 +78,7 @@ export const WalletsProvider = ({children}) => {
 
   const resetWalletL2 = () => {
     setL2WalletConfig(null);
-    return null;
+    return resetL2();
   };
 
   const updateL1Wallet = payload => {

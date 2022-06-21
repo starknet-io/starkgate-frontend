@@ -85,7 +85,7 @@ export const Account = ({transferId}) => {
         >
           {renderTransfers()}
         </TransferLogContainer>
-        <LogoutButton isDisabled={isL2} onClick={resetWallet} />
+        <LogoutButton onClick={resetWallet} />
       </div>
     </Menu>
   );
