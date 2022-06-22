@@ -31,8 +31,8 @@ export const Login = () => {
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
   const [network, setNetwork] = useState(NetworkType.L1);
-  const walletL1 = useL1Wallet();
-  const walletL2 = useL2Wallet();
+  const {status: statusL1, ...walletL1} = useL1Wallet();
+  const {status: statusL2, ...walletL2} = useL2Wallet();
   const walletHandlers = useWalletHandlerProvider(network);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
@@ -52,9 +52,14 @@ export const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (network === NetworkType.L1 && walletStatus === WalletStatus.CONNECTED) {
-      setNetwork(NetworkType.L2);
+    if (statusL1 !== WalletStatus.CONNECTED) {
+      network !== NetworkType.L1 && setNetwork(NetworkType.L1);
+    } else if (statusL2 !== WalletStatus.CONNECTED) {
+      network !== NetworkType.L2 && setNetwork(NetworkType.L2);
     }
+  }, [statusL1, statusL2]);
+
+  useEffect(() => {
     handleModal();
     return () => {
       maybeHideModal();

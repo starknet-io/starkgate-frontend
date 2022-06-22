@@ -18,13 +18,13 @@ export const WalletsProvider = ({children}) => {
   const {account: accountL2, status: statusL2, error: errorL2} = walletL2;
 
   useEffect(() => {
-    updateL2Wallet(walletL2);
+    updateWalletL2(walletL2);
   }, [statusL2, errorL2]);
 
   useEffect(() => {
     // To support serializable object in the store
     const serializedError = statusL1 === WalletStatus.ERROR ? {...errorL1} : null;
-    updateL1Wallet({
+    updateWalletL1({
       ...walletL1,
       error: serializedError,
       isConnected: walletL1.isConnected()
@@ -39,47 +39,49 @@ export const WalletsProvider = ({children}) => {
 
   const connectWalletL1 = async walletConfig => {
     const {connectorId} = walletConfig;
-    return walletL1.connect(connectorId).then(() => setL1WalletConfig(walletConfig));
+    return walletL1.connect(connectorId).then(() => setWalletConfigL1(walletConfig));
   };
 
   const resetWalletL1 = () => {
-    setL1WalletConfig(null);
+    setWalletConfigL1(null);
     return walletL1.reset();
   };
 
   const connectWalletL2 = async walletConfig => {
-    return walletL2.connect(walletConfig).then(() => setL2WalletConfig(walletConfig));
+    return walletL2
+      .connect(walletConfig)
+      .then(chosenWalletConfig => setWalletConfigL2(chosenWalletConfig));
   };
 
   const resetWalletL2 = () => {
-    setL2WalletConfig(null);
+    setWalletConfigL2(null);
     return walletL2.reset();
   };
 
-  const updateL1Wallet = payload => {
+  const updateWalletL1 = payload => {
     dispatch({
-      type: actions.UPDATE_L1_WALLET,
+      type: actions.UPDATE_WALLET_L1,
       payload
     });
   };
 
-  const updateL2Wallet = payload => {
+  const updateWalletL2 = payload => {
     dispatch({
-      type: actions.UPDATE_L2_WALLET,
+      type: actions.UPDATE_WALLET_L2,
       payload
     });
   };
 
-  const setL1WalletConfig = payload => {
+  const setWalletConfigL1 = payload => {
     dispatch({
-      type: actions.SET_L1_WALLET_CONFIG,
+      type: actions.SET_WALLET_CONFIG_L1,
       payload
     });
   };
 
-  const setL2WalletConfig = payload => {
+  const setWalletConfigL2 = payload => {
     dispatch({
-      type: actions.SET_L2_WALLET_CONFIG,
+      type: actions.SET_WALLET_CONFIG_L2,
       payload
     });
   };

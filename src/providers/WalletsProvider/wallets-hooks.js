@@ -79,12 +79,14 @@ export const useStarknetWallet = () => {
       const enabled = await wallet
         .enable(!autoConnect && {showModal: true})
         .then(address => !!address?.length);
-
       if (enabled) {
-        walletConfig.name = wallet.name || walletConfig.name;
-        walletConfig.logoPath = wallet.icon || walletConfig.logoPath;
         updateAccount();
         addAccountChangedListener();
+        return {
+          ...walletConfig,
+          name: wallet.name || walletConfig.name,
+          logoPath: wallet.icon || walletConfig.logoPath
+        };
       }
     } catch {
       setStatus(WalletStatus.ERROR);
