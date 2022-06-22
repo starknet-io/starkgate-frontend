@@ -63,7 +63,7 @@ export const Account = ({transferId}) => {
     <Menu>
       <div>
         <BackButton onClick={() => showTransferMenu()} />
-        <MenuTitle text={evaluate(titleTxt, {network: fromNetwork.name})} />
+        <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
         <AccountAddress address={account} onClick={trackAddressCopied} />
         {isL1 && (
           <LinkButton

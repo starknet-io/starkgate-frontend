@@ -40,7 +40,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     ) : (
       <LinkButton
         isDisabled={!l1hash}
-        text={`${NetworkType.L1.name} Tx`}
+        text={`${NetworkType.L1} Tx`}
         url={etherscanTxUrl(l1hash)}
         onClick={onTxClick}
       />
@@ -55,7 +55,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
           !status ||
           TransactionStatusStep[status] < TransactionStatusStep[TransactionStatus.PENDING]
         }
-        text={`${NetworkType.L2.name} Tx`}
+        text={`${NetworkType.L2} Tx`}
         url={voyagerTxUrl(l2hash)}
         onClick={onTxClick}
       />

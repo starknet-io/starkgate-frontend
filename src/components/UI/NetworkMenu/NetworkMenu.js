@@ -8,7 +8,7 @@ import {Badge} from '../index';
 import styles from './NetworkMenu.module.scss';
 
 export const NetworkMenu = ({
-  networkData,
+  networkName,
   tokenData,
   isTarget,
   isDisabled,
@@ -21,7 +21,7 @@ export const NetworkMenu = ({
     <div className={styles.networkMenu}>
       <Badge isDisabled={isDisabled} text={isTarget ? toTxt : fromTxt} />
       <div className={styles.networkContainer}>
-        <NetworkTitle isDisabled={isDisabled} networkData={networkData} />
+        <NetworkTitle isDisabled={isDisabled} networkName={networkName} />
         <TokenBalance
           isDisabled={isDisabled}
           tokenData={tokenData}
@@ -34,7 +34,7 @@ export const NetworkMenu = ({
 };
 
 NetworkMenu.propTypes = {
-  networkData: PropTypes.object,
+  networkName: PropTypes.string,
   tokenData: PropTypes.object,
   isTarget: PropTypes.bool,
   isDisabled: PropTypes.bool,

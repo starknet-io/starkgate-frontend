@@ -231,8 +231,8 @@ export const TransferData = ({transfer, style}) => {
       <ToastBody
         body={
           transfer.type === ActionType.TRANSFER_TO_L2
-            ? `${NetworkType.L1.name} -> ${NetworkType.L2.name}`
-            : `${NetworkType.L2.name} -> ${NetworkType.L1.name}`
+            ? `${NetworkType.L1} -> ${NetworkType.L2}`
+            : `${NetworkType.L2} -> ${NetworkType.L1}`
         }
         style={style}
       />

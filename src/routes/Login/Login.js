@@ -30,9 +30,9 @@ export const Login = () => {
   const {autoConnect, supportedL1ChainId} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
-  const [network, setNetwork] = useState(NetworkType.L1.name);
-  const {isConnected: isConnectedL1, ...walletL1} = useL1Wallet();
-  const {isConnected: isConnectedL2, ...walletL2} = useL2Wallet();
+  const [network, setNetwork] = useState(NetworkType.L1);
+  const walletL1 = useL1Wallet();
+  const walletL2 = useL2Wallet();
   const walletHandlers = useWalletHandlerProvider(network);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
@@ -42,7 +42,7 @@ export const Login = () => {
     error: walletError,
     status: walletStatus,
     connectWallet
-  } = network === NetworkType.L1.name ? walletL1 : walletL2;
+  } = network === NetworkType.L1 ? walletL1 : walletL2;
 
   useEffect(() => {
     trackLoginScreen();
@@ -52,12 +52,14 @@ export const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (!isConnectedL1) {
-      setNetwork(NetworkType.L1.name);
-    } else if (!isConnectedL2) {
-      setNetwork(NetworkType.L2.name);
+    if (network === NetworkType.L1 && walletStatus === WalletStatus.CONNECTED) {
+      setNetwork(NetworkType.L2);
     }
-  }, [isConnectedL1, isConnectedL2]);
+    handleModal();
+    return () => {
+      maybeHideModal();
+    };
+  }, [walletStatus]);
 
   useEffect(() => {
     let timeoutId;
@@ -78,7 +80,28 @@ export const Login = () => {
     walletError && handleWalletError(walletError);
   }, [walletError]);
 
-  useEffect(() => {
+  const onWalletConnect = walletHandler => {
+    if (walletError) {
+      return;
+    }
+    const {config} = walletHandler;
+    const {name} = config;
+    trackWalletClick(name);
+    if (!walletHandler.isInstalled()) {
+      return walletHandler.install();
+    }
+    setSelectedWalletName(name);
+    return connectWallet(config);
+  };
+
+  const onDownloadClick = () => {
+    trackDownloadClick();
+    if (walletHandlers.length > 0) {
+      return walletHandlers[0].install();
+    }
+  };
+
+  const handleModal = () => {
     switch (walletStatus) {
       case WalletStatus.CONNECTING:
         maybeShowModal();
@@ -94,27 +117,6 @@ export const Login = () => {
         break;
       default:
         break;
-    }
-    return () => {
-      maybeHideModal();
-    };
-  }, [walletStatus]);
-
-  const onWalletConnect = walletHandler => {
-    const {config} = walletHandler;
-    const {name} = config;
-    trackWalletClick(name);
-    if (!walletHandler.isInstalled()) {
-      return walletHandler.install();
-    }
-    setSelectedWalletName(name);
-    return connectWallet(config);
-  };
-
-  const onDownloadClick = () => {
-    trackDownloadClick();
-    if (walletHandlers.length > 0) {
-      return walletHandlers[0].install();
     }
   };
 

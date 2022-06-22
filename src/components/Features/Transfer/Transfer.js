@@ -53,12 +53,12 @@ export const Transfer = () => {
   const getL2Token = useL2Token();
   const tabs = [
     {
-      text: `${NetworkType.L1.name} -> ${NetworkType.L2.name}`,
+      text: `${NetworkType.L1} -> ${NetworkType.L2}`,
       isActive: action === ActionType.TRANSFER_TO_L2,
       onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L2)
     },
     {
-      text: `${NetworkType.L2.name} -> ${NetworkType.L1.name}`,
+      text: `${NetworkType.L2} -> ${NetworkType.L1}`,
       isActive: action === ActionType.TRANSFER_TO_L1,
       onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L1)
     }
@@ -155,7 +155,7 @@ export const Transfer = () => {
       <NetworkMenu
         isDisabled={bridgeIsFull}
         isTarget={!isL1}
-        networkData={NetworkType.L1}
+        networkName={NetworkType.L1}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
@@ -170,7 +170,7 @@ export const Transfer = () => {
       <NetworkMenu
         isDisabled={bridgeIsFull}
         isTarget={!isL2}
-        networkData={NetworkType.L2}
+        networkName={NetworkType.L2}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >

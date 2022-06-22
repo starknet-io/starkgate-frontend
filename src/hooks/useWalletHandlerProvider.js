@@ -6,13 +6,13 @@ import {GetStarknetWallet, MetaMask} from '../wallets';
 import {WalletHandler} from '../wallets/wallet-handler';
 
 const configMap = {
-  [NetworkType.L1.name]: {
+  [NetworkType.L1]: {
     wallets: Wallets.L1,
     registry: {
       metamask: MetaMask
     }
   },
-  [NetworkType.L2.name]: {
+  [NetworkType.L2]: {
     wallets: Wallets.L2,
     registry: {
       gsw: GetStarknetWallet

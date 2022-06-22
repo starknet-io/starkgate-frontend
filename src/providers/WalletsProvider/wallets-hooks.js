@@ -108,10 +108,16 @@ export const useStarknetWallet = () => {
 
   const updateAccount = () => {
     const chainId = getCurrentChainId();
-    setAccount(getStarknet().selectedAddress);
     setChainId(chainId);
     setChainName(ChainInfo.L2[chainId].NAME);
-    handleChain(chainId);
+    if (chainId === supportedL2ChainId) {
+      setAccount(getStarknet().selectedAddress);
+      setStatus(WalletStatus.CONNECTED);
+      setError(null);
+    } else {
+      setStatus(WalletStatus.ERROR);
+      setError({name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR});
+    }
   };
 
   const getCurrentChainId = () => {
@@ -122,16 +128,6 @@ export const useStarknetWallet = () => {
       return ChainType.L2.GOERLI;
     } else if (baseUrl.match(/^https?:\/\/localhost.*/)) {
       return 'localhost';
-    }
-  };
-
-  const handleChain = chainId => {
-    if (chainId === supportedL2ChainId) {
-      setStatus(WalletStatus.CONNECTED);
-      setError(null);
-    } else {
-      setStatus(WalletStatus.ERROR);
-      setError({name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR});
     }
   };
 
