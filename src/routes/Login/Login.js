@@ -86,9 +86,6 @@ export const Login = () => {
   }, [walletError]);
 
   const onWalletConnect = walletHandler => {
-    if (walletError) {
-      return;
-    }
     const {config} = walletHandler;
     const {name} = config;
     trackWalletClick(name);
