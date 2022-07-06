@@ -1,3 +1,10 @@
+## [1.6.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.4...v1.6.0-dev.5) (2022-07-06)
+
+
+### 🧩 Features
+
+* **2890253029:** display chain name on wallet button ([#222](https://github.com/starkware-libs/starkgate-frontend/issues/222)) ([129b108](https://github.com/starkware-libs/starkgate-frontend/commit/129b108adc619deaab6a82cc6709cdefd31cd308))
+
 ## [1.6.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.3...v1.6.0-dev.4) (2022-07-06)
 
 
