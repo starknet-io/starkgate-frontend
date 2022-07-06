@@ -15,16 +15,16 @@ export const ChainInfo = {
       NAME: 'Ethereum Mainnet'
     },
     [ChainType.L1.GOERLI]: {
-      NAME: 'Goerli Testnet'
+      NAME: 'Ethereum Goerli'
     }
   },
   L2: {
     [ChainType.L2.MAIN]: {
-      NAME: 'Ethereum Mainnet',
+      NAME: 'StarkNet Mainnet',
       ID_PREFIX: '23448594291968334'
     },
     [ChainType.L2.GOERLI]: {
-      NAME: 'Goerli Testnet',
+      NAME: 'StarkNet Goerli',
       ID_PREFIX: '1536727068981429685321'
     }
   }
