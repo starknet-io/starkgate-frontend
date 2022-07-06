@@ -1,3 +1,10 @@
+## [1.6.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.3...v1.6.0-dev.4) (2022-07-06)
+
+
+### 🧩 Features
+
+* **2890247979:** support new tokens: WBTC, USDT, USDC on mainnet ([#221](https://github.com/starkware-libs/starkgate-frontend/issues/221)) ([1f4f623](https://github.com/starkware-libs/starkgate-frontend/commit/1f4f6232d5af0d79b3fbd79b7f3258def840d970))
+
 ## [1.6.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.2...v1.6.0-dev.3) (2022-06-02)
 
 
