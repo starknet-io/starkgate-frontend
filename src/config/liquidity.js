@@ -14,8 +14,8 @@ export default [
   {
     id: 'layerswap',
     logoPath: 'liquidity/layerswap.svg',
-    name: 'LayerSwap',
-    description: 'Move crypto from Coinbase, Binance or FTX to StarkNet',
+    name: 'Layerswap',
+    description: 'Move crypto from your CEX to StarkNet: Instant & Gasless',
     url: {
       [ChainType.L1.GOERLI]: 'https://testnet.layerswap.io/?destNetwork=starknet_goerli',
       [ChainType.L1.MAIN]: 'https://layerswap.io/?destNetwork=starknet_mainnet'

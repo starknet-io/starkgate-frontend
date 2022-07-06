@@ -26,7 +26,6 @@ export * from './TransferMenuTab/TransferMenuTab';
 export * from './SearchToken/SearchToken';
 export * from './SelectTokenList/SelectTokenList';
 export * from './SelectTokenRow/SelectTokenRow';
-export * from './WalletLogin/WalletLogin';
 export * from './TransferLogContainer/TransferLogContainer';
 export * from './LogoutButton/LogoutButton';
 export * from './AccountAddress/AccountAddress';
