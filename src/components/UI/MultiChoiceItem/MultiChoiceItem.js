@@ -19,7 +19,9 @@ export const MultiChoiceItem = ({name, description, logoPath, isDisabled, onClic
           <div className={styles.description}>{capitalize(description)}</div>
         </div>
       </div>
-      <ForwardIcon />
+      <div className={styles.forwardIcon}>
+        <ForwardIcon />
+      </div>
     </div>
     <div className={styles.separator} />
   </>
