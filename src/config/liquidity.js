@@ -5,7 +5,7 @@ export default [
     id: 'banxa',
     logoPath: 'liquidity/banxa.svg',
     name: 'Banxa',
-    description: 'Convert fiat money into L2 cryptocurrencies',
+    description: 'Buy crypto with credit card directly to StarkNet',
     url: {
       [ChainType.L1.GOERLI]: '',
       [ChainType.L1.MAIN]: 'https://starkware.banxa.com/'
