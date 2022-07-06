@@ -20,6 +20,12 @@
   overflow: hidden;
   white-space: nowrap;
 
+  .icon {
+    &.right {
+      margin-left: 10px;
+    }
+  }
+
   &.isDisabled {
     pointer-events: none;
     opacity: 0.3;
