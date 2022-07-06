@@ -1,3 +1,10 @@
+## [1.6.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.5...v1.6.0-dev.6) (2022-07-06)
+
+
+### 🔧 Fixes
+
+* **2901827626:** change Layerswap text ([#223](https://github.com/starkware-libs/starkgate-frontend/issues/223)) ([d292d37](https://github.com/starkware-libs/starkgate-frontend/commit/d292d375bd2ff083322504e9c0400db50c3b5fb6))
+
 ## [1.6.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.4...v1.6.0-dev.5) (2022-07-06)
 
 
