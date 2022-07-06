@@ -3,7 +3,7 @@ import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
-import {Breakpoint, ChainType} from '../../../enums';
+import {Breakpoint, ChainInfo, ChainType} from '../../../enums';
 import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useApp, useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -14,7 +14,7 @@ import {Divider, Tab, WalletButton, BurgerMenu} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const {supportedL1ChainId} = useEnvs();
+  const {supportedL1ChainId, supportedL2ChainId} = useEnvs();
   const {tabLiquidityTxt, chainTxt} = useHeaderTranslation();
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
@@ -59,7 +59,12 @@ export const Header = () => {
       return (
         !tab.disable && (
           <Fragment key={index}>
-            <Tab colorBorder={tab.color} icon={tab.icon} text={tab.text} onClick={tab.onClick} />
+            <Tab
+              colorBorder={tab.color}
+              iconLeft={tab.icon}
+              text={tab.text}
+              onClick={tab.onClick}
+            />
             {index !== tabs.length - 1 && <Divider />}
           </Fragment>
         )
@@ -84,11 +89,13 @@ export const Header = () => {
             <Divider />
             <WalletButton
               account={accountL1}
+              chain={ChainInfo.L1[supportedL1ChainId].NAME}
               logoPath={configL1?.logoPath}
               onClick={onL1WalletButtonClick}
             />
             <WalletButton
               account={accountL2}
+              chain={ChainInfo.L2[supportedL2ChainId].NAME}
               logoPath={configL2?.logoPath}
               onClick={onL2WalletButtonClick}
             />

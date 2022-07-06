@@ -11,7 +11,7 @@ import styles from './WalletButton.module.scss';
 const WALLET_LOGO_SIZE = 30;
 const WALLET_LOGO_SIZE_MOBILE = 40;
 
-export const WalletButton = ({account, logoPath, onClick}) => {
+export const WalletButton = ({account, chain, logoPath, onClick}) => {
   const {colorBeta, colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
   const {walletBtnTxt} = useHeaderTranslation();
   const {breakpoint} = useBreakpoint(Breakpoint);
@@ -24,6 +24,10 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       return address;
     }
     return evaluate(walletBtnTxt, {address});
+  };
+
+  const renderChainLabel = () => {
+    return isDesktop(breakpoint) ? <ChainLabel chain={chain} /> : null;
   };
 
   const renderWalletLogo = () => {
@@ -43,7 +47,8 @@ export const WalletButton = ({account, logoPath, onClick}) => {
       colorBorder={colorBeta}
       colorText={colorWhite}
       height={0}
-      icon={renderWalletLogo()}
+      iconLeft={renderWalletLogo()}
+      iconRight={renderChainLabel()}
       text={getText()}
       onClick={onClick}
     />
@@ -52,6 +57,15 @@ export const WalletButton = ({account, logoPath, onClick}) => {
 
 WalletButton.propTypes = {
   account: PropTypes.string,
+  chain: PropTypes.string,
   logoPath: PropTypes.string,
   onClick: PropTypes.func
+};
+
+const ChainLabel = ({chain}) => {
+  return <div className={styles.networkLabel}>{chain}</div>;
+};
+
+ChainLabel.propTypes = {
+  chain: PropTypes.string
 };
