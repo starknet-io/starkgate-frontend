@@ -1,3 +1,10 @@
+## [1.6.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.6...v1.6.0-dev.7) (2022-07-07)
+
+
+### 🧩 Features
+
+* **2901868625:** add Banxa to integrations popup ([#224](https://github.com/starkware-libs/starkgate-frontend/issues/224)) ([d5448bf](https://github.com/starkware-libs/starkgate-frontend/commit/d5448bf8d476a621aca7aeffbc3a007879950b4f))
+
 ## [1.6.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.5...v1.6.0-dev.6) (2022-07-06)
 
 
