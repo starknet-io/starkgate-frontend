@@ -1,3 +1,10 @@
+## [1.6.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.7...v1.6.0-dev.8) (2022-07-07)
+
+
+### 💉 Improvements
+
+* **2889920167:** login/disconnect wallets ([#219](https://github.com/starkware-libs/starkgate-frontend/issues/219)) ([3ab3270](https://github.com/starkware-libs/starkgate-frontend/commit/3ab32700848ff3920c63727dccd899145c6c4ac7))
+
 ## [1.6.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.6...v1.6.0-dev.7) (2022-07-07)
 
 
