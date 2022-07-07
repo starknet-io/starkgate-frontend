@@ -1,6 +1,6 @@
 import {useCallback, useContext, useState} from 'react';
 
-import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
+import {ChainInfo, ChainType, NetworkType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
 import {getStarknet, getStarknetWallet, resetStarknetWallet} from '../../libs';
 import {useTransfer} from '../TransferProvider';
@@ -142,5 +142,27 @@ export const useStarknetWallet = () => {
     connect,
     reset,
     isConnected: getStarknet().isConnected
+  };
+};
+
+export const useLoginWallet = network => {
+  const walletL1 = useL1Wallet();
+  const walletL2 = useL2Wallet();
+  const {error, status, connectWallet} = network === NetworkType.L1 ? walletL1 : walletL2;
+
+  return {
+    walletError: error,
+    walletStatus: status,
+    connectWallet
+  };
+};
+
+export const useWalletsStatus = () => {
+  const {status: statusL1} = useL1Wallet();
+  const {status: statusL2} = useL2Wallet();
+
+  return {
+    statusL1,
+    statusL2
   };
 };

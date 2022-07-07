@@ -9,7 +9,7 @@ import {
   useWalletHandlerProvider
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
-import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
+import {useLoginWallet, useWalletsStatus} from '../../providers/WalletsProvider';
 import {evaluate, isChrome} from '../../utils';
 import styles from './Login.module.scss';
 
@@ -31,18 +31,12 @@ export const Login = () => {
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
   const [network, setNetwork] = useState(NetworkType.L1);
-  const {status: statusL1, ...walletL1} = useL1Wallet();
-  const {status: statusL2, ...walletL2} = useL2Wallet();
+  const {statusL1, statusL2} = useWalletsStatus();
+  const {walletError, walletStatus, connectWallet} = useLoginWallet(network);
   const walletHandlers = useWalletHandlerProvider(network);
   const modalTimeoutId = useRef(null);
   const hideModal = useHideModal();
   const showProgressModal = useProgressModal();
-
-  const {
-    error: walletError,
-    status: walletStatus,
-    connectWallet
-  } = network === NetworkType.L1 ? walletL1 : walletL2;
 
   useEffect(() => {
     trackLoginScreen();
