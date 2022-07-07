@@ -1,3 +1,24 @@
+## [1.6.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.5...v1.6.0-dev.6) (2022-07-06)
+
+
+### 🔧 Fixes
+
+* **2901827626:** change Layerswap text ([#223](https://github.com/starkware-libs/starkgate-frontend/issues/223)) ([d292d37](https://github.com/starkware-libs/starkgate-frontend/commit/d292d375bd2ff083322504e9c0400db50c3b5fb6))
+
+## [1.6.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.4...v1.6.0-dev.5) (2022-07-06)
+
+
+### 🧩 Features
+
+* **2890253029:** display chain name on wallet button ([#222](https://github.com/starkware-libs/starkgate-frontend/issues/222)) ([129b108](https://github.com/starkware-libs/starkgate-frontend/commit/129b108adc619deaab6a82cc6709cdefd31cd308))
+
+## [1.6.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.3...v1.6.0-dev.4) (2022-07-06)
+
+
+### 🧩 Features
+
+* **2890247979:** support new tokens: WBTC, USDT, USDC on mainnet ([#221](https://github.com/starkware-libs/starkgate-frontend/issues/221)) ([1f4f623](https://github.com/starkware-libs/starkgate-frontend/commit/1f4f6232d5af0d79b3fbd79b7f3258def840d970))
+
 ## [1.6.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.2...v1.6.0-dev.3) (2022-06-02)
 
 

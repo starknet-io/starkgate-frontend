@@ -2,7 +2,7 @@
 
 .multiChoiceMenu {
   position: absolute;
-  width: 450px;
+  min-width: 500px;
   background: $--color-alpha;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
