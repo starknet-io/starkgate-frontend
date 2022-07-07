@@ -1,32 +1,37 @@
 import {useMemo} from 'react';
 
 import Wallets from '../config/wallets.js';
-import {ActionType} from '../enums';
+import {NetworkType} from '../enums';
 import {GetStarknetWallet, MetaMask} from '../wallets';
+import {WalletHandler} from '../wallets/wallet-handler';
 
-const SUPPORTED_L1_HANDLERS_REGISTRY = {
-  metamask: MetaMask
+const configMap = {
+  [NetworkType.L1]: {
+    wallets: Wallets.L1,
+    registry: {
+      metamask: MetaMask
+    }
+  },
+  [NetworkType.L2]: {
+    wallets: Wallets.L2,
+    registry: {
+      gsw: GetStarknetWallet
+    }
+  }
 };
 
-const SUPPORTED_L2_HANDLERS_REGISTRY = {
-  gsw: GetStarknetWallet
-};
-
-export const useWalletHandlerProvider = (actionType = ActionType.TRANSFER_TO_L2) => {
+export const useWalletHandlerProvider = network => {
   return useMemo(() => {
-    const walletsConfig = actionType === ActionType.TRANSFER_TO_L2 ? Wallets.L1 : Wallets.L2;
-    const registry =
-      actionType === ActionType.TRANSFER_TO_L2
-        ? SUPPORTED_L1_HANDLERS_REGISTRY
-        : SUPPORTED_L2_HANDLERS_REGISTRY;
-    const handlers = [];
-    walletsConfig.forEach(walletConfig => {
-      const {id} = walletConfig;
-      const WalletHandler = registry[id];
-      if (WalletHandler) {
-        handlers.push(new WalletHandler(walletConfig));
-      }
-    });
-    return handlers;
-  }, [actionType]);
+    const {wallets, registry} = configMap[network];
+    return wallets
+      .map(walletConfig => {
+        const {id} = walletConfig;
+        const WalletHandler = registry[id];
+        if (WalletHandler) {
+          return new WalletHandler(walletConfig);
+        }
+        return null;
+      })
+      .filter(walletHandler => walletHandler instanceof WalletHandler);
+  }, [network]);
 };

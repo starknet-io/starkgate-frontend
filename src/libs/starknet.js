@@ -1,4 +1,8 @@
-import {getStarknet, connect as getStarknetWallet} from 'get-starknet-wallet';
+import {
+  getStarknet,
+  connect as getStarknetWallet,
+  disconnect as resetStarknetWallet
+} from 'get-starknet';
 import * as starknet from 'starknet';
 
-export {starknet, getStarknet, getStarknetWallet};
+export {starknet, getStarknet, getStarknetWallet, resetStarknetWallet};

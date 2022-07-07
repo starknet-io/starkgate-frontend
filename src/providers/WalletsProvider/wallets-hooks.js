@@ -1,34 +1,30 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useState} from 'react';
 
-import {ChainInfo, ChainType, WalletErrorType, WalletStatus} from '../../enums';
+import {ChainInfo, ChainType, NetworkType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
-import {getStarknet, getStarknetWallet} from '../../libs';
+import {getStarknet, getStarknetWallet, resetStarknetWallet} from '../../libs';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
 export const useWallets = () => {
   const wallets = useContext(WalletsContext);
   const {isL1} = useTransfer();
-  const [activeWallet, setActiveWallet] = useState(wallets.walletL1);
 
   const connectWallet = useCallback(
-    walletConfig => wallets.connectWallet(walletConfig),
+    walletConfig => {
+      return isL1 ? wallets.connectWalletL1(walletConfig) : wallets.connectWalletL2(walletConfig);
+    },
     [isL1, wallets]
   );
 
-  const resetWallet = useCallback(() => wallets.resetWallet(), [isL1, wallets]);
-
-  const swapWallets = useCallback(() => wallets.swapWallets(), [isL1, wallets]);
-
-  useEffect(() => {
-    setActiveWallet(isL1 ? wallets.walletL1 : wallets.walletL2);
+  const resetWallet = useCallback(() => {
+    return isL1 ? wallets.resetWalletL1() : wallets.resetWalletL2();
   }, [isL1, wallets]);
 
   return {
-    ...activeWallet,
+    ...(isL1 ? wallets.walletL1 : wallets.walletL2),
     connectWallet,
-    resetWallet,
-    swapWallets
+    resetWallet
   };
 };
 
@@ -41,7 +37,7 @@ export const useL1Wallet = () => {
   const wallets = useContext(WalletsContext);
 
   const connectWallet = useCallback(
-    walletConfig => wallets.connectL1Wallet(walletConfig),
+    walletConfig => wallets.connectWalletL1(walletConfig),
     [wallets]
   );
 
@@ -55,7 +51,7 @@ export const useL2Wallet = () => {
   const wallets = useContext(WalletsContext);
 
   const connectWallet = useCallback(
-    walletConfig => wallets.connectL2Wallet(walletConfig),
+    walletConfig => wallets.connectWalletL2(walletConfig),
     [wallets]
   );
 
@@ -70,7 +66,7 @@ export const useStarknetWallet = () => {
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
-  const [networkName, setNetworkName] = useState('');
+  const [chainName, setChainName] = useState('');
   const [status, setStatus] = useState(WalletStatus.DISCONNECTED);
 
   const connect = async walletConfig => {
@@ -83,15 +79,25 @@ export const useStarknetWallet = () => {
       const enabled = await wallet
         .enable(!autoConnect && {showModal: true})
         .then(address => !!address?.length);
-
       if (enabled) {
-        walletConfig.name = wallet.name || walletConfig.name;
-        walletConfig.logoPath = wallet.icon || walletConfig.logoPath;
         updateAccount();
         addAccountChangedListener();
+        return {
+          ...walletConfig,
+          name: wallet.name || walletConfig.name,
+          logoPath: wallet.icon || walletConfig.logoPath
+        };
       }
     } catch {
       setStatus(WalletStatus.ERROR);
+    }
+  };
+
+  const reset = () => {
+    const disconnected = resetStarknetWallet({clearLastWallet: true, clearDefaultWallet: true});
+    if (disconnected) {
+      setStatus(WalletStatus.DISCONNECTED);
+      setAccount('');
     }
   };
 
@@ -104,10 +110,16 @@ export const useStarknetWallet = () => {
 
   const updateAccount = () => {
     const chainId = getCurrentChainId();
-    setAccount(getStarknet().selectedAddress);
     setChainId(chainId);
-    setNetworkName(ChainInfo.L2[chainId].NAME);
-    handleChain(chainId);
+    setChainName(ChainInfo.L2[chainId].NAME);
+    if (chainId === supportedL2ChainId) {
+      setAccount(getStarknet().selectedAddress);
+      setStatus(WalletStatus.CONNECTED);
+      setError(null);
+    } else {
+      setStatus(WalletStatus.ERROR);
+      setError({name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR});
+    }
   };
 
   const getCurrentChainId = () => {
@@ -121,23 +133,36 @@ export const useStarknetWallet = () => {
     }
   };
 
-  const handleChain = chainId => {
-    if (chainId === supportedL2ChainId) {
-      setStatus(WalletStatus.CONNECTED);
-      setError(null);
-    } else {
-      setStatus(WalletStatus.ERROR);
-      setError({name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR});
-    }
-  };
-
   return {
     account,
     chainId,
-    networkName,
+    chainName,
     status,
     error,
     connect,
+    reset,
     isConnected: getStarknet().isConnected
+  };
+};
+
+export const useLoginWallet = network => {
+  const walletL1 = useL1Wallet();
+  const walletL2 = useL2Wallet();
+  const {error, status, connectWallet} = network === NetworkType.L1 ? walletL1 : walletL2;
+
+  return {
+    walletError: error,
+    walletStatus: status,
+    connectWallet
+  };
+};
+
+export const useWalletsStatus = () => {
+  const {status: statusL1} = useL1Wallet();
+  const {status: statusL2} = useL2Wallet();
+
+  return {
+    statusL1,
+    statusL2
   };
 };

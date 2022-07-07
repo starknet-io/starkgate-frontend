@@ -36,7 +36,7 @@ export const SelectToken = () => {
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={titleTxt} />
         <div className={styles.name}>
-          <MenuTitle color={colorBeta} text={fromNetwork.name} />
+          <MenuTitle color={colorBeta} text={fromNetwork} />
           <RefreshIcon onClick={updateTokenBalance} />
         </div>
         <SearchToken

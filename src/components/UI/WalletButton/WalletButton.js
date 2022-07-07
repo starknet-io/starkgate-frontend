@@ -32,11 +32,7 @@ export const WalletButton = ({account, chain, logoPath, onClick}) => {
 
   const renderWalletLogo = () => {
     const logoSize = isMobile(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE;
-    return logoPath.startsWith('data:image') ? (
-      <img alt={''} height={logoSize} src={logoPath} width={logoSize} />
-    ) : (
-      <DynamicIcon path={logoPath} size={logoSize} />
-    );
+    return <DynamicIcon path={logoPath} size={logoSize} />;
   };
 
   return (
