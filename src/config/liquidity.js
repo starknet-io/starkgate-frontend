@@ -4,8 +4,8 @@ export default [
   {
     id: 'banxa',
     logoPath: 'liquidity/banxa.svg',
-    name: 'BANXA',
-    description: 'Convert fiat money into L2 cryptocurrencies',
+    name: 'Banxa',
+    description: 'Buy crypto with credit card directly to StarkNet',
     url: {
       [ChainType.L1.GOERLI]: '',
       [ChainType.L1.MAIN]: 'https://starkware.banxa.com/'
@@ -14,8 +14,8 @@ export default [
   {
     id: 'layerswap',
     logoPath: 'liquidity/layerswap.svg',
-    name: 'LayerSwap',
-    description: 'Move crypto from Coinbase, Binance or FTX to StarkNet',
+    name: 'Layerswap',
+    description: 'Move crypto from Coinbase, Binance, FTX and other exchanges to StarkNet',
     url: {
       [ChainType.L1.GOERLI]: 'https://testnet.layerswap.io/?destNetwork=starknet_goerli',
       [ChainType.L1.MAIN]: 'https://layerswap.io/?destNetwork=starknet_mainnet'

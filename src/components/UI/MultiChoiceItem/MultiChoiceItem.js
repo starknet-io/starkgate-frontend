@@ -19,7 +19,9 @@ export const MultiChoiceItem = ({name, description, logoPath, isDisabled, isLoad
           <div className={styles.description}>{capitalize(description)}</div>
         </div>
       </div>
-      <ForwardIcon />
+      <div className={styles.forwardIcon}>
+        <ForwardIcon />
+      </div>
     </div>
     {isLoading && <Loading type={LoadingType.LINEAR} />}
     <div className={styles.separator} />
