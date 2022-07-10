@@ -1,3 +1,10 @@
+## [1.6.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.8...v1.6.0-dev.9) (2022-07-10)
+
+
+### 🧩 Features
+
+* **2890247979:** WBTC, USDT, USDC mainnet addresses ([#225](https://github.com/starkware-libs/starkgate-frontend/issues/225)) ([44f0f54](https://github.com/starkware-libs/starkgate-frontend/commit/44f0f54e51cd00f10b38a769cf54ab9b1a7d3da1))
+
 ## [1.6.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.7...v1.6.0-dev.8) (2022-07-07)
 
 
