@@ -1,3 +1,10 @@
+## [1.6.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.9...v1.6.0-dev.10) (2022-07-10)
+
+
+### 🔧 Fixes
+
+* **2918791557:** L2 tokens fetched before account is updated ([#226](https://github.com/starkware-libs/starkgate-frontend/issues/226)) ([82b8863](https://github.com/starkware-libs/starkgate-frontend/commit/82b8863bf206050323d36334c679fdb8e91aaedc))
+
 ## [1.6.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.8...v1.6.0-dev.9) (2022-07-10)
 
 
