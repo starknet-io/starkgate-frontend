@@ -19,7 +19,7 @@ export const WalletsProvider = ({children}) => {
 
   useEffect(() => {
     updateWalletL2(walletL2);
-  }, [statusL2, errorL2]);
+  }, [accountL2,statusL2, errorL2]);
 
   useEffect(() => {
     // To support serializable object in the store
@@ -29,7 +29,7 @@ export const WalletsProvider = ({children}) => {
       error: serializedError,
       isConnected: walletL1.isConnected()
     });
-  }, [statusL1, errorL1]);
+  }, [accountL1, statusL1, errorL1]);
 
   useEffect(() => {
     if (accountL1 && accountL2) {
