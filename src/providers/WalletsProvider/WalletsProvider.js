@@ -19,7 +19,7 @@ export const WalletsProvider = ({children}) => {
 
   useEffect(() => {
     updateWalletL2(walletL2);
-  }, [accountL2,statusL2, errorL2]);
+  }, [accountL2, statusL2, errorL2]);
 
   useEffect(() => {
     // To support serializable object in the store
