@@ -1,3 +1,30 @@
+## [1.6.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.5.0...v1.6.0) (2022-07-10)
+
+
+### 💉 Improvements
+
+* **2889920167:** login/disconnect wallets ([#219](https://github.com/starkware-libs/starkgate-frontend/issues/219)) ([3ab3270](https://github.com/starkware-libs/starkgate-frontend/commit/3ab32700848ff3920c63727dccd899145c6c4ac7))
+* better tracking for transfers log ([#216](https://github.com/starkware-libs/starkgate-frontend/issues/216)) ([d4bcc2f](https://github.com/starkware-libs/starkgate-frontend/commit/d4bcc2fe68e9911e9ab20656983fe0c40cc116d6))
+* move bridge and token API to hooks ([#217](https://github.com/starkware-libs/starkgate-frontend/issues/217)) ([bd3a2fa](https://github.com/starkware-libs/starkgate-frontend/commit/bd3a2fa22c051829916b002497eaa287407a0aff))
+
+
+### 🧩 Features
+
+* **2890247979:** support new tokens: WBTC, USDT, USDC on mainnet ([#221](https://github.com/starkware-libs/starkgate-frontend/issues/221)) ([1f4f623](https://github.com/starkware-libs/starkgate-frontend/commit/1f4f6232d5af0d79b3fbd79b7f3258def840d970))
+* **2890247979:** WBTC, USDT, USDC mainnet addresses ([#225](https://github.com/starkware-libs/starkgate-frontend/issues/225)) ([44f0f54](https://github.com/starkware-libs/starkgate-frontend/commit/44f0f54e51cd00f10b38a769cf54ab9b1a7d3da1))
+* **2890253029:** display chain name on wallet button ([#222](https://github.com/starkware-libs/starkgate-frontend/issues/222)) ([129b108](https://github.com/starkware-libs/starkgate-frontend/commit/129b108adc619deaab6a82cc6709cdefd31cd308))
+* **2901868625:** add Banxa to integrations popup ([#224](https://github.com/starkware-libs/starkgate-frontend/issues/224)) ([d5448bf](https://github.com/starkware-libs/starkgate-frontend/commit/d5448bf8d476a621aca7aeffbc3a007879950b4f))
+* extend modal to receive components in footer and header ([#214](https://github.com/starkware-libs/starkgate-frontend/issues/214)) ([71bab8a](https://github.com/starkware-libs/starkgate-frontend/commit/71bab8acac0fa5112fd797072d961635ef6a7580))
+
+
+### 🔧 Fixes
+
+* **2901827626:** change Layerswap text ([#223](https://github.com/starkware-libs/starkgate-frontend/issues/223)) ([d292d37](https://github.com/starkware-libs/starkgate-frontend/commit/d292d375bd2ff083322504e9c0400db50c3b5fb6))
+* **2918791557:** L2 tokens fetched before account is updated ([#226](https://github.com/starkware-libs/starkgate-frontend/issues/226)) ([82b8863](https://github.com/starkware-libs/starkgate-frontend/commit/82b8863bf206050323d36334c679fdb8e91aaedc))
+* modal UI fixes ([#213](https://github.com/starkware-libs/starkgate-frontend/issues/213)) ([9588cc1](https://github.com/starkware-libs/starkgate-frontend/commit/9588cc12f00f6bb9058e2f6472b0807b73b6e9b9))
+* save tokens data (maxTotalBalance, maxDeposit) in store ([#211](https://github.com/starkware-libs/starkgate-frontend/issues/211)) ([3c32630](https://github.com/starkware-libs/starkgate-frontend/commit/3c3263011a31750fea3cb60e7f2a955f87277008))
+* **useTransferToL1/2:** use promise instead of contract event ([#212](https://github.com/starkware-libs/starkgate-frontend/issues/212)) ([29710e7](https://github.com/starkware-libs/starkgate-frontend/commit/29710e7b533401c067b46d9f8c64e749eb097a38))
+
 ## [1.6.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0-dev.9...v1.6.0-dev.10) (2022-07-10)
 
 
