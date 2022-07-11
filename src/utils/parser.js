@@ -1,22 +1,16 @@
-import {web3, starknet} from '../libs';
+import {starknet} from '../libs';
 
 const {number, uint256} = starknet;
-const {utils} = web3;
 
 const TEN = 10;
 const DEFAULT_DECIMALS = 18;
-export const UNIT_MAP = {};
-
-for (const key in utils.unitMap) {
-  UNIT_MAP[utils.unitMap[key]] = key;
-}
 
 export const parseToDecimals = (value, decimals = DEFAULT_DECIMALS) => {
-  return utils.toWei(value, UNIT_MAP[Math.pow(TEN, decimals)]);
+  return String(value * Math.pow(TEN, decimals));
 };
 
 export const parseFromDecimals = (value, decimals = DEFAULT_DECIMALS) => {
-  return Number(utils.fromWei(value, UNIT_MAP[Math.pow(TEN, decimals)]));
+  return value / Math.pow(TEN, decimals);
 };
 
 export const parseFromFelt = value => {
