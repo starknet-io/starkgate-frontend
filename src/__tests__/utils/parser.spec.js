@@ -3,8 +3,7 @@ import {
   parseFromFelt,
   parseFromUint256,
   parseToDecimals,
-  parseToUint256,
-  UNIT_MAP
+  parseToUint256
 } from '../../utils';
 
 describe('parseToDecimals', () => {
@@ -69,8 +68,8 @@ describe('parseFromUint256', () => {
     expect(parseFromUint256({high: '0x0', low: '0x21e19e0c9bab2400000', type: 'struct'})).toEqual(
       10000
     );
-    expect(
-      parseFromUint256({high: '0x0', low: '0x84595161401484a000000', type: 'struct'})
-    ).toEqual(10000000);
+    expect(parseFromUint256({high: '0x0', low: '0x84595161401484a000000', type: 'struct'})).toEqual(
+      10000000
+    );
   });
 });
