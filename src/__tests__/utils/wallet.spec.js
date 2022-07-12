@@ -2,13 +2,9 @@ import {formatBalance, shortenAddress, shortenBalance} from '../../utils';
 
 describe('formatBalance', () => {
   it('should format balance as string', () => {
-    expect(formatBalance(1.222243232)).toEqual('1.222243232');
-    expect(formatBalance(3000.232143123212)).toEqual('3000.232143123212');
-    expect(formatBalance(10.000000001)).toEqual('10.000000001');
-  });
-
-  it('should handle exponential balances', () => {
-    expect(formatBalance(1.02e-9)).toEqual('0.00000000102');
+    expect(formatBalance('1.222243232')).toEqual('1.222243232');
+    expect(formatBalance('3000.232143123212')).toEqual('3000.232143123212');
+    expect(formatBalance('10.000000001')).toEqual('10.000000001');
   });
 
   it('should return N/A for non-numbers', () => {

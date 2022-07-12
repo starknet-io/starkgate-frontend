@@ -2807,6 +2807,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@normalizex/ethjs-unit@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@normalizex/ethjs-unit/-/ethjs-unit-0.1.8.tgz#539af34d25ee023d96087d2193d4af4aef03fd7e"
+  integrity sha512-oAh+RS0x/0vRtSVxvhHxt+RrYayH1znj3w1096Vc2pw+eAuYHB4ePU9IYVGu4doz/qHuyaTzaQ73hgWFEw+jUg==
+  dependencies:
+    bn.js "4.11.6"
+
 "@npmcli/arborist@^5.0.0", "@npmcli/arborist@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-5.0.3.tgz#3ba8e0a357eaf6e1c56d44b7379214079e57a05b"

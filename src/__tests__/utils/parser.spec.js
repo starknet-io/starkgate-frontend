@@ -21,14 +21,14 @@ describe('parseToDecimals', () => {
 
 describe('parseFromDecimals', () => {
   it('should parse from decimals', () => {
-    expect(parseFromDecimals('1000000000000000000')).toEqual(1);
-    expect(parseFromDecimals('1000000000000000000', 3)).toEqual(1000000000000000);
-    expect(parseFromDecimals('1000000000000000000', 6)).toEqual(1000000000000);
-    expect(parseFromDecimals('1000000000000000000', 8)).toEqual(10000000000);
-    expect(parseFromDecimals('1000000000000000000', 9)).toEqual(1000000000);
-    expect(parseFromDecimals('1000000000000000000', 12)).toEqual(1000000);
-    expect(parseFromDecimals('1000000000000000000', 15)).toEqual(1000);
-    expect(parseFromDecimals('1000000000000000000', 18)).toEqual(1);
+    expect(parseFromDecimals('1000000000000000000')).toEqual('1');
+    expect(parseFromDecimals('1000000000000000000', 3)).toEqual('1000000000000000');
+    expect(parseFromDecimals('1000000000000000000', 6)).toEqual('1000000000000');
+    expect(parseFromDecimals('1000000000000000000', 8)).toEqual('10000000000');
+    expect(parseFromDecimals('1000000000000000000', 9)).toEqual('1000000000');
+    expect(parseFromDecimals('1000000000000000000', 12)).toEqual('1000000');
+    expect(parseFromDecimals('1000000000000000000', 15)).toEqual('1000');
+    expect(parseFromDecimals('1000000000000000000', 18)).toEqual('1');
   });
 });
 
@@ -63,13 +63,13 @@ describe('parseToUint256', () => {
 describe('parseFromUint256', () => {
   it('should parse from uint256', () => {
     expect(parseFromUint256({high: '0x0', low: '0x56bc75e2d63100000', type: 'struct'})).toEqual(
-      100
+      '100'
     );
     expect(parseFromUint256({high: '0x0', low: '0x21e19e0c9bab2400000', type: 'struct'})).toEqual(
-      10000
+      '10000'
     );
     expect(parseFromUint256({high: '0x0', low: '0x84595161401484a000000', type: 'struct'})).toEqual(
-      10000000
+      '10000000'
     );
   });
 });

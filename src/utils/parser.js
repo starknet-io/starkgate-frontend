@@ -1,16 +1,17 @@
+import {fromWeiByDecimals, toWeiByDecimals} from '@normalizex/ethjs-unit';
+
 import {starknet} from '../libs';
 
 const {number, uint256} = starknet;
 
-const TEN = 10;
 const DEFAULT_DECIMALS = 18;
 
 export const parseToDecimals = (value, decimals = DEFAULT_DECIMALS) => {
-  return String(value * Math.pow(TEN, decimals));
+  return toWeiByDecimals(value, decimals);
 };
 
 export const parseFromDecimals = (value, decimals = DEFAULT_DECIMALS) => {
-  return value / Math.pow(TEN, decimals);
+  return fromWeiByDecimals(value, decimals);
 };
 
 export const parseFromFelt = value => {
