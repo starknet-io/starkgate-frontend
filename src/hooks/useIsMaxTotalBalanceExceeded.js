@@ -13,10 +13,11 @@ export const useIsMaxTotalBalanceExceeded = () => {
       if (selectedToken && isL1) {
         const {maxTotalBalance} = selectedToken;
         const currentTotalBalance = await getTokenBridgeBalance(selectedToken);
+        const exceeded = Number(maxTotalBalance) <= Number(currentTotalBalance) + Number(amount);
         return {
           maxTotalBalance,
           currentTotalBalance,
-          exceeded: maxTotalBalance <= currentTotalBalance + Number(amount)
+          exceeded
         };
       }
       return {exceeded: false};

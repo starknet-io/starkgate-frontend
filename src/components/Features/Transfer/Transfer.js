@@ -90,9 +90,9 @@ export const Transfer = () => {
       errorMsg = tooManyDigitsErrorMsg;
     } else if (isNegative(amount)) {
       errorMsg = negativeValueErrorMsg;
-    } else if (amount > balance) {
+    } else if (Number(amount) > Number(balance)) {
       errorMsg = insufficientBalanceErrorMsg;
-    } else if (isL1 && amount > maxDeposit) {
+    } else if (isL1 && Number(amount) > Number(maxDeposit)) {
       errorMsg = evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
