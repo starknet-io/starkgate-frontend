@@ -25,7 +25,7 @@ export default {
       }
     },
     USDC: {
-      name: 'Goerli USD Coin',
+      name: 'USD Coin',
       symbol: 'USDC',
       decimals: 6,
       bridgeAddress: {
@@ -105,7 +105,7 @@ export default {
       }
     },
     USDC: {
-      name: 'Goerli USD Coin',
+      name: 'USD Coin',
       symbol: 'USDC',
       decimals: 6,
       bridgeAddress: {
