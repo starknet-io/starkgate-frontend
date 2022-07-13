@@ -1,3 +1,11 @@
+### [1.6.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0...v1.6.1) (2022-07-13)
+
+
+### 🔧 Fixes
+
+* **2918898444:** Too many zeros shows for WBTC ([#228](https://github.com/starkware-libs/starkgate-frontend/issues/228)) ([45e33bd](https://github.com/starkware-libs/starkgate-frontend/commit/45e33bdf504bb97313a8cb8b1f6f3b5d661e7f33))
+* **2929023405:** remove "Goerli" from USDC name ([#229](https://github.com/starkware-libs/starkgate-frontend/issues/229)) ([44b0f16](https://github.com/starkware-libs/starkgate-frontend/commit/44b0f167c8c498abcd787d27e51bdcd12f02aaa9))
+
 ### [1.6.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.1-dev.1...v1.6.1-dev.2) (2022-07-12)
 
 
