@@ -16,24 +16,24 @@ export default {
       symbol: 'WBTC',
       decimals: 8,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x283751A21eafBFcD52297820D27C1f1963D9b5b4',
         [ChainType.L1.GOERLI]: '0xf29aE3446Ce4688fCc792b232C21D1B9581E7baC'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
         [ChainType.L1.GOERLI]: '0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05'
       }
     },
     USDC: {
-      name: 'Goerli USD Coin',
+      name: 'USD Coin',
       symbol: 'USDC',
       decimals: 6,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xF6080D9fbEEbcd44D89aFfBFd42F098cbFf92816',
         [ChainType.L1.GOERLI]: '0xBA9cE9F22A3Cfa7Fcb5c31f6B2748b1e72C06204'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         [ChainType.L1.GOERLI]: '0x07865c6e87b9f70255377e024ace6630c1eaa37f'
       }
     },
@@ -42,11 +42,11 @@ export default {
       symbol: 'USDT',
       decimals: 6,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xbb3400F107804DFB482565FF1Ec8D8aE66747605',
         [ChainType.L1.GOERLI]: '0xA1f590F18b23EFece02804704E5006E91348C997'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         [ChainType.L1.GOERLI]: '0x509Ee0d083DdF8AC028f2a56731412edD63223B9'
       }
     },
@@ -96,24 +96,24 @@ export default {
       symbol: 'WBTC',
       decimals: 8,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x07aeec4870975311a7396069033796b61cd66ed49d22a786cba12a8d76717302',
         [ChainType.L2.GOERLI]: '0x72eeb90833bae233a9585f2fa9afc99c187f0a3a82693becd6a4d700b37fc6b'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x03fe2b97c1fd336e750087d68b9b867997fd64a2661ff3ca5a7c771641e8e7ac',
         [ChainType.L2.GOERLI]: '0x12d537dc323c439dc65c976fad242d5610d27cfb5f31689a0a319b8be7f3d56'
       }
     },
     USDC: {
-      name: 'Goerli USD Coin',
+      name: 'USD Coin',
       symbol: 'USDC',
       decimals: 6,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x05cd48fccbfd8aa2773fe22c217e808319ffcc1c5a6a463f7d8fa2da48218196',
         [ChainType.L2.GOERLI]: '0x001d5b64feabc8ac7c839753994f469704c6fabdd45c8fe6d26ed57b5eb79057'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8',
         [ChainType.L2.GOERLI]: '0x005a643907b9a4bc6a55e9069c4fd5fd1f5c79a22470690f75556c4736e34426'
       }
     },
@@ -122,11 +122,11 @@ export default {
       symbol: 'USDT',
       decimals: 6,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x074761a8d48ce002963002becc6d9c3dd8a2a05b1075d55e5967f42296f16bd0',
         [ChainType.L2.GOERLI]: '0x71d54658ca3c6ccd84ff958adb7498b2e71ba008e29b643983221ed2bd71b69'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x068f5c6a61780768455de69077e07e89787839bf8166decfbf92b645209c0fb8',
         [ChainType.L2.GOERLI]: '0x386e8d061177f19b3b485c20e31137e6f6bc497cc635ccdfcab96fadf5add6a'
       }
     },

@@ -111,7 +111,7 @@ export const useTransferToL2 = () => {
               spender: bridgeAddress
             });
             logger.log('Current allow value', {allow});
-            if (allow < amount) {
+            if (Number(allow) < Number(amount)) {
               logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
               await approve({
                 spender: bridgeAddress,

@@ -63,7 +63,7 @@ export const Account = ({transferId}) => {
     <Menu>
       <div>
         <BackButton onClick={() => showTransferMenu()} />
-        <MenuTitle text={evaluate(titleTxt, {network: fromNetwork.name})} />
+        <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
         <AccountAddress address={account} onClick={trackAddressCopied} />
         {isL1 && (
           <LinkButton
@@ -85,7 +85,7 @@ export const Account = ({transferId}) => {
         >
           {renderTransfers()}
         </TransferLogContainer>
-        <LogoutButton isDisabled={isL2} onClick={resetWallet} />
+        <LogoutButton onClick={resetWallet} />
       </div>
     </Menu>
   );

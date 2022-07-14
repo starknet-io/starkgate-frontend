@@ -13,7 +13,9 @@ export const DynamicIcon = ({path, size}) => {
     }
   }, [data]);
 
-  if (!isLoading && ImportedIconRef.current) {
+  if (path.startsWith('data:image')) {
+    return <img alt={''} height={size} src={path} width={size} />;
+  } else if (!isLoading && ImportedIconRef.current) {
     const {current: ImportedIcon} = ImportedIconRef;
     return <img alt="" height={size} src={ImportedIcon} width={size} />;
   }

@@ -50,7 +50,7 @@ const TransactionSubmittedModalButton = ({transfer}) => {
       colorBorder={colorAlpha3}
       colorText={colorAlpha3}
       height={40}
-      icon={
+      iconLeft={
         <Circle color={colorWhite1} size={35}>
           {explorer.logo}
         </Circle>

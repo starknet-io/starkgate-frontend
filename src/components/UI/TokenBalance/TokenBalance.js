@@ -22,7 +22,9 @@ export const TokenBalance = ({tokenData, isDisabled, onRefreshClick}) => {
       <div className={styles.balanceRow}>
         <div className={styles.balance}>
           {isLoading ? (
-            <Loading size={LoadingSize.SMALL} />
+            <div className={styles.loading}>
+              <Loading size={LoadingSize.XS} />
+            </div>
           ) : (
             shortenBalance(formatBalance(balance))
           )}

@@ -1,10 +1,10 @@
 import {WalletStatus} from '../../enums';
 
 export const actions = {
-  UPDATE_L1_WALLET: 'Wallets/UPDATE_L1_WALLET',
-  UPDATE_L2_WALLET: 'Wallets/UPDATE_L2_WALLET',
-  SET_L1_WALLET_CONFIG: 'Wallets/SET_L1_WALLET_CONFIG',
-  SET_L2_WALLET_CONFIG: 'Wallets/SET_L2_WALLET_CONFIG'
+  UPDATE_WALLET_L1: 'Wallets/UPDATE_WALLET_L1',
+  UPDATE_WALLET_L2: 'Wallets/UPDATE_WALLET_L2',
+  SET_WALLET_CONFIG_L1: 'Wallets/SET_WALLET_CONFIG_L1',
+  SET_WALLET_CONFIG_L2: 'Wallets/SET_WALLET_CONFIG_L2'
 };
 
 const initialWalletState = {
@@ -28,19 +28,19 @@ export const initialState = {
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.UPDATE_L1_WALLET:
+    case actions.UPDATE_WALLET_L1:
       return {
         ...state,
         walletL1: {...state.walletL1, ...action.payload}
       };
 
-    case actions.UPDATE_L2_WALLET:
+    case actions.UPDATE_WALLET_L2:
       return {
         ...state,
         walletL2: {...state.walletL2, ...action.payload}
       };
 
-    case actions.SET_L1_WALLET_CONFIG:
+    case actions.SET_WALLET_CONFIG_L1:
       return {
         ...state,
         walletL1: {
@@ -49,7 +49,7 @@ export const reducer = (state, action) => {
         }
       };
 
-    case actions.SET_L2_WALLET_CONFIG:
+    case actions.SET_WALLET_CONFIG_L2:
       return {
         ...state,
         walletL2: {

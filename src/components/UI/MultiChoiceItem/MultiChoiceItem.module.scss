@@ -41,8 +41,12 @@
     }
   }
 
-  svg {
-    transition: 0.3s ease-in-out;
+  .forwardIcon {
+    margin-left: 30px;
+
+    svg {
+      transition: 0.3s ease-in-out;
+    }
   }
 
   &:hover {
@@ -50,8 +54,10 @@
     box-sizing: border-box;
     border-radius: 8px;
 
-    svg {
-      transform: scale(2) scale3d(1, -1, -2);
+    .forwardIcon {
+      svg {
+        transform: scale(2) scale3d(1, -1, -2);
+      }
     }
   }
 }

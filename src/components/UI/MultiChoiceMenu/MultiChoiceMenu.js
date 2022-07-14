@@ -15,6 +15,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
           key={choice.id}
           description={choice.description}
           isDisabled={choice.isDisabled || false}
+          isLoading={choice.isLoading}
           logoPath={choice.logoPath}
           name={choice.name}
           onClick={choice.onClick}

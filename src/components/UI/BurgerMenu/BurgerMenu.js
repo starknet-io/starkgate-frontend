@@ -14,14 +14,14 @@ export const BurgerMenu = () => {
   const {navigateToRoute} = useApp();
   const items = [
     {
-      text: termsTxt,
-      isActive: pathname === '/terms',
-      onClick: () => navigateToRoute('/terms')
-    },
-    {
       text: faqTxt,
       isActive: pathname === '/faq',
       onClick: () => navigateToRoute('/faq')
+    },
+    {
+      text: termsTxt,
+      isActive: pathname === '/terms',
+      onClick: () => navigateToRoute('/terms')
     }
   ];
 

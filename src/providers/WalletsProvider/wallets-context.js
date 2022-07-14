@@ -5,11 +5,8 @@ import {initialState} from './wallets-reducer';
 export const WalletsContext = createContext({
   ...initialState,
   accountHash: '',
-  connectL1Wallet: () => {},
-  connectL2Wallet: () => {},
-  connectWallet: () => {},
-  resetWallet: () => {},
-  resetL1Wallet: () => {},
-  resetL2Wallet: () => {},
-  swapWallets: () => {}
+  connectWalletL1: () => {},
+  connectWalletL2: () => {},
+  resetWalletL1: () => {},
+  resetWalletL2: () => {}
 });

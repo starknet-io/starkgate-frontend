@@ -2807,6 +2807,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@normalizex/ethjs-unit@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@normalizex/ethjs-unit/-/ethjs-unit-0.1.8.tgz#539af34d25ee023d96087d2193d4af4aef03fd7e"
+  integrity sha512-oAh+RS0x/0vRtSVxvhHxt+RrYayH1znj3w1096Vc2pw+eAuYHB4ePU9IYVGu4doz/qHuyaTzaQ73hgWFEw+jUg==
+  dependencies:
+    bn.js "4.11.6"
+
 "@npmcli/arborist@^5.0.0", "@npmcli/arborist@^5.0.3":
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/@npmcli/arborist/-/arborist-5.0.3.tgz#3ba8e0a357eaf6e1c56d44b7379214079e57a05b"
@@ -10394,10 +10401,10 @@ get-package-type@^0.1.0:
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
-get-starknet-wallet@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/get-starknet-wallet/-/get-starknet-wallet-0.0.8.tgz#3c586423fc91817cb262e1b09433d81c9835a7de"
-  integrity sha512-VhFY1kXxLri4Vs6G9GwcyjdAPqSLDdNGPqvuCx0VsMdE4fQdJD5qGeOf+BASjO8/ZN2SYIjuEvDfV5SGs3teYA==
+get-starknet@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/get-starknet/-/get-starknet-1.4.2.tgz#fc7aa13506d672229157b357632a3f9b77ecd9d9"
+  integrity sha512-rakk6s5zcE3tM4AJ8g/SLO4V0aPlJDSLbE3zx3mp6PDS5Y7/ndBMTCKehr+bK4lIoj+VQshLxkobpqkXrC2LMA==
   dependencies:
     bowser "^2.11.0"
 
@@ -20557,11 +20564,6 @@ usb@^1.6.0:
   dependencies:
     node-addon-api "^4.2.0"
     node-gyp-build "^4.3.0"
-
-use-async-memo@^1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/use-async-memo/-/use-async-memo-1.2.3.tgz#fe49d7ae1cd850199cf9e4a8ee483e31ed85659f"
-  integrity sha512-AjZ1Wy1vfOSlaxohqoLIpauV+jwph/p0N72PBzxeEcjrZ4Mf/4o1Vav4bLaAPYuHLJZo+4M/4TIcAk7XC6H98g==
 
 use-breakpoint@^3.0.1:
   version "3.0.1"

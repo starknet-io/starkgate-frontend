@@ -9,8 +9,8 @@ export const Button = ({
   text,
   width,
   height,
-  icon,
-  iconAlign = 'left',
+  iconLeft,
+  iconRight,
   colorText,
   colorTextHover,
   colorBackground,
@@ -47,9 +47,9 @@ export const Button = ({
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      {iconAlign === 'left' && icon}
+      {iconLeft}
       {isLoading ? <Loading size={LoadingSize.SMALL} /> : text}
-      {iconAlign === 'right' && icon}
+      {iconRight && <div className={toClasses(styles.icon, styles.right)}>{iconRight}</div>}
     </button>
   );
 };
@@ -65,8 +65,8 @@ Button.propTypes = {
   colorBorder: PropTypes.string,
   colorBorderHover: PropTypes.string,
   style: PropTypes.object,
-  icon: PropTypes.object,
-  iconAlign: PropTypes.string,
+  iconLeft: PropTypes.object,
+  iconRight: PropTypes.object,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onClick: PropTypes.func,
