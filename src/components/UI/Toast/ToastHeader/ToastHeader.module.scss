@@ -2,18 +2,17 @@
 
 .toastHeader {
   display: flex;
-  margin-bottom: 5px;
+  justify-content: space-between;
 
   .title {
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
     color: $--color-black;
   }
 
   .close {
-    margin-left: 40px;
     cursor: pointer;
+    margin-left: 30px;
   }
 }

@@ -2,19 +2,19 @@ import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
 import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
+import {ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
-import {useEnvs, useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
+import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
 import {useBridgeIsFull, useSelectedToken} from '../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
-import {getStorageItem, getMsFromHrs, setStorageItem} from '../../utils';
+import {getCookie, setCookie} from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
   const trackMenu = useMenuTracking();
   const showOnboardingModal = useOnboardingModal();
-  const {localStorageOnboardingExpirationTimestampKey, onboardingModalTimeoutHrs} = useEnvs();
   const {menu, menuProps} = useMenu();
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
@@ -36,16 +36,15 @@ export const Bridge = () => {
       const {exceeded} = await isMaxTotalBalanceExceeded();
       exceeded ? lockBridge() : unlockBridge();
     }
+
     maybeLockBridge();
   }, [isMaxTotalBalanceExceeded, selectedToken]);
 
   const maybeShowOnboardingModal = () => {
-    const onboardingTimestamp = getStorageItem(localStorageOnboardingExpirationTimestampKey);
-    const now = Date.now();
-    const onboardingModalTimeoutMs = getMsFromHrs(onboardingModalTimeoutHrs);
-    if (!onboardingTimestamp || onboardingTimestamp < now) {
+    const onboardingCookie = getCookie(ONBOARDING_COOKIE_NAME);
+    if (!onboardingCookie) {
       showOnboardingModal();
-      setStorageItem(localStorageOnboardingExpirationTimestampKey, now + onboardingModalTimeoutMs);
+      setCookie(ONBOARDING_COOKIE_NAME, true, 1);
     }
   };
 

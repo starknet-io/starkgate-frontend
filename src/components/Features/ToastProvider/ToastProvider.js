@@ -4,6 +4,8 @@ import {toast, Toaster} from 'react-hot-toast';
 import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
+import {ReactComponent as StarknetIcon} from '../../../assets/svg/tokens/starknet.svg';
+import {ALPHA_DISCLAIMER_COOKIE_NAME} from '../../../config/constants';
 import {
   ActionType,
   Breakpoint,
@@ -18,8 +20,9 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import {getFullTime} from '../../../utils';
+import {getCookie, getFullTime, setCookie} from '../../../utils';
 import {CompleteTransferToL1Toast, ErrorToast, ToastBody, TransferToast} from '../../UI';
+import {CallToActionToast} from '../../UI/Toast/CallToActionToast/CallToActionToast';
 import styles from './ToastProvider.module.scss';
 
 let toastsMap = {};
@@ -40,7 +43,10 @@ export const ToastProvider = () => {
   const {bridgeIsFull} = useBridgeIsFull();
 
   useEffect(() => {
-    showAlphaDisclaimerToast();
+    const alphaDisclaimerCookie = getCookie(ALPHA_DISCLAIMER_COOKIE_NAME);
+    if (!alphaDisclaimerCookie) {
+      showAlphaDisclaimerToast();
+    }
   }, [breakpoint]);
 
   useEffect(() => {
@@ -83,15 +89,20 @@ export const ToastProvider = () => {
 
   const showAlphaDisclaimerToast = () => {
     toast.custom(
-      () => (
-        <ErrorToast
-          isCollapsable={false}
-          msg={alphaDisclaimerNotice.bodyTxt}
-          title={alphaDisclaimerNotice.titleTxt}
+      t => (
+        <CallToActionToast
+          bodyTxt={alphaDisclaimerNotice.bodyTxt}
+          sideIcon={<StarknetIcon style={{opacity: 0.8}} width={110} />}
+          t={t}
+          titleTxt={alphaDisclaimerNotice.titleTxt}
+          onDismiss={() => {
+            setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, 1);
+            toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
+          }}
         />
       ),
       {
-        position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-left',
+        position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
         id: ALPHA_DISCLAIMER_TOAST_ID
       }
     );

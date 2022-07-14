@@ -1,3 +1,5 @@
+export const ONBOARDING_COOKIE_NAME = 'sg_onboard_modal';
+export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
 export const ETHERSCAN = 'Etherscan';
 export const VOYAGER = 'Voyager';
 export const DISCORD_LINK_URL = 'https://discord.gg/MRjKBXtaDt';
