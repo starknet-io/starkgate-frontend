@@ -27,6 +27,7 @@ export const App = () => {
   return (
     <div className={styles.app}>
       <Header />
+      <Footer />
       <StyledBackground withLightAccent={!isScrollActive}>
         <Routes>
           <Route
@@ -44,7 +45,6 @@ export const App = () => {
         </Routes>
       </StyledBackground>
       <SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />
-      <Footer />
     </div>
   );
 };
