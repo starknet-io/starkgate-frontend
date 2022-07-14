@@ -1,3 +1,10 @@
+### [1.6.2-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.1...v1.6.2-dev.1) (2022-07-14)
+
+
+### 🔧 Fixes
+
+* **2937454807:** "All Rights Reserved" shouldn't be floating ([#230](https://github.com/starkware-libs/starkgate-frontend/issues/230)) ([bda2a21](https://github.com/starkware-libs/starkgate-frontend/commit/bda2a21168f38248b6a9835cef04e93b7be87597))
+
 ### [1.6.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.0...v1.6.1) (2022-07-13)
 
 
