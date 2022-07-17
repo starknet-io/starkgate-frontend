@@ -1,3 +1,10 @@
+## [1.7.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.2-dev.1...v1.7.0-dev.1) (2022-07-17)
+
+
+### 🧩 Features
+
+* **2918576713:** Add Orbiter to integrations popup ([#231](https://github.com/starkware-libs/starkgate-frontend/issues/231)) ([5c0357b](https://github.com/starkware-libs/starkgate-frontend/commit/5c0357b1cecf5a9baf6d86f800ef8faf2193ae5b))
+
 ### [1.6.2-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.1...v1.6.2-dev.1) (2022-07-14)
 
 
