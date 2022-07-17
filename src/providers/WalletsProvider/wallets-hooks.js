@@ -78,7 +78,7 @@ export const useStarknetWallet = () => {
       setStatus(WalletStatus.CONNECTING);
       const enabled = await wallet
         .enable(!autoConnect && {showModal: true})
-        .then(address => !!address?.length);
+        .then(address => address?.length && address[0]);
       if (enabled) {
         updateAccount();
         addAccountChangedListener();
