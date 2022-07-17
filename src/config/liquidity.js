@@ -20,5 +20,15 @@ export default [
       [ChainType.L1.GOERLI]: 'https://testnet.layerswap.io/?destNetwork=starknet_goerli',
       [ChainType.L1.MAIN]: 'https://layerswap.io/?destNetwork=starknet_mainnet'
     }
+  },
+  {
+    id: 'orbiter',
+    logoPath: 'liquidity/orbiter.svg',
+    name: 'Orbiter',
+    description: 'Cross-rollup bridge. Make deposits from other L2 rollups to StarkNet',
+    url: {
+      [ChainType.L1.GOERLI]: '',
+      [ChainType.L1.MAIN]: 'https://www.orbiter.finance/?refer=starknet&dests=starknet'
+    }
   }
 ];
