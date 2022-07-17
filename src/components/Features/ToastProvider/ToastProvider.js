@@ -5,7 +5,7 @@ import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {ReactComponent as StarknetIcon} from '../../../assets/svg/tokens/starknet.svg';
-import {ALPHA_DISCLAIMER_COOKIE_NAME} from '../../../config/constants';
+import {ALPHA_DISCLAIMER_COOKIE_NAME, HIDE_ELEMENT_COOKIE_DURATION_DAYS} from '../../../config/constants';
 import {
   ActionType,
   Breakpoint,
@@ -96,7 +96,7 @@ export const ToastProvider = () => {
           t={t}
           titleTxt={alphaDisclaimerNotice.titleTxt}
           onDismiss={() => {
-            setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, 1);
+            setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
             toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
           }}
         />

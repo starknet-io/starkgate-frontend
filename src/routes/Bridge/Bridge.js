@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
 import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
-import {ONBOARDING_COOKIE_NAME} from '../../config/constants';
+import {HIDE_ELEMENT_COOKIE_DURATION_DAYS, ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
 import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
 import {useMenu} from '../../providers/MenuProvider';
@@ -44,7 +44,7 @@ export const Bridge = () => {
     const onboardingCookie = getCookie(ONBOARDING_COOKIE_NAME);
     if (!onboardingCookie) {
       showOnboardingModal();
-      setCookie(ONBOARDING_COOKIE_NAME, true, 1);
+      setCookie(ONBOARDING_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
     }
   };
 

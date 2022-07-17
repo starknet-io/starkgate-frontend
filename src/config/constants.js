@@ -1,5 +1,3 @@
-export const ONBOARDING_COOKIE_NAME = 'sg_onboard_modal';
-export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
 export const ETHERSCAN = 'Etherscan';
 export const VOYAGER = 'Voyager';
 export const DISCORD_LINK_URL = 'https://discord.gg/MRjKBXtaDt';
@@ -17,3 +15,6 @@ export const FEEDBACK_FORM_URL_GOERLI =
   'https://forms.reform.app/starkware/StarkGate_Feedback/yhyalh';
 export const FEEDBACK_FORM_URL_MAINNET =
   'https://forms.reform.app/TeRuSp/StarkGate-Feedback-Mainnet/bcoscx';
+export const ONBOARDING_COOKIE_NAME = 'sg_onboard_modal';
+export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
+export const HIDE_ELEMENT_COOKIE_DURATION_DAYS = 1;
