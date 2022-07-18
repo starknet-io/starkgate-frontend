@@ -7,7 +7,6 @@ import {openInNewTab} from '../../utils';
 export const Liquidity = () => {
   const {titleTxt, descriptionTxt} = useLiquidityTranslation();
   const liquidityProviders = useLiquidityProviders();
-
   const mapLiquidityProviders = () => {
     return liquidityProviders.map(p => {
       return {
