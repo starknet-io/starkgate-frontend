@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../../hooks';
+import {hexToRgba} from '../../../../utils';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastFooter} from '../ToastFooter/ToastFooter';
@@ -17,6 +18,7 @@ export const CallToActionToast = ({
   sideIcon,
   dismissTxt,
   actionTxt,
+  backgroundColor,
   footer,
   onAction,
   onDismiss
@@ -36,7 +38,10 @@ export const CallToActionToast = ({
     >
       <div className={styles.callToActionToast}>
         <div className={styles.container}>
-          <div className={styles.left}>
+          <div
+            className={styles.left}
+            style={{backgroundColor: `${hexToRgba(backgroundColor || colorBeta, 0.25)}`}}
+          >
             <div className={styles.sideIcon}>{sideIcon}</div>
           </div>
           <div className={styles.right}>
@@ -68,6 +73,7 @@ CallToActionToast.propTypes = {
   sideIcon: PropTypes.object,
   dismissTxt: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   actionTxt: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
+  backgroundColor: PropTypes.string,
   footer: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.arrayOf(PropTypes.object),

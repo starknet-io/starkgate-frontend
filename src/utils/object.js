@@ -3,8 +3,6 @@ export const getPropertyPath = (obj, propertyPath) =>
     .split('.')
     .reduce((o, x) => (typeof o === 'undefined' || o === null ? o : o[x]), obj);
 
-export const toClasses = (...classes) => [...classes].join(' ');
-
 export const evaluate = (template, model) => {
   try {
     let reg,

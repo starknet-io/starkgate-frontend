@@ -8,6 +8,7 @@ export * from './object';
 export * from './parser';
 export * from './storage';
 export * from './string';
+export * from './styles';
 export * from './token';
 export * from './wallet';
 export * from './starknet';

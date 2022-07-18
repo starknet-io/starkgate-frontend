@@ -4,8 +4,10 @@ import {toast, Toaster} from 'react-hot-toast';
 import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {ReactComponent as StarknetIcon} from '../../../assets/svg/tokens/starknet.svg';
-import {ALPHA_DISCLAIMER_COOKIE_NAME, HIDE_ELEMENT_COOKIE_DURATION_DAYS} from '../../../config/constants';
+import {
+  ALPHA_DISCLAIMER_COOKIE_NAME,
+  HIDE_ELEMENT_COOKIE_DURATION_DAYS
+} from '../../../config/constants';
 import {
   ActionType,
   Breakpoint,
@@ -22,7 +24,7 @@ import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProv
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import {getCookie, getFullTime, setCookie} from '../../../utils';
 import {CompleteTransferToL1Toast, ErrorToast, ToastBody, TransferToast} from '../../UI';
-import {CallToActionToast} from '../../UI/Toast/CallToActionToast/CallToActionToast';
+import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
 import styles from './ToastProvider.module.scss';
 
 let toastsMap = {};
@@ -32,7 +34,7 @@ const BRIDGE_FULL_TOAST_ID = 'bridgeFull';
 const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
 export const ToastProvider = () => {
-  const {alphaDisclaimerNotice, bridgeFullNotice} = useToastsTranslation();
+  const {bridgeFullNotice} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();
@@ -90,11 +92,8 @@ export const ToastProvider = () => {
   const showAlphaDisclaimerToast = () => {
     toast.custom(
       t => (
-        <CallToActionToast
-          bodyTxt={alphaDisclaimerNotice.bodyTxt}
-          sideIcon={<StarknetIcon style={{opacity: 0.8}} width={110} />}
+        <AlphaDisclaimerToast
           t={t}
-          titleTxt={alphaDisclaimerNotice.titleTxt}
           onDismiss={() => {
             setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
             toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
@@ -236,7 +235,11 @@ export const ToastProvider = () => {
   );
 };
 
-export const TransferData = ({transfer, style}) => {
+export const TransferData = ({transfer}) => {
+  const bodyStyle = {
+    fontSize: '12px'
+  };
+
   return (
     <>
       <ToastBody
@@ -245,15 +248,14 @@ export const TransferData = ({transfer, style}) => {
             ? `${NetworkType.L1} -> ${NetworkType.L2}`
             : `${NetworkType.L2} -> ${NetworkType.L1}`
         }
-        style={style}
+        style={bodyStyle}
       />
-      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
-      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
+      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={bodyStyle} />
+      <ToastBody body={getFullTime(transfer.timestamp)} style={bodyStyle} />
     </>
   );
 };
 
 TransferData.propTypes = {
-  transfer: PropTypes.object,
-  style: PropTypes.object
+  transfer: PropTypes.object
 };

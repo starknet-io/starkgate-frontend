@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as EthereumIcon} from '../../../../assets/svg/tokens/eth.svg';
-import {useCompleteTransferToastTranslation} from '../../../../hooks';
+import {useColors, useCompleteTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {CallToActionToast} from '../CallToActionToast/CallToActionToast';
 import {TransferLogLink} from '../ToastFooter/ToastFooter';
@@ -16,15 +16,17 @@ export const CompleteTransferToL1Toast = ({
 }) => {
   const {titleTxt, bodyTxt, dismissBtnTxt, completeTransferBtnTxt} =
     useCompleteTransferToastTranslation();
+  const {colorOmega} = useColors();
 
   return (
     <CallToActionToast
       actionTxt={completeTransferBtnTxt}
+      backgroundColor={colorOmega}
       bodyTxt={bodyTxt}
       dismissTxt={dismissBtnTxt}
       footer={
         <>
-          <TransferData style={{fontSize: '12px'}} transfer={transfer} />
+          <TransferData transfer={transfer} />
           <TransferLogLink onClick={onTransferLogLinkClick} />
         </>
       }
