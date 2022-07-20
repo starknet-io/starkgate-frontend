@@ -5,6 +5,10 @@ import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {
+  ALPHA_DISCLAIMER_COOKIE_NAME,
+  HIDE_ELEMENT_COOKIE_DURATION_DAYS
+} from '../../../config/constants';
+import {
   ActionType,
   Breakpoint,
   isConsumed,
@@ -18,9 +22,10 @@ import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import {getFullTime} from '../../../utils';
+import {getCookie, getFullTime, setCookie} from '../../../utils';
 import {CompleteTransferToL1Toast, ErrorToast, ToastBody, TransferToast} from '../../UI';
-import styles from './ToastProvider.module.scss';
+import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
+import styles from './ToastManager.module.scss';
 
 let toastsMap = {};
 let toastsDismissed = {};
@@ -28,8 +33,8 @@ let toastsDismissed = {};
 const BRIDGE_FULL_TOAST_ID = 'bridgeFull';
 const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
-export const ToastProvider = () => {
-  const {alphaDisclaimerNotice, bridgeFullNotice} = useToastsTranslation();
+export const ToastManager = () => {
+  const {bridgeFullNotice} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();
@@ -40,7 +45,10 @@ export const ToastProvider = () => {
   const {bridgeIsFull} = useBridgeIsFull();
 
   useEffect(() => {
-    showAlphaDisclaimerToast();
+    const alphaDisclaimerCookie = getCookie(ALPHA_DISCLAIMER_COOKIE_NAME);
+    if (!alphaDisclaimerCookie) {
+      showAlphaDisclaimerToast();
+    }
   }, [breakpoint]);
 
   useEffect(() => {
@@ -81,20 +89,16 @@ export const ToastProvider = () => {
     }
   };
 
+  const onAlphaDisclaimerDismiss = () => {
+    setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
+    toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
+  };
+
   const showAlphaDisclaimerToast = () => {
-    toast.custom(
-      () => (
-        <ErrorToast
-          isCollapsable={false}
-          msg={alphaDisclaimerNotice.bodyTxt}
-          title={alphaDisclaimerNotice.titleTxt}
-        />
-      ),
-      {
-        position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-left',
-        id: ALPHA_DISCLAIMER_TOAST_ID
-      }
-    );
+    toast.custom(t => <AlphaDisclaimerToast t={t} onDismiss={onAlphaDisclaimerDismiss} />, {
+      position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
+      id: ALPHA_DISCLAIMER_TOAST_ID
+    });
   };
 
   const showBridgeFullToast = show => {
@@ -216,7 +220,7 @@ export const ToastProvider = () => {
 
   return (
     <Toaster
-      containerClassName={styles.toastProvider}
+      containerClassName={styles.toastManager}
       position="top-right"
       toastOptions={{
         duration: Infinity
@@ -225,7 +229,11 @@ export const ToastProvider = () => {
   );
 };
 
-export const TransferData = ({transfer, style}) => {
+export const TransferData = ({transfer}) => {
+  const bodyStyle = {
+    fontSize: '12px'
+  };
+
   return (
     <>
       <ToastBody
@@ -234,15 +242,14 @@ export const TransferData = ({transfer, style}) => {
             ? `${NetworkType.L1} -> ${NetworkType.L2}`
             : `${NetworkType.L2} -> ${NetworkType.L1}`
         }
-        style={style}
+        style={bodyStyle}
       />
-      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={style} />
-      <ToastBody body={getFullTime(transfer.timestamp)} style={style} />
+      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={bodyStyle} />
+      <ToastBody body={getFullTime(transfer.timestamp)} style={bodyStyle} />
     </>
   );
 };
 
 TransferData.propTypes = {
-  transfer: PropTypes.object,
-  style: PropTypes.object
+  transfer: PropTypes.object
 };

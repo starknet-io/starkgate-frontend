@@ -28,7 +28,7 @@ export const TransferToast = ({transfer, isLoading, onTransferLogLinkClick, onCl
     <div>
       <ToastHeader title={getTitle()} withClose={!isLoading} onClose={onClose} />
       <ToastSeparator />
-      <TransferData style={{fontSize: '12px'}} transfer={transfer} />
+      <TransferData transfer={transfer} />
       <ToastFooter>
         <TransferLogLink onClick={onTransferLogLinkClick} />
       </ToastFooter>
