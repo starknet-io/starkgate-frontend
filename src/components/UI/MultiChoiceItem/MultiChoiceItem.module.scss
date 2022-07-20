@@ -41,7 +41,7 @@
     }
   }
 
-  .forwardIcon {
+  .icon {
     margin-left: 30px;
 
     svg {
@@ -53,12 +53,6 @@
     background: $--color-alpha-1;
     box-sizing: border-box;
     border-radius: 8px;
-
-    .forwardIcon {
-      svg {
-        transform: scale(2) scale3d(1, -1, -2);
-      }
-    }
   }
 }
 
