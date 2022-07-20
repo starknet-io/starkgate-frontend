@@ -1,5 +1,3 @@
-// import {appUrlTest, appUrlProd} from '../config/envs';
-
 export const ChainType = {
   L1: {
     MAIN: 1,
