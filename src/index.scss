@@ -162,7 +162,7 @@ body {
   .MuiMenuItem-root {
     font-family: $--primary-font;
 
-    &.MuiMenuItem-root.Mui-selected {
+    &.Mui-selected {
       background-color: rgba(255, 255, 255, 0.1) !important;
     }
   }
