@@ -33,7 +33,9 @@ export const MultiChoiceItem = ({
           <div className={styles.description}>{capitalize(description)}</div>
         </div>
       </div>
-      <div className={styles.icon}>{type === ChoiceItemType.LINK ? <LinkIcon /> : <ForwardIcon />}</div>
+      <div className={styles.icon}>
+        {type === ChoiceItemType.LINK ? <LinkIcon /> : <ForwardIcon />}
+      </div>
     </div>
     {isLoading && <Loading type={LoadingType.LINEAR} />}
     <div className={styles.separator} />
