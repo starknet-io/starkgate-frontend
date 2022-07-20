@@ -20,10 +20,12 @@ export const ChainInfo = {
   },
   L2: {
     [ChainType.L2.MAIN]: {
+      CHAIN: 'Mainnet',
       NAME: 'StarkNet Mainnet',
       ID_PREFIX: '23448594291968334'
     },
     [ChainType.L2.GOERLI]: {
+      CHAIN: 'Goerli',
       NAME: 'StarkNet Goerli',
       ID_PREFIX: '1536727068981429685321'
     }
