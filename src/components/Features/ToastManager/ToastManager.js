@@ -25,7 +25,7 @@ import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import {getCookie, getFullTime, setCookie} from '../../../utils';
 import {CompleteTransferToL1Toast, ErrorToast, ToastBody, TransferToast} from '../../UI';
 import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
-import styles from './ToastProvider.module.scss';
+import styles from './ToastManager.module.scss';
 
 let toastsMap = {};
 let toastsDismissed = {};
@@ -33,7 +33,7 @@ let toastsDismissed = {};
 const BRIDGE_FULL_TOAST_ID = 'bridgeFull';
 const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
-export const ToastProvider = () => {
+export const ToastManager = () => {
   const {bridgeFullNotice} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
@@ -89,22 +89,16 @@ export const ToastProvider = () => {
     }
   };
 
+  const onAlphaDisclaimerDismiss = () => {
+    setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
+    toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
+  };
+
   const showAlphaDisclaimerToast = () => {
-    toast.custom(
-      t => (
-        <AlphaDisclaimerToast
-          t={t}
-          onDismiss={() => {
-            setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
-            toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
-          }}
-        />
-      ),
-      {
-        position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
-        id: ALPHA_DISCLAIMER_TOAST_ID
-      }
-    );
+    toast.custom(t => <AlphaDisclaimerToast t={t} onDismiss={onAlphaDisclaimerDismiss} />, {
+      position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
+      id: ALPHA_DISCLAIMER_TOAST_ID
+    });
   };
 
   const showBridgeFullToast = show => {
@@ -226,7 +220,7 @@ export const ToastProvider = () => {
 
   return (
     <Toaster
-      containerClassName={styles.toastProvider}
+      containerClassName={styles.toastManager}
       position="top-right"
       toastOptions={{
         duration: Infinity

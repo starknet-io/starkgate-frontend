@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
-import {Account, SelectToken, ToastProvider, Transfer} from '../../components/Features';
+import {Account, SelectToken, ToastManager, Transfer} from '../../components/Features';
 import {HIDE_ELEMENT_COOKIE_DURATION_DAYS, ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
 import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
@@ -63,7 +63,7 @@ export const Bridge = () => {
   return (
     <div className={styles.bridge}>
       <div className={styles.bridgeMenu}>
-        <ToastProvider />
+        <ToastManager />
         {renderMenu()}
       </div>
     </div>
