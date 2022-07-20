@@ -10,18 +10,24 @@ import styles from './ChainSelect.module.scss';
 
 export const ChainSelect = () => {
   const {supportedL2ChainId} = useEnvs();
-  const chains = Object.entries(ChainType.L2).map(([chainType, chainName]) => {
-    const {CHAIN, APP_URL} = ChainInfo.L2[chainName];
-    return {
-      key: chainType,
-      name: CHAIN,
-      url: APP_URL
-    };
-  });
-  const actualChain = chains.find(({key}) => supportedL2ChainId === ChainType.L2[key]);
+
   const handleChange = event => {
-    const {url} = chains.find(({name}) => name === event.target.value);
-    openInNewTab(url);
+    openInNewTab(ChainInfo.L2[event.target.value].APP_URL);
+  };
+
+  const renderItems = () => {
+    return Object.values(ChainType.L2).map(chainName => {
+      return (
+        <MenuItem key={chainName} value={chainName}>
+          {ChainInfo.L2[chainName].CHAIN}
+          {chainName === supportedL2ChainId && (
+            <div className={styles.selectedIcon}>
+              <SelectedIcon />
+            </div>
+          )}
+        </MenuItem>
+      );
+    });
   };
 
   return (
@@ -29,20 +35,11 @@ export const ChainSelect = () => {
       <FormControl size={'small'}>
         <Select
           IconComponent={CollapseIcon}
-          renderValue={chainName => chainName}
-          value={actualChain.name}
+          renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
+          value={supportedL2ChainId}
           onChange={handleChange}
         >
-          {chains.map(({key, name}) => (
-            <MenuItem key={key} value={name}>
-              {name}
-              {key === actualChain.key && (
-                <div className={styles.selectedIcon}>
-                  <SelectedIcon />
-                </div>
-              )}
-            </MenuItem>
-          ))}
+          {renderItems()}
         </Select>
       </FormControl>
     </div>
