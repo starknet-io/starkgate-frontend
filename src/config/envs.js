@@ -3,9 +3,6 @@ import {evaluate} from '../utils';
 
 export const env = process.env.NODE_ENV;
 export const appUrl = process.env.REACT_APP_URL;
-export const appUrlProd = process.env.REACT_APP_URL_PROD;
-export const appUrlDev = process.env.REACT_APP_URL_DEV;
-export const appUrlTest = process.env.REACT_APP_URL_TEST;
 export const autoConnect = process.env.REACT_APP_AUTO_CONNECT === 'true';
 export const pollBlockNumberInterval = Number(process.env.REACT_APP_POLL_BLOCK_NUMBER_INTERVAL);
 export const supportedTokens = process.env.REACT_APP_SUPPORTED_TOKENS.split(',');

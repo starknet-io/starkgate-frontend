@@ -1,3 +1,5 @@
+// import {appUrlTest, appUrlProd} from '../config/envs';
+
 export const ChainType = {
   L1: {
     MAIN: 1,
@@ -22,12 +24,14 @@ export const ChainInfo = {
     [ChainType.L2.MAIN]: {
       CHAIN: 'Mainnet',
       NAME: 'StarkNet Mainnet',
-      ID_PREFIX: '23448594291968334'
+      ID_PREFIX: '23448594291968334',
+      APP_URL: process.env.REACT_APP_URL_PROD
     },
     [ChainType.L2.GOERLI]: {
       CHAIN: 'Goerli',
       NAME: 'StarkNet Goerli',
-      ID_PREFIX: '1536727068981429685321'
+      ID_PREFIX: '1536727068981429685321',
+      APP_URL: process.env.REACT_APP_URL_TEST
     }
   }
 };
