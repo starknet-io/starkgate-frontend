@@ -19,9 +19,6 @@ export const voyagerTxUrl = tx => evaluate(`${voyagerUrl}/tx/{{tx}}`, {tx});
 export const voyagerAccountUrl = contract =>
   evaluate(`${voyagerUrl}/contract/{{contract}}`, {contract});
 export const localStorageTransfersLogKey = process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY;
-export const localStorageOnboardingExpirationTimestampKey =
-  process.env.REACT_APP_LOCAL_STORAGE_ONBOARDING_TIMESTAMP_KEY;
-export const onboardingModalTimeoutHrs = process.env.REACT_APP_ONBOARDING_MODAL_TIMEOUT_HRS;
 export const localStorageAcceptTermsKey = process.env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS;
 export const supportedLiquidityProviders =
   process.env.REACT_APP_SUPPORTED_LIQUIDITY_PROVIDERS?.split(',') || [];

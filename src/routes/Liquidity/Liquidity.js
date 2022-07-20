@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {MultiChoiceMenu} from '../../components/UI';
+import {ChoiceItemType, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
 import {openInNewTab} from '../../utils';
 
@@ -11,6 +11,7 @@ export const Liquidity = () => {
     return liquidityProviders.map(p => {
       return {
         ...p,
+        type: ChoiceItemType.LINK,
         onClick: () => {
           openInNewTab(p.url);
         }
