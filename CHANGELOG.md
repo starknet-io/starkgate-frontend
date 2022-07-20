@@ -1,3 +1,11 @@
+## [1.7.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0-dev.2...v1.7.0-dev.3) (2022-07-20)
+
+
+### 🧩 Features
+
+* **2906185010:** Change "StarkNet is still in Alpha" message ([#233](https://github.com/starkware-libs/starkgate-frontend/issues/233)) ([be0bde0](https://github.com/starkware-libs/starkgate-frontend/commit/be0bde01c3c482cdc5370c8b134982acfc95b403))
+* **2950889966:** Change liquidity action items icons to links instead of arrows ([#235](https://github.com/starkware-libs/starkgate-frontend/issues/235)) ([ed46b1a](https://github.com/starkware-libs/starkgate-frontend/commit/ed46b1a487c5292941b9d9d367055a8b6280bbc5))
+
 ## [1.7.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0-dev.1...v1.7.0-dev.2) (2022-07-17)
 
 
