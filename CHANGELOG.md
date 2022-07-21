@@ -1,3 +1,10 @@
+## [1.7.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0-dev.3...v1.7.0-dev.4) (2022-07-21)
+
+
+### 🧩 Features
+
+* **2892331342:** Add "mainnet / goerli" dropdown switch to main navbar ([#234](https://github.com/starkware-libs/starkgate-frontend/issues/234)) ([23d9c72](https://github.com/starkware-libs/starkgate-frontend/commit/23d9c722f81c4f35cbf9d7f4741fb3192182cb01))
+
 ## [1.7.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0-dev.2...v1.7.0-dev.3) (2022-07-20)
 
 
