@@ -3,7 +3,7 @@ import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
-import {Breakpoint, ChainInfo, ChainType} from '../../../enums';
+import {Breakpoint, ChainInfo} from '../../../enums';
 import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useApp, useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -11,11 +11,12 @@ import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../../providers/WalletsProvider';
 import {toClasses} from '../../../utils';
 import {Divider, Tab, WalletButton, BurgerMenu} from '../../UI';
+import {ChainSelect} from '../../UI/ChainSelect/ChainSelect';
 import styles from './Header.module.scss';
 
 export const Header = () => {
   const {supportedL1ChainId, supportedL2ChainId} = useEnvs();
-  const {tabLiquidityTxt, chainTxt} = useHeaderTranslation();
+  const {tabLiquidityTxt} = useHeaderTranslation();
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
@@ -78,9 +79,7 @@ export const Header = () => {
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
         </div>
-        {supportedL1ChainId === ChainType.L1.GOERLI && (
-          <div className={toClasses(styles.chain, 'row')}>{chainTxt}</div>
-        )}
+        <ChainSelect />
       </div>
       <div className={toClasses(styles.right, 'row')}>
         {renderTabs()}

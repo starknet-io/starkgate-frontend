@@ -120,3 +120,50 @@ body {
 .MuiCircularProgress-root {
   color: $--color-beta !important;
 }
+
+[class^='ChainSelect'] {
+  .MuiOutlinedInput-root {
+    color: $--color-white;
+    border-radius: 8px !important;
+    min-width: 108px;
+  }
+
+  .MuiSelect-select {
+    font-family: $--primary-font;
+  }
+
+  .MuiSelect-icon {
+    transform: scale(1.5);
+    margin: 6px;
+
+    path {
+      fill: $--color-white;
+    }
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $--color-white !important;
+    border-width: 1px !important;
+  }
+}
+
+.MuiPaper-root {
+  margin-top: 4px;
+  border: 1px solid $--color-white !important;
+  border-radius: 8px !important;
+  background-color: $--color-alpha-5 !important;
+  color: $--color-white !important;
+  font-family: $--primary-font;
+
+  .MuiList-padding {
+    padding: 0 !important;
+  }
+
+  .MuiMenuItem-root {
+    font-family: $--primary-font;
+
+    &.Mui-selected {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+}
