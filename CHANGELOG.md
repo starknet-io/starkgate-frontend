@@ -1,3 +1,19 @@
+## [1.7.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.6.1...v1.7.0) (2022-07-21)
+
+
+### 🔧 Fixes
+
+* **2878552430:** User routes to the main screen even if not choose an L2 wallet ([b0a7c80](https://github.com/starkware-libs/starkgate-frontend/commit/b0a7c80530702ab1fed55e4154888801140a114d))
+* **2937454807:** "All Rights Reserved" shouldn't be floating ([#230](https://github.com/starkware-libs/starkgate-frontend/issues/230)) ([bda2a21](https://github.com/starkware-libs/starkgate-frontend/commit/bda2a21168f38248b6a9835cef04e93b7be87597))
+
+
+### 🧩 Features
+
+* **2892331342:** Add "mainnet / goerli" dropdown switch to main navbar ([#234](https://github.com/starkware-libs/starkgate-frontend/issues/234)) ([23d9c72](https://github.com/starkware-libs/starkgate-frontend/commit/23d9c722f81c4f35cbf9d7f4741fb3192182cb01))
+* **2906185010:** Change "StarkNet is still in Alpha" message ([#233](https://github.com/starkware-libs/starkgate-frontend/issues/233)) ([be0bde0](https://github.com/starkware-libs/starkgate-frontend/commit/be0bde01c3c482cdc5370c8b134982acfc95b403))
+* **2918576713:** Add Orbiter to integrations popup ([#231](https://github.com/starkware-libs/starkgate-frontend/issues/231)) ([5c0357b](https://github.com/starkware-libs/starkgate-frontend/commit/5c0357b1cecf5a9baf6d86f800ef8faf2193ae5b))
+* **2950889966:** Change liquidity action items icons to links instead of arrows ([#235](https://github.com/starkware-libs/starkgate-frontend/issues/235)) ([ed46b1a](https://github.com/starkware-libs/starkgate-frontend/commit/ed46b1a487c5292941b9d9d367055a8b6280bbc5))
+
 ## [1.7.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0-dev.3...v1.7.0-dev.4) (2022-07-21)
 
 
