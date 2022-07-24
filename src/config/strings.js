@@ -37,7 +37,7 @@ export default {
       modalTxt: 'Waiting for confirmation from {{walletName}}',
       unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
       unsupportedBrowserTxt:
-        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome to connect."
+        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome or Firefox to connect."
     },
     account: {
       titleTxt: '{{network}} Account',
@@ -110,7 +110,7 @@ export default {
       titleTxt: 'Before takeoff, a few important notes!',
       subtitleTxt: 'While using StarkGate Alpha:',
       bulletsTxt: [
-        'Use Google Chrome',
+        'Use Google Chrome or Mozilla Firefox',
         'Refrain from switching browsers',
         'Do not refresh the page while the transfer is being processed',
         'Do not delete the local storage of the browser'

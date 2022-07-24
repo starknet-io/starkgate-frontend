@@ -10,7 +10,7 @@ import {
 } from '../../hooks';
 import {useHideModal, useProgressModal} from '../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../providers/WalletsProvider';
-import {evaluate, isChrome} from '../../utils';
+import {evaluate, isChrome, isFirefox} from '../../utils';
 import styles from './Login.module.scss';
 
 const MODAL_TIMEOUT_DURATION = 2000;
@@ -40,7 +40,7 @@ export const Login = () => {
 
   useEffect(() => {
     trackLoginScreen();
-    if (!isChrome()) {
+    if (!isBrowserSupported()) {
       setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
   }, []);
@@ -78,6 +78,8 @@ export const Login = () => {
   useEffect(() => {
     walletError && handleWalletError(walletError);
   }, [walletError]);
+
+  const isBrowserSupported = () => isChrome() || isFirefox();
 
   const onWalletConnect = walletHandler => {
     const {config} = walletHandler;
@@ -150,7 +152,7 @@ export const Login = () => {
       return {
         id,
         description,
-        isDisabled: !isChrome(),
+        isDisabled: !isBrowserSupported(),
         isLoading: walletStatus === WalletStatus.CONNECTING,
         logoPath,
         name,

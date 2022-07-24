@@ -14,6 +14,10 @@ export const isChrome = () => {
   return /(?=.*(chrome)).*/i.test(navigator.userAgent);
 };
 
+export const isFirefox = () => {
+  return /(?=.*(firefox)).*/i.test(navigator.userAgent);
+};
+
 export const setCookie = (name, value, days) => {
   let expires;
   if (days) {
