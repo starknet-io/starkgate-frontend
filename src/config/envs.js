@@ -2,7 +2,18 @@ import {ChainType} from '../enums';
 import {evaluate} from '../utils';
 
 export const env = process.env.NODE_ENV;
-export const appUrl = process.env.REACT_APP_URL;
+let appUrlPerEnv;
+switch (env) {
+  case 'development':
+    appUrlPerEnv = process.env.REACT_APP_URL_DEV;
+    break;
+  case 'test':
+    appUrlPerEnv = process.env.REACT_APP_URL_TEST;
+    break;
+  default:
+    appUrlPerEnv = process.env.REACT_APP_URL_PROD;
+}
+export const appUrl = appUrlPerEnv;
 export const autoConnect = process.env.REACT_APP_AUTO_CONNECT === 'true';
 export const pollBlockNumberInterval = Number(process.env.REACT_APP_POLL_BLOCK_NUMBER_INTERVAL);
 export const supportedTokens = process.env.REACT_APP_SUPPORTED_TOKENS.split(',');
