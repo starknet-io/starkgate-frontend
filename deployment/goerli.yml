@@ -57,8 +57,8 @@ ingress:
 
 # Consume ConfigMaps as environment variables.
 configMap:
-  # Environment name (development | production | testing)
+  # Environment name (development | production | goerli)
   # for deployments environment variables.
   # @default: production
   # @type: string
-  env: testing
+  env: goerli

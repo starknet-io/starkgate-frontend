@@ -5,7 +5,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 ENV DISABLE_ESLINT_PLUGIN=true
 
-ARG BUILD_ENV=testing
+ARG BUILD_ENV=goerli
 
 COPY package.json ./
 COPY yarn.lock ./

@@ -3,7 +3,7 @@ import {evaluate} from '../utils';
 
 const appUrlMap = {
   devnet: process.env.REACT_APP_URL_DEVNET,
-  testing: process.env.REACT_APP_URL_TEST,
+  goerli: process.env.REACT_APP_URL_GOERLI,
   production: process.env.REACT_APP_URL_PROD
 };
 

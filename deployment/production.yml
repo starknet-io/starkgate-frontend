@@ -18,7 +18,7 @@ frontend:
     repository: us.gcr.io/starkware-dev/starknet/starkgate/frontend
     tag: latest
 
-  # Default service variable for starknet testing.yaml frontend pod.
+  # Default service variable for starknet goerli.yaml frontend pod.
   service:
     # Type of service, ex. NodePort, ClusterIP.
     type: ClusterIP
@@ -26,10 +26,10 @@ frontend:
     port: 80
     protocol: TCP
 
-# Values that configure running a starknet testing.yaml backend on Kubernetes.
+# Values that configure running a starknet goerli.yaml backend on Kubernetes.
 backend:
   # If true, the chart will install all
-  # the resources necessary for a starknet testing.yaml backend on Kubernetes.
+  # the resources necessary for a starknet goerli.yaml backend on Kubernetes.
   # @default: true
   # @type: boolean
   enabled: false
@@ -69,7 +69,7 @@ ingress:
 
 # Consume ConfigMaps as environment variables.
 configMap:
-  # Environment name (development | production | testing)
+  # Environment name (development | production | goerli)
   # for deployments environment variables.
   # @default: production
   # @type: string

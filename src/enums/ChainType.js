@@ -29,7 +29,7 @@ export const ChainInfo = {
       CHAIN: 'Goerli',
       NAME: 'StarkNet Goerli',
       ID_PREFIX: '1536727068981429685321',
-      APP_URL: process.env.REACT_APP_URL_TEST
+      APP_URL: process.env.REACT_APP_URL_GOERLI
     }
   }
 };
