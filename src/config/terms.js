@@ -7,7 +7,8 @@ import {
   STARKGATE_CONTRACTS_REPO_URL,
   STARKNET_SITE_URL
 } from './constants';
-import {appUrl} from './envs';
+
+const appUrl = window.location.origin;
 
 export default (
   <div>
