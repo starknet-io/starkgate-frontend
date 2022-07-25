@@ -1,4 +1,4 @@
-# Values that configure running a starknet starkgate frontend on Kubernetes.
+# Values that configure running a starknet goerli.yaml frontend on Kubernetes.
 frontend:
   # The name of the Docker image (including any tag and repository name)
   # for the container running starknet faucet frontend.
@@ -15,10 +15,10 @@ frontend:
     tag: latest
     pullPolicy: Always
 
-# Values that configure running a starknet starkgate backend on Kubernetes.
+# Values that configure running a starknet goerli.yaml backend on Kubernetes.
 backend:
   # If true, the chart will install all
-  # the resources necessary for a starknet starkgate backend on Kubernetes.
+  # the resources necessary for a starknet goerli.yaml backend on Kubernetes.
   # @default: true
   # @type: boolean
   enabled: false
