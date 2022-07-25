@@ -1,3 +1,10 @@
+### [1.7.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0...v1.7.1) (2022-07-25)
+
+
+### 🔧 Fixes
+
+* app url in terms is incorrect ([#239](https://github.com/starkware-libs/starkgate-frontend/issues/239)) ([8f0de71](https://github.com/starkware-libs/starkgate-frontend/commit/8f0de711ef9eefa82a8e7586c9502743dd8a9ffa))
+
 ### [1.7.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0...v1.7.1-dev.1) (2022-07-25)
 
 
