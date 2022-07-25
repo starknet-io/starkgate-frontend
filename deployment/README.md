@@ -44,7 +44,7 @@ helm install starkgate starkware/webapp-general-helm \
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/development.yml \
+--values deployment/devnet.yml \
 --set-file configMap.frontend.envs=.env.testing \
 --namespace starkgate-devnet \
 --create-namespace \
@@ -89,7 +89,7 @@ helm upgrade starkgate starkware/webapp-general-helm \
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/development.yml \
+--values deployment/devnet.yml \
 --set-file configMap.frontend.envs=.env.testing \
 --namespace starkgate-devnet \
 --set frontend.image.tag=VERSION

@@ -22,7 +22,7 @@ jobs:
     with:
       app_name: starkgate
       namespace_name: starkgate-devnet
-      values_file: deployment/development.yml
+      values_file: deployment/devnet.yml
       env_file: .env.testing
     secrets:
       gcp_token: ${{ secrets.STARKGATE_SA }}

@@ -2,7 +2,7 @@ import {ChainType} from '../enums';
 import {evaluate} from '../utils';
 
 const appUrlMap = {
-  development: process.env.REACT_APP_URL_DEV,
+  devnet: process.env.REACT_APP_URL_DEVNET,
   testing: process.env.REACT_APP_URL_TEST,
   production: process.env.REACT_APP_URL_PROD
 };
