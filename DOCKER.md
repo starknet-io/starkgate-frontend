@@ -5,7 +5,7 @@ In order to build the docker application run the following:
 ### Docker build
 
 ```shell
-docker build . --build-arg BUILD_ENV=production -t starkgate:frontend-latest
+docker build . --build-arg BUILD_ENV=mainnet -t starkgate:frontend-latest
 ```
 
 ### Run image

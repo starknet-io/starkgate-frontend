@@ -65,7 +65,7 @@ The appropriate files are loading according to the `REACT_APP_ENV` value.\
 `.env` (global values for all environments)\
 `.env.development` (values for development env, i.e `REACT_APP_ENV=development`)\
 `.env.goerli` (values for goerli env, i.e, `REACT_APP_ENV=goerli`)\
-`.env.production` (values for production env, i.e, `REACT_APP_ENV=production`)
+`.env.mainnet` (values for mainnet env, i.e, `REACT_APP_ENV=mainnet`)
 
 > Note: each file can be overridden on a local environment using matching `.env.[ENV].local` file.
 
