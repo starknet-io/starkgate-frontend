@@ -38,7 +38,7 @@ export default [
           StarkGate:
         </p>
         <ol type="a">
-          <li>Make sure you are browsing from Chrome.</li>
+          <li>Make sure you are browsing from Chrome or Firefox.</li>
           <li>Make sure you are not using incognito mode.</li>
           <li>
             Ensure that you have successfully installed the required wallets (MetaMask and a

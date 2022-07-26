@@ -1,3 +1,10 @@
+## [1.8.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.1...v1.8.0-dev.1) (2022-07-26)
+
+
+### 🧩 Features
+
+* **2934155393:** Firefox support ([#237](https://github.com/starkware-libs/starkgate-frontend/issues/237)) ([579f33f](https://github.com/starkware-libs/starkgate-frontend/commit/579f33f5c75cf30bd8ca2a8373ca0ecf9d6c1d71))
+
 ### [1.7.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.0...v1.7.1) (2022-07-25)
 
 

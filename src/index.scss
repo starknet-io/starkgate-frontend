@@ -67,6 +67,7 @@ body {
   font-family: $--primary-font;
   background-color: $--color-alpha-3;
   transition: 0.3s;
+  scrollbar-color: $--color-alpha-6 transparent;
 }
 
 .center {
