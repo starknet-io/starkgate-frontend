@@ -1,12 +1,12 @@
 {
   "name": "starkgate-frontend",
-  "version": "1.7.1",
+  "version": "1.7.2-dev.1",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
     "prebuild": "yarn run clean",
     "build:production": "react-scripts build",
-    "build:testing": "env-cmd -f .env.testing yarn run build:production",
+    "build:goerli": "env-cmd -f .env.goerli yarn run build:production",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",

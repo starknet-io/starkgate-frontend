@@ -29,12 +29,12 @@ helm install starkgate starkware/webapp-general-helm \
 
 > **Note:** Change image VERSION to the new git tag.
 
-#### Testing
+#### Goerli
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/testing.yml \
---set-file configMap.frontend.envs=.env.testing \
+--values deployment/goerli.yml \
+--set-file configMap.frontend.envs=.env.goerli \
 --namespace starkgate-goerli \
 --create-namespace \
 --set frontend.image.tag=VERSION
@@ -44,8 +44,8 @@ helm install starkgate starkware/webapp-general-helm \
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/development.yml \
---set-file configMap.frontend.envs=.env.testing \
+--values deployment/devnet.yml \
+--set-file configMap.frontend.envs=.env.goerli \
 --namespace starkgate-devnet \
 --create-namespace \
 --set frontend.image.tag=VERSION
@@ -75,12 +75,12 @@ helm upgrade starkgate starkware/webapp-general-helm \
 --set frontend.image.tag=VERSION
 ```
 
-### Testing
+### Goerli
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/testing.yml \
---set-file configMap.frontend.envs=.env.testing \
+--values deployment/goerli.yml \
+--set-file configMap.frontend.envs=.env.goerli \
 --namespace starkgate-goerli \
 --set frontend.image.tag=VERSION
 ```
@@ -89,8 +89,8 @@ helm upgrade starkgate starkware/webapp-general-helm \
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/development.yml \
---set-file configMap.frontend.envs=.env.testing \
+--values deployment/devnet.yml \
+--set-file configMap.frontend.envs=.env.goerli \
 --namespace starkgate-devnet \
 --set frontend.image.tag=VERSION
 ```
