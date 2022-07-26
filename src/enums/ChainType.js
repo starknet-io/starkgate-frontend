@@ -23,7 +23,7 @@ export const ChainInfo = {
       CHAIN: 'Mainnet',
       NAME: 'StarkNet Mainnet',
       ID_PREFIX: '23448594291968334',
-      APP_URL: process.env.REACT_APP_URL_PROD
+      APP_URL: process.env.REACT_APP_URL_MAINNET
     },
     [ChainType.L2.GOERLI]: {
       CHAIN: 'Goerli',

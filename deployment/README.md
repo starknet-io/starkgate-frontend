@@ -16,12 +16,12 @@ gcloud container clusters get-credentials web-devs --region us-central1 --projec
 
 3. Deploy application using helm CLI.
 
-#### Production
+#### Mainnet
 
 ```bash
 helm install starkgate starkware/webapp-general-helm \
---values deployment/production.yml \
---set-file configMap.frontend.envs=.env.production \
+--values deployment/mainnet.yml \
+--set-file configMap.frontend.envs=.env.mainnet \
 --namespace starkgate-mainnet \
 --create-namespace \
 --set frontend.image.tag=VERSION
@@ -65,12 +65,12 @@ Upgrade starknet faucet helm chart.
 gcloud auth login
 ```
 
-### Production
+### Mainnet
 
 ```bash
 helm upgrade starkgate starkware/webapp-general-helm \
---values deployment/production.yml \
---set-file configMap.frontend.envs=.env.production \
+--values deployment/mainnet.yml \
+--set-file configMap.frontend.envs=.env.mainnet \
 --namespace starkgate-mainnet \
 --set frontend.image.tag=VERSION
 ```
