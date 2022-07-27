@@ -2,13 +2,23 @@ import React from 'react';
 
 import {ChoiceItemType, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
-import {openInNewTab} from '../../utils';
+import {useL2Wallet} from '../../providers/WalletsProvider';
+import {openInNewTab, buildDynamicURL} from '../../utils';
 
 export const Liquidity = () => {
+  const {account: accountL2} = useL2Wallet();
   const {titleTxt, descriptionTxt} = useLiquidityTranslation();
   const liquidityProviders = useLiquidityProviders();
+
+  const dynamicQsValues = {
+    accountL2
+  };
+
   const mapLiquidityProviders = () => {
     return liquidityProviders.map(p => {
+      const {link} = p;
+      let {url, qsParams} = link;
+      p.url = buildDynamicURL(url, qsParams, dynamicQsValues);
       return {
         ...p,
         type: ChoiceItemType.LINK,

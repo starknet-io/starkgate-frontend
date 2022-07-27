@@ -1,3 +1,5 @@
+import {evaluate, isEvaluateParam} from './';
+
 export const openInNewTab = url => {
   window.open(url, '_blank').focus();
 };
@@ -48,4 +50,19 @@ export const getCookie = name => {
     }
   }
   return decodeURI(dc.substring(begin + prefix.length, end));
+};
+
+export const buildDynamicURL = (url, qsParams, dynamicQsValues = []) => {
+  const keys = Object.keys(qsParams);
+  keys.length && (url += '?');
+  keys.forEach(key => {
+    const param = qsParams[key];
+    if (!isEvaluateParam(param) || dynamicQsValues[param.replace(/[\{\}]/g, '')]) {
+      url += `${key}=${param}&`;
+    }
+  });
+  if (url.slice(-1) === '?' || url.slice(-1) === '&') {
+    url = url.slice(0, -1);
+  }
+  return evaluate(url, dynamicQsValues);
 };
