@@ -1,6 +1,6 @@
 export const ETHERSCAN = 'Etherscan';
 export const VOYAGER = 'Voyager';
-export const DISCORD_LINK_URL = 'https://discord.gg/MRjKBXtaDt';
+export const DISCORD_LINK_URL = 'https://discord.gg/CeG6Tkd4';
 export const FETCH_TOKEN_BALANCE_MAX_RETRY = 5;
 export const STARKWARE_SITE_URL = 'https://starkware.co/';
 export const STARKNET_SITE_URL = 'https://starknet.io';
