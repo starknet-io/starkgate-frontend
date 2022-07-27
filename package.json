@@ -9,7 +9,7 @@
     "build:mainnet": "env-cmd -f .env.mainnet yarn run build",
     "build:goerli": "env-cmd -f .env.goerli yarn run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
-    "test": "react-scripts test --env=jsdom",
+    "test": "env-cmd -f .env.development react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint:scripts": "eslint **/*.{js,jsx}",
     "lint:styles": "stylelint **/*.{css,scss}",
