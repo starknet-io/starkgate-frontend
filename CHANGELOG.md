@@ -1,3 +1,5 @@
+## [1.8.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.2...v1.8.0-dev.3) (2022-07-27)
+
 ## [1.8.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.1...v1.8.0-dev.2) (2022-07-27)
 
 
