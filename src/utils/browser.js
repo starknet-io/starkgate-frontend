@@ -57,6 +57,7 @@ export const buildDynamicURL = (url, qsParams, dynamicQsValues = []) => {
   keys.length && (url += '?');
   keys.forEach(key => {
     const param = qsParams[key];
+    //eslint-disable-next-line
     if (!isEvaluateParam(param) || dynamicQsValues[param.replace(/[\{\}]/g, '')]) {
       url += `${key}=${param}&`;
     }

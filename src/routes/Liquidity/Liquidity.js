@@ -17,7 +17,7 @@ export const Liquidity = () => {
   const mapLiquidityProviders = () => {
     return liquidityProviders.map(p => {
       const {link} = p;
-      let {url, qsParams} = link;
+      const {url, qsParams} = link;
       p.url = buildDynamicURL(url, qsParams, dynamicQsValues);
       return {
         ...p,
