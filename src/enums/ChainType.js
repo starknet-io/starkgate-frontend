@@ -1,3 +1,5 @@
+import {APP_URL_MAINNET, APP_URL_GOERLI} from '../config/constants';
+
 export const ChainType = {
   L1: {
     MAIN: 1,
@@ -23,13 +25,13 @@ export const ChainInfo = {
       CHAIN: 'Mainnet',
       NAME: 'StarkNet Mainnet',
       ID_PREFIX: '23448594291968334',
-      APP_URL: process.env.REACT_APP_URL_MAINNET
+      APP_URL: APP_URL_MAINNET
     },
     [ChainType.L2.GOERLI]: {
       CHAIN: 'Goerli',
       NAME: 'StarkNet Goerli',
       ID_PREFIX: '1536727068981429685321',
-      APP_URL: process.env.REACT_APP_URL_GOERLI
+      APP_URL: APP_URL_GOERLI
     }
   }
 };
