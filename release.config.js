@@ -26,9 +26,9 @@ module.exports = {
           {type: 'improvement', release: 'patch'},
           {type: 'revert', release: 'patch'},
           {type: 'style', release: 'patch'},
-          {type: 'docs', release: 'patch'},
-          {type: 'test', release: 'patch'},
           // NO RELEASE
+          {type: 'docs', release: false},
+          {type: 'test', release: false},
           {type: 'chore', release: false},
           {type: 'ci', release: false},
           {type: 'build', release: false},
