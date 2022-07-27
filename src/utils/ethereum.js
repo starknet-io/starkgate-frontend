@@ -1,3 +1,4 @@
+import {envConfirmationNumber} from '../config/envs';
 import {web3} from '../libs';
 import {promiseHandler} from './index';
 
@@ -13,20 +14,25 @@ export const callL1Contract = async (contract, method, args = []) => {
   return response;
 };
 
-export const sendL1Transaction = async (
+export const sendL1Transaction = (
   contract,
   method,
   args = [],
   options = {},
   callback = () => {}
 ) => {
-  const [response, error] = await promiseHandler(
-    contract.methods?.[method](...args).send(options, callback)
-  );
-  if (error) {
-    return Promise.reject(error);
-  }
-  return response;
+  return new Promise((resolve, reject) => {
+    const emitter = contract.methods?.[method](...args).send(options, callback);
+    emitter.on('confirmation', (confirmationNumber, receipt) => {
+      if (confirmationNumber === envConfirmationNumber) {
+        emitter.off('confirmation');
+        resolve(receipt);
+      }
+    });
+    emitter.on('error', error => {
+      reject(error);
+    });
+  });
 };
 
 export const listenOnce = ({contract, eventName, filter, callback}) => {
