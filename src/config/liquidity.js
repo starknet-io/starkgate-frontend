@@ -53,7 +53,7 @@ export default [
         url: 'https://www.orbiter.finance/',
         qsParams: {
           refer: 'starknet',
-          dests: 'dests'
+          dests: 'starknet'
         }
       }
     }
