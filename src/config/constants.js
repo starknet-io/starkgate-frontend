@@ -1,6 +1,6 @@
 export const ETHERSCAN = 'Etherscan';
 export const VOYAGER = 'Voyager';
-export const DISCORD_LINK_URL = 'https://discord.gg/MRjKBXtaDt';
+export const DISCORD_LINK_URL = 'https://discord.gg/CeG6Tkd4';
 export const FETCH_TOKEN_BALANCE_MAX_RETRY = 5;
 export const STARKWARE_SITE_URL = 'https://starkware.co/';
 export const STARKNET_SITE_URL = 'https://starknet.io';
@@ -18,3 +18,5 @@ export const FEEDBACK_FORM_URL_MAINNET =
 export const ONBOARDING_COOKIE_NAME = 'sg_onboard_modal';
 export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
 export const HIDE_ELEMENT_COOKIE_DURATION_DAYS = 1;
+export const APP_URL_GOERLI = 'https://goerli.starkgate.starknet.io';
+export const APP_URL_MAINNET = 'https://starkgate.starknet.io';
