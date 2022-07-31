@@ -1,6 +1,8 @@
 import {envConfirmationNumber} from '../config/envs';
 import {web3} from '../libs';
-import {promiseHandler} from './index';
+import {getLogger, promiseHandler} from './index';
+
+const logger = getLogger('Ethereum');
 
 export const createL1Contract = (address, ABI) => {
   return new web3.eth.Contract(ABI, address);
@@ -24,6 +26,7 @@ export const sendL1Transaction = (
   return new Promise((resolve, reject) => {
     const emitter = contract.methods?.[method](...args).send(options, callback);
     emitter.on('confirmation', (confirmationNumber, receipt) => {
+      logger.debug(`Confirmation number ${confirmationNumber}`);
       if (confirmationNumber === envConfirmationNumber) {
         emitter.off('confirmation');
         resolve(receipt);
