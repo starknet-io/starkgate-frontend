@@ -192,7 +192,6 @@ export const Transfer = () => {
           onTokenSelect={showSelectTokenMenu}
         />
         {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
-        <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
       </>
     );
   };
@@ -213,6 +212,7 @@ export const Transfer = () => {
             {isL1 ? renderL2Network() : renderL1Network()}
           </>
         )}
+        <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
       </div>
     </Menu>
   );
