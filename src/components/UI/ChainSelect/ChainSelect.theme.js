@@ -12,7 +12,7 @@ export const ChainSelectTheme = ({children}) => {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            color: '#fff',
+            color: colorWhite,
             borderRadius: '8px',
             minWidth: '108px',
             '&, &:hover, &.Mui-focused': {
