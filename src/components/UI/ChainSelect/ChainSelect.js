@@ -1,12 +1,13 @@
-import {Select, MenuItem, FormControl, createTheme, ThemeProvider} from '@mui/material';
+import {Select, MenuItem, FormControl} from '@mui/material';
 import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
 import {ChainInfo, ChainType} from '../../../enums';
-import {useColors, useEnvs, useFonts} from '../../../hooks';
+import {useEnvs} from '../../../hooks';
 import {toClasses, openInNewTab} from '../../../utils';
 import styles from './ChainSelect.module.scss';
+import {ChainSelectTheme} from './ChainSelect.theme';
 
 export const ChainSelect = () => {
   const {supportedL2ChainId} = useEnvs();
@@ -30,73 +31,8 @@ export const ChainSelect = () => {
     });
   };
 
-  const {colorWhite, colorAlpha5} = useColors();
-  const {primaryFont} = useFonts();
-
-  const theme = createTheme({
-    components: {
-      MuiOutlinedInput: {
-        styleOverrides: {
-          root: {
-            color: '#fff',
-            borderRadius: '8px',
-            minWidth: '108px',
-            '&, &:hover, &.Mui-focused': {
-              '.MuiOutlinedInput-notchedOutline': {
-                borderColor: colorWhite,
-                borderWidth: '1px'
-              }
-            }
-          },
-          input: {
-            fontFamily: primaryFont
-          }
-        }
-      },
-      MuiSelect: {
-        styleOverrides: {
-          icon: {
-            transform: 'scale(1.5)',
-            margin: '6px',
-            '& path': {
-              fill: colorWhite
-            }
-          }
-        }
-      },
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            marginTop: '4px',
-            border: `1px solid ${colorWhite}`,
-            borderRadius: '8px',
-            backgroundColor: colorAlpha5,
-            color: colorWhite
-          }
-        }
-      },
-      MuiList: {
-        styleOverrides: {
-          root: {
-            padding: '0'
-          }
-        }
-      },
-      MuiMenuItem: {
-        styleOverrides: {
-          root: {
-            fontFamily: primaryFont,
-            '&.Mui-selected': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1) !important'
-            }
-          }
-        }
-      }
-    }
-  });
-
   return (
-    <ThemeProvider theme={theme}>
+    <ChainSelectTheme>
       <div className={toClasses(styles.chainSelect)}>
         <FormControl size={'small'}>
           <Select
@@ -109,6 +45,6 @@ export const ChainSelect = () => {
           </Select>
         </FormControl>
       </div>
-    </ThemeProvider>
+    </ChainSelectTheme>
   );
 };
