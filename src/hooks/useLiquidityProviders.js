@@ -4,13 +4,13 @@ import LiquidityProviders from '../config/liquidity';
 import {useEnvs} from './useEnvs';
 
 export const useLiquidityProviders = () => {
-  const {supportedLiquidityProviders, supportedL1ChainId} = useEnvs();
+  const {SUPPORTED_LIQUIDITY_PROVIDERS, SUPPORTED_L1_CHAIN_ID} = useEnvs();
 
   return useMemo(
     () =>
-      LiquidityProviders.filter(p => supportedLiquidityProviders.includes(p.id)).map(p => ({
+      LiquidityProviders.filter(p => SUPPORTED_LIQUIDITY_PROVIDERS.includes(p.id)).map(p => ({
         ...p,
-        url: p.url[supportedL1ChainId]
+        url: p.url[SUPPORTED_L1_CHAIN_ID]
       })),
     [LiquidityProviders]
   );

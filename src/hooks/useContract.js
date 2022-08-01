@@ -69,10 +69,10 @@ export const useL1TokenContract = () => {
 };
 
 export const useStarknetContract = () => {
-  const {starknetContractAddress} = useEnvs();
+  const {STARKNET_CONTRACT_ADDRESS} = useEnvs();
   const getContract = useContract(L1_MESSAGING_ABI, createL1Contract);
 
-  return useMemo(() => getContract(starknetContractAddress), [getContract]);
+  return useMemo(() => getContract(STARKNET_CONTRACT_ADDRESS), [getContract]);
 };
 
 export const useL2TokenBridgeContract = () => {
