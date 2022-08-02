@@ -1,7 +1,6 @@
-import {getLogger} from '.';
 import {envConfirmationNumber} from '../config/envs';
 import {web3} from '../libs';
-import {promiseHandler} from './index';
+import {getLogger, promiseHandler} from './index';
 
 const logger = getLogger('Ethereum');
 
@@ -24,53 +23,18 @@ export const sendL1Transaction = (
   options = {},
   callback = () => {}
 ) => {
-  // eslint-disable-next-line
-  return new Promise(async (resolve, reject) => {
-    const [receipt, error] = await promiseHandler(
-      contract.methods?.[method](...args).send(options, callback)
-    );
-    if (receipt) {
-      const transactionBlockNumber = receipt.blockNumber;
-      logger.log(`Transaction block is ${transactionBlockNumber}`);
-      logger.log(`${envConfirmationNumber} Block confirmations required`);
-      const emitter = web3.eth.subscribe('newBlockHeaders');
-      emitter.on('data', async blockHeader => {
-        let confirmationNumber = 0;
-        const checkBlockRecursively = async block => {
-          if (block.number === transactionBlockNumber) {
-            logger.log(`${confirmationNumber} Block confirmations`);
-            if (confirmationNumber === envConfirmationNumber) {
-              emitter.unsubscribe();
-              resolve(receipt);
-            }
-          } else if (confirmationNumber < envConfirmationNumber) {
-            confirmationNumber++;
-            const [parent] = await promiseHandler(web3.eth.getBlock(block.parentHash));
-            if (parent) {
-              await checkBlockRecursively(parent);
-            } else {
-              // todo
-            }
-          } else {
-            // Didn't find the transaction block on the chain
-            emitter.unsubscribe();
-            resolve(receipt); // todo
-          }
-        };
-        const [block] = await promiseHandler(web3.eth.getBlock(blockHeader.number));
-        if (block) {
-          logger.log(`A new block has published - ${block.number}`);
-          await checkBlockRecursively(block);
-        } else {
-          // todo
-        }
-      });
-      emitter.on('error', error => {
-        emitter.unsubscribe();
-      });
-    } else {
+  return new Promise((resolve, reject) => {
+    const emitter = contract.methods?.[method](...args).send(options, callback);
+    emitter.on('confirmation', (confirmationNumber, receipt) => {
+      logger.debug(`Confirmation number ${confirmationNumber}`);
+      if (confirmationNumber === envConfirmationNumber) {
+        emitter.off('confirmation');
+        resolve(receipt);
+      }
+    });
+    emitter.on('error', error => {
       reject(error);
-    }
+    });
   });
 };
 
