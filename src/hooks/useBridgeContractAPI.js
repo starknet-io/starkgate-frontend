@@ -1,5 +1,6 @@
 import {useCallback} from 'react';
 
+import {BLOCK_CONFIRMATION} from '../config/envs';
 import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
@@ -38,7 +39,8 @@ export const useBridgeContractAPI = () => {
         'deposit',
         [parseToDecimals(amount, decimals), recipient],
         {from: accountL1},
-        emitter
+        emitter,
+        BLOCK_CONFIRMATION
       );
     },
     [selectedToken, accountL1, getL1BridgeContract]
@@ -57,7 +59,8 @@ export const useBridgeContractAPI = () => {
           from: accountL1,
           value: parseToDecimals(amount)
         },
-        emitter
+        emitter,
+        BLOCK_CONFIRMATION
       );
     },
     [selectedToken, accountL1, getL1BridgeContract]

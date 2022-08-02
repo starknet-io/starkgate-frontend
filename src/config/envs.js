@@ -21,4 +21,4 @@ export const localStorageTransfersLogKey = process.env.REACT_APP_LOCAL_STORAGE_T
 export const localStorageAcceptTermsKey = process.env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS;
 export const supportedLiquidityProviders =
   process.env.REACT_APP_SUPPORTED_LIQUIDITY_PROVIDERS?.split(',') || [];
-export const envConfirmationNumber = Number(process.env.REACT_APP_CONFIRMATION_NUMBER);
+export const BLOCK_CONFIRMATION = Number(process.env.REACT_APP_BLOCK_CONFIRMATION);

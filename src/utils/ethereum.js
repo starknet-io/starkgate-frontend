@@ -1,4 +1,3 @@
-import {envConfirmationNumber} from '../config/envs';
 import {web3} from '../libs';
 import {getLogger, promiseHandler} from './index';
 
@@ -21,13 +20,14 @@ export const sendL1Transaction = (
   method,
   args = [],
   options = {},
-  callback = () => {}
+  callback = () => {},
+  blockConfirmation = 0
 ) => {
   return new Promise((resolve, reject) => {
     const emitter = contract.methods?.[method](...args).send(options, callback);
     emitter.on('confirmation', (confirmationNumber, receipt) => {
-      logger.debug(`Confirmation number ${confirmationNumber}`);
-      if (confirmationNumber === envConfirmationNumber) {
+      logger.log(`${confirmationNumber} block confirmations`);
+      if (confirmationNumber === blockConfirmation) {
         emitter.off('confirmation');
         resolve(receipt);
       }
