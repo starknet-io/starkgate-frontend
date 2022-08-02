@@ -62,7 +62,7 @@ export const useL2Wallet = () => {
 };
 
 export const useStarknetWallet = () => {
-  const {autoConnect, supportedL2ChainId} = useEnvs();
+  const {AUTO_CONNECT, SUPPORTED_L2_CHAIN_ID} = useEnvs();
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
@@ -77,7 +77,7 @@ export const useStarknetWallet = () => {
       }
       setStatus(WalletStatus.CONNECTING);
       const enabled = await wallet
-        .enable(!autoConnect && {showModal: true})
+        .enable(!AUTO_CONNECT && {showModal: true})
         .then(address => address?.length && address[0]);
       if (enabled) {
         updateAccount();
@@ -112,7 +112,7 @@ export const useStarknetWallet = () => {
     const chainId = getCurrentChainId();
     setChainId(chainId);
     setChainName(ChainInfo.L2[chainId].NAME);
-    if (chainId === supportedL2ChainId) {
+    if (chainId === SUPPORTED_L2_CHAIN_ID) {
       setAccount(getStarknet().selectedAddress);
       setStatus(WalletStatus.CONNECTED);
       setError(null);

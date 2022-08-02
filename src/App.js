@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
@@ -44,7 +45,7 @@ export const App = () => {
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>
-      <SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />
+      {/*<SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />*/}
     </div>
   );
 };

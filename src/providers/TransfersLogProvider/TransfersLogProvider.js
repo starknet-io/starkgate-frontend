@@ -20,7 +20,7 @@ import {actions, initialState, reducer} from './transfers-log-reducer';
 
 export const TransfersLogProvider = ({children}) => {
   const [transfers, dispatch] = useReducer(reducer, initialState);
-  const {localStorageTransfersLogKey} = useEnvs();
+  const {LOCAL_STORAGE_TRANSFERS_LOG_KEY} = useEnvs();
   const logger = useLogger(TransfersLogProvider.displayName);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
@@ -136,17 +136,17 @@ export const TransfersLogProvider = ({children}) => {
   };
 
   const getTransfersFromStorage = () => {
-    const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
+    const storedTransfers = getStorageItem(LOCAL_STORAGE_TRANSFERS_LOG_KEY) || {};
     return storedTransfers[accountHash] || [];
   };
 
   const saveTransfersToStorage = transfers => {
-    const storedTransfers = getStorageItem(localStorageTransfersLogKey) || {};
+    const storedTransfers = getStorageItem(LOCAL_STORAGE_TRANSFERS_LOG_KEY) || {};
     const updatedTransfers = {
       ...storedTransfers,
       [accountHash]: transfers
     };
-    setStorageItem(localStorageTransfersLogKey, updatedTransfers);
+    setStorageItem(LOCAL_STORAGE_TRANSFERS_LOG_KEY, updatedTransfers);
   };
 
   const updateTransfers = updatedTransfers => {
