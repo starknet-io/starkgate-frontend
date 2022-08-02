@@ -17,7 +17,7 @@ import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
-  const {voyagerTxUrl, etherscanTxUrl} = useEnvs();
+  const {VOYAGER_TX_URL, ETHERSCAN_TX_URL} = useEnvs();
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
@@ -41,7 +41,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
       <LinkButton
         isDisabled={!l1hash}
         text={`${NetworkType.L1} Tx`}
-        url={etherscanTxUrl(l1hash)}
+        url={ETHERSCAN_TX_URL(l1hash)}
         onClick={onTxClick}
       />
     );
@@ -56,7 +56,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
           TransactionStatusStep[status] < TransactionStatusStep[TransactionStatus.PENDING]
         }
         text={`${NetworkType.L2} Tx`}
-        url={voyagerTxUrl(l2hash)}
+        url={VOYAGER_TX_URL(l2hash)}
         onClick={onTxClick}
       />
     );

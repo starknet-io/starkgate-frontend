@@ -10,7 +10,7 @@ import styles from './ChainSelect.module.scss';
 import {ChainSelectTheme} from './ChainSelect.theme';
 
 export const ChainSelect = () => {
-  const {supportedL2ChainId} = useEnvs();
+  const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
 
   const handleChange = event => {
     openInNewTab(ChainInfo.L2[event.target.value].APP_URL);
@@ -21,7 +21,7 @@ export const ChainSelect = () => {
       return (
         <MenuItem key={chainName} value={chainName}>
           {ChainInfo.L2[chainName].CHAIN}
-          {chainName === supportedL2ChainId && (
+          {chainName === SUPPORTED_L2_CHAIN_ID && (
             <div className={styles.selectedIcon}>
               <SelectedIcon />
             </div>
@@ -38,7 +38,7 @@ export const ChainSelect = () => {
           <Select
             IconComponent={CollapseIcon}
             renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
-            value={supportedL2ChainId}
+            value={SUPPORTED_L2_CHAIN_ID}
             onChange={handleChange}
           >
             {renderItems()}

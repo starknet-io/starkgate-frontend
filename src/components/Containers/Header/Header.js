@@ -16,7 +16,7 @@ import {ChainSelect} from '../../UI/ChainSelect/ChainSelect';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const {supportedL1ChainId, supportedL2ChainId} = useEnvs();
+  const {SUPPORTED_L1_CHAIN_ID, SUPPORTED_L2_CHAIN_ID} = useEnvs();
   const {tabLiquidityTxt} = useHeaderTranslation();
   const {showAccountMenu, showTransferMenu} = useMenu();
   const [, swapToL1] = useIsL1();
@@ -89,13 +89,13 @@ export const Header = () => {
             <Divider />
             <WalletButton
               account={accountL1}
-              chain={ChainInfo.L1[supportedL1ChainId].NAME}
+              chain={ChainInfo.L1[SUPPORTED_L1_CHAIN_ID].NAME}
               logoPath={configL1?.logoPath}
               onClick={onL1WalletButtonClick}
             />
             <WalletButton
               account={accountL2}
-              chain={ChainInfo.L2[supportedL2ChainId].NAME}
+              chain={ChainInfo.L2[SUPPORTED_L2_CHAIN_ID].NAME}
               logoPath={configL2?.logoPath}
               onClick={onL2WalletButtonClick}
             />

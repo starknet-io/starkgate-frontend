@@ -8,7 +8,7 @@ import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
   const logger = useLogger(BlockHashProvider.displayName);
-  const {pollBlockNumberInterval} = useEnvs();
+  const {POLL_BLOCK_NUMBER_INTERVAL} = useEnvs();
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
@@ -23,7 +23,7 @@ export const BlockHashProvider = ({children}) => {
     fetchBlockHash();
     const intervalId = setInterval(() => {
       fetchBlockHash();
-    }, pollBlockNumberInterval);
+    }, POLL_BLOCK_NUMBER_INTERVAL);
     return () => {
       logger.log('Stopping blockHash fetching');
       clearInterval(intervalId);
