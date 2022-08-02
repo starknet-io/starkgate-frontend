@@ -1,9 +1,9 @@
 import {Select, MenuItem, FormControl} from '@mui/material';
+import {ChainInfo, ChainType} from '@starkware-commons-js/enums';
 import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
-import {ChainInfo, ChainType} from '../../../enums';
 import {useEnvs} from '../../../hooks';
 import {toClasses, openInNewTab} from '../../../utils';
 import styles from './ChainSelect.module.scss';

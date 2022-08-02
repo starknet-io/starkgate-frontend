@@ -1,5 +1,6 @@
+import {getStarknet} from '@starkware-commons-js/libs';
+
 import Tokens from '../config/tokens';
-import {getStarknet} from '../libs';
 
 export const isEth = symbol => {
   return symbol === Tokens.L1.ETH.symbol;

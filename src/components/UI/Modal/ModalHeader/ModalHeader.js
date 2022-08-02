@@ -1,7 +1,7 @@
+import {ModalType} from '@starkware-commons-js/enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ModalType} from '../../../../enums';
 import {toClasses} from '../../../../utils';
 import styles from './ModalHeader.module.scss';
 

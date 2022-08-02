@@ -1,8 +1,8 @@
+import {ModalSize, ModalType} from '@starkware-commons-js/enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {createPortal} from 'react-dom';
 
-import {ModalSize, ModalType} from '../../../../enums';
 import {toClasses} from '../../../../utils';
 import styles from './Modal.module.scss';
 

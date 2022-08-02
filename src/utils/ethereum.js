@@ -1,4 +1,5 @@
-import {web3} from '../libs';
+import {web3} from '@starkware-commons-js/libs';
+
 import {promiseHandler} from './index';
 
 export const createL1Contract = (address, ABI) => {

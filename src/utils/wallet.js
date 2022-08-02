@@ -1,4 +1,5 @@
-import {starknet} from '../libs';
+import {starknet} from '@starkware-commons-js/libs';
+
 import {parseToFelt} from './parser';
 
 export const formatBalance = balance => {

@@ -1,7 +1,7 @@
+import {NetworkType} from '@starkware-commons-js/enums';
 import {useMemo} from 'react';
 
 import Wallets from '../config/wallets.js';
-import {NetworkType} from '../enums';
 import {GetStarknetWallet, MetaMask} from '../wallets';
 import {WalletHandler} from '../wallets/wallet-handler';
 

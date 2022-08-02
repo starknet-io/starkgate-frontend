@@ -1,7 +1,7 @@
+import {isConsumed, isPending, isRejected} from '@starkware-commons-js/enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {isConsumed, isPending, isRejected} from '../../../../enums';
 import {usePendingTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {ToastFooter, TransferLogLink} from '../ToastFooter/ToastFooter';

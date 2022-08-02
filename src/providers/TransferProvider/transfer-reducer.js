@@ -1,4 +1,4 @@
-import {ActionType} from '../../enums';
+import {ActionType} from '@starkware-commons-js/enums';
 
 export const actions = {
   SET_ACTION_TYPE: 'Transfer/SET_ACTION_TYPE',

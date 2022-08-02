@@ -1,4 +1,5 @@
-import {getStarknet} from '../libs';
+import {getStarknet} from '@starkware-commons-js/libs';
+
 import {WalletHandler} from './wallet-handler';
 
 export class GetStarknetWallet extends WalletHandler {

@@ -1,6 +1,6 @@
+import {ActionType, NetworkType} from '@starkware-commons-js/enums';
 import React, {useEffect, useState} from 'react';
 
-import {ActionType, NetworkType} from '../../../enums';
 import {
   useTransferToL1,
   useTransferToL2,

@@ -1,8 +1,14 @@
+import {
+  ChainInfo,
+  ChainType,
+  NetworkType,
+  WalletErrorType,
+  WalletStatus
+} from '@starkware-commons-js/enums';
+import {getStarknet, getStarknetWallet, resetStarknetWallet} from '@starkware-commons-js/libs';
 import {useCallback, useContext, useState} from 'react';
 
-import {ChainInfo, ChainType, NetworkType, WalletErrorType, WalletStatus} from '../../enums';
 import {useEnvs} from '../../hooks';
-import {getStarknet, getStarknetWallet, resetStarknetWallet} from '../../libs';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 

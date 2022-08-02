@@ -1,11 +1,9 @@
+import {ActionType, EventName, TransactionStatus} from '@starkware-commons-js/enums';
 import {useCallback} from 'react';
 
 import {
-  ActionType,
   CompleteTransferToL1Steps,
-  EventName,
   stepOf,
-  TransactionStatus,
   TransferError,
   TransferStep,
   TransferToL1Steps

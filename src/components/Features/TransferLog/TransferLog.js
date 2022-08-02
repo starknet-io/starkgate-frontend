@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
-
 import {
   isOnChain,
   isRejected,
@@ -8,7 +5,10 @@ import {
   TransactionStatus,
   TransactionStatusFriendlyMessage,
   TransactionStatusStep
-} from '../../../enums';
+} from '@starkware-commons-js/enums';
+import PropTypes from 'prop-types';
+import React, {useEffect, useState} from 'react';
+
 import {useColors, useEnvs, useTransferLogTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {getFullTime, toClasses} from '../../../utils';

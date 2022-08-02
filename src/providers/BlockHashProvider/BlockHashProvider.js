@@ -1,8 +1,8 @@
+import {getStarknet} from '@starkware-commons-js/libs';
 import PropTypes from 'prop-types';
 import React, {useCallback, useState} from 'react';
 
 import {useAccountChange, useEnvs, useLogger} from '../../hooks';
-import {getStarknet} from '../../libs';
 import {promiseHandler} from '../../utils';
 import {BlockHashContext} from './block-hash-context';
 

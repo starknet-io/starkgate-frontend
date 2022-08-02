@@ -1,6 +1,6 @@
+import {WalletStatus} from '@starkware-commons-js/enums';
 import {useContext} from 'react';
 
-import {WalletStatus} from '../../enums';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {AppContext} from './app-context';
 

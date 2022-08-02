@@ -1,10 +1,16 @@
+import {
+  EventName,
+  isCompleted,
+  isConsumed,
+  SelectorName,
+  TransactionHashPrefix
+} from '@starkware-commons-js/enums';
+import {getStarknet, starknet} from '@starkware-commons-js/libs';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {EventName, isCompleted, isConsumed, SelectorName, TransactionHashPrefix} from '../../enums';
 import {useAccountChange, useEnvs, useLogger, useStarknetContract} from '../../hooks';
-import {getStarknet, starknet} from '../../libs';
 import {
   getStorageItem,
   setStorageItem,

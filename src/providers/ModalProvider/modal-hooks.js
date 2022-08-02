@@ -1,6 +1,6 @@
+import {ModalType} from '@starkware-commons-js/enums';
 import {useCallback, useContext} from 'react';
 
-import {ModalType} from '../../enums';
 import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
