@@ -17,7 +17,8 @@ export const VOYAGER_URL = process.env.REACT_APP_VOYAGER_URL;
 export const VOYAGER_TX_URL = tx => evaluate(`${VOYAGER_URL}/tx/{{tx}}`, {tx});
 export const VOYAGER_ACCOUNT_URL = contract =>
   evaluate(`${VOYAGER_URL}/contract/{{contract}}`, {contract});
-export const LOCAL_STORAGE_TRANSFERS_LOG_KEY = process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY;
+export const LOCAL_STORAGE_TRANSFERS_LOG_KEY =
+  process.env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY;
 export const LOCAL_STORAGE_ACCEPT_TERMS_KEY = process.env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS;
 export const SUPPORTED_LIQUIDITY_PROVIDERS =
   process.env.REACT_APP_SUPPORTED_LIQUIDITY_PROVIDERS?.split(',') || [];
