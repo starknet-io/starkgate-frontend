@@ -16,7 +16,7 @@ import {Circle} from '../../Circle/Circle';
 
 const TransactionSubmittedModalButton = ({transfer}) => {
   const {ETHERSCAN, VOYAGER} = useConstants();
-  const {etherscanTxUrl, voyagerTxUrl} = useEnvs();
+  const {ETHERSCAN_TX_URL, VOYAGER_TX_URL} = useEnvs();
   const {colorAlpha3, colorWhite, colorWhite1} = useColors();
   const {btnTxt} = useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
@@ -27,7 +27,7 @@ const TransactionSubmittedModalButton = ({transfer}) => {
   if (type === ActionType.TRANSFER_TO_L2 || isTransferCompleted) {
     explorer = {
       name: ETHERSCAN,
-      url: etherscanTxUrl(l1hash),
+      url: ETHERSCAN_TX_URL(l1hash),
       logo: <EtherscanLogo />
     };
   }
@@ -35,7 +35,7 @@ const TransactionSubmittedModalButton = ({transfer}) => {
   if (type === ActionType.TRANSFER_TO_L1 && !isTransferCompleted) {
     explorer = {
       name: VOYAGER,
-      url: voyagerTxUrl(l2hash),
+      url: VOYAGER_TX_URL(l2hash),
       logo: <StarkNetLogo />
     };
   }

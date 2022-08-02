@@ -1,4 +1,4 @@
-import {supportedL1ChainId, supportedL2ChainId, supportedTokens} from '../../config/envs';
+import {SUPPORTED_L1_CHAIN_ID, SUPPORTED_L2_CHAIN_ID, SUPPORTED_TOKENS} from '../../config/envs';
 import Tokens from '../../config/tokens';
 
 export const actions = {
@@ -7,20 +7,20 @@ export const actions = {
 
 const tokens = [
   ...Object.values(Tokens.L1)
-    .filter(t => supportedTokens.includes(t.symbol))
+    .filter(t => SUPPORTED_TOKENS.includes(t.symbol))
     .map(t => ({
       ...t,
       isL1: true,
-      bridgeAddress: t.bridgeAddress?.[supportedL1ChainId],
-      tokenAddress: t.tokenAddress?.[supportedL1ChainId]
+      bridgeAddress: t.bridgeAddress?.[SUPPORTED_L1_CHAIN_ID],
+      tokenAddress: t.tokenAddress?.[SUPPORTED_L1_CHAIN_ID]
     })),
   ...Object.values(Tokens.L2)
-    .filter(t => supportedTokens.includes(t.symbol))
+    .filter(t => SUPPORTED_TOKENS.includes(t.symbol))
     .map(t => ({
       ...t,
       isL2: true,
-      bridgeAddress: t.bridgeAddress?.[supportedL2ChainId],
-      tokenAddress: t.tokenAddress?.[supportedL2ChainId]
+      bridgeAddress: t.bridgeAddress?.[SUPPORTED_L2_CHAIN_ID],
+      tokenAddress: t.tokenAddress?.[SUPPORTED_L2_CHAIN_ID]
     }))
 ].map((t, index) => ({...t, index}));
 
