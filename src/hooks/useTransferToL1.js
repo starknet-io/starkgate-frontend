@@ -1,4 +1,8 @@
-import {ActionType, EventName, TransactionStatus} from '@starkware-industries/starkware-commons-js-enums';
+import {
+  ActionType,
+  EventName,
+  TransactionStatus
+} from '@starkware-industries/starkware-commons-js-enums';
 import {useCallback} from 'react';
 
 import {

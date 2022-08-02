@@ -5,7 +5,11 @@ import {
   WalletErrorType,
   WalletStatus
 } from '@starkware-industries/starkware-commons-js-enums';
-import {getStarknet, getStarknetWallet, resetStarknetWallet} from '@starkware-industries/starkware-commons-js-libs';
+import {
+  getStarknet,
+  getStarknetWallet,
+  resetStarknetWallet
+} from '@starkware-industries/starkware-commons-js-libs';
 import {useCallback, useContext, useState} from 'react';
 
 import {useEnvs} from '../../hooks';

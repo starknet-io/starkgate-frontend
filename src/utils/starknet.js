@@ -1,4 +1,8 @@
-import {ChainInfo, isRejected, TransactionStatusStep} from '@starkware-industries/starkware-commons-js-enums';
+import {
+  ChainInfo,
+  isRejected,
+  TransactionStatusStep
+} from '@starkware-industries/starkware-commons-js-enums';
 import {getStarknet, starknet} from '@starkware-industries/starkware-commons-js-libs';
 
 import {promiseHandler} from './index';
