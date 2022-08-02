@@ -5,7 +5,7 @@ import {
   TransactionStatus,
   TransactionStatusFriendlyMessage,
   TransactionStatusStep
-} from '@starkware-commons-js/enums';
+} from '@starkware-industries/starkware-commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 

@@ -1,4 +1,4 @@
-import {ActionType, NetworkType} from '@starkware-commons-js/enums';
+import {ActionType, NetworkType} from '@starkware-industries/starkware-commons-js-enums';
 import React, {useEffect, useState} from 'react';
 
 import {

@@ -1,4 +1,4 @@
-import {ActionType} from '@starkware-commons-js/enums';
+import {ActionType} from '@starkware-industries/starkware-commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 

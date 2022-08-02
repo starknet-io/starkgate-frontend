@@ -1,4 +1,4 @@
-import {ChainType, TransactionHashPrefix} from '@starkware-commons-js/enums';
+import {ChainType, TransactionHashPrefix} from '@starkware-industries/starkware-commons-js-enums';
 
 import {getTransactionHash} from '../../utils';
 

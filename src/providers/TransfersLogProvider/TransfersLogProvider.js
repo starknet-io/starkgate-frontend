@@ -4,8 +4,8 @@ import {
   isConsumed,
   SelectorName,
   TransactionHashPrefix
-} from '@starkware-commons-js/enums';
-import {getStarknet, starknet} from '@starkware-commons-js/libs';
+} from '@starkware-industries/starkware-commons-js-enums';
+import {getStarknet, starknet} from '@starkware-industries/starkware-commons-js-libs';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';

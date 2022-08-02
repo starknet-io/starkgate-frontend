@@ -1,4 +1,4 @@
-import {getStarknet} from '@starkware-commons-js/libs';
+import {getStarknet} from '@starkware-industries/starkware-commons-js-libs';
 import PropTypes from 'prop-types';
 import React, {useCallback, useState} from 'react';
 

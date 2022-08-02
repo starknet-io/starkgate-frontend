@@ -1,4 +1,4 @@
-import {isConsumed, isPending, isRejected} from '@starkware-commons-js/enums';
+import {isConsumed, isPending, isRejected} from '@starkware-industries/starkware-commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 

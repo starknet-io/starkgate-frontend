@@ -1,4 +1,4 @@
-import {starknet} from '@starkware-commons-js/libs';
+import {starknet} from '@starkware-industries/starkware-commons-js-libs';
 
 import {parseToFelt} from './parser';
 

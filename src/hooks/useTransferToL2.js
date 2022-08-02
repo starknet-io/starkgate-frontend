@@ -1,5 +1,5 @@
-import {ActionType, EventName} from '@starkware-commons-js/enums';
-import {starknet} from '@starkware-commons-js/libs';
+import {ActionType, EventName} from '@starkware-industries/starkware-commons-js-enums';
+import {starknet} from '@starkware-industries/starkware-commons-js-libs';
 import {useCallback} from 'react';
 
 import {stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';

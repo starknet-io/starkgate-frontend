@@ -1,4 +1,4 @@
-import {WalletStatus} from '@starkware-commons-js/enums';
+import {WalletStatus} from '@starkware-industries/starkware-commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer, useState} from 'react';
 import {useWallet} from 'use-wallet';
