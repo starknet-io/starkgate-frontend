@@ -1,3 +1,10 @@
+## [1.8.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.4...v1.8.0-dev.5) (2022-08-02)
+
+
+### 🔧 Fixes
+
+* remove discord link ([#251](https://github.com/starkware-libs/starkgate-frontend/issues/251)) ([d553f66](https://github.com/starkware-libs/starkgate-frontend/commit/d553f6625bd263952c8ee5e0b52caeaed03e894d))
+
 ## [1.8.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.3...v1.8.0-dev.4) (2022-08-01)
 
 

@@ -2,7 +2,6 @@ import {
   STARKGATE_CONTRACTS_REPO_URL,
   STARKGATE_FRONTEND_REPO_URL,
   STARKGATE_DOCS_URL,
-  DISCORD_LINK_URL,
   STARKNET_ADDRESSES_REPO_URL,
   FEEDBACK_FORM_URL_MAINNET,
   FEEDBACK_FORM_URL_GOERLI
@@ -161,19 +160,19 @@ export default [
       </>
     )
   },
-  {
-    question:
-      "I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?",
-    answer: (
-      <p>
-        We have opened a{' '}
-        <a href={DISCORD_LINK_URL} rel="noreferrer" target="_blank">
-          community channel on Discord
-        </a>{' '}
-        to help each other use StarkGate.
-      </p>
-    )
-  },
+  // {
+  //   question:
+  //     "I can't find solutions to the problems I encountered while using StarkGate. Where can I get help?",
+  //   answer: (
+  //     <p>
+  //       We have opened a{' '}
+  //       <a href={DISCORD_LINK_URL} rel="noreferrer" target="_blank">
+  //         community channel on Discord
+  //       </a>{' '}
+  //       to help each other use StarkGate.
+  //     </p>
+  //   )
+  // },
   {
     question: 'Why can’t I use StarkGate with {insert favorite}Token?',
     answer: (
