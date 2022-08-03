@@ -4,11 +4,11 @@ import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
+import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
 import {useEnvs} from '../../../hooks';
 import {toClasses, openInNewTab} from '../../../utils';
 import styles from './ChainSelect.module.scss';
 import {ChainSelectTheme} from './ChainSelect.theme';
-import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
 
 export const ChainSelect = () => {
   const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
