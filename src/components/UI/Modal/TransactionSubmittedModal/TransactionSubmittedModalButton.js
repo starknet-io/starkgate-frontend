@@ -3,7 +3,7 @@ import React from 'react';
 
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/tokens/starknet.svg';
-import {ActionType} from '../../../../enums/ActionType';
+import {ActionType} from '../../../../enums';
 import {
   useColors,
   useConstants,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ActionType} from '../../../../enums/ActionType';
+import {ActionType} from '../../../../enums';
 import {useTransactionSubmittedModalTranslation} from '../../../../hooks';
 import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
 import {ModalText} from '../ModalText/ModalText';

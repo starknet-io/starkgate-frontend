@@ -1,4 +1,4 @@
-import {ActionType} from '../../enums/ActionType';
+import {ActionType} from '../../enums';
 
 export const actions = {
   SET_ACTION_TYPE: 'Transfer/SET_ACTION_TYPE',
