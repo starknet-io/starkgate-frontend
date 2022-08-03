@@ -2,19 +2,36 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
-import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
+import {Breakpoint, isDesktop, isMobile, isMobileOrTablet, WalletStatus} from '../../../enums';
 import {useColors, useHeaderTranslation} from '../../../hooks';
 import {evaluate, shortenAddress, toClasses} from '../../../utils';
 import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
 
-const WALLET_LOGO_SIZE = 30;
-const WALLET_LOGO_SIZE_MOBILE = 40;
+export const WalletButton = ({account, chain, network, logoPath, status, onClick}) => {
+  return status === WalletStatus.CONNECTED ? (
+    <AccountWalletButton account={account} chain={chain} logoPath={logoPath} onClick={onClick} />
+  ) : (
+    <ConnectWalletButton network={network} onClick={onClick} />
+  );
+};
 
-export const WalletButton = ({account, chain, logoPath, onClick}) => {
-  const {colorBeta, colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
-  const {walletBtnTxt} = useHeaderTranslation();
+WalletButton.propTypes = {
+  account: PropTypes.string,
+  chain: PropTypes.string,
+  network: PropTypes.string,
+  logoPath: PropTypes.string,
+  status: PropTypes.string,
+  onClick: PropTypes.func
+};
+
+const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
+  const {colorBeta, colorWhite1, colorWhiteOp10, colorWhiteOp20} = useColors();
+  const {walletBtnTxt} = useHeaderTranslation();
+
+  const WALLET_LOGO_SIZE = 30;
+  const WALLET_LOGO_SIZE_MOBILE = 40;
 
   const getText = () => {
     const address = shortenAddress(account);
@@ -41,7 +58,7 @@ export const WalletButton = ({account, chain, logoPath, onClick}) => {
       colorBackground={colorWhiteOp10}
       colorBackgroundHover={colorWhiteOp20}
       colorBorder={colorBeta}
-      colorText={colorWhite}
+      colorText={colorWhite1}
       height={0}
       iconLeft={renderWalletLogo()}
       iconRight={renderChainLabel()}
@@ -51,11 +68,31 @@ export const WalletButton = ({account, chain, logoPath, onClick}) => {
   );
 };
 
-WalletButton.propTypes = {
+AccountWalletButton.propTypes = {
   account: PropTypes.string,
   chain: PropTypes.string,
   logoPath: PropTypes.string,
   onClick: PropTypes.func
+};
+
+const ConnectWalletButton = ({onClick, network}) => {
+  const {colorBeta, colorWhite} = useColors();
+  const {connectWalletBtnTxt} = useHeaderTranslation();
+  return (
+    <Button
+      colorBackground={colorBeta}
+      colorBorder={colorBeta}
+      colorText={colorWhite}
+      height={0}
+      text={evaluate(connectWalletBtnTxt, {network})}
+      onClick={onClick}
+    />
+  );
+};
+
+ConnectWalletButton.propTypes = {
+  onClick: PropTypes.func,
+  network: PropTypes.string
 };
 
 const ChainLabel = ({chain}) => {

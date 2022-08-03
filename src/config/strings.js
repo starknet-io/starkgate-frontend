@@ -3,6 +3,7 @@ export default {
     header: {
       chainTxt: 'Goerli testnet',
       walletBtnTxt: '{{address}}',
+      connectWalletBtnTxt: 'Connect {{network}} Wallet',
       tabDiscordTxt: 'Discord',
       tabLiquidityTxt: 'Deposit into L2',
       burgerMenu: {
