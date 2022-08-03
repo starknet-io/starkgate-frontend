@@ -1,4 +1,4 @@
-import {evaluate, isEvaluateParam} from './';
+import {evaluate, isEvaluatedParam} from './';
 
 export const openInNewTab = url => {
   window.open(url, '_blank').focus();
@@ -52,13 +52,12 @@ export const getCookie = name => {
   return decodeURI(dc.substring(begin + prefix.length, end));
 };
 
-export const buildDynamicURL = (url, qsParams, dynamicQsValues = []) => {
+export const buildDynamicURL = (url, qsParams, dynamicQsValues = {}) => {
   const keys = Object.keys(qsParams);
   keys.length && (url += '?');
   keys.forEach(key => {
     const param = qsParams[key];
-    //eslint-disable-next-line
-    if (!isEvaluateParam(param) || dynamicQsValues[param.replace(/[\{\}]/g, '')]) {
+    if (!isEvaluatedParam(param) || dynamicQsValues[param.replace(/[{}]/g, '')]) {
       url += `${key}=${param}&`;
     }
   });

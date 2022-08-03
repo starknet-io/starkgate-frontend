@@ -15,18 +15,20 @@ export const Liquidity = () => {
   };
 
   const mapLiquidityProviders = () => {
-    return liquidityProviders.map(p => {
-      const {link} = p;
-      const {url, qsParams} = link;
-      p.url = buildDynamicURL(url, qsParams, dynamicQsValues);
-      return {
-        ...p,
-        type: ChoiceItemType.LINK,
-        onClick: () => {
-          openInNewTab(p.url);
-        }
-      };
-    });
+    return liquidityProviders
+      .filter(p => p.link)
+      .map(p => {
+        const {link} = p;
+        const {url, qsParams} = link;
+        p.url = buildDynamicURL(url, qsParams, dynamicQsValues);
+        return {
+          ...p,
+          type: ChoiceItemType.LINK,
+          onClick: () => {
+            openInNewTab(p.url);
+          }
+        };
+      });
   };
 
   return (

@@ -7,10 +7,6 @@ export default [
     name: 'Banxa',
     description: 'Buy crypto with credit card directly to StarkNet',
     link: {
-      [ChainType.L1.GOERLI]: {
-        url: '',
-        qsParams: {}
-      },
       [ChainType.L1.MAIN]: {
         url: 'https://starkware.banxa.com/',
         qsParams: {
@@ -45,10 +41,6 @@ export default [
     name: 'Orbiter',
     description: 'Cross-rollup bridge. Make deposits from other L2 rollups to StarkNet',
     link: {
-      [ChainType.L1.GOERLI]: {
-        url: '',
-        qsParams: {}
-      },
       [ChainType.L1.MAIN]: {
         url: 'https://www.orbiter.finance/',
         qsParams: {

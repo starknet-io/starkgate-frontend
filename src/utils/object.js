@@ -21,7 +21,7 @@ export const evaluate = (template, model) => {
   }
 };
 
-export const isEvaluateParam = param => {
+export const isEvaluatedParam = param => {
   return /.*\{\{.+\}\}.*/.test(param);
 };
 
