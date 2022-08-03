@@ -1,4 +1,4 @@
-import {ActionType, EventName, TransactionStatus} from '@starkware-industries/commons-js-enums';
+import {EventName, TransactionStatus} from '@starkware-industries/commons-js-enums';
 import {useCallback} from 'react';
 
 import {
@@ -8,6 +8,7 @@ import {
   TransferStep,
   TransferToL1Steps
 } from '../enums';
+import {ActionType} from '../enums/ActionType';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {waitForTransaction} from '../utils';

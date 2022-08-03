@@ -1,10 +1,10 @@
-import {ModalType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../../hooks';
 import {toClasses} from '../../../../utils';
 import {Button} from '../../Button/Button';
+import {ModalType} from '../Modal/Modal';
 import styles from './ModalFooter.module.scss';
 
 export const ModalFooter = ({type, onClose, children}) => {

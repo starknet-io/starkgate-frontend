@@ -1,5 +1,4 @@
 import {
-  ActionType,
   isConsumed,
   isOnChain,
   isRejected,
@@ -16,6 +15,7 @@ import {
   HIDE_ELEMENT_COOKIE_DURATION_DAYS
 } from '../../../config/constants';
 import {Breakpoint, isMobile, ToastType} from '../../../enums';
+import {ActionType} from '../../../enums/ActionType';
 import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProvider';
