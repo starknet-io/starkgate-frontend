@@ -1,3 +1,29 @@
+## [1.8.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.5...v1.8.0-dev.6) (2022-08-02)
+
+
+### 💉 Improvements
+
+* uppercase envs  ([#252](https://github.com/starkware-libs/starkgate-frontend/issues/252)) ([cd6669a](https://github.com/starkware-libs/starkgate-frontend/commit/cd6669a60f0dd0aedae3cb2b0c40d2168e8fffda))
+
+
+### 🧩 Features
+
+* **2983084397:** update starknet.js version ([#246](https://github.com/starkware-libs/starkgate-frontend/issues/246)) ([d69283e](https://github.com/starkware-libs/starkgate-frontend/commit/d69283ef7ad3bd5db4acd596d7d8d40f18e0e339))
+
+## [1.8.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.4...v1.8.0-dev.5) (2022-08-02)
+
+
+### 🔧 Fixes
+
+* remove discord link ([#251](https://github.com/starkware-libs/starkgate-frontend/issues/251)) ([d553f66](https://github.com/starkware-libs/starkgate-frontend/commit/d553f6625bd263952c8ee5e0b52caeaed03e894d))
+
+## [1.8.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.3...v1.8.0-dev.4) (2022-08-01)
+
+
+### 🔧 Fixes
+
+* move the select style into the component ([#249](https://github.com/starkware-libs/starkgate-frontend/issues/249)) ([151b4e9](https://github.com/starkware-libs/starkgate-frontend/commit/151b4e99b528a168f4ce180a868f1cede68aed2c))
+
 ## [1.8.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.2...v1.8.0-dev.3) (2022-07-27)
 
 ## [1.8.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.1...v1.8.0-dev.2) (2022-07-27)

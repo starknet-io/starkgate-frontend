@@ -27,7 +27,7 @@ export const Login = () => {
   } = useLoginTranslation();
   const [trackLoginScreen, trackDownloadClick, trackWalletClick, trackLoginError] =
     useLoginTracking();
-  const {autoConnect, supportedL1ChainId} = useEnvs();
+  const {AUTO_CONNECT, SUPPORTED_L1_CHAIN_ID} = useEnvs();
   const [selectedWalletName, setSelectedWalletName] = useState('');
   const [error, setError] = useState(null);
   const [network, setNetwork] = useState(NetworkType.L1);
@@ -64,7 +64,7 @@ export const Login = () => {
     let timeoutId;
     if (error) {
       trackLoginError(error);
-    } else if (!error && autoConnect) {
+    } else if (!error && AUTO_CONNECT) {
       if (walletHandlers.length > 0) {
         timeoutId = setTimeout(
           () => onWalletConnect(walletHandlers[0]),
@@ -123,7 +123,7 @@ export const Login = () => {
       setError({
         type: LoginErrorType.UNSUPPORTED_CHAIN_ID,
         message: evaluate(unsupportedChainIdTxt, {
-          chainName: ChainInfo.L1[supportedL1ChainId].NAME
+          chainName: ChainInfo.L1[SUPPORTED_L1_CHAIN_ID].NAME
         })
       });
     }

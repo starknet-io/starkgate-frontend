@@ -8,7 +8,7 @@ import {AppContext} from './app-context';
 import {actions, initialState, reducer} from './app-reducer';
 
 export const AppProvider = ({children}) => {
-  const {localStorageAcceptTermsKey} = useEnvs();
+  const {LOCAL_STORAGE_ACCEPT_TERMS_KEY} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {pathname} = useLocation();
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const AppProvider = ({children}) => {
   };
 
   const acceptTerms = () => {
-    setStorageItem(localStorageAcceptTermsKey, true);
+    setStorageItem(LOCAL_STORAGE_ACCEPT_TERMS_KEY, true);
     dispatch({
       type: actions.SET_ACCEPT_TERMS
     });

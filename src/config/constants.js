@@ -18,3 +18,5 @@ export const FEEDBACK_FORM_URL_MAINNET =
 export const ONBOARDING_COOKIE_NAME = 'sg_onboard_modal';
 export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
 export const HIDE_ELEMENT_COOKIE_DURATION_DAYS = 1;
+export const APP_URL_GOERLI = 'https://goerli.starkgate.starknet.io';
+export const APP_URL_MAINNET = 'https://starkgate.starknet.io';

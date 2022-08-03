@@ -1,4 +1,4 @@
-import {localStorageAcceptTermsKey} from '../../config/envs';
+import {LOCAL_STORAGE_ACCEPT_TERMS_KEY} from '../../config/envs';
 import {getStorageItem} from '../../utils';
 
 export const actions = {
@@ -7,7 +7,7 @@ export const actions = {
 };
 
 export const initialState = {
-  isAcceptTerms: getStorageItem(localStorageAcceptTermsKey),
+  isAcceptTerms: getStorageItem(LOCAL_STORAGE_ACCEPT_TERMS_KEY),
   isLoggedIn: false
 };
 
