@@ -1,4 +1,4 @@
-import {ActionType, NetworkType} from '@starkware-industries/starkware-commons-js-enums';
+import {ActionType, NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 

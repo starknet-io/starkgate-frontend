@@ -1,4 +1,4 @@
-import {NetworkType} from '@starkware-industries/starkware-commons-js-enums';
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useMemo} from 'react';
 
 import Wallets from '../config/wallets.js';

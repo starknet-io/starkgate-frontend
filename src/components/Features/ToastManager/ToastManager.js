@@ -4,7 +4,7 @@ import {
   isOnChain,
   isRejected,
   NetworkType
-} from '@starkware-industries/starkware-commons-js-enums';
+} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import {toast, Toaster} from 'react-hot-toast';

@@ -1,4 +1,4 @@
-import {ChainType} from '@starkware-industries/starkware-commons-js-enums';
+import {ChainType} from '@starkware-industries/commons-js-enums';
 
 import {evaluate} from '../utils';
 

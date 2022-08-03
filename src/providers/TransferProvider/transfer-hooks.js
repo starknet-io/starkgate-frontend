@@ -1,4 +1,4 @@
-import {ActionType} from '@starkware-industries/starkware-commons-js-enums';
+import {ActionType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext, useMemo} from 'react';
 
 import {useL1Token, useL2Token} from '../TokensProvider';

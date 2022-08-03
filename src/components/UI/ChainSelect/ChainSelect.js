@@ -1,5 +1,5 @@
 import {Select, MenuItem, FormControl} from '@mui/material';
-import {ChainInfo, ChainType} from '@starkware-industries/starkware-commons-js-enums';
+import {ChainInfo, ChainType} from '@starkware-industries/commons-js-enums';
 import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
@@ -8,12 +8,17 @@ import {useEnvs} from '../../../hooks';
 import {toClasses, openInNewTab} from '../../../utils';
 import styles from './ChainSelect.module.scss';
 import {ChainSelectTheme} from './ChainSelect.theme';
+import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
 
 export const ChainSelect = () => {
   const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
+  const urlsMap = {
+    [ChainType.L2.MAIN]: APP_URL_MAINNET,
+    [ChainType.L2.GOERLI]: APP_URL_GOERLI
+  };
 
   const handleChange = event => {
-    openInNewTab(ChainInfo.L2[event.target.value].APP_URL);
+    openInNewTab(urlsMap[event.target.value]);
   };
 
   const renderItems = () => {

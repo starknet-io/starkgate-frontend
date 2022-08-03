@@ -1,5 +1,5 @@
-import {TransactionStatus} from '@starkware-industries/starkware-commons-js-enums';
-import {web3} from '@starkware-industries/starkware-commons-js-libs';
+import {TransactionStatus} from '@starkware-industries/commons-js-enums';
+import {web3} from '@starkware-industries/commons-js-libs';
 import {useCallback} from 'react';
 
 import {useSelectedToken} from '../providers/TransferProvider';

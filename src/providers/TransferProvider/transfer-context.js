@@ -1,4 +1,4 @@
-import {NetworkType} from '@starkware-industries/starkware-commons-js-enums';
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {createContext} from 'react';
 
 import {initialState} from './transfer-reducer';

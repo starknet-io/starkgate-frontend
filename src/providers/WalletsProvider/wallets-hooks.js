@@ -4,12 +4,12 @@ import {
   NetworkType,
   WalletErrorType,
   WalletStatus
-} from '@starkware-industries/starkware-commons-js-enums';
+} from '@starkware-industries/commons-js-enums';
 import {
   getStarknet,
   getStarknetWallet,
   resetStarknetWallet
-} from '@starkware-industries/starkware-commons-js-libs';
+} from '@starkware-industries/commons-js-libs';
 import {useCallback, useContext, useState} from 'react';
 
 import {useEnvs} from '../../hooks';

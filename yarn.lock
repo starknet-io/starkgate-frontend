@@ -3260,14 +3260,14 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/starkware-commons-js-enums@^1.0.0":
+"@starkware-industries/commons-js-enums@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/starkware-commons-js-enums/-/starkware-commons-js-enums-1.0.0.tgz#8b0e586719983780567bce36a4cdcddf1b0a7d66"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/starkware-commons-js-enums-1.0.0.tgz#8b0e586719983780567bce36a4cdcddf1b0a7d66"
   integrity sha512-R1oZ9zNdx4anYv7UmIjKRvWrm2VNJgts0AFLLK6YcLNkz5RVF02ubZfHc6GJ/MRGXqLZjYW5Q1CBMkZ3RRkEug==
 
-"@starkware-industries/starkware-commons-js-libs@^1.0.0":
+"@starkware-industries/commons-js-libs@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/starkware-commons-js-libs/-/starkware-commons-js-libs-1.0.0.tgz#687881cd5a2742fd97c77d271916a0fe962d09e5"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/starkware-commons-js-libs-1.0.0.tgz#687881cd5a2742fd97c77d271916a0fe962d09e5"
   integrity sha512-rdtRnZ2M3wyhQPQLdHRvPsbISmt1+kMIbxAKTudlPg3ETTYmGAyeHm8NeGIiFWIeahT/Z8uCRSKVyOiqHbzXMQ==
   dependencies:
     get-starknet "^1.4.2"

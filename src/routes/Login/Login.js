@@ -4,7 +4,7 @@ import {
   NetworkType,
   WalletErrorType,
   WalletStatus
-} from '@starkware-industries/starkware-commons-js-enums';
+} from '@starkware-industries/commons-js-enums';
 import React, {useEffect, useRef, useState} from 'react';
 
 import {MultiChoiceMenu} from '../../components/UI';

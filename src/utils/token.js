@@ -1,4 +1,4 @@
-import {getStarknet} from '@starkware-industries/starkware-commons-js-libs';
+import {getStarknet} from '@starkware-industries/commons-js-libs';
 
 import Tokens from '../config/tokens';
 
