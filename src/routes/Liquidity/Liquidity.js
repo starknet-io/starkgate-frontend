@@ -3,7 +3,7 @@ import React from 'react';
 import {ChoiceItemType, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
 import {useL2Wallet} from '../../providers/WalletsProvider';
-import {openInNewTab, evaluate} from '../../utils';
+import {openInNewTab, buildDynamicURL} from '../../utils';
 
 export const Liquidity = () => {
   const {account: accountL2} = useL2Wallet();
@@ -12,22 +12,6 @@ export const Liquidity = () => {
 
   const dynamicQsValues = {
     accountL2
-  };
-
-  const buildDynamicURL = (url, qsParams, dynamicQsValues = {}) => {
-    const keys = Object.keys(qsParams);
-    keys.length && (url += '?');
-    keys.forEach(key => {
-      const param = qsParams[key];
-      // check if the param is not evaluated param OR the param is a key in dynamicQsValues object
-      if (!/.*\{\{.+\}\}.*/.test(param) || dynamicQsValues[param.replace(/[{}]/g, '')]) {
-        url += `${key}=${param}&`;
-      }
-    });
-    if (url.slice(-1) === '?' || url.slice(-1) === '&') {
-      url = url.slice(0, -1);
-    }
-    return evaluate(url, dynamicQsValues);
   };
 
   const mapLiquidityProviders = () => {
