@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ModalType} from '../../../../enums';
 import {toClasses} from '../../../../utils';
+import {ModalType} from '../Modal/Modal';
 import styles from './ModalBody.module.scss';
 
 export const ModalBody = ({type = ModalType.INFO, children}) => (

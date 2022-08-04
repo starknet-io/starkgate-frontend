@@ -1,7 +1,13 @@
+import {
+  ChainInfo,
+  LoginErrorType,
+  NetworkType,
+  WalletErrorType,
+  WalletStatus
+} from '@starkware-industries/commons-js-enums';
 import React, {useEffect, useRef, useState} from 'react';
 
 import {MultiChoiceMenu} from '../../components/UI';
-import {ChainInfo, LoginErrorType, NetworkType, WalletErrorType, WalletStatus} from '../../enums';
 import {
   useEnvs,
   useLoginTracking,

@@ -1,8 +1,8 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import Tokens from '../../../config/tokens';
-import {NetworkType} from '../../../enums';
 import {toClasses} from '../../../utils';
 import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {CryptoLogo} from '../index';

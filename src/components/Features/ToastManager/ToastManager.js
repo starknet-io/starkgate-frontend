@@ -1,3 +1,9 @@
+import {
+  isConsumed,
+  isOnChain,
+  isRejected,
+  NetworkType
+} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
@@ -8,16 +14,7 @@ import {
   ALPHA_DISCLAIMER_COOKIE_NAME,
   HIDE_ELEMENT_COOKIE_DURATION_DAYS
 } from '../../../config/constants';
-import {
-  ActionType,
-  Breakpoint,
-  isConsumed,
-  isMobile,
-  isOnChain,
-  isRejected,
-  NetworkType,
-  ToastType
-} from '../../../enums';
+import {ActionType, Breakpoint, isMobile, ToastType} from '../../../enums';
 import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProvider';
