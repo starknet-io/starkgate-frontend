@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors, useTransferTranslation} from '../../../hooks';
+import {toClasses} from '../../../utils';
 import {Button} from '../index';
+import styles from './TransferButton.module.scss';
 
 export const TransferButton = props => {
   const {colorBeta, colorWhite} = useColors();
@@ -10,15 +12,11 @@ export const TransferButton = props => {
 
   return (
     <Button
+      className={toClasses(styles.transferButton)}
       colorBackground={colorBeta}
       colorBorder={colorBeta}
       colorText={colorWhite}
       height={50}
-      style={{
-        width: '100%',
-        borderRadius: '7px',
-        fontSize: '16px'
-      }}
       text={transferBtnTxt}
       {...props}
     />

@@ -1,3 +1,10 @@
+## [1.8.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.6...v1.8.0-dev.7) (2022-08-04)
+
+
+### 🧩 Features
+
+* **3015821438:** Change location of transfer button ([#250](https://github.com/starkware-libs/starkgate-frontend/issues/250)) ([f65ffa4](https://github.com/starkware-libs/starkgate-frontend/commit/f65ffa485f66711ae317b03972ca49bef0ef177d))
+
 ## [1.8.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.5...v1.8.0-dev.6) (2022-08-02)
 
 
