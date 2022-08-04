@@ -21,10 +21,6 @@ export const evaluate = (template, model) => {
   }
 };
 
-export const isEvaluatedParam = param => {
-  return /.*\{\{.+\}\}.*/.test(param);
-};
-
 export const findIndexById = (array, id) => {
   return array.findIndex(item => item.id === id);
 };
