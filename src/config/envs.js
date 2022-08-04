@@ -1,4 +1,5 @@
-import {ChainType} from '../enums';
+import {ChainType} from '@starkware-industries/commons-js-enums';
+
 import {evaluate} from '../utils';
 
 export const ENV = process.env.REACT_APP_ENV;

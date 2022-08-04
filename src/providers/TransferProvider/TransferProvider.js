@@ -1,7 +1,8 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import {ActionType, NetworkType} from '../../enums';
+import {ActionType} from '../../enums';
 import {TransferContext} from './transfer-context';
 import {actions, initialState, reducer} from './transfer-reducer';
 
