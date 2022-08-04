@@ -1,3 +1,4 @@
+import {ChainInfo} from '@starkware-industries/commons-js-enums';
 import React, {Fragment} from 'react';
 import useBreakpoint from 'use-breakpoint';
 

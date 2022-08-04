@@ -1,4 +1,4 @@
-import {WalletStatus} from '../../enums';
+import {WalletStatus} from '@starkware-industries/commons-js-enums';
 
 export const actions = {
   UPDATE_WALLET_L1: 'Wallets/UPDATE_WALLET_L1',

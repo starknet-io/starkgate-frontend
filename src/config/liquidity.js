@@ -1,4 +1,4 @@
-import {ChainType} from '../enums';
+import {ChainType} from '@starkware-industries/commons-js-enums';
 
 export default [
   {
