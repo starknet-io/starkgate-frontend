@@ -19,7 +19,8 @@ export const Liquidity = () => {
     keys.length && (url += '?');
     keys.forEach(key => {
       const param = qsParams[key];
-      if (!isEvaluatedParam(param) || dynamicQsValues[param.replace(/[{}]/g, '')]) {
+      // check if the param is not evaluated param OR the param is a key in dynamicQsValues object
+      if (!/.*\{\{.+\}\}.*/.test(param) || dynamicQsValues[param.replace(/[{}]/g, '')]) {
         url += `${key}=${param}&`;
       }
     });
@@ -27,10 +28,6 @@ export const Liquidity = () => {
       url = url.slice(0, -1);
     }
     return evaluate(url, dynamicQsValues);
-  };
-
-  const isEvaluatedParam = param => {
-    return /.*\{\{.+\}\}.*/.test(param);
   };
 
   const mapLiquidityProviders = () => {
