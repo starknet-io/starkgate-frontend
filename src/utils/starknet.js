@@ -1,5 +1,6 @@
-import {ChainInfo, isRejected, TransactionStatusStep} from '../enums';
-import {getStarknet, starknet} from '../libs';
+import {ChainInfo, isRejected, TransactionStatusStep} from '@starkware-industries/commons-js-enums';
+import {getStarknet, starknet} from '@starkware-industries/commons-js-libs';
+
 import {promiseHandler} from './index';
 
 const {Contract, stark, hash, number} = starknet;

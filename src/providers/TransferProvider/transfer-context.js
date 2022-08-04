@@ -1,6 +1,6 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {createContext} from 'react';
 
-import {NetworkType} from '../../enums';
 import {initialState} from './transfer-reducer';
 
 export const TransferContext = createContext({

@@ -1,9 +1,10 @@
+import {ChainInfo} from '@starkware-industries/commons-js-enums';
 import React, {Fragment} from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {ReactComponent as LiquidityIcon} from '../../../assets/svg/tabs/liquidity.svg';
-import {Breakpoint, ChainInfo} from '../../../enums';
+import {Breakpoint} from '../../../enums';
 import {useColors, useEnvs, useHeaderTranslation, useLiquidityProviders} from '../../../hooks';
 import {useApp, useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
