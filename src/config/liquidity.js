@@ -7,12 +7,6 @@ export default [
     name: 'Banxa',
     description: 'Buy crypto with credit card directly to StarkNet',
     link: {
-      [ChainType.L1.GOERLI]: {
-        url: 'https://starkware.banxa.com/',
-        qsParams: {
-          walletAddress: '{{accountL2}}'
-        }
-      },
       [ChainType.L1.MAIN]: {
         url: 'https://starkware.banxa.com/',
         qsParams: {
