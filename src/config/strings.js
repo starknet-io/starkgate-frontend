@@ -70,7 +70,7 @@ export default {
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
-      connectWalletBtnTxt: "Connect Wallet"
+      connectWalletBtnTxt: 'Connect Wallet'
     }
   },
   modals: {
