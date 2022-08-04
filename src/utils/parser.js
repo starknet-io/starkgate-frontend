@@ -1,6 +1,5 @@
 import {fromWeiByDecimals, toWeiByDecimals} from '@normalizex/ethjs-unit';
-
-import {starknet} from '../libs';
+import {starknet} from '@starkware-industries/commons-js-libs';
 
 const {number, uint256} = starknet;
 

@@ -1,7 +1,7 @@
+import {TransactionStatus} from '@starkware-industries/commons-js-enums';
+import {web3} from '@starkware-industries/commons-js-libs';
 import {useCallback} from 'react';
 
-import {TransactionStatus} from '../enums';
-import {web3} from '../libs';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {
