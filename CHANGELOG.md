@@ -1,3 +1,10 @@
+## [1.8.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.7...v1.8.0-dev.8) (2022-08-04)
+
+
+### 💉 Improvements
+
+* **3027528546:** move enums and libs to commons ([#253](https://github.com/starkware-libs/starkgate-frontend/issues/253)) ([76d3918](https://github.com/starkware-libs/starkgate-frontend/commit/76d3918ff5073beec75940b4b266dfbf5d4a8be0))
+
 ## [1.8.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.6...v1.8.0-dev.7) (2022-08-04)
 
 
