@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "1.8.0-dev.4",
+  "version": "1.8.0-dev.7",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -70,7 +70,7 @@
     "react-router": "^6.3.0",
     "react-router-dom": "6",
     "react-scripts": "4.0.3",
-    "starknet": "^3.7.0",
+    "starknet": "^3.19.0",
     "use-breakpoint": "^3.0.1",
     "use-deep-compare-effect": "^1.8.1",
     "use-wallet": "^0.13.6",

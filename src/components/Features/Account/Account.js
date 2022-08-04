@@ -33,7 +33,7 @@ export const Account = ({transferId}) => {
     trackCompleteTransferClick,
     trackAddressCopied
   ] = useAccountTracking();
-  const {etherscanAccountUrl, voyagerAccountUrl} = useEnvs();
+  const {ETHERSCAN_ACCOUNT_URL, VOYAGER_ACCOUNT_URL} = useEnvs();
   const {ETHERSCAN, VOYAGER} = useConstants();
   const {showTransferMenu} = useMenu();
   const {account, resetWallet} = useWallets();
@@ -68,14 +68,14 @@ export const Account = ({transferId}) => {
         {isL1 && (
           <LinkButton
             text={ETHERSCAN}
-            url={etherscanAccountUrl(account)}
+            url={ETHERSCAN_ACCOUNT_URL(account)}
             onClick={trackAccountLinkClick}
           />
         )}
         {isL2 && (
           <LinkButton
             text={VOYAGER}
-            url={voyagerAccountUrl(account)}
+            url={VOYAGER_ACCOUNT_URL(account)}
             onClick={trackAccountLinkClick}
           />
         )}
