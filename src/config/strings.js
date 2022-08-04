@@ -2,7 +2,7 @@ export default {
   containers: {
     header: {
       chainTxt: 'Goerli testnet',
-      walletBtnTxt: '{{address}}',
+      accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
       tabDiscordTxt: 'Discord',
       tabLiquidityTxt: 'Deposit into L2',

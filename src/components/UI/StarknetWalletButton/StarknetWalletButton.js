@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 
-import {ChainInfo, WalletStatus, NetworkType} from '../../../enums';
+import {ChainInfo, WalletStatus} from '../../../enums';
 import {useEnvs} from '../../../hooks';
-import {useWalletHandlerProvider} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL2} from '../../../providers/TransferProvider';
@@ -10,9 +9,8 @@ import {useL2Wallet} from '../../../providers/WalletsProvider';
 import {WalletButton} from '../index';
 
 export const StarknetWalletButton = () => {
-  const {account, config, error, status, connect} = useL2Wallet();
+  const {account, config, error, status} = useL2Wallet();
   const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
-  const walletHandlers = useWalletHandlerProvider(NetworkType.L2);
   const networkName = 'Starknet';
   const {navigateToRoute} = useApp();
   const {showAccountMenu} = useMenu();
@@ -42,10 +40,7 @@ export const StarknetWalletButton = () => {
   };
 
   const handleConnectWallet = () => {
-    // if (!walletHandlers.isInstalled()) {
-    //   return walletHandlers.install();
-    // }
-    // return connect();
+    // TODO - will display the login modal
   };
 
   const handleConnectingWallet = () => {
@@ -59,8 +54,8 @@ export const StarknetWalletButton = () => {
     <WalletButton
       account={account}
       chain={ChainInfo.L2[SUPPORTED_L2_CHAIN_ID].NAME}
-      network={networkName}
       logoPath={config?.logoPath || ''}
+      network={networkName}
       status={status}
       onClick={handleWalletButtonClick}
     />

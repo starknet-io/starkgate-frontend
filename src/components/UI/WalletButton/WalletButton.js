@@ -28,7 +28,7 @@ WalletButton.propTypes = {
 const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorBeta, colorWhite1, colorWhiteOp10, colorWhiteOp20} = useColors();
-  const {walletBtnTxt} = useHeaderTranslation();
+  const {accountWalletBtnTxt} = useHeaderTranslation();
 
   const WALLET_LOGO_SIZE = 30;
   const WALLET_LOGO_SIZE_MOBILE = 40;
@@ -40,7 +40,7 @@ const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
     } else if (!isDesktop(breakpoint)) {
       return address;
     }
-    return evaluate(walletBtnTxt, {address});
+    return evaluate(accountWalletBtnTxt, {address});
   };
 
   const renderChainLabel = () => {

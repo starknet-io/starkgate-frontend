@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {ChainInfo, WalletStatus, NetworkType} from '../../../enums';
-import {useWalletHandlerProvider} from '../../../hooks';
+import {ChainInfo, WalletStatus} from '../../../enums';
 import {useEnvs} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -10,8 +9,7 @@ import {useL1Wallet} from '../../../providers/WalletsProvider';
 import {WalletButton} from '../index';
 
 export const EthereumWalletButton = () => {
-  const {account, config, error, status, connect} = useL1Wallet();
-  const walletHandlers = useWalletHandlerProvider(NetworkType.L1);
+  const {account, config, error, status} = useL1Wallet();
   const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
   const {navigateToRoute} = useApp();
   const {showAccountMenu} = useMenu();
@@ -43,14 +41,7 @@ export const EthereumWalletButton = () => {
   };
 
   const handleConnectWallet = () => {
-    // if (!walletHandlers.isInstalled()) {
-    //   return walletHandlers.install();
-    // }
-    // return connect();
-  };
-
-  const handleDisconnectWallet = () => {
-    // TODO
+    // TODO - will display the login modal
   };
 
   const handleConnectingWallet = () => {
@@ -65,8 +56,8 @@ export const EthereumWalletButton = () => {
     <WalletButton
       account={account}
       chain={ChainInfo.L1[SUPPORTED_L1_CHAIN_ID].NAME}
-      network={networkName}
       logoPath={config?.logoPath || ''}
+      network={networkName}
       status={status}
       onClick={handleWalletButtonClick}
     />
