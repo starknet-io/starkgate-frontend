@@ -1,6 +1,6 @@
+import {ChainInfo, WalletStatus} from '@starkware-industries/commons-js-enums';
 import React, {useEffect} from 'react';
 
-import {ChainInfo, WalletStatus} from '../../../enums';
 import {useEnvs} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';

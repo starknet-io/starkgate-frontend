@@ -1,8 +1,9 @@
+import {WalletStatus} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
-import {Breakpoint, isDesktop, isMobile, isMobileOrTablet, WalletStatus} from '../../../enums';
+import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
 import {useColors, useHeaderTranslation} from '../../../hooks';
 import {evaluate, shortenAddress, toClasses} from '../../../utils';
 import {Button, DynamicIcon} from '../index';
