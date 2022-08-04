@@ -3260,19 +3260,19 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/commons-js-enums@^1.0.0":
+"@starkware-industries/commons-js-enums@1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/starkware-commons-js-enums-1.0.0.tgz#8b0e586719983780567bce36a4cdcddf1b0a7d66"
-  integrity sha512-R1oZ9zNdx4anYv7UmIjKRvWrm2VNJgts0AFLLK6YcLNkz5RVF02ubZfHc6GJ/MRGXqLZjYW5Q1CBMkZ3RRkEug==
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.0.0.tgz#1cef593a30447ea5114915048678f235457ed7be"
+  integrity sha512-jICgaCkWHz2KBZAMe+2IuDJ1RBE1KIPBJHyH1PYzV7MwgI2V5MvsujeyZIdWtJOe2enUdTlkFOFY4OJYOn3T1g==
 
-"@starkware-industries/commons-js-libs@^1.0.0":
+"@starkware-industries/commons-js-libs@1.0.0":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/starkware-commons-js-libs-1.0.0.tgz#687881cd5a2742fd97c77d271916a0fe962d09e5"
-  integrity sha512-rdtRnZ2M3wyhQPQLdHRvPsbISmt1+kMIbxAKTudlPg3ETTYmGAyeHm8NeGIiFWIeahT/Z8uCRSKVyOiqHbzXMQ==
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.0.0.tgz#29755930e112353b155498b064b098af19db9865"
+  integrity sha512-mxHhT8r8g1bnXM8daOAJCyZSfEiWzwQ5/lBKknWXNmm17uNObxQjAk7QjAVFVbYNe4i0weGYbW4FA2V28KJJqQ==
   dependencies:
-    get-starknet "^1.4.2"
-    starknet "^3.18.2"
-    web3 "^1.7.4"
+    get-starknet "^1.4.3"
+    starknet "^3.19.0"
+    web3 "^1.7.5"
 
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
@@ -10450,10 +10450,10 @@ get-package-type@^0.1.0:
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
-get-starknet@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/get-starknet/-/get-starknet-1.4.2.tgz#fc7aa13506d672229157b357632a3f9b77ecd9d9"
-  integrity sha512-rakk6s5zcE3tM4AJ8g/SLO4V0aPlJDSLbE3zx3mp6PDS5Y7/ndBMTCKehr+bK4lIoj+VQshLxkobpqkXrC2LMA==
+get-starknet@^1.4.3:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/get-starknet/-/get-starknet-1.4.4.tgz#5e6e5bc3ffc9ae97960540474158194a54a30379"
+  integrity sha512-0+eyHhj26Qs75BQ++YoyAUxuL2FQ1QNRudrQ7rrlNaJNTSFhkUw/xLaSJDsnep5PZz8ULzLN0Yeq2Z5RJFJ62A==
   dependencies:
     bowser "^2.11.0"
 
@@ -19091,10 +19091,10 @@ stackframe@^1.1.1:
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-1.2.0.tgz#52429492d63c62eb989804c11552e3d22e779303"
   integrity sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==
 
-starknet@^3.18.2:
-  version "3.18.2"
-  resolved "https://registry.yarnpkg.com/starknet/-/starknet-3.18.2.tgz#ec0c83ca97763663722f8e4b6a6872bf2cb18e05"
-  integrity sha512-w42BOws9np3C9dy4y9MOwY+KqxNhwTseci7CLVlLkui+jzQ7gGWoPVqn9OMeKy0PWIcZadCeuHvLez2xrg3zMg==
+starknet@^3.19.0:
+  version "3.19.0"
+  resolved "https://registry.yarnpkg.com/starknet/-/starknet-3.19.0.tgz#b3ce7fc87a3062f126b7dd92f38d6f70e509f192"
+  integrity sha512-1iUJdGtRDu2j3G8sS+yzRhp9O3O5Dr803oDfrm234Qmn05JTh5bU/wZwFPw9zWmMI0jyNZgjS+8dxPpBcpLgrQ==
   dependencies:
     "@ethersproject/bytes" "^5.6.1"
     bn.js "^5.2.1"
@@ -21645,7 +21645,7 @@ web3@1.2.11:
     web3-shh "1.2.11"
     web3-utils "1.2.11"
 
-web3@^1.7.4:
+web3@^1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/web3/-/web3-1.7.5.tgz#4e185d2058195b5775109b3f27cdea65a34a036e"
   integrity sha512-3jHZTWyXt975AOXgnZKayiSWDLpoSKk9fZtLk1hURQtt7AdSbXPT8AK9ooBCm0Dt3GYaOeNcHGaiHC3gtyqhLg==
