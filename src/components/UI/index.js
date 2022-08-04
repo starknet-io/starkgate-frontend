@@ -42,3 +42,4 @@ export * from './BurgerMenuItem/BurgerMenuItem';
 export * from './CollapseExpand/CollapseExpand';
 export * from './StarknetWalletButton/StarknetWalletButton';
 export * from './EthereumWalletButton/EthereumWalletButton';
+export * from './LoginWalletsButton/LoginWalletsButton';

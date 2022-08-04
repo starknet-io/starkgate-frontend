@@ -8,6 +8,7 @@ import {
   useTransferTracking,
   useTransferTranslation
 } from '../../../hooks';
+import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useL1Token, useL2Token, useTokens} from '../../../providers/TokensProvider';
 import {
@@ -26,7 +27,8 @@ import {
   NetworkSwap,
   TokenInput,
   TransferButton,
-  TransferMenuTab
+  TransferMenuTab,
+  LoginWalletsButton
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -52,6 +54,8 @@ export const Transfer = () => {
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
+  const {isLoggedIn} = useLogin();
+
   const tabs = [
     {
       text: `${NetworkType.L1} -> ${NetworkType.L2}`,
@@ -213,7 +217,11 @@ export const Transfer = () => {
             {isL1 ? renderL2Network() : renderL1Network()}
           </>
         )}
-        <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
+        {isLoggedIn ? (
+          <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
+        ) : (
+          <LoginWalletsButton />
+        )}
       </div>
     </Menu>
   );

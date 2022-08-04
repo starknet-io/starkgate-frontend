@@ -69,7 +69,8 @@ export default {
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
-      transferBtnTxt: 'Transfer'
+      transferBtnTxt: 'Transfer',
+      connectWalletBtnTxt: "Connect Wallet"
     }
   },
   modals: {
