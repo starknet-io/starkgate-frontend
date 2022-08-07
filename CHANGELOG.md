@@ -1,3 +1,17 @@
+## [1.8.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.9...v1.8.0-dev.10) (2022-08-07)
+
+
+### 🔧 Fixes
+
+* ActionType is undefined when imported from commons-js ([#256](https://github.com/starkware-libs/starkgate-frontend/issues/256)) ([6cca2ea](https://github.com/starkware-libs/starkgate-frontend/commit/6cca2ea51ff84f9653393c78e72b9b56f3913261))
+
+## [1.8.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.8...v1.8.0-dev.9) (2022-08-07)
+
+
+### 🧩 Features
+
+* **3015851363:** create and display the header's wallet connect buttons ([#254](https://github.com/starkware-libs/starkgate-frontend/issues/254)) ([ae2c54d](https://github.com/starkware-libs/starkgate-frontend/commit/ae2c54d23e5091756db8168152dfb462a5245b44))
+
 ## [1.8.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.7...v1.8.0-dev.8) (2022-08-04)
 
 
