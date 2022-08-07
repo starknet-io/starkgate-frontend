@@ -6,7 +6,6 @@ import {useLoginModal} from '../../../providers/ModalProvider';
 import {useWalletsStatus} from '../../../providers/WalletsProvider';
 import {toClasses} from '../../../utils';
 import {Button} from '../index';
-import styles from './LoginWalletsButton.module.scss';
 
 export const LoginWalletButton = props => {
   const {statusL1} = useWalletsStatus();
@@ -22,7 +21,6 @@ export const LoginWalletButton = props => {
 
   return (
     <Button
-      className={toClasses(styles.loginWalletsButton)}
       colorBackground={colorBeta}
       colorBorder={colorBeta}
       colorText={colorWhite}
