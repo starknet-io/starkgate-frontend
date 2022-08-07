@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../hooks';
@@ -22,7 +23,7 @@ export const MainWalletButton = ({text, onClick, ...props}) => {
   );
 };
 
-Button.propTypes = {
+MainWalletButton.propTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func
 };
