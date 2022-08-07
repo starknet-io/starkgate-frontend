@@ -28,7 +28,7 @@ import {
   TokenInput,
   TransferButton,
   TransferMenuTab,
-  LoginWalletsButton
+  ConnectWalletButton
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -220,7 +220,7 @@ export const Transfer = () => {
         {isLoggedIn ? (
           <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
         ) : (
-          <LoginWalletsButton />
+          <ConnectWalletButton />
         )}
       </div>
     </Menu>
