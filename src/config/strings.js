@@ -32,7 +32,7 @@ export default {
   menus: {
     backBtnTxt: 'Back',
     login: {
-      titleTxt: 'Login',
+      titleTxt: 'Connect {{networkName}} Wallet',
       subtitleTxt: 'Please select {{networkName}} wallet to connect with this dApp:',
       downloadTxt: ['Don’t have a wallet?', 'Download Here'],
       modalTxt: 'Waiting for confirmation from {{walletName}}',

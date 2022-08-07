@@ -21,6 +21,7 @@ export const Liquidity = () => {
 
   return (
     <MultiChoiceMenu
+      toCenter
       choices={mapLiquidityProviders()}
       description={descriptionTxt}
       title={titleTxt}

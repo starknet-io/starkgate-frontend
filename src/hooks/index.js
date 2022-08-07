@@ -20,3 +20,4 @@ export * from './useVars';
 export * from './useBridgeContractAPI';
 export * from './useTokenContractAPI';
 export * from './useFonts';
+export * from './useDidMountEffect';

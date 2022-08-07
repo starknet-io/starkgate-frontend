@@ -9,7 +9,7 @@ import {Footer, Header} from './components/Containers';
 import {StyledBackground} from './components/UI';
 import {SideButton} from './components/UI/SideButton/SideButton';
 import {useLiquidityProviders, useConstants, useTracking} from './hooks';
-import {useApp, useLogin} from './providers/AppProvider';
+import {useApp} from './providers/AppProvider';
 import {Bridge, Liquidity, Faq, Login, ProtectedRoute, Terms} from './routes';
 import {openInNewTab} from './utils';
 
@@ -17,7 +17,6 @@ export const App = () => {
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
   const {DISCORD_LINK_URL} = useConstants();
   const {isAcceptTerms, isScrollActive} = useApp();
-  const {isLoggedIn} = useLogin();
   const liquidityProviders = useLiquidityProviders();
 
   const onDiscordClick = () => {
@@ -34,7 +33,7 @@ export const App = () => {
           <Route
             element={
               <ProtectedRoute isAllowed={isAcceptTerms} redirectPath={'/terms'}>
-                {isLoggedIn ? <Bridge /> : <Login />}
+                <Bridge />
               </ProtectedRoute>
             }
             path="/"

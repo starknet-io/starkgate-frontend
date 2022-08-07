@@ -25,6 +25,7 @@ export const useProgressModal = (steps = []) => {
     (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
         header: {
+          withHeader: true,
           title,
           components: steps.length > 0 && [
             {
@@ -61,6 +62,7 @@ export const useTransactionSubmittedModal = steps => {
     transfer => {
       showModal({
         header: {
+          withHeader: true,
           title: titleTxt,
           icon: 'icons/rocket.svg',
           components: [
@@ -107,6 +109,7 @@ export const useErrorModal = () => {
     (title, text) => {
       showModal({
         header: {
+          withHeader: true,
           title
         },
         body: {
@@ -129,6 +132,8 @@ export const useOnboardingModal = () => {
   return useCallback(() => {
     showModal({
       header: {
+        withHeader: true,
+
         title: titleTxt
       },
       body: {
@@ -143,4 +148,27 @@ export const useOnboardingModal = () => {
       }
     });
   }, [showModal]);
+};
+
+export const useLoginModal = () => {
+  const {showModal} = useContext(ModalContext);
+
+  return useCallback(
+    (networkName = 'Ethereum') => {
+      showModal({
+        body: {
+          components: [
+            {
+              path: 'UI/Modal/LoginModal/LoginModal',
+              props: {networkName}
+            }
+          ]
+        },
+        containerStyle: {
+          background: 'unset'
+        }
+      });
+    },
+    [showModal]
+  );
 };

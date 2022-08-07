@@ -17,7 +17,7 @@ export const Header = () => {
   const {showTransferMenu} = useMenu();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorGamma} = useColors();
-  const {navigateToRoute} = useApp();
+  const {navigateToRoute, isAcceptTerms} = useApp();
   const liquidityProviders = useLiquidityProviders();
 
   const onLogoClick = () => {
@@ -63,13 +63,13 @@ export const Header = () => {
       </div>
       <div className={toClasses(styles.right, 'row')}>
         {renderTabs()}
-        {
+        {isAcceptTerms && (
           <>
             <Divider />
             <EthereumWalletButton />
             <StarknetWalletButton />
           </>
-        }
+        )}
         <BurgerMenu />
       </div>
     </div>

@@ -27,7 +27,13 @@ export const ModalType = {
   ERROR: 'error'
 };
 
-export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, children}) => {
+export const Modal = ({
+  show,
+  type = ModalType.INFO,
+  size = ModalSize.MEDIUM,
+  children,
+  containerStyle
+}) => {
   const {width} = size;
 
   return show
@@ -35,7 +41,7 @@ export const Modal = ({show, type = ModalType.INFO, size = ModalSize.MEDIUM, chi
         <div className={toClasses(styles.modal, styles[type])}>
           <div
             className={toClasses(styles.container, styles[type])}
-            style={{width, maxWidth: width}}
+            style={{width, maxWidth: width, ...containerStyle}}
           >
             {children}
           </div>
@@ -49,5 +55,6 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  containerStyle: PropTypes.object
 };

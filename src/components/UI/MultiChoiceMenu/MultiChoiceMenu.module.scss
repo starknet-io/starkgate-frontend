@@ -1,14 +1,16 @@
 @import '../../../index';
 
 .multiChoiceMenu {
-  position: absolute;
-  min-width: 500px;
   background: $--color-alpha;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 
+  .toCenter {
+    min-width: 500px;
+  }
+
   .content {
-    margin: 30px;
+    padding: 30px;
 
     p {
       font-size: 12px;

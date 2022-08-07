@@ -39,18 +39,25 @@ export const ModalWrapper = () => {
   const footerComponents = getComponents(footer.components);
 
   return (
-    <Modal show={modal.show} size={modal.size} type={modal.type}>
-      <ModalHeader type={modal.type}>
-        <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-          {renderComponents(headerComponents)}
-        </Suspense>
-        {header.title && (
-          <ModalTitle>
-            {header.icon && <DynamicIcon path={header.icon} size={50} />}
-            {header.title}
-          </ModalTitle>
-        )}
-      </ModalHeader>
+    <Modal
+      show={modal.show}
+      size={modal.size}
+      type={modal.type}
+      containerStyle={modal.containerStyle}
+    >
+      {header.withHeader && (
+        <ModalHeader type={modal.type}>
+          <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
+            {renderComponents(headerComponents)}
+          </Suspense>
+          {header.title && (
+            <ModalTitle>
+              {header.icon && <DynamicIcon path={header.icon} size={50} />}
+              {header.title}
+            </ModalTitle>
+          )}
+        </ModalHeader>
+      )}
       <ModalBody type={modal.type}>
         <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
           {renderComponents(bodyComponents, <ModalText>{body.text}</ModalText>)}
