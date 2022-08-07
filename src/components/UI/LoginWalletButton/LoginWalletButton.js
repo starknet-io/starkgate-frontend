@@ -8,7 +8,7 @@ import {toClasses} from '../../../utils';
 import {Button} from '../index';
 import styles from './LoginWalletsButton.module.scss';
 
-export const LoginWalletsButton = () => {
+export const LoginWalletButton = props => {
   const {statusL1} = useWalletsStatus();
   const {connectWalletBtnTxt} = useTransferTranslation();
   const {colorBeta, colorWhite} = useColors();
