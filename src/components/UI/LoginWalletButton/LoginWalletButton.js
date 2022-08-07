@@ -3,7 +3,7 @@ import React from 'react';
 import {useTransferTranslation} from '../../../hooks';
 import {MainMenuButton} from '../index';
 
-export const ConnectWalletButton = props => {
+export const LoginWalletButton = props => {
   const {connectWalletBtnTxt} = useTransferTranslation();
   const handleConnectWallets = () => {
     // TODO
