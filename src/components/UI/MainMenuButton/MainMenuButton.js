@@ -4,9 +4,9 @@ import React from 'react';
 import {useColors} from '../../../hooks';
 import {toClasses} from '../../../utils';
 import {Button} from '../index';
-import styles from './MainWalletButton.module.scss';
+import styles from './MainMenuButton.module.scss';
 
-export const MainWalletButton = ({text, onClick, ...props}) => {
+export const MainMenuButton = ({text, onClick, ...props}) => {
   const {colorBeta, colorWhite} = useColors();
 
   return (
@@ -23,7 +23,7 @@ export const MainWalletButton = ({text, onClick, ...props}) => {
   );
 };
 
-MainWalletButton.propTypes = {
+MainMenuButton.propTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func
 };

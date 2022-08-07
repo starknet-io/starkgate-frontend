@@ -1,13 +1,13 @@
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {MainWalletButton} from '../index';
+import {MainMenuButton} from '../index';
 
-export const LoginWalletsButton = props => {
+export const ConnectWalletButton = props => {
   const {connectWalletBtnTxt} = useTransferTranslation();
   const handleConnectWallets = () => {
     // TODO
   };
 
-  return <MainWalletButton text={connectWalletBtnTxt} onClick={handleConnectWallets} {...props} />;
+  return <MainMenuButton text={connectWalletBtnTxt} onClick={handleConnectWallets} {...props} />;
 };
