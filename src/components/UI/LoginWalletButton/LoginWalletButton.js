@@ -4,13 +4,11 @@ import React from 'react';
 import {useTransferTranslation, useColors} from '../../../hooks';
 import {useLoginModal} from '../../../providers/ModalProvider';
 import {useWalletsStatus} from '../../../providers/WalletsProvider';
-import {toClasses} from '../../../utils';
-import {Button} from '../index';
+import {MainMenuButton} from '../MainMenuButton/MainMenuButton';
 
 export const LoginWalletButton = props => {
   const {statusL1} = useWalletsStatus();
-  const {connectWalletBtnTxt} = useTransferTranslation();
-  const {colorBeta, colorWhite} = useColors();
+  const {loginWalletButtonTxt} = useTransferTranslation();
 
   const showLoginModal = useLoginModal();
 
@@ -19,14 +17,5 @@ export const LoginWalletButton = props => {
     showLoginModal(networkName);
   };
 
-  return (
-    <Button
-      colorBackground={colorBeta}
-      colorBorder={colorBeta}
-      colorText={colorWhite}
-      height={50}
-      text={connectWalletBtnTxt}
-      onClick={handleConnectWallets}
-    />
-  );
+  return <MainMenuButton text={loginWalletButtonTxt} onClick={handleConnectWallets} {...props} />;
 };
