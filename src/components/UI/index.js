@@ -44,3 +44,4 @@ export * from './StarknetWalletButton/StarknetWalletButton';
 export * from './EthereumWalletButton/EthereumWalletButton';
 export * from './LoginWalletsButton/LoginWalletsButton';
 export * from './NetworkWalletButton/NetworkWalletButton';
+export * from './MainWalletButton/MainWalletButton';

@@ -1,26 +1,13 @@
 import React from 'react';
 
 import {useTransferTranslation, useColors} from '../../../hooks';
-import {toClasses} from '../../../utils';
-import {Button} from '../index';
-import styles from './LoginWalletsButton.module.scss';
+import {MainWalletButton} from '../index';
 
-export const LoginWalletsButton = () => {
+export const LoginWalletsButton = props => {
   const {connectWalletBtnTxt} = useTransferTranslation();
-  const {colorBeta, colorWhite} = useColors();
   const handleConnectWallets = () => {
     // TODO
   };
 
-  return (
-    <Button
-      className={toClasses(styles.loginWalletsButton)}
-      colorBackground={colorBeta}
-      colorBorder={colorBeta}
-      colorText={colorWhite}
-      height={50}
-      text={connectWalletBtnTxt}
-      onClick={handleConnectWallets}
-    />
-  );
+  return <MainWalletButton text={connectWalletBtnTxt} onClick={handleConnectWallets} {...props} />;
 };
