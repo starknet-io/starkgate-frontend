@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useTransferTranslation, useColors} from '../../../hooks';
+import {useTransferTranslation} from '../../../hooks';
 import {MainWalletButton} from '../index';
 
 export const LoginWalletsButton = props => {

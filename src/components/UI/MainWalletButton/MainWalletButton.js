@@ -21,3 +21,8 @@ export const MainWalletButton = ({text, onClick, ...props}) => {
     />
   );
 };
+
+Button.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func
+};
