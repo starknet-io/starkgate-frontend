@@ -165,7 +165,8 @@ export const useLoginModal = () => {
           ]
         },
         containerStyle: {
-          background: 'unset'
+          background: 'unset',
+          boxShadow: 'unset'
         }
       });
     },
