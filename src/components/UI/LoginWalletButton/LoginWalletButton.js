@@ -1,7 +1,7 @@
 import {NetworkType, WalletStatus} from '@starkware-industries/commons-js-enums';
 import React from 'react';
 
-import {useTransferTranslation, useColors} from '../../../hooks';
+import {useTransferTranslation} from '../../../hooks';
 import {useLoginModal} from '../../../providers/ModalProvider';
 import {useWalletsStatus} from '../../../providers/WalletsProvider';
 import {MainMenuButton} from '../MainMenuButton/MainMenuButton';
