@@ -40,10 +40,10 @@ export const ModalWrapper = () => {
 
   return (
     <Modal
+      containerStyle={modal.containerStyle}
       show={modal.show}
       size={modal.size}
       type={modal.type}
-      containerStyle={modal.containerStyle}
     >
       {header.withHeader && (
         <ModalHeader type={modal.type}>
