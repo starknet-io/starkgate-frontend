@@ -1,3 +1,18 @@
+## [1.8.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.11...v1.8.0-dev.12) (2022-08-08)
+
+
+### 🔧 Fixes
+
+* **3044966975:** empty account when connecting starkgate for the 1st time ([#262](https://github.com/starkware-libs/starkgate-frontend/issues/262)) ([50f36c1](https://github.com/starkware-libs/starkgate-frontend/commit/50f36c187f5eb4e666367f6916a75b21c657fed0))
+* change error proptype from string to object ([#261](https://github.com/starkware-libs/starkgate-frontend/issues/261)) ([5b30b7a](https://github.com/starkware-libs/starkgate-frontend/commit/5b30b7a4f55cb1931b25d526b93cca28d00fa253))
+
+## [1.8.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.10...v1.8.0-dev.11) (2022-08-08)
+
+
+### 🧩 Features
+
+* **3015866265:** display the transfer button only if both wallets are connected ([#255](https://github.com/starkware-libs/starkgate-frontend/issues/255)) ([5e09679](https://github.com/starkware-libs/starkgate-frontend/commit/5e09679be08ca5406c8614ece48eacf118403a2c))
+
 ## [1.8.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.9...v1.8.0-dev.10) (2022-08-07)
 
 

@@ -63,6 +63,6 @@ NetworkWalletButton.propTypes = {
   logoPath: PropTypes.string,
   network: PropTypes.string,
   status: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.object,
   swapFn: PropTypes.func
 };
