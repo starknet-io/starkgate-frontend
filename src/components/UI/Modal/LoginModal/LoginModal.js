@@ -103,7 +103,7 @@ const LoginModal = ({networkName}) => {
       };
     });
   };
-  
+
   return (
     <div className={styles.loginModal}>
       <MultiChoiceMenu
