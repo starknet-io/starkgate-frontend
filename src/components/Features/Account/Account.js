@@ -59,6 +59,11 @@ export const Account = ({transferId}) => {
     completeTransferToL1(transfer);
   };
 
+  const handleLogout = () => {
+    showTransferMenu();
+    resetWallet();
+  };
+
   return (
     <Menu>
       <div>
@@ -85,7 +90,7 @@ export const Account = ({transferId}) => {
         >
           {renderTransfers()}
         </TransferLogContainer>
-        <LogoutButton onClick={resetWallet} />
+        <LogoutButton onClick={handleLogout} />
       </div>
     </Menu>
   );

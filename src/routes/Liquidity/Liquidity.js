@@ -3,7 +3,8 @@ import React from 'react';
 import {ChoiceItemType, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
 import {useL2Wallet} from '../../providers/WalletsProvider';
-import {openInNewTab, buildDynamicURL} from '../../utils';
+import {openInNewTab, toClasses, buildDynamicURL} from '../../utils';
+import styles from './Liquidity.module.scss';
 
 export const Liquidity = () => {
   const {account: accountL2} = useL2Wallet();
@@ -32,10 +33,12 @@ export const Liquidity = () => {
   };
 
   return (
-    <MultiChoiceMenu
-      choices={mapLiquidityProviders()}
-      description={descriptionTxt}
-      title={titleTxt}
-    />
+    <div className={toClasses(styles.liquidity, 'center')}>
+      <MultiChoiceMenu
+        choices={mapLiquidityProviders()}
+        description={descriptionTxt}
+        title={titleTxt}
+      />
+    </div>
   );
 };
