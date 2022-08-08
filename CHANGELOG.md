@@ -1,3 +1,10 @@
+## [1.8.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.12...v1.8.0-dev.13) (2022-08-08)
+
+
+### 🧩 Features
+
+* **2902657922:** add dynamic params to url ([#245](https://github.com/starkware-libs/starkgate-frontend/issues/245)) ([c7d614d](https://github.com/starkware-libs/starkgate-frontend/commit/c7d614d51eb04ca0721b05ea6f158cbeef1886d9))
+
 ## [1.8.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.11...v1.8.0-dev.12) (2022-08-08)
 
 
