@@ -1,3 +1,10 @@
+## [1.8.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.13...v1.8.0-dev.14) (2022-08-08)
+
+
+### 🧩 Features
+
+* **3027479346:** connect wallet flow logic with the modal style ([#258](https://github.com/starkware-libs/starkgate-frontend/issues/258)) ([da44bcb](https://github.com/starkware-libs/starkgate-frontend/commit/da44bcb5e5b525ba7e2a344dab18a7ee142a4578))
+
 ## [1.8.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.12...v1.8.0-dev.13) (2022-08-08)
 
 
