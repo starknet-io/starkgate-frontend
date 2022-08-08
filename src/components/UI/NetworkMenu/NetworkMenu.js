@@ -1,6 +1,5 @@
-import {WalletStatus} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
 import {NetworkTitle} from '../NetworkTitle/NetworkTitle';

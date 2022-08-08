@@ -18,7 +18,6 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
-import {useWalletsStatus} from '../../../providers/WalletsProvider';
 import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
@@ -160,9 +159,9 @@ export const Transfer = () => {
     return (
       <NetworkMenu
         isDisabled={bridgeIsFull}
+        isLoggedIn={isLoggedIn}
         isTarget={!isL1}
         networkName={NetworkType.L1}
-        isLoggedIn={isLoggedIn}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
@@ -176,9 +175,9 @@ export const Transfer = () => {
     return (
       <NetworkMenu
         isDisabled={bridgeIsFull}
+        isLoggedIn={isLoggedIn}
         isTarget={!isL2}
         networkName={NetworkType.L2}
-        isLoggedIn={isLoggedIn}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
