@@ -2,7 +2,8 @@ import React from 'react';
 
 import {ChoiceItemType, MultiChoiceMenu} from '../../components/UI';
 import {useLiquidityProviders, useLiquidityTranslation} from '../../hooks';
-import {openInNewTab} from '../../utils';
+import {openInNewTab, toClasses} from '../../utils';
+import styles from './Liquidity.module.scss';
 
 export const Liquidity = () => {
   const {titleTxt, descriptionTxt} = useLiquidityTranslation();
@@ -20,11 +21,12 @@ export const Liquidity = () => {
   };
 
   return (
-    <MultiChoiceMenu
-      toCenter
-      choices={mapLiquidityProviders()}
-      description={descriptionTxt}
-      title={titleTxt}
-    />
+    <div className={toClasses(styles.liquidity)}>
+      <MultiChoiceMenu
+        choices={mapLiquidityProviders()}
+        description={descriptionTxt}
+        title={titleTxt}
+      />
+    </div>
   );
 };
