@@ -113,6 +113,7 @@ const LoginModal = ({networkName}) => {
       };
     });
   };
+
   return (
     <div className={styles.loginModal}>
       <MultiChoiceMenu
@@ -123,6 +124,7 @@ const LoginModal = ({networkName}) => {
     </div>
   );
 };
+
 export default LoginModal;
 
 LoginModal.propTypes = {
