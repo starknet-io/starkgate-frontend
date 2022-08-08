@@ -18,6 +18,7 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
+import {useWalletsStatus} from '../../../providers/WalletsProvider';
 import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
@@ -55,6 +56,7 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const {isLoggedIn} = useLogin();
+  const {statusL1, statusL2} = useWalletsStatus();
 
   const tabs = [
     {
@@ -138,6 +140,7 @@ export const Transfer = () => {
   };
 
   const onRefreshTokenBalanceClick = () => {
+    console.log(selectedToken.symbol);
     updateTokenBalance(selectedToken.symbol);
   };
 
@@ -162,6 +165,7 @@ export const Transfer = () => {
         isTarget={!isL1}
         networkName={NetworkType.L1}
         tokenData={tokenData}
+        status={statusL1}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL1 && renderTransferInput()}
@@ -177,6 +181,7 @@ export const Transfer = () => {
         isTarget={!isL2}
         networkName={NetworkType.L2}
         tokenData={tokenData}
+        status={statusL2}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL2 && renderTransferInput()}

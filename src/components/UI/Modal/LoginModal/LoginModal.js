@@ -17,6 +17,8 @@ import {
 } from '../../../../hooks';
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
+import {useTokens} from '../../../../providers/TokensProvider';
+import {useTransfer} from '../../../../providers/TransferProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
 import {evaluate, isChrome, isFirefox} from '../../../../utils';
 import {MultiChoiceMenu} from '../../index';
@@ -35,6 +37,8 @@ const LoginModal = ({networkName}) => {
   const walletHandlers = useWalletHandlerProvider(network);
   const {isLoggedIn} = useLogin();
   const hideModal = useHideModal();
+  const {selectedToken} = useTransfer();
+  const {updateTokenBalance} = useTokens();
 
   useEffect(() => {
     isLoggedIn && hideModal();
@@ -46,6 +50,14 @@ const LoginModal = ({networkName}) => {
       setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
     }
   }, []);
+
+  useEffect(() => {
+    if (statusL1 === WalletStatus.CONNECTED) {
+      updateTokenBalance(selectedToken.symbol);
+    } else if (statusL2 === WalletStatus.CONNECTED) {
+      updateTokenBalance(selectedToken.symbol);
+    }
+  }, [statusL1, statusL2]);
 
   useDidMountEffect(() => {
     if (statusL1 !== WalletStatus.CONNECTED) {
