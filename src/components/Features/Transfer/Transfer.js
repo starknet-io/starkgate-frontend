@@ -56,7 +56,6 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const {isLoggedIn} = useLogin();
-  const {statusL1, statusL2} = useWalletsStatus();
 
   const tabs = [
     {
@@ -163,7 +162,7 @@ export const Transfer = () => {
         isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkName={NetworkType.L1}
-        status={statusL1}
+        isLoggedIn={isLoggedIn}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
@@ -179,7 +178,7 @@ export const Transfer = () => {
         isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkName={NetworkType.L2}
-        status={statusL2}
+        isLoggedIn={isLoggedIn}
         tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >

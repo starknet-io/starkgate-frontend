@@ -13,7 +13,7 @@ export const NetworkMenu = ({
   tokenData,
   isTarget,
   isDisabled,
-  status,
+  isLoggedIn,
   onRefreshClick,
   children
 }) => {
@@ -24,7 +24,7 @@ export const NetworkMenu = ({
       <Badge isDisabled={isDisabled} text={isTarget ? toTxt : fromTxt} />
       <div className={styles.networkContainer}>
         <NetworkTitle isDisabled={isDisabled} networkName={networkName} />
-        {status === WalletStatus.CONNECTED && (
+        {isLoggedIn && (
           <TokenBalance
             isDisabled={isDisabled}
             tokenData={tokenData}
@@ -42,7 +42,7 @@ NetworkMenu.propTypes = {
   tokenData: PropTypes.object,
   isTarget: PropTypes.bool,
   isDisabled: PropTypes.bool,
-  status: PropTypes.string,
+  isLoggedIn: PropTypes.bool,
   onRefreshClick: PropTypes.func,
   children: PropTypes.any
 };
