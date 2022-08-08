@@ -31,8 +31,8 @@ export const Modal = ({
   show,
   type = ModalType.INFO,
   size = ModalSize.MEDIUM,
-  children,
-  containerStyle
+  containerStyle,
+  children
 }) => {
   const {width} = size;
 
@@ -55,6 +55,6 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  containerStyle: PropTypes.object
+  containerStyle: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

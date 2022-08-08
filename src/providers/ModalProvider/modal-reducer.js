@@ -5,8 +5,8 @@ export const actions = {
 
 export const initialState = {
   show: false,
+  withHeader: true,
   header: {
-    withHeader: false,
     title: '',
     icon: '',
     components: []
