@@ -37,13 +37,9 @@ export const Modal = ({
 }) => {
   const {width} = size;
 
-  const handleClickOnBlurry = () => {
-    hideModal();
-  };
-
   return show
     ? createPortal(
-        <div className={toClasses(styles.modal, styles[type])} onClick={handleClickOnBlurry}>
+        <div className={toClasses(styles.modal, styles[type])} onClick={hideModal}>
           <div
             className={toClasses(styles.container, styles[type])}
             style={{width, maxWidth: width, ...containerStyle}}
