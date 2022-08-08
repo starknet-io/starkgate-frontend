@@ -1,3 +1,4 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../components/UI';
@@ -154,8 +155,9 @@ export const useLoginModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (networkName = 'Ethereum') => {
+    (networkName = NetworkType.L1) => {
       showModal({
+        withHeader: false,
         body: {
           components: [
             {

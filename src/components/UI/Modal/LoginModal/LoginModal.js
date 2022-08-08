@@ -18,15 +18,15 @@ import {
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
-import {evaluate, isChrome, isFirefox} from '../../../../utils';
+import {evaluate} from '../../../../utils';
 import {MultiChoiceMenu} from '../../index';
 import styles from './LoginModal.module.scss';
 
 const AUTO_CONNECT_TIMEOUT_DURATION = 100;
 
 const LoginModal = ({networkName}) => {
-  const {titleTxt, unsupportedBrowserTxt, unsupportedChainIdTxt} = useLoginTranslation();
-  const [trackLoginScreen, trackWalletClick, trackLoginError] = useLoginTracking();
+  const {titleTxt, unsupportedChainIdTxt} = useLoginTranslation();
+  const [trackWalletClick, trackLoginError] = useLoginTracking();
   const {AUTO_CONNECT, SUPPORTED_L1_CHAIN_ID} = useEnvs();
   const [error, setError] = useState(null);
   const {statusL1, statusL2} = useWalletsStatus();
@@ -40,13 +40,6 @@ const LoginModal = ({networkName}) => {
     isLoggedIn && hideModal();
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    trackLoginScreen();
-    if (!isBrowserSupported()) {
-      setError({type: LoginErrorType.UNSUPPORTED_BROWSER, message: unsupportedBrowserTxt});
-    }
-  }, []);
-
   useDidMountEffect(() => {
     if (statusL1 !== WalletStatus.CONNECTED) {
       network !== NetworkType.L1 && setNetwork(NetworkType.L1);
@@ -58,8 +51,6 @@ const LoginModal = ({networkName}) => {
   useEffect(() => {
     walletError && handleWalletError(walletError);
   }, [walletError]);
-
-  const isBrowserSupported = () => isChrome() || isFirefox();
 
   useEffect(() => {
     let timeoutId;
@@ -105,7 +96,6 @@ const LoginModal = ({networkName}) => {
       return {
         id,
         description,
-        isDisabled: !isBrowserSupported(),
         isLoading: walletStatus === WalletStatus.CONNECTING,
         logoPath,
         name,
@@ -113,6 +103,7 @@ const LoginModal = ({networkName}) => {
       };
     });
   };
+  
   return (
     <div className={styles.loginModal}>
       <MultiChoiceMenu
@@ -123,6 +114,7 @@ const LoginModal = ({networkName}) => {
     </div>
   );
 };
+
 export default LoginModal;
 
 LoginModal.propTypes = {

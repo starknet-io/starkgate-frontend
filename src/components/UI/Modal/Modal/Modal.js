@@ -57,7 +57,7 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   containerStyle: PropTypes.object,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   hideModal: PropTypes.func
 };

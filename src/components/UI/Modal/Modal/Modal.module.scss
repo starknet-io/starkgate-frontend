@@ -7,8 +7,8 @@
   right: 0;
   bottom: 0;
   position: absolute;
-  z-index: 5;
   backdrop-filter: blur(20px);
+  z-index: 1;
 
   .container {
     top: 50%;
