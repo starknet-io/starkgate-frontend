@@ -33,13 +33,17 @@ export const Modal = ({
   size = ModalSize.MEDIUM,
   children,
   containerStyle,
+  exitable,
   hideModal
 }) => {
   const {width} = size;
 
   return show
     ? createPortal(
-        <div className={toClasses(styles.modal, styles[type])} onClick={hideModal}>
+        <div
+          className={toClasses(styles.modal, styles[type])}
+          onClick={() => exitable && hideModal()}
+        >
           <div
             className={toClasses(styles.container, styles[type])}
             style={{width, maxWidth: width, ...containerStyle}}
@@ -58,6 +62,7 @@ Modal.propTypes = {
   type: PropTypes.string,
   size: PropTypes.string,
   containerStyle: PropTypes.object,
+  exitable: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   hideModal: PropTypes.func
 };

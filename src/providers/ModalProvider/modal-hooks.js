@@ -169,7 +169,8 @@ export const useLoginModal = () => {
         containerStyle: {
           background: 'unset',
           boxShadow: 'unset'
-        }
+        },
+        exitable: true
       });
     },
     [showModal]
