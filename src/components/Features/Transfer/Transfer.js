@@ -140,7 +140,6 @@ export const Transfer = () => {
   };
 
   const onRefreshTokenBalanceClick = () => {
-    console.log(selectedToken.symbol);
     updateTokenBalance(selectedToken.symbol);
   };
 
@@ -164,8 +163,8 @@ export const Transfer = () => {
         isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkName={NetworkType.L1}
-        tokenData={tokenData}
         status={statusL1}
+        tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL1 && renderTransferInput()}
@@ -180,8 +179,8 @@ export const Transfer = () => {
         isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkName={NetworkType.L2}
-        tokenData={tokenData}
         status={statusL2}
+        tokenData={tokenData}
         onRefreshClick={onRefreshTokenBalanceClick}
       >
         {isL2 && renderTransferInput()}
