@@ -1,8 +1,8 @@
-import {ActionType, EventName} from '@starkware-industries/commons-js-enums';
+import {EventName} from '@starkware-industries/commons-js-enums';
 import {starknet} from '@starkware-industries/commons-js-libs';
 import {useCallback} from 'react';
 
-import {stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
+import {stepOf, TransferError, TransferStep, TransferToL2Steps, ActionType} from '../enums';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';

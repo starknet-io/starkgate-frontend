@@ -2,7 +2,8 @@ export default {
   containers: {
     header: {
       chainTxt: 'Goerli testnet',
-      walletBtnTxt: '{{address}}',
+      accountWalletBtnTxt: '{{address}}',
+      connectWalletBtnTxt: 'Connect {{network}} Wallet',
       tabDiscordTxt: 'Discord',
       tabLiquidityTxt: 'Deposit into L2',
       burgerMenu: {
@@ -68,7 +69,8 @@ export default {
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
-      transferBtnTxt: 'Transfer'
+      transferBtnTxt: 'Transfer',
+      loginWalletButtonTxt: 'Connect Wallet'
     }
   },
   modals: {
