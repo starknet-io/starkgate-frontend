@@ -1,5 +1,5 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
-import {NetworkType} from "@starkware-industries/commons-js-enums"
 
 import {ModalType} from '../../components/UI';
 import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
