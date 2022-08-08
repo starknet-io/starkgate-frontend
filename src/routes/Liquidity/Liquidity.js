@@ -21,7 +21,7 @@ export const Liquidity = () => {
   };
 
   return (
-    <div className={toClasses(styles.liquidity)}>
+    <div className={toClasses(styles.liquidity, 'center')}>
       <MultiChoiceMenu
         choices={mapLiquidityProviders()}
         description={descriptionTxt}
