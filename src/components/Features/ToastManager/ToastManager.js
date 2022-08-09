@@ -221,7 +221,7 @@ export const ToastManager = () => {
       containerStyle={{
         zIndex: 1
       }}
-      position='top-right'
+      position="top-right"
       toastOptions={{
         duration: Infinity
       }}
