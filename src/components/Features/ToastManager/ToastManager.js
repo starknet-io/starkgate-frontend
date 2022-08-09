@@ -218,7 +218,10 @@ export const ToastManager = () => {
   return (
     <Toaster
       containerClassName={styles.toastManager}
-      position="top-right"
+      containerStyle={{
+        zIndex: 1
+      }}
+      position='top-right'
       toastOptions={{
         duration: Infinity
       }}
