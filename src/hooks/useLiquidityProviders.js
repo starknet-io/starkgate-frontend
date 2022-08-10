@@ -10,7 +10,7 @@ export const useLiquidityProviders = () => {
     () =>
       LiquidityProviders.filter(p => SUPPORTED_LIQUIDITY_PROVIDERS.includes(p.id)).map(p => ({
         ...p,
-        url: p.url[SUPPORTED_L1_CHAIN_ID]
+        link: p.link[SUPPORTED_L1_CHAIN_ID]
       })),
     [LiquidityProviders]
   );

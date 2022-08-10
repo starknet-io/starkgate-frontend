@@ -7,7 +7,7 @@ import {MultiChoiceErrorMessage} from '../MultiChoiceErrorMessage/MultiChoiceErr
 import {MultiChoiceItem} from '../MultiChoiceItem/MultiChoiceItem';
 import styles from './MultiChoiceMenu.module.scss';
 
-export const MultiChoiceMenu = ({title, description, choices, error, footer, toCenter}) => {
+export const MultiChoiceMenu = ({title, description, choices, error, footer}) => {
   const renderChoiceItems = () => {
     return choices.map(choice => {
       return <MultiChoiceItem key={choice.id} {...choice} />;
@@ -16,7 +16,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer, toC
 
   return (
     <Menu>
-      <div className={toClasses(styles.multiChoiceMenu, toCenter && 'center toCenter')}>
+      <div className={toClasses(styles.multiChoiceMenu)}>
         <div className={styles.content}>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}
@@ -39,6 +39,5 @@ MultiChoiceMenu.propTypes = {
   description: PropTypes.string,
   choices: PropTypes.arrayOf(PropTypes.object),
   error: PropTypes.object,
-  footer: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-  toCenter: PropTypes.bool
+  footer: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
 };

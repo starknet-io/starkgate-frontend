@@ -18,10 +18,9 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
 
   const handleWalletButtonClick = () => {
     switch (status) {
+      case WalletStatus.CONNECTING:
       case WalletStatus.DISCONNECTED:
         return handleConnectWallet();
-      case WalletStatus.CONNECTING:
-        return handleConnectingWallet();
       case WalletStatus.CONNECTED:
         return handleConnectedWallet();
       default:
@@ -37,10 +36,6 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
 
   const handleConnectWallet = () => {
     showLoginModal(network);
-  };
-
-  const handleConnectingWallet = () => {
-    // TODO
   };
 
   const handleWalletError = () => {
@@ -65,6 +60,6 @@ NetworkWalletButton.propTypes = {
   logoPath: PropTypes.string,
   network: PropTypes.string,
   status: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.object,
   swapFn: PropTypes.func
 };

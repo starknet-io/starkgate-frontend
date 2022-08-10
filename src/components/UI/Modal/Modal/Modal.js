@@ -33,17 +33,26 @@ export const Modal = ({
   size = ModalSize.MEDIUM,
   children,
   containerStyle,
+  exitable,
   hideModal
 }) => {
   const {width} = size;
 
+  const ignoreClickOnBlurryPart = e => {
+    e.stopPropagation();
+  };
+
+  const handleClickOnBlurryPart = () => {
+    exitable && hideModal();
+  };
+
   return show
     ? createPortal(
-        <div className={toClasses(styles.modal, styles[type])} onClick={hideModal}>
+        <div className={toClasses(styles.modal, styles[type])} onClick={handleClickOnBlurryPart}>
           <div
             className={toClasses(styles.container, styles[type])}
             style={{width, maxWidth: width, ...containerStyle}}
-            onClick={e => e.stopPropagation()}
+            onClick={ignoreClickOnBlurryPart}
           >
             {children}
           </div>
@@ -57,7 +66,8 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   containerStyle: PropTypes.object,
-  hideModal: PropTypes.func
+  exitable: PropTypes.bool,
+  hideModal: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

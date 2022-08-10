@@ -113,7 +113,6 @@ export const useStarknetWallet = () => {
 
   const addAccountChangedListener = () => {
     getStarknet().on('accountsChanged', () => {
-      setStatus(WalletStatus.DISCONNECTED);
       updateAccount();
     });
   };
@@ -123,8 +122,9 @@ export const useStarknetWallet = () => {
     setChainId(chainId);
     setChainName(ChainInfo.L2[chainId].NAME);
     if (chainId === SUPPORTED_L2_CHAIN_ID) {
-      setAccount(getStarknet().selectedAddress);
-      setStatus(WalletStatus.CONNECTED);
+      const {selectedAddress} = getStarknet();
+      setAccount(selectedAddress);
+      setStatus(selectedAddress ? WalletStatus.CONNECTED : WalletStatus.DISCONNECTED);
       setError(null);
     } else {
       setStatus(WalletStatus.ERROR);

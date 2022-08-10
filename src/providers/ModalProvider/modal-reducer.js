@@ -5,8 +5,8 @@ export const actions = {
 
 export const initialState = {
   show: false,
+  withHeader: true,
   header: {
-    withHeader: false,
     title: '',
     icon: '',
     components: []
@@ -19,7 +19,8 @@ export const initialState = {
     withButtons: false,
     components: []
   },
-  containerStyle: {}
+  containerStyle: {},
+  exitable: false
 };
 
 export const reducer = (state, action) => {

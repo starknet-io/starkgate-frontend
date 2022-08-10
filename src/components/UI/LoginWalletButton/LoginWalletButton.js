@@ -9,7 +9,6 @@ import {MainMenuButton} from '../MainMenuButton/MainMenuButton';
 export const LoginWalletButton = props => {
   const {statusL1} = useWalletsStatus();
   const {loginWalletButtonTxt} = useTransferTranslation();
-
   const showLoginModal = useLoginModal();
 
   const handleConnectWallets = () => {

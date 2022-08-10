@@ -17,7 +17,7 @@ export const ModalWrapper = () => {
   const modal = useModal();
   const handleOnClose = useHideModal();
 
-  const {header, body, footer} = modal;
+  const {withHeader, header, body, footer} = modal;
 
   const getComponents = components => {
     return components
@@ -41,12 +41,13 @@ export const ModalWrapper = () => {
   return (
     <Modal
       containerStyle={modal.containerStyle}
+      exitable={modal.exitable}
       hideModal={modal.hideModal}
       show={modal.show}
       size={modal.size}
       type={modal.type}
     >
-      {header.withHeader && (
+      {withHeader && (
         <ModalHeader type={modal.type}>
           <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
             {renderComponents(headerComponents)}

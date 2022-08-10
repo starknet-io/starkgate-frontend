@@ -1,3 +1,4 @@
+import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../components/UI';
@@ -25,7 +26,6 @@ export const useProgressModal = (steps = []) => {
     (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
         header: {
-          withHeader: true,
           title,
           components: steps.length > 0 && [
             {
@@ -62,7 +62,6 @@ export const useTransactionSubmittedModal = steps => {
     transfer => {
       showModal({
         header: {
-          withHeader: true,
           title: titleTxt,
           icon: 'icons/rocket.svg',
           components: [
@@ -109,7 +108,6 @@ export const useErrorModal = () => {
     (title, text) => {
       showModal({
         header: {
-          withHeader: true,
           title
         },
         body: {
@@ -132,8 +130,6 @@ export const useOnboardingModal = () => {
   return useCallback(() => {
     showModal({
       header: {
-        withHeader: true,
-
         title: titleTxt
       },
       body: {
@@ -154,8 +150,9 @@ export const useLoginModal = () => {
   const {showModal} = useContext(ModalContext);
 
   return useCallback(
-    (networkName = 'Ethereum') => {
+    (networkName = NetworkType.L1) => {
       showModal({
+        withHeader: false,
         body: {
           components: [
             {
@@ -167,7 +164,8 @@ export const useLoginModal = () => {
         containerStyle: {
           background: 'unset',
           boxShadow: 'unset'
-        }
+        },
+        exitable: true
       });
     },
     [showModal]
