@@ -13,6 +13,7 @@ export const TokenInput = ({
   hasError,
   tokenData,
   isDisabled,
+  isTokenDisabled,
   onMaxClick,
   onTokenSelect,
   onInputChange
@@ -33,7 +34,7 @@ export const TokenInput = ({
         onChange={onInputChange}
       />
       <MaxButton onClick={onMaxClick} />
-      <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
+      <TokenSelector isDisabled={isTokenDisabled} tokenData={tokenData} onClick={onTokenSelect} />
     </div>
   );
 };
