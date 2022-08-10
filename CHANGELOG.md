@@ -1,3 +1,10 @@
+## [1.8.0-dev.17](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.16...v1.8.0-dev.17) (2022-08-10)
+
+
+### 🔧 Fixes
+
+* **3064486113:** browser is crashing if no extension is installed ([#265](https://github.com/starkware-libs/starkgate-frontend/issues/265)) ([fdca289](https://github.com/starkware-libs/starkgate-frontend/commit/fdca28929305c12818f12276c26ecbb3ecc6e66a))
+
 ## [1.8.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.15...v1.8.0-dev.16) (2022-08-10)
 
 
