@@ -45,7 +45,7 @@ export const SelectToken = () => {
           tokens={tokens}
           onSearchResults={searchResult => setSearchTokens(searchResult)}
         />
-        <SelectTokenList tokens={searchTokens} showBalances={isLoggedIn} onClick={onTokenSelect} />
+        <SelectTokenList showBalances={isLoggedIn} tokens={searchTokens} onClick={onTokenSelect} />
         <div
           className={styles.background}
           style={{
