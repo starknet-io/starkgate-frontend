@@ -159,7 +159,6 @@ export const Transfer = () => {
     return (
       <NetworkMenu
         isDisabled={bridgeIsFull}
-        isLoggedIn={isLoggedIn}
         isTarget={!isL1}
         networkName={NetworkType.L1}
         tokenData={tokenData}
@@ -175,7 +174,6 @@ export const Transfer = () => {
     return (
       <NetworkMenu
         isDisabled={bridgeIsFull}
-        isLoggedIn={isLoggedIn}
         isTarget={!isL2}
         networkName={NetworkType.L2}
         tokenData={tokenData}
