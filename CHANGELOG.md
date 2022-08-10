@@ -1,3 +1,10 @@
+## [1.8.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.14...v1.8.0-dev.15) (2022-08-10)
+
+
+### 🧩 Features
+
+* **3015991255:** close the modal if click on the blurry part ([#259](https://github.com/starkware-libs/starkgate-frontend/issues/259)) ([3d5a1c5](https://github.com/starkware-libs/starkgate-frontend/commit/3d5a1c5fc89fcc66b8900b7ee010debb9a42a068))
+
 ## [1.8.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.13...v1.8.0-dev.14) (2022-08-08)
 
 
