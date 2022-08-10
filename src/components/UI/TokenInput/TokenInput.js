@@ -13,7 +13,6 @@ export const TokenInput = ({
   hasError,
   tokenData,
   isInputDisabled,
-  isTokenSelectorDisabled,
   onMaxClick,
   onTokenSelect,
   onInputChange
@@ -34,11 +33,7 @@ export const TokenInput = ({
         onChange={onInputChange}
       />
       <MaxButton onClick={onMaxClick} />
-      <TokenSelector
-        isDisabled={isTokenSelectorDisabled}
-        tokenData={tokenData}
-        onClick={onTokenSelect}
-      />
+      <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
     </div>
   );
 };
@@ -46,9 +41,8 @@ export const TokenInput = ({
 TokenInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   hasError: PropTypes.bool,
-  tokenData: PropTypes.object,
   isInputDisabled: PropTypes.bool,
-  isTokenSelectorDisabled: PropTypes.bool,
+  tokenData: PropTypes.object,
   onMaxClick: PropTypes.func,
   onTokenSelect: PropTypes.func,
   onInputChange: PropTypes.func

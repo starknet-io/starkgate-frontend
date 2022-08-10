@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import L1Logo from '../../../assets/svg/tokens/eth.svg';
 import L2Logo from '../../../assets/svg/tokens/starknet.svg';
 import {useColors, useSelectTokenTranslation, useSelectTokenTracking} from '../../../hooks';
+import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
@@ -18,6 +19,7 @@ export const SelectToken = () => {
   const {isL1, fromNetwork} = useTransfer();
   const {selectToken} = useTransfer();
   const [searchTokens, setSearchTokens] = useState(tokens);
+  const {isLoggedIn} = useLogin();
 
   useEffect(() => {
     setSearchTokens(tokens);
@@ -43,7 +45,7 @@ export const SelectToken = () => {
           tokens={tokens}
           onSearchResults={searchResult => setSearchTokens(searchResult)}
         />
-        <SelectTokenList tokens={searchTokens} onClick={onTokenSelect} />
+        <SelectTokenList tokens={searchTokens} showBalances={isLoggedIn} onClick={onTokenSelect} />
         <div
           className={styles.background}
           style={{
