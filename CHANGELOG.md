@@ -1,3 +1,10 @@
+## [1.8.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.15...v1.8.0-dev.16) (2022-08-10)
+
+
+### 🧩 Features
+
+* **3047139090:** hide the available balance if wallet is not connected ([#260](https://github.com/starkware-libs/starkgate-frontend/issues/260)) ([c69c8b0](https://github.com/starkware-libs/starkgate-frontend/commit/c69c8b056fa4bd7dceed7ca308df600ec0b75982))
+
 ## [1.8.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.14...v1.8.0-dev.15) (2022-08-10)
 
 
