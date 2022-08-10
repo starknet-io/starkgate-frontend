@@ -189,8 +189,8 @@ export const Transfer = () => {
       <>
         <TokenInput
           hasError={hasInputError}
-          isDisabled={bridgeIsFull}
-          isTokenDisabled={!isLoggedIn}
+          isInputDisabled={bridgeIsFull}
+          isTokenSelectorDisabled={!isLoggedIn}
           tokenData={selectedToken}
           value={amount}
           onInputChange={onInputChange}

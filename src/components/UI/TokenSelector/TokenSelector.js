@@ -27,5 +27,6 @@ export const TokenSelector = ({isDisabled, tokenData, onClick}) => {
 
 TokenSelector.propTypes = {
   tokenData: PropTypes.object,
+  isDisabled: PropTypes.bool,
   onClick: PropTypes.func
 };
