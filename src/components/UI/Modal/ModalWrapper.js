@@ -41,6 +41,8 @@ export const ModalWrapper = () => {
   return (
     <Modal
       containerStyle={modal.containerStyle}
+      exitable={modal.exitable}
+      hideModal={modal.hideModal}
       show={modal.show}
       size={modal.size}
       type={modal.type}
