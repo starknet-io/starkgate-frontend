@@ -16,7 +16,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
 
   return (
     <Menu>
-      <div className={toClasses(styles.multiChoiceMenu, 'center')}>
+      <div className={toClasses(styles.multiChoiceMenu)}>
         <div className={styles.content}>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}

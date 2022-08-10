@@ -4,11 +4,13 @@ import {useEffect} from 'react';
 
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useLoginModal} from '../../../providers/ModalProvider';
 import {WalletButton} from '../index';
 
 export const NetworkWalletButton = ({account, chain, logoPath, network, status, error, swapFn}) => {
   const {navigateToRoute} = useApp();
   const {showAccountMenu} = useMenu();
+  const showLoginModal = useLoginModal();
 
   useEffect(() => {
     error && handleWalletError(error);
@@ -34,7 +36,7 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   };
 
   const handleConnectWallet = () => {
-    // TODO - will display the login modal
+    showLoginModal(network);
   };
 
   const handleConnectingWallet = () => {
@@ -63,6 +65,6 @@ NetworkWalletButton.propTypes = {
   logoPath: PropTypes.string,
   network: PropTypes.string,
   status: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.object,
   swapFn: PropTypes.func
 };

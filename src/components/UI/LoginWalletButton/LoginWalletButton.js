@@ -1,13 +1,20 @@
+import {NetworkType, WalletStatus} from '@starkware-industries/commons-js-enums';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {MainMenuButton} from '../index';
+import {useLoginModal} from '../../../providers/ModalProvider';
+import {useWalletsStatus} from '../../../providers/WalletsProvider';
+import {MainMenuButton} from '../MainMenuButton/MainMenuButton';
 
 export const LoginWalletButton = props => {
-  const {connectWalletBtnTxt} = useTransferTranslation();
+  const {statusL1} = useWalletsStatus();
+  const {loginWalletButtonTxt} = useTransferTranslation();
+  const showLoginModal = useLoginModal();
+
   const handleConnectWallets = () => {
-    // TODO
+    const networkName = statusL1 === WalletStatus.CONNECTED ? NetworkType.L2 : NetworkType.L1;
+    showLoginModal(networkName);
   };
 
-  return <MainMenuButton text={connectWalletBtnTxt} onClick={handleConnectWallets} {...props} />;
+  return <MainMenuButton text={loginWalletButtonTxt} onClick={handleConnectWallets} {...props} />;
 };

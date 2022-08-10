@@ -5,6 +5,7 @@ export const actions = {
 
 export const initialState = {
   show: false,
+  withHeader: true,
   header: {
     title: '',
     icon: '',
@@ -17,7 +18,8 @@ export const initialState = {
   footer: {
     withButtons: false,
     components: []
-  }
+  },
+  containerStyle: {}
 };
 
 export const reducer = (state, action) => {
