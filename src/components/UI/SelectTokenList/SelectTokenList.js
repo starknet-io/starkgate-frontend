@@ -10,7 +10,7 @@ export const SelectTokenList = ({tokens, showBalances, onClick}) => (
       return (
         <SelectTokenRow
           key={index}
-          showBalances={showBalances}
+          showBalance={showBalances}
           tokenData={tokenData}
           onClick={onClick}
         />

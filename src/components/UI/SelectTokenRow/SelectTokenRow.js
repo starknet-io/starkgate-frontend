@@ -6,7 +6,7 @@ import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
 import {CryptoLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';
 
-export const SelectTokenRow = ({tokenData, showBalances, onClick}) => {
+export const SelectTokenRow = ({tokenData, showBalance, onClick}) => {
   const {name, symbol, balance, isLoading} = tokenData;
 
   return (
@@ -23,7 +23,7 @@ export const SelectTokenRow = ({tokenData, showBalances, onClick}) => {
             <div className={styles.name}>{name}</div>
           </div>
         </div>
-        {showBalances && (
+        {showBalance && (
           <div className={styles.right}>
             <>
               {!isLoading ? (
@@ -44,6 +44,6 @@ export const SelectTokenRow = ({tokenData, showBalances, onClick}) => {
 SelectTokenRow.propTypes = {
   name: PropTypes.string,
   tokenData: PropTypes.object,
-  showBalances: PropTypes.bool,
+  showBalance: PropTypes.bool,
   onClick: PropTypes.func
 };
