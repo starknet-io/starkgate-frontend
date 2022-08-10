@@ -7,6 +7,7 @@
   right: 0;
   bottom: 0;
   position: absolute;
+  backdrop-filter: blur(20px);
   z-index: 1;
 
   .container {

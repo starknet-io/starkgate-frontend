@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
+import {useLogin} from '../../../providers/AppProvider';
 import {NetworkTitle} from '../NetworkTitle/NetworkTitle';
 import {TokenBalance} from '../TokenBalance/TokenBalance';
 import {Badge} from '../index';
@@ -16,17 +17,20 @@ export const NetworkMenu = ({
   children
 }) => {
   const {toTxt, fromTxt} = useTransferTranslation();
+  const {isLoggedIn} = useLogin();
 
   return (
     <div className={styles.networkMenu}>
       <Badge isDisabled={isDisabled} text={isTarget ? toTxt : fromTxt} />
       <div className={styles.networkContainer}>
         <NetworkTitle isDisabled={isDisabled} networkName={networkName} />
-        <TokenBalance
-          isDisabled={isDisabled}
-          tokenData={tokenData}
-          onRefreshClick={onRefreshClick}
-        />
+        {isLoggedIn && (
+          <TokenBalance
+            isDisabled={isDisabled}
+            tokenData={tokenData}
+            onRefreshClick={onRefreshClick}
+          />
+        )}
       </div>
       <div className={styles.transferContainer}>{children}</div>
     </div>
