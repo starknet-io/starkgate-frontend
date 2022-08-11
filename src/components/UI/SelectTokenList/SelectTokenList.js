@@ -4,23 +4,15 @@ import React from 'react';
 import {SelectTokenRow} from '../SelectTokenRow/SelectTokenRow';
 import styles from './SelectTokenList.module.scss';
 
-export const SelectTokenList = ({tokens, showBalances, onClick}) => (
+export const SelectTokenList = ({tokens, onClick}) => (
   <div className={styles.selectTokenList}>
     {tokens.map((tokenData, index) => {
-      return (
-        <SelectTokenRow
-          key={index}
-          showBalance={showBalances}
-          tokenData={tokenData}
-          onClick={onClick}
-        />
-      );
+      return <SelectTokenRow key={index} tokenData={tokenData} onClick={onClick} />;
     })}
   </div>
 );
 
 SelectTokenList.propTypes = {
   tokens: PropTypes.array,
-  showBalances: PropTypes.bool,
   onClick: PropTypes.func
 };
