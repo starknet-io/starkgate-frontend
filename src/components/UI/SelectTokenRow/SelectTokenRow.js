@@ -23,7 +23,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
             <div className={styles.name}>{name}</div>
           </div>
         </div>
-        {balance && (
+        {
           <div className={styles.right}>
             <>
               {!isLoading ? (
@@ -35,7 +35,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
               )}
             </>
           </div>
-        )}
+        }
       </div>
     </div>
   );
