@@ -23,17 +23,24 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
             <div className={styles.name}>{name}</div>
           </div>
         </div>
-        <div className={styles.right}>
-          <>
-            {!isLoading ? (
-              <div className={styles.balance}>
-                {formatBalance(balance)} {symbol}
-              </div>
-            ) : (
-              <Loading size={LoadingSize.SMALL} />
-            )}
-          </>
-        </div>
+        {
+          <div className={styles.right}>
+            <>
+              {!isLoading ? (
+                <div className={styles.balance}>
+                  {balance !== undefined && (
+                    <div>
+                      {`${formatBalance(balance)} `}
+                      {symbol}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Loading size={LoadingSize.SMALL} />
+              )}
+            </>
+          </div>
+        }
       </div>
     </div>
   );
