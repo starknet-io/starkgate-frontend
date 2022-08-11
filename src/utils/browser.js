@@ -13,8 +13,7 @@ export const getUrlParameter = name => {
 };
 
 export const getBrowserName = () => {
-  const userAgent = window.navigator.userAgent;
-  const vendor = window.navigator.vendor;
+  const {userAgent, vendor} = window.navigator;
   switch (true) {
     case /Edge|Edg|EdgiOS/.test(userAgent):
       return 'Edge';
