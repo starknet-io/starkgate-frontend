@@ -1,0 +1,66 @@
+@import '../../../index';
+
+.alert {
+  display: flex;
+  margin-top: 20px;
+  background-color: $--color-white;
+  border-radius: 7px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 16px;
+
+  .icon {
+    width: 15%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-weight: 500;
+    }
+
+    .message {
+      font-weight: 400;
+    }
+  }
+
+  &.success {
+    border: 1px solid $--color-success;
+    color: $--color-success;
+  }
+
+  &.error {
+    border: 1px solid $--color-error;
+    color: $--color-error;
+
+    .icon {
+      svg {
+        path {
+          stroke: $--color-error;
+        }
+      }
+    }
+  }
+
+  &.warning {
+    border: 1px solid #dc6803;
+    color: #dc6803;
+
+    .icon {
+      svg {
+        path {
+          fill: #dc6803;
+        }
+      }
+    }
+  }
+
+  &.info {
+    border: 1px solid #475467;
+    color: #475467;
+  }
+}
