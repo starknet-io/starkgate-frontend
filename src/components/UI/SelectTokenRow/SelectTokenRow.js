@@ -28,7 +28,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
             <>
               {!isLoading ? (
                 <div className={styles.balance}>
-                  {formatBalance(balance)} {symbol}
+                  {balance !== undefined && formatBalance(balance)} {symbol}
                 </div>
               ) : (
                 <Loading size={LoadingSize.SMALL} />
