@@ -12,8 +12,15 @@ export const getUrlParameter = name => {
   return decodeURI(results[1]) || 0;
 };
 
+export const isOpera = () => {
+  return (
+    window.navigator.userAgent.indexOf('OPR') > -1 ||
+    window.navigator.userAgent.indexOf('Opera') > -1
+  );
+};
+
 export const isChrome = () => {
-  return /(?=.*(chrome)).*/i.test(navigator.userAgent);
+  return /(?=.*(chrome)).*/i.test(navigator.userAgent) && !isOpera();
 };
 
 export const isFirefox = () => {
