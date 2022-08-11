@@ -1,3 +1,17 @@
+## [1.8.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.18...v1.8.0-dev.19) (2022-08-11)
+
+
+### 🔧 Fixes
+
+* **3070364344:** do not display N/A balance if user's not logged in ([#263](https://github.com/starkware-libs/starkgate-frontend/issues/263)) ([54c22d9](https://github.com/starkware-libs/starkgate-frontend/commit/54c22d950157546dcd970c40e3da0dc232ed9dec))
+
+## [1.8.0-dev.18](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.17...v1.8.0-dev.18) (2022-08-11)
+
+
+### 🧩 Features
+
+* **3015320611:** Add Ramp link to integrations ([#267](https://github.com/starkware-libs/starkgate-frontend/issues/267)) ([40b472b](https://github.com/starkware-libs/starkgate-frontend/commit/40b472bf7336ee7382f76c1ea7b2bceee8faf97a))
+
 ## [1.8.0-dev.17](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.16...v1.8.0-dev.17) (2022-08-10)
 
 
