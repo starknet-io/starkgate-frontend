@@ -5,6 +5,7 @@ import {Account, SelectToken, ToastManager, Transfer} from '../../components/Fea
 import {HIDE_ELEMENT_COOKIE_DURATION_DAYS, ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
 import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
+import {useLogin} from '../../providers/AppProvider';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
 import {useBridgeIsFull, useSelectedToken} from '../../providers/TransferProvider';
@@ -21,6 +22,7 @@ export const Bridge = () => {
   const {lockBridge, unlockBridge} = useBridgeIsFull();
   const selectedToken = useSelectedToken();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
+  const {isLoggedIn} = useLogin();
 
   useEffect(() => {
     trackMenu(menu);
@@ -37,8 +39,8 @@ export const Bridge = () => {
       exceeded ? lockBridge() : unlockBridge();
     }
 
-    maybeLockBridge();
-  }, [isMaxTotalBalanceExceeded, selectedToken]);
+    isLoggedIn && maybeLockBridge();
+  }, [isMaxTotalBalanceExceeded, selectedToken, isLoggedIn]);
 
   const maybeShowOnboardingModal = () => {
     const onboardingCookie = getCookie(ONBOARDING_COOKIE_NAME);
