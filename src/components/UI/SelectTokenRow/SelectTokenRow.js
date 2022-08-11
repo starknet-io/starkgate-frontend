@@ -30,7 +30,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
                 <div className={styles.balance}>
                   {balance !== undefined && (
                     <div>
-                      {formatBalance(balance)}
+                      {formatBalance(balance) + ' '}
                       {symbol}
                     </div>
                   )}
