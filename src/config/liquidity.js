@@ -18,7 +18,7 @@ export default [
   {
     id: 'ramp',
     logoPath: 'liquidity/ramp.svg',
-    name: 'Banxa',
+    name: 'Ramp',
     description: 'Buy crypto with credit card directly to StarkNet',
     link: {
       [ChainType.L1.MAIN]: {
