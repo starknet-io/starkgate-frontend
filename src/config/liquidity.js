@@ -16,6 +16,20 @@ export default [
     }
   },
   {
+    id: 'ramp',
+    logoPath: 'liquidity/ramp.svg',
+    name: 'Ramp',
+    description: 'Buy crypto with credit card directly to StarkNet',
+    link: {
+      [ChainType.L1.MAIN]: {
+        url: 'https://ramp.network/buy/',
+        qsParams: {
+          defaultAsset: 'STARKNET_ETH'
+        }
+      }
+    }
+  },
+  {
     id: 'layerswap',
     logoPath: 'liquidity/layerswap.svg',
     name: 'Layerswap',

@@ -18,6 +18,7 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
 
   const handleWalletButtonClick = () => {
     switch (status) {
+      case WalletStatus.ERROR:
       case WalletStatus.CONNECTING:
       case WalletStatus.DISCONNECTED:
         return handleConnectWallet();

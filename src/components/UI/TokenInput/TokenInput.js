@@ -12,7 +12,7 @@ export const TokenInput = ({
   value,
   hasError,
   tokenData,
-  isDisabled,
+  isInputDisabled,
   onMaxClick,
   onTokenSelect,
   onInputChange
@@ -22,7 +22,7 @@ export const TokenInput = ({
   return (
     <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
       <Input
-        isDisabled={isDisabled}
+        isDisabled={isInputDisabled}
         placeholder={inputPlaceholderTxt}
         style={{
           fontSize: '24px',
@@ -41,8 +41,8 @@ export const TokenInput = ({
 TokenInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   hasError: PropTypes.bool,
+  isInputDisabled: PropTypes.bool,
   tokenData: PropTypes.object,
-  isDisabled: PropTypes.bool,
   onMaxClick: PropTypes.func,
   onTokenSelect: PropTypes.func,
   onInputChange: PropTypes.func
