@@ -9,6 +9,8 @@ export class GetStarknetWallet extends WalletHandler {
   }
 
   install() {
-    return getStarknet().enable({showModal: true});
+    if (this.isBrowserSupported()) {
+      return getStarknet().enable({showModal: true});
+    }
   }
 }

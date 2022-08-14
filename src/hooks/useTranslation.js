@@ -93,8 +93,8 @@ export const useTransferLogTranslation = () => {
   return useAccountTranslation('transferLogContainer.transferLog');
 };
 
-export const useBurgerMenuTranslation = () => {
-  return useHeaderTranslation('burgerMenu');
+export const useTabsTranslation = () => {
+  return useHeaderTranslation('tabs');
 };
 
 const chainPath = (basePath, constitutivePath) => {

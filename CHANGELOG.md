@@ -1,3 +1,31 @@
+## [1.8.0-dev.22](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.21...v1.8.0-dev.22) (2022-08-14)
+
+
+### 💉 Improvements
+
+* **2890115801:** Move terms & faq tabs from burger menu to navbar ([#269](https://github.com/starkware-libs/starkgate-frontend/issues/269)) ([049a75b](https://github.com/starkware-libs/starkgate-frontend/commit/049a75b105accb4498fec203c3fa5d29688819ba))
+
+## [1.8.0-dev.21](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.20...v1.8.0-dev.21) (2022-08-14)
+
+
+### 🧩 Features
+
+* **3054011722:** Move the logic of unsupported browser to login modal ([#264](https://github.com/starkware-libs/starkgate-frontend/issues/264)) ([9d8b5f1](https://github.com/starkware-libs/starkgate-frontend/commit/9d8b5f141835ca6a36a4314d98f1fd7be1c24214))
+
+## [1.8.0-dev.20](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.19...v1.8.0-dev.20) (2022-08-14)
+
+
+### 🔧 Fixes
+
+* **3080263579:** While error is raised when connecting to the wallet, modal isn't shown again ([#268](https://github.com/starkware-libs/starkgate-frontend/issues/268)) ([73834b1](https://github.com/starkware-libs/starkgate-frontend/commit/73834b16c7fe4b5d7509111cdb217c4d81df287d))
+
+## [1.8.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.18...v1.8.0-dev.19) (2022-08-11)
+
+
+### 🔧 Fixes
+
+* **3070364344:** do not display N/A balance if user's not logged in ([#263](https://github.com/starkware-libs/starkgate-frontend/issues/263)) ([54c22d9](https://github.com/starkware-libs/starkgate-frontend/commit/54c22d950157546dcd970c40e3da0dc232ed9dec))
+
 ## [1.8.0-dev.18](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.17...v1.8.0-dev.18) (2022-08-11)
 
 
