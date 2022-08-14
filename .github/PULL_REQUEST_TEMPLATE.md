@@ -4,8 +4,11 @@ Please add a detailed description of the change, whether it's an enhancement or 
 If the PR is related to an open issue please link to it.
 
 Solves #[INSERT_MONDAY_ID_HERE](INSERT_MONDAY_URL_HERE)
-***
+
+---
+
 ### Checklist
+
 - [ ] Changes have been done against `dev` branch, and PR does not conflict.
 - [ ] Manually tests of the main Application flows are done and passed.
 - [ ] New unit / functional tests have been added (whenever applicable).
