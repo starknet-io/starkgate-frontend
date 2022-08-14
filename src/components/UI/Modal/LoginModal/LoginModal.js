@@ -72,7 +72,11 @@ const LoginModal = ({networkName}) => {
     const {name} = config;
     trackWalletClick(name);
     if (!walletHandler.isInstalled()) {
-      return walletHandler.install();
+      try {
+        return walletHandler.install();
+      } catch (ex) {
+        setError(ex);
+      }
     }
     return connectWallet(config);
   };

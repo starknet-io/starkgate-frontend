@@ -12,12 +12,37 @@ export const getUrlParameter = name => {
   return decodeURI(results[1]) || 0;
 };
 
+export const getBrowserName = () => {
+  const {userAgent, vendor} = window.navigator;
+  switch (true) {
+    case /Edge|Edg|EdgiOS/.test(userAgent):
+      return 'Edge';
+    case /OPR|Opera/.test(userAgent) && Boolean(window.opr):
+      return 'Opera';
+    case /CriOS/.test(userAgent):
+    case /Chrome/.test(userAgent) && vendor === 'Google Inc.' && Boolean(window.chrome):
+      return 'Chrome';
+    case /Vivaldi/.test(userAgent):
+      return 'Vivaldi';
+    case /YaBrowser/.test(userAgent):
+      return 'Yandex';
+    case /Firefox|FxiOS/.test(userAgent):
+      return 'Firefox';
+    case /Safari/.test(userAgent):
+      return 'Safari';
+    case /MSIE|Trident/.test(userAgent):
+      return 'Internet Explorer';
+    default:
+      return 'Unknown';
+  }
+};
+
 export const isChrome = () => {
-  return /(?=.*(chrome)).*/i.test(navigator.userAgent);
+  return getBrowserName() === 'Chrome';
 };
 
 export const isFirefox = () => {
-  return /(?=.*(firefox)).*/i.test(navigator.userAgent);
+  return getBrowserName() === 'Firefox';
 };
 
 export const setCookie = (name, value, days) => {

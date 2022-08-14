@@ -1,3 +1,10 @@
+## [1.8.0-dev.20](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.19...v1.8.0-dev.20) (2022-08-14)
+
+
+### 🔧 Fixes
+
+* **3080263579:** While error is raised when connecting to the wallet, modal isn't shown again ([#268](https://github.com/starkware-libs/starkgate-frontend/issues/268)) ([73834b1](https://github.com/starkware-libs/starkgate-frontend/commit/73834b16c7fe4b5d7509111cdb217c4d81df287d))
+
 ## [1.8.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.18...v1.8.0-dev.19) (2022-08-11)
 
 

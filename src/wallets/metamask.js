@@ -13,6 +13,8 @@ export class MetaMask extends WalletHandler {
   }
 
   install() {
-    return this.onboarding.startOnboarding();
+    if (this.isBrowserSupported()) {
+      return this.onboarding.startOnboarding();
+    }
   }
 }
