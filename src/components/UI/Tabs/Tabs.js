@@ -5,7 +5,7 @@ import {Divider} from '../Divider/Divider';
 import {Tab} from '../Tab/Tab';
 
 export const Tabs = ({tabs}) => {
-  return tabs.map(tab => {
+  return tabs.map((tab, index) => {
     return (
       <Fragment key={tab.text}>
         <Tab isActive={tab.isActive} text={tab.text} onClick={tab.onClick} />
