@@ -1,8 +1,10 @@
 import React from 'react';
+import {useLocation} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {Breakpoint} from '../../../enums';
+import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {toClasses} from '../../../utils';
@@ -20,6 +22,21 @@ export const Header = () => {
   const {showTransferMenu} = useMenu();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {navigateToRoute, isAcceptTerms} = useApp();
+  const {pathname} = useLocation();
+  const {termsTxt, faqTxt} = useTabsTranslation();
+
+  const tabs = [
+    {
+      text: termsTxt,
+      isActive: pathname === '/terms',
+      onClick: () => navigateToRoute('/terms')
+    },
+    {
+      text: faqTxt,
+      isActive: pathname === '/faq',
+      onClick: () => navigateToRoute('/faq')
+    }
+  ];
 
   const onLogoClick = () => {
     showTransferMenu();
@@ -35,7 +52,7 @@ export const Header = () => {
         <ChainSelect />
       </div>
       <div className={toClasses(styles.right, 'row')}>
-        <Tabs />
+        <Tabs tabs={tabs} />
         <Divider />
         <LiquidityButton />
         {isAcceptTerms && (
