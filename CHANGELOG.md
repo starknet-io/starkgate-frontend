@@ -1,3 +1,17 @@
+## [1.8.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.22...v1.8.0-dev.23) (2022-08-14)
+
+
+### 🔧 Fixes
+
+* **3086854358:** error of correct network still visible after changing the network ([#271](https://github.com/starkware-libs/starkgate-frontend/issues/271)) ([3e97259](https://github.com/starkware-libs/starkgate-frontend/commit/3e972590979f3f7e6cb226749feb11d92b3408bf))
+
+## [1.8.0-dev.22](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.21...v1.8.0-dev.22) (2022-08-14)
+
+
+### 💉 Improvements
+
+* **2890115801:** Move terms & faq tabs from burger menu to navbar ([#269](https://github.com/starkware-libs/starkgate-frontend/issues/269)) ([049a75b](https://github.com/starkware-libs/starkgate-frontend/commit/049a75b105accb4498fec203c3fa5d29688819ba))
+
 ## [1.8.0-dev.21](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.20...v1.8.0-dev.21) (2022-08-14)
 
 
