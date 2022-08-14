@@ -49,7 +49,10 @@ const LoginModal = ({networkName}) => {
   }, [statusL1, statusL2]);
 
   useEffect(() => {
-    walletError && handleWalletError(walletError);
+    if (walletError) {
+      return handleWalletError(walletError);
+    }
+    setError(null);
   }, [walletError]);
 
   useEffect(() => {
@@ -72,11 +75,7 @@ const LoginModal = ({networkName}) => {
     const {name} = config;
     trackWalletClick(name);
     if (!walletHandler.isInstalled()) {
-      try {
-        return walletHandler.install();
-      } catch (ex) {
-        setError(ex);
-      }
+      return walletHandler.install();
     }
     return connectWallet(config);
   };
