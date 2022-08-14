@@ -49,11 +49,7 @@ const LoginModal = ({networkName}) => {
   }, [statusL1, statusL2]);
 
   useEffect(() => {
-    if (walletError) {
-      handleWalletError(walletError);
-    } else {
-      setError(null);
-    }
+    walletError ? handleWalletError(walletError) : setError(null);
   }, [walletError]);
 
   useEffect(() => {
