@@ -2,12 +2,11 @@
 
 .alert {
   display: flex;
-  margin-top: 20px;
   background-color: $--color-white;
   border-radius: 7px;
   font-size: 14px;
   line-height: 20px;
-  padding: 16px;
+  padding: 15px;
 
   .icon {
     width: 15%;
@@ -47,20 +46,20 @@
   }
 
   &.warning {
-    border: 1px solid #dc6803;
-    color: #dc6803;
+    border: 1px solid $--color-warning;
+    color: $--color-warning;
 
     .icon {
       svg {
         path {
-          fill: #dc6803;
+          stroke: $--color-warning;
         }
       }
     }
   }
 
   &.info {
-    border: 1px solid #475467;
-    color: #475467;
+    border: 1px solid $--color-info;
+    color: $--color-info;
   }
 }

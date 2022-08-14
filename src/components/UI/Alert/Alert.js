@@ -14,11 +14,7 @@ export const AlertType = {
   INFO: 'info'
 };
 
-export const Alert = ({
-                        title ='',
-                        message ='',
-                        type = AlertType.INFO
-                      }) => {
+export const Alert = ({title = '', message = '', type = AlertType.INFO}) => {
   const renderIcon = () => {
     switch (type) {
       case AlertType.SUCCESS:
@@ -27,6 +23,7 @@ export const Alert = ({
         return <WarningIcon />;
       case AlertType.ERROR:
       case AlertType.INFO:
+      default:
         return <InfoIcon />;
     }
   };
@@ -35,8 +32,10 @@ export const Alert = ({
     <div className={toClasses(styles.alert, styles[type])}>
       <div className={styles.icon}>{renderIcon()}</div>
       <div className={styles.text}>
-        {title && <div className={styles.title}>{title}</div>}
-        {message && <div className={styles.message}>{message}</div>}
+        {title && <div className={styles.title} dangerouslySetInnerHTML={{__html: title}}></div>}
+        {message && (
+          <div className={styles.message} dangerouslySetInnerHTML={{__html: message}}></div>
+        )}
       </div>
     </div>
   );

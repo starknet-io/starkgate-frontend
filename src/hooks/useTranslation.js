@@ -61,6 +61,10 @@ export const useTransactionSubmittedModalTranslation = () => {
   return useModalsTranslation('transactionSubmitted');
 };
 
+export const useProgressModalTranslation = () => {
+  return useModalsTranslation('progress');
+};
+
 export const useOnboardingModalTranslation = () => {
   return useModalsTranslation('onboarding');
 };
