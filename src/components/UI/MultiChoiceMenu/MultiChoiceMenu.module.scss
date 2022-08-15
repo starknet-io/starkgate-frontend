@@ -1,41 +1,11 @@
 @import '../../../index';
 
 .multiChoiceMenu {
-  background: $--color-alpha;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-
-  .content {
-    padding: 30px;
-
-    p {
-      font-size: 12px;
-      color: $--color-white;
-      opacity: 0.7;
-    }
-
-    .title {
-      margin-bottom: 30px;
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 30px;
-      text-align: center;
-      letter-spacing: 0.01em;
-      color: $--color-white;
-    }
-
-    .container {
-      margin-top: 20px;
-      border: 1px solid $--color-alpha-3;
-      box-sizing: border-box;
-      border-radius: 8px;
-      overflow-x: auto;
-    }
+  .container {
+    margin-top: 20px;
+    border: 1px solid $--color-alpha-3;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow-x: auto;
   }
-}
-
-.separator {
-  height: 1px;
-  width: 100%;
-  background: $--color-alpha-3;
 }
