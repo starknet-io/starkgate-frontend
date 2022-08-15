@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {formatBalance, toClasses} from '../../../utils';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
-import {CryptoLogo, Loading, LoadingSize} from '../index';
+import {CircleLogoSize} from '../CircleLogo/CircleLogo';
+import {CircleLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';
 
 export const SelectTokenRow = ({tokenData, onClick}) => {
@@ -17,7 +17,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
       <hr />
       <div className={styles.data}>
         <div className={styles.left}>
-          <CryptoLogo size={CryptoLogoSize.MEDIUM} symbol={symbol} />
+          <CircleLogo path={`tokens/${symbol}.svg`} size={CircleLogoSize.MEDIUM} />
           <div>
             <div className={styles.symbol}>{symbol}</div>
             <div className={styles.name}>{name}</div>

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/chains/starknet.svg';
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
-import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/tokens/starknet.svg';
 import {ActionType} from '../../../../enums';
 import {
   useColors,

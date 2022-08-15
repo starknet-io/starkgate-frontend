@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import L1Logo from '../../../assets/svg/tokens/eth.svg';
-import L2Logo from '../../../assets/svg/tokens/starknet.svg';
+import L2Logo from '../../../assets/svg/chains/starknet.svg';
+import L1Logo from '../../../assets/svg/tokens/ETH.svg';
 import {useColors, useSelectTokenTranslation, useSelectTokenTracking} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';

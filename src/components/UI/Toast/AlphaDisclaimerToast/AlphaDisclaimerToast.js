@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ReactComponent as StarknetIcon} from '../../../../assets/svg/tokens/starknet.svg';
+import {ReactComponent as StarknetIcon} from '../../../../assets/svg/chains/starknet.svg';
 import {useToastsTranslation} from '../../../../hooks';
 import {CallToActionToast} from '../CallToActionToast/CallToActionToast';
 

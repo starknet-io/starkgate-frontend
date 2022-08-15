@@ -4,7 +4,7 @@ export * from './Button/Button';
 export * from './Modal';
 export * from './Toast';
 export * from './Circle/Circle';
-export * from './CryptoLogo/CryptoLogo';
+export * from './CircleLogo/CircleLogo';
 export * from './Icon/Icon';
 export * from './DynamicIcon/DynamicIcon';
 export * from './KeyFrames/KeyFrames';

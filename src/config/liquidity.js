@@ -3,7 +3,7 @@ import {ChainType} from '@starkware-industries/commons-js-enums';
 export default [
   {
     id: 'banxa',
-    logoPath: 'liquidity/banxa.svg',
+    logoPath: 'providers/banxa.svg',
     name: 'Banxa',
     description: 'Buy crypto with credit card directly to StarkNet',
     link: {
@@ -17,7 +17,7 @@ export default [
   },
   {
     id: 'ramp',
-    logoPath: 'liquidity/ramp.svg',
+    logoPath: 'providers/ramp.svg',
     name: 'Ramp',
     description: 'Buy crypto with credit card directly to StarkNet',
     link: {
@@ -31,7 +31,7 @@ export default [
   },
   {
     id: 'layerswap',
-    logoPath: 'liquidity/layerswap.svg',
+    logoPath: 'providers/layerswap.svg',
     name: 'Layerswap',
     description: 'Move crypto from Coinbase, Binance, FTX and other exchanges to StarkNet',
     link: {
@@ -51,7 +51,7 @@ export default [
   },
   {
     id: 'orbiter',
-    logoPath: 'liquidity/orbiter.svg',
+    logoPath: 'providers/orbiter.svg',
     name: 'Orbiter',
     description: 'Cross-rollup bridge. Make deposits from other L2 rollups to StarkNet',
     link: {

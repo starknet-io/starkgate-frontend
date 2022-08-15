@@ -4,15 +4,19 @@ import React from 'react';
 
 import Tokens from '../../../config/tokens';
 import {toClasses} from '../../../utils';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
-import {CryptoLogo} from '../index';
+import {CircleLogoSize} from '../CircleLogo/CircleLogo';
+import {CircleLogo} from '../index';
 import styles from './NetworkTitle.module.scss';
 
 export const NetworkTitle = ({networkName, isDisabled}) => (
   <div className={toClasses(styles.networkTitle, isDisabled && styles.isDisabled)}>
-    <CryptoLogo
-      size={CryptoLogoSize.MEDIUM}
-      symbol={networkName === NetworkType.L1 ? Tokens.L1.ETH.symbol : networkName}
+    <CircleLogo
+      path={
+        networkName === NetworkType.L1
+          ? `tokens/${Tokens.L1.ETH.symbol}.svg`
+          : `chains/${networkName.toLowerCase()}.svg`
+      }
+      size={CircleLogoSize.MEDIUM}
     />
     {networkName}
   </div>
