@@ -1,25 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
-import {Button} from '../Button/Button';
+import {toClasses} from '../../../utils';
 import styles from './Tab.module.scss';
 
-export const Tab = props => {
-  const {colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
-
+export const Tab = ({text, isActive, onClick}) => {
   return (
-    <Button
-      className={styles.tab}
-      colorBackground={colorWhiteOp10}
-      colorBackgroundHover={colorWhiteOp20}
-      colorText={colorWhite}
-      height={0}
-      {...props}
-    />
+    <div className={toClasses(styles.tab, isActive && styles.isActive)} onClick={onClick}>
+      {text}
+    </div>
   );
 };
 
 Tab.propTypes = {
-  props: PropTypes.object
+  text: PropTypes.string,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func
 };
