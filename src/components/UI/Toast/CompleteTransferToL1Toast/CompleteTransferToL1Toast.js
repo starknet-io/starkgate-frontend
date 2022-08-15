@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {ReactComponent as EthereumIcon} from '../../../../assets/svg/tokens/ETH.svg';
+import {ReactComponent as EthereumIcon} from '../../../../assets/svg/chains/ethereum.svg';
 import {useColors, useCompleteTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {CallToActionToast} from '../CallToActionToast/CallToActionToast';
