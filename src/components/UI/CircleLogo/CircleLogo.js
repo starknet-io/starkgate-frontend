@@ -17,7 +17,7 @@ export const CircleLogo = ({color, size, path, background = true}) => {
   return path ? (
     <Circle color={color} size={size}>
       <div className={styles.circleLogo}>
-        <DynamicIcon path={path} size={background ? size - CIRCLE_LOGO_SIZE_DIFF : size} />
+        <DynamicIcon path={`${path}.svg`} size={background ? size - CIRCLE_LOGO_SIZE_DIFF : size} />
       </div>
     </Circle>
   ) : null;

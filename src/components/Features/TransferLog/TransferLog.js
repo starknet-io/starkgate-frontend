@@ -66,7 +66,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     <>
       <div className={styles.transferLog}>
         <div className={styles.left}>
-          <CircleLogo path={`tokens/${symbol}.svg`} size={CircleLogoSize.SMALL} />
+          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.SMALL} />
           <div>
             {name}
             <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>

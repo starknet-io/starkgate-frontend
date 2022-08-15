@@ -14,7 +14,7 @@ export const TokenSelector = ({tokenData, onClick}) => {
     <div className={styles.tokenSelector} onClick={onClick}>
       <CircleLogo
         color={colorAlpha3}
-        path={`tokens/${tokenData?.symbol}.svg`}
+        path={`tokens/${tokenData?.symbol}`}
         size={CircleLogoSize.SMALL}
       />
       {tokenData.symbol}
