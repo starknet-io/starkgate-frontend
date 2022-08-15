@@ -1,3 +1,10 @@
+## [1.8.0-dev.24](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.23...v1.8.0-dev.24) (2022-08-15)
+
+
+### 🔧 Fixes
+
+* **modal:** suspense loading is not centered ([fdde8cf](https://github.com/starkware-libs/starkgate-frontend/commit/fdde8cf6623f3da3ca9f71bbd5cf2b730507c862))
+
 ## [1.8.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.22...v1.8.0-dev.23) (2022-08-14)
 
 
