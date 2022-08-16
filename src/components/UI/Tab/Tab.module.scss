@@ -1,3 +1,14 @@
+@import '../../../index';
+
 .tab {
-  border-width: 2px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $--color-white;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &.isActive {
+    opacity: 1;
+  }
 }

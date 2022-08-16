@@ -4,9 +4,8 @@ export default {
       chainTxt: 'Goerli testnet',
       accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
-      tabDiscordTxt: 'Discord',
-      tabLiquidityTxt: 'Deposit into L2',
-      burgerMenu: {
+      liquidityBtnTxt: 'Deposit into L2',
+      tabs: {
         termsTxt: 'Terms',
         faqTxt: 'FAQ'
       }
