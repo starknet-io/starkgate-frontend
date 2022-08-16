@@ -77,8 +77,9 @@ const LoginModal = ({networkName}) => {
       } catch (ex) {
         setError(ex);
       }
+    } else {
+      return connectWallet(config);
     }
-    return connectWallet(config);
   };
 
   const handleWalletError = error => {

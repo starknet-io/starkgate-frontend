@@ -1,3 +1,10 @@
+### [1.8.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1-dev.1) (2022-08-16)
+
+
+### 🔧 Fixes
+
+* **3094709997:** when clicking connect starknet wallet, gsw message pops up (opera) ([#275](https://github.com/starkware-libs/starkgate-frontend/issues/275)) ([3b1679d](https://github.com/starkware-libs/starkgate-frontend/commit/3b1679d99d8b3bdb125079662a9b2440db1699c3))
+
 ## [1.8.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.1...v1.8.0) (2022-08-15)
 
 

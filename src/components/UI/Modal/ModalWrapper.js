@@ -22,9 +22,9 @@ export const ModalWrapper = () => {
   const getComponents = components => {
     return components
       ? components.map(c => ({
-        component: lazy(() => import(`../../${c.path}`)),
-        props: c.props
-      }))
+          component: lazy(() => import(`../../${c.path}`)),
+          props: c.props
+        }))
       : [];
   };
 
@@ -42,7 +42,6 @@ export const ModalWrapper = () => {
     );
   };
 
-
   const headerComponents = getComponents(header.components);
   const bodyComponents = getComponents(body.components);
   const footerComponents = getComponents(footer.components);
@@ -58,9 +57,7 @@ export const ModalWrapper = () => {
     >
       {withHeader && (
         <ModalHeader type={modal.type}>
-          <Suspense fallback={renderLoading()}>
-            {renderComponents(headerComponents)}
-          </Suspense>
+          <Suspense fallback={renderLoading()}>{renderComponents(headerComponents)}</Suspense>
           {header.title && (
             <ModalTitle>
               {header.icon && <DynamicIcon path={header.icon} size={50} />}
@@ -76,12 +73,9 @@ export const ModalWrapper = () => {
       </ModalBody>
       {footer.withButtons && (
         <ModalFooter type={modal.type} onClose={handleOnClose}>
-          <Suspense fallback={renderLoading()}>
-            {renderComponents(footerComponents)}
-          </Suspense>
+          <Suspense fallback={renderLoading()}>{renderComponents(footerComponents)}</Suspense>
         </ModalFooter>
       )}
     </Modal>
   );
 };
-
