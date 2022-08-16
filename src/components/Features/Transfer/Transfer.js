@@ -1,8 +1,9 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import {ActionType} from '../../../enums';
 import {
+  useConstants,
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
@@ -37,8 +38,11 @@ export const Transfer = () => {
     insufficientBalanceErrorMsg,
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
-    negativeValueErrorMsg
+    negativeValueErrorMsg,
+    bridgeIsFullErrorMsg,
+    bridgeIsFullReadMore
   } = useTransferTranslation();
+  const {BRIDGE_FULL_READ_MORE_URL} = useConstants();
   const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
@@ -79,13 +83,16 @@ export const Transfer = () => {
     if (selectedToken) {
       const {isLoading, maxDeposit} = selectedToken;
       setHasInputError(false);
-      if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
+      if (bridgeIsFull) {
+        const readMoreErrorMsg = BridgeIsFullError();
+        setErrorMsg(readMoreErrorMsg);
+      } else if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
       }
     }
-  }, [amount, selectedToken, isL1]);
+  }, [amount, selectedToken, isL1, bridgeIsFull]);
 
   const validateAmount = () => {
     let errorMsg = '';
@@ -108,6 +115,22 @@ export const Transfer = () => {
     } else {
       setIsButtonDisabled(false);
     }
+  };
+
+  const BridgeIsFullError = () => {
+    return (
+      <Fragment>
+        {bridgeIsFullErrorMsg}
+        <a
+          className={styles.readMore}
+          href={BRIDGE_FULL_READ_MORE_URL}
+          rel="noreferrer"
+          target="_blank"
+        >
+          {bridgeIsFullReadMore}
+        </a>
+      </Fragment>
+    );
   };
 
   const onMaxClick = () => {
@@ -158,7 +181,6 @@ export const Transfer = () => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkName={NetworkType.L1}
         tokenData={tokenData}
@@ -173,7 +195,6 @@ export const Transfer = () => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkName={NetworkType.L2}
         tokenData={tokenData}
@@ -196,7 +217,7 @@ export const Transfer = () => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
-        {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
+        {(hasInputError || bridgeIsFull) && <div className={styles.errorMsg}>{errorMsg}</div>}
       </>
     );
   };
