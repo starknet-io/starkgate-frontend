@@ -84,7 +84,7 @@ export const Transfer = () => {
       const {isLoading, maxDeposit} = selectedToken;
       setHasInputError(false);
       if (bridgeIsFull) {
-        const readMoreErrorMsg = getBridgeIsFullError();
+        const readMoreErrorMsg = BridgeIsFullError();
         setErrorMsg(readMoreErrorMsg);
       } else if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
@@ -117,7 +117,7 @@ export const Transfer = () => {
     }
   };
 
-  const getBridgeIsFullError = () => {
+  const BridgeIsFullError = () => {
     return (
       <Fragment>
         {bridgeIsFullErrorMsg}
