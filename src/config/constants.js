@@ -20,3 +20,5 @@ export const ALPHA_DISCLAIMER_COOKIE_NAME = 'sg_alpha_toast';
 export const HIDE_ELEMENT_COOKIE_DURATION_DAYS = 1;
 export const APP_URL_GOERLI = 'https://goerli.starkgate.starknet.io';
 export const APP_URL_MAINNET = 'https://starkgate.starknet.io';
+export const BRIDGE_FULL_READ_MORE_URL =
+  'https://docs.starknet.io/docs/L1%3C%3EL2%20Communication/token-bridge/#starkgate-alpha-limitations';

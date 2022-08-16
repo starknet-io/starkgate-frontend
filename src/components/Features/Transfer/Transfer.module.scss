@@ -11,8 +11,13 @@
   }
 
   .errorMsg {
-    font-size: 12px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     color: $--color-error;
+  }
+
+  .readMore {
+    color: $--color-gamma;
+    text-decoration: none;
   }
 }
