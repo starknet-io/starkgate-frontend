@@ -36,6 +36,7 @@ export * from './StyledBackground/StyledBackground';
 export * from './FullScreenContainer/FullScreenContainer';
 export * from './MultiChoiceErrorMessage/MultiChoiceErrorMessage';
 export * from './MultiChoiceMenu/MultiChoiceMenu';
+export * from './MultiChoiceList/MultiChoiceList';
 export * from './MultiChoiceItem/MultiChoiceItem';
 export * from './Divider/Divider';
 export * from './BurgerMenu/BurgerMenu';

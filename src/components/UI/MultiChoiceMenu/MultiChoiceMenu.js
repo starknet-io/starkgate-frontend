@@ -4,23 +4,17 @@ import React from 'react';
 import {toClasses} from '../../../utils';
 import {Menu} from '../Menu/Menu';
 import {MultiChoiceErrorMessage} from '../MultiChoiceErrorMessage/MultiChoiceErrorMessage';
-import {MultiChoiceItem} from '../MultiChoiceItem/MultiChoiceItem';
+import {MultiChoiceList} from '../MultiChoiceList/MultiChoiceList';
 import styles from './MultiChoiceMenu.module.scss';
 
 export const MultiChoiceMenu = ({title, description, choices, error, footer}) => {
-  const renderChoiceItems = () => {
-    return choices.map(choice => {
-      return <MultiChoiceItem key={choice.id} {...choice} />;
-    });
-  };
-
   return (
     <Menu>
       <div className={toClasses(styles.multiChoiceMenu)}>
         <div className={styles.content}>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}
-          <div className={styles.container}>{renderChoiceItems()}</div>
+          <MultiChoiceList choices={choices} />
           {error && <MultiChoiceErrorMessage message={error.message} />}
         </div>
         {footer && (
