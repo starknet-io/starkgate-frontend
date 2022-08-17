@@ -1,4 +1,5 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
+import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useState} from 'react';
 
 import {ActionType} from '../../../enums';
@@ -19,7 +20,7 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
-import {afterDecimal, evaluate, isNegative, isZero, openInNewTab} from '../../../utils';
+import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,
@@ -124,11 +125,21 @@ export const Transfer = () => {
     );
   };
 
+  ReadMore.propTypes = {
+    URL: PropTypes.string,
+    text: PropTypes.string,
+    openInNewTab: PropTypes.bool
+  };
+
   const BridgeIsFullError = () => {
     return (
       <Fragment>
         {bridgeIsFullErrorMsg}
-        <ReadMore URL={STARKGATE_ALPHA_LIMITATIONS_URL} text={bridgeIsFullReadMore} openInNewTab={true} />
+        <ReadMore
+          URL={STARKGATE_ALPHA_LIMITATIONS_URL}
+          openInNewTab={true}
+          text={bridgeIsFullReadMore}
+        />
       </Fragment>
     );
   };
