@@ -49,3 +49,4 @@ export * from './NetworkWalletButton/NetworkWalletButton';
 export * from './MainMenuButton/MainMenuButton';
 export * from './ChainSelect/ChainSelect';
 export * from './LiquidityButton/LiquidityButton';
+export * from './MenuBackground/MenuBackground';

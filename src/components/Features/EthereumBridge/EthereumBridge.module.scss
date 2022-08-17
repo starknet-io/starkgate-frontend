@@ -1,0 +1,25 @@
+@import '../../../index';
+
+.errorMsg {
+  font-size: 12px;
+  line-height: 24px;
+  color: $--color-error;
+}
+
+.fromMenu {
+  padding-bottom: 8px;
+}
+
+.toMenu {
+  padding: 35px 0;
+}
+
+.divider {
+  background-color: $--color-alpha;
+  height: 8px;
+  margin: 0 -24px;
+}
+
+.transferButtonContainer {
+  margin: 0 -24px -16px -24px;
+}

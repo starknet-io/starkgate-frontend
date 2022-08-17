@@ -1,13 +1,5 @@
 @import '../../../index';
 
-.networkMenu {
-  background: $--color-alpha-1;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  height: 100%;
-  margin: 10px 0;
-  padding: 30px 40px;
-
   .networkContainer {
     display: flex;
     justify-content: space-between;
@@ -20,4 +12,4 @@
     flex-direction: column;
     transition: 0.3s ease-in-out;
   }
-}
+

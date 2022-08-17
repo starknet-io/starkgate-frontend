@@ -6,10 +6,10 @@ import {Menu} from '../Menu/Menu';
 import {MultiChoiceItem} from '../MultiChoiceItem/MultiChoiceItem';
 import styles from './MultiChoiceList.module.scss';
 
-export const MultiChoiceList = ({choices}) => {
+export const MultiChoiceList = ({choices, type}) => {
   const renderChoiceItems = () => {
     return choices.map(choice => {
-      return <MultiChoiceItem key={choice.id} {...choice} />;
+      return <MultiChoiceItem key={choice.id} {...choice} type={type} />;
     });
   };
 
@@ -23,5 +23,6 @@ export const MultiChoiceList = ({choices}) => {
 };
 
 MultiChoiceList.propTypes = {
-  choices: PropTypes.arrayOf(PropTypes.object)
+  choices: PropTypes.arrayOf(PropTypes.object),
+  type: PropTypes.number
 };

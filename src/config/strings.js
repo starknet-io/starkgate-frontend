@@ -57,6 +57,8 @@ export default {
       searchPlaceholder: 'Token name, symbol, or address'
     },
     transfer: {
+      depositTxt: 'Deposit',
+      withdrawTxt: 'Withdraw',
       toTxt: 'to',
       fromTxt: 'from',
       negativeValueErrorMsg: 'Amount must be a positive number',
