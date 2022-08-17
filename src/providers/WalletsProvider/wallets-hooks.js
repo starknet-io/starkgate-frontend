@@ -7,9 +7,9 @@ import {
 } from '@starkware-industries/commons-js-enums';
 import {
   getStarknet,
-  getStarknetWallet,
-  resetStarknetWallet
-} from '@starkware-industries/commons-js-libs';
+  connect as getStarknetWallet,
+  disconnect as resetStarknetWallet
+} from '@starkware-industries/commons-js-libs/get-starknet';
 import {useCallback, useContext, useState} from 'react';
 
 import {useEnvs} from '../../hooks';

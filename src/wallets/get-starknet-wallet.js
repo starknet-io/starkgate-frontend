@@ -1,4 +1,4 @@
-import {getStarknet} from '@starkware-industries/commons-js-libs';
+import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
 
 import {WalletHandler} from './wallet-handler';
 
