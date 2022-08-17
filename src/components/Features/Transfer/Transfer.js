@@ -19,7 +19,7 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
-import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
+import {afterDecimal, evaluate, isNegative, isZero, openInNewTab} from '../../../utils';
 import {
   Loading,
   LoadingSize,
@@ -42,7 +42,7 @@ export const Transfer = () => {
     bridgeIsFullErrorMsg,
     bridgeIsFullReadMore
   } = useTransferTranslation();
-  const {BRIDGE_FULL_READ_MORE_URL} = useConstants();
+  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
   const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
@@ -116,18 +116,19 @@ export const Transfer = () => {
     }
   };
 
+  const ReadMore = ({URL, text, openInNewTab = false}) => {
+    return (
+      <a className={styles.readMore} href={URL} rel="noreferrer" target={openInNewTab && '_blank'}>
+        {text}
+      </a>
+    );
+  };
+
   const BridgeIsFullError = () => {
     return (
       <Fragment>
         {bridgeIsFullErrorMsg}
-        <a
-          className={styles.readMore}
-          href={BRIDGE_FULL_READ_MORE_URL}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {bridgeIsFullReadMore}
-        </a>
+        <ReadMore URL={STARKGATE_ALPHA_LIMITATIONS_URL} text={bridgeIsFullReadMore} openInNewTab={true} />
       </Fragment>
     );
   };

@@ -65,7 +65,7 @@ export default {
       insufficientBalanceErrorMsg: 'Insufficient balance',
       maxDepositErrorMsg:
         'You have exceeded the maximum transfer amount ({{maxDeposit}} {{symbol}}). Please reduce the amount and try again.',
-      bridgeIsFullErrorMsg: 'The token bridge is currently full, try another token ',
+      bridgeIsFullErrorMsg: 'The token bridge is currently full, try another token',
       bridgeIsFullReadMore: 'read more',
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
