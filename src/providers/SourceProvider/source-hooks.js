@@ -3,12 +3,11 @@ import {useContext} from 'react';
 import {SourceContext} from './source-context';
 
 export const useSource = () => {
-  const {group, source, selectGroup, selectSource} = useContext(SourceContext);
+  const {source, selectSource, selectDefaultSource} = useContext(SourceContext);
 
   return {
-    group,
     source,
-    selectGroup,
-    selectSource
+    selectSource,
+    selectDefaultSource
   };
 };

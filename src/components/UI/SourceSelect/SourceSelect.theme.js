@@ -14,14 +14,6 @@ export const SourceSelectTheme = ({children}) => {
           root: {
             color: colorWhite,
             backgroundColor: colorAlpha4
-            // borderRadius: '8px',
-            // minWidth: '108px',
-            // '&, &:hover, &.Mui-focused': {
-            //   '.MuiOutlinedInput-notchedOutline': {
-            //     borderColor: colorWhite,
-            //     borderWidth: '1px'
-            //   }
-            // }
           },
           input: {
             fontFamily: primaryFont,

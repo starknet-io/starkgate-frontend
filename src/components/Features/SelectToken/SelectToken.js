@@ -15,7 +15,7 @@ export const SelectToken = () => {
   const {titleTxt} = useSelectTokenTranslation();
   const {tokens, updateTokenBalance} = useTokens();
   const {colorBeta} = useColors();
-  const {showTransferMenu} = useMenu();
+  const {showSourceMenu} = useMenu();
   const {isL1, fromNetwork} = useTransfer();
   const {selectToken} = useTransfer();
   const [searchTokens, setSearchTokens] = useState(tokens);
@@ -29,13 +29,13 @@ export const SelectToken = () => {
     const {symbol} = tokenData;
     trackSelectToken(symbol);
     selectToken(symbol);
-    showTransferMenu();
+    showSourceMenu();
   };
 
   return (
     <Menu>
       <div className={styles.selectToken}>
-        <BackButton onClick={() => showTransferMenu()} />
+        <BackButton onClick={() => showSourceMenu()} />
         <MenuTitle text={titleTxt} />
         <div className={styles.name}>
           <MenuTitle color={colorBeta} text={fromNetwork} />

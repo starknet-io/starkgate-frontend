@@ -8,18 +8,11 @@ import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {toClasses} from '../../../utils';
-import {
-  Divider,
-  ChainSelect,
-  StarknetWalletButton,
-  EthereumWalletButton,
-  Tabs,
-  LiquidityButton
-} from '../../UI';
+import {Divider, ChainSelect, StarknetWalletButton, EthereumWalletButton, Tabs} from '../../UI';
 import styles from './Header.module.scss';
 
 export const Header = () => {
-  const {showTransferMenu} = useMenu();
+  const {showSourceMenu} = useMenu();
   const {breakpoint} = useBreakpoint(Breakpoint);
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
@@ -39,7 +32,7 @@ export const Header = () => {
   ];
 
   const onLogoClick = () => {
-    showTransferMenu();
+    showSourceMenu();
     navigateToRoute('/');
   };
 
@@ -53,8 +46,6 @@ export const Header = () => {
       </div>
       <div className={toClasses(styles.right, 'row')}>
         <Tabs tabs={tabs} />
-        <Divider />
-        <LiquidityButton />
         {isAcceptTerms && (
           <>
             <Divider />

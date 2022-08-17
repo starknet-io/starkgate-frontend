@@ -6,7 +6,7 @@ export const actions = {
 };
 
 export const initialState = {
-  menu: MenuType.TRANSFER,
+  menu: MenuType.SOURCE,
   menuProps: {
     [MenuType.ACCOUNT]: {transferId: null}
   }

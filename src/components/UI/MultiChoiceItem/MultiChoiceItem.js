@@ -3,7 +3,7 @@ import React from 'react';
 
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import {ReactComponent as LinkIcon} from '../../../assets/svg/icons/link.svg';
-import {toClasses, capitalize} from '../../../utils';
+import {toClasses} from '../../../utils';
 import {DynamicIcon, Loading, LoadingType} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 
@@ -29,8 +29,8 @@ export const MultiChoiceItem = ({
       <div className={styles.left}>
         <DynamicIcon path={logoPath} size={41} />
         <div className={styles.text}>
-          <div className={styles.title}>{capitalize(name)}</div>
-          <div className={styles.description}>{capitalize(description)}</div>
+          <div className={styles.title}>{name}</div>
+          <div className={styles.description}>{description}</div>
         </div>
       </div>
       <div className={styles.icon}>

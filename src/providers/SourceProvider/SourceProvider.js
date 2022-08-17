@@ -7,15 +7,6 @@ import {actions, initialState, reducer} from './source-reducer';
 export const SourceProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const selectGroup = group => {
-    dispatch({
-      type: actions.SELECT_GROUP,
-      payload: {
-        group
-      }
-    });
-  };
-
   const selectSource = source => {
     dispatch({
       type: actions.SELECT_SOURCE,
@@ -25,10 +16,16 @@ export const SourceProvider = ({children}) => {
     });
   };
 
+  const selectDefaultSource = () => {
+    dispatch({
+      type: actions.SELECT_DEFAULT_SOURCE
+    });
+  };
+
   const value = {
     ...state,
-    selectGroup,
-    selectSource
+    selectSource,
+    selectDefaultSource
   };
 
   return <SourceContext.Provider value={value}>{children}</SourceContext.Provider>;

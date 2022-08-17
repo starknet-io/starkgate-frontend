@@ -1,12 +1,25 @@
 @import '../../../index';
 
-.transfer {
-  transition: 0.3s ease-in-out;
+.errorMsg {
+  font-size: 12px;
+  line-height: 24px;
+  color: $--color-error;
+}
 
-  .tabsContainer {
-    display: flex;
-    background: $--color-alpha-1;
-    border-radius: 10px;
-    padding: 10px;
-  }
+.fromMenu {
+  padding-bottom: 8px;
+}
+
+.toMenu {
+  padding: 35px 0;
+}
+
+.divider {
+  background-color: $--color-alpha;
+  height: 8px;
+  margin: 0 -24px;
+}
+
+.transferButtonContainer {
+  margin: 0 -24px -16px -24px;
 }

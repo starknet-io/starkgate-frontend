@@ -1,32 +1,29 @@
-import sourceMap, {SourceGroup} from '../../config/sources';
+import {sources} from '../../config/sources';
 
 export const actions = {
-  SELECT_GROUP: 'Source/SELECT_GROUP',
-  SELECT_SOURCE: 'Source/SELECT_SOURCE'
+  SELECT_SOURCE: 'Source/SELECT_SOURCE',
+  SELECT_DEFAULT_SOURCE: 'Source/SELECT_DEFAULT_SOURCE'
 };
 
 export const initialState = {
-  group: SourceGroup.ETHEREUM,
-  source: sourceMap[SourceGroup.ETHEREUM].sources[0]
+  source: Object.keys(sources)[0]
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actions.SELECT_GROUP: {
-      const {group} = action.payload;
-
-      return {
-        ...state,
-        group
-      };
-    }
-
     case actions.SELECT_SOURCE: {
       const {source} = action.payload;
 
       return {
         ...state,
         source
+      };
+    }
+
+    case actions.SELECT_DEFAULT_SOURCE: {
+      return {
+        ...state,
+        source: Object.keys(sources)[0]
       };
     }
 

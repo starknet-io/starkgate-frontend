@@ -1,0 +1,63 @@
+import {ChainType} from '@starkware-industries/commons-js-enums';
+import React from 'react';
+
+import {sources, providers, depositConfig, withdrawConfig} from '../../../config/sources';
+import {useEnvs, useProvidersTranslation, useSourceTranslation} from '../../../hooks';
+import {useSource} from '../../../providers/SourceProvider';
+import {useBridgeIsFull, useIsL1} from '../../../providers/TransferProvider';
+import {useL2Wallet} from '../../../providers/WalletsProvider';
+import {buildDynamicURL, evaluate, openInNewTab} from '../../../utils';
+import {Badge, ChoiceItemType, MenuBackground, MultiChoiceList} from '../../UI';
+import {SourceSelect} from '../../UI/SourceSelect/SourceSelect';
+
+export const ProvidersMenu = () => {
+  const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
+  const {bridgeIsFull} = useBridgeIsFull();
+  const [isL1] = useIsL1();
+  const {fromTxt, toTxt} = useSourceTranslation();
+  const {source} = useSource();
+  const {descriptionTxt} = useProvidersTranslation();
+  const {account: accountL2} = useL2Wallet();
+  const dynamicQsValues = {
+    accountL2
+  };
+
+  const getDescription = () => {
+    const {description, label} = sources[source];
+    return description || evaluate(descriptionTxt, {source: label});
+  };
+
+  const getProviders = source => {
+    const config = isL1 ? depositConfig : withdrawConfig;
+    const map = Object.values(config).find(map => map[source]);
+    const providerIds = map[source];
+    return providers
+      .filter(({id}) => providerIds.includes(id))
+      .map(provider => {
+        const {link} = provider;
+        const {url, qsParams} = link[SUPPORTED_L1_CHAIN_ID] || link[ChainType.L1.MAIN];
+        const dynamicUrl = buildDynamicURL(url, qsParams, dynamicQsValues);
+        return {
+          ...provider,
+          description: url,
+          type: ChoiceItemType.LINK,
+          onClick: () => {
+            openInNewTab(dynamicUrl);
+          }
+        };
+      });
+  };
+
+  return (
+    <>
+      <MenuBackground>
+        <Badge isDisabled={bridgeIsFull} text={isL1 ? fromTxt : toTxt} />
+        <SourceSelect />
+        <div>{getDescription()} </div>
+      </MenuBackground>
+      <MultiChoiceList choices={getProviders(source)} />
+    </>
+  );
+};
+
+ProvidersMenu.propTypes = {};
