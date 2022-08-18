@@ -1,15 +1,14 @@
 @import '../../../index';
 
-  .networkContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.networkContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .transferContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s ease-in-out;
-  }
-
+.transferContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease-in-out;
+}
