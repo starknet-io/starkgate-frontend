@@ -6,9 +6,8 @@ import {ActionType} from '../../../enums';
 import {useSourceTranslation, useTransferTracking} from '../../../hooks';
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
+import {ProvidersMenu, Transfer} from '../../Features';
 import {Menu, TransferMenuTab} from '../../UI';
-import {ProvidersMenu} from '../ProvidersMenu/ProvidersMenu';
-import {Transfer} from '../Transfer/Transfer';
 import styles from './Source.module.scss';
 
 export const Source = () => {
