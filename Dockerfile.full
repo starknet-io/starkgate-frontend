@@ -1,0 +1,28 @@
+FROM node:16 as build
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+ENV DISABLE_ESLINT_PLUGIN=true
+
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
+
+COPY . ./
+RUN yarn build
+
+# FROM starkgate-base as build
+
+FROM nginx:stable-alpine
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+ADD set-env.sh ./
+ADD start.sh ./
+RUN chmod +x start.sh set-env.sh
+
+EXPOSE 80
+CMD ["sh", "start.sh"]

@@ -4,7 +4,7 @@ import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
 import {Breakpoint} from '../../../enums';
-import {useTabsTranslation} from '../../../hooks';
+import {useEnvs, useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {toClasses} from '../../../utils';
@@ -24,7 +24,7 @@ export const Header = () => {
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {termsTxt, faqTxt} = useTabsTranslation();
-
+  const {ENV_POC} = useEnvs();
   const tabs = [
     {
       text: termsTxt,
@@ -48,6 +48,7 @@ export const Header = () => {
       <div className={toClasses(styles.left, 'row')}>
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
+          {ENV_POC}
         </div>
         <ChainSelect />
       </div>
