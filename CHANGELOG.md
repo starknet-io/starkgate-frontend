@@ -1,3 +1,10 @@
+### [1.8.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1-dev.1...v1.8.1-dev.2) (2022-08-21)
+
+
+### 🔧 Fixes
+
+* **3118317638:** update discord link ([#282](https://github.com/starkware-libs/starkgate-frontend/issues/282)) ([1f64f31](https://github.com/starkware-libs/starkgate-frontend/commit/1f64f3137c9002f808201b49cc5b3170a2e2b1ee))
+
 ### [1.8.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1-dev.1) (2022-08-16)
 
 
