@@ -17,7 +17,7 @@ export const SourceSelect = () => {
   };
 
   const renderCategorySources = categorySources => {
-    return Object.entries(categorySources).map(([sourceId, providers]) => {
+    return Object.entries(categorySources).map(([sourceId]) => {
       const {label, icon} = sources[sourceId];
       return (
         <MenuItem key={sourceId} value={sourceId}>
