@@ -73,7 +73,10 @@ export const SourceSelectTheme = ({children}) => {
             border: `1px solid ${colorAlpha3}`,
             borderRadius: '8px',
             margin: '8px',
-            backgroundColor: 'unset !important'
+            backgroundColor: 'unset !important',
+            '& .MuiTouchRipple-root': {
+              display: 'none'
+            }
           }
         }
       }
