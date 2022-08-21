@@ -34,11 +34,12 @@ export const ProvidersMenu = () => {
     return providers
       .filter(({id}) => providerIds.includes(id))
       .map(provider => {
-        const {link} = provider;
+        const {link, label} = provider;
         const {url, qsParams} = link[SUPPORTED_L1_CHAIN_ID] || link[ChainType.L1.MAIN];
         const dynamicUrl = buildDynamicURL(url, qsParams, dynamicQsValues);
         return {
           ...provider,
+          name: label,
           description: url,
           type: ChoiceItemType.LINK,
           onClick: () => {
