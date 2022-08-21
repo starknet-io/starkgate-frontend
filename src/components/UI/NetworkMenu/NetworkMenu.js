@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useTransferTranslation} from '../../../hooks';
+import {useSourceTranslation} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {NetworkTitle} from '../NetworkTitle/NetworkTitle';
@@ -18,7 +18,7 @@ export const NetworkMenu = ({
   onRefreshClick,
   children
 }) => {
-  const {toTxt, fromTxt} = useTransferTranslation();
+  const {fromTxt, toTxt} = useSourceTranslation();
   const {isLoggedIn} = useLogin();
   const [isL1] = useIsL1();
   const [isL2] = useIsL2();
