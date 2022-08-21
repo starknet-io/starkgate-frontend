@@ -27,7 +27,8 @@ export const SourceSelectTheme = ({children}) => {
             paddingRight: '8px !important',
             fontFamily: primaryFont,
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            fontWeight: '600'
           },
 
           icon: {
@@ -38,7 +39,6 @@ export const SourceSelectTheme = ({children}) => {
       MuiPaper: {
         styleOverrides: {
           root: {
-            // boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
             backgroundColor: colorAlpha,
             color: colorWhite,
             borderRadius: '8px'
@@ -67,6 +67,7 @@ export const SourceSelectTheme = ({children}) => {
       MuiMenuItem: {
         styleOverrides: {
           root: {
+            fontFamily: primaryFont,
             fontSize: '14px',
             padding: '4px',
             border: `1px solid ${colorAlpha3}`,
