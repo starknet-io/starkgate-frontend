@@ -41,12 +41,7 @@ export const SourceSelect = () => {
 
   return (
     <SourceSelectTheme>
-      <Select
-        IconComponent={CollapseIcon}
-        value={source}
-        variant={'standard'}
-        onChange={handleChange}
-      >
+      <Select IconComponent={CollapseIcon} value={source} onChange={handleChange}>
         {renderSources()}
       </Select>
     </SourceSelectTheme>

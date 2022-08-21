@@ -12,7 +12,7 @@ export const categories = {
 
 export const sources = {
   [NetworkType.L1]: {
-    label: 'Ethereum Mainnet',
+    label: 'Ethereum',
     icon: {
       path: 'tokens/ETH'
     }
@@ -51,7 +51,7 @@ export const sources = {
     }
   },
   ftx: {
-    label: 'Ftx.com',
+    label: 'FTX',
     icon: {
       path: 'exchanges/ftx'
     }

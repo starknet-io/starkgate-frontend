@@ -5,58 +5,74 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha4, colorAlpha5} = useColors();
+  const {colorWhite, colorAlpha, colorAlpha3, colorAlpha8} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
-      MuiInput: {
+      MuiOutlinedInput: {
         styleOverrides: {
           root: {
-            color: colorWhite,
-            backgroundColor: colorAlpha4
+            fontSize: '14px',
+            color: colorWhite
           },
-          input: {
-            fontFamily: primaryFont,
-            display: 'flex'
+          notchedOutline: {
+            border: 0
           }
         }
       },
       MuiSelect: {
         styleOverrides: {
+          select: {
+            padding: 0,
+            paddingRight: '8px !important',
+            fontFamily: primaryFont,
+            display: 'flex',
+            alignItems: 'center'
+          },
+
           icon: {
-            transform: 'scale(1.5)',
-            margin: '6px',
-            '& path': {
-              fill: colorWhite
-            }
+            position: 'initial'
           }
         }
       },
       MuiPaper: {
         styleOverrides: {
           root: {
-            marginTop: '4px',
-            border: `1px solid ${colorWhite}`,
-            borderRadius: '8px',
-            backgroundColor: colorAlpha5,
-            color: colorWhite
+            // boxShadow: '0 4px 10px rgba(0, 0, 0, 0.5)',
+            backgroundColor: colorAlpha,
+            color: colorWhite,
+            borderRadius: '8px'
           }
         }
       },
       MuiList: {
         styleOverrides: {
           root: {
-            padding: '0'
+            width: '240px',
+            padding: '8px'
+          }
+        }
+      },
+      MuiListSubheader: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'unset',
+            lineHeight: '150%',
+            color: colorAlpha8,
+            fontFamily: primaryFont,
+            letterSpacing: '0.01em'
           }
         }
       },
       MuiMenuItem: {
         styleOverrides: {
           root: {
-            fontFamily: primaryFont,
-            '&.Mui-selected': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1) !important'
-            }
+            fontSize: '14px',
+            padding: '4px',
+            border: `1px solid ${colorAlpha3}`,
+            borderRadius: '8px',
+            margin: '8px',
+            backgroundColor: 'unset !important'
           }
         }
       }

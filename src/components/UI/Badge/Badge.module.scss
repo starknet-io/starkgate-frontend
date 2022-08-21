@@ -2,13 +2,13 @@
 
 .badge {
   background: $--color-gamma;
-  border-radius: 3px;
+  border-radius: 4px;
   text-transform: uppercase;
   font-weight: bold;
   font-size: 10px;
-  line-height: 24px;
-  padding: 0 10px;
-  margin-bottom: 15px;
+  line-height: 16px;
+  padding: 0 4px;
+  margin-bottom: 6px;
   width: fit-content;
 
   &.isDisabled {

@@ -17,6 +17,7 @@ export const MultiChoiceItem = ({
   description,
   logoPath,
   type = ChoiceItemType.BUTTON,
+  size = 41,
   isDisabled = false,
   isLoading,
   onClick
@@ -27,7 +28,7 @@ export const MultiChoiceItem = ({
       onClick={onClick}
     >
       <div className={styles.left}>
-        <DynamicIcon path={logoPath} size={41} />
+        <DynamicIcon path={logoPath} size={size} />
         <div className={styles.text}>
           <div className={styles.title}>{name}</div>
           <div className={styles.description}>{description}</div>
@@ -38,7 +39,6 @@ export const MultiChoiceItem = ({
       </div>
     </div>
     {isLoading && <Loading type={LoadingType.LINEAR} />}
-    <div className={styles.separator} />
   </>
 );
 
@@ -47,6 +47,7 @@ MultiChoiceItem.propTypes = {
   description: PropTypes.string,
   logoPath: PropTypes.string,
   type: PropTypes.number,
+  size: PropTypes.number,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onClick: PropTypes.func

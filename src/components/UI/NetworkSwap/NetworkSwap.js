@@ -14,7 +14,7 @@ export const NetworkSwap = ({isFlipped, onClick}) => {
     <div className={toClasses(styles.networkSwap, isFlipped && styles.flipped)} onClick={onClick}>
       <Circle
         color={colorAlpha5}
-        size={50}
+        size={32}
         style={{
           boxShadow: '0px 5px 35px rgba(0, 0, 0, 0.30)'
         }}

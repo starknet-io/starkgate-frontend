@@ -5,10 +5,10 @@ import {Circle} from '../Circle/Circle';
 import {DynamicIcon} from '../DynamicIcon/DynamicIcon';
 import styles from './CircleLogo.module.scss';
 
-const CIRCLE_LOGO_SIZE_DIFF = 14;
+const CIRCLE_LOGO_SIZE_DIFF = 8;
 
 export const CircleLogoSize = {
-  SMALL: 30,
+  SMALL: 32,
   MEDIUM: 50,
   LARGE: 70
 };

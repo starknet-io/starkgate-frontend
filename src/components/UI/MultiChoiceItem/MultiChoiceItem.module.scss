@@ -2,11 +2,17 @@
 
 .multiChoiceItem {
   display: flex;
-  padding: 15px 20px;
+  padding: 16px 12px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid $--color-alpha-3;
+  box-sizing: border-box;
+  border-radius: 8px;
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
 
   &.isDisabled {
     pointer-events: none;
@@ -15,18 +21,19 @@
 
   .left {
     display: flex;
+    align-items: center;
 
     .text {
       display: flex;
       flex-direction: column;
-      margin-left: 20px;
+      margin-left: 8px;
 
       .title {
         font-weight: 500;
-        font-size: 18px;
+        font-size: 14px;
         display: flex;
         align-items: center;
-        line-height: 150%;
+        line-height: 20px;
         color: $--color-white;
       }
 
@@ -34,8 +41,7 @@
         font-size: 12px;
         display: flex;
         align-items: center;
-        color: $--color-white;
-        opacity: 0.5;
+        color: $--color-alpha-9;
         line-height: 150%;
       }
     }

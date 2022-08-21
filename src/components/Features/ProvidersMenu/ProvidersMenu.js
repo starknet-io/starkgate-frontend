@@ -9,6 +9,7 @@ import {useL2Wallet} from '../../../providers/WalletsProvider';
 import {buildDynamicURL, evaluate, openInNewTab} from '../../../utils';
 import {Badge, ChoiceItemType, MenuBackground, MultiChoiceList} from '../../UI';
 import {SourceSelect} from '../../UI/SourceSelect/SourceSelect';
+import styles from './ProvidersMenu.module.scss';
 
 export const ProvidersMenu = () => {
   const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
@@ -42,6 +43,7 @@ export const ProvidersMenu = () => {
           name: label,
           description: url,
           type: ChoiceItemType.LINK,
+          size: 32,
           onClick: () => {
             openInNewTab(dynamicUrl);
           }
@@ -53,8 +55,10 @@ export const ProvidersMenu = () => {
     <>
       <MenuBackground>
         <Badge isDisabled={bridgeIsFull} text={isL1 ? fromTxt : toTxt} />
-        <SourceSelect />
-        <div>{getDescription()} </div>
+        <div className={styles.selectContainer}>
+          <SourceSelect />
+        </div>
+        <div className={styles.description}>{getDescription()} </div>
       </MenuBackground>
       <MultiChoiceList choices={getProviders(source)} />
     </>
