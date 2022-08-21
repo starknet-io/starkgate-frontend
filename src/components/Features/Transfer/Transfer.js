@@ -164,7 +164,7 @@ export const Transfer = ({onNetworkSwap}) => {
   };
 
   return (
-    <MenuBackground>
+    <>
       {!selectedToken && (
         <center>
           <Loading size={LoadingSize.XL} />
@@ -172,25 +172,20 @@ export const Transfer = ({onNetworkSwap}) => {
       )}
       {selectedToken && (
         <>
-          <div className={styles.fromMenu}>{isL1 ? renderL1Network() : renderL2Network()}</div>
+          <MenuBackground>{isL1 ? renderL1Network() : renderL2Network()}</MenuBackground>
           <NetworkSwap isFlipped={isL2} onClick={onNetworkSwap} />
-          <div className={styles.divider} />
-          <div className={styles.toMenu}>{isL1 ? renderL2Network() : renderL1Network()}</div>
-          <div className={styles.divider} />
-
-          <div className={styles.transferButtonContainer}>
-            {isLoggedIn ? (
-              <TransferButton
-                isDisabled={isButtonDisabled || bridgeIsFull}
-                onClick={onTransferClick}
-              />
-            ) : (
-              <LoginWalletButton />
-            )}
-          </div>
+          <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
+          {isLoggedIn ? (
+            <TransferButton
+              isDisabled={isButtonDisabled || bridgeIsFull}
+              onClick={onTransferClick}
+            />
+          ) : (
+            <LoginWalletButton />
+          )}
         </>
       )}
-    </MenuBackground>
+    </>
   );
 };
 
