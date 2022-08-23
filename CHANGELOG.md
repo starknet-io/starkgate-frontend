@@ -1,3 +1,10 @@
+## [1.9.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0-dev.1) (2022-08-23)
+
+
+### 🧩 Features
+
+* **3053892284:** change the getStarknetWallet modal styling to darkmode ([#280](https://github.com/starkware-libs/starkgate-frontend/issues/280)) ([b6cd7be](https://github.com/starkware-libs/starkgate-frontend/commit/b6cd7be67088d02ff413b7c9cfe56dc9e3366ce1))
+
 ### [1.8.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1) (2022-08-21)
 
 
