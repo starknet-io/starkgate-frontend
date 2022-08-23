@@ -10,6 +10,7 @@
   border: 1px solid $--color-alpha-3;
   box-sizing: border-box;
   border-radius: 8px;
+
   &:not(:last-child) {
     margin-bottom: 8px;
   }
