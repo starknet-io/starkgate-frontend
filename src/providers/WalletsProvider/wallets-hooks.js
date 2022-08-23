@@ -81,7 +81,11 @@ export const useStarknetWallet = () => {
 
   const connect = async walletConfig => {
     try {
-      const wallet = await getStarknetWallet();
+      const wallet = await getStarknetWallet({
+        modalOptions: {
+          theme: 'dark'
+        }
+      });
       if (!wallet) {
         return;
       }
