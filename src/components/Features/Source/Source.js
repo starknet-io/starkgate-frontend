@@ -1,7 +1,6 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
 import React from 'react';
 
-import {depositConfig, withdrawConfig} from '../../../config/sources';
 import {ActionType} from '../../../enums';
 import {useSourceTranslation, useTransferTracking} from '../../../hooks';
 import {useSource} from '../../../providers/SourceProvider';
