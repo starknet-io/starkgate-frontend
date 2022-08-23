@@ -1,5 +1,4 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
-import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useState} from 'react';
 
 import {ActionType} from '../../../enums';
@@ -30,7 +29,8 @@ import {
   TokenInput,
   TransferButton,
   TransferMenuTab,
-  LoginWalletButton
+  LoginWalletButton,
+  ReadMore
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -40,8 +40,7 @@ export const Transfer = () => {
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
     negativeValueErrorMsg,
-    bridgeIsFullErrorMsg,
-    bridgeIsFullReadMore
+    bridgeIsFullErrorMsg
   } = useTransferTranslation();
   const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
   const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
@@ -117,29 +116,11 @@ export const Transfer = () => {
     }
   };
 
-  const ReadMore = ({URL, text, openInNewTab = false}) => {
-    return (
-      <a className={styles.readMore} href={URL} rel="noreferrer" target={openInNewTab && '_blank'}>
-        {text}
-      </a>
-    );
-  };
-
-  ReadMore.propTypes = {
-    URL: PropTypes.string,
-    text: PropTypes.string,
-    openInNewTab: PropTypes.bool
-  };
-
   const BridgeIsFullError = () => {
     return (
       <Fragment>
         {bridgeIsFullErrorMsg}
-        <ReadMore
-          URL={STARKGATE_ALPHA_LIMITATIONS_URL}
-          openInNewTab={true}
-          text={bridgeIsFullReadMore}
-        />
+        <ReadMore URL={STARKGATE_ALPHA_LIMITATIONS_URL} openInNewTab={true} />
       </Fragment>
     );
   };
