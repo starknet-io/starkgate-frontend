@@ -5,15 +5,20 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha, colorAlpha3, colorAlpha8} = useColors();
+  const {colorWhite, colorAlpha, colorAlpha2, colorAlpha5, colorAlpha8} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
+            padding: '4px',
             fontSize: '14px',
-            color: colorWhite
+            color: colorWhite,
+            transition: '0.3s ease-in-out',
+            '&:hover': {
+              backgroundColor: colorAlpha5
+            }
           },
           notchedOutline: {
             border: 0
@@ -32,7 +37,12 @@ export const SourceSelectTheme = ({children}) => {
           },
 
           icon: {
-            position: 'initial'
+            position: 'initial',
+            transform: 'scale(1.4)',
+            marginRight: '8px',
+            '& path': {
+              fill: colorWhite
+            }
           }
         }
       },
@@ -49,7 +59,7 @@ export const SourceSelectTheme = ({children}) => {
         styleOverrides: {
           root: {
             width: '240px',
-            padding: '8px'
+            padding: '8px 16px'
           }
         }
       },
@@ -57,7 +67,7 @@ export const SourceSelectTheme = ({children}) => {
         styleOverrides: {
           root: {
             backgroundColor: 'unset',
-            lineHeight: '150%',
+            lineHeight: '24px',
             color: colorAlpha8,
             fontFamily: primaryFont,
             letterSpacing: '0.01em'
@@ -70,10 +80,11 @@ export const SourceSelectTheme = ({children}) => {
             fontFamily: primaryFont,
             fontSize: '14px',
             padding: '4px',
-            border: `1px solid ${colorAlpha3}`,
             borderRadius: '8px',
-            margin: '8px',
-            backgroundColor: 'unset !important',
+            margin: '8px 0',
+            '&.Mui-selected, &:hover': {
+              backgroundColor: `${colorAlpha2} !important`
+            },
             '& .MuiTouchRipple-root': {
               display: 'none'
             }

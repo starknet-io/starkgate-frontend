@@ -39,13 +39,14 @@ export const sources = {
   },
   other_chains: {
     label: 'Other Chains',
-    description: 'Transfer crypto between centralized exchanges and StarkNet',
+    description: 'Transfer crypto between other chains and StarkNet',
     icon: {
       path: 'icons/chains'
     }
   },
   card: {
     label: 'Payment Card',
+    description: 'Buy crypto with credit card directly to StarkNet',
     icon: {
       path: 'icons/card'
     }
@@ -89,7 +90,6 @@ export const providers = [
     id: 'banxa',
     logoPath: 'providers/banxa.svg',
     label: 'Banxa',
-    description: 'Buy crypto with credit card directly to StarkNet',
     link: {
       [ChainType.L1.MAIN]: {
         url: 'https://starkware.banxa.com/',
@@ -103,7 +103,6 @@ export const providers = [
     id: 'ramp',
     logoPath: 'providers/ramp.svg',
     label: 'Ramp',
-    description: 'Buy crypto with credit card directly to StarkNet',
     link: {
       [ChainType.L1.MAIN]: {
         url: 'https://ramp.network/buy/',
@@ -117,7 +116,6 @@ export const providers = [
     id: 'layerswap',
     logoPath: 'providers/layerswap.svg',
     label: 'Layerswap',
-    description: 'Move crypto from Coinbase, Binance, FTX and other exchanges to StarkNet',
     link: {
       [ChainType.L1.GOERLI]: {
         url: 'https://testnet.layerswap.io/',
@@ -137,7 +135,6 @@ export const providers = [
     id: 'orbiter',
     logoPath: 'providers/orbiter.svg',
     label: 'Orbiter',
-    description: 'Cross-rollup bridge. Make deposits from other L2 rollups to StarkNet',
     link: {
       [ChainType.L1.MAIN]: {
         url: 'https://www.orbiter.finance/',

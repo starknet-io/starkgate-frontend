@@ -6,6 +6,7 @@ import {categories, sources, depositConfig, withdrawConfig} from '../../../confi
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1} from '../../../providers/TransferProvider';
 import {CircleLogo, CircleLogoSize} from '../CircleLogo/CircleLogo';
+import styles from './SourceSelect.module.scss';
 import {SourceSelectTheme} from './SourceSelect.theme';
 
 export const SourceSelect = () => {
@@ -34,7 +35,8 @@ export const SourceSelect = () => {
       const {label} = categories[categoryId];
       return [
         <ListSubheader key={label}>{label}</ListSubheader>,
-        renderCategorySources(categorySources)
+        renderCategorySources(categorySources),
+        <div className={styles.separateLine} />
       ];
     });
   };

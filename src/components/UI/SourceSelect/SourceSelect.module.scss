@@ -1,0 +1,10 @@
+@import '../../../index';
+
+.separateLine {
+  &:not(:last-child) {
+    height: 1px;
+    margin-bottom: 8px;
+    background-color: $--color-white;
+    opacity: 0.1;
+  }
+}
