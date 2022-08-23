@@ -12,7 +12,7 @@ import styles from './Source.module.scss';
 
 export const Source = () => {
   const [trackSwapNetworks] = useTransferTracking();
-  const [isL1, swapToL1] = useIsL1();
+  const [, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
   const {action} = useTransfer();
   const {depositTxt, withdrawTxt} = useSourceTranslation();
@@ -35,13 +35,6 @@ export const Source = () => {
     }
   ];
 
-  const maybeSelectDefaultSource = () => {
-    const config = isL1 ? withdrawConfig : depositConfig;
-    if (!Object.values(config).some(map => map[source])) {
-      selectDefaultSource();
-    }
-  };
-
   const onNetworkSwap = () => {
     trackSwapNetworks();
     isL2 ? swapToL1() : swapToL2();
@@ -49,7 +42,7 @@ export const Source = () => {
 
   const onNetworkTabClick = tab => {
     if (action !== tab) {
-      maybeSelectDefaultSource();
+      selectDefaultSource();
       onNetworkSwap();
     }
   };
