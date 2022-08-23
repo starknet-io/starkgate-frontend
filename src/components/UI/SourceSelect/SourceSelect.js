@@ -36,7 +36,7 @@ export const SourceSelect = () => {
       return [
         <ListSubheader key={label}>{label}</ListSubheader>,
         renderCategorySources(categorySources),
-        <div key={label} className={styles.separateLine} />
+        <div key={categoryId} className={styles.separateLine} />
       ];
     });
   };
