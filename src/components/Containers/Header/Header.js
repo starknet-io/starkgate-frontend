@@ -24,6 +24,7 @@ export const Header = () => {
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {termsTxt, faqTxt} = useTabsTranslation();
+
   const tabs = [
     {
       text: termsTxt,
