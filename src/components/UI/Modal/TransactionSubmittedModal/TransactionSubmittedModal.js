@@ -27,9 +27,9 @@ const TransactionSubmittedModal = ({transfer}) => {
 
   const messageComponent =
     type === ActionType.TRANSFER_TO_L2 ? (
-      <Alert message={transferToL2AlertTxt} type={AlertType.INFO} />
+      <Alert message={transferToL2AlertTxt} type={AlertType.WARNING} />
     ) : !isTransferCompleted ? (
-      <Alert message={transferToL1AlertTxt} type={AlertType.INFO} />
+      <Alert message={transferToL1AlertTxt} type={AlertType.WARNING} />
     ) : null;
 
   return (
