@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "setting env vars"
 sh set-env.sh
