@@ -34,6 +34,14 @@ export const ModalWrapper = () => {
       : fallbackComponent;
   };
 
+  const renderLoading = () => {
+    return (
+      <div className={'center'}>
+        <Loading size={LoadingSize.LARGE} />
+      </div>
+    );
+  };
+
   const headerComponents = getComponents(header.components);
   const bodyComponents = getComponents(body.components);
   const footerComponents = getComponents(footer.components);
@@ -49,9 +57,7 @@ export const ModalWrapper = () => {
     >
       {withHeader && (
         <ModalHeader type={modal.type}>
-          <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-            {renderComponents(headerComponents)}
-          </Suspense>
+          <Suspense fallback={renderLoading()}>{renderComponents(headerComponents)}</Suspense>
           {header.title && (
             <ModalTitle>
               {header.icon && <DynamicIcon path={header.icon} size={50} />}
@@ -61,15 +67,13 @@ export const ModalWrapper = () => {
         </ModalHeader>
       )}
       <ModalBody type={modal.type}>
-        <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
+        <Suspense fallback={renderLoading()}>
           {renderComponents(bodyComponents, <ModalText>{body.text}</ModalText>)}
         </Suspense>
       </ModalBody>
       {footer.withButtons && (
         <ModalFooter type={modal.type} onClose={handleOnClose}>
-          <Suspense fallback={<Loading size={LoadingSize.LARGE} />}>
-            {renderComponents(footerComponents)}
-          </Suspense>
+          <Suspense fallback={renderLoading()}>{renderComponents(footerComponents)}</Suspense>
         </ModalFooter>
       )}
     </Modal>
