@@ -4,8 +4,6 @@ import {evaluate} from '../utils';
 
 const env = {...process.env, ...window['__env__']};
 
-console.log(env);
-
 export const ENV_POC = env.REACT_APP_POC || 'no value';
 export const ENV = env.REACT_APP_ENV;
 export const AUTO_CONNECT = env.REACT_APP_AUTO_CONNECT === 'true';
