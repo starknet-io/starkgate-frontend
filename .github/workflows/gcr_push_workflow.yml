@@ -34,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build and push images to GCR, with tag latest and git tag.
+      - name: Build dev image and push
         if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
           docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }}
@@ -42,7 +42,7 @@ jobs:
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
 
-      - name: Build with mainnet env and push with mainnet and stable tags.
+      - name: Build production image and push with stable tag
         if: ${{ inputs.branch_name == 'refs/heads/master' || (startsWith(inputs.branch_name, 'refs/tags') && contains(inputs.branch_name, 'patch')) }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }}
