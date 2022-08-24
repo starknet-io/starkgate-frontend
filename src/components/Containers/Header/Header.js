@@ -24,7 +24,6 @@ export const Header = () => {
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {termsTxt, faqTxt} = useTabsTranslation();
-  const {ENV_POC} = useEnvs();
   const tabs = [
     {
       text: termsTxt,
@@ -48,7 +47,6 @@ export const Header = () => {
       <div className={toClasses(styles.left, 'row')}>
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />
-          {ENV_POC}
         </div>
         <ChainSelect />
       </div>
