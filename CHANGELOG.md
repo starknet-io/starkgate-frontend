@@ -1,3 +1,78 @@
+## [1.9.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0-dev.1) (2022-08-23)
+
+
+### 🧩 Features
+
+* **3053892284:** change the getStarknetWallet modal styling to darkmode ([#280](https://github.com/starkware-libs/starkgate-frontend/issues/280)) ([b6cd7be](https://github.com/starkware-libs/starkgate-frontend/commit/b6cd7be67088d02ff413b7c9cfe56dc9e3366ce1))
+
+### [1.8.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1) (2022-08-21)
+
+
+### 🔧 Fixes
+
+* **3094709997:** when clicking connect starknet wallet, gsw message pops up (opera) ([#275](https://github.com/starkware-libs/starkgate-frontend/issues/275)) ([3b1679d](https://github.com/starkware-libs/starkgate-frontend/commit/3b1679d99d8b3bdb125079662a9b2440db1699c3))
+* **3118317638:** update discord link ([#282](https://github.com/starkware-libs/starkgate-frontend/issues/282)) ([1f64f31](https://github.com/starkware-libs/starkgate-frontend/commit/1f64f3137c9002f808201b49cc5b3170a2e2b1ee))
+
+### [1.8.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1-dev.1...v1.8.1-dev.2) (2022-08-21)
+
+
+### 🔧 Fixes
+
+* **3118317638:** update discord link ([#282](https://github.com/starkware-libs/starkgate-frontend/issues/282)) ([1f64f31](https://github.com/starkware-libs/starkgate-frontend/commit/1f64f3137c9002f808201b49cc5b3170a2e2b1ee))
+
+### [1.8.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1-dev.1) (2022-08-16)
+
+
+### 🔧 Fixes
+
+* **3094709997:** when clicking connect starknet wallet, gsw message pops up (opera) ([#275](https://github.com/starkware-libs/starkgate-frontend/issues/275)) ([3b1679d](https://github.com/starkware-libs/starkgate-frontend/commit/3b1679d99d8b3bdb125079662a9b2440db1699c3))
+
+## [1.8.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.7.1...v1.8.0) (2022-08-15)
+
+
+### 🧩 Features
+
+* **2902657922:** add dynamic params to url ([#245](https://github.com/starkware-libs/starkgate-frontend/issues/245)) ([c7d614d](https://github.com/starkware-libs/starkgate-frontend/commit/c7d614d51eb04ca0721b05ea6f158cbeef1886d9))
+* **2934155393:** Firefox support ([#237](https://github.com/starkware-libs/starkgate-frontend/issues/237)) ([579f33f](https://github.com/starkware-libs/starkgate-frontend/commit/579f33f5c75cf30bd8ca2a8373ca0ecf9d6c1d71))
+* **2983084397:** update starknet.js version ([#246](https://github.com/starkware-libs/starkgate-frontend/issues/246)) ([d69283e](https://github.com/starkware-libs/starkgate-frontend/commit/d69283ef7ad3bd5db4acd596d7d8d40f18e0e339))
+* **3015320611:** Add Ramp link to integrations ([#267](https://github.com/starkware-libs/starkgate-frontend/issues/267)) ([40b472b](https://github.com/starkware-libs/starkgate-frontend/commit/40b472bf7336ee7382f76c1ea7b2bceee8faf97a))
+* **3015821438:** Change location of transfer button ([#250](https://github.com/starkware-libs/starkgate-frontend/issues/250)) ([f65ffa4](https://github.com/starkware-libs/starkgate-frontend/commit/f65ffa485f66711ae317b03972ca49bef0ef177d))
+* **3015851363:** create and display the header's wallet connect buttons ([#254](https://github.com/starkware-libs/starkgate-frontend/issues/254)) ([ae2c54d](https://github.com/starkware-libs/starkgate-frontend/commit/ae2c54d23e5091756db8168152dfb462a5245b44))
+* **3015866265:** display the transfer button only if both wallets are connected ([#255](https://github.com/starkware-libs/starkgate-frontend/issues/255)) ([5e09679](https://github.com/starkware-libs/starkgate-frontend/commit/5e09679be08ca5406c8614ece48eacf118403a2c))
+* **3015991255:** close the modal if click on the blurry part ([#259](https://github.com/starkware-libs/starkgate-frontend/issues/259)) ([3d5a1c5](https://github.com/starkware-libs/starkgate-frontend/commit/3d5a1c5fc89fcc66b8900b7ee010debb9a42a068))
+* **3027479346:** connect wallet flow logic with the modal style ([#258](https://github.com/starkware-libs/starkgate-frontend/issues/258)) ([da44bcb](https://github.com/starkware-libs/starkgate-frontend/commit/da44bcb5e5b525ba7e2a344dab18a7ee142a4578))
+* **3047139090:** hide the available balance if wallet is not connected ([#260](https://github.com/starkware-libs/starkgate-frontend/issues/260)) ([c69c8b0](https://github.com/starkware-libs/starkgate-frontend/commit/c69c8b056fa4bd7dceed7ca308df600ec0b75982))
+* **3054011722:** Move the logic of unsupported browser to login modal ([#264](https://github.com/starkware-libs/starkgate-frontend/issues/264)) ([9d8b5f1](https://github.com/starkware-libs/starkgate-frontend/commit/9d8b5f141835ca6a36a4314d98f1fd7be1c24214))
+
+
+### 💉 Improvements
+
+* **2890115801:** Move terms & faq tabs from burger menu to navbar ([#269](https://github.com/starkware-libs/starkgate-frontend/issues/269)) ([049a75b](https://github.com/starkware-libs/starkgate-frontend/commit/049a75b105accb4498fec203c3fa5d29688819ba))
+* **3027528546:** move enums and libs to commons ([#253](https://github.com/starkware-libs/starkgate-frontend/issues/253)) ([76d3918](https://github.com/starkware-libs/starkgate-frontend/commit/76d3918ff5073beec75940b4b266dfbf5d4a8be0))
+* uppercase envs  ([#252](https://github.com/starkware-libs/starkgate-frontend/issues/252)) ([cd6669a](https://github.com/starkware-libs/starkgate-frontend/commit/cd6669a60f0dd0aedae3cb2b0c40d2168e8fffda))
+
+
+### 🔧 Fixes
+
+* **2991866013:** Update to current Discord link ([#244](https://github.com/starkware-libs/starkgate-frontend/issues/244)) ([ce8e4a9](https://github.com/starkware-libs/starkgate-frontend/commit/ce8e4a9d31d5384e77625fb4c4c6037512da413d))
+* **3044966975:** empty account when connecting starkgate for the 1st time ([#262](https://github.com/starkware-libs/starkgate-frontend/issues/262)) ([50f36c1](https://github.com/starkware-libs/starkgate-frontend/commit/50f36c187f5eb4e666367f6916a75b21c657fed0))
+* **3064486113:** browser is crashing if no extension is installed ([#265](https://github.com/starkware-libs/starkgate-frontend/issues/265)) ([fdca289](https://github.com/starkware-libs/starkgate-frontend/commit/fdca28929305c12818f12276c26ecbb3ecc6e66a))
+* **3070364344:** do not display N/A balance if user's not logged in ([#263](https://github.com/starkware-libs/starkgate-frontend/issues/263)) ([54c22d9](https://github.com/starkware-libs/starkgate-frontend/commit/54c22d950157546dcd970c40e3da0dc232ed9dec))
+* **3080263579:** While error is raised when connecting to the wallet, modal isn't shown again ([#268](https://github.com/starkware-libs/starkgate-frontend/issues/268)) ([73834b1](https://github.com/starkware-libs/starkgate-frontend/commit/73834b16c7fe4b5d7509111cdb217c4d81df287d))
+* **3086854358:** error of correct network still visible after changing the network ([#271](https://github.com/starkware-libs/starkgate-frontend/issues/271)) ([3e97259](https://github.com/starkware-libs/starkgate-frontend/commit/3e972590979f3f7e6cb226749feb11d92b3408bf))
+* ActionType is undefined when imported from commons-js ([#256](https://github.com/starkware-libs/starkgate-frontend/issues/256)) ([6cca2ea](https://github.com/starkware-libs/starkgate-frontend/commit/6cca2ea51ff84f9653393c78e72b9b56f3913261))
+* change error proptype from string to object ([#261](https://github.com/starkware-libs/starkgate-frontend/issues/261)) ([5b30b7a](https://github.com/starkware-libs/starkgate-frontend/commit/5b30b7a4f55cb1931b25d526b93cca28d00fa253))
+* **modal:** suspense loading is not centered ([fdde8cf](https://github.com/starkware-libs/starkgate-frontend/commit/fdde8cf6623f3da3ca9f71bbd5cf2b730507c862))
+* move the select style into the component ([#249](https://github.com/starkware-libs/starkgate-frontend/issues/249)) ([151b4e9](https://github.com/starkware-libs/starkgate-frontend/commit/151b4e99b528a168f4ce180a868f1cede68aed2c))
+* remove discord link ([#251](https://github.com/starkware-libs/starkgate-frontend/issues/251)) ([d553f66](https://github.com/starkware-libs/starkgate-frontend/commit/d553f6625bd263952c8ee5e0b52caeaed03e894d))
+
+## [1.8.0-dev.24](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.23...v1.8.0-dev.24) (2022-08-15)
+
+
+### 🔧 Fixes
+
+* **modal:** suspense loading is not centered ([fdde8cf](https://github.com/starkware-libs/starkgate-frontend/commit/fdde8cf6623f3da3ca9f71bbd5cf2b730507c862))
+
 ## [1.8.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0-dev.22...v1.8.0-dev.23) (2022-08-14)
 
 
