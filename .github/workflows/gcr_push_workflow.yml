@@ -37,7 +37,7 @@ jobs:
       - name: Build and push images to GCR, with tag latest and git tag.
         if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
-          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=goerli
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }}
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
