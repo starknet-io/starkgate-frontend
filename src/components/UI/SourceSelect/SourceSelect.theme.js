@@ -67,6 +67,7 @@ export const SourceSelectTheme = ({children}) => {
       MuiListSubheader: {
         styleOverrides: {
           root: {
+            padding: 0,
             backgroundColor: 'unset',
             lineHeight: '24px',
             color: colorLightSteelBlue,
