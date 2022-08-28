@@ -5,7 +5,7 @@
 
   .tabsContainer {
     display: flex;
-    background: $--color-alpha-1;
+    background: $--color-space-cadet-1;
     border-radius: 10px;
     padding: 10px;
   }
@@ -13,6 +13,6 @@
   .errorMsg {
     font-size: 12px;
     line-height: 24px;
-    color: $--color-error;
+    color: $--color-jasper;
   }
 }

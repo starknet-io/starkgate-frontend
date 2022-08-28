@@ -8,11 +8,11 @@ import {CryptoLogo, Icon} from '../index';
 import styles from './TokenSelector.module.scss';
 
 export const TokenSelector = ({tokenData, onClick}) => {
-  const {colorAlpha3} = useColors();
+  const {colorIndigo} = useColors();
 
   return (
     <div className={styles.tokenSelector} onClick={onClick}>
-      <CryptoLogo color={colorAlpha3} size={CryptoLogoSize.SMALL} symbol={tokenData?.symbol} />
+      <CryptoLogo color={colorIndigo} size={CryptoLogoSize.SMALL} symbol={tokenData?.symbol} />
       {tokenData.symbol}
       <Icon isClickable={true}>
         <DownArrowIcon />

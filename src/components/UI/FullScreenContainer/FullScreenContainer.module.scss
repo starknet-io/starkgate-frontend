@@ -12,17 +12,17 @@
   transition: 0.3s ease-in-out;
 
   a {
-    color: $--color-gamma;
+    color: $--color-very-light-azure;
 
     &:hover {
-      color: $--color-gamma-1;
+      color: $--color-dodger-blue;
     }
 
     &:visited {
-      color: $--color-alpha-6;
+      color: $--color-ube;
 
       &:hover {
-        color: $--color-alpha-6-hover;
+        color: $--color-ceil;
       }
     }
   }

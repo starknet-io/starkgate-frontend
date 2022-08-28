@@ -8,8 +8,8 @@ import {ModalType} from '../Modal/Modal';
 import styles from './ModalFooter.module.scss';
 
 export const ModalFooter = ({type, onClose, children}) => {
-  const {colorError, colorAlpha3, colorWhite} = useColors();
-  const color = type === ModalType.ERROR ? colorError : colorAlpha3;
+  const {colorJasper, colorIndigo, colorWhite} = useColors();
+  const color = type === ModalType.ERROR ? colorJasper : colorIndigo;
 
   return (
     <div className={toClasses(styles.modalFooter, styles[type])}>
