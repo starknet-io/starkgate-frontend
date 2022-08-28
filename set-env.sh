@@ -1,6 +1,5 @@
 #!/bin/sh
 
-# Add assignment 
 content="window.__env__ = {"
 
 # Each line represents key=value pairs
@@ -11,11 +10,10 @@ do
     varname=$(printf '%s\n' "$line" | sed -e 's/=.*//')
     varvalue=$(printf '%s\n' "$line" | sed -e 's/^[^=]*=//')
 
-    # Append configuration property to JS file
     content="${content} $varname: \"$varvalue\","
     echo $varname $varvalue
   fi
 done < <(printenv | grep REACT_APP)
 
 content="${content} };"
-echo $content > ./usr/share/nginx/html/env.js
+echo $content > ./usr/share/nginx/html/env-config.js
