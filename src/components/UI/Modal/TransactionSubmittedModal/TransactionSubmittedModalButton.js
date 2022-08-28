@@ -17,7 +17,7 @@ import {Circle} from '../../Circle/Circle';
 const TransactionSubmittedModalButton = ({transfer}) => {
   const {ETHERSCAN, VOYAGER} = useConstants();
   const {ETHERSCAN_TX_URL, VOYAGER_TX_URL} = useEnvs();
-  const {colorAlpha3, colorWhite, colorWhite1} = useColors();
+  const {colorIndigo, colorWhite, colorGainsboro} = useColors();
   const {btnTxt} = useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
@@ -47,11 +47,11 @@ const TransactionSubmittedModalButton = ({transfer}) => {
   return (
     <Button
       colorBackground={colorWhite}
-      colorBorder={colorAlpha3}
-      colorText={colorAlpha3}
+      colorBorder={colorIndigo}
+      colorText={colorIndigo}
       height={40}
       iconLeft={
-        <Circle color={colorWhite1} size={35}>
+        <Circle color={colorGainsboro} size={35}>
           {explorer.logo}
         </Circle>
       }
