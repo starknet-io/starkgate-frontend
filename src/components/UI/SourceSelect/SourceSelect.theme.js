@@ -58,14 +58,15 @@ export const SourceSelectTheme = ({children}) => {
       MuiList: {
         styleOverrides: {
           root: {
-            width: '240px',
-            padding: '8px 16px'
+            width: '240px !important',
+            padding: '8px 16px !important'
           }
         }
       },
       MuiListSubheader: {
         styleOverrides: {
           root: {
+            position: 'initial',
             backgroundColor: 'unset',
             lineHeight: '24px',
             color: colorAlpha8,
