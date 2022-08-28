@@ -65,9 +65,9 @@ body {
   height: 100%;
   width: 100%;
   font-family: $--primary-font;
-  background-color: $--color-alpha-3;
+  background-color: $--color-indigo;
   transition: 0.3s;
-  scrollbar-color: $--color-alpha-6 transparent;
+  scrollbar-color: $--color-ube transparent;
 }
 
 .center {
@@ -84,12 +84,12 @@ body {
 
 ::-webkit-scrollbar-track {
   border-radius: 7px;
-  box-shadow: inset 0 0 30px $--color-alpha;
+  box-shadow: inset 0 0 30px $--color-space-cadet;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 7px;
-  background: $--color-alpha-6;
+  background: $--color-ube;
 }
 
 ::-webkit-scrollbar-corner {
@@ -105,19 +105,19 @@ body {
   .MuiSvgIcon-root {
     &.Mui-completed,
     &.Mui-active {
-      color: $--color-alpha !important;
+      color: $--color-space-cadet !important;
     }
   }
 }
 
 .MuiLinearProgress-root {
-  background-color: rgba($--color-beta, 0.3) !important;
+  background-color: rgba($--color-orange-soda, 0.3) !important;
 
   .MuiLinearProgress-bar {
-    background-color: $--color-beta !important;
+    background-color: $--color-orange-soda !important;
   }
 }
 
 .MuiCircularProgress-root {
-  color: $--color-beta !important;
+  color: $--color-orange-soda !important;
 }

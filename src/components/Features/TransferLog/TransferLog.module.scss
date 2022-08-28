@@ -34,10 +34,10 @@
 
   .data {
     font-size: 13px;
-    color: $--color-alpha-6;
+    color: $--color-ube;
 
     &.error {
-      color: $--color-error;
+      color: $--color-jasper;
     }
   }
 
@@ -51,6 +51,6 @@ hr {
 
   &:not(:last-child) {
     display: block;
-    border: 1px solid $--color-alpha-3;
+    border: 1px solid $--color-indigo;
   }
 }
