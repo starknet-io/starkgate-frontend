@@ -9,7 +9,7 @@ import {StyledBackground} from './components/UI';
 import {SideButton} from './components/UI/SideButton/SideButton';
 import {useLiquidityProviders, useConstants, useTracking} from './hooks';
 import {useApp} from './providers/AppProvider';
-import {Bridge, Liquidity, Faq, Login, ProtectedRoute, Terms} from './routes';
+import {Bridge, Liquidity, Faq, ProtectedRoute, Terms} from './routes';
 import {openInNewTab} from './utils';
 
 export const App = () => {
