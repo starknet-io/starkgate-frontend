@@ -1,5 +1,4 @@
 export * from './ModalWrapper';
-export * from './ModalMessage';
 export * from './ModalText/ModalText';
 export * from './Modal/Modal';
 export * from './ModalHeader/ModalHeader';
