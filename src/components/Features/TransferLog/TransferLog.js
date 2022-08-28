@@ -90,13 +90,13 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 
 const CompleteTransferButton = ({onClick}) => {
   const {completeTransferBtnTxt} = useTransferLogTranslation();
-  const {colorBeta} = useColors();
+  const {colorOrangeSoda} = useColors();
 
   return (
     <Button
       colorBackground="transparent"
-      colorBorder={colorBeta}
-      colorText={colorBeta}
+      colorBorder={colorOrangeSoda}
+      colorText={colorOrangeSoda}
       height={10}
       style={{
         fontSize: '12px',

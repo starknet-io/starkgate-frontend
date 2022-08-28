@@ -79,8 +79,16 @@ export default {
       titleTxt: 'Transaction sent',
       btnTxt: 'View on {{explorer}}',
       transferToL1Txt: 'Your transaction is now being processing on StarkNet.',
+      transferToL1AlertTxt:
+        'The StarkNet → Ethereum transfer divided into two stages:\n• A waiting period of several hours is expected between the stages.\n• At the end of the first step, you will be required to sign in order to complete the transfer.',
       transferToL2Txt: 'Your transaction has been successfully sent to StarkNet!',
+      transferToL2AlertTxt:
+        'Completing a Ethereum → StarkNet transfer may take <b>up to several hours</b> depending on the congestion. It may take a while for your wallet balance to update.',
       completeTransferToL1Txt: 'Your transfer is completed on Ethereum!'
+    },
+    progress: {
+      alertTxt:
+        '<b>Do not refresh or close the page</b> while waiting for the operation to be completed.'
     },
     transferProgress: {
       approval: {
@@ -117,7 +125,9 @@ export default {
         'Refrain from switching browsers',
         'Do not refresh the page while the transfer is being processed',
         'Do not delete the local storage of the browser'
-      ]
+      ],
+      incognitoTxt:
+        'The current StarkGate Alpha version does not support browsing in incognito mode.'
     }
   },
   toasts: {
