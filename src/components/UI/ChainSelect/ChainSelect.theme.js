@@ -5,7 +5,7 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const ChainSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha5} = useColors();
+  const {colorWhite, colorDarkSlateBlue} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
@@ -44,7 +44,7 @@ export const ChainSelectTheme = ({children}) => {
             marginTop: '4px',
             border: `1px solid ${colorWhite}`,
             borderRadius: '8px',
-            backgroundColor: colorAlpha5,
+            backgroundColor: colorDarkSlateBlue,
             color: colorWhite
           }
         }
