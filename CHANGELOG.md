@@ -1,3 +1,10 @@
+## [1.9.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.1...v1.9.0-dev.2) (2022-08-28)
+
+
+### 🔧 Fixes
+
+* **3151428244:** rename colors ([#292](https://github.com/starkware-libs/starkgate-frontend/issues/292)) ([955370c](https://github.com/starkware-libs/starkgate-frontend/commit/955370ca6509148afda6026d8622abd2515f1948))
+
 ## [1.9.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0-dev.1) (2022-08-23)
 
 
