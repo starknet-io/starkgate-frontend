@@ -5,7 +5,8 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha, colorAlpha2, colorAlpha5, colorAlpha8} = useColors();
+  const {colorWhite, colorSpaceCadet, colorSpaceCadet2, colorDarkSlateBlue, colorLightSteelBlue} =
+    useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
@@ -17,7 +18,7 @@ export const SourceSelectTheme = ({children}) => {
             color: colorWhite,
             transition: '0.3s ease-in-out',
             '&:hover': {
-              backgroundColor: colorAlpha5
+              backgroundColor: colorDarkSlateBlue
             }
           },
           notchedOutline: {
@@ -49,7 +50,7 @@ export const SourceSelectTheme = ({children}) => {
       MuiPaper: {
         styleOverrides: {
           root: {
-            backgroundColor: colorAlpha,
+            backgroundColor: colorSpaceCadet,
             color: colorWhite,
             borderRadius: '8px'
           }
@@ -66,9 +67,10 @@ export const SourceSelectTheme = ({children}) => {
       MuiListSubheader: {
         styleOverrides: {
           root: {
+            padding: 0,
             backgroundColor: 'unset',
             lineHeight: '24px',
-            color: colorAlpha8,
+            color: colorLightSteelBlue,
             fontFamily: primaryFont,
             letterSpacing: '0.01em'
           }
@@ -83,7 +85,7 @@ export const SourceSelectTheme = ({children}) => {
             borderRadius: '8px',
             margin: '8px 0',
             '&.Mui-selected, &:hover': {
-              backgroundColor: `${colorAlpha2} !important`
+              backgroundColor: `${colorSpaceCadet2} !important`
             },
             '& .MuiTouchRipple-root': {
               display: 'none'

@@ -4,7 +4,7 @@
   height: #{$--header-height}px;
   border-bottom: 1px solid transparent;
   justify-content: space-between;
-  background: $--color-alpha-5;
+  background: $--color-dark-slate-blue;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
   transition: 0.3s ease-in-out;
   position: absolute;
@@ -29,7 +29,7 @@
 
     .chain {
       transition: 0.3s ease-in-out;
-      color: $--color-white-1;
+      color: $--color-gainsboro;
       font-size: 13px;
       font-weight: 500;
       opacity: 0.6;

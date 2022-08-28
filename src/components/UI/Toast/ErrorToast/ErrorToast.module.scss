@@ -2,7 +2,7 @@
 
 .errorToast {
   background: $--color-white;
-  border: 1px solid $--color-error-2;
+  border: 1px solid $--color-carmine-pink;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.14), 0 1px 18px rgba(0, 0, 0, 0.12),
     0 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
@@ -34,14 +34,14 @@
       .title {
         font-weight: 500;
         font-size: 18px;
-        color: $--color-alpha;
+        color: $--color-space-cadet;
       }
 
       .msg {
         margin-top: 10px;
         font-weight: 400;
         font-size: 16px;
-        color: $--color-alpha;
+        color: $--color-space-cadet;
       }
     }
   }
@@ -54,7 +54,7 @@
   }
 
   .leftBorder {
-    background: $--color-error-2;
+    background: $--color-carmine-pink;
     opacity: 0.4;
     height: 100%;
     flex: none;

@@ -1,7 +1,7 @@
 @import '../../../index';
 
 .multiChoiceMenu {
-  background: $--color-alpha;
+  background: $--color-space-cadet;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 
@@ -29,5 +29,5 @@
 .separator {
   height: 1px;
   width: 100%;
-  background: $--color-alpha-3;
+  background: $--color-indigo;
 }
