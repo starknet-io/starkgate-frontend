@@ -6,12 +6,12 @@ import {Button} from '../index';
 
 export const LogoutButton = ({onClick, isDisabled}) => {
   const {logoutBtnTxt} = useAccountTranslation();
-  const {colorAlpha5, colorWhite} = useColors();
+  const {colorDarkSlateBlue, colorWhite} = useColors();
 
   return (
     <Button
-      colorBackground={colorAlpha5}
-      colorBorder={colorAlpha5}
+      colorBackground={colorDarkSlateBlue}
+      colorBorder={colorDarkSlateBlue}
       colorText={colorWhite}
       height={50}
       isDisabled={isDisabled}

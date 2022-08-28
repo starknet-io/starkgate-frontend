@@ -3,7 +3,7 @@
 .multiChoiceItem {
   cursor: pointer;
   transition: 0.3s ease-in-out;
-  border: 1px solid $--color-alpha-3;
+  border: 1px solid $--color-indigo;
   box-sizing: border-box;
   border-radius: 8px;
   overflow-x: auto;
@@ -45,7 +45,7 @@
           font-size: 12px;
           display: flex;
           align-items: center;
-          color: $--color-alpha-9;
+          color: $--color-toolbox;
           line-height: 150%;
         }
       }
@@ -61,7 +61,7 @@
   }
 
   &:hover {
-    background: $--color-alpha-1;
+    background: $--color-space-cadet-1;
     box-sizing: border-box;
     border-radius: 8px;
   }
@@ -74,6 +74,6 @@
     display: block;
     height: 1px;
     width: 100%;
-    background: $--color-alpha-3;
+    background: $--color-indigo;
   }
 }
