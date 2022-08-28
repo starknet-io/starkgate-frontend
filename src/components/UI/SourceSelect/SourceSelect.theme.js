@@ -5,7 +5,7 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha4, colorAlpha5} = useColors();
+  const {colorWhite, colorAlpha4, colorDarkSlateBlue} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
@@ -38,7 +38,7 @@ export const SourceSelectTheme = ({children}) => {
             marginTop: '4px',
             border: `1px solid ${colorWhite}`,
             borderRadius: '8px',
-            backgroundColor: colorAlpha5,
+            backgroundColor: colorDarkSlateBlue,
             color: colorWhite
           }
         }

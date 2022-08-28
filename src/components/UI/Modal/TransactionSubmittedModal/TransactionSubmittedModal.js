@@ -3,13 +3,18 @@ import React from 'react';
 
 import {ActionType} from '../../../../enums';
 import {useTransactionSubmittedModalTranslation} from '../../../../hooks';
-import {TransferToL1Message, TransferToL2Message} from '../ModalMessage';
+import {Alert, AlertType} from '../../Alert/Alert';
 import {ModalText} from '../ModalText/ModalText';
 import styles from './TransactionSubmittedModal.module.scss';
 
 const TransactionSubmittedModal = ({transfer}) => {
-  const {completeTransferToL1Txt, transferToL1Txt, transferToL2Txt} =
-    useTransactionSubmittedModalTranslation();
+  const {
+    completeTransferToL1Txt,
+    transferToL1Txt,
+    transferToL1AlertTxt,
+    transferToL2Txt,
+    transferToL2AlertTxt
+  } = useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;
 
@@ -22,9 +27,9 @@ const TransactionSubmittedModal = ({transfer}) => {
 
   const messageComponent =
     type === ActionType.TRANSFER_TO_L2 ? (
-      <TransferToL2Message />
+      <Alert message={transferToL2AlertTxt} type={AlertType.WARNING} />
     ) : !isTransferCompleted ? (
-      <TransferToL1Message />
+      <Alert message={transferToL1AlertTxt} type={AlertType.WARNING} />
     ) : null;
 
   return (

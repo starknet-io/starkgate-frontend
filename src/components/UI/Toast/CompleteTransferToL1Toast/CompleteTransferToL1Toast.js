@@ -16,12 +16,12 @@ export const CompleteTransferToL1Toast = ({
 }) => {
   const {titleTxt, bodyTxt, dismissBtnTxt, completeTransferBtnTxt} =
     useCompleteTransferToastTranslation();
-  const {colorOmega} = useColors();
+  const {colorGraniteGray} = useColors();
 
   return (
     <CallToActionToast
       actionTxt={completeTransferBtnTxt}
-      backgroundColor={colorOmega}
+      backgroundColor={colorGraniteGray}
       bodyTxt={bodyTxt}
       dismissTxt={dismissBtnTxt}
       footer={

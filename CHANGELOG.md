@@ -1,3 +1,39 @@
+## [1.9.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.2...v1.9.0-dev.3) (2022-08-28)
+
+
+### 🧩 Features
+
+* **3076582507:** Alert component ([#272](https://github.com/starkware-libs/starkgate-frontend/issues/272)) ([58db823](https://github.com/starkware-libs/starkgate-frontend/commit/58db82375ba6b76d5e5a1bfa85516418d670a59e))
+
+## [1.9.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.1...v1.9.0-dev.2) (2022-08-28)
+
+
+### 🔧 Fixes
+
+* **3151428244:** rename colors ([#292](https://github.com/starkware-libs/starkgate-frontend/issues/292)) ([955370c](https://github.com/starkware-libs/starkgate-frontend/commit/955370ca6509148afda6026d8622abd2515f1948))
+
+## [1.9.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0-dev.1) (2022-08-23)
+
+
+### 🧩 Features
+
+* **3053892284:** change the getStarknetWallet modal styling to darkmode ([#280](https://github.com/starkware-libs/starkgate-frontend/issues/280)) ([b6cd7be](https://github.com/starkware-libs/starkgate-frontend/commit/b6cd7be67088d02ff413b7c9cfe56dc9e3366ce1))
+
+### [1.8.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1) (2022-08-21)
+
+
+### 🔧 Fixes
+
+* **3094709997:** when clicking connect starknet wallet, gsw message pops up (opera) ([#275](https://github.com/starkware-libs/starkgate-frontend/issues/275)) ([3b1679d](https://github.com/starkware-libs/starkgate-frontend/commit/3b1679d99d8b3bdb125079662a9b2440db1699c3))
+* **3118317638:** update discord link ([#282](https://github.com/starkware-libs/starkgate-frontend/issues/282)) ([1f64f31](https://github.com/starkware-libs/starkgate-frontend/commit/1f64f3137c9002f808201b49cc5b3170a2e2b1ee))
+
+### [1.8.1-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1-dev.1...v1.8.1-dev.2) (2022-08-21)
+
+
+### 🔧 Fixes
+
+* **3118317638:** update discord link ([#282](https://github.com/starkware-libs/starkgate-frontend/issues/282)) ([1f64f31](https://github.com/starkware-libs/starkgate-frontend/commit/1f64f3137c9002f808201b49cc5b3170a2e2b1ee))
+
 ### [1.8.1-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.0...v1.8.1-dev.1) (2022-08-16)
 
 

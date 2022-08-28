@@ -1,7 +1,7 @@
 @import '../../../index';
 
 .transferMenuTab {
-  background: $--color-alpha-1;
+  background: $--color-space-cadet-1;
   border-radius: 10px;
   font-weight: 500;
   font-size: 14px;
@@ -15,7 +15,7 @@
   transition: 0.3s ease-in-out;
 
   &.isActive {
-    background: $--color-alpha-4;
+    background: rgba($--color-american-blue, 0.55);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 }

@@ -8,12 +8,12 @@ import {CircleLogo, Icon} from '../index';
 import styles from './TokenSelector.module.scss';
 
 export const TokenSelector = ({tokenData, onClick}) => {
-  const {colorAlpha3} = useColors();
+  const {colorIndigo} = useColors();
 
   return (
     <div className={styles.tokenSelector} onClick={onClick}>
       <CircleLogo
-        color={colorAlpha3}
+        color={colorIndigo}
         path={`tokens/${tokenData?.symbol}`}
         size={CircleLogoSize.SMALL}
       />

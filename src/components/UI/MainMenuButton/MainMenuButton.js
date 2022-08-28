@@ -7,13 +7,13 @@ import {Button} from '../index';
 import styles from './MainMenuButton.module.scss';
 
 export const MainMenuButton = ({text, onClick, ...props}) => {
-  const {colorBeta, colorWhite} = useColors();
+  const {colorOrangeSoda, colorWhite} = useColors();
 
   return (
     <Button
       className={toClasses(styles.mainMenuButton)}
-      colorBackground={colorBeta}
-      colorBorder={colorBeta}
+      colorBackground={colorOrangeSoda}
+      colorBorder={colorOrangeSoda}
       colorText={colorWhite}
       height={50}
       text={text}
