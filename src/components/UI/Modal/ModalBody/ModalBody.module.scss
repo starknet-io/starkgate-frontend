@@ -4,7 +4,7 @@
   font-size: 16px;
   line-height: 22px;
   letter-spacing: 0.03em;
-  color: $--color-omega;
+  color: $--color-granite-gray;
   white-space: break-spaces;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -22,6 +22,6 @@
   }
 
   &.error {
-    color: $--color-error;
+    color: $--color-jasper;
   }
 }

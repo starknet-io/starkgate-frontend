@@ -8,12 +8,12 @@ import {Circle} from '../index';
 import styles from './NetworkSwap.module.scss';
 
 export const NetworkSwap = ({isFlipped, onClick}) => {
-  const {colorAlpha5} = useColors();
+  const {colorDarkSlateBlue} = useColors();
 
   return (
     <div className={toClasses(styles.networkSwap, isFlipped && styles.flipped)} onClick={onClick}>
       <Circle
-        color={colorAlpha5}
+        color={colorDarkSlateBlue}
         size={50}
         style={{
           boxShadow: '0px 5px 35px rgba(0, 0, 0, 0.30)'

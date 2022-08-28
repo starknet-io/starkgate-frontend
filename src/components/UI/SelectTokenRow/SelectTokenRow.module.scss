@@ -40,7 +40,7 @@
 
       .name {
         font-size: 16px;
-        color: $--color-alpha-6-hover;
+        color: $--color-ceil;
         text-transform: capitalize;
         transition: 0.4s ease-in-out;
       }
@@ -52,7 +52,7 @@
       .balance {
         float: right;
         font-size: 18px;
-        color: $--color-alpha-6-hover;
+        color: $--color-ceil;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
       }

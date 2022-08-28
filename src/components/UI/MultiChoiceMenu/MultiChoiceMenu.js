@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {toClasses} from '../../../utils';
+import {Alert, AlertType} from '../Alert/Alert';
 import {Menu} from '../Menu/Menu';
-import {MultiChoiceErrorMessage} from '../MultiChoiceErrorMessage/MultiChoiceErrorMessage';
 import {MultiChoiceItem} from '../MultiChoiceItem/MultiChoiceItem';
 import styles from './MultiChoiceMenu.module.scss';
 
@@ -21,7 +21,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}
           <div className={styles.container}>{renderChoiceItems()}</div>
-          {error && <MultiChoiceErrorMessage message={error.message} />}
+          {error && <Alert title={error.message} type={AlertType.ERROR} />}
         </div>
         {footer && (
           <>

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import {useOnboardingModalTranslation} from '../../../../hooks';
-import {IncognitoMessage} from '../ModalMessage';
 import styles from './OnboardingModal.module.scss';
 
 const OnboardingModal = () => {
-  const {subtitleTxt, bulletsTxt} = useOnboardingModalTranslation();
+  const {subtitleTxt, bulletsTxt, incognitoTxt} = useOnboardingModalTranslation();
 
   return (
     <div className={styles.onboardingModal}>
@@ -15,7 +14,7 @@ const OnboardingModal = () => {
           <li key={`b-${i}`}>{bullet}</li>
         ))}
       </ul>
-      <IncognitoMessage />
+      <p>{incognitoTxt}</p>
     </div>
   );
 };
