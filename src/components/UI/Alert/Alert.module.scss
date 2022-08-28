@@ -28,38 +28,82 @@
   }
 
   &.success {
-    border: 1px solid $--color-success;
-    color: $--color-success;
+    border: 1px solid $--color-medium-aquamarine;
+
+    .text {
+      .title {
+        color: $--color-philippine-green;
+      }
+
+      .message {
+        color: $--color-spanish-green;
+      }
+    }
   }
 
   &.error {
-    border: 1px solid $--color-error;
-    color: $--color-error;
+    border: 1px solid $--color-light-salmon-pink;
+
+    .text {
+      .title {
+        color: $--color-carnelian;
+      }
+
+      .message {
+        color: $--color-vermilion;
+      }
+    }
 
     .icon {
       svg {
         path {
-          stroke: $--color-error;
+          stroke: $--color-vermilion;
         }
       }
     }
   }
 
   &.warning {
-    border: 1px solid $--color-warning;
-    color: $--color-warning;
+    border: 1px solid $--color-maize;
+
+    .text {
+      .title {
+        color: $--color-rust;
+      }
+
+      .message {
+        color: $--color-metallic-orange;
+      }
+    }
 
     .icon {
       svg {
         path {
-          stroke: $--color-warning;
+          stroke: $--color-metallic-orange;
         }
       }
     }
   }
 
   &.info {
-    border: 1px solid $--color-info;
-    color: $--color-info;
+    border: 1px solid $--color-cadet-grey;
+
+    .text {
+      .title {
+        color: $--color-charcoal;
+      }
+
+      .message {
+        color: $--color-cadet-grey;
+      }
+    }
+
+    .icon {
+      svg {
+        path {
+          stroke: $--color-charcoal;
+        }
+      }
+    }
   }
 }

@@ -50,7 +50,7 @@
   }
 
   &:hover {
-    background: $--color-alpha-1;
+    background: $--color-space-cadet-1;
     box-sizing: border-box;
     border-radius: 8px;
   }
@@ -63,6 +63,6 @@
     display: block;
     height: 1px;
     width: 100%;
-    background: $--color-alpha-3;
+    background: $--color-indigo;
   }
 }
