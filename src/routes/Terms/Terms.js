@@ -54,7 +54,7 @@ const AcceptButton = ({isDisabled}) => {
   const [, trackAcceptClick] = useTermsTracking();
   const {acceptBtnTxt} = useTermsTranslation();
   const {acceptTerms} = useTerms();
-  const {colorGamma1, colorWhite} = useColors();
+  const {colorDodgerBlue, colorWhite} = useColors();
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
   const navigate = useNavigate();
@@ -70,9 +70,9 @@ const AcceptButton = ({isDisabled}) => {
     <div className={styles.acceptButtonContainer}>
       <div className={styles.content}>
         <Button
-          colorBackground={colorGamma1}
-          colorBackgroundHover={colorGamma1}
-          colorBorder={colorGamma1}
+          colorBackground={colorDodgerBlue}
+          colorBackgroundHover={colorDodgerBlue}
+          colorBorder={colorDodgerBlue}
           colorText={colorWhite}
           height={50}
           isDisabled={isDisabled}
