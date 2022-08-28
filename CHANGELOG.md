@@ -1,3 +1,17 @@
+## [1.9.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.2...v1.9.0-dev.3) (2022-08-28)
+
+
+### 🧩 Features
+
+* **3076582507:** Alert component ([#272](https://github.com/starkware-libs/starkgate-frontend/issues/272)) ([58db823](https://github.com/starkware-libs/starkgate-frontend/commit/58db82375ba6b76d5e5a1bfa85516418d670a59e))
+
+## [1.9.0-dev.2](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.1...v1.9.0-dev.2) (2022-08-28)
+
+
+### 🔧 Fixes
+
+* **3151428244:** rename colors ([#292](https://github.com/starkware-libs/starkgate-frontend/issues/292)) ([955370c](https://github.com/starkware-libs/starkgate-frontend/commit/955370ca6509148afda6026d8622abd2515f1948))
+
 ## [1.9.0-dev.1](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0-dev.1) (2022-08-23)
 
 

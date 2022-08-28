@@ -8,7 +8,7 @@ import styles from './LiquidityButton.module.scss';
 
 export const LiquidityButton = () => {
   const {colorWhite, colorWhiteOp10, colorWhiteOp20} = useColors();
-  const {colorGamma} = useColors();
+  const {colorVeryLightAzure} = useColors();
   const {navigateToRoute} = useApp();
   const liquidityProviders = useLiquidityProviders();
   const {liquidityBtnTxt} = useHeaderTranslation();
@@ -22,7 +22,7 @@ export const LiquidityButton = () => {
       className={styles.liquidityButton}
       colorBackground={colorWhiteOp10}
       colorBackgroundHover={colorWhiteOp20}
-      colorBorder={colorGamma}
+      colorBorder={colorVeryLightAzure}
       colorText={colorWhite}
       height={0}
       iconLeft={<LiquidityIcon />}
