@@ -34,7 +34,7 @@ export * from './RefreshIcon/RefreshIcon';
 export * from './Stepper/Stepper';
 export * from './StyledBackground/StyledBackground';
 export * from './FullScreenContainer/FullScreenContainer';
-export * from './MultiChoiceErrorMessage/MultiChoiceErrorMessage';
+export * from './Alert/Alert';
 export * from './MultiChoiceMenu/MultiChoiceMenu';
 export * from './MultiChoiceItem/MultiChoiceItem';
 export * from './Divider/Divider';
