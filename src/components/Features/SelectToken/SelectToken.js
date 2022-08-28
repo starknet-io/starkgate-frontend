@@ -14,7 +14,7 @@ export const SelectToken = () => {
   const [trackSelectToken] = useSelectTokenTracking();
   const {titleTxt} = useSelectTokenTranslation();
   const {tokens, updateTokenBalance} = useTokens();
-  const {colorBeta} = useColors();
+  const {colorOrangeSoda} = useColors();
   const {showTransferMenu} = useMenu();
   const {isL1, fromNetwork} = useTransfer();
   const {selectToken} = useTransfer();
@@ -38,7 +38,7 @@ export const SelectToken = () => {
         <BackButton onClick={() => showTransferMenu()} />
         <MenuTitle text={titleTxt} />
         <div className={styles.name}>
-          <MenuTitle color={colorBeta} text={fromNetwork} />
+          <MenuTitle color={colorOrangeSoda} text={fromNetwork} />
           {isLoggedIn && <RefreshIcon onClick={updateTokenBalance} />}
         </div>
         <SearchToken
