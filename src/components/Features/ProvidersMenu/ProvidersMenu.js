@@ -7,7 +7,7 @@ import {useSource} from '../../../providers/SourceProvider';
 import {useBridgeIsFull, useIsL1} from '../../../providers/TransferProvider';
 import {useL2Wallet} from '../../../providers/WalletsProvider';
 import {buildDynamicURL, evaluate, openInNewTab} from '../../../utils';
-import {Badge, ChoiceItemType, MenuBackground, MultiChoiceList} from '../../UI';
+import {Badge, ChoiceItemType, CircleLogoSize, MenuBackground, MultiChoiceList} from '../../UI';
 import {SourceSelect} from '../../UI/SourceSelect/SourceSelect';
 import styles from './ProvidersMenu.module.scss';
 
@@ -43,7 +43,7 @@ export const ProvidersMenu = () => {
           name: label,
           description: url,
           type: ChoiceItemType.LINK,
-          size: 32,
+          size: CircleLogoSize.SMALL,
           onClick: () => {
             openInNewTab(dynamicUrl);
           }

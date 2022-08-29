@@ -9,8 +9,8 @@ const CIRCLE_LOGO_SIZE_DIFF = 8;
 
 export const CircleLogoSize = {
   SMALL: 32,
-  MEDIUM: 50,
-  LARGE: 70
+  MEDIUM: 40,
+  LARGE: 50
 };
 
 export const CircleLogo = ({color, size, path, background = true}) => {

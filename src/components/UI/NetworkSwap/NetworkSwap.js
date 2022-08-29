@@ -4,7 +4,7 @@ import React from 'react';
 import {ReactComponent as SwapIcon} from '../../../assets/svg/icons/swap.svg';
 import {useColors} from '../../../hooks';
 import {toClasses} from '../../../utils';
-import {Circle} from '../index';
+import {Circle, CircleLogoSize} from '../index';
 import styles from './NetworkSwap.module.scss';
 
 export const NetworkSwap = ({isFlipped, onClick}) => {
@@ -14,7 +14,7 @@ export const NetworkSwap = ({isFlipped, onClick}) => {
     <div className={toClasses(styles.networkSwap, isFlipped && styles.flipped)} onClick={onClick}>
       <Circle
         color={colorDarkSlateBlue}
-        size={32}
+        size={CircleLogoSize.SMALL}
         style={{
           boxShadow: '0px 5px 35px rgba(0, 0, 0, 0.30)'
         }}
