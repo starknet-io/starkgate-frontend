@@ -1,3 +1,10 @@
+## [1.9.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.3...v1.9.0-dev.4) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3127762574:** login strings to be under modals and not under menus ([#286](https://github.com/starkware-libs/starkgate-frontend/issues/286)) ([5e45884](https://github.com/starkware-libs/starkgate-frontend/commit/5e45884b2459ab9da72e3ddf1fa1cc26286c9b8f))
+
 ## [1.9.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.2...v1.9.0-dev.3) (2022-08-28)
 
 
