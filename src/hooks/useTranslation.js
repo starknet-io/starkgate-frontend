@@ -33,6 +33,14 @@ export const useTransferTranslation = path => {
   return useMenusTranslation(chainPath('transfer', path));
 };
 
+export const useSourceTranslation = path => {
+  return useMenusTranslation(chainPath('source', path));
+};
+
+export const useProvidersTranslation = path => {
+  return useMenusTranslation(chainPath('providers', path));
+};
+
 export const useLoginTranslation = path => {
   return useMenusTranslation(chainPath('login', path));
 };
@@ -75,10 +83,6 @@ export const useScreensTranslation = path => {
 
 export const useFaqTranslation = () => {
   return useScreensTranslation('faq');
-};
-
-export const useLiquidityTranslation = () => {
-  return useScreensTranslation('liquidity');
 };
 
 export const useTermsTranslation = () => {

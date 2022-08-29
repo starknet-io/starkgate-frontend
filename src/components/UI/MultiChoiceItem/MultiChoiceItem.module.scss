@@ -1,42 +1,53 @@
 @import '../../../index';
 
 .multiChoiceItem {
-  display: flex;
-  padding: 15px 20px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
-  align-items: center;
-  justify-content: space-between;
+  border: 1px solid $--color-indigo;
+  box-sizing: border-box;
+  border-radius: 8px;
+  overflow-x: auto;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
 
   &.isDisabled {
     pointer-events: none;
     opacity: 0.2;
   }
 
-  .left {
+  .container {
     display: flex;
+    padding: 16px 12px;
+    align-items: center;
+    justify-content: space-between;
 
-    .text {
+    .left {
       display: flex;
-      flex-direction: column;
-      margin-left: 20px;
+      align-items: center;
 
-      .title {
-        font-weight: 500;
-        font-size: 18px;
+      .text {
         display: flex;
-        align-items: center;
-        line-height: 150%;
-        color: $--color-white;
-      }
+        flex-direction: column;
+        margin-left: 8px;
 
-      .description {
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        color: $--color-white;
-        opacity: 0.5;
-        line-height: 150%;
+        .title {
+          font-weight: 500;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          line-height: 20px;
+          color: $--color-white;
+        }
+
+        .description {
+          font-size: 12px;
+          display: flex;
+          align-items: center;
+          color: $--color-toolbox;
+          line-height: 150%;
+        }
       }
     }
   }

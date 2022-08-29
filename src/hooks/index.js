@@ -13,7 +13,6 @@ export * from './useTransferProgress';
 export * from './useConstants';
 export * from './useTranslation';
 export * from './useTracking';
-export * from './useLiquidityProviders';
 export * from './useAccountChange';
 export * from './useIsMaxTotalBalanceExceeded';
 export * from './useVars';

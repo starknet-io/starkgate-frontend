@@ -4,7 +4,6 @@ export default {
       chainTxt: 'Goerli testnet',
       accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
-      liquidityBtnTxt: 'Deposit into L2',
       tabs: {
         termsTxt: 'Terms',
         faqTxt: 'FAQ'
@@ -23,9 +22,6 @@ export default {
       titleTxt: 'Terms of Service',
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
-    },
-    liquidity: {
-      titleTxt: 'Deposit into L2'
     }
   },
   menus: {
@@ -56,9 +52,13 @@ export default {
       titleTxt: 'Select token from:',
       searchPlaceholder: 'Token name, symbol, or address'
     },
-    transfer: {
+    source: {
+      depositTxt: 'Deposit',
+      withdrawTxt: 'Withdraw',
       toTxt: 'to',
-      fromTxt: 'from',
+      fromTxt: 'from'
+    },
+    transfer: {
       negativeValueErrorMsg: 'Amount must be a positive number',
       tooManyDigitsErrorMsg: 'Too many decimal places',
       insufficientBalanceErrorMsg: 'Insufficient balance',
@@ -69,6 +69,9 @@ export default {
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
       loginWalletButtonTxt: 'Connect Wallet'
+    },
+    providers: {
+      descriptionTxt: 'Transfer crypto between {{source}} and StarkNet'
     }
   },
   modals: {

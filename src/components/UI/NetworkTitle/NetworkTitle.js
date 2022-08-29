@@ -8,7 +8,7 @@ import styles from './NetworkTitle.module.scss';
 
 export const NetworkTitle = ({networkName, isDisabled}) => (
   <div className={toClasses(styles.networkTitle, isDisabled && styles.isDisabled)}>
-    <CircleLogo path={`chains/${networkName.toLowerCase()}`} size={CircleLogoSize.MEDIUM} />
+    <CircleLogo path={`chains/${networkName.toLowerCase()}`} size={CircleLogoSize.SMALL} />
     {networkName}
   </div>
 );
