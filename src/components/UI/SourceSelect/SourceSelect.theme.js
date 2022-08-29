@@ -2,30 +2,46 @@ import {createTheme, ThemeProvider} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import SelectedIcon from '../../../assets/svg/icons/selected.svg';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorAlpha4, colorDarkSlateBlue} = useColors();
+  const {colorWhite, colorSpaceCadet, colorSpaceCadet2, colorDarkSlateBlue, colorLightSteelBlue} =
+    useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
-      MuiInput: {
+      MuiOutlinedInput: {
         styleOverrides: {
           root: {
+            padding: '4px',
+            fontSize: '14px',
             color: colorWhite,
-            backgroundColor: colorAlpha4
+            transition: '0.3s ease-in-out',
+            '&:hover': {
+              backgroundColor: colorDarkSlateBlue
+            }
           },
-          input: {
-            fontFamily: primaryFont,
-            display: 'flex'
+          notchedOutline: {
+            border: 0
           }
         }
       },
       MuiSelect: {
         styleOverrides: {
+          select: {
+            padding: 0,
+            paddingRight: '8px !important',
+            fontFamily: primaryFont,
+            display: 'flex',
+            alignItems: 'center',
+            fontWeight: '600'
+          },
+
           icon: {
-            transform: 'scale(1.5)',
-            margin: '6px',
+            position: 'initial',
+            transform: 'scale(1.4)',
+            marginRight: '8px',
             '& path': {
               fill: colorWhite
             }
@@ -35,18 +51,30 @@ export const SourceSelectTheme = ({children}) => {
       MuiPaper: {
         styleOverrides: {
           root: {
-            marginTop: '4px',
-            border: `1px solid ${colorWhite}`,
-            borderRadius: '8px',
-            backgroundColor: colorDarkSlateBlue,
-            color: colorWhite
+            backgroundColor: colorSpaceCadet,
+            color: colorWhite,
+            borderRadius: '8px'
           }
         }
       },
       MuiList: {
         styleOverrides: {
           root: {
-            padding: '0'
+            width: '240px !important',
+            padding: '8px 16px !important'
+          }
+        }
+      },
+      MuiListSubheader: {
+        styleOverrides: {
+          root: {
+            position: 'initial',
+            padding: 0,
+            backgroundColor: 'unset',
+            lineHeight: '24px',
+            color: colorLightSteelBlue,
+            fontFamily: primaryFont,
+            letterSpacing: '0.01em'
           }
         }
       },
@@ -54,8 +82,21 @@ export const SourceSelectTheme = ({children}) => {
         styleOverrides: {
           root: {
             fontFamily: primaryFont,
-            '&.Mui-selected': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1) !important'
+            fontSize: '14px',
+            padding: '4px',
+            borderRadius: '8px',
+            margin: '8px 0',
+            '&.Mui-selected, &:hover': {
+              backgroundColor: `${colorSpaceCadet2} !important`
+            },
+            '&.Mui-selected:after': {
+              content: `url(${SelectedIcon})`,
+              transform: 'scale(0.833)',
+              position: 'absolute',
+              right: '16px'
+            },
+            '& .MuiTouchRipple-root': {
+              display: 'none'
             }
           }
         }

@@ -4,7 +4,7 @@ import React from 'react';
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import {ReactComponent as LinkIcon} from '../../../assets/svg/icons/link.svg';
 import {toClasses} from '../../../utils';
-import {DynamicIcon, Loading, LoadingType} from '../index';
+import {CircleLogoSize, DynamicIcon, Loading, LoadingType} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 
 export const ChoiceItemType = {
@@ -17,17 +17,18 @@ export const MultiChoiceItem = ({
   description,
   logoPath,
   type = ChoiceItemType.BUTTON,
+  size = CircleLogoSize.MEDIUM,
   isDisabled = false,
   isLoading,
   onClick
 }) => (
-  <>
-    <div
-      className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
-      onClick={onClick}
-    >
+  <div
+    className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
+    onClick={onClick}
+  >
+    <div className={styles.container}>
       <div className={styles.left}>
-        <DynamicIcon path={logoPath} size={41} />
+        <DynamicIcon path={logoPath} size={size} />
         <div className={styles.text}>
           <div className={styles.title}>{name}</div>
           <div className={styles.description}>{description}</div>
@@ -38,8 +39,7 @@ export const MultiChoiceItem = ({
       </div>
     </div>
     {isLoading && <Loading type={LoadingType.LINEAR} />}
-    <div className={styles.separator} />
-  </>
+  </div>
 );
 
 MultiChoiceItem.propTypes = {
@@ -47,6 +47,7 @@ MultiChoiceItem.propTypes = {
   description: PropTypes.string,
   logoPath: PropTypes.string,
   type: PropTypes.number,
+  size: PropTypes.number,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
   onClick: PropTypes.func

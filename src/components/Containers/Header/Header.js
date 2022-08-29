@@ -7,6 +7,8 @@ import {Breakpoint} from '../../../enums';
 import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
+import {useSource} from '../../../providers/SourceProvider';
+import {useIsL1} from '../../../providers/TransferProvider';
 import {toClasses} from '../../../utils';
 import {Divider, ChainSelect, StarknetWalletButton, EthereumWalletButton, Tabs} from '../../UI';
 import styles from './Header.module.scss';
@@ -17,6 +19,8 @@ export const Header = () => {
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {termsTxt, faqTxt} = useTabsTranslation();
+  const {selectDefaultSource} = useSource();
+  const [, swapToL1] = useIsL1();
 
   const tabs = [
     {
@@ -32,6 +36,8 @@ export const Header = () => {
   ];
 
   const onLogoClick = () => {
+    selectDefaultSource();
+    swapToL1();
     showSourceMenu();
     navigateToRoute('/');
   };
