@@ -1,3 +1,10 @@
+## [1.9.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.4...v1.9.0-dev.5) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3140547314:** update discord link to the permanent master link ([#290](https://github.com/starkware-libs/starkgate-frontend/issues/290)) ([959b5bd](https://github.com/starkware-libs/starkgate-frontend/commit/959b5bda71b4e85292b34bcc5fac53ea780c6fcd))
+
 ## [1.9.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.3...v1.9.0-dev.4) (2022-08-29)
 
 
