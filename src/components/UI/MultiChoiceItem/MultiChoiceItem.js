@@ -22,11 +22,11 @@ export const MultiChoiceItem = ({
   isLoading,
   onClick
 }) => (
-  <>
-    <div
-      className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
-      onClick={onClick}
-    >
+  <div
+    className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
+    onClick={onClick}
+  >
+    <div className={styles.container}>
       <div className={styles.left}>
         <DynamicIcon path={logoPath} size={size} />
         <div className={styles.text}>
@@ -39,7 +39,7 @@ export const MultiChoiceItem = ({
       </div>
     </div>
     {isLoading && <Loading type={LoadingType.LINEAR} />}
-  </>
+  </div>
 );
 
 MultiChoiceItem.propTypes = {

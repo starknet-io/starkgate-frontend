@@ -2,6 +2,7 @@ import {createTheme, ThemeProvider} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import SelectedIcon from '../../../assets/svg/icons/selected.svg';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
@@ -59,14 +60,15 @@ export const SourceSelectTheme = ({children}) => {
       MuiList: {
         styleOverrides: {
           root: {
-            width: '240px',
-            padding: '8px 16px'
+            width: '240px !important',
+            padding: '8px 16px !important'
           }
         }
       },
       MuiListSubheader: {
         styleOverrides: {
           root: {
+            position: 'initial',
             padding: 0,
             backgroundColor: 'unset',
             lineHeight: '24px',
@@ -86,6 +88,12 @@ export const SourceSelectTheme = ({children}) => {
             margin: '8px 0',
             '&.Mui-selected, &:hover': {
               backgroundColor: `${colorSpaceCadet2} !important`
+            },
+            '&.Mui-selected:after': {
+              content: `url(${SelectedIcon})`,
+              transform: 'scale(0.833)',
+              position: 'absolute',
+              right: '16px'
             },
             '& .MuiTouchRipple-root': {
               display: 'none'
