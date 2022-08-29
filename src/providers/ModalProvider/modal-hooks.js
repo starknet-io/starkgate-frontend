@@ -165,7 +165,8 @@ export const useLoginModal = () => {
           background: 'unset',
           boxShadow: 'unset'
         },
-        exitable: true
+        exitable: true,
+        name: 'LoginModal'
       });
     },
     [showModal]

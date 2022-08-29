@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {createPortal} from 'react-dom';
 
+import {useModalTracking} from '../../../../hooks';
 import {toClasses} from '../../../../utils';
 import styles from './Modal.module.scss';
 
@@ -34,16 +35,22 @@ export const Modal = ({
   children,
   containerStyle,
   exitable,
-  hideModal
+  hideModal,
+  name
 }) => {
   const {width} = size;
+
+  const [trackExitModal] = useModalTracking();
 
   const ignoreClickOnBlurryPart = e => {
     e.stopPropagation();
   };
 
   const handleClickOnBlurryPart = () => {
-    exitable && hideModal();
+    if (exitable) {
+      trackExitModal({modalName: name});
+      hideModal();
+    }
   };
 
   return show
@@ -66,6 +73,7 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
+  name: PropTypes.string,
   containerStyle: PropTypes.object,
   exitable: PropTypes.bool,
   hideModal: PropTypes.func,

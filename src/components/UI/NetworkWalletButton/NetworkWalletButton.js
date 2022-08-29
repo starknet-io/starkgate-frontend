@@ -1,7 +1,8 @@
-import {WalletStatus} from '@starkware-industries/commons-js-enums';
+import {NetworkType, WalletStatus} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import {useEffect} from 'react';
 
+import {useConnectWalletTracking} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useLoginModal} from '../../../providers/ModalProvider';
@@ -11,6 +12,8 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   const {navigateToRoute} = useApp();
   const {showAccountMenu} = useMenu();
   const showLoginModal = useLoginModal();
+  const [, trackConnectEthereumWalletBtn, trackConnectStaknetWalletBtn] =
+    useConnectWalletTracking();
 
   useEffect(() => {
     error && handleWalletError(error);
@@ -36,6 +39,7 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   };
 
   const handleConnectWallet = () => {
+    network === NetworkType.L1 ? trackConnectEthereumWalletBtn() : trackConnectStaknetWalletBtn();
     showLoginModal(network);
   };
 
