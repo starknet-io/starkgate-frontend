@@ -39,10 +39,8 @@ export const Transfer = () => {
     insufficientBalanceErrorMsg,
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
-    negativeValueErrorMsg,
-    bridgeIsFullErrorMsg
+    negativeValueErrorMsg
   } = useTransferTranslation();
-  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
   const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
   const [isL1, swapToL1] = useIsL1();
   const [isL2, swapToL2] = useIsL2();
@@ -114,15 +112,6 @@ export const Transfer = () => {
     } else {
       setIsButtonDisabled(false);
     }
-  };
-
-  const BridgeIsFullError = () => {
-    return (
-      <Fragment>
-        {bridgeIsFullErrorMsg}
-        <ReadMore URL={STARKGATE_ALPHA_LIMITATIONS_URL} openInNewTab={true} />
-      </Fragment>
-    );
   };
 
   const onMaxClick = () => {
@@ -237,5 +226,17 @@ export const Transfer = () => {
         )}
       </div>
     </Menu>
+  );
+};
+
+const BridgeIsFullError = () => {
+  const {bridgeIsFullErrorMsg} = useTransferTranslation();
+  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
+
+  return (
+    <Fragment>
+      {bridgeIsFullErrorMsg}
+      <ReadMore URL={STARKGATE_ALPHA_LIMITATIONS_URL} openInNewTab={true} />
+    </Fragment>
   );
 };

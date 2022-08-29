@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 
 import styles from './ReadMore.module.scss';
-import {readMoreTxt} from './ReadMore.strings';
 
-export const ReadMore = ({URL, text, openInNewTab = false}) => {
+const READ_MORE_TXT = 'read more';
+
+export const ReadMore = ({url, text = READ_MORE_TXT, openInNewTab = false}) => {
   return (
-    <a className={styles.readMore} href={URL} rel="noreferrer" target={openInNewTab && '_blank'}>
-      {text || readMoreTxt}
+    <a className={styles.readMore} href={url} rel="noreferrer" target={openInNewTab && '_blank'}>
+      {text}
     </a>
   );
 };
 
 ReadMore.propTypes = {
-  URL: PropTypes.string,
+  url: PropTypes.string,
   text: PropTypes.string,
   openInNewTab: PropTypes.bool
 };
