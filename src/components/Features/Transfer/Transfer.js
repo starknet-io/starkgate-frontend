@@ -236,7 +236,7 @@ const BridgeIsFullError = () => {
   return (
     <Fragment>
       {bridgeIsFullErrorMsg}
-      <ReadMore url={STARKGATE_ALPHA_LIMITATIONS_URL} openInNewTab={true} />
+      <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
     </Fragment>
   );
 };
