@@ -1,3 +1,10 @@
+## [1.9.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.5...v1.9.0-dev.6) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3141693842:** amount input isn’t disabled when user isn’t logged in ([#291](https://github.com/starkware-libs/starkgate-frontend/issues/291)) ([e9f0a9d](https://github.com/starkware-libs/starkgate-frontend/commit/e9f0a9db58d2c6d098dc75e3e5c1fd9f9b90a0d4))
+
 ## [1.9.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.4...v1.9.0-dev.5) (2022-08-29)
 
 
