@@ -91,7 +91,7 @@ export const SourceSelectTheme = ({children}) => {
             },
             '&.Mui-selected:after': {
               content: `url(${SelectedIcon})`,
-              transform: 'scale(0.8125)',
+              transform: 'scale(0.833)',
               position: 'absolute',
               right: '16px'
             },
