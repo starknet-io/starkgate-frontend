@@ -2,6 +2,7 @@ import {AppProvider} from './AppProvider';
 import {BlockHashProvider} from './BlockHashProvider';
 import {MenuProvider} from './MenuProvider';
 import {ModalProvider} from './ModalProvider';
+import {SourceProvider} from './SourceProvider';
 import {TokensProvider} from './TokensProvider';
 import {TransferProvider} from './TransferProvider';
 import {TransfersLogProvider} from './TransfersLogProvider';
@@ -18,5 +19,6 @@ export const AppProviders = combineProviders([
   WalletsProvider,
   TokensProvider,
   BlockHashProvider,
-  TransfersLogProvider
+  TransfersLogProvider,
+  SourceProvider
 ]);

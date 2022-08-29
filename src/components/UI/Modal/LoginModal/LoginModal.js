@@ -20,7 +20,6 @@ import {useHideModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
 import {evaluate} from '../../../../utils';
 import {MultiChoiceMenu} from '../../index';
-import styles from './LoginModal.module.scss';
 
 const AUTO_CONNECT_TIMEOUT_DURATION = 100;
 
@@ -110,13 +109,11 @@ const LoginModal = ({networkName}) => {
   };
 
   return (
-    <div className={styles.loginModal}>
-      <MultiChoiceMenu
-        choices={mapLoginWalletsToChoices()}
-        error={error}
-        title={evaluate(titleTxt, {networkName: network})}
-      />
-    </div>
+    <MultiChoiceMenu
+      choices={mapLoginWalletsToChoices()}
+      error={error}
+      title={evaluate(titleTxt, {networkName: network})}
+    />
   );
 };
 
