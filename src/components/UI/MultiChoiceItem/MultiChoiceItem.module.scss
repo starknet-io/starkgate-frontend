@@ -66,14 +66,3 @@
     border-radius: 8px;
   }
 }
-
-.separator {
-  display: none;
-
-  &:not(:last-child) {
-    display: block;
-    height: 1px;
-    width: 100%;
-    background: $--color-indigo;
-  }
-}

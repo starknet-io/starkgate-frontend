@@ -6,8 +6,14 @@ import SelectedIcon from '../../../assets/svg/icons/selected.svg';
 import {useColors, useFonts} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
-  const {colorWhite, colorSpaceCadet, colorSpaceCadet2, colorDarkSlateBlue, colorLightSteelBlue} =
-    useColors();
+  const {
+    colorWhite,
+    colorWhiteOp10,
+    colorSpaceCadet,
+    colorSpaceCadet2,
+    colorDarkSlateBlue,
+    colorLightSteelBlue
+  } = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
@@ -74,7 +80,14 @@ export const SourceSelectTheme = ({children}) => {
             lineHeight: '24px',
             color: colorLightSteelBlue,
             fontFamily: primaryFont,
-            letterSpacing: '0.01em'
+            letterSpacing: '0.01em',
+            '&:not(:first-of-type):before': {
+              content: '""',
+              display: 'block',
+              height: '1px',
+              marginBottom: '8px',
+              backgroundColor: colorWhiteOp10
+            }
           }
         }
       },
