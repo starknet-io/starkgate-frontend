@@ -1,4 +1,4 @@
-import {starknet} from '@starkware-industries/commons-js-libs';
+import {hash} from '@starkware-industries/commons-js-libs/starknet';
 
 import {parseToFelt} from './parser';
 
@@ -19,7 +19,7 @@ export const shortenAddress = account => {
 };
 
 export const calcAccountHash = (account1, account2) => {
-  return starknet.hash.computeHashOnElements([
+  return hash.computeHashOnElements([
     parseToFelt(account1).toString(),
     parseToFelt(account2).toString()
   ]);
