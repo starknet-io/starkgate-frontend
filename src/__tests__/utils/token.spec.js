@@ -11,11 +11,11 @@ describe('isEth', () => {
 });
 
 describe('isDai', () => {
-  it('should return true for eth symbol', () => {
+  it('should return true for dai symbol', () => {
     expect(isDai('DAI')).toBeTruthy();
   });
 
-  it('should return false for non-eth symbol', () => {
+  it('should return false for non-dai symbol', () => {
     expect(isDai('ETH')).toBeFalsy();
   });
 });
