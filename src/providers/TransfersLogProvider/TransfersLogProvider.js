@@ -5,7 +5,8 @@ import {
   SelectorName,
   TransactionHashPrefix
 } from '@starkware-industries/commons-js-enums';
-import {getStarknet, starknet} from '@starkware-industries/commons-js-libs';
+import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
+import {hash} from '@starkware-industries/commons-js-libs/starknet';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
@@ -105,7 +106,7 @@ export const TransfersLogProvider = ({children}) => {
         eventName: EventName.L1.LOG_MESSAGE_TO_L2,
         filter: {
           from_address: depositEvent.address,
-          selector: starknet.hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
+          selector: hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
         },
         options: {
           fromBlock: blockNumber - 1,
