@@ -151,7 +151,7 @@ export const Transfer = ({onNetworkSwap}) => {
       <>
         <TokenInput
           hasError={hasInputError}
-          isInputDisabled={bridgeIsFull}
+          isInputDisabled={bridgeIsFull || !isLoggedIn}
           tokenData={selectedToken}
           value={amount}
           onInputChange={onInputChange}

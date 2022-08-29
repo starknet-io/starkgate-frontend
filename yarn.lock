@@ -3260,19 +3260,22 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/commons-js-enums@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.0.0.tgz#1cef593a30447ea5114915048678f235457ed7be"
-  integrity sha512-jICgaCkWHz2KBZAMe+2IuDJ1RBE1KIPBJHyH1PYzV7MwgI2V5MvsujeyZIdWtJOe2enUdTlkFOFY4OJYOn3T1g==
+"@starkware-industries/commons-js-enums@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.0.1.tgz#9c261ef1c40b189146cc298eb8c5b8677b90b74f"
+  integrity sha512-QdgBk63HIQKYypprlipnifXq4nwtajDHSJY7Gbe+mEKYYtwDupqUOBlj5+zWulroPsDNSHuImR/6tVvQBFgFNQ==
 
-"@starkware-industries/commons-js-libs@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.0.0.tgz#29755930e112353b155498b064b098af19db9865"
-  integrity sha512-mxHhT8r8g1bnXM8daOAJCyZSfEiWzwQ5/lBKknWXNmm17uNObxQjAk7QjAVFVbYNe4i0weGYbW4FA2V28KJJqQ==
+"@starkware-industries/commons-js-libs@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.1.0.tgz#1cc5d98a33034a5518d372a95bb93fbd704e7899"
+  integrity sha512-cLCidDnbgxMgyHkOlRhq3XAW5mr9Zx0lHxwZDmuFHnYYIrlBiPOHol0bbqf4hfjhfrgJCblErTLmUu/gacivSw==
   dependencies:
-    get-starknet "^1.4.3"
+    "@metamask/onboarding" "^1.0.1"
+    get-starknet "^1.4.4"
     starknet "^3.19.0"
     web3 "^1.7.5"
+    web3-eth-contract "^1.7.5"
+    web3-utils "^1.7.5"
 
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
@@ -10450,7 +10453,7 @@ get-package-type@^0.1.0:
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
-get-starknet@^1.4.3:
+get-starknet@^1.4.4:
   version "1.4.4"
   resolved "https://registry.yarnpkg.com/get-starknet/-/get-starknet-1.4.4.tgz#5e6e5bc3ffc9ae97960540474158194a54a30379"
   integrity sha512-0+eyHhj26Qs75BQ++YoyAUxuL2FQ1QNRudrQ7rrlNaJNTSFhkUw/xLaSJDsnep5PZz8ULzLN0Yeq2Z5RJFJ62A==
@@ -21252,7 +21255,7 @@ web3-eth-contract@1.2.11:
     web3-eth-abi "1.2.11"
     web3-utils "1.2.11"
 
-web3-eth-contract@1.7.5:
+web3-eth-contract@1.7.5, web3-eth-contract@^1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/web3-eth-contract/-/web3-eth-contract-1.7.5.tgz#a032419579bcec062513a3d089ad0e89ac63d731"
   integrity sha512-qab7NPJRKRlTs58ozsqK8YIEwWpxIm3vD/okSIKBGkFx5gIHWW+vGmMh5PDSfefLJM9rCd+T+Lc0LYvtME7uqg==
@@ -21619,7 +21622,7 @@ web3-utils@1.6.1, web3-utils@^1.6.1:
     randombytes "^2.1.0"
     utf8 "3.0.0"
 
-web3-utils@1.7.5:
+web3-utils@1.7.5, web3-utils@^1.7.5:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.7.5.tgz#081a952ac6e0322e25ac97b37358a43c7372ef6a"
   integrity sha512-9AqNOziQky4wNQadEwEfHiBdOZqopIHzQQVzmvvv6fJwDSMhP+khqmAZC7YTiGjs0MboyZ8tWNivqSO1699XQw==

@@ -1,6 +1,6 @@
 {
   "name": "starkgate-frontend",
-  "version": "1.9.0-dev.3",
+  "version": "1.9.0-dev.6",
   "homepage": "./",
   "scripts": {
     "clean": "rm -rf ./dist",
@@ -62,8 +62,8 @@
     "@mui/styles": "^5.5.0",
     "@normalizex/ethjs-unit": "^0.1.8",
     "@splitbee/web": "^0.3.0",
-    "@starkware-industries/commons-js-enums": "1.0.0",
-    "@starkware-industries/commons-js-libs": "1.0.0",
+    "@starkware-industries/commons-js-enums": "1.0.1",
+    "@starkware-industries/commons-js-libs": "1.1.0",
     "js-logger": "^1.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

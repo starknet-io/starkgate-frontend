@@ -1,5 +1,5 @@
 import {EventName} from '@starkware-industries/commons-js-enums';
-import {starknet} from '@starkware-industries/commons-js-libs';
+import {constants} from '@starkware-industries/commons-js-libs/starknet';
 import {useCallback} from 'react';
 
 import {stepOf, TransferError, TransferStep, TransferToL2Steps, ActionType} from '../enums';
@@ -109,7 +109,7 @@ export const useTransferToL2 = () => {
               logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
               await approve({
                 spender: bridgeAddress,
-                value: starknet.constants.MASK_250
+                value: constants.MASK_250
               });
             }
           }

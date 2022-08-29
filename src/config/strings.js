@@ -26,14 +26,6 @@ export default {
   },
   menus: {
     backBtnTxt: 'Back',
-    login: {
-      titleTxt: 'Connect {{networkName}} Wallet',
-      subtitleTxt: 'Please select {{networkName}} wallet to connect with this dApp:',
-      modalTxt: 'Waiting for confirmation from {{walletName}}',
-      unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
-      unsupportedBrowserTxt:
-        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome or Firefox to connect."
-    },
     account: {
       titleTxt: '{{network}} Account',
       copiedMsgTxt: 'Copied!',
@@ -75,6 +67,12 @@ export default {
     }
   },
   modals: {
+    login: {
+      titleTxt: 'Connect {{networkName}} Wallet',
+      unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
+      unsupportedBrowserTxt:
+        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome or Firefox to connect."
+    },
     transactionSubmitted: {
       titleTxt: 'Transaction sent',
       btnTxt: 'View on {{explorer}}',

@@ -1,3 +1,24 @@
+## [1.9.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.5...v1.9.0-dev.6) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3141693842:** amount input isn’t disabled when user isn’t logged in ([#291](https://github.com/starkware-libs/starkgate-frontend/issues/291)) ([e9f0a9d](https://github.com/starkware-libs/starkgate-frontend/commit/e9f0a9db58d2c6d098dc75e3e5c1fd9f9b90a0d4))
+
+## [1.9.0-dev.5](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.4...v1.9.0-dev.5) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3140547314:** update discord link to the permanent master link ([#290](https://github.com/starkware-libs/starkgate-frontend/issues/290)) ([959b5bd](https://github.com/starkware-libs/starkgate-frontend/commit/959b5bda71b4e85292b34bcc5fac53ea780c6fcd))
+
+## [1.9.0-dev.4](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.3...v1.9.0-dev.4) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3127762574:** login strings to be under modals and not under menus ([#286](https://github.com/starkware-libs/starkgate-frontend/issues/286)) ([5e45884](https://github.com/starkware-libs/starkgate-frontend/commit/5e45884b2459ab9da72e3ddf1fa1cc26286c9b8f))
+
 ## [1.9.0-dev.3](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.2...v1.9.0-dev.3) (2022-08-28)
 
 
