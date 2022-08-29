@@ -1,3 +1,10 @@
+## [1.9.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.6...v1.9.0-dev.7) (2022-08-29)
+
+
+### 🧩 Features
+
+* **2890253606:** New design for main deposit modal ([#273](https://github.com/starkware-libs/starkgate-frontend/issues/273)) ([609fa8d](https://github.com/starkware-libs/starkgate-frontend/commit/609fa8d4c5211300af26736445de2fe4ed52e820))
+
 ## [1.9.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.5...v1.9.0-dev.6) (2022-08-29)
 
 
