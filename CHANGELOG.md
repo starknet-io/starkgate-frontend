@@ -1,3 +1,10 @@
+## [1.9.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.7...v1.9.0-dev.8) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3155991918:** redundant purple border on Discord button ([#295](https://github.com/starkware-libs/starkgate-frontend/issues/295)) ([19fc9b1](https://github.com/starkware-libs/starkgate-frontend/commit/19fc9b171408c470248f5f099508d59956d6d47d))
+
 ## [1.9.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.6...v1.9.0-dev.7) (2022-08-29)
 
 
