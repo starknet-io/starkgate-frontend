@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "setting env vars"
-sh set-env.sh
+sh ./scripts/set-env.sh
 
 echo "starting nginx"
 nginx -g "daemon off;"
