@@ -1,4 +1,4 @@
-import {web3} from '@starkware-industries/commons-js-libs';
+import {web3} from '@starkware-industries/commons-js-libs/web3';
 
 import {promiseHandler} from './index';
 
