@@ -33,10 +33,6 @@ export const useTransferTranslation = path => {
   return useMenusTranslation(chainPath('transfer', path));
 };
 
-export const useLoginTranslation = path => {
-  return useMenusTranslation(chainPath('login', path));
-};
-
 export const useToastsTranslation = path => {
   return useTranslation(chainPath('toasts', path));
 };
@@ -53,12 +49,20 @@ export const useModalsTranslation = path => {
   return useTranslation(chainPath('modals', path));
 };
 
+export const useLoginTranslation = path => {
+  return useModalsTranslation(chainPath('login', path));
+};
+
 export const useTransferProgressModalTranslation = () => {
   return useModalsTranslation('transferProgress');
 };
 
 export const useTransactionSubmittedModalTranslation = () => {
   return useModalsTranslation('transactionSubmitted');
+};
+
+export const useProgressModalTranslation = () => {
+  return useModalsTranslation('progress');
 };
 
 export const useOnboardingModalTranslation = () => {
