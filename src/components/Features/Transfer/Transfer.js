@@ -200,9 +200,9 @@ const BridgeIsFullError = () => {
   const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
 
   return (
-    <div className={styles.bridgeIsFull}>
+    <Fragment>
       {bridgeIsFullErrorMsg}
       <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
-    </div>
+    </Fragment>
   );
 };
