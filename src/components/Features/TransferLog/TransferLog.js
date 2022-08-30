@@ -12,7 +12,7 @@ import React, {useEffect, useState} from 'react';
 import {useColors, useEnvs, useTransferLogTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {getFullTime, toClasses} from '../../../utils';
-import {Button, CryptoLogo, CryptoLogoSize} from '../../UI';
+import {Button, CircleLogo, CircleLogoSize} from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
@@ -66,7 +66,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     <>
       <div className={styles.transferLog}>
         <div className={styles.left}>
-          <CryptoLogo size={CryptoLogoSize.SMALL} symbol={symbol} />
+          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.SMALL} />
           <div>
             {name}
             <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>
