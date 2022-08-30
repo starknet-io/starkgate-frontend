@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
-import {Account, SelectToken, ToastManager, Transfer} from '../../components/Features';
+import {Account, SelectToken, ToastManager, Source} from '../../components/Features';
 import {HIDE_ELEMENT_COOKIE_DURATION_DAYS, ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
 import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
@@ -56,9 +56,9 @@ export const Bridge = () => {
         return <SelectToken />;
       case MenuType.ACCOUNT:
         return <Account {...menuProps[MenuType.ACCOUNT]} />;
-      case MenuType.TRANSFER:
+      case MenuType.SOURCE:
       default:
-        return <Transfer />;
+        return <Source />;
     }
   };
 

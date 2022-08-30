@@ -1,5 +1,5 @@
 export const MenuType = {
-  TRANSFER: 'TRANSFER',
+  SOURCE: 'SOURCE',
   SELECT_TOKEN: 'SELECT_TOKEN',
   ACCOUNT: 'ACCOUNT'
 };
