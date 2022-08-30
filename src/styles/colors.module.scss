@@ -27,10 +27,12 @@ $--color-vermilion: #d92d20;
 $--color-light-salmon-pink: #fda29b;
 $--color-carmine-pink: #e74c3c;
 $--color-orange-soda: #f6643c;
+$--color-flame: #e74f25;
 $--color-rust: #b54708;
 $--color-metallic-orange: #dc6803;
 $--color-maize: #fec84b;
 $--color-very-light-blue: #5865f2;
+$--color-dark-blue-gray: #65668c;
 
 :export {
   colorBlack: $--color-black;
@@ -50,4 +52,6 @@ $--color-very-light-blue: #5865f2;
   colorLightSteelBlue: $--color-light-steel-blue;
   colorVeryLightAzure: $--color-very-light-azure;
   colorDodgerBlue: $--color-dodger-blue;
+  colorFlame: $--color-flame;
+  colordarkBlueGray: $--color-dark-blue-gray;
 }
