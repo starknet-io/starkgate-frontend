@@ -2,7 +2,6 @@ import {NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useState} from 'react';
 
-import {ActionType} from '../../../enums';
 import {
   useConstants,
   useTransferToL1,
@@ -24,16 +23,13 @@ import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,
-  Menu,
   NetworkMenu,
   NetworkSwap,
   TokenInput,
   TransferButton,
   LoginWalletButton,
   MenuBackground,
-  ReadMore,
-  TransferMenuTab,
-
+  ReadMore
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
