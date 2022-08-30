@@ -10,7 +10,7 @@ export const useMenu = () => {
     menu,
     menuProps,
     showAccountMenu: useShowMenu(MenuType.ACCOUNT),
-    showTransferMenu: useShowMenu(MenuType.TRANSFER),
+    showSourceMenu: useShowMenu(MenuType.SOURCE),
     showSelectTokenMenu: useShowMenu(MenuType.SELECT_TOKEN),
     resetMenuProps
   };

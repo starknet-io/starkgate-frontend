@@ -35,7 +35,7 @@ export const Account = ({transferId}) => {
   ] = useAccountTracking();
   const {ETHERSCAN_ACCOUNT_URL, VOYAGER_ACCOUNT_URL} = useEnvs();
   const {ETHERSCAN, VOYAGER} = useConstants();
-  const {showTransferMenu} = useMenu();
+  const {showSourceMenu} = useMenu();
   const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();
   const transfers = useAccountTransfersLog(account);
@@ -60,14 +60,14 @@ export const Account = ({transferId}) => {
   };
 
   const handleLogout = () => {
-    showTransferMenu();
+    showSourceMenu();
     resetWallet();
   };
 
   return (
     <Menu>
       <div>
-        <BackButton onClick={() => showTransferMenu()} />
+        <BackButton onClick={() => showSourceMenu()} />
         <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
         <AccountAddress address={account} onClick={trackAddressCopied} />
         {isL1 && (
