@@ -28,7 +28,7 @@ WalletButton.propTypes = {
 
 const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorOrangeSoda, colorWhiteOp10, colorWhite, colordarkBlueGray} = useColors();
+  const {colorOrangeSoda, colorWhiteOp10, colorWhite, colorDarkBlueGray} = useColors();
   const {accountWalletBtnTxt} = useHeaderTranslation();
 
   const WALLET_LOGO_SIZE = 20;
@@ -57,7 +57,7 @@ const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
     <Button
       className={toClasses(styles.accountWalletButton, styles[breakpoint.toLowerCase()])}
       colorBackground={colorWhiteOp10}
-      colorBackgroundHover={colordarkBlueGray}
+      colorBackgroundHover={colorDarkBlueGray}
       colorBorder={colorOrangeSoda}
       colorText={colorWhite}
       iconLeft={renderWalletLogo()}
