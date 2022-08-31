@@ -5,9 +5,11 @@ import {useTransferTranslation} from '../../../hooks';
 import {MainMenuButton} from '../index';
 
 export const TransferButton = props => {
-  const {transferBtnTxt} = useTransferTranslation();
+  const {transferBtnTxt, disabledTransferBtnTxt} = useTransferTranslation();
 
-  return <MainMenuButton text={transferBtnTxt} {...props} />;
+  return (
+    <MainMenuButton text={props.isDisabled ? disabledTransferBtnTxt : transferBtnTxt} {...props} />
+  );
 };
 
 TransferButton.propTypes = {
