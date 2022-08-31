@@ -1,3 +1,24 @@
+## [1.9.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.8...v1.9.0-dev.9) (2022-08-31)
+
+
+### 🧩 Features
+
+* **2890117178:** bridge is full new ui ([#278](https://github.com/starkware-libs/starkgate-frontend/issues/278)) ([6a412ce](https://github.com/starkware-libs/starkgate-frontend/commit/6a412ce55d5765a49ff7fec4c09062dde8b2325f))
+
+## [1.9.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.7...v1.9.0-dev.8) (2022-08-29)
+
+
+### 🔧 Fixes
+
+* **3155991918:** redundant purple border on Discord button ([#295](https://github.com/starkware-libs/starkgate-frontend/issues/295)) ([19fc9b1](https://github.com/starkware-libs/starkgate-frontend/commit/19fc9b171408c470248f5f099508d59956d6d47d))
+
+## [1.9.0-dev.7](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.6...v1.9.0-dev.7) (2022-08-29)
+
+
+### 🧩 Features
+
+* **2890253606:** New design for main deposit modal ([#273](https://github.com/starkware-libs/starkgate-frontend/issues/273)) ([609fa8d](https://github.com/starkware-libs/starkgate-frontend/commit/609fa8d4c5211300af26736445de2fe4ed52e820))
+
 ## [1.9.0-dev.6](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.5...v1.9.0-dev.6) (2022-08-29)
 
 

@@ -3,8 +3,8 @@ import React from 'react';
 
 import {ReactComponent as DownArrowIcon} from '../../../assets/svg/icons/collapse.svg';
 import {useColors} from '../../../hooks';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
-import {CryptoLogo, Icon} from '../index';
+import {CircleLogoSize} from '../CircleLogo/CircleLogo';
+import {CircleLogo, Icon} from '../index';
 import styles from './TokenSelector.module.scss';
 
 export const TokenSelector = ({tokenData, onClick}) => {
@@ -12,7 +12,11 @@ export const TokenSelector = ({tokenData, onClick}) => {
 
   return (
     <div className={styles.tokenSelector} onClick={onClick}>
-      <CryptoLogo color={colorIndigo} size={CryptoLogoSize.SMALL} symbol={tokenData?.symbol} />
+      <CircleLogo
+        color={colorIndigo}
+        path={`tokens/${tokenData?.symbol}`}
+        size={CircleLogoSize.SMALL}
+      />
       {tokenData.symbol}
       <Icon isClickable={true}>
         <DownArrowIcon />

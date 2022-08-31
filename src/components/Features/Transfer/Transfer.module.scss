@@ -1,18 +1,8 @@
 @import '../../../index';
 
-.transfer {
-  transition: 0.3s ease-in-out;
-
-  .tabsContainer {
-    display: flex;
-    background: $--color-space-cadet-1;
-    border-radius: 10px;
-    padding: 10px;
-  }
-
-  .errorMsg {
-    font-size: 12px;
-    line-height: 24px;
-    color: $--color-jasper;
-  }
+.errorMsg {
+  font-size: 14px;
+  line-height: 20px;
+  color: $--color-jasper;
+  margin-top: 8px;
 }
