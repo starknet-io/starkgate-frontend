@@ -9,9 +9,9 @@ export const TrackEvent = {
   /**
    * Connect buttons
    */
-  CONNECT_ETHEREUM_WALLET_BTN: 'CONNECT_ETHEREUM_WALLET_BTN',
-  CONNECT_STARKNET_WALLET_BTN: 'CONNECT_STARKNET_WALLET_BTN',
-  CONNECT_WALLET_BTN: 'CONNECT_WALLET_BTN',
+  CONNECT_ETHEREUM_WALLET_CLICK: 'CONNECT_ETHEREUM_WALLET_CLICK',
+  CONNECT_STARKNET_WALLET_CLICK: 'CONNECT_STARKNET_WALLET_CLICK',
+  CONNECT_WALLET_CLICK: 'CONNECT_WALLET_CLICK',
 
   /**
    * Transfer menu
@@ -78,10 +78,5 @@ export const TrackEvent = {
   /**
    * Tabs
    */
-  DISCORD_TAB_CLICK: 'discord_tab_click',
-
-  /**
-   * Modals
-   */
-  EXIT_MODAL: 'EXIT_MODAL'
+  DISCORD_TAB_CLICK: 'discord_tab_click'
 };

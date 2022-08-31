@@ -12,7 +12,7 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   const {navigateToRoute} = useApp();
   const {showAccountMenu} = useMenu();
   const showLoginModal = useLoginModal();
-  const [, trackConnectEthereumWalletBtn, trackConnectStaknetWalletBtn] =
+  const [, trackConnectEthereumWalletClick, trackConnectStaknetWalletClick] =
     useConnectWalletTracking();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   };
 
   const handleConnectWallet = () => {
-    network === NetworkType.L1 ? trackConnectEthereumWalletBtn() : trackConnectStaknetWalletBtn();
+    network === NetworkType.L1 ? trackConnectEthereumWalletClick() : trackConnectStaknetWalletClick();
     showLoginModal(network);
   };
 

@@ -10,11 +10,11 @@ export const LoginWalletButton = props => {
   const {statusL1} = useWalletsStatus();
   const {loginWalletButtonTxt} = useTransferTranslation();
   const showLoginModal = useLoginModal();
-  const [trackConnectWalletButton] = useConnectWalletTracking();
+  const [trackConnectWalletClick] = useConnectWalletTracking();
 
   const handleConnectWallets = () => {
     const networkName = statusL1 === WalletStatus.CONNECTED ? NetworkType.L2 : NetworkType.L1;
-    trackConnectWalletButton();
+    trackConnectWalletClick();
     showLoginModal(networkName);
   };
 

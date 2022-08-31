@@ -68,14 +68,10 @@ export const useSelectTokenTracking = () => {
   return useTracking([...Object.values(TrackEvent.SELECT_TOKEN)]);
 };
 
-export const useModalTracking = () => {
-  return useTracking([TrackEvent.EXIT_MODAL]);
-};
-
 export const useConnectWalletTracking = () => {
   return useTracking([
-    TrackEvent.CONNECT_WALLET_BTN,
-    TrackEvent.CONNECT_ETHEREUM_WALLET_BTN,
-    TrackEvent.CONNECT_STARKNET_WALLET_BTN
+    TrackEvent.CONNECT_WALLET_CLICK,
+    TrackEvent.CONNECT_ETHEREUM_WALLET_CLICK,
+    TrackEvent.CONNECT_STARKNET_WALLET_CLICK
   ]);
 };
