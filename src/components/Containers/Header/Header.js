@@ -2,7 +2,7 @@ import React from 'react';
 import {useLocation} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
 
-import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {ReactComponent as StarkGateLogo} from '../../../assets/img/starknet.svg';
 import {Breakpoint} from '../../../enums';
 import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';

@@ -13,17 +13,18 @@
   right: 0;
 
   .left {
-    padding: 30px;
+    padding: 18px 24px;
     display: flex;
     align-items: flex-start;
 
     .logo {
       transition: 0.3s ease-in-out;
       cursor: pointer;
+      margin: auto;
 
       svg {
-        width: 220px;
-        height: 46px;
+        width: 141px;
+        height: 28px;
       }
     }
 
