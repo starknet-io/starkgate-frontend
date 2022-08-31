@@ -1,3 +1,10 @@
+## [1.9.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.8...v1.9.0-dev.9) (2022-08-31)
+
+
+### 🧩 Features
+
+* **2890117178:** bridge is full new ui ([#278](https://github.com/starkware-libs/starkgate-frontend/issues/278)) ([6a412ce](https://github.com/starkware-libs/starkgate-frontend/commit/6a412ce55d5765a49ff7fec4c09062dde8b2325f))
+
 ## [1.9.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.7...v1.9.0-dev.8) (2022-08-29)
 
 
