@@ -39,7 +39,9 @@ export const NetworkWalletButton = ({account, chain, logoPath, network, status, 
   };
 
   const handleConnectWallet = () => {
-    network === NetworkType.L1 ? trackConnectEthereumWalletClick() : trackConnectStaknetWalletClick();
+    network === NetworkType.L1
+      ? trackConnectEthereumWalletClick()
+      : trackConnectStaknetWalletClick();
     showLoginModal(network);
   };
 
