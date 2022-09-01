@@ -15,23 +15,21 @@ import {
   HIDE_ELEMENT_COOKIE_DURATION_DAYS
 } from '../../../config/constants';
 import {ActionType, Breakpoint, isMobile, ToastType} from '../../../enums';
-import {useCompleteTransferToL1, usePrevious, useToastsTranslation} from '../../../hooks';
+import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
-import {useIsL1, useIsL2, useBridgeIsFull} from '../../../providers/TransferProvider';
+import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
 import {getCookie, getFullTime, setCookie} from '../../../utils';
-import {CompleteTransferToL1Toast, ErrorToast, ToastBody, TransferToast} from '../../UI';
+import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
 import styles from './ToastManager.module.scss';
 
 let toastsMap = {};
 let toastsDismissed = {};
 
-const BRIDGE_FULL_TOAST_ID = 'bridgeFull';
 const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
 export const ToastManager = () => {
-  const {bridgeFullNotice} = useToastsTranslation();
   const {transfers} = useTransfersLog();
   const prevTransfers = usePrevious(transfers);
   const completeTransferToL1 = useCompleteTransferToL1();
@@ -39,7 +37,6 @@ export const ToastManager = () => {
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {bridgeIsFull} = useBridgeIsFull();
 
   useEffect(() => {
     const alphaDisclaimerCookie = getCookie(ALPHA_DISCLAIMER_COOKIE_NAME);
@@ -47,10 +44,6 @@ export const ToastManager = () => {
       showAlphaDisclaimerToast();
     }
   }, [breakpoint]);
-
-  useEffect(() => {
-    showBridgeFullToast(bridgeIsFull);
-  }, [bridgeIsFull]);
 
   useDeepCompareEffect(() => {
     renderToasts();
@@ -96,26 +89,6 @@ export const ToastManager = () => {
       position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
       id: ALPHA_DISCLAIMER_TOAST_ID
     });
-  };
-
-  const showBridgeFullToast = show => {
-    if (show) {
-      toast.custom(
-        () => (
-          <ErrorToast
-            isCollapsable={true}
-            msg={bridgeFullNotice.bodyTxt}
-            title={bridgeFullNotice.titleTxt}
-          />
-        ),
-        {
-          position: 'top-center',
-          id: BRIDGE_FULL_TOAST_ID
-        }
-      );
-    } else {
-      toast.remove(BRIDGE_FULL_TOAST_ID);
-    }
   };
 
   const showConsumedTransferToast = transfer => {
