@@ -1,3 +1,10 @@
+## [1.9.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.10...v1.9.0-dev.11) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156108853:** align wallet button to Figma ([#296](https://github.com/starkware-libs/starkgate-frontend/issues/296)) ([487f567](https://github.com/starkware-libs/starkgate-frontend/commit/487f567fe29f19a3fa652078094fec8e837bb9e2))
+
 ## [1.9.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.9...v1.9.0-dev.10) (2022-09-01)
 
 
