@@ -1,3 +1,10 @@
+## [1.9.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.11...v1.9.0-dev.12) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156115079:** align the header's tabs to Figma design  ([#297](https://github.com/starkware-libs/starkgate-frontend/issues/297)) ([741f15b](https://github.com/starkware-libs/starkgate-frontend/commit/741f15b442a61e044a5ff66b059c96f23d2c14cb))
+
 ## [1.9.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.10...v1.9.0-dev.11) (2022-09-01)
 
 
