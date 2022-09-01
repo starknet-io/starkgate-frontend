@@ -34,7 +34,7 @@ export const Terms = () => {
         <Header />
         <div className={styles.text}>{TermsOfUse}</div>
       </div>
-      {!isAcceptTerms && <AcceptButton isDisabled={!isAcceptButtonEnabled} />}
+      {(!isAcceptTerms || true) && <AcceptButton isDisabled={!isAcceptButtonEnabled} />}
     </FullScreenContainer>
   );
 };
@@ -54,7 +54,7 @@ const AcceptButton = ({isDisabled}) => {
   const [, trackAcceptClick] = useTermsTracking();
   const {acceptBtnTxt} = useTermsTranslation();
   const {acceptTerms} = useTerms();
-  const {colorDodgerBlue, colorWhite} = useColors();
+  const {colorDodgerBlue, colorBrilliantAzure, colorWhite} = useColors();
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
   const navigate = useNavigate();
@@ -70,15 +70,11 @@ const AcceptButton = ({isDisabled}) => {
     <div className={styles.acceptButtonContainer}>
       <div className={styles.content}>
         <Button
-          colorBackground={colorDodgerBlue}
+          colorBackground={colorBrilliantAzure}
           colorBackgroundHover={colorDodgerBlue}
           colorBorder={colorDodgerBlue}
           colorText={colorWhite}
-          height={50}
           isDisabled={isDisabled}
-          style={{
-            width: '200px'
-          }}
           text={acceptBtnTxt}
           onClick={accept}
         />
