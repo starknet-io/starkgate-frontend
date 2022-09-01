@@ -179,6 +179,7 @@ export const Transfer = ({onNetworkSwap}) => {
           <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
           {isLoggedIn ? (
             <TransferButton
+              hasInputError={hasInputError}
               isDisabled={isButtonDisabled || bridgeIsFull}
               onClick={onTransferClick}
             />
