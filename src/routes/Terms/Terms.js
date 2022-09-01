@@ -34,7 +34,7 @@ export const Terms = () => {
         <Header />
         <div className={styles.text}>{TermsOfUse}</div>
       </div>
-      {(!isAcceptTerms || true) && <AcceptButton isDisabled={!isAcceptButtonEnabled} />}
+      {!isAcceptTerms && <AcceptButton isDisabled={!isAcceptButtonEnabled} />}
     </FullScreenContainer>
   );
 };
