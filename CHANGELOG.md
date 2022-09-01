@@ -1,3 +1,10 @@
+## [1.9.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.12...v1.9.0-dev.13) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3163896187:** align Starkgate logo to Figma ([#298](https://github.com/starkware-libs/starkgate-frontend/issues/298)) ([0c8075c](https://github.com/starkware-libs/starkgate-frontend/commit/0c8075c9e771914daebc9c11727e0c8ee28df38d))
+
 ## [1.9.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.11...v1.9.0-dev.12) (2022-09-01)
 
 
