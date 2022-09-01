@@ -52,8 +52,8 @@ const Question = ({faq}) => {
     <div className={styles.container}>
       <div className={styles.questionContainer}>
         <div className={styles.icon}>
-          {!isOpen && <PlusCircle width={20} height={20} onClick={toggleShow} />}
-          {isOpen && <MinusCircle width={20} height={20} onClick={toggleShow} />}
+          {!isOpen && <PlusCircle height={20} width={20} onClick={toggleShow} />}
+          {isOpen && <MinusCircle height={20} width={20} onClick={toggleShow} />}
         </div>
         <div className={styles.question}>{faq.question}</div>
       </div>
