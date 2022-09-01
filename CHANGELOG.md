@@ -1,3 +1,10 @@
+## [1.9.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.9...v1.9.0-dev.10) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3142752290:** create events for new login flow ([#294](https://github.com/starkware-libs/starkgate-frontend/issues/294)) ([221f867](https://github.com/starkware-libs/starkgate-frontend/commit/221f867e582cf1c91a8a22cb93d9c8390f4686c2))
+
 ## [1.9.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.8...v1.9.0-dev.9) (2022-08-31)
 
 
