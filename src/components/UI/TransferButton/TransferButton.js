@@ -8,7 +8,7 @@ export const TransferButton = ({isDisabled, hasInputError, ...props}) => {
   const {transferBtnTxt, disabledTransferBtnTxt} = useTransferTranslation();
 
   const textAndStyle =
-    !hasInputError && isDisabled
+    isDisabled && !hasInputError
       ? {
           text: disabledTransferBtnTxt,
           style: {
