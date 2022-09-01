@@ -1,3 +1,24 @@
+## [1.9.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.12...v1.9.0-dev.13) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3163896187:** align Starkgate logo to Figma ([#298](https://github.com/starkware-libs/starkgate-frontend/issues/298)) ([0c8075c](https://github.com/starkware-libs/starkgate-frontend/commit/0c8075c9e771914daebc9c11727e0c8ee28df38d))
+
+## [1.9.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.11...v1.9.0-dev.12) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156115079:** align the header's tabs to Figma design  ([#297](https://github.com/starkware-libs/starkgate-frontend/issues/297)) ([741f15b](https://github.com/starkware-libs/starkgate-frontend/commit/741f15b442a61e044a5ff66b059c96f23d2c14cb))
+
+## [1.9.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.10...v1.9.0-dev.11) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156108853:** align wallet button to Figma ([#296](https://github.com/starkware-libs/starkgate-frontend/issues/296)) ([487f567](https://github.com/starkware-libs/starkgate-frontend/commit/487f567fe29f19a3fa652078094fec8e837bb9e2))
+
 ## [1.9.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.9...v1.9.0-dev.10) (2022-09-01)
 
 
