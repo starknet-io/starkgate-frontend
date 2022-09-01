@@ -1,4 +1,4 @@
-import {get24Time, getDate, getMsFromHrs} from '../../utils';
+import {get24Time, getDate, getMsFromHrs} from '@starkware-industries/commons-js-utils';
 
 describe('getDate', () => {
   it('should return date of the form DD/MM/YYYY from timestamp', () => {
@@ -20,7 +20,6 @@ describe('getMsFromHrs', () => {
   });
 
   it('should return undefined if parseFloat got NaN', () => {
-    expect(getMsFromHrs('something')).toEqual(undefined);
-    expect(getMsFromHrs(undefined)).toEqual(undefined);
+    expect(getMsFromHrs('something')).toEqual(null);
   });
 });

@@ -1,4 +1,4 @@
-import {afterDecimal, isNegative, isZero} from '../../utils';
+import {afterDecimal, isNegative, isZero} from '@starkware-industries/commons-js-utils';
 
 describe('afterDecimal', () => {
   it('should return number of decimals places', () => {

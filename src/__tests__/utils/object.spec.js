@@ -1,4 +1,9 @@
-import {evaluate, findIndexById, getPropertyPath, toClasses} from '../../utils';
+import {
+  evaluate,
+  findIndexById,
+  getPropertyPath,
+  toClasses
+} from '@starkware-industries/commons-js-utils';
 
 describe('getPropertyPath', () => {
   const obj = {

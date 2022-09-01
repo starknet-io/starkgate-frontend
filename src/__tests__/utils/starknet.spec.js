@@ -1,6 +1,5 @@
 import {ChainType, TransactionHashPrefix} from '@starkware-industries/commons-js-enums';
-
-import {getTransactionHash} from '../../utils';
+import {getTransactionHash} from '@starkware-industries/commons-js-utils';
 
 describe('starknet blockchain utils', () => {
   describe('getTransactionHash', () => {

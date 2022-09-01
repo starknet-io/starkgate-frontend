@@ -1,6 +1,5 @@
 import {ChainType} from '@starkware-industries/commons-js-enums';
-
-import {evaluate} from '../utils';
+import {evaluate} from '@starkware-industries/commons-js-utils';
 
 export const ENV = process.env.REACT_APP_ENV;
 export const AUTO_CONNECT = process.env.REACT_APP_AUTO_CONNECT === 'true';

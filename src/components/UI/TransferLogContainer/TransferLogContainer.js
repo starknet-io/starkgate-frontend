@@ -1,9 +1,9 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {useTransferLogContainerTranslation} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
-import {toClasses} from '../../../utils';
 import {CollapseExpand} from '../CollapseExpand/CollapseExpand';
 import styles from './TransferLogContainer.module.scss';
 

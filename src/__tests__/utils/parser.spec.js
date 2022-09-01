@@ -4,7 +4,7 @@ import {
   parseFromUint256,
   parseToDecimals,
   parseToUint256
-} from '../../utils';
+} from '@starkware-industries/commons-js-utils';
 
 describe('parseToDecimals', () => {
   it('should parse to decimals', () => {

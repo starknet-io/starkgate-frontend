@@ -1,4 +1,8 @@
-import {formatBalance, shortenAddress, shortenBalance} from '../../utils';
+import {
+  formatBalance,
+  shortenAddress,
+  shortenBalance
+} from '@starkware-industries/commons-js-utils';
 
 describe('formatBalance', () => {
   it('should format balance as string', () => {

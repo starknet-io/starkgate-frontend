@@ -3260,15 +3260,15 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/commons-js-enums@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.0.1.tgz#9c261ef1c40b189146cc298eb8c5b8677b90b74f"
-  integrity sha512-QdgBk63HIQKYypprlipnifXq4nwtajDHSJY7Gbe+mEKYYtwDupqUOBlj5+zWulroPsDNSHuImR/6tVvQBFgFNQ==
+"@starkware-industries/commons-js-enums@1.1.0-dev.1":
+  version "1.1.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.1.0-dev.1.tgz#c98ccf0fd06052e621bf25c7666403827a51fc46"
+  integrity sha512-ySoKO1avyp6nbHLmBCiXhZpOh2tDyU2j1jB7nsPD3sRPYWbhs0dKE0OqPwE7hKwXCAjtCSyQ2wIjiSTnlWhz6w==
 
-"@starkware-industries/commons-js-libs@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.1.0.tgz#1cc5d98a33034a5518d372a95bb93fbd704e7899"
-  integrity sha512-cLCidDnbgxMgyHkOlRhq3XAW5mr9Zx0lHxwZDmuFHnYYIrlBiPOHol0bbqf4hfjhfrgJCblErTLmUu/gacivSw==
+"@starkware-industries/commons-js-libs@1.2.0-dev.1":
+  version "1.2.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.2.0-dev.1.tgz#c86b204e8ddf63ad6c8041cad4c75f9fa28d07f9"
+  integrity sha512-3Q3GULu7f3hPSVj/dGfOZxgm1EIGAE8P+Q+gtGpIGoLFwmLO/ERKkL4sIjpfD8EwjnNd/iHJnCbr4cLubTtbAA==
   dependencies:
     "@metamask/onboarding" "^1.0.1"
     get-starknet "^1.4.4"
@@ -3276,6 +3276,19 @@
     web3 "^1.7.5"
     web3-eth-contract "^1.7.5"
     web3-utils "^1.7.5"
+
+"@starkware-industries/commons-js-utils@1.0.0-dev.1":
+  version "1.0.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-utils/-/commons-js-utils-1.0.0-dev.1.tgz#6de094ea88b0ad16d1a056612c337b07491c9126"
+  integrity sha512-qsB7YjOQIrUHZGFtzNZViEoOZ8wZa30tu/0n07OcaPWv/5mLSLFM0oqSzgfmFAnaWXsJt2r1xi5smSgfDRz+Xg==
+  dependencies:
+    "@normalizex/ethjs-unit" "^0.1.8"
+    "@starkware-industries/commons-js-enums" "1.1.0-dev.1"
+    "@starkware-industries/commons-js-libs" "1.2.0-dev.1"
+    "@types/uuid" "^8.3.4"
+    axios "^0.26.0"
+    js-logger "^1.6.1"
+    uuid "^8.3.2"
 
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
@@ -3865,6 +3878,11 @@
   integrity sha512-O3MmRAk6ZuAKa9CHgg0Pr0+lUOqoMLpc9AS4R8ano2auvsg7IE8syF3Xh/NPr26TWklxYcqoEEFdzLLs1fV9PQ==
   dependencies:
     source-map "^0.6.1"
+
+"@types/uuid@^8.3.4":
+  version "8.3.4"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.4.tgz#bd86a43617df0594787d38b735f55c805becf1bc"
+  integrity sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==
 
 "@types/web3-provider-engine@^14.0.0":
   version "14.0.1"
@@ -5124,6 +5142,13 @@ axios@^0.18.0:
   dependencies:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
+
+axios@^0.26.0:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
+  dependencies:
+    follow-redirects "^1.14.8"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -10141,6 +10166,11 @@ follow-redirects@^1.0.0:
   version "1.14.5"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.5.tgz#f09a5848981d3c772b5392309778523f8d85c381"
   integrity sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==
+
+follow-redirects@^1.14.8:
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
+  integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
 for-each@^0.3.3, for-each@~0.3.3:
   version "0.3.3"

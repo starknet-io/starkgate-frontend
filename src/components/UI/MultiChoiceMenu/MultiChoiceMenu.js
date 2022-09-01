@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
 import {Alert, AlertType} from '../Alert/Alert';
 import {Menu} from '../Menu/Menu';
 import {MultiChoiceList} from '../MultiChoiceList/MultiChoiceList';

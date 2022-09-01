@@ -1,8 +1,9 @@
+import {openInNewTab} from '@starkware-industries/commons-js-utils';
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as RedirectIcon} from '../../../assets/svg/icons/redirect.svg';
-import {openInNewTab, toClasses} from '../../../utils';
 import styles from './LinkButton.module.scss';
 
 export const LinkButton = ({text, url, isDisabled, onClick}) => {

@@ -1,9 +1,9 @@
 import {Transition} from '@headlessui/react';
+import {hexToRgba} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../../hooks';
-import {hexToRgba} from '../../../../utils';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastFooter} from '../ToastFooter/ToastFooter';

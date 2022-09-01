@@ -1,4 +1,4 @@
-import {getStorageItem, setStorageItem} from '../../utils';
+import {getStorageItem, setStorageItem} from '@starkware-industries/commons-js-utils';
 
 class LocalStorageMock {
   constructor() {

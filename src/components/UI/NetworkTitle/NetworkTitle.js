@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
 import {CircleLogoSize} from '../CircleLogo/CircleLogo';
 import {CircleLogo} from '../index';
 import styles from './NetworkTitle.module.scss';

@@ -1,19 +1,19 @@
-import {useCallback} from 'react';
-
-import {useL1Token} from '../providers/TokensProvider';
-import {useSelectedToken} from '../providers/TransferProvider';
-import {useL1Wallet} from '../providers/WalletsProvider';
 import {
-  callL1Contract,
-  isDai,
+  callContractL1,
+  sendTransactionL1,
   parseFromDecimals,
   parseToDecimals,
   parseToFelt,
   parseToUint256,
   promiseHandler,
-  sendL1Transaction,
-  sendL2Transaction
-} from '../utils';
+  sendTransactionL2
+} from '@starkware-industries/commons-js-utils';
+import {useCallback} from 'react';
+
+import {useL1Token} from '../providers/TokensProvider';
+import {useSelectedToken} from '../providers/TransferProvider';
+import {useL1Wallet} from '../providers/WalletsProvider';
+import {isDai} from '../utils';
 import {
   useL1TokenBridgeContract,
   useL2TokenBridgeContract,
@@ -33,7 +33,7 @@ export const useBridgeContractAPI = () => {
       const {bridgeAddress, decimals} = selectedToken;
       const contract = getL1BridgeContract(bridgeAddress);
 
-      return sendL1Transaction(
+      return sendTransactionL1(
         contract,
         'deposit',
         [parseToDecimals(amount, decimals), recipient],
@@ -49,7 +49,7 @@ export const useBridgeContractAPI = () => {
       const {bridgeAddress} = selectedToken;
       const contract = getL1BridgeContract(bridgeAddress);
 
-      return sendL1Transaction(
+      return sendTransactionL1(
         contract,
         'deposit',
         [recipient],
@@ -68,7 +68,7 @@ export const useBridgeContractAPI = () => {
       const {bridgeAddress, decimals} = symbol ? getL1Token(symbol) : selectedToken;
       const contract = getL1BridgeContract(bridgeAddress);
 
-      return sendL1Transaction(
+      return sendTransactionL1(
         contract,
         'withdraw',
         [parseToDecimals(amount, decimals), recipient],
@@ -86,7 +86,7 @@ export const useBridgeContractAPI = () => {
       const {bridgeAddress, decimals} = token || selectedToken;
       const contract = getL1BridgeContract(bridgeAddress);
 
-      const [maxDeposit, error] = await promiseHandler(callL1Contract(contract, 'maxDeposit'));
+      const [maxDeposit, error] = await promiseHandler(callContractL1(contract, 'maxDeposit'));
       if (error) {
         return Promise.reject(error);
       }
@@ -101,7 +101,7 @@ export const useBridgeContractAPI = () => {
       const contract = getL1BridgeContract(bridgeAddress);
 
       const [maxTotalBalance, error] = await promiseHandler(
-        callL1Contract(contract, isDai(symbol) ? 'ceiling' : 'maxTotalBalance')
+        callContractL1(contract, isDai(symbol) ? 'ceiling' : 'maxTotalBalance')
       );
       if (error) {
         return Promise.reject(error);
@@ -116,8 +116,7 @@ export const useBridgeContractAPI = () => {
       const {bridgeAddress, tokenAddress, decimals, symbol} = selectedToken;
       const bridge = getL2BridgeContract(bridgeAddress);
       const token = getL2TokenContract(tokenAddress);
-
-      return sendL2Transaction([
+      const transactions = [
         ...(isDai(symbol)
           ? [
               {
@@ -138,7 +137,8 @@ export const useBridgeContractAPI = () => {
             amount: parseToUint256(amount, decimals)
           }
         }
-      ]);
+      ];
+      return sendTransactionL2(transactions);
     },
     [selectedToken, getL2BridgeContract, getL2TokenContract]
   );

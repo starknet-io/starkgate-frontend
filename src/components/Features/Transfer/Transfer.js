@@ -1,4 +1,5 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
+import {afterDecimal, evaluate, isNegative, isZero} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
@@ -18,7 +19,6 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
-import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,

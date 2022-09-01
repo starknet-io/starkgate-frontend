@@ -1,4 +1,4 @@
-import {capitalize} from '../../utils';
+import {capitalize} from '@starkware-industries/commons-js-utils';
 
 describe('capitalize', () => {
   it('should capitalize string', () => {
