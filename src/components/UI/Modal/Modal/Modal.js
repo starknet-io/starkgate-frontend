@@ -34,8 +34,7 @@ export const Modal = ({
   children,
   containerStyle,
   exitable,
-  hideModal,
-  name
+  hideModal
 }) => {
   const {width} = size;
 
@@ -67,7 +66,6 @@ Modal.propTypes = {
   show: PropTypes.bool,
   type: PropTypes.string,
   size: PropTypes.string,
-  name: PropTypes.string,
   containerStyle: PropTypes.object,
   exitable: PropTypes.bool,
   hideModal: PropTypes.func,

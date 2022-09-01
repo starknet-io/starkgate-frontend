@@ -20,8 +20,7 @@ export const initialState = {
     components: []
   },
   containerStyle: {},
-  exitable: false,
-  name: ''
+  exitable: false
 };
 
 export const reducer = (state, action) => {
