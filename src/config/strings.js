@@ -56,6 +56,7 @@ export default {
       insufficientBalanceErrorMsg: 'Insufficient balance',
       maxDepositErrorMsg:
         'You have exceeded the maximum transfer amount ({{maxDeposit}} {{symbol}}). Please reduce the amount and try again.',
+      bridgeIsFullErrorMsg: 'The token bridge is currently full, try another token',
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
@@ -130,11 +131,6 @@ export default {
     }
   },
   toasts: {
-    bridgeFullNotice: {
-      titleTxt: 'Bridge is full',
-      bodyTxt:
-        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.'
-    },
     alphaDisclaimerNotice: {
       titleTxt: 'StarkNet Alpha',
       bodyTxt:
