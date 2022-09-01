@@ -7,7 +7,7 @@ import {MainMenuButton} from '../index';
 export const TransferButton = props => {
   const {transferBtnTxt} = useTransferTranslation();
 
-  return <MainMenuButton height={50} text={transferBtnTxt} {...props} />;
+  return <MainMenuButton text={transferBtnTxt} {...props} />;
 };
 
 TransferButton.propTypes = {
