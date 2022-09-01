@@ -1,4 +1,5 @@
 import {ChainType} from '@starkware-industries/commons-js-enums';
+import {buildDynamicURL, evaluate, openInNewTab} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 
 import {sources, providers, depositConfig, withdrawConfig} from '../../../config/sources';
@@ -6,7 +7,6 @@ import {useEnvs, useProvidersTranslation, useSourceTranslation} from '../../../h
 import {useSource} from '../../../providers/SourceProvider';
 import {useBridgeIsFull, useIsL1} from '../../../providers/TransferProvider';
 import {useL2Wallet} from '../../../providers/WalletsProvider';
-import {buildDynamicURL, evaluate, openInNewTab} from '@starkware-industries/commons-js-utils';
 import {Badge, ChoiceItemType, CircleLogoSize, MenuBackground, MultiChoiceList} from '../../UI';
 import {SourceSelect} from '../../UI/SourceSelect/SourceSelect';
 import styles from './ProvidersMenu.module.scss';

@@ -1,10 +1,10 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as InfoIcon} from '../../../assets/svg/icons/info.svg';
 import {ReactComponent as SuccessIcon} from '../../../assets/svg/icons/success.svg';
 import {ReactComponent as WarningIcon} from '../../../assets/svg/icons/warning.svg';
-import {toClasses} from '@starkware-industries/commons-js-utils';
 import styles from './Alert.module.scss';
 
 export const AlertType = {
