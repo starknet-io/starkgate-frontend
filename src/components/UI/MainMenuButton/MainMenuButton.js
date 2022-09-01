@@ -6,7 +6,7 @@ import {toClasses} from '../../../utils';
 import {Button} from '../index';
 import styles from './MainMenuButton.module.scss';
 
-export const MainMenuButton = ({text, onClick, ...props}) => {
+export const MainMenuButton = props => {
   const {colorOrangeSoda, colorWhite, colorFlame, colorIndigo} = useColors();
   return (
     <Button
@@ -14,14 +14,11 @@ export const MainMenuButton = ({text, onClick, ...props}) => {
       colorBackground={props.isDisabled ? colorIndigo : colorOrangeSoda}
       colorBackgroundHover={colorFlame}
       colorText={colorWhite}
-      text={text}
-      onClick={onClick}
       {...props}
     />
   );
 };
 
 MainMenuButton.propTypes = {
-  text: PropTypes.string,
-  onClick: PropTypes.func
+  isDisabled: PropTypes.bool
 };

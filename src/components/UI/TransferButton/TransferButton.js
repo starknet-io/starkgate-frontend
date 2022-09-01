@@ -4,14 +4,25 @@ import React from 'react';
 import {useTransferTranslation} from '../../../hooks';
 import {MainMenuButton} from '../index';
 
-export const TransferButton = props => {
-  const {transferBtnTxt} = useTransferTranslation();
+export const TransferButton = ({isDisabled, hasInputError, ...props}) => {
+  const {transferBtnTxt, disabledTransferBtnTxt} = useTransferTranslation();
 
-  return <MainMenuButton text={transferBtnTxt} {...props} />;
+  const textAndStyle =
+    isDisabled && !hasInputError
+      ? {
+          text: disabledTransferBtnTxt,
+          style: {
+            textTransform: 'none'
+          }
+        }
+      : {
+          text: transferBtnTxt
+        };
+
+  return <MainMenuButton isDisabled={isDisabled} {...textAndStyle} {...props} />;
 };
 
 TransferButton.propTypes = {
-  onClick: PropTypes.func,
   isDisabled: PropTypes.bool,
-  isLoading: PropTypes.bool
+  hasInputError: PropTypes.bool
 };
