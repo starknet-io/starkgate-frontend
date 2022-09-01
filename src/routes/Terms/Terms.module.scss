@@ -1,9 +1,6 @@
 @import '../../index';
 
 .terms {
-  // position: absolute;
-  // left: 50%;
-  // transform: translateX(-50%);
   overflow: auto;
   line-height: 1.7;
   margin: auto;
@@ -47,7 +44,7 @@
 
         &::marker {
           font-size: 18px;
-          // font-weight: bold;
+          font-weight: bold;
           font-weight: 700;
         }
 
@@ -73,10 +70,6 @@
   .content {
     display: flex;
     align-items: center;
-    // left: 50%;
-    // top: 50%;
-    // position: absolute;
-    // transform: translate(-50%, -50%);
     margin: auto;
     width: 76.6%;
 
