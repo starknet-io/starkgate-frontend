@@ -4,7 +4,7 @@ import React from 'react';
 import {sources, providers, depositConfig, withdrawConfig} from '../../../config/sources';
 import {useEnvs, useProvidersTranslation, useSourceTranslation} from '../../../hooks';
 import {useSource} from '../../../providers/SourceProvider';
-import {useBridgeIsFull, useIsL1} from '../../../providers/TransferProvider';
+import {useIsL1} from '../../../providers/TransferProvider';
 import {useL2Wallet} from '../../../providers/WalletsProvider';
 import {buildDynamicURL, evaluate, openInNewTab} from '../../../utils';
 import {Badge, ChoiceItemType, CircleLogoSize, MenuBackground, MultiChoiceList} from '../../UI';
