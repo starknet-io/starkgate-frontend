@@ -44,5 +44,6 @@ export const Alert = ({title = '', message = '', type = AlertType.INFO, classNam
 Alert.propTypes = {
   title: PropTypes.string,
   message: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  className: PropTypes.string
 };
