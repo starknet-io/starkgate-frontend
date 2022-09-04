@@ -13,7 +13,6 @@ import styles from './ProvidersMenu.module.scss';
 
 export const ProvidersMenu = () => {
   const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
-  const {bridgeIsFull} = useBridgeIsFull();
   const [isL1] = useIsL1();
   const {fromTxt, toTxt} = useSourceTranslation();
   const {source} = useSource();
@@ -54,7 +53,7 @@ export const ProvidersMenu = () => {
   return (
     <>
       <MenuBackground>
-        <Badge isDisabled={bridgeIsFull} text={isL1 ? fromTxt : toTxt} />
+        <Badge text={isL1 ? fromTxt : toTxt} />
         <div className={styles.selectContainer}>
           <SourceSelect />
         </div>

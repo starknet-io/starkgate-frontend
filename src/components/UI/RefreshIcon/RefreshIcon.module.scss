@@ -2,13 +2,11 @@
 
 svg {
   &.refreshIcon {
-    fill: $--color-ube;
-    margin: 2px 0 0 5px;
+    fill: $--color-white;
     transition: 0.3s ease-in-out;
 
     &:hover {
       cursor: pointer;
-      fill: $--color-white;
     }
   }
 
