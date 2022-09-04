@@ -9,7 +9,6 @@
   padding: 15px;
 
   .icon {
-    width: 15%;
     display: flex;
     justify-content: space-around;
   }
@@ -17,6 +16,7 @@
   .text {
     display: flex;
     flex-direction: column;
+    padding-left: 12px;
 
     .title {
       font-weight: 500;

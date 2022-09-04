@@ -15,7 +15,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}
           <MultiChoiceList choices={choices} />
-          {error && <Alert title={error.message} type={AlertType.ERROR} />}
+          {error && <Alert className={styles.alert} title={error.message} type={AlertType.ERROR} />}
         </div>
         {footer && (
           <>
