@@ -41,7 +41,7 @@ export const App = () => {
           <Route element={<Navigate replace to="/" />} path="*" />
         </Routes>
       </StyledBackground>
-      <SideButton icon={<DiscordIcon />} onClick={onDiscordClick} />
+      <SideButton icon={<DiscordIcon width={26} height={98} />} onClick={onDiscordClick} />
     </div>
   );
 };
