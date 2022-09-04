@@ -48,8 +48,8 @@ export const NetworkMenu = ({
 NetworkMenu.propTypes = {
   networkName: PropTypes.string,
   tokenData: PropTypes.object,
-  isTarget: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  isTarget: PropTypes.bool,
   onRefreshClick: PropTypes.func,
   children: PropTypes.any
 };

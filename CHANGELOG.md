@@ -1,3 +1,47 @@
+## [1.9.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.13...v1.9.0-dev.14) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156128399:** align faq to Figma ([#302](https://github.com/starkware-libs/starkgate-frontend/issues/302)) ([6b1c6ad](https://github.com/starkware-libs/starkgate-frontend/commit/6b1c6addb12d2ef31547335540c2828a02a7de70))
+* **3156128933:** align terms screen to Figma ([#301](https://github.com/starkware-libs/starkgate-frontend/issues/301)) ([8eb91b7](https://github.com/starkware-libs/starkgate-frontend/commit/8eb91b7aa8bcbb9884223dec446cb14efb34d439))
+* **3163904759:** align transfer button to Figma ([#299](https://github.com/starkware-libs/starkgate-frontend/issues/299)) ([d6b61b8](https://github.com/starkware-libs/starkgate-frontend/commit/d6b61b8fcaeb7f6bb82485fba3bf6f81fa4a93c4))
+
+## [1.9.0-dev.13](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.12...v1.9.0-dev.13) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3163896187:** align Starkgate logo to Figma ([#298](https://github.com/starkware-libs/starkgate-frontend/issues/298)) ([0c8075c](https://github.com/starkware-libs/starkgate-frontend/commit/0c8075c9e771914daebc9c11727e0c8ee28df38d))
+
+## [1.9.0-dev.12](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.11...v1.9.0-dev.12) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156115079:** align the header's tabs to Figma design  ([#297](https://github.com/starkware-libs/starkgate-frontend/issues/297)) ([741f15b](https://github.com/starkware-libs/starkgate-frontend/commit/741f15b442a61e044a5ff66b059c96f23d2c14cb))
+
+## [1.9.0-dev.11](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.10...v1.9.0-dev.11) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3156108853:** align wallet button to Figma ([#296](https://github.com/starkware-libs/starkgate-frontend/issues/296)) ([487f567](https://github.com/starkware-libs/starkgate-frontend/commit/487f567fe29f19a3fa652078094fec8e837bb9e2))
+
+## [1.9.0-dev.10](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.9...v1.9.0-dev.10) (2022-09-01)
+
+
+### 🔧 Fixes
+
+* **3142752290:** create events for new login flow ([#294](https://github.com/starkware-libs/starkgate-frontend/issues/294)) ([221f867](https://github.com/starkware-libs/starkgate-frontend/commit/221f867e582cf1c91a8a22cb93d9c8390f4686c2))
+
+## [1.9.0-dev.9](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.8...v1.9.0-dev.9) (2022-08-31)
+
+
+### 🧩 Features
+
+* **2890117178:** bridge is full new ui ([#278](https://github.com/starkware-libs/starkgate-frontend/issues/278)) ([6a412ce](https://github.com/starkware-libs/starkgate-frontend/commit/6a412ce55d5765a49ff7fec4c09062dde8b2325f))
+
 ## [1.9.0-dev.8](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.7...v1.9.0-dev.8) (2022-08-29)
 
 

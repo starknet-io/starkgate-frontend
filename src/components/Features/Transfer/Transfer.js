@@ -1,8 +1,9 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import {
+  useConstants,
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
@@ -27,7 +28,8 @@ import {
   TokenInput,
   TransferButton,
   LoginWalletButton,
-  MenuBackground
+  MenuBackground,
+  ReadMore
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -65,13 +67,15 @@ export const Transfer = ({onNetworkSwap}) => {
     if (selectedToken) {
       const {isLoading, maxDeposit} = selectedToken;
       setHasInputError(false);
-      if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
+      if (bridgeIsFull) {
+        setErrorMsg(<BridgeIsFullError />);
+      } else if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
       }
     }
-  }, [amount, selectedToken, isL1]);
+  }, [amount, selectedToken, isL1, bridgeIsFull]);
 
   const validateAmount = () => {
     let errorMsg = '';
@@ -120,7 +124,6 @@ export const Transfer = ({onNetworkSwap}) => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkName={NetworkType.L1}
         tokenData={tokenData}
@@ -135,7 +138,6 @@ export const Transfer = ({onNetworkSwap}) => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkName={NetworkType.L2}
         tokenData={tokenData}
@@ -158,7 +160,7 @@ export const Transfer = ({onNetworkSwap}) => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
-        {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
+        {(hasInputError || bridgeIsFull) && <div className={styles.errorMsg}>{errorMsg}</div>}
       </>
     );
   };
@@ -177,6 +179,7 @@ export const Transfer = ({onNetworkSwap}) => {
           <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
           {isLoggedIn ? (
             <TransferButton
+              hasInputError={hasInputError}
               isDisabled={isButtonDisabled || bridgeIsFull}
               onClick={onTransferClick}
             />
@@ -191,4 +194,16 @@ export const Transfer = ({onNetworkSwap}) => {
 
 Transfer.propTypes = {
   onNetworkSwap: PropTypes.func
+};
+
+const BridgeIsFullError = () => {
+  const {bridgeIsFullErrorMsg} = useTransferTranslation();
+  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
+
+  return (
+    <Fragment>
+      {bridgeIsFullErrorMsg}
+      <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
+    </Fragment>
+  );
 };

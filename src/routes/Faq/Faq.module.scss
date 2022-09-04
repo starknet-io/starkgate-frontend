@@ -7,22 +7,19 @@
   transform: translateX(-50%);
 
   .titleContainer {
-    padding: 80px 0 60px 0;
+    padding: 48px 0;
     text-align: center;
-
-    > div {
-      margin: 20px;
-    }
 
     .title {
       font-weight: 600;
-      font-size: 46px;
+      font-size: 36px;
       line-height: 44px;
+      margin-bottom: 12px;
     }
 
     .subtitle {
       font-weight: 400;
-      font-size: 26px;
+      font-size: 20px;
       line-height: 30px;
       color: $--color-auro-metal-saurus;
     }
@@ -30,7 +27,7 @@
 
   .container {
     .divider {
-      margin: 50px 0;
+      margin: 24px 0;
       height: 1px;
       width: 100%;
       background: $--color-space-cadet-1;
@@ -41,13 +38,14 @@
 
       .icon {
         cursor: pointer;
-        margin-top: 5px;
-        margin-right: 15px;
+        margin-right: 24px;
+        padding-top: 3px;
       }
 
       .question {
         font-weight: 700;
-        font-size: 24px;
+        font-size: 18px;
+        line-height: 28px;
       }
     }
 
@@ -55,7 +53,13 @@
       transition: 0.3s ease-in-out;
       font-style: normal;
       font-weight: 400;
-      font-size: 22px;
+      font-size: 16px;
+      line-height: 24px;
+      padding-left: 44px;
+
+      p {
+        margin: 8px 0;
+      }
 
       li {
         line-height: 32px;
