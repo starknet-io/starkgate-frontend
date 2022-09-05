@@ -1,3 +1,10 @@
+## [1.9.0-dev.18](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.17...v1.9.0-dev.18) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3163901936:** align alpha disclaimer toast to Figma ([#304](https://github.com/starkware-libs/starkgate-frontend/issues/304)) ([be19d16](https://github.com/starkware-libs/starkgate-frontend/commit/be19d16b15b79c985c2b164659b24a985919a2b0))
+
 ## [1.9.0-dev.17](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.16...v1.9.0-dev.17) (2022-09-05)
 
 
