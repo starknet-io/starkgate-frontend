@@ -28,10 +28,10 @@ WalletButton.propTypes = {
 
 const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorOrangeSoda, colorGainsboro, colorWhiteOp10, colorWhiteOp20} = useColors();
+  const {colorOrangeSoda, colorWhiteOp10, colorWhite, colorDarkBlueGray} = useColors();
   const {accountWalletBtnTxt} = useHeaderTranslation();
 
-  const WALLET_LOGO_SIZE = 30;
+  const WALLET_LOGO_SIZE = 20;
   const WALLET_LOGO_SIZE_MOBILE = 40;
 
   const getText = () => {
@@ -55,12 +55,11 @@ const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
 
   return (
     <Button
-      className={toClasses(styles.walletButton, styles[breakpoint.toLowerCase()])}
+      className={toClasses(styles.accountWalletButton, styles[breakpoint.toLowerCase()])}
       colorBackground={colorWhiteOp10}
-      colorBackgroundHover={colorWhiteOp20}
+      colorBackgroundHover={colorDarkBlueGray}
       colorBorder={colorOrangeSoda}
-      colorText={colorGainsboro}
-      height={0}
+      colorText={colorWhite}
       iconLeft={renderWalletLogo()}
       iconRight={renderChainLabel()}
       text={getText()}
@@ -77,14 +76,14 @@ AccountWalletButton.propTypes = {
 };
 
 const ConnectWalletButton = ({onClick, network}) => {
-  const {colorOrangeSoda, colorWhite} = useColors();
+  const {colorOrangeSoda, colorFlame, colorWhite} = useColors();
   const {connectWalletBtnTxt} = useHeaderTranslation();
   return (
     <Button
+      className={styles.connectWalletButton}
       colorBackground={colorOrangeSoda}
-      colorBorder={colorOrangeSoda}
+      colorBackgroundHover={colorFlame}
       colorText={colorWhite}
-      height={0}
       text={evaluate(connectWalletBtnTxt, {network})}
       onClick={onClick}
     />

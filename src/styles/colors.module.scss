@@ -1,6 +1,7 @@
 $--color-white: #fff;
 $--color-black: #000;
 $--color-gainsboro: #d3dae3;
+$--color-gainsboro-1: #d5d9eb;
 $--color-space-cadet: #15174e;
 $--color-space-cadet-1: #1c1e52;
 $--color-space-cadet-2: #23255b;
@@ -27,10 +28,13 @@ $--color-vermilion: #d92d20;
 $--color-light-salmon-pink: #fda29b;
 $--color-carmine-pink: #e74c3c;
 $--color-orange-soda: #f6643c;
+$--color-flame: #e74f25;
 $--color-rust: #b54708;
 $--color-metallic-orange: #dc6803;
 $--color-maize: #fec84b;
 $--color-very-light-blue: #5865f2;
+$--color-dark-blue-gray: #65668c;
+$--color-brilliant-azure: #4295f7;
 
 :export {
   colorBlack: $--color-black;
@@ -50,4 +54,7 @@ $--color-very-light-blue: #5865f2;
   colorLightSteelBlue: $--color-light-steel-blue;
   colorVeryLightAzure: $--color-very-light-azure;
   colorDodgerBlue: $--color-dodger-blue;
+  colorFlame: $--color-flame;
+  colorDarkBlueGray: $--color-dark-blue-gray;
+  colorBrilliantAzure: $--color-brilliant-azure;
 }

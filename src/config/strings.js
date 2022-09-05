@@ -61,6 +61,7 @@ export default {
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
+      disabledTransferBtnTxt: 'Enter an amount',
       loginWalletButtonTxt: 'Connect Wallet'
     },
     providers: {
