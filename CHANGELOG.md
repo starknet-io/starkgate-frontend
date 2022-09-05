@@ -1,3 +1,10 @@
+## [1.9.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.14...v1.9.0-dev.15) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3163900810:** align discord button to Figma ([#305](https://github.com/starkware-libs/starkgate-frontend/issues/305)) ([ccaf18c](https://github.com/starkware-libs/starkgate-frontend/commit/ccaf18c9caa66697e667bf82384108b0a1c8243b))
+
 ## [1.9.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.13...v1.9.0-dev.14) (2022-09-01)
 
 
