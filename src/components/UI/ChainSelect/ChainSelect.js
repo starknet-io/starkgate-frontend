@@ -1,7 +1,6 @@
 import {Select, MenuItem, FormControl} from '@mui/material';
 import {ChainInfo, ChainType} from '@starkware-industries/commons-js-enums';
-import {openInNewTab} from '@starkware-industries/commons-js-utils';
-import {toClasses} from '@starkware-industries/commons-js-utils';
+import {openInNewTab, toClasses} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
