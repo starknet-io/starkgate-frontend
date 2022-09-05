@@ -23,6 +23,7 @@ export const SourceSelectTheme = ({children}) => {
             padding: '4px',
             fontSize: '14px',
             color: colorWhite,
+            cursor: 'pointer',
             transition: '0.3s ease-in-out',
             '&:hover': {
               backgroundColor: colorDarkSlateBlue
@@ -46,11 +47,8 @@ export const SourceSelectTheme = ({children}) => {
 
           icon: {
             position: 'initial',
-            transform: 'scale(1.4)',
-            marginRight: '8px',
-            '& path': {
-              fill: colorWhite
-            }
+            transform: 'scale(1.216)',
+            marginRight: '8px'
           }
         }
       },

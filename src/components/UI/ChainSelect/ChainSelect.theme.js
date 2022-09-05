@@ -31,10 +31,7 @@ export const ChainSelectTheme = ({children}) => {
         styleOverrides: {
           icon: {
             transform: 'scale(1.5)',
-            margin: '6px',
-            '& path': {
-              fill: colorWhite
-            }
+            margin: '6px'
           }
         }
       },

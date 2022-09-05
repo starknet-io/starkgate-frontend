@@ -23,7 +23,7 @@ export * from './TokenBalance/TokenBalance';
 export * from './TokenInput/TokenInput';
 export * from './TokenSelector/TokenSelector';
 export * from './TransferButton/TransferButton';
-export * from './TransferMenuTab/TransferMenuTab';
+export * from './SourceMenuTab/SourceMenuTab';
 export * from './SearchToken/SearchToken';
 export * from './SelectTokenList/SelectTokenList';
 export * from './SelectTokenRow/SelectTokenRow';
