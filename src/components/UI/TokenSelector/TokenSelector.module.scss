@@ -3,18 +3,17 @@
 .tokenSelector {
   display: flex;
   align-items: center;
-  font-weight: 500;
-  font-size: 15px;
-  color: $--color-ube;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: $--color-white;
   text-transform: capitalize;
   cursor: pointer;
-  padding: 10px 5px 10px 15px;
   background: $--color-dark-slate-blue;
-  border-radius: 7px;
-  transition: 0.3s ease-in-out;
+  border-radius: 8px;
+  padding: 8px;
 
-  &:hover {
-    color: $--color-ceil;
-    background: $--color-purple-navy;
+  .tokenSelectorIcon {
+    margin: 0 -2px 0 6px;
   }
 }
