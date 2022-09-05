@@ -1,3 +1,10 @@
+## [1.9.0-dev.17](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.16...v1.9.0-dev.17) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3156109805:** source Menu - alignment to Figma design ([#306](https://github.com/starkware-libs/starkgate-frontend/issues/306)) ([6ac20e7](https://github.com/starkware-libs/starkgate-frontend/commit/6ac20e7230432f79c6eded5864ca71459542ae3c))
+
 ## [1.9.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.15...v1.9.0-dev.16) (2022-09-05)
 
 
