@@ -4,7 +4,6 @@ export default {
       chainTxt: 'Goerli testnet',
       accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
-      liquidityBtnTxt: 'Deposit into L2',
       tabs: {
         termsTxt: 'Terms',
         faqTxt: 'FAQ'
@@ -23,9 +22,6 @@ export default {
       titleTxt: 'Terms of Service',
       lastRevisedTxt: 'Last Revised: April 4, 2022',
       acceptBtnTxt: 'I Accept'
-    },
-    liquidity: {
-      titleTxt: 'Deposit into L2'
     }
   },
   menus: {
@@ -48,19 +44,28 @@ export default {
       titleTxt: 'Select token from:',
       searchPlaceholder: 'Token name, symbol, or address'
     },
-    transfer: {
+    source: {
+      depositTxt: 'Deposit',
+      withdrawTxt: 'Withdraw',
       toTxt: 'to',
-      fromTxt: 'from',
+      fromTxt: 'from'
+    },
+    transfer: {
       negativeValueErrorMsg: 'Amount must be a positive number',
       tooManyDigitsErrorMsg: 'Too many decimal places',
       insufficientBalanceErrorMsg: 'Insufficient balance',
       maxDepositErrorMsg:
         'You have exceeded the maximum transfer amount ({{maxDeposit}} {{symbol}}). Please reduce the amount and try again.',
+      bridgeIsFullErrorMsg: 'The token bridge is currently full, try another token',
       maxBtnTxt: 'Max',
       balanceTitleTxt: 'Available balance',
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
+      disabledTransferBtnTxt: 'Enter an amount',
       loginWalletButtonTxt: 'Connect Wallet'
+    },
+    providers: {
+      descriptionTxt: 'Transfer crypto between {{source}} and StarkNet'
     }
   },
   modals: {
@@ -126,11 +131,6 @@ export default {
     }
   },
   toasts: {
-    bridgeFullNotice: {
-      titleTxt: 'Bridge is full',
-      bodyTxt:
-        'We have reached the upper limit of the amount we allow the bridge to hold at this point so it is not possible to use the token you have chosen now.\n\nPlease try later or use another token.'
-    },
     alphaDisclaimerNotice: {
       titleTxt: 'StarkNet Alpha',
       bodyTxt:

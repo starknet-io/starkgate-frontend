@@ -1,24 +1,17 @@
-import {NetworkType} from '@starkware-industries/commons-js-enums';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Tokens from '../../../config/tokens';
-import {toClasses} from '../../../utils';
-import {CryptoLogoSize} from '../CryptoLogo/CryptoLogo';
-import {CryptoLogo} from '../index';
+import {CircleLogoSize} from '../CircleLogo/CircleLogo';
+import {CircleLogo} from '../index';
 import styles from './NetworkTitle.module.scss';
 
-export const NetworkTitle = ({networkName, isDisabled}) => (
-  <div className={toClasses(styles.networkTitle, isDisabled && styles.isDisabled)}>
-    <CryptoLogo
-      size={CryptoLogoSize.MEDIUM}
-      symbol={networkName === NetworkType.L1 ? Tokens.L1.ETH.symbol : networkName}
-    />
+export const NetworkTitle = ({networkName}) => (
+  <div className={styles.networkTitle}>
+    <CircleLogo path={`chains/${networkName.toLowerCase()}`} size={CircleLogoSize.SMALL} />
     {networkName}
   </div>
 );
 
 NetworkTitle.propTypes = {
-  networkName: PropTypes.string,
-  isDisabled: PropTypes.bool
+  networkName: PropTypes.string
 };

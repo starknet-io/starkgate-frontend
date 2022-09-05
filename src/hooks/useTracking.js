@@ -28,7 +28,7 @@ export const useMenuTracking = () => {
       case MenuType.SELECT_TOKEN:
         trackSelectTokenMenu();
         break;
-      case MenuType.TRANSFER:
+      case MenuType.SOURCE:
       default:
         trackTransferMenu();
         break;
@@ -37,7 +37,7 @@ export const useMenuTracking = () => {
 };
 
 export const useLoginTracking = () => {
-  return useTracking([TrackEvent.LOGIN_SCREEN, ...Object.values(TrackEvent.LOGIN)]);
+  return useTracking([...Object.values(TrackEvent.LOGIN)]);
 };
 
 export const useTermsTracking = () => {
@@ -66,4 +66,12 @@ export const useAccountTracking = () => {
 
 export const useSelectTokenTracking = () => {
   return useTracking([...Object.values(TrackEvent.SELECT_TOKEN)]);
+};
+
+export const useConnectWalletTracking = () => {
+  return useTracking([
+    TrackEvent.CONNECT_WALLET_CLICK,
+    TrackEvent.CONNECT_ETHEREUM_WALLET_CLICK,
+    TrackEvent.CONNECT_STARKNET_WALLET_CLICK
+  ]);
 };

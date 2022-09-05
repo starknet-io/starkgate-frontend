@@ -1,23 +1,16 @@
 @import '../../../index';
 
-.networkMenu {
-  background: $--color-space-cadet-1;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+.networkContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  position: relative;
+}
+
+.transferContainer {
   height: 100%;
-  margin: 10px 0;
-  padding: 30px 40px;
-
-  .networkContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .transferContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s ease-in-out;
-  }
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s ease-in-out;
 }

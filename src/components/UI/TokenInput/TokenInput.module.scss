@@ -5,14 +5,26 @@
   flex-direction: row;
   align-items: center;
   background: $--color-space-cadet-2;
-  height: 50px;
-  margin: 20px 0;
-  padding: 10px;
-  border-radius: 7px;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 8px;
   transition: 0.3s ease-in-out;
 
+  ::placeholder {
+    color: $--color-dark-blue-gray;
+  }
+
+  & input {
+    margin: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background: $--color-indigo;
+  }
+
   &.hasError {
-    margin: 20px 0 10px 0;
+    background: $--color-space-cadet-2;
     border-color: $--color-jasper;
     border-style: solid;
     border-width: 1px;

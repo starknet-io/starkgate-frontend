@@ -1,5 +1,7 @@
+@import '../../../index';
+
 .divider {
-  width: 2px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.16);
+  width: 1px;
+  height: 24px;
+  background: $--color-dark-blue-gray;
 }

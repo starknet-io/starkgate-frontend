@@ -1,0 +1,12 @@
+@import '../../../index';
+
+.source {
+  transition: 0.3s ease-in-out;
+
+  .tabsContainer {
+    display: flex;
+    background: $--color-space-cadet-1;
+    border-radius: 8px;
+    padding: 4px;
+  }
+}

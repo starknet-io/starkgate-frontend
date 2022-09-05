@@ -2,13 +2,16 @@
 
 .tab {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   color: $--color-white;
   cursor: pointer;
-  opacity: 0.8;
 
   &.isActive {
-    opacity: 1;
+    color: $--color-gainsboro-1;
+  }
+
+  &:hover {
+    color: $--color-light-steel-blue;
   }
 }

@@ -1,8 +1,9 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
-import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import React, {Fragment, useEffect, useState} from 'react';
 
-import {ActionType} from '../../../enums';
 import {
+  useConstants,
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
@@ -22,32 +23,32 @@ import {afterDecimal, evaluate, isNegative, isZero} from '../../../utils';
 import {
   Loading,
   LoadingSize,
-  Menu,
   NetworkMenu,
   NetworkSwap,
   TokenInput,
   TransferButton,
-  TransferMenuTab,
-  LoginWalletButton
+  LoginWalletButton,
+  MenuBackground,
+  ReadMore
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
-export const Transfer = () => {
+export const Transfer = ({onNetworkSwap}) => {
   const {
     insufficientBalanceErrorMsg,
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
     negativeValueErrorMsg
   } = useTransferTranslation();
-  const [trackMaxClick, trackSwapNetworks] = useTransferTracking();
-  const [isL1, swapToL1] = useIsL1();
-  const [isL2, swapToL2] = useIsL2();
+  const [trackMaxClick] = useTransferTracking();
+  const [isL1] = useIsL1();
+  const [isL2] = useIsL2();
   const [amount, setAmount] = useAmount();
   const [hasInputError, setHasInputError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const {showSelectTokenMenu} = useMenu();
-  const {selectToken, selectedToken, action} = useTransfer();
+  const {selectToken, selectedToken} = useTransfer();
   const {tokens, updateTokenBalance} = useTokens();
   const {bridgeIsFull} = useBridgeIsFull();
   const transferToL2 = useTransferToL2();
@@ -55,19 +56,6 @@ export const Transfer = () => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const {isLoggedIn} = useLogin();
-
-  const tabs = [
-    {
-      text: `${NetworkType.L1} -> ${NetworkType.L2}`,
-      isActive: action === ActionType.TRANSFER_TO_L2,
-      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L2)
-    },
-    {
-      text: `${NetworkType.L2} -> ${NetworkType.L1}`,
-      isActive: action === ActionType.TRANSFER_TO_L1,
-      onClick: () => onNetworkTabClick(ActionType.TRANSFER_TO_L1)
-    }
-  ];
 
   useEffect(() => {
     if (!selectedToken) {
@@ -79,13 +67,15 @@ export const Transfer = () => {
     if (selectedToken) {
       const {isLoading, maxDeposit} = selectedToken;
       setHasInputError(false);
-      if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
+      if (bridgeIsFull) {
+        setErrorMsg(<BridgeIsFullError />);
+      } else if (isLoading || isZero(amount) || (isL1 && !maxDeposit)) {
         setIsButtonDisabled(true);
       } else {
         validateAmount();
       }
     }
-  }, [amount, selectedToken, isL1]);
+  }, [amount, selectedToken, isL1, bridgeIsFull]);
 
   const validateAmount = () => {
     let errorMsg = '';
@@ -124,41 +114,16 @@ export const Transfer = () => {
     setAmount(event.target.value);
   };
 
-  const onSwapClick = () => {
-    trackSwapNetworks();
-    isL2 ? swapToL1() : swapToL2();
-  };
-
   const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
-
-  const onNetworkTabClick = tab => {
-    if (action !== tab) {
-      onSwapClick();
-    }
-  };
 
   const onRefreshTokenBalanceClick = () => {
     updateTokenBalance(selectedToken.symbol);
-  };
-
-  const renderTabs = () => {
-    return tabs.map((tab, index) => {
-      return (
-        <TransferMenuTab
-          key={index}
-          isActive={tab.isActive}
-          text={tab.text}
-          onClick={tab.onClick}
-        />
-      );
-    });
   };
 
   const renderL1Network = () => {
     const tokenData = getL1Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL1}
         networkName={NetworkType.L1}
         tokenData={tokenData}
@@ -173,7 +138,6 @@ export const Transfer = () => {
     const tokenData = getL2Token(selectedToken.symbol);
     return (
       <NetworkMenu
-        isDisabled={bridgeIsFull}
         isTarget={!isL2}
         networkName={NetworkType.L2}
         tokenData={tokenData}
@@ -196,33 +160,50 @@ export const Transfer = () => {
           onMaxClick={onMaxClick}
           onTokenSelect={showSelectTokenMenu}
         />
-        {hasInputError && <div className={styles.errorMsg}>{errorMsg}</div>}
+        {(hasInputError || bridgeIsFull) && <div className={styles.errorMsg}>{errorMsg}</div>}
       </>
     );
   };
 
   return (
-    <Menu>
-      <div className={styles.transfer}>
-        <div className={styles.tabsContainer}>{renderTabs()}</div>
-        {!selectedToken && (
-          <center>
-            <Loading size={LoadingSize.XL} />
-          </center>
-        )}
-        {selectedToken && (
-          <>
-            {isL1 ? renderL1Network() : renderL2Network()}
-            <NetworkSwap isFlipped={isL2} onClick={onSwapClick} />
-            {isL1 ? renderL2Network() : renderL1Network()}
-          </>
-        )}
-        {isLoggedIn ? (
-          <TransferButton isDisabled={isButtonDisabled || bridgeIsFull} onClick={onTransferClick} />
-        ) : (
-          <LoginWalletButton />
-        )}
-      </div>
-    </Menu>
+    <>
+      {!selectedToken && (
+        <center>
+          <Loading size={LoadingSize.XL} />
+        </center>
+      )}
+      {selectedToken && (
+        <>
+          <MenuBackground>{isL1 ? renderL1Network() : renderL2Network()}</MenuBackground>
+          <NetworkSwap isFlipped={isL2} onClick={onNetworkSwap} />
+          <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
+          {isLoggedIn ? (
+            <TransferButton
+              hasInputError={hasInputError}
+              isDisabled={isButtonDisabled || bridgeIsFull}
+              onClick={onTransferClick}
+            />
+          ) : (
+            <LoginWalletButton />
+          )}
+        </>
+      )}
+    </>
+  );
+};
+
+Transfer.propTypes = {
+  onNetworkSwap: PropTypes.func
+};
+
+const BridgeIsFullError = () => {
+  const {bridgeIsFullErrorMsg} = useTransferTranslation();
+  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
+
+  return (
+    <Fragment>
+      {bridgeIsFullErrorMsg}
+      <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
+    </Fragment>
   );
 };
