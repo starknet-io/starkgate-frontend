@@ -1,5 +1,4 @@
-import {openInNewTab} from '@starkware-industries/commons-js-utils';
-import {evaluate} from '@starkware-industries/commons-js-utils';
+import {openInNewTab, evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
