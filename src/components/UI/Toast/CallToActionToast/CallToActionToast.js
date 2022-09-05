@@ -40,21 +40,23 @@ export const CallToActionToast = ({
         <div className={styles.container}>
           <div
             className={styles.left}
-            style={{backgroundColor: `${hexToRgba(backgroundColor || colorOrangeSoda, 0.25)}`}}
+            style={{backgroundColor: `${hexToRgba(backgroundColor || colorOrangeSoda, 0.15)}`}}
           >
             <div className={styles.sideIcon}>{sideIcon}</div>
           </div>
           <div className={styles.right}>
             <ToastHeader title={titleTxt} withClose={true} onClose={onDismiss} />
             <ToastBody body={bodyTxt} />
-            <ToastButtons>
-              {dismissTxt && (
-                <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
-              )}
-              {actionTxt && (
-                <ToastButton color={colorOrangeSoda} text={actionTxt} onClick={onAction} />
-              )}
-            </ToastButtons>
+            {(dismissTxt || actionTxt) && (
+              <ToastButtons>
+                {dismissTxt && (
+                  <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
+                )}
+                {actionTxt && (
+                  <ToastButton color={colorOrangeSoda} text={actionTxt} onClick={onAction} />
+                )}
+              </ToastButtons>
+            )}
             {footer && (
               <div>
                 <ToastSeparator />
