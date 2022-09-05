@@ -24,7 +24,7 @@ export const SearchToken = ({tokens, onSearchResults}) => {
       <SearchIcon />
       <Input
         placeholder={searchPlaceholder}
-        style={{fontSize: '20px', width: '100%'}}
+        style={{fontWeight: 400, fontSize: '14px', lineHeight: '20px', width: '100%'}}
         value={searchTerm}
         onChange={handleChange}
       />

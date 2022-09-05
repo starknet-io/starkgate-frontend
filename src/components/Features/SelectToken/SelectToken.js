@@ -36,10 +36,12 @@ export const SelectToken = () => {
     <Menu>
       <div className={styles.selectToken}>
         <BackButton onClick={() => showSourceMenu()} />
-        <MenuTitle text={titleTxt} />
-        <div className={styles.name}>
-          <MenuTitle color={colorOrangeSoda} text={fromNetwork} />
-          {isLoggedIn && <RefreshIcon onClick={updateTokenBalance} />}
+        <div className={styles.title}>
+          <MenuTitle text={titleTxt} />
+          <div className={styles.name}>
+            <MenuTitle color={colorOrangeSoda} text={fromNetwork} />
+            {isLoggedIn && <RefreshIcon onClick={updateTokenBalance} />}
+          </div>
         </div>
         <SearchToken
           tokens={tokens}

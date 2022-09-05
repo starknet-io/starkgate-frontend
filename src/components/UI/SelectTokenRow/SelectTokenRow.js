@@ -17,7 +17,7 @@ export const SelectTokenRow = ({tokenData, onClick}) => {
       <hr />
       <div className={styles.data}>
         <div className={styles.left}>
-          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.LARGE} />
+          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.SMALL} />
           <div>
             <div className={styles.symbol}>{symbol}</div>
             <div className={styles.name}>{name}</div>
