@@ -3260,15 +3260,15 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/commons-js-enums@1.1.0-dev.1":
-  version "1.1.0-dev.1"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.1.0-dev.1.tgz#c98ccf0fd06052e621bf25c7666403827a51fc46"
-  integrity sha512-ySoKO1avyp6nbHLmBCiXhZpOh2tDyU2j1jB7nsPD3sRPYWbhs0dKE0OqPwE7hKwXCAjtCSyQ2wIjiSTnlWhz6w==
+"@starkware-industries/commons-js-enums@1.1.0-dev.3":
+  version "1.1.0-dev.3"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.1.0-dev.3.tgz#42f25129c91d31d90730f56c42f4e872e3291ae3"
+  integrity sha512-wghtEEr//0q04JKgZFnzxsMAQKntRdNsFPJI8Pnu8K9zBVzICsDR0fkph4r20wTdtwVvCFi2U3+MoY1a7NFpGg==
 
-"@starkware-industries/commons-js-libs@1.2.0-dev.1":
-  version "1.2.0-dev.1"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.2.0-dev.1.tgz#c86b204e8ddf63ad6c8041cad4c75f9fa28d07f9"
-  integrity sha512-3Q3GULu7f3hPSVj/dGfOZxgm1EIGAE8P+Q+gtGpIGoLFwmLO/ERKkL4sIjpfD8EwjnNd/iHJnCbr4cLubTtbAA==
+"@starkware-industries/commons-js-libs@1.2.0-dev.3":
+  version "1.2.0-dev.3"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.2.0-dev.3.tgz#264395bc8857b06383830960b8ec94247143aca7"
+  integrity sha512-88sVl5E4Lmk1uXj1uvuEU1/DG1k0MXx3wF3M4TVzkFtS7Cs9YuyK6oSocEg6SzrPbo8Ac29Am7pLX7NRv1LeSw==
   dependencies:
     "@metamask/onboarding" "^1.0.1"
     get-starknet "^1.4.4"
@@ -3277,14 +3277,14 @@
     web3-eth-contract "^1.7.5"
     web3-utils "^1.7.5"
 
-"@starkware-industries/commons-js-utils@1.0.0-dev.1":
-  version "1.0.0-dev.1"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-utils/-/commons-js-utils-1.0.0-dev.1.tgz#6de094ea88b0ad16d1a056612c337b07491c9126"
-  integrity sha512-qsB7YjOQIrUHZGFtzNZViEoOZ8wZa30tu/0n07OcaPWv/5mLSLFM0oqSzgfmFAnaWXsJt2r1xi5smSgfDRz+Xg==
+"@starkware-industries/commons-js-utils@1.0.0-dev.3":
+  version "1.0.0-dev.3"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-utils/-/commons-js-utils-1.0.0-dev.3.tgz#82ac13da7e7d782e0ba15ae079fab524cefd45eb"
+  integrity sha512-gIGQzmJAgp4SDvtW+rqG68OsDLxk9s/ZetI1ORdHl/OsmE9HL2vwsa1TtnXBdnDDGJZ/5zhI9e7qB9LrCzMEqQ==
   dependencies:
     "@normalizex/ethjs-unit" "^0.1.8"
-    "@starkware-industries/commons-js-enums" "1.1.0-dev.1"
-    "@starkware-industries/commons-js-libs" "1.2.0-dev.1"
+    "@starkware-industries/commons-js-enums" "1.1.0-dev.3"
+    "@starkware-industries/commons-js-libs" "1.2.0-dev.3"
     "@types/uuid" "^8.3.4"
     axios "^0.26.0"
     js-logger "^1.6.1"
