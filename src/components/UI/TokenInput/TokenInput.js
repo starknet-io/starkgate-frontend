@@ -1,8 +1,8 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {toClasses} from '../../../utils';
 import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
 import {Input} from '../index';

@@ -1,9 +1,9 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import {ReactComponent as LinkIcon} from '../../../assets/svg/icons/link.svg';
-import {toClasses} from '../../../utils';
 import {CircleLogoSize, DynamicIcon, Loading, LoadingType} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 

@@ -7,18 +7,18 @@ import {
 } from '@starkware-industries/commons-js-enums';
 import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
 import {hash} from '@starkware-industries/commons-js-libs/starknet';
-import PropTypes from 'prop-types';
-import React, {useReducer} from 'react';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-
-import {useAccountChange, useEnvs, useLogger, useStarknetContract} from '../../hooks';
 import {
   getStorageItem,
   setStorageItem,
   getTransactionHash,
   getPastEvents,
   promiseHandler
-} from '../../utils';
+} from '@starkware-industries/commons-js-utils';
+import PropTypes from 'prop-types';
+import React, {useReducer} from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+
+import {useAccountChange, useEnvs, useLogger, useStarknetContract} from '../../hooks';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
 import {useAccountHash, useL2Wallet} from '../WalletsProvider';

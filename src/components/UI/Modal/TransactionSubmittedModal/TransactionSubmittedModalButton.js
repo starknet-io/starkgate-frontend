@@ -1,3 +1,4 @@
+import {openInNewTab, evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -10,7 +11,6 @@ import {
   useEnvs,
   useTransactionSubmittedModalTranslation
 } from '../../../../hooks';
-import {evaluate, openInNewTab} from '../../../../utils';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 

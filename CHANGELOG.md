@@ -1,3 +1,52 @@
+## [1.9.0-dev.21](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.20...v1.9.0-dev.21) (2022-09-06)
+
+
+### 🔧 Fixes
+
+* **3187138176:** align SelectToken menu to Figma design ([#308](https://github.com/starkware-libs/starkgate-frontend/issues/308)) ([3861a4c](https://github.com/starkware-libs/starkgate-frontend/commit/3861a4ced680150aa571bd584ce97c16fa606024))
+
+## [1.9.0-dev.20](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.19...v1.9.0-dev.20) (2022-09-06)
+
+
+### 💉 Improvements
+
+* **3080260634:** migrate utils to commons-js ([#300](https://github.com/starkware-libs/starkgate-frontend/issues/300)) ([50a8585](https://github.com/starkware-libs/starkgate-frontend/commit/50a858534f2a86d9563917da3d57714f1f686502))
+
+## [1.9.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.18...v1.9.0-dev.19) (2022-09-06)
+
+
+### 🧩 Features
+
+* **3127762574:** Inject env vars dynamically for Docker container ([#289](https://github.com/starkware-libs/starkgate-frontend/issues/289)) ([abb3614](https://github.com/starkware-libs/starkgate-frontend/commit/abb3614f67a01ee4924912cd1d99e4df59712a03))
+
+## [1.9.0-dev.18](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.17...v1.9.0-dev.18) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3163901936:** align alpha disclaimer toast to Figma ([#304](https://github.com/starkware-libs/starkgate-frontend/issues/304)) ([be19d16](https://github.com/starkware-libs/starkgate-frontend/commit/be19d16b15b79c985c2b164659b24a985919a2b0))
+
+## [1.9.0-dev.17](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.16...v1.9.0-dev.17) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3156109805:** source Menu - alignment to Figma design ([#306](https://github.com/starkware-libs/starkgate-frontend/issues/306)) ([6ac20e7](https://github.com/starkware-libs/starkgate-frontend/commit/6ac20e7230432f79c6eded5864ca71459542ae3c))
+
+## [1.9.0-dev.16](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.15...v1.9.0-dev.16) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3186365507:** align header to Figma ([#307](https://github.com/starkware-libs/starkgate-frontend/issues/307)) ([67b8370](https://github.com/starkware-libs/starkgate-frontend/commit/67b83708d994b00b830b12f867bc1768555f9edb))
+
+## [1.9.0-dev.15](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.14...v1.9.0-dev.15) (2022-09-05)
+
+
+### 🔧 Fixes
+
+* **3163900810:** align discord button to Figma ([#305](https://github.com/starkware-libs/starkgate-frontend/issues/305)) ([ccaf18c](https://github.com/starkware-libs/starkgate-frontend/commit/ccaf18c9caa66697e667bf82384108b0a1c8243b))
+
 ## [1.9.0-dev.14](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.13...v1.9.0-dev.14) (2022-09-01)
 
 

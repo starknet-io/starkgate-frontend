@@ -41,8 +41,8 @@ export default {
       }
     },
     selectToken: {
-      titleTxt: 'Select token from:',
-      searchPlaceholder: 'Token name, symbol, or address'
+      titleTxt: 'Select token from ',
+      searchPlaceholder: 'Search'
     },
     source: {
       depositTxt: 'Deposit',

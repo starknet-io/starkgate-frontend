@@ -1,12 +1,13 @@
 import {EventName} from '@starkware-industries/commons-js-enums';
 import {constants} from '@starkware-industries/commons-js-libs/starknet';
+import {promiseHandler, addToken} from '@starkware-industries/commons-js-utils';
 import {useCallback} from 'react';
 
-import {stepOf, TransferError, TransferStep, TransferToL2Steps, ActionType} from '../enums';
+import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {addToken, isEth, promiseHandler} from '../utils';
+import {isEth} from '../utils';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
 import {useLogger} from './useLogger';

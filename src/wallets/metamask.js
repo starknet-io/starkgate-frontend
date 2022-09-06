@@ -1,4 +1,4 @@
-import MetaMaskOnboarding from '@metamask/onboarding';
+import MetaMaskOnboarding from '@starkware-industries/commons-js-libs/metamask-onboarding';
 
 import {WalletHandler} from './wallet-handler';
 

@@ -6,7 +6,7 @@ import {useSourceTranslation, useTransferTracking} from '../../../hooks';
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1, useIsL2, useTransfer} from '../../../providers/TransferProvider';
 import {ProvidersMenu, Transfer} from '../../Features';
-import {Menu, TransferMenuTab} from '../../UI';
+import {Menu, SourceMenuTab} from '../../UI';
 import styles from './Source.module.scss';
 
 export const Source = () => {
@@ -49,12 +49,7 @@ export const Source = () => {
   const renderTabs = () => {
     return tabs.map((tab, index) => {
       return (
-        <TransferMenuTab
-          key={index}
-          isActive={tab.isActive}
-          text={tab.text}
-          onClick={tab.onClick}
-        />
+        <SourceMenuTab key={index} isActive={tab.isActive} text={tab.text} onClick={tab.onClick} />
       );
     });
   };
