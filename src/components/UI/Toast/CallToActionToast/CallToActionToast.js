@@ -39,7 +39,7 @@ export const CallToActionToast = ({
       leaveTo="opacity-0"
       show={t.visible}
     >
-      <div style={style} className={styles.callToActionToast}>
+      <div className={styles.callToActionToast} style={style}>
         <div className={styles.container}>
           <div
             className={styles.left}
@@ -70,8 +70,8 @@ export const CallToActionToast = ({
                   {actionTxt && (
                     <ToastButton
                       color={colorOrangeSoda}
-                      text={actionTxt}
                       icon={actionIcon}
+                      text={actionTxt}
                       onClick={onAction}
                     />
                   )}

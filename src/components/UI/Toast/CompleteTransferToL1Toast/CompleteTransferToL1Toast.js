@@ -21,12 +21,11 @@ export const CompleteTransferToL1Toast = ({
 
   return (
     <CallToActionToast
-      actionTxt={completeTransferBtnTxt}
       actionIcon={<ArrowRight />}
+      actionTxt={completeTransferBtnTxt}
       backgroundColor={colorGraniteGray}
-      bodyTxt={bodyTxt}
       bodyStyle={{paddingBottom: '0'}}
-      style={{maxWidth: '448px'}}
+      bodyTxt={bodyTxt}
       dismissTxt={dismissBtnTxt}
       footer={
         <>
@@ -35,6 +34,7 @@ export const CompleteTransferToL1Toast = ({
         </>
       }
       sideIcon={<EthereumIcon style={{opacity: 0.5}} width={80} />}
+      style={{maxWidth: '448px'}}
       t={t}
       titleTxt={titleTxt}
       onAction={onCompleteTransfer}
