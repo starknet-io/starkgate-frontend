@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
 import styles from './SourceMenuTab.module.scss';
 
 export const SourceMenuTab = ({text, isActive, onClick}) => (

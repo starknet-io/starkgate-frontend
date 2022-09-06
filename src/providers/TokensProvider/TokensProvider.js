@@ -1,9 +1,9 @@
+import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
 import {useAccountChange, useBridgeContractAPI, useConstants, useLogger} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
-import {promiseHandler} from '../../utils';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
 import {actions, initialState, reducer} from './tokens-reducer';
@@ -57,10 +57,11 @@ export const TokensProvider = ({children}) => {
 
   const fetchTokensData = tokens => {
     async function fetchData(token) {
-      const [[maxTotalBalance, maxDeposit], error] = await promiseHandler(
+      const [response, error] = await promiseHandler(
         Promise.all([fetchMaxTotalBalance(token), fetchMaxDeposit(token)])
       );
       if (!error) {
+        const [maxTotalBalance, maxDeposit] = response;
         logger.log(
           `${token.symbol} (${
             token.isL1 ? 'L1' : 'L2'

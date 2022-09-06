@@ -4,6 +4,7 @@ import {
   isRejected,
   NetworkType
 } from '@starkware-industries/commons-js-enums';
+import {getCookie, getFullTime, setCookie} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
 import {toast, Toaster} from 'react-hot-toast';
@@ -19,7 +20,6 @@ import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import {getCookie, getFullTime, setCookie} from '../../../utils';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
 import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
 import styles from './ToastManager.module.scss';

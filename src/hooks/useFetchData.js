@@ -1,6 +1,5 @@
+import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import {useEffect, useState} from 'react';
-
-import {promiseHandler} from '../utils';
 
 export const useFetchData = (func, deps = []) => {
   const [isLoading, setIsLoading] = useState(true);

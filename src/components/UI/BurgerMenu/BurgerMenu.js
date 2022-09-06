@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {toClasses} from '../../../utils';
 import {BurgerMenuItem} from '../BurgerMenuItem/BurgerMenuItem';
 import styles from './BurgerMenu.module.scss';
 

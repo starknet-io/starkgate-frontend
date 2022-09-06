@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
-import {toClasses} from '../../../utils';
 import {Loading, LoadingSize} from '../Loading/Loading';
 import styles from './Button.module.scss';
 

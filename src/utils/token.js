@@ -1,5 +1,3 @@
-import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
-
 import Tokens from '../config/tokens';
 
 export const isEth = symbol => {
@@ -8,16 +6,4 @@ export const isEth = symbol => {
 
 export const isDai = symbol => {
   return symbol === Tokens.L1.DAI.symbol;
-};
-
-export const addToken = async address => {
-  await getStarknet().request({
-    type: 'wallet_watchAsset',
-    params: {
-      type: 'ERC20',
-      options: {
-        address
-      }
-    }
-  });
 };

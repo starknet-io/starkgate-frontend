@@ -1,7 +1,7 @@
+import {getPropertyPath} from '@starkware-industries/commons-js-utils';
 import {useMemo} from 'react';
 
 import Strings from '../config/strings';
-import {getPropertyPath} from '../utils';
 
 export const useTranslation = path => useMemo(() => getTranslation(path), [path]);
 

@@ -1,9 +1,9 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as SwapIcon} from '../../../assets/svg/icons/swap.svg';
 import {useColors} from '../../../hooks';
-import {toClasses} from '../../../utils';
 import {Circle, CircleLogoSize} from '../index';
 import styles from './NetworkSwap.module.scss';
 

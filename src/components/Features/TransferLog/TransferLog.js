@@ -6,12 +6,12 @@ import {
   TransactionStatusFriendlyMessage,
   TransactionStatusStep
 } from '@starkware-industries/commons-js-enums';
+import {getFullTime, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import {useColors, useEnvs, useTransferLogTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
-import {getFullTime, toClasses} from '../../../utils';
 import {Button, CircleLogo, CircleLogoSize} from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
