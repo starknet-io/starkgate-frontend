@@ -1,3 +1,10 @@
+## [1.9.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.18...v1.9.0-dev.19) (2022-09-06)
+
+
+### 🧩 Features
+
+* **3127762574:** Inject env vars dynamically for Docker container ([#289](https://github.com/starkware-libs/starkgate-frontend/issues/289)) ([abb3614](https://github.com/starkware-libs/starkgate-frontend/commit/abb3614f67a01ee4924912cd1d99e4df59712a03))
+
 ## [1.9.0-dev.18](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.17...v1.9.0-dev.18) (2022-09-05)
 
 
