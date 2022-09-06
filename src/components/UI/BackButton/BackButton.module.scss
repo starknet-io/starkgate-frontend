@@ -3,10 +3,12 @@
 .backButton {
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
   text-transform: capitalize;
   color: $--color-ube;
-  margin: 20px 0;
+  margin: 8px 0;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 
