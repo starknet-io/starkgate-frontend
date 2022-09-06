@@ -1,3 +1,10 @@
+## [1.9.0-dev.20](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.19...v1.9.0-dev.20) (2022-09-06)
+
+
+### 💉 Improvements
+
+* **3080260634:** migrate utils to commons-js ([#300](https://github.com/starkware-libs/starkgate-frontend/issues/300)) ([50a8585](https://github.com/starkware-libs/starkgate-frontend/commit/50a858534f2a86d9563917da3d57714f1f686502))
+
 ## [1.9.0-dev.19](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.18...v1.9.0-dev.19) (2022-09-06)
 
 
