@@ -15,10 +15,12 @@
     hr {
       display: none;
     }
+
+    margin-top: 8px;
   }
 
   .data {
-    margin: 10px 0;
+    padding: 0 8px;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -36,7 +38,6 @@
         line-height: 20px;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
-        margin: 3px 0;
       }
 
       .name {
@@ -50,8 +51,6 @@
     }
 
     .right {
-      margin: 0 10px;
-
       .balance {
         float: right;
         font-weight: 500;

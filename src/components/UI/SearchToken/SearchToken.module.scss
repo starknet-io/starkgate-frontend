@@ -1,11 +1,14 @@
+@import '../../../index';
+
 .searchToken {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 10px 0;
+  margin-top: 16px;
+  margin-bottom: 8px;
   padding: 0 10px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 7px;
+  border: 1px solid $--color-light-steel-blue;
+  border-radius: 4px;
 
   svg {
     margin-right: 5px;
