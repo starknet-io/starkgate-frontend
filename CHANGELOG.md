@@ -1,3 +1,10 @@
+## [1.9.0-dev.22](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.21...v1.9.0-dev.22) (2022-09-06)
+
+
+### 🔧 Fixes
+
+* **3187661313:** align Alert to Figma design  ([#309](https://github.com/starkware-libs/starkgate-frontend/issues/309)) ([d44029b](https://github.com/starkware-libs/starkgate-frontend/commit/d44029bd736f740b9988994bd105ee24f08f1696))
+
 ## [1.9.0-dev.21](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.20...v1.9.0-dev.21) (2022-09-06)
 
 
