@@ -4,7 +4,6 @@ export default {
       id: 'metamask',
       name: 'MetaMask',
       connectorId: 'injected',
-      description: 'Login using a browser wallet',
       logoPath: 'wallets/metamask.svg'
     }
   ],
@@ -12,7 +11,6 @@ export default {
     {
       id: 'gsw',
       name: 'StarkNet Wallet',
-      description: 'Login using a browser wallet',
       logoPath: 'wallets/gsw.svg'
     }
   ]

@@ -31,7 +31,7 @@ export const MultiChoiceItem = ({
         <DynamicIcon path={logoPath} size={size} />
         <div className={styles.text}>
           <div className={styles.title}>{name}</div>
-          <div className={styles.description}>{description}</div>
+          {description && <div className={styles.description}>{description}</div>}
         </div>
       </div>
       <div className={styles.icon}>

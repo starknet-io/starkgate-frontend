@@ -19,7 +19,7 @@
 
   .container {
     display: flex;
-    padding: 16px 12px;
+    padding: 16px;
     align-items: center;
     justify-content: space-between;
 
@@ -30,14 +30,15 @@
       .text {
         display: flex;
         flex-direction: column;
-        margin-left: 8px;
+        margin-left: 16px;
 
         .title {
           font-weight: 500;
-          font-size: 14px;
+          font-size: 18px;
           display: flex;
           align-items: center;
-          line-height: 20px;
+          line-height: 28px;
+          letter-spacing: 0;
           color: $--color-white;
         }
 
