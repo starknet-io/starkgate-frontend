@@ -58,25 +58,19 @@ export const CallToActionToast = ({
               </div>
             )}
             {(dismissTxt || actionTxt) && (
-              <>
-                <ToastButtons>
-                  {dismissTxt && (
-                    <ToastButton
-                      color={colorAuroMetalSaurus}
-                      text={dismissTxt}
-                      onClick={onDismiss}
-                    />
-                  )}
-                  {actionTxt && (
-                    <ToastButton
-                      color={colorOrangeSoda}
-                      icon={actionIcon}
-                      text={actionTxt}
-                      onClick={onAction}
-                    />
-                  )}
-                </ToastButtons>
-              </>
+              <ToastButtons>
+                {dismissTxt && (
+                  <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
+                )}
+                {actionTxt && (
+                  <ToastButton
+                    color={colorOrangeSoda}
+                    icon={actionIcon}
+                    text={actionTxt}
+                    onClick={onAction}
+                  />
+                )}
+              </ToastButtons>
             )}
           </div>
         </div>
