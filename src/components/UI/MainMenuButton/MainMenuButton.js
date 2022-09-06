@@ -1,8 +1,8 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../hooks';
-import {toClasses} from '../../../utils';
 import {Button} from '../index';
 import styles from './MainMenuButton.module.scss';
 

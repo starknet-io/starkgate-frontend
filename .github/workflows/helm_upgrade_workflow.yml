@@ -61,6 +61,6 @@ jobs:
           helm upgrade ${{ inputs.app_name }} starkware/webapp-general-helm \
           --install \
           --namespace=${{ inputs.namespace_name }} \
-          --values ${{ inputs.values_file}} \
+          --values ${{ inputs.values_file }} \
           --set-file configMap.frontend.envs=${{ inputs.env_file }} \
           --set frontend.image.tag=${{ steps.get_image_tag.outputs.tag }}

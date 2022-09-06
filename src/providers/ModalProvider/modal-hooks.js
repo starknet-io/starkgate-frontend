@@ -163,7 +163,8 @@ export const useLoginModal = () => {
         },
         containerStyle: {
           background: 'unset',
-          boxShadow: 'unset'
+          boxShadow: 'unset',
+          width: '464px'
         },
         exitable: true
       });

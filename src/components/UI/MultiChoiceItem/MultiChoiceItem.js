@@ -1,9 +1,9 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as ForwardIcon} from '../../../assets/svg/icons/forward.svg';
 import {ReactComponent as LinkIcon} from '../../../assets/svg/icons/link.svg';
-import {toClasses} from '../../../utils';
 import {CircleLogoSize, DynamicIcon, Loading, LoadingType} from '../index';
 import styles from './MultiChoiceItem.module.scss';
 
@@ -31,7 +31,7 @@ export const MultiChoiceItem = ({
         <DynamicIcon path={logoPath} size={size} />
         <div className={styles.text}>
           <div className={styles.title}>{name}</div>
-          <div className={styles.description}>{description}</div>
+          {description && <div className={styles.description}>{description}</div>}
         </div>
       </div>
       <div className={styles.icon}>

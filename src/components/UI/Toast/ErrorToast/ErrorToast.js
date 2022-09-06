@@ -1,8 +1,8 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 
 import {ReactComponent as WarningIcon} from '../../../../assets/svg/icons/warning.svg';
-import {toClasses} from '../../../../utils';
 import {CollapseExpand} from '../../CollapseExpand/CollapseExpand';
 import styles from './ErrorToast.module.scss';
 

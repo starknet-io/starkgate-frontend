@@ -1,9 +1,9 @@
+import {formatBalance, shortenBalance, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {formatBalance, shortenBalance, toClasses} from '../../../utils';
-import {Loading, LoadingSize, RefreshIcon} from '../index';
+import {Loading, LoadingSize, RefreshIcon, RefreshIconSize} from '../index';
 import styles from './TokenBalance.module.scss';
 
 export const TokenBalance = ({tokenData, onRefreshClick}) => {
@@ -24,7 +24,7 @@ export const TokenBalance = ({tokenData, onRefreshClick}) => {
           )}
           <div className={styles.symbol}>{symbol}</div>
         </div>
-        <RefreshIcon size={10} onClick={onRefreshClick} />
+        <RefreshIcon size={RefreshIconSize.SMALL} onClick={onRefreshClick} />
       </div>
     </div>
   );

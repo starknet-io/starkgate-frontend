@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from 'uuid';
+import {generateId} from '@starkware-industries/commons-js-utils';
 
 export const actions = {
   SET_TRANSFERS: 'TransfersLog/SET_TRANSFERS',
@@ -15,7 +15,7 @@ export const reducer = (state, action) => {
 
     case actions.ADD_TRANSFER: {
       const {newTransfer} = action;
-      return [{id: uuidv4(), timestamp: new Date().getTime(), ...newTransfer}, ...state];
+      return [{id: generateId(), timestamp: new Date().getTime(), ...newTransfer}, ...state];
     }
 
     case actions.UPDATE_TRANSFERS: {

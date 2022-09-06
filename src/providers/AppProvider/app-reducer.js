@@ -1,5 +1,6 @@
+import {getStorageItem} from '@starkware-industries/commons-js-utils';
+
 import {LOCAL_STORAGE_ACCEPT_TERMS_KEY} from '../../config/envs';
-import {getStorageItem} from '../../utils';
 
 export const actions = {
   SET_ACCEPT_TERMS: 'App/SET_ACCEPT_TERMS',

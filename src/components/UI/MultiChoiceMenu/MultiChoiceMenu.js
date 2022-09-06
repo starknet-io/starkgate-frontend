@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
 import {Alert, AlertType} from '../Alert/Alert';
 import {Menu} from '../Menu/Menu';
 import {MultiChoiceList} from '../MultiChoiceList/MultiChoiceList';
@@ -15,7 +15,12 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
           <div className={styles.title}>{title}</div>
           {description && <p>{description}</p>}
           <MultiChoiceList choices={choices} />
-          {error && <Alert title={error.message} type={AlertType.ERROR} />}
+          {error && (
+            <>
+              <br />
+              <Alert title={error.message} type={AlertType.ERROR} />
+            </>
+          )}
         </div>
         {footer && (
           <>
