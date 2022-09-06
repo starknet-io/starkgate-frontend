@@ -15,10 +15,12 @@
     hr {
       display: none;
     }
+
+    margin-top: 8px;
   }
 
   .data {
-    margin: 20px 0;
+    padding: 0 8px;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -31,15 +33,17 @@
 
       .symbol {
         color: $--color-white;
-        font-weight: 600;
-        font-size: 18px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
-        margin: 3px 0;
       }
 
       .name {
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
         color: $--color-ceil;
         text-transform: capitalize;
         transition: 0.4s ease-in-out;
@@ -47,11 +51,11 @@
     }
 
     .right {
-      margin: 0 10px;
-
       .balance {
         float: right;
-        font-size: 18px;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
         color: $--color-ceil;
         text-transform: uppercase;
         transition: 0.4s ease-in-out;
