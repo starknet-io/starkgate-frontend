@@ -8,56 +8,75 @@
   line-height: 20px;
   padding: 15px;
 
-  .icon {
-    width: 15%;
+  .container {
     display: flex;
-    justify-content: space-around;
-  }
+    width: 100%;
 
-  .text {
-    display: flex;
-    flex-direction: column;
-
-    .title {
-      font-weight: 500;
+    &.alignCenter {
+      justify-content: center;
     }
 
-    .message {
-      font-weight: 400;
+    &.alignRight {
+      justify-content: flex-end;
+    }
+
+    .icon {
+      margin-right: 14px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      .title {
+        font-weight: 500;
+      }
+
+      .message {
+        font-weight: 400;
+      }
     }
   }
 
   &.success {
     border: 1px solid $--color-medium-aquamarine;
+    background: $--color-mint-cream;
 
-    .text {
-      .title {
-        color: $--color-philippine-green;
-      }
+    .container {
+      .text {
+        .title {
+          color: $--color-philippine-green;
+        }
 
-      .message {
-        color: $--color-spanish-green;
+        .message {
+          color: $--color-spanish-green;
+        }
       }
     }
   }
 
   &.error {
     border: 1px solid $--color-light-salmon-pink;
+    background: $--color-snow;
 
-    .text {
-      .title {
-        color: $--color-carnelian;
+    .container {
+      .text {
+        .title {
+          color: $--color-carnelian;
+        }
+
+        .message {
+          color: $--color-vermilion;
+        }
       }
 
-      .message {
-        color: $--color-vermilion;
-      }
-    }
-
-    .icon {
-      svg {
-        path {
-          stroke: $--color-vermilion;
+      .icon {
+        svg {
+          path {
+            stroke: $--color-vermilion;
+          }
         }
       }
     }
@@ -65,21 +84,24 @@
 
   &.warning {
     border: 1px solid $--color-maize;
+    background: $--color-milk;
 
-    .text {
-      .title {
-        color: $--color-rust;
+    .container {
+      .text {
+        .title {
+          color: $--color-rust;
+        }
+
+        .message {
+          color: $--color-metallic-orange;
+        }
       }
 
-      .message {
-        color: $--color-metallic-orange;
-      }
-    }
-
-    .icon {
-      svg {
-        path {
-          stroke: $--color-metallic-orange;
+      .icon {
+        svg {
+          path {
+            stroke: $--color-metallic-orange;
+          }
         }
       }
     }
@@ -88,20 +110,22 @@
   &.info {
     border: 1px solid $--color-cadet-grey;
 
-    .text {
-      .title {
-        color: $--color-charcoal;
+    .container {
+      .text {
+        .title {
+          color: $--color-charcoal;
+        }
+
+        .message {
+          color: $--color-cadet-grey;
+        }
       }
 
-      .message {
-        color: $--color-cadet-grey;
-      }
-    }
-
-    .icon {
-      svg {
-        path {
-          stroke: $--color-charcoal;
+      .icon {
+        svg {
+          path {
+            stroke: $--color-charcoal;
+          }
         }
       }
     }
