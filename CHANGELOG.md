@@ -1,3 +1,10 @@
+## [1.9.0-dev.21](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.20...v1.9.0-dev.21) (2022-09-06)
+
+
+### 🔧 Fixes
+
+* **3187138176:** align SelectToken menu to Figma design ([#308](https://github.com/starkware-libs/starkgate-frontend/issues/308)) ([3861a4c](https://github.com/starkware-libs/starkgate-frontend/commit/3861a4ced680150aa571bd584ce97c16fa606024))
+
 ## [1.9.0-dev.20](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.19...v1.9.0-dev.20) (2022-09-06)
 
 
