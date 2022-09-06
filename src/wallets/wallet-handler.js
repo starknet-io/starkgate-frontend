@@ -1,5 +1,6 @@
+import {getPropertyPath, isChrome, isFirefox} from '@starkware-industries/commons-js-utils';
+
 import strings from '../config/strings';
-import {getPropertyPath, isChrome, isFirefox} from '../utils';
 
 export class WalletHandler {
   constructor(config) {

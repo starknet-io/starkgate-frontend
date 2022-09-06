@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {toClasses} from '../../../utils';
 import styles from './BurgerMenuItem.module.scss';
 
 export const BurgerMenuItem = ({label, isActive, onClick}) => {

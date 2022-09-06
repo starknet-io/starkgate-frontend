@@ -1,7 +1,7 @@
+import {evaluate} from '@starkware-industries/commons-js-utils';
 import {useMemo} from 'react';
 
 import {TransferError} from '../enums';
-import {evaluate} from '../utils';
 import {useTransferProgressModalTranslation} from './useTranslation';
 
 export const useTransferProgress = () => {

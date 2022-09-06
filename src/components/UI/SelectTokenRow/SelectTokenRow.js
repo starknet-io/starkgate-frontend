@@ -1,7 +1,7 @@
+import {formatBalance, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {formatBalance, toClasses} from '../../../utils';
 import {CircleLogoSize} from '../CircleLogo/CircleLogo';
 import {CircleLogo, Loading, LoadingSize} from '../index';
 import styles from './SelectTokenRow.module.scss';

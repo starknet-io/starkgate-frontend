@@ -1,3 +1,4 @@
+import {evaluate, findIndexById} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -12,7 +13,6 @@ import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
 import {useWallets} from '../../../providers/WalletsProvider';
-import {evaluate, findIndexById} from '../../../utils';
 import {
   AccountAddress,
   BackButton,

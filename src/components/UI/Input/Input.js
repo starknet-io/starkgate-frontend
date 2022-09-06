@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {forwardRef} from 'react';
 
-import {toClasses} from '../../../utils';
 import styles from './Input.Module.scss';
 
 export const Input = forwardRef(({isDisabled, ...props}, ref) => (

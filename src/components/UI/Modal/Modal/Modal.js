@@ -1,8 +1,8 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {createPortal} from 'react-dom';
 
-import {toClasses} from '../../../../utils';
 import styles from './Modal.module.scss';
 
 export const ModalSize = {
