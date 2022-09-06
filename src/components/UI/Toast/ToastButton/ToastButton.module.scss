@@ -1,6 +1,6 @@
 .toastButtons {
   display: flex;
-  padding-top: 10px;
+  align-items: center;
 }
 
 .toastButton {
@@ -9,8 +9,13 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
+  display: flex;
+
+  svg {
+    padding-left: 8px;
+  }
 
   &:not(:first-child) {
-    margin-left: 10px;
+    margin-left: 12px;
   }
 }

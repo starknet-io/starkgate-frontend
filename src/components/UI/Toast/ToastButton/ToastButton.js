@@ -7,10 +7,10 @@ export const ToastButtons = ({children}) => {
   return <div className={styles.toastButtons}>{children}</div>;
 };
 
-export const ToastButton = ({text, color, onClick}) => {
+export const ToastButton = ({text, color, icon, onClick}) => {
   return (
     <div className={styles.toastButton} style={{color}} onClick={onClick}>
-      {text}
+      {text} {icon && icon}
     </div>
   );
 };
@@ -21,6 +21,7 @@ ToastButtons.propTypes = {
 
 ToastButton.propTypes = {
   text: PropTypes.string,
+  icon: PropTypes.object,
   color: PropTypes.string,
   onClick: PropTypes.func
 };
