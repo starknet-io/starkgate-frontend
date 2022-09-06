@@ -1,3 +1,4 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
 import useBreakpoint from 'use-breakpoint';
@@ -9,7 +10,6 @@ import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1} from '../../../providers/TransferProvider';
-import {toClasses} from '../../../utils';
 import {Divider, ChainSelect, StarknetWalletButton, EthereumWalletButton, Tabs} from '../../UI';
 import styles from './Header.module.scss';
 

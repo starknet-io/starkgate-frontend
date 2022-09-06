@@ -1,6 +1,5 @@
 import {ChainType} from '@starkware-industries/commons-js-enums';
-
-import {evaluate} from '../utils';
+import {evaluate} from '@starkware-industries/commons-js-utils';
 
 const env = {...process.env, ...window['__env__']};
 

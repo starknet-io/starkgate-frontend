@@ -1,8 +1,8 @@
+import {formatBalance, shortenBalance, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {formatBalance, shortenBalance, toClasses} from '../../../utils';
 import {Loading, LoadingSize, RefreshIcon, RefreshIconSize} from '../index';
 import styles from './TokenBalance.module.scss';
 

@@ -1,3 +1,4 @@
+import {openInNewTab} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
@@ -10,7 +11,6 @@ import {SideButton} from './components/UI/SideButton/SideButton';
 import {useConstants, useTracking} from './hooks';
 import {useApp} from './providers/AppProvider';
 import {Bridge, Faq, ProtectedRoute, Terms} from './routes';
-import {openInNewTab} from './utils';
 
 export const App = () => {
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
