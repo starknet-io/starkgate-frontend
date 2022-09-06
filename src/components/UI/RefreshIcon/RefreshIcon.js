@@ -5,7 +5,13 @@ import React, {useEffect, useState} from 'react';
 import {ReactComponent as RefreshSvg} from '../../../assets/svg/icons/refresh.svg';
 import styles from './RefreshIcon.module.scss';
 
-export const RefreshIcon = ({size, onClick}) => {
+export const RefreshIconSize = {
+  SMALL: 10,
+  MEDIUM: 20,
+  LARGE: 30
+};
+
+export const RefreshIcon = ({size = RefreshIconSize.MEDIUM, onClick}) => {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
