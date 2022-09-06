@@ -34,27 +34,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build and push images to GCR, with tag latest and git tag.
+      - name: Build dev image and push
         if: ${{ inputs.branch_name == 'refs/heads/dev' }}
         run: |
-          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=goerli
+          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }}
           docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}
 
-      - name: Build with mainnet env and push with mainnet and stable tags.
+      - name: Build production image and push with stable tag
         if: ${{ inputs.branch_name == 'refs/heads/master' || (startsWith(inputs.branch_name, 'refs/tags') && contains(inputs.branch_name, 'patch')) }}
         run: |
-          docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=mainnet
-          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
+          docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }}
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}:stable
 
-          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-mainnet
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}:stable
           docker push ${{ inputs.image_name }}:stable
-
-      - name: Build with goerli env and push with goerli tag.
-        if: ${{ inputs.branch_name == 'refs/heads/master' || (startsWith(inputs.branch_name, 'refs/tags') && contains(inputs.branch_name, 'patch')) }}
-        run: |
-          docker build . -t ${{ inputs.image_name }} -f ${{ inputs.dockerfile }} --build-arg BUILD_ENV=goerli
-          docker tag ${{ inputs.image_name }} ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
-
-          docker push ${{ inputs.image_name }}:${{ github.ref_name }}-goerli
