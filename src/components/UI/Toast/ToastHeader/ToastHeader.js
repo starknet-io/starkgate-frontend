@@ -10,7 +10,7 @@ export const ToastHeader = ({title, onClose, withClose}) => {
       <div className={styles.title}>{title}</div>
       {withClose && (
         <div className={styles.close} onClick={onClose}>
-          <CloseIcon />
+          <CloseIcon height={10} width={10} />
         </div>
       )}
     </div>
