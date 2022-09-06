@@ -1,3 +1,10 @@
+## [1.9.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.22...v1.9.0-dev.23) (2022-09-06)
+
+
+### 🔧 Fixes
+
+* **3156129296:** align login modal to Figma ([#303](https://github.com/starkware-libs/starkgate-frontend/issues/303)) ([c8ba454](https://github.com/starkware-libs/starkgate-frontend/commit/c8ba45430fdbbb681d00d373b2606699b93c893c))
+
 ## [1.9.0-dev.22](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.21...v1.9.0-dev.22) (2022-09-06)
 
 
