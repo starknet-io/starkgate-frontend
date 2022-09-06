@@ -32,9 +32,9 @@ export const Alert = ({title = '', message = '', type = AlertType.INFO}) => {
     <div className={toClasses(styles.alert, styles[type])}>
       <div className={styles.icon}>{renderIcon()}</div>
       <div className={styles.text}>
-        {title && <div className={styles.title} dangerouslySetInnerHTML={{__html: title}}></div>}
+        {title && <div dangerouslySetInnerHTML={{__html: title}} className={styles.title}></div>}
         {message && (
-          <div className={styles.message} dangerouslySetInnerHTML={{__html: message}}></div>
+          <div dangerouslySetInnerHTML={{__html: message}} className={styles.message}></div>
         )}
       </div>
     </div>
