@@ -72,7 +72,7 @@ export const ModalWrapper = () => {
         </Suspense>
       </ModalBody>
       {footer.withButtons && (
-        <ModalFooter type={modal.type} onClose={handleOnClose}>
+        <ModalFooter type={modal.type} {...footer.props} onClose={handleOnClose}>
           <Suspense fallback={renderLoading()}>{renderComponents(footerComponents)}</Suspense>
         </ModalFooter>
       )}

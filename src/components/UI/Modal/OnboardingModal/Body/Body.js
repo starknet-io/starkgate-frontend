@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {useOnboardingModalTranslation} from '../../../../hooks';
-import styles from './OnboardingModal.module.scss';
+import {useOnboardingModalTranslation} from '../../../../../hooks';
+import styles from './Body.module.scss';
 
-const OnboardingModal = () => {
+const Body = () => {
   const {subtitleTxt, bulletsTxt, incognitoTxt} = useOnboardingModalTranslation();
 
   return (
@@ -14,9 +14,9 @@ const OnboardingModal = () => {
           <li key={`b-${i}`}>{bullet}</li>
         ))}
       </ul>
-      <p>{incognitoTxt}</p>
+      <p dangerouslySetInnerHTML={{__html: incognitoTxt}}></p>
     </div>
   );
 };
 
-export default OnboardingModal;
+export default Body;
