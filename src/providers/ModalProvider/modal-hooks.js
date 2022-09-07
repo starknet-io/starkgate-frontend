@@ -144,7 +144,7 @@ export const useOnboardingModal = () => {
       },
       footer: {
         withButtons: true,
-        props: {
+        buttonProps: {
           height: '52px'
         }
       },
