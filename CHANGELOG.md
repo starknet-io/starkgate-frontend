@@ -1,3 +1,10 @@
+## [1.9.0-dev.24](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.23...v1.9.0-dev.24) (2022-09-07)
+
+
+### 🔧 Fixes
+
+* **3184409743:** align withdraw toast to Figma ([#310](https://github.com/starkware-libs/starkgate-frontend/issues/310)) ([511086e](https://github.com/starkware-libs/starkgate-frontend/commit/511086e810db698fad0cc29ef3c3059c582c8447))
+
 ## [1.9.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.22...v1.9.0-dev.23) (2022-09-06)
 
 
