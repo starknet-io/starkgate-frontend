@@ -7,7 +7,7 @@ import {Button} from '../../Button/Button';
 import {ModalType} from '../Modal/Modal';
 import styles from './ModalFooter.module.scss';
 
-export const ModalFooter = ({type, onClose, children, buttonProps}) => {
+export const ModalFooter = ({type, onClose, buttonProps, children}) => {
   const {colorJasper, colorIndigo, colorWhite} = useColors();
   const color = type === ModalType.ERROR ? colorJasper : colorIndigo;
 
@@ -31,5 +31,6 @@ export const ModalFooter = ({type, onClose, children, buttonProps}) => {
 ModalFooter.propTypes = {
   type: PropTypes.string,
   onClose: PropTypes.func,
+  buttonProps: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

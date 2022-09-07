@@ -131,14 +131,14 @@ export const useOnboardingModal = () => {
       header: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/Header/Header'
+            path: 'UI/Modal/OnboardingModal/OnboardingModalHeader/OnboardingModalHeader'
           }
         ]
       },
       body: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/Body/Body'
+            path: 'UI/Modal/OnboardingModal/OnboardingModalBody/OnboardingModalBody'
           }
         ]
       },
