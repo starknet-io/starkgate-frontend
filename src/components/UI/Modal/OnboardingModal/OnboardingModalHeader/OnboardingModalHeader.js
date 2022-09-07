@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ReactComponent as WarningIcon} from '../../../../../assets/svg/icons/warning-2.svg';
+import {ReactComponent as WarningIcon} from '../../../../../assets/svg/icons/warning-circle.svg';
 import {useOnboardingModalTranslation} from '../../../../../hooks';
 import styles from './OnboardingModalHeader.module.scss';
 
