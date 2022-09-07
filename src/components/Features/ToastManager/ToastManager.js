@@ -205,7 +205,8 @@ export const ToastManager = () => {
 export const TransferData = ({transfer}) => {
   const bodyStyle = {
     fontSize: '12px',
-    lineHeight: '18px'
+    lineHeight: '18px',
+    paddingRight: '0'
   };
 
   return (
