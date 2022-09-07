@@ -1,7 +1,7 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {toClasses} from '../../../utils';
 import styles from './Menu.module.scss';
 
 export const Menu = ({children}) => {

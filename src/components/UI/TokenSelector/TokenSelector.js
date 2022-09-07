@@ -15,10 +15,10 @@ export const TokenSelector = ({tokenData, onClick}) => {
       <CircleLogo
         color={colorIndigo}
         path={`tokens/${tokenData?.symbol}`}
-        size={CircleLogoSize.SMALL}
+        size={CircleLogoSize.XS}
       />
       {tokenData.symbol}
-      <Icon isClickable={true}>
+      <Icon className={styles.tokenSelectorIcon} isClickable={true}>
         <DownArrowIcon />
       </Icon>
     </div>

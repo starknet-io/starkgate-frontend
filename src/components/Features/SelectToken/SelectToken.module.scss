@@ -1,7 +1,7 @@
 @import '../../../index';
 
 .selectToken {
-  padding: 0 20px;
+  padding: 0 8px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -24,8 +24,15 @@
     margin: 50px auto;
   }
 
-  .name {
+  .title {
     display: flex;
-    justify-content: space-between;
+    white-space: pre;
+
+    .network {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 }

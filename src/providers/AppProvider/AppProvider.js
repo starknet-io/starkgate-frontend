@@ -1,9 +1,9 @@
+import {setStorageItem} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 
 import {useEnvs} from '../../hooks';
-import {setStorageItem} from '../../utils';
 import {AppContext} from './app-context';
 import {actions, initialState, reducer} from './app-reducer';
 

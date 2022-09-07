@@ -5,6 +5,7 @@ import {
   WalletErrorType,
   WalletStatus
 } from '@starkware-industries/commons-js-enums';
+import {evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
@@ -18,7 +19,6 @@ import {
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
-import {evaluate} from '../../../../utils';
 import {MultiChoiceMenu} from '../../index';
 
 const AUTO_CONNECT_TIMEOUT_DURATION = 100;

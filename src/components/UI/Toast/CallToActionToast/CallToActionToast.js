@@ -1,9 +1,9 @@
 import {Transition} from '@headlessui/react';
+import {hexToRgba} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors} from '../../../../hooks';
-import {hexToRgba} from '../../../../utils';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastFooter} from '../ToastFooter/ToastFooter';
@@ -40,21 +40,23 @@ export const CallToActionToast = ({
         <div className={styles.container}>
           <div
             className={styles.left}
-            style={{backgroundColor: `${hexToRgba(backgroundColor || colorOrangeSoda, 0.25)}`}}
+            style={{backgroundColor: `${hexToRgba(backgroundColor || colorOrangeSoda, 0.15)}`}}
           >
             <div className={styles.sideIcon}>{sideIcon}</div>
           </div>
           <div className={styles.right}>
             <ToastHeader title={titleTxt} withClose={true} onClose={onDismiss} />
             <ToastBody body={bodyTxt} />
-            <ToastButtons>
-              {dismissTxt && (
-                <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
-              )}
-              {actionTxt && (
-                <ToastButton color={colorOrangeSoda} text={actionTxt} onClick={onAction} />
-              )}
-            </ToastButtons>
+            {(dismissTxt || actionTxt) && (
+              <ToastButtons>
+                {dismissTxt && (
+                  <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
+                )}
+                {actionTxt && (
+                  <ToastButton color={colorOrangeSoda} text={actionTxt} onClick={onAction} />
+                )}
+              </ToastButtons>
+            )}
             {footer && (
               <div>
                 <ToastSeparator />

@@ -1,4 +1,5 @@
 import {EventName, TransactionStatus} from '@starkware-industries/commons-js-enums';
+import {waitForTransaction} from '@starkware-industries/commons-js-utils';
 import {useCallback} from 'react';
 
 import {
@@ -11,7 +12,6 @@ import {
 } from '../enums';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
-import {waitForTransaction} from '../utils';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
 import {useLogger} from './useLogger';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';

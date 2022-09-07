@@ -1,3 +1,4 @@
+import {getCookie, setCookie} from '@starkware-industries/commons-js-utils';
 import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
@@ -10,7 +11,6 @@ import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
 import {useBridgeIsFull, useSelectedToken} from '../../providers/TransferProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
-import {getCookie, setCookie} from '../../utils';
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {

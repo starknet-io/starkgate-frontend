@@ -1,10 +1,10 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as InfoIcon} from '../../../assets/svg/icons/info.svg';
 import {ReactComponent as SuccessIcon} from '../../../assets/svg/icons/success.svg';
 import {ReactComponent as WarningIcon} from '../../../assets/svg/icons/warning.svg';
-import {toClasses} from '../../../utils';
 import styles from './Alert.module.scss';
 
 export const AlertType = {
@@ -14,7 +14,18 @@ export const AlertType = {
   INFO: 'info'
 };
 
-export const Alert = ({title = '', message = '', type = AlertType.INFO}) => {
+export const AlertAlign = {
+  LEFT: 'alignLeft',
+  CENTER: 'alignCenter',
+  RIGHT: 'alignRight'
+};
+
+export const Alert = ({
+  title = '',
+  message = '',
+  type = AlertType.INFO,
+  align = AlertAlign.LEFT
+}) => {
   const renderIcon = () => {
     switch (type) {
       case AlertType.SUCCESS:
@@ -30,12 +41,14 @@ export const Alert = ({title = '', message = '', type = AlertType.INFO}) => {
 
   return (
     <div className={toClasses(styles.alert, styles[type])}>
-      <div className={styles.icon}>{renderIcon()}</div>
-      <div className={styles.text}>
-        {title && <div className={styles.title} dangerouslySetInnerHTML={{__html: title}}></div>}
-        {message && (
-          <div className={styles.message} dangerouslySetInnerHTML={{__html: message}}></div>
-        )}
+      <div className={toClasses(styles.container, styles[align])}>
+        <div className={styles.icon}>{renderIcon()}</div>
+        <div className={styles.text}>
+          {title && <div dangerouslySetInnerHTML={{__html: title}} className={styles.title}></div>}
+          {message && (
+            <div dangerouslySetInnerHTML={{__html: message}} className={styles.message}></div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -44,5 +57,6 @@ export const Alert = ({title = '', message = '', type = AlertType.INFO}) => {
 Alert.propTypes = {
   title: PropTypes.string,
   message: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  align: PropTypes.string
 };

@@ -27,8 +27,8 @@ input {
   }
 }
 
-input::input-placeholder {
-  opacity: 0.5;
+input::placeholder {
+  color: var(--placeholder-color);
 }
 
 input::-webkit-outer-spin-button,

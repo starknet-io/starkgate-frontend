@@ -8,6 +8,7 @@ import styles from './CircleLogo.module.scss';
 const CIRCLE_LOGO_SIZE_DIFF = 8;
 
 export const CircleLogoSize = {
+  XS: 22,
   SMALL: 32,
   MEDIUM: 40,
   LARGE: 50

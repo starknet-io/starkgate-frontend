@@ -1,6 +1,5 @@
 import splitbee from '@splitbee/web';
-
-import {getLogger} from '../utils';
+import {getLogger} from '@starkware-industries/commons-js-utils';
 
 const logger = getLogger('Analytics');
 
