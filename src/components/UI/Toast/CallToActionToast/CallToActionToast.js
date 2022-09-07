@@ -15,8 +15,11 @@ export const CallToActionToast = ({
   t,
   titleTxt,
   bodyTxt,
+  bodyStyle,
+  style,
   sideIcon,
   dismissTxt,
+  actionIcon,
   actionTxt,
   backgroundColor,
   footer,
@@ -36,7 +39,7 @@ export const CallToActionToast = ({
       leaveTo="opacity-0"
       show={t.visible}
     >
-      <div className={styles.callToActionToast}>
+      <div className={styles.callToActionToast} style={style}>
         <div className={styles.container}>
           <div
             className={styles.left}
@@ -46,22 +49,28 @@ export const CallToActionToast = ({
           </div>
           <div className={styles.right}>
             <ToastHeader title={titleTxt} withClose={true} onClose={onDismiss} />
-            <ToastBody body={bodyTxt} />
+            <ToastBody body={bodyTxt} style={bodyStyle} />
+            {footer && (
+              <div>
+                <ToastSeparator />
+                <ToastFooter>{footer}</ToastFooter>
+                <ToastSeparator />
+              </div>
+            )}
             {(dismissTxt || actionTxt) && (
               <ToastButtons>
                 {dismissTxt && (
                   <ToastButton color={colorAuroMetalSaurus} text={dismissTxt} onClick={onDismiss} />
                 )}
                 {actionTxt && (
-                  <ToastButton color={colorOrangeSoda} text={actionTxt} onClick={onAction} />
+                  <ToastButton
+                    color={colorOrangeSoda}
+                    icon={actionIcon}
+                    text={actionTxt}
+                    onClick={onAction}
+                  />
                 )}
               </ToastButtons>
-            )}
-            {footer && (
-              <div>
-                <ToastSeparator />
-                <ToastFooter>{footer}</ToastFooter>
-              </div>
             )}
           </div>
         </div>
@@ -74,9 +83,12 @@ CallToActionToast.propTypes = {
   t: PropTypes.object,
   titleTxt: PropTypes.string,
   bodyTxt: PropTypes.string,
+  bodyStyle: PropTypes.object,
+  style: PropTypes.object,
   sideIcon: PropTypes.object,
   dismissTxt: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   actionTxt: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
+  actionIcon: PropTypes.object,
   backgroundColor: PropTypes.string,
   footer: PropTypes.oneOfType([
     PropTypes.object,
