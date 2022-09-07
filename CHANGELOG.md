@@ -1,3 +1,10 @@
+## [1.9.0-dev.25](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.24...v1.9.0-dev.25) (2022-09-07)
+
+
+### 🔧 Fixes
+
+* **3186672075:** align on boarding modal to Figma ([#311](https://github.com/starkware-libs/starkgate-frontend/issues/311)) ([b296fac](https://github.com/starkware-libs/starkgate-frontend/commit/b296fac614c7f7e616a00713d1d0a43699252b30))
+
 ## [1.9.0-dev.24](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.23...v1.9.0-dev.24) (2022-09-07)
 
 
