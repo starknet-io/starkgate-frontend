@@ -127,7 +127,7 @@ export default {
         'Do not delete the local storage of the browser'
       ],
       incognitoTxt:
-        'The current StarkGate Alpha version does not support browsing in incognito mode.'
+        'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
     }
   },
   toasts: {
