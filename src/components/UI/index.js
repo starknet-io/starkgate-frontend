@@ -41,6 +41,7 @@ export * from './MultiChoiceItem/MultiChoiceItem';
 export * from './Divider/Divider';
 export * from './BurgerMenu/BurgerMenu';
 export * from './BurgerMenuItem/BurgerMenuItem';
+export * from './Bullet/Bullet';
 export * from './CollapseExpand/CollapseExpand';
 export * from './StarknetWalletButton/StarknetWalletButton';
 export * from './EthereumWalletButton/EthereumWalletButton';

@@ -3,6 +3,7 @@
 .toastHeader {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .title {
     font-style: normal;
@@ -10,6 +11,7 @@
     font-size: 14px;
     line-height: 20px;
     color: $--color-black;
+    margin-right: 10px;
   }
 
   .close {
