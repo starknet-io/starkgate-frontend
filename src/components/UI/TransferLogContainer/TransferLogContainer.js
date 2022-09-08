@@ -9,7 +9,8 @@ import styles from './TransferLogContainer.module.scss';
 
 export const TransferLogContainer = ({transferIndex, children, onShowTransfers}) => {
   const {resetMenuProps} = useMenu();
-  const {titleTxt, overviewTxt, emptyMsgTxt, viewMoreTxt} = useTransferLogContainerTranslation();
+  const {titleTxt, singleOverviewTxt, overviewTxt, emptyMsgTxt, viewMoreTxt, viewLessTxt} =
+    useTransferLogContainerTranslation();
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
@@ -21,23 +22,30 @@ export const TransferLogContainer = ({transferIndex, children, onShowTransfers})
   const renderChildren = () => {
     if (!children) {
       return <div className={styles.empty}>{emptyMsgTxt}</div>;
-    } else if (showChildren || transferIndex > -1) {
-      return children;
     }
 
     return (
       <div className={styles.viewMore}>
-        {Array.isArray(children) ? children.length : 1} {overviewTxt}{' '}
-        <span onClick={toggleShowChildren}>{viewMoreTxt}</span>
+        {Array.isArray(children) && children.length > 1
+          ? `${children.length} ${overviewTxt}`
+          : `1 ${singleOverviewTxt}`}{' '}
+        <span onClick={toggleShowChildren}>{showChildren ? viewLessTxt : viewMoreTxt}</span>
+        {showChildren || transferIndex > -1 ? (
+          <div className={styles.overflow}>
+            <div className={styles.logsContainer}>{children}</div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
   };
 
   return (
     <div className={styles.transferLogContainer}>
-      <div className={toClasses(styles.title, showChildren && styles.showChildren)}>
+      <div className={styles.title}>
         {titleTxt}
-        <CollapseExpand isCollapsed={showChildren} size={15} onClick={toggleShowChildren} />
+        <CollapseExpand isCollapsed={showChildren} onClick={toggleShowChildren} />
       </div>
       {renderChildren()}
     </div>

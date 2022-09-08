@@ -23,7 +23,14 @@ export const AccountAddress = ({address, onClick}) => {
   return (
     <>
       <div ref={ref} className={styles.accountAddress}>
-        {address.length <= 42 ? address : `${address.substring(0, 42)}...`}
+        <div className={styles.address}>
+          {address.length < 40
+            ? address
+            : `${address.substring(0, 24)}...${address.substring(
+                address.length - 12,
+                address.length
+              )}`}
+        </div>
         <CopyIcon onClick={onCopyClick} />
       </div>
       <div className={toClasses(styles.copiedMsg, isAnimate && styles.copied)}>{copiedMsgTxt}</div>
