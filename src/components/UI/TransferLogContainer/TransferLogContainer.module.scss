@@ -38,17 +38,20 @@
     }
   }
 
-  .overflow {
-    max-height: 306px;
-    overflow-y: auto;
-    padding-right: 8px;
-    margin-right: 8px;
-    margin-top: 8px;
-  }
-
   .logsContainer {
-    margin-top: 8px;
+    margin: 16px 16px 0 0;
     border: 1px solid $--color-indigo;
     border-radius: 8px;
+  }
+
+  .overflow {
+    max-height: 296px;
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-right: -11px;
+  }
+
+  .logs {
+    max-width: 396px;
   }
 }
