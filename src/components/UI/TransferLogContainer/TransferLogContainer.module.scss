@@ -45,13 +45,13 @@
   }
 
   .overflow {
-    max-height: 296px;
     overflow-y: auto;
     padding-right: 6px;
     margin-right: -11px;
   }
 
-  .logs {
+  .logsDimensions {
     max-width: 396px;
+    max-height: 296px;
   }
 }

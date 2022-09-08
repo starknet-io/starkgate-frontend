@@ -32,7 +32,7 @@ export const TransferLogContainer = ({transferIndex, children, onShowTransfers})
         {showChildren || transferIndex > -1 ? (
           <div className={styles.logsContainer}>
             <div className={styles.overflow}>
-              <div className={styles.logs}>{children}</div>
+              <div className={styles.logsDimensions}>{children}</div>
             </div>
           </div>
         ) : (
