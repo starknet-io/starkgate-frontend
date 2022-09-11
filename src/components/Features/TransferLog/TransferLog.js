@@ -27,11 +27,13 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
   }, [action]);
 
   const renderTransferStatus = () => {
-    return !isOnChain(status) ? (
+    return (
       <div className={toClasses(styles.data, isRejected(status) && styles.error)}>
-        {TransactionStatusFriendlyMessage[status || TransactionStatus.NOT_RECEIVED]}
+        {!isOnChain(status)
+          ? TransactionStatusFriendlyMessage[status || TransactionStatus.NOT_RECEIVED]
+          : ''}
       </div>
-    ) : null;
+    );
   };
 
   const renderL1TxButton = () => {
@@ -66,14 +68,14 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     <>
       <div className={styles.transferLog}>
         <div className={styles.left}>
-          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.SMALL} />
+          <CircleLogo path={`tokens/${symbol}`} size={CircleLogoSize.XS} />
           <div>
-            {name}
+            <div className={styles.label}>{name}</div>
             <div className={styles.data}>{`${getFullTime(timestamp)}`}</div>
           </div>
         </div>
         <div className={styles.right}>
-          <div className={styles.amount}>
+          <div className={styles.label}>
             {sign} {amount} {symbol.toUpperCase()}
           </div>
           {renderTransferStatus()}
@@ -83,7 +85,6 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
           </div>
         </div>
       </div>
-      <hr />
     </>
   );
 };

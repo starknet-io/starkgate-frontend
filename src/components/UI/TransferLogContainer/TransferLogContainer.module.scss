@@ -2,24 +2,21 @@
 
 .transferLogContainer {
   color: $--color-white;
-  padding: 13px;
-  border-radius: 7px;
-  border-color: $--color-indigo;
-  border-style: solid;
-  border-width: 2px;
-  margin: 10px 0;
-  overflow-y: auto;
-  max-height: 300px;
+  padding: 16px 0 16px 16px;
+  border-radius: 8px;
+  border: 1px solid $--color-indigo;
+  margin: 16px 0;
 
   .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    line-height: 16px;
+    line-height: 20px;
     font-weight: 600;
     text-transform: capitalize;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    padding-right: 16px;
   }
 
   .empty {
@@ -30,11 +27,31 @@
 
   .viewMore {
     font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    overflow-y: auto;
 
     span {
       cursor: pointer;
       text-transform: capitalize;
       color: $--color-dodger-blue;
     }
+  }
+
+  .logsContainer {
+    margin: 16px 16px 0 0;
+    border: 1px solid $--color-indigo;
+    border-radius: 8px;
+  }
+
+  .overflow {
+    overflow-y: auto;
+    padding-right: 6px;
+    margin-right: -11px;
+  }
+
+  .logsDimensions {
+    max-width: 396px;
+    max-height: 296px;
   }
 }

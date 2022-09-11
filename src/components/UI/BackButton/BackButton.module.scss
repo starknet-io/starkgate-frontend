@@ -3,17 +3,16 @@
 .backButton {
   display: flex;
   align-items: center;
-  font-weight: 400;
   font-size: 12px;
-  line-height: 18px;
+  line-height: 24px;
   text-transform: capitalize;
-  color: $--color-ube;
-  margin: 8px 0;
+  color: $--color-light-steel-blue;
+  margin-bottom: 8px;
   cursor: pointer;
   transition: 0.3s ease-in-out;
 
   svg {
-    margin-right: 7px;
+    margin-right: 8px;
   }
 
   &:hover {
