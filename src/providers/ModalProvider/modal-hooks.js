@@ -1,7 +1,10 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
+import {ReactComponent as AlertIcon} from '../../assets/svg/icons/alert-circle.svg';
+import {ReactComponent as WarningIcon} from '../../assets/svg/icons/warning-circle.svg';
 import {ModalType} from '../../components/UI';
+import {useOnboardingModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
 export const useModal = () => {
@@ -22,6 +25,19 @@ const transactionModalsStyling = {
   containerStyle: {
     padding: '32px',
     width: '495px'
+  }
+};
+
+const IconedHeaderModalStyling = {
+  containerStyle: {
+    width: '466px',
+    padding: '24px'
+  },
+  buttonProps: {
+    height: '52px',
+    style: {
+      margin: '0'
+    }
   }
 };
 
@@ -130,19 +146,37 @@ export const useTransactionSubmittedModal = steps => {
 
 export const useErrorModal = () => {
   const {showModal} = useContext(ModalContext);
+  const {buttonProps, containerStyle} = IconedHeaderModalStyling;
 
   return useCallback(
     (title, text) => {
       showModal({
         header: {
-          title
+          components: [
+            {
+              path: 'UI/Modal/IconHeaderModal/IconHeaderModal',
+              props: {
+                title,
+                icon: AlertIcon
+              }
+            }
+          ]
         },
         body: {
-          text
+          components: [
+            {
+              path: 'UI/Modal/ErrorModal/ErrorModal',
+              props: {
+                text
+              }
+            }
+          ]
         },
         footer: {
-          withButtons: true
+          withButtons: true,
+          buttonProps
         },
+        containerStyle,
         type: ModalType.ERROR
       });
     },
@@ -152,33 +186,34 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
+  const {titleTxt} = useOnboardingModalTranslation();
+  const {buttonProps, containerStyle} = IconedHeaderModalStyling;
 
   return useCallback(() => {
     showModal({
       header: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/OnboardingModalHeader/OnboardingModalHeader'
+            path: 'UI/Modal/IconHeaderModal/IconHeaderModal',
+            props: {
+              icon: WarningIcon,
+              title: titleTxt
+            }
           }
         ]
       },
       body: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/OnboardingModalBody/OnboardingModalBody'
+            path: 'UI/Modal/OnboardingModal/OnboardingModal'
           }
         ]
       },
       footer: {
         withButtons: true,
-        buttonProps: {
-          height: '52px'
-        }
+        buttonProps
       },
-      containerStyle: {
-        width: '466px',
-        padding: '24px'
-      }
+      containerStyle
     });
   }, [showModal]);
 };
