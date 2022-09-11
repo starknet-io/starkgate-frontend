@@ -7,7 +7,6 @@ import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse
 import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
 import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
 import {useEnvs} from '../../../hooks';
-import styles from './ChainSelect.module.scss';
 import {ChainSelectTheme} from './ChainSelect.theme';
 
 export const ChainSelect = () => {
@@ -27,7 +26,7 @@ export const ChainSelect = () => {
         <MenuItem key={chainName} value={chainName}>
           {ChainInfo.L2[chainName].CHAIN}
           {chainName === SUPPORTED_L2_CHAIN_ID && (
-            <div className={styles.selectedIcon}>
+            <div style={{paddingLeft: '20px'}}>
               <SelectedIcon />
             </div>
           )}
