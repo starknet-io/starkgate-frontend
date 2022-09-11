@@ -154,7 +154,7 @@ export const useErrorModal = () => {
         header: {
           components: [
             {
-              path: 'UI/Modal/IconHeaderModal/IconHeaderModal',
+              path: 'UI/Modal/ModalIconHeader/ModalIconHeader',
               props: {
                 title,
                 icon: AlertIcon
@@ -194,7 +194,7 @@ export const useOnboardingModal = () => {
       header: {
         components: [
           {
-            path: 'UI/Modal/IconHeaderModal/IconHeaderModal',
+            path: 'UI/Modal/ModalIconHeader/ModalIconHeader',
             props: {
               icon: WarningIcon,
               title: titleTxt
