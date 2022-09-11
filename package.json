@@ -68,7 +68,7 @@
     "react-hot-toast": "^2.2.0",
     "react-router": "^6.3.0",
     "react-router-dom": "6",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "use-breakpoint": "^3.0.1",
     "use-deep-compare-effect": "^1.8.1",
     "use-wallet": "^0.13.6"
