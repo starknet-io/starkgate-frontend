@@ -2,7 +2,7 @@ import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../components/UI';
-import {useOnboardingModalTranslation, useTransactionSubmittedModalTranslation} from '../../hooks';
+import {useTransactionSubmittedModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
 export const useModal = () => {
@@ -125,22 +125,32 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useOnboardingModalTranslation();
 
   return useCallback(() => {
     showModal({
       header: {
-        title: titleTxt
+        components: [
+          {
+            path: 'UI/Modal/OnboardingModal/OnboardingModalHeader/OnboardingModalHeader'
+          }
+        ]
       },
       body: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/OnboardingModal'
+            path: 'UI/Modal/OnboardingModal/OnboardingModalBody/OnboardingModalBody'
           }
         ]
       },
       footer: {
-        withButtons: true
+        withButtons: true,
+        buttonProps: {
+          height: '52px'
+        }
+      },
+      containerStyle: {
+        width: '466px',
+        padding: '24px'
       }
     });
   }, [showModal]);

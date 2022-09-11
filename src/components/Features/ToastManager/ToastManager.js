@@ -20,7 +20,7 @@ import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
-import {CompleteTransferToL1Toast, ToastBody, TransferToast} from '../../UI';
+import {CompleteTransferToL1Toast, ToastBody, TransferToast, Bullet} from '../../UI';
 import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
 import styles from './ToastManager.module.scss';
 
@@ -204,7 +204,9 @@ export const ToastManager = () => {
 
 export const TransferData = ({transfer}) => {
   const bodyStyle = {
-    fontSize: '12px'
+    fontSize: '12px',
+    lineHeight: '18px',
+    paddingRight: '0'
   };
 
   return (
@@ -217,8 +219,11 @@ export const TransferData = ({transfer}) => {
         }
         style={bodyStyle}
       />
-      <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={bodyStyle} />
-      <ToastBody body={getFullTime(transfer.timestamp)} style={bodyStyle} />
+      <div style={{display: 'flex', alignItems: 'center'}}>
+        <ToastBody body={getFullTime(transfer.timestamp)} style={bodyStyle} />
+        <Bullet />
+        <ToastBody body={`${transfer.amount} ${transfer.symbol}`} style={bodyStyle} />
+      </div>
     </>
   );
 };

@@ -1,3 +1,24 @@
+## [1.9.0-dev.26](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.25...v1.9.0-dev.26) (2022-09-11)
+
+
+### 🔧 Fixes
+
+* **3187136947:** align Account menu to Figma design ([#312](https://github.com/starkware-libs/starkgate-frontend/issues/312)) ([233ce75](https://github.com/starkware-libs/starkgate-frontend/commit/233ce75b6225e25c6df4e17e5fee18eda0595297))
+
+## [1.9.0-dev.25](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.24...v1.9.0-dev.25) (2022-09-07)
+
+
+### 🔧 Fixes
+
+* **3186672075:** align on boarding modal to Figma ([#311](https://github.com/starkware-libs/starkgate-frontend/issues/311)) ([b296fac](https://github.com/starkware-libs/starkgate-frontend/commit/b296fac614c7f7e616a00713d1d0a43699252b30))
+
+## [1.9.0-dev.24](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.23...v1.9.0-dev.24) (2022-09-07)
+
+
+### 🔧 Fixes
+
+* **3184409743:** align withdraw toast to Figma ([#310](https://github.com/starkware-libs/starkgate-frontend/issues/310)) ([511086e](https://github.com/starkware-libs/starkgate-frontend/commit/511086e810db698fad0cc29ef3c3059c582c8447))
+
 ## [1.9.0-dev.23](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.22...v1.9.0-dev.23) (2022-09-06)
 
 

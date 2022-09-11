@@ -32,9 +32,11 @@ export default {
       logoutBtnTxt: 'Logout',
       transferLogContainer: {
         titleTxt: 'Transfers log',
+        singleOverviewTxt: 'recent transfer',
         overviewTxt: 'recent transfers',
         emptyMsgTxt: 'Transfers will appear here...',
         viewMoreTxt: 'View more',
+        viewLessTxt: 'View less',
         transferLog: {
           completeTransferBtnTxt: 'Complete transfer'
         }
@@ -127,7 +129,7 @@ export default {
         'Do not delete the local storage of the browser'
       ],
       incognitoTxt:
-        'The current StarkGate Alpha version does not support browsing in incognito mode.'
+        'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
     }
   },
   toasts: {

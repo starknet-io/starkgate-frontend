@@ -2,16 +2,14 @@
 
 .linkButton {
   color: $--color-dodger-blue;
-  padding: 3px 10px;
-  border-radius: 7px;
-  border-color: $--color-dodger-blue;
-  border-style: solid;
-  border-width: 1px;
+  padding: 0 8px;
+  line-height: 20px;
+  border-radius: 5px;
+  border: 1px solid $--color-dodger-blue;
   font-size: 12px;
   text-transform: capitalize;
   display: inline-block;
   cursor: pointer;
-  margin: 10px 0 10px 10px;
 
   &.isDisabled {
     opacity: 0.3;
