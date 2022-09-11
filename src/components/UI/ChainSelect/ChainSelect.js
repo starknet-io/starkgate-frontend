@@ -1,6 +1,6 @@
 import {Select, MenuItem, FormControl} from '@mui/material';
 import {ChainInfo, ChainType} from '@starkware-industries/commons-js-enums';
-import {openInNewTab, toClasses} from '@starkware-industries/commons-js-utils';
+import {openInNewTab} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
@@ -38,18 +38,16 @@ export const ChainSelect = () => {
 
   return (
     <ChainSelectTheme>
-      <div className={toClasses(styles.chainSelect)}>
-        <FormControl size={'small'}>
-          <Select
-            IconComponent={CollapseIcon}
-            renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
-            value={SUPPORTED_L2_CHAIN_ID}
-            onChange={handleChange}
-          >
-            {renderItems()}
-          </Select>
-        </FormControl>
-      </div>
+      <FormControl size={'small'}>
+        <Select
+          IconComponent={CollapseIcon}
+          renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
+          value={SUPPORTED_L2_CHAIN_ID}
+          onChange={handleChange}
+        >
+          {renderItems()}
+        </Select>
+      </FormControl>
     </ChainSelectTheme>
   );
 };

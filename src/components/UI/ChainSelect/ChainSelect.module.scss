@@ -1,10 +1,6 @@
 @import '../../../index';
 
-.chainSelect {
-  margin: 0 16px;
-}
-
 .selectedIcon {
-  position: absolute;
-  right: 8px;
+  padding-left: 20px;
+  transform: scale(0.833);
 }
