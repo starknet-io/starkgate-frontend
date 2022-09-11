@@ -23,6 +23,7 @@ import {
 } from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import {TransferLog} from '../TransferLog/TransferLog';
+import styles from './Account.module.scss';
 
 export const Account = ({transferId}) => {
   const {titleTxt} = useAccountTranslation();
@@ -66,7 +67,7 @@ export const Account = ({transferId}) => {
 
   return (
     <Menu>
-      <div>
+      <div className={styles.accountMenu}>
         <BackButton onClick={() => showSourceMenu()} />
         <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
         <AccountAddress address={account} onClick={trackAddressCopied} />

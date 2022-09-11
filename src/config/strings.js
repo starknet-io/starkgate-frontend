@@ -32,9 +32,11 @@ export default {
       logoutBtnTxt: 'Logout',
       transferLogContainer: {
         titleTxt: 'Transfers log',
+        singleOverviewTxt: 'recent transfer',
         overviewTxt: 'recent transfers',
         emptyMsgTxt: 'Transfers will appear here...',
         viewMoreTxt: 'View more',
+        viewLessTxt: 'View less',
         transferLog: {
           completeTransferBtnTxt: 'Complete transfer'
         }
