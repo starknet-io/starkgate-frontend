@@ -1,3 +1,10 @@
+## [1.9.0-dev.26](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.25...v1.9.0-dev.26) (2022-09-11)
+
+
+### 🔧 Fixes
+
+* **3187136947:** align Account menu to Figma design ([#312](https://github.com/starkware-libs/starkgate-frontend/issues/312)) ([233ce75](https://github.com/starkware-libs/starkgate-frontend/commit/233ce75b6225e25c6df4e17e5fee18eda0595297))
+
 ## [1.9.0-dev.25](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.24...v1.9.0-dev.25) (2022-09-07)
 
 
