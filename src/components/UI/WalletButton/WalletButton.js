@@ -1,10 +1,8 @@
 import {WalletStatus} from '@starkware-industries/commons-js-enums';
-import {evaluate, shortenAddress, toClasses} from '@starkware-industries/commons-js-utils';
+import {evaluate, shortenAddress} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
-import useBreakpoint from 'use-breakpoint';
 
-import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
 import {useColors, useHeaderTranslation} from '../../../hooks';
 import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
@@ -27,42 +25,19 @@ WalletButton.propTypes = {
 };
 
 const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
-  const {breakpoint} = useBreakpoint(Breakpoint);
   const {colorOrangeSoda, colorWhiteOp10, colorWhite, colorDarkBlueGray} = useColors();
   const {accountWalletBtnTxt} = useHeaderTranslation();
 
-  const WALLET_LOGO_SIZE = 20;
-  const WALLET_LOGO_SIZE_MOBILE = 40;
-
-  const getText = () => {
-    const address = shortenAddress(account);
-    if (isMobileOrTablet(breakpoint)) {
-      return '';
-    } else if (!isDesktop(breakpoint)) {
-      return address;
-    }
-    return evaluate(accountWalletBtnTxt, {address});
-  };
-
-  const renderChainLabel = () => {
-    return isDesktop(breakpoint) ? <ChainLabel chain={chain} /> : null;
-  };
-
-  const renderWalletLogo = () => {
-    const logoSize = isMobile(breakpoint) ? WALLET_LOGO_SIZE_MOBILE : WALLET_LOGO_SIZE;
-    return <DynamicIcon path={logoPath} size={logoSize} />;
-  };
-
   return (
     <Button
-      className={toClasses(styles.accountWalletButton, styles[breakpoint.toLowerCase()])}
+      className={styles.accountWalletButton}
       colorBackground={colorWhiteOp10}
       colorBackgroundHover={colorDarkBlueGray}
       colorBorder={colorOrangeSoda}
       colorText={colorWhite}
-      iconLeft={renderWalletLogo()}
-      iconRight={renderChainLabel()}
-      text={getText()}
+      iconLeft={<DynamicIcon path={logoPath} size={20} />}
+      iconRight={<ChainLabel chain={chain} />}
+      text={evaluate(accountWalletBtnTxt, {address: shortenAddress(account)})}
       onClick={onClick}
     />
   );

@@ -48,17 +48,4 @@
       margin-left: 24px;
     }
   }
-
-  &.mobile {
-    height: #{$--header-height - 10}px;
-
-    .left {
-      .logo {
-        svg {
-          width: 150px;
-          height: 35px;
-        }
-      }
-    }
-  }
 }
