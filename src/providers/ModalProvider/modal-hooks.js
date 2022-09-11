@@ -7,20 +7,6 @@ import {ModalType} from '../../components/UI';
 import {useOnboardingModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
-export const useModal = () => {
-  return {
-    ...useContext(ModalContext)
-  };
-};
-
-export const useHideModal = () => {
-  const {hideModal} = useContext(ModalContext);
-
-  return useCallback(() => {
-    hideModal();
-  }, [hideModal]);
-};
-
 const transactionModalsStyling = {
   containerStyle: {
     padding: '32px',
@@ -39,6 +25,20 @@ const IconedHeaderModalStyling = {
       margin: '0'
     }
   }
+};
+
+export const useModal = () => {
+  return {
+    ...useContext(ModalContext)
+  };
+};
+
+export const useHideModal = () => {
+  const {hideModal} = useContext(ModalContext);
+
+  return useCallback(() => {
+    hideModal();
+  }, [hideModal]);
 };
 
 export const useProgressModal = (steps = []) => {
