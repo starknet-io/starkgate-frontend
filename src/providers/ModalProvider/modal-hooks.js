@@ -4,6 +4,13 @@ import {useCallback, useContext} from 'react';
 import {ModalType} from '../../components/UI';
 import {ModalContext} from './modal-context';
 
+const transactionModalContainerStyle = {
+  containerStyle: {
+    padding: '32px',
+    width: '495px'
+  }
+};
+
 export const useModal = () => {
   return {
     ...useContext(ModalContext)
@@ -18,16 +25,8 @@ export const useHideModal = () => {
   }, [hideModal]);
 };
 
-const transactionModalsStyling = {
-  containerStyle: {
-    padding: '32px',
-    width: '495px'
-  }
-};
-
 export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
-  const {containerStyle} = transactionModalsStyling;
 
   return useCallback(
     (title, message, activeStep = 0, type = ModalType.INFO) => {
@@ -60,7 +59,7 @@ export const useProgressModal = (steps = []) => {
           ]
         },
         type,
-        containerStyle
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]
@@ -70,7 +69,6 @@ export const useProgressModal = (steps = []) => {
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
 
-  const {containerStyle} = transactionModalsStyling;
   const buttonProps = {
     height: '48px',
     style: {
@@ -121,7 +119,7 @@ export const useTransactionSubmittedModal = steps => {
           ],
           buttonProps
         },
-        containerStyle
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]
