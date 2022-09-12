@@ -1,3 +1,10 @@
+## [1.9.0-dev.27](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.26...v1.9.0-dev.27) (2022-09-12)
+
+
+### 🔧 Fixes
+
+* **3175163956:** align chain select to Figma design ([#315](https://github.com/starkware-libs/starkgate-frontend/issues/315)) ([cb5d81a](https://github.com/starkware-libs/starkgate-frontend/commit/cb5d81ae66977f7f2c384893d421bb3abf7fa338))
+
 ## [1.9.0-dev.26](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.25...v1.9.0-dev.26) (2022-09-11)
 
 
