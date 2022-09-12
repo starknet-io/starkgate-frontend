@@ -1,0 +1,12 @@
+.progressModalHeader {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+
+  .title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    margin-left: 8px;
+  }
+}

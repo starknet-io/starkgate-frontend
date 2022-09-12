@@ -14,7 +14,7 @@ import {
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 
-const TransactionSubmittedModalButton = ({transfer}) => {
+const TransactionSubmittedModalButton = ({transfer, buttonProps}) => {
   const {ETHERSCAN, VOYAGER} = useConstants();
   const {ETHERSCAN_TX_URL, VOYAGER_TX_URL} = useEnvs();
   const {colorIndigo, colorWhite, colorGainsboro} = useColors();
@@ -49,21 +49,23 @@ const TransactionSubmittedModalButton = ({transfer}) => {
       colorBackground={colorWhite}
       colorBorder={colorIndigo}
       colorText={colorIndigo}
-      height={40}
+      height={48}
       iconLeft={
-        <Circle color={colorGainsboro} size={35}>
+        <Circle color={colorGainsboro} size={37} style={{margin: '0'}}>
           {explorer.logo}
         </Circle>
       }
       text={evaluate(btnTxt, {explorer: explorer.name})}
       width={'100%'}
       onClick={onClick}
+      {...buttonProps}
     />
   );
 };
 
 TransactionSubmittedModalButton.propTypes = {
-  transfer: PropTypes.object
+  transfer: PropTypes.object,
+  buttonProps: PropTypes.object
 };
 
 export default TransactionSubmittedModalButton;

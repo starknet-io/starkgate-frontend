@@ -30,7 +30,7 @@ export const ModalFooter = ({type, onClose, buttonProps, children}) => {
 
 ModalFooter.propTypes = {
   type: PropTypes.string,
-  onClose: PropTypes.func,
   buttonProps: PropTypes.object,
+  onClose: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
