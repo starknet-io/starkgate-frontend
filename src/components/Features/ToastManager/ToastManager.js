@@ -4,6 +4,7 @@ import {
   isRejected,
   NetworkType
 } from '@starkware-industries/commons-js-enums';
+import {usePrevious} from '@starkware-industries/commons-js-hooks';
 import {getCookie, getFullTime, setCookie} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
@@ -16,7 +17,7 @@ import {
   HIDE_ELEMENT_COOKIE_DURATION_DAYS
 } from '../../../config/constants';
 import {ActionType, Breakpoint, isMobile, ToastType} from '../../../enums';
-import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
+import {useCompleteTransferToL1} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
@@ -54,7 +55,7 @@ export const ToastManager = () => {
   }, []);
 
   const renderToasts = () => {
-    transfers.forEach(transfer => {
+    transfers.forEach((transfer, i) => {
       const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
       handleToast(transfer, prevTransfer);
     });

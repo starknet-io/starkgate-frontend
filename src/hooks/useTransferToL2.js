@@ -1,4 +1,5 @@
 import {EventName} from '@starkware-industries/commons-js-enums';
+import {useLogger} from '@starkware-industries/commons-js-hooks';
 import {constants} from '@starkware-industries/commons-js-libs/starknet';
 import {promiseHandler, addToken} from '@starkware-industries/commons-js-utils';
 import {useCallback} from 'react';
@@ -10,7 +11,6 @@ import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
 import {useIsMaxTotalBalanceExceeded} from './useIsMaxTotalBalanceExceeded';
-import {useLogger} from './useLogger';
 import {useTokenContractAPI} from './useTokenContractAPI';
 import {useTransferToL2Tracking} from './useTracking';
 import {useTransfer} from './useTransfer';
