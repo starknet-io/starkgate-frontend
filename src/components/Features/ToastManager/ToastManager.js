@@ -55,7 +55,7 @@ export const ToastManager = () => {
   }, []);
 
   const renderToasts = () => {
-    transfers.forEach((transfer, i) => {
+    transfers.forEach(transfer => {
       const prevTransfer = prevTransfers?.find(prevTransfer => prevTransfer.id === transfer.id);
       handleToast(transfer, prevTransfer);
     });
