@@ -8,10 +8,10 @@ import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
 
 export const WalletButtonIconSize = {
-    SMALL: 10,
-    MEDIUM: 20,
-    LARGE: 30
-}
+  SMALL: 10,
+  MEDIUM: 20,
+  LARGE: 30
+};
 
 export const WalletButton = ({account, chain, network, logoPath, status, onClick}) => {
   return status === WalletStatus.CONNECTED ? (
