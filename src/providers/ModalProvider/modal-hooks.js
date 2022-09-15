@@ -8,20 +8,11 @@ import {useOnboardingModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
 const transactionModalContainerStyle = {
-  containerStyle: {
-    padding: '32px',
-    width: '495px'
-  }
+  padding: '32px',
+  width: '495px'
 };
 
-const transactionModalsStyling = {
-  containerStyle: {
-    padding: '32px',
-    width: '495px'
-  }
-};
-
-const IconedHeaderModalStyling = {
+const modalHeaderWithIconStyle = {
   containerStyle: {
     width: '466px',
     padding: '24px'
@@ -50,7 +41,6 @@ export const useHideModal = () => {
 
 export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
-  const {containerStyle} = transactionModalsStyling;
 
   return useCallback(
     (title, message, activeStep = 0, type = ModalType.INFO) => {
@@ -152,7 +142,7 @@ export const useTransactionSubmittedModal = steps => {
 
 export const useErrorModal = () => {
   const {showModal} = useContext(ModalContext);
-  const {buttonProps, containerStyle} = IconedHeaderModalStyling;
+  const {buttonProps, containerStyle} = modalHeaderWithIconStyle;
 
   return useCallback(
     (title, text) => {
@@ -160,7 +150,7 @@ export const useErrorModal = () => {
         header: {
           components: [
             {
-              path: 'UI/Modal/ModalIconHeader/ModalIconHeader',
+              path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
               props: {
                 title,
                 icon: AlertIcon
@@ -193,14 +183,14 @@ export const useErrorModal = () => {
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
   const {titleTxt} = useOnboardingModalTranslation();
-  const {buttonProps, containerStyle} = IconedHeaderModalStyling;
+  const {buttonProps, containerStyle} = modalHeaderWithIconStyle;
 
   return useCallback(() => {
     showModal({
       header: {
         components: [
           {
-            path: 'UI/Modal/ModalIconHeader/ModalIconHeader',
+            path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
             props: {
               icon: WarningIcon,
               title: titleTxt
