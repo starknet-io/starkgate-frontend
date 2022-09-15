@@ -7,6 +7,12 @@ import {useColors, useHeaderTranslation} from '../../../hooks';
 import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
 
+export const WalletButtonIconSize = {
+    SMALL: 10,
+    MEDIUM: 20,
+    LARGE: 30
+}
+
 export const WalletButton = ({account, chain, network, logoPath, status, onClick}) => {
   return status === WalletStatus.CONNECTED ? (
     <AccountWalletButton account={account} chain={chain} logoPath={logoPath} onClick={onClick} />
@@ -35,7 +41,7 @@ const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
       colorBackgroundHover={colorDarkBlueGray}
       colorBorder={colorOrangeSoda}
       colorText={colorWhite}
-      iconLeft={<DynamicIcon path={logoPath} size={20} />}
+      iconLeft={<DynamicIcon path={logoPath} size={WalletButtonIconSize.MEDIUM} />}
       iconRight={<ChainLabel chain={chain} />}
       text={evaluate(accountWalletBtnTxt, {address: shortenAddress(account)})}
       onClick={onClick}
