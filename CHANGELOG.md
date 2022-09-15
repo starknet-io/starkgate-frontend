@@ -1,3 +1,10 @@
+## [1.9.0-dev.29](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.28...v1.9.0-dev.29) (2022-09-15)
+
+
+### 🔧 Fixes
+
+* **3216786743:** align error modal to Figma ([#314](https://github.com/starkware-libs/starkgate-frontend/issues/314)) ([4051854](https://github.com/starkware-libs/starkgate-frontend/commit/4051854dabde7d7126875c079460cf4ac58ad80c))
+
 ## [1.9.0-dev.28](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.27...v1.9.0-dev.28) (2022-09-12)
 
 
