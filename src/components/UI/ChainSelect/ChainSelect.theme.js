@@ -5,16 +5,21 @@ import React from 'react';
 import {useColors, useFonts} from '../../../hooks';
 
 export const ChainSelectTheme = ({children}) => {
-  const {colorWhite, colorDarkSlateBlue} = useColors();
+  const {colorWhite, colorDarkSlateBlue, colorToolbox} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
+            margin: '0 16px',
+            fontSize: '14px',
+            fontWeight: '500',
+            lineHeight: '20px',
+            padding: '8px 16px',
+            fontFamily: primaryFont,
             color: colorWhite,
             borderRadius: '8px',
-            minWidth: '108px',
             '&, &:hover, &.Mui-focused': {
               '.MuiOutlinedInput-notchedOutline': {
                 borderColor: colorWhite,
@@ -23,22 +28,23 @@ export const ChainSelectTheme = ({children}) => {
             }
           },
           input: {
-            fontFamily: primaryFont
+            padding: '0',
+            paddingRight: '16px !important'
           }
         }
       },
       MuiSelect: {
         styleOverrides: {
           icon: {
-            transform: 'scale(1.5)',
-            margin: '6px'
+            position: 'initial',
+            width: '16px'
           }
         }
       },
       MuiPaper: {
         styleOverrides: {
           root: {
-            marginTop: '4px',
+            transform: 'translate(5px, 12px) !important',
             border: `1px solid ${colorWhite}`,
             borderRadius: '8px',
             backgroundColor: colorDarkSlateBlue,
@@ -56,9 +62,14 @@ export const ChainSelectTheme = ({children}) => {
       MuiMenuItem: {
         styleOverrides: {
           root: {
+            fontSize: '14px',
+            fontWeight: '500',
+            lineHeight: '20px',
+            padding: '8px 12px 8px 16px',
             fontFamily: primaryFont,
+            backgroundColor: colorDarkSlateBlue,
             '&.Mui-selected': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1) !important'
+              backgroundColor: `${colorToolbox} !important`
             }
           }
         }
