@@ -7,6 +7,13 @@ import {ModalType} from '../../components/UI';
 import {useOnboardingModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
+const transactionModalContainerStyle = {
+  containerStyle: {
+    padding: '32px',
+    width: '495px'
+  }
+};
+
 const transactionModalsStyling = {
   containerStyle: {
     padding: '32px',
@@ -76,7 +83,7 @@ export const useProgressModal = (steps = []) => {
           ]
         },
         type,
-        containerStyle
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]
@@ -86,7 +93,6 @@ export const useProgressModal = (steps = []) => {
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
 
-  const {containerStyle} = transactionModalsStyling;
   const buttonProps = {
     height: '48px',
     style: {
@@ -137,7 +143,7 @@ export const useTransactionSubmittedModal = steps => {
           ],
           buttonProps
         },
-        containerStyle
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]

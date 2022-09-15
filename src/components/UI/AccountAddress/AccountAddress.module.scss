@@ -3,13 +3,17 @@
 .accountAddress {
   background: $--color-indigo;
   color: $--color-gainsboro;
-  padding: 7px 10px 7px 15px;
+  padding: 8px 16px;
   border-radius: 7px;
-  font-size: 16px;
-  margin: 20px 0 10px 0;
+  margin: 8px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .address {
+    font-size: 16px;
+    line-height: 24px;
+  }
 
   svg {
     cursor: pointer;

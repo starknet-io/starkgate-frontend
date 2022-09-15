@@ -1,4 +1,4 @@
-import {toClasses} from '@starkware-industries/commons-js-utils';
+import {shortenAddress, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 
@@ -23,7 +23,7 @@ export const AccountAddress = ({address, onClick}) => {
   return (
     <>
       <div ref={ref} className={styles.accountAddress}>
-        {address.length <= 42 ? address : `${address.substring(0, 42)}...`}
+        <div className={styles.address}>{shortenAddress(address, 24, 12)}</div>
         <CopyIcon onClick={onCopyClick} />
       </div>
       <div className={toClasses(styles.copiedMsg, isAnimate && styles.copied)}>{copiedMsgTxt}</div>
