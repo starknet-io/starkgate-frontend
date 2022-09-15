@@ -1,3 +1,10 @@
+## [1.9.0-dev.30](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.29...v1.9.0-dev.30) (2022-09-15)
+
+
+### 🔧 Fixes
+
+* **3217431965:** Header responsiveness is messed up ([#316](https://github.com/starkware-libs/starkgate-frontend/issues/316)) ([a6fa23f](https://github.com/starkware-libs/starkgate-frontend/commit/a6fa23f8b2f40c7f3691cd77ca988601fd657b71))
+
 ## [1.9.0-dev.29](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.28...v1.9.0-dev.29) (2022-09-15)
 
 
