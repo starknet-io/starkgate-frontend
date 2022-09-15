@@ -2,8 +2,14 @@ import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
 import {ModalType} from '../../components/UI';
-import {useTransactionSubmittedModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
+
+const transactionModalContainerStyle = {
+  containerStyle: {
+    padding: '32px',
+    width: '495px'
+  }
+};
 
 export const useModal = () => {
   return {
@@ -26,7 +32,6 @@ export const useProgressModal = (steps = []) => {
     (title, message, activeStep = 0, type = ModalType.INFO) => {
       showModal({
         header: {
-          title,
           components: steps.length > 0 && [
             {
               path: 'UI/Stepper/Stepper',
@@ -34,20 +39,27 @@ export const useProgressModal = (steps = []) => {
                 steps,
                 activeStep
               }
+            },
+            {
+              path: 'UI/Modal/ProgressModal/ProgressModalHeader/ProgressModalHeader',
+              props: {
+                title
+              }
             }
           ]
         },
         body: {
           components: [
             {
-              path: 'UI/Modal/ProgressModal/ProgressModal',
+              path: 'UI/Modal/ProgressModal/ProgressModalBody/ProgressModalBody',
               props: {
                 message
               }
             }
           ]
         },
-        type
+        type,
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]
@@ -56,14 +68,21 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useTransactionSubmittedModalTranslation();
+
+  const buttonProps = {
+    height: '48px',
+    style: {
+      fontSize: '12px',
+      fontWeight: '600',
+      lineHeight: '18px',
+      margin: '0 5px'
+    }
+  };
 
   return useCallback(
     transfer => {
       showModal({
         header: {
-          title: titleTxt,
-          icon: 'icons/rocket.svg',
           components: [
             {
               path: 'UI/Stepper/Stepper',
@@ -71,13 +90,16 @@ export const useTransactionSubmittedModal = steps => {
                 steps,
                 activeStep: steps.length
               }
+            },
+            {
+              path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModalHeader/TransactionSubmittedModalHeader'
             }
           ]
         },
         body: {
           components: [
             {
-              path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModal',
+              path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModalBody/TransactionSubmittedModalBody',
               props: {
                 transfer
               }
@@ -90,11 +112,14 @@ export const useTransactionSubmittedModal = steps => {
             {
               path: 'UI/Modal/TransactionSubmittedModal/TransactionSubmittedModalButton',
               props: {
-                transfer
+                transfer,
+                buttonProps
               }
             }
-          ]
-        }
+          ],
+          buttonProps
+        },
+        containerStyle: transactionModalContainerStyle
       });
     },
     [showModal]
