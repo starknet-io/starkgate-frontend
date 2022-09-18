@@ -1,3 +1,10 @@
+## [1.9.0-dev.31](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.30...v1.9.0-dev.31) (2022-09-18)
+
+
+### 🔧 Fixes
+
+* **3240752215:** STARKGATE_DOCS_URL broken link ([#320](https://github.com/starkware-libs/starkgate-frontend/issues/320)) ([c0135c4](https://github.com/starkware-libs/starkgate-frontend/commit/c0135c4602e455e5b25a7d7f85a2b848dd31277c))
+
 ## [1.9.0-dev.30](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.29...v1.9.0-dev.30) (2022-09-15)
 
 
