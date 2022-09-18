@@ -5,12 +5,17 @@ import {
   WalletErrorType,
   WalletStatus
 } from '@starkware-industries/commons-js-enums';
-import {useDidMountEffect, useWalletHandlerProvider} from '@starkware-industries/commons-js-hooks';
+import {useDidMountEffect} from '@starkware-industries/commons-js-hooks';
 import {evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {useEnvsWrapper, useLoginTracking, useLoginTranslation} from '../../../../hooks';
+import {
+  useEnvsWrapper,
+  useLoginTracking,
+  useLoginTranslation,
+  useWalletHandlerProvider
+} from '../../../../hooks';
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';

@@ -1,7 +1,5 @@
-export * from './useAnimation';
 export * from './useColorsWrapper';
 export * from './useContract';
-export * from './useWalletHandlerProvider';
 export * from './useTransfer';
 export * from './useTransferToL1';
 export * from './useTransferToL2';
@@ -16,4 +14,4 @@ export * from './useVarsWrapper';
 export * from './useBridgeContractAPI';
 export * from './useTokenContractAPI';
 export * from './useFontsWrapper';
-export * from './useDidMountEffect';
+export * from './useWalletHandlerProvider';
