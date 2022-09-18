@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import L1Logo from '../../../assets/svg/chains/ethereum.svg';
 import L2Logo from '../../../assets/svg/chains/starknet.svg';
-import {useColors, useSelectTokenTranslation, useSelectTokenTracking} from '../../../hooks';
+import {useColorsWrapper, useSelectTokenTranslation, useSelectTokenTracking} from '../../../hooks';
 import {useLogin} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTokens} from '../../../providers/TokensProvider';
@@ -14,7 +14,7 @@ export const SelectToken = () => {
   const [trackSelectToken] = useSelectTokenTracking();
   const {titleTxt} = useSelectTokenTranslation();
   const {tokens, updateTokenBalance} = useTokens();
-  const {colorOrangeSoda} = useColors();
+  const {colorOrangeSoda} = useColorsWrapper();
   const {showSourceMenu} = useMenu();
   const {isL1, fromNetwork} = useTransfer();
   const {selectToken} = useTransfer();

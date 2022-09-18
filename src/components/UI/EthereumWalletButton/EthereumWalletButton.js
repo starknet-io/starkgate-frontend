@@ -1,13 +1,13 @@
 import {ChainInfo, NetworkType} from '@starkware-industries/commons-js-enums';
 
-import {useEnvs} from '../../../hooks';
+import {useEnvsWrapper} from '../../../hooks';
 import {useIsL1} from '../../../providers/TransferProvider';
 import {useL1Wallet} from '../../../providers/WalletsProvider';
 import {NetworkWalletButton} from '../index';
 
 export const EthereumWalletButton = () => {
   const {account, config, error, status} = useL1Wallet();
-  const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
+  const {SUPPORTED_L1_CHAIN_ID} = useEnvsWrapper();
   const [, swapToL1] = useIsL1();
 
   return (

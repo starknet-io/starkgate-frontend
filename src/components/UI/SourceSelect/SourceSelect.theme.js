@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import SelectedIcon from '../../../assets/svg/icons/selected.svg';
-import {useColors, useFonts} from '../../../hooks';
+import {useColorsWrapper, useFontsWrapper} from '../../../hooks';
 
 export const SourceSelectTheme = ({children}) => {
   const {
@@ -13,8 +13,8 @@ export const SourceSelectTheme = ({children}) => {
     colorSpaceCadet2,
     colorDarkSlateBlue,
     colorLightSteelBlue
-  } = useColors();
-  const {primaryFont} = useFonts();
+  } = useColorsWrapper();
+  const {primaryFont} = useFontsWrapper();
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {

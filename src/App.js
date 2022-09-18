@@ -8,13 +8,13 @@ import {ReactComponent as DiscordIcon} from './assets/svg/icons/discord.svg';
 import {Footer, Header} from './components/Containers';
 import {StyledBackground} from './components/UI';
 import {SideButton} from './components/UI/SideButton/SideButton';
-import {useConstants, useTracking} from './hooks';
+import {useConstantsWrapper, useTracking} from './hooks';
 import {useApp} from './providers/AppProvider';
 import {Bridge, Faq, ProtectedRoute, Terms} from './routes';
 
 export const App = () => {
   const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
-  const {DISCORD_LINK_URL} = useConstants();
+  const {DISCORD_LINK_URL} = useConstantsWrapper();
   const {isAcceptTerms, isScrollActive} = useApp();
 
   const onDiscordClick = () => {

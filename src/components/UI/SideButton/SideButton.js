@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useVars} from '../../../hooks';
+import {useVarsWrapper} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import styles from './SideButton.module.scss';
 
 export const SideButton = ({icon, onClick}) => {
   const {isScrollActive} = useApp();
-  const {scrollWidth} = useVars();
+  const {scrollWidth} = useVarsWrapper();
 
   return (
     <div

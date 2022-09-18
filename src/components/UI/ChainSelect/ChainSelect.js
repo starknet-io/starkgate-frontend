@@ -6,11 +6,11 @@ import React from 'react';
 import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
 import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
-import {useEnvs} from '../../../hooks';
+import {useEnvsWrapper} from '../../../hooks';
 import {ChainSelectTheme} from './ChainSelect.theme';
 
 export const ChainSelect = () => {
-  const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
+  const {SUPPORTED_L2_CHAIN_ID} = useEnvsWrapper();
   const urlsMap = {
     [ChainType.L2.MAIN]: APP_URL_MAINNET,
     [ChainType.L2.GOERLI]: APP_URL_GOERLI

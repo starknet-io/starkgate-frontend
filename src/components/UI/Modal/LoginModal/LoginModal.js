@@ -5,17 +5,12 @@ import {
   WalletErrorType,
   WalletStatus
 } from '@starkware-industries/commons-js-enums';
-import {useDidMountEffect} from '@starkware-industries/commons-js-hooks';
+import {useDidMountEffect, useWalletHandlerProvider} from '@starkware-industries/commons-js-hooks';
 import {evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {
-  useEnvs,
-  useLoginTracking,
-  useLoginTranslation,
-  useWalletHandlerProvider
-} from '../../../../hooks';
+import {useEnvsWrapper, useLoginTracking, useLoginTranslation} from '../../../../hooks';
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
@@ -26,7 +21,7 @@ const AUTO_CONNECT_TIMEOUT_DURATION = 100;
 const LoginModal = ({networkName}) => {
   const {titleTxt, unsupportedChainIdTxt} = useLoginTranslation();
   const [trackWalletClick, trackLoginError] = useLoginTracking();
-  const {AUTO_CONNECT, SUPPORTED_L1_CHAIN_ID} = useEnvs();
+  const {AUTO_CONNECT, SUPPORTED_L1_CHAIN_ID} = useEnvsWrapper();
   const [error, setError] = useState(null);
   const {statusL1, statusL2} = useWalletsStatus();
   const [network, setNetwork] = useState(networkName || NetworkType.L1);

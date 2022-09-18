@@ -3,7 +3,7 @@ import React from 'react';
 
 import {ReactComponent as EthereumIcon} from '../../../../assets/svg/chains/ethereum.svg';
 import {ReactComponent as ArrowRight} from '../../../../assets/svg/icons/arrow-right.svg';
-import {useColors, useCompleteTransferToastTranslation} from '../../../../hooks';
+import {useColorsWrapper, useCompleteTransferToastTranslation} from '../../../../hooks';
 import {TransferData} from '../../../Features';
 import {CallToActionToast} from '../CallToActionToast/CallToActionToast';
 import {TransferLogLink} from '../ToastFooter/ToastFooter';
@@ -17,7 +17,7 @@ export const CompleteTransferToL1Toast = ({
 }) => {
   const {titleTxt, bodyTxt, dismissBtnTxt, completeTransferBtnTxt} =
     useCompleteTransferToastTranslation();
-  const {colorGraniteGray} = useColors();
+  const {colorGraniteGray} = useColorsWrapper();
 
   return (
     <CallToActionToast

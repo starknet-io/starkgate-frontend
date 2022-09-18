@@ -3,7 +3,7 @@ import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import {useAccountChange, useBridgeContractAPI, useConstants} from '../../hooks';
+import {useAccountChangeWrapper, useBridgeContractAPI, useConstantsWrapper} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';
@@ -11,7 +11,7 @@ import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
-  const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
+  const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstantsWrapper();
   const [tokens, dispatch] = useReducer(reducer, initialState);
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
@@ -20,7 +20,7 @@ export const TokensProvider = ({children}) => {
   const {maxDeposit: fetchMaxDeposit, maxTotalBalance: fetchMaxTotalBalance} =
     useBridgeContractAPI();
 
-  useAccountChange(() => {
+  useAccountChangeWrapper(() => {
     fetchTokensData(tokens.filter(t => t.isL1));
     fetchTokensBalance(tokens);
   });

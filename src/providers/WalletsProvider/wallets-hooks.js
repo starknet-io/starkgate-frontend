@@ -12,7 +12,7 @@ import {
 } from '@starkware-industries/commons-js-libs/get-starknet';
 import {useCallback, useContext, useState} from 'react';
 
-import {useEnvs} from '../../hooks';
+import {useEnvsWrapper} from '../../hooks';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
@@ -72,7 +72,7 @@ export const useL2Wallet = () => {
 };
 
 export const useStarknetWallet = () => {
-  const {AUTO_CONNECT, SUPPORTED_L2_CHAIN_ID} = useEnvs();
+  const {AUTO_CONNECT, SUPPORTED_L2_CHAIN_ID} = useEnvsWrapper();
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');

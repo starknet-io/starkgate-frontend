@@ -12,7 +12,7 @@ import {L2_BRIDGE_ABI, L2_ERC20_ABI} from '../abis/L2';
 import Tokens from '../config/tokens';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
-import {useEnvs} from './useEnvs';
+import {useEnvsWrapper} from './useEnvsWrapper';
 
 const cache = {};
 
@@ -69,7 +69,7 @@ export const useL1TokenContract = () => {
 };
 
 export const useStarknetContract = () => {
-  const {STARKNET_CONTRACT_ADDRESS} = useEnvs();
+  const {STARKNET_CONTRACT_ADDRESS} = useEnvsWrapper();
   const getContract = useContract(L1_MESSAGING_ABI, createContractL1);
 
   return useMemo(() => getContract(STARKNET_CONTRACT_ADDRESS), [getContract]);

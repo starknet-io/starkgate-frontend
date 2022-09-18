@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {useAccountChange, useEnvs, useStarknetContract} from '../../hooks';
+import {useAccountChangeWrapper, useEnvsWrapper, useStarknetContract} from '../../hooks';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
 import {useAccountHash, useL2Wallet} from '../WalletsProvider';
@@ -28,7 +28,7 @@ import {actions, initialState, reducer} from './transfers-log-reducer';
 
 export const TransfersLogProvider = ({children}) => {
   const [transfers, dispatch] = useReducer(reducer, initialState);
-  const {LOCAL_STORAGE_TRANSFERS_LOG_KEY} = useEnvs();
+  const {LOCAL_STORAGE_TRANSFERS_LOG_KEY} = useEnvsWrapper();
   const logger = useLogger(TransfersLogProvider.displayName);
   const blockHash = useBlockHash();
   const {updateTokenBalance} = useTokens();
@@ -36,7 +36,7 @@ export const TransfersLogProvider = ({children}) => {
   const starknetContract = useStarknetContract();
   const accountHash = useAccountHash();
 
-  useAccountChange(() => {
+  useAccountChangeWrapper(() => {
     const storedTransfers = getTransfersFromStorage();
     logger.log('Extract transfers from local storage', storedTransfers);
     setTransfers(storedTransfers);
@@ -49,7 +49,7 @@ export const TransfersLogProvider = ({children}) => {
     }
   }, [transfers]);
 
-  useAccountChange(() => {
+  useAccountChangeWrapper(() => {
     const checkTransfers = async () => {
       logger.log('Block hash updated. Checking transfers...', {blockHash});
       if (!blockHash) {

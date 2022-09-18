@@ -2,11 +2,12 @@ import {createTheme, ThemeProvider} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors, useFonts} from '../../../hooks';
+import {useColorsWrapper, useFontsWrapper} from '../../../hooks';
 
 export const ChainSelectTheme = ({children}) => {
-  const {colorWhite, colorDarkSlateBlue, colorToolbox} = useColors();
-  const {primaryFont} = useFonts();
+  const {colorWhite, colorDarkSlateBlue, colorToolbox} = useColorsWrapper();
+  const {primaryFont} = useFontsWrapper();
+
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {

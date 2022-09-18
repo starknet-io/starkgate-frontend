@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as StarknetIcon} from '../../../../assets/svg/chains/starknet.svg';
-import {useColors, useToastsTranslation} from '../../../../hooks';
+import {useColorsWrapper, useToastsTranslation} from '../../../../hooks';
 import {CallToActionToast} from '../CallToActionToast/CallToActionToast';
 
 export const AlphaDisclaimerToast = ({t, onDismiss}) => {
   const {alphaDisclaimerNotice} = useToastsTranslation();
-  const {colorInternationalOrangeAerospace} = useColors();
+  const {colorInternationalOrangeAerospace} = useColorsWrapper();
 
   return (
     <CallToActionToast

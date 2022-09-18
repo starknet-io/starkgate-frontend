@@ -6,18 +6,18 @@ import {ReactComponent as StarkNetLogo} from '../../../../assets/svg/chains/star
 import {ReactComponent as EtherscanLogo} from '../../../../assets/svg/etherscan.svg';
 import {ActionType} from '../../../../enums';
 import {
-  useColors,
-  useConstants,
-  useEnvs,
+  useColorsWrapper,
+  useConstantsWrapper,
+  useEnvsWrapper,
   useTransactionSubmittedModalTranslation
 } from '../../../../hooks';
 import {Button} from '../../Button/Button';
 import {Circle} from '../../Circle/Circle';
 
 const TransactionSubmittedModalButton = ({transfer, buttonProps}) => {
-  const {ETHERSCAN, VOYAGER} = useConstants();
-  const {ETHERSCAN_TX_URL, VOYAGER_TX_URL} = useEnvs();
-  const {colorIndigo, colorWhite, colorGainsboro} = useColors();
+  const {ETHERSCAN, VOYAGER} = useConstantsWrapper();
+  const {ETHERSCAN_TX_URL, VOYAGER_TX_URL} = useEnvsWrapper();
+  const {colorIndigo, colorWhite, colorGainsboro} = useColorsWrapper();
   const {btnTxt} = useTransactionSubmittedModalTranslation();
   const {type, l2hash, l1hash} = transfer;
   const isTransferCompleted = l1hash && l2hash;

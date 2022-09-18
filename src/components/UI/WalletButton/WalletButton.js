@@ -5,7 +5,7 @@ import React from 'react';
 import useBreakpoint from 'use-breakpoint';
 
 import {Breakpoint, isDesktop, isMobile, isMobileOrTablet} from '../../../enums';
-import {useColors, useHeaderTranslation} from '../../../hooks';
+import {useColorsWrapper, useHeaderTranslation} from '../../../hooks';
 import {Button, DynamicIcon} from '../index';
 import styles from './WalletButton.module.scss';
 
@@ -28,7 +28,7 @@ WalletButton.propTypes = {
 
 const AccountWalletButton = ({account, chain, logoPath, onClick}) => {
   const {breakpoint} = useBreakpoint(Breakpoint);
-  const {colorOrangeSoda, colorWhiteOp10, colorWhite, colorDarkBlueGray} = useColors();
+  const {colorOrangeSoda, colorWhiteOp10, colorWhite, colorDarkBlueGray} = useColorsWrapper();
   const {accountWalletBtnTxt} = useHeaderTranslation();
 
   const WALLET_LOGO_SIZE = 20;
@@ -76,7 +76,7 @@ AccountWalletButton.propTypes = {
 };
 
 const ConnectWalletButton = ({onClick, network}) => {
-  const {colorOrangeSoda, colorFlame, colorWhite} = useColors();
+  const {colorOrangeSoda, colorFlame, colorWhite} = useColorsWrapper();
   const {connectWalletBtnTxt} = useHeaderTranslation();
   return (
     <Button

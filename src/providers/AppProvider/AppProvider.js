@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 
-import {useEnvs} from '../../hooks';
+import {useEnvsWrapper} from '../../hooks';
 import {AppContext} from './app-context';
 import {actions, initialState, reducer} from './app-reducer';
 
 export const AppProvider = ({children}) => {
-  const {LOCAL_STORAGE_ACCEPT_TERMS_KEY} = useEnvs();
+  const {LOCAL_STORAGE_ACCEPT_TERMS_KEY} = useEnvsWrapper();
   const [state, dispatch] = useReducer(reducer, initialState);
   const {pathname} = useLocation();
   const navigate = useNavigate();

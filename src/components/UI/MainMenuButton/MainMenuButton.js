@@ -2,12 +2,12 @@ import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../hooks';
+import {useColorsWrapper} from '../../../hooks';
 import {Button} from '../index';
 import styles from './MainMenuButton.module.scss';
 
 export const MainMenuButton = props => {
-  const {colorOrangeSoda, colorWhite, colorFlame, colorIndigo} = useColors();
+  const {colorOrangeSoda, colorWhite, colorFlame, colorIndigo} = useColorsWrapper();
   return (
     <Button
       className={toClasses(styles.mainMenuButton)}

@@ -10,14 +10,14 @@ import {getFullTime, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {useColors, useEnvs, useTransferLogTranslation} from '../../../hooks';
+import {useColorsWrapper, useEnvsWrapper, useTransferLogTranslation} from '../../../hooks';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {Button, CircleLogo, CircleLogoSize} from '../../UI';
 import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
-  const {VOYAGER_TX_URL, ETHERSCAN_TX_URL} = useEnvs();
+  const {VOYAGER_TX_URL, ETHERSCAN_TX_URL} = useEnvsWrapper();
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
@@ -91,7 +91,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 
 const CompleteTransferButton = ({onClick}) => {
   const {completeTransferBtnTxt} = useTransferLogTranslation();
-  const {colorOrangeSoda} = useColors();
+  const {colorOrangeSoda} = useColorsWrapper();
 
   return (
     <Button

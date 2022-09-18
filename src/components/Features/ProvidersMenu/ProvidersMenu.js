@@ -3,7 +3,7 @@ import {buildDynamicURL, evaluate, openInNewTab} from '@starkware-industries/com
 import React from 'react';
 
 import {sources, providers, depositConfig, withdrawConfig} from '../../../config/sources';
-import {useEnvs, useProvidersTranslation, useSourceTranslation} from '../../../hooks';
+import {useEnvsWrapper, useProvidersTranslation, useSourceTranslation} from '../../../hooks';
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1} from '../../../providers/TransferProvider';
 import {useL2Wallet} from '../../../providers/WalletsProvider';
@@ -12,7 +12,7 @@ import {SourceSelect} from '../../UI/SourceSelect/SourceSelect';
 import styles from './ProvidersMenu.module.scss';
 
 export const ProvidersMenu = () => {
-  const {SUPPORTED_L1_CHAIN_ID} = useEnvs();
+  const {SUPPORTED_L1_CHAIN_ID} = useEnvsWrapper();
   const [isL1] = useIsL1();
   const {fromTxt, toTxt} = useSourceTranslation();
   const {source} = useSource();

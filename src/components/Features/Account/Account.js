@@ -5,8 +5,8 @@ import React from 'react';
 import {
   useAccountTracking,
   useCompleteTransferToL1,
-  useConstants,
-  useEnvs,
+  useConstantsWrapper,
+  useEnvsWrapper,
   useAccountTranslation
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -34,8 +34,8 @@ export const Account = ({transferId}) => {
     trackCompleteTransferClick,
     trackAddressCopied
   ] = useAccountTracking();
-  const {ETHERSCAN_ACCOUNT_URL, VOYAGER_ACCOUNT_URL} = useEnvs();
-  const {ETHERSCAN, VOYAGER} = useConstants();
+  const {ETHERSCAN_ACCOUNT_URL, VOYAGER_ACCOUNT_URL} = useEnvsWrapper();
+  const {ETHERSCAN, VOYAGER} = useConstantsWrapper();
   const {showSourceMenu} = useMenu();
   const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();

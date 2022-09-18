@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useState} from 'react';
 
 import {
-  useConstants,
+  useConstantsWrapper,
   useTransferToL1,
   useTransferToL2,
   useTransferTracking,
@@ -198,7 +198,7 @@ Transfer.propTypes = {
 
 const BridgeIsFullError = () => {
   const {bridgeIsFullErrorMsg} = useTransferTranslation();
-  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
+  const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstantsWrapper();
 
   return (
     <Fragment>

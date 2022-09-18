@@ -4,12 +4,12 @@ import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useCallback, useState} from 'react';
 
-import {useAccountChange, useEnvs} from '../../hooks';
+import {useAccountChangeWrapper, useEnvsWrapper} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
   const logger = useLogger(BlockHashProvider.displayName);
-  const {POLL_BLOCK_NUMBER_INTERVAL} = useEnvs();
+  const {POLL_BLOCK_NUMBER_INTERVAL} = useEnvsWrapper();
   const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
@@ -19,7 +19,7 @@ export const BlockHashProvider = ({children}) => {
     }
   }, []);
 
-  useAccountChange(() => {
+  useAccountChangeWrapper(() => {
     logger.log('Starting blockHash fetching');
     fetchBlockHash();
     const intervalId = setInterval(() => {

@@ -2,13 +2,13 @@ import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../../hooks';
+import {useColorsWrapper} from '../../../../hooks';
 import {Button} from '../../Button/Button';
 import {ModalType} from '../Modal/Modal';
 import styles from './ModalFooter.module.scss';
 
 export const ModalFooter = ({type, onClose, buttonProps, children}) => {
-  const {colorJasper, colorIndigo, colorWhite} = useColors();
+  const {colorJasper, colorIndigo, colorWhite} = useColorsWrapper();
   const color = type === ModalType.ERROR ? colorJasper : colorIndigo;
 
   return (

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 
 import {Button, FullScreenContainer} from '../../components/UI';
 import TermsOfUse from '../../config/terms';
-import {useColors, useTermsTracking, useTermsTranslation} from '../../hooks';
+import {useColorsWrapper, useTermsTracking, useTermsTranslation} from '../../hooks';
 import {useTerms} from '../../providers/AppProvider';
 import {useL1Wallet, useL2Wallet} from '../../providers/WalletsProvider';
 import styles from './Terms.module.scss';
@@ -54,7 +54,7 @@ const AcceptButton = ({isDisabled}) => {
   const [, trackAcceptClick] = useTermsTracking();
   const {acceptBtnTxt} = useTermsTranslation();
   const {acceptTerms} = useTerms();
-  const {colorDodgerBlue, colorBrilliantAzure, colorWhite} = useColors();
+  const {colorDodgerBlue, colorBrilliantAzure, colorWhite} = useColorsWrapper();
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
   const navigate = useNavigate();

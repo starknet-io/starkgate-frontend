@@ -3,7 +3,7 @@ import {hexToRgba} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {useColors} from '../../../../hooks';
+import {useColorsWrapper} from '../../../../hooks';
 import {ToastBody} from '../ToastBody/ToastBody';
 import {ToastButton, ToastButtons} from '../ToastButton/ToastButton';
 import {ToastFooter} from '../ToastFooter/ToastFooter';
@@ -26,7 +26,7 @@ export const CallToActionToast = ({
   onAction,
   onDismiss
 }) => {
-  const {colorOrangeSoda, colorAuroMetalSaurus} = useColors();
+  const {colorOrangeSoda, colorAuroMetalSaurus} = useColorsWrapper();
 
   return (
     <Transition

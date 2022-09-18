@@ -1,14 +1,14 @@
 import {ChainInfo, NetworkType} from '@starkware-industries/commons-js-enums';
 import React from 'react';
 
-import {useEnvs} from '../../../hooks';
+import {useEnvsWrapper} from '../../../hooks';
 import {useIsL2} from '../../../providers/TransferProvider';
 import {useL2Wallet} from '../../../providers/WalletsProvider';
 import {NetworkWalletButton} from '../index';
 
 export const StarknetWalletButton = () => {
   const {account, config, error, status} = useL2Wallet();
-  const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
+  const {SUPPORTED_L2_CHAIN_ID} = useEnvsWrapper();
   const [, swapToL2] = useIsL2();
 
   return (

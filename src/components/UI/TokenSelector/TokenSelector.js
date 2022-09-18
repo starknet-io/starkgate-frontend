@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {ReactComponent as DownArrowIcon} from '../../../assets/svg/icons/collapse.svg';
-import {useColors} from '../../../hooks';
+import {useColorsWrapper} from '../../../hooks';
 import {CircleLogoSize} from '../CircleLogo/CircleLogo';
 import {CircleLogo, Icon} from '../index';
 import styles from './TokenSelector.module.scss';
 
 export const TokenSelector = ({tokenData, onClick}) => {
-  const {colorIndigo} = useColors();
+  const {colorIndigo} = useColorsWrapper();
 
   return (
     <div className={styles.tokenSelector} onClick={onClick}>
