@@ -1,9 +1,10 @@
-@import '../../../../../index';
+@import '../../../../index';
 
 .container {
   width: 100%;
+  margin-bottom: 20px;
 
-  .onboardingModalheader {
+  .modalHeaderWithIcon {
     font-weight: 500;
     font-size: 24px;
     line-height: 32px;
