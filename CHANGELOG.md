@@ -1,3 +1,50 @@
+## [1.9.0](https://github.com/starkware-libs/starkgate-frontend/compare/v1.8.1...v1.9.0) (2022-09-18)
+
+
+### 🧩 Features
+
+* **2890117178:** bridge is full new ui ([#278](https://github.com/starkware-libs/starkgate-frontend/issues/278)) ([6a412ce](https://github.com/starkware-libs/starkgate-frontend/commit/6a412ce55d5765a49ff7fec4c09062dde8b2325f))
+* **2890253606:** New design for main deposit modal ([#273](https://github.com/starkware-libs/starkgate-frontend/issues/273)) ([609fa8d](https://github.com/starkware-libs/starkgate-frontend/commit/609fa8d4c5211300af26736445de2fe4ed52e820))
+* **3053892284:** change the getStarknetWallet modal styling to darkmode ([#280](https://github.com/starkware-libs/starkgate-frontend/issues/280)) ([b6cd7be](https://github.com/starkware-libs/starkgate-frontend/commit/b6cd7be67088d02ff413b7c9cfe56dc9e3366ce1))
+* **3076582507:** Alert component ([#272](https://github.com/starkware-libs/starkgate-frontend/issues/272)) ([58db823](https://github.com/starkware-libs/starkgate-frontend/commit/58db82375ba6b76d5e5a1bfa85516418d670a59e))
+* **3127762574:** Inject env vars dynamically for Docker container ([#289](https://github.com/starkware-libs/starkgate-frontend/issues/289)) ([abb3614](https://github.com/starkware-libs/starkgate-frontend/commit/abb3614f67a01ee4924912cd1d99e4df59712a03))
+
+
+### 💉 Improvements
+
+* **3080260634:** migrate utils to commons-js ([#300](https://github.com/starkware-libs/starkgate-frontend/issues/300)) ([50a8585](https://github.com/starkware-libs/starkgate-frontend/commit/50a858534f2a86d9563917da3d57714f1f686502))
+
+
+### 🔧 Fixes
+
+* **3127762574:** login strings to be under modals and not under menus ([#286](https://github.com/starkware-libs/starkgate-frontend/issues/286)) ([5e45884](https://github.com/starkware-libs/starkgate-frontend/commit/5e45884b2459ab9da72e3ddf1fa1cc26286c9b8f))
+* **3140547314:** update discord link to the permanent master link ([#290](https://github.com/starkware-libs/starkgate-frontend/issues/290)) ([959b5bd](https://github.com/starkware-libs/starkgate-frontend/commit/959b5bda71b4e85292b34bcc5fac53ea780c6fcd))
+* **3141693842:** amount input isn’t disabled when user isn’t logged in ([#291](https://github.com/starkware-libs/starkgate-frontend/issues/291)) ([e9f0a9d](https://github.com/starkware-libs/starkgate-frontend/commit/e9f0a9db58d2c6d098dc75e3e5c1fd9f9b90a0d4))
+* **3142752290:** create events for new login flow ([#294](https://github.com/starkware-libs/starkgate-frontend/issues/294)) ([221f867](https://github.com/starkware-libs/starkgate-frontend/commit/221f867e582cf1c91a8a22cb93d9c8390f4686c2))
+* **3151428244:** rename colors ([#292](https://github.com/starkware-libs/starkgate-frontend/issues/292)) ([955370c](https://github.com/starkware-libs/starkgate-frontend/commit/955370ca6509148afda6026d8622abd2515f1948))
+* **3155991918:** redundant purple border on Discord button ([#295](https://github.com/starkware-libs/starkgate-frontend/issues/295)) ([19fc9b1](https://github.com/starkware-libs/starkgate-frontend/commit/19fc9b171408c470248f5f099508d59956d6d47d))
+* **3156108853:** align wallet button to Figma ([#296](https://github.com/starkware-libs/starkgate-frontend/issues/296)) ([487f567](https://github.com/starkware-libs/starkgate-frontend/commit/487f567fe29f19a3fa652078094fec8e837bb9e2))
+* **3156109805:** source Menu - alignment to Figma design ([#306](https://github.com/starkware-libs/starkgate-frontend/issues/306)) ([6ac20e7](https://github.com/starkware-libs/starkgate-frontend/commit/6ac20e7230432f79c6eded5864ca71459542ae3c))
+* **3156115079:** align the header's tabs to Figma design  ([#297](https://github.com/starkware-libs/starkgate-frontend/issues/297)) ([741f15b](https://github.com/starkware-libs/starkgate-frontend/commit/741f15b442a61e044a5ff66b059c96f23d2c14cb))
+* **3156126186:** align transactions modals to Figma ([#313](https://github.com/starkware-libs/starkgate-frontend/issues/313)) ([6eb7f72](https://github.com/starkware-libs/starkgate-frontend/commit/6eb7f72e1faa74afc988566c3b12614e89d3ab2a))
+* **3156128399:** align faq to Figma ([#302](https://github.com/starkware-libs/starkgate-frontend/issues/302)) ([6b1c6ad](https://github.com/starkware-libs/starkgate-frontend/commit/6b1c6addb12d2ef31547335540c2828a02a7de70))
+* **3156128933:** align terms screen to Figma ([#301](https://github.com/starkware-libs/starkgate-frontend/issues/301)) ([8eb91b7](https://github.com/starkware-libs/starkgate-frontend/commit/8eb91b7aa8bcbb9884223dec446cb14efb34d439))
+* **3156129296:** align login modal to Figma ([#303](https://github.com/starkware-libs/starkgate-frontend/issues/303)) ([c8ba454](https://github.com/starkware-libs/starkgate-frontend/commit/c8ba45430fdbbb681d00d373b2606699b93c893c))
+* **3163896187:** align Starkgate logo to Figma ([#298](https://github.com/starkware-libs/starkgate-frontend/issues/298)) ([0c8075c](https://github.com/starkware-libs/starkgate-frontend/commit/0c8075c9e771914daebc9c11727e0c8ee28df38d))
+* **3163900810:** align discord button to Figma ([#305](https://github.com/starkware-libs/starkgate-frontend/issues/305)) ([ccaf18c](https://github.com/starkware-libs/starkgate-frontend/commit/ccaf18c9caa66697e667bf82384108b0a1c8243b))
+* **3163901936:** align alpha disclaimer toast to Figma ([#304](https://github.com/starkware-libs/starkgate-frontend/issues/304)) ([be19d16](https://github.com/starkware-libs/starkgate-frontend/commit/be19d16b15b79c985c2b164659b24a985919a2b0))
+* **3163904759:** align transfer button to Figma ([#299](https://github.com/starkware-libs/starkgate-frontend/issues/299)) ([d6b61b8](https://github.com/starkware-libs/starkgate-frontend/commit/d6b61b8fcaeb7f6bb82485fba3bf6f81fa4a93c4))
+* **3175163956:** align chain select to Figma design ([#315](https://github.com/starkware-libs/starkgate-frontend/issues/315)) ([cb5d81a](https://github.com/starkware-libs/starkgate-frontend/commit/cb5d81ae66977f7f2c384893d421bb3abf7fa338))
+* **3184409743:** align withdraw toast to Figma ([#310](https://github.com/starkware-libs/starkgate-frontend/issues/310)) ([511086e](https://github.com/starkware-libs/starkgate-frontend/commit/511086e810db698fad0cc29ef3c3059c582c8447))
+* **3186365507:** align header to Figma ([#307](https://github.com/starkware-libs/starkgate-frontend/issues/307)) ([67b8370](https://github.com/starkware-libs/starkgate-frontend/commit/67b83708d994b00b830b12f867bc1768555f9edb))
+* **3186672075:** align on boarding modal to Figma ([#311](https://github.com/starkware-libs/starkgate-frontend/issues/311)) ([b296fac](https://github.com/starkware-libs/starkgate-frontend/commit/b296fac614c7f7e616a00713d1d0a43699252b30))
+* **3187136947:** align Account menu to Figma design ([#312](https://github.com/starkware-libs/starkgate-frontend/issues/312)) ([233ce75](https://github.com/starkware-libs/starkgate-frontend/commit/233ce75b6225e25c6df4e17e5fee18eda0595297))
+* **3187138176:** align SelectToken menu to Figma design ([#308](https://github.com/starkware-libs/starkgate-frontend/issues/308)) ([3861a4c](https://github.com/starkware-libs/starkgate-frontend/commit/3861a4ced680150aa571bd584ce97c16fa606024))
+* **3187661313:** align Alert to Figma design  ([#309](https://github.com/starkware-libs/starkgate-frontend/issues/309)) ([d44029b](https://github.com/starkware-libs/starkgate-frontend/commit/d44029bd736f740b9988994bd105ee24f08f1696))
+* **3216786743:** align error modal to Figma ([#314](https://github.com/starkware-libs/starkgate-frontend/issues/314)) ([4051854](https://github.com/starkware-libs/starkgate-frontend/commit/4051854dabde7d7126875c079460cf4ac58ad80c))
+* **3217431965:** Header responsiveness is messed up ([#316](https://github.com/starkware-libs/starkgate-frontend/issues/316)) ([a6fa23f](https://github.com/starkware-libs/starkgate-frontend/commit/a6fa23f8b2f40c7f3691cd77ca988601fd657b71))
+* **3240752215:** STARKGATE_DOCS_URL broken link ([#320](https://github.com/starkware-libs/starkgate-frontend/issues/320)) ([c0135c4](https://github.com/starkware-libs/starkgate-frontend/commit/c0135c4602e455e5b25a7d7f85a2b848dd31277c))
+
 ## [1.9.0-dev.31](https://github.com/starkware-libs/starkgate-frontend/compare/v1.9.0-dev.30...v1.9.0-dev.31) (2022-09-18)
 
 
