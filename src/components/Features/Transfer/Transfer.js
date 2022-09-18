@@ -29,7 +29,8 @@ import {
   TransferButton,
   LoginWalletButton,
   MenuBackground,
-  ReadMore
+  Link,
+  LinkType
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -197,13 +198,18 @@ Transfer.propTypes = {
 };
 
 const BridgeIsFullError = () => {
-  const {bridgeIsFullErrorMsg} = useTransferTranslation();
+  const {bridgeIsFullErrorMsg, readMoreTxt} = useTransferTranslation();
   const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
 
   return (
     <Fragment>
       {bridgeIsFullErrorMsg}
-      <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
+      <Link
+        openInNewTab
+        link={STARKGATE_ALPHA_LIMITATIONS_URL}
+        text={readMoreTxt}
+        type={LinkType.READ_MORE}
+      />
     </Fragment>
   );
 };

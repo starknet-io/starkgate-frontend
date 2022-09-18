@@ -64,7 +64,8 @@ export default {
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
       disabledTransferBtnTxt: 'Enter an amount',
-      loginWalletButtonTxt: 'Connect Wallet'
+      loginWalletButtonTxt: 'Connect Wallet',
+      readMoreTxt: 'read more'
     },
     providers: {
       descriptionTxt: 'Transfer crypto between {{source}} and StarkNet'
@@ -127,6 +128,16 @@ export default {
       ],
       incognitoTxt:
         'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
+    },
+    blockedAddress: {
+      titleTxt: 'Blocked Address',
+      addressIsBlockedTxt:
+        'This address is blocked on the starkgate bridge interface because it is associated with one or more',
+      addressIsBlockedLinkTxt: 'blocked activities.',
+      complianceTxt:
+        'If you believe this is an error, please send an email including your address to',
+      complianceEmail: 'compliance@starkware.com',
+      disconnectEthereumWalletButtonTxt: 'Disconnect Ethereum Wallet'
     }
   },
   toasts: {

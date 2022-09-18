@@ -77,6 +77,10 @@ export const useOnboardingModalTranslation = () => {
   return useModalsTranslation('onboarding');
 };
 
+export const useBlockedAddressModalTranslation = () => {
+  return useModalsTranslation('blockedAddress');
+};
+
 export const useScreensTranslation = path => {
   return useTranslation(chainPath('screens', path));
 };

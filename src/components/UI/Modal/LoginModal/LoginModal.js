@@ -18,7 +18,9 @@ import {
 } from '../../../../hooks';
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
+// import {useBlockedAddressModal} from '../../../../providers/ModalProvider';
 import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
+// import {useL1Wallet} from '../../../../providers/WalletsProvider';
 import {MultiChoiceMenu} from '../../index';
 
 const AUTO_CONNECT_TIMEOUT_DURATION = 100;
@@ -35,8 +37,12 @@ const LoginModal = ({networkName}) => {
   const {isLoggedIn} = useLogin();
   const hideModal = useHideModal();
 
+  // const blockedAddressModal = useBlockedAddressModal();
+  // const {account: accountL1} = useL1Wallet();
+
   useEffect(() => {
     isLoggedIn && hideModal();
+    // isLoggedIn && blockedAddressModal(accountL1);
   }, [isLoggedIn]);
 
   useDidMountEffect(() => {

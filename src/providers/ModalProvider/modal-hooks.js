@@ -4,7 +4,8 @@ import {useCallback, useContext} from 'react';
 import {ReactComponent as AlertIcon} from '../../assets/svg/icons/alert-circle.svg';
 import {ReactComponent as WarningIcon} from '../../assets/svg/icons/warning-circle.svg';
 import {ModalType} from '../../components/UI';
-import {useOnboardingModalTranslation} from '../../hooks';
+import {useOnboardingModalTranslation, useBlockedAddressModalTranslation} from '../../hooks';
+import {useWallets} from '../WalletsProvider';
 import {ModalContext} from './modal-context';
 
 const TRANSACTION_MODAL_STYLE = {
@@ -31,7 +32,8 @@ const MODAL_HEADER_WITH_ICON_STYLE = {
   buttonProps: {
     height: '52px',
     style: {
-      margin: '0'
+      margin: '0',
+      fontSize: '16px'
     }
   }
 };
@@ -238,6 +240,53 @@ export const useLoginModal = () => {
           width: '464px'
         },
         exitable: true
+      });
+    },
+    [showModal]
+  );
+};
+
+export const useBlockedAddressModal = () => {
+  const {showModal} = useContext(ModalContext);
+  const {titleTxt, disconnectEthereumWalletButtonTxt} = useBlockedAddressModalTranslation();
+  const {buttonProps, containerStyle} = MODAL_HEADER_WITH_ICON_STYLE;
+  const {resetWallet} = useWallets();
+
+  const handleDisconnectWallet = () => {
+    resetWallet();
+  };
+
+  return useCallback(
+    account => {
+      showModal({
+        header: {
+          components: [
+            {
+              path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
+              props: {
+                icon: WarningIcon,
+                title: titleTxt,
+                subtitle: account
+              }
+            }
+          ]
+        },
+        body: {
+          components: [
+            {
+              path: 'UI/Modal/BlockedAddressModal/BlockedAddressModal'
+            }
+          ]
+        },
+        footer: {
+          withButtons: true,
+          buttonProps: {
+            ...buttonProps,
+            text: disconnectEthereumWalletButtonTxt
+          },
+          onClick: handleDisconnectWallet
+        },
+        containerStyle
       });
     },
     [showModal]

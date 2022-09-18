@@ -21,3 +21,4 @@ export const HIDE_ELEMENT_COOKIE_DURATION_DAYS = 1;
 export const APP_URL_GOERLI = 'https://goerli.starkgate.starknet.io';
 export const APP_URL_MAINNET = 'https://starkgate.starknet.io';
 export const STARKGATE_ALPHA_LIMITATIONS_URL = `${STARKGATE_DOCS_URL}/#starkgate-alpha-limitations`;
+export const BLOCKED_ADDRESS_URL = `${STARKNET_DOCS_URL}/Fees/fee-mechanism/`; // TODO - change the link to a relevant one
