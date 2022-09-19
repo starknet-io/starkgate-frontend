@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {useOnboardingModalTranslation} from '../../../../../hooks';
-import styles from './OnboardingModalBody.module.scss';
+import {useOnboardingModalTranslation} from '../../../../hooks';
+import styles from './OnboardingModal.module.scss';
 
-const OnboardingModalBody = () => {
+const OnboardingModal = () => {
   const {subtitleTxt, bulletsTxt, incognitoTxt} = useOnboardingModalTranslation();
 
   return (
-    <div className={styles.onboardingModalBody}>
+    <div className={styles.onboardingModal}>
       <h3>{subtitleTxt}</h3>
       <ul>
         {bulletsTxt.map((bullet, i) => (
@@ -19,4 +19,4 @@ const OnboardingModalBody = () => {
   );
 };
 
-export default OnboardingModalBody;
+export default OnboardingModal;

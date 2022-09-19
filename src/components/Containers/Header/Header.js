@@ -1,10 +1,8 @@
 import {toClasses} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
-import useBreakpoint from 'use-breakpoint';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
-import {Breakpoint} from '../../../enums';
 import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -15,7 +13,6 @@ import styles from './Header.module.scss';
 
 export const Header = () => {
   const {showSourceMenu} = useMenu();
-  const {breakpoint} = useBreakpoint(Breakpoint);
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
   const {termsTxt, faqTxt} = useTabsTranslation();
@@ -43,7 +40,7 @@ export const Header = () => {
   };
 
   return (
-    <div className={toClasses(styles.header, styles[breakpoint.toLowerCase()], 'row')}>
+    <div className={toClasses(styles.header, 'row')}>
       <div className={toClasses(styles.left, 'row')}>
         <div className={toClasses(styles.logo, 'row')} onClick={onLogoClick}>
           <StarkGateLogo />

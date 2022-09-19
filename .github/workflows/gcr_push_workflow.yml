@@ -46,7 +46,6 @@ jobs:
         if: ${{ inputs.branch_name == 'refs/heads/master' || (startsWith(inputs.branch_name, 'refs/tags') && contains(inputs.branch_name, 'patch')) }}
         run: |
           docker build . -t ${{ inputs.image_name }}:stable -f ${{ inputs.dockerfile }}
-          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}:stable
-
-          docker push ${{ inputs.image_name }}:${{ github.ref_name }}:stable
+          docker tag ${{ inputs.image_name }}:stable ${{ inputs.image_name }}:${{ github.ref_name }}
+          docker push ${{ inputs.image_name }}:${{ github.ref_name }}
           docker push ${{ inputs.image_name }}:stable
