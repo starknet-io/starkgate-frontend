@@ -1,13 +1,38 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useCallback, useContext} from 'react';
 
+import {ReactComponent as AlertIcon} from '../../assets/svg/icons/alert-circle.svg';
+import {ReactComponent as WarningIcon} from '../../assets/svg/icons/warning-circle.svg';
 import {ModalType} from '../../components/UI';
+import {useOnboardingModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
-const transactionModalContainerStyle = {
+const TRANSACTION_MODAL_STYLE = {
   containerStyle: {
-    padding: '32px',
-    width: '495px'
+    width: '495px',
+    padding: '32px'
+  },
+  buttonProps: {
+    height: '48px',
+    style: {
+      fontSize: '12px',
+      fontWeight: '600',
+      lineHeight: '18px',
+      margin: '0 5px'
+    }
+  }
+};
+
+const MODAL_HEADER_WITH_ICON_STYLE = {
+  containerStyle: {
+    width: '466px',
+    padding: '24px'
+  },
+  buttonProps: {
+    height: '52px',
+    style: {
+      margin: '0'
+    }
   }
 };
 
@@ -27,6 +52,7 @@ export const useHideModal = () => {
 
 export const useProgressModal = (steps = []) => {
   const {showModal} = useContext(ModalContext);
+  const {containerStyle} = TRANSACTION_MODAL_STYLE;
 
   return useCallback(
     (title, message, activeStep = 0, type = ModalType.INFO) => {
@@ -59,7 +85,7 @@ export const useProgressModal = (steps = []) => {
           ]
         },
         type,
-        containerStyle: transactionModalContainerStyle
+        containerStyle
       });
     },
     [showModal]
@@ -68,16 +94,7 @@ export const useProgressModal = (steps = []) => {
 
 export const useTransactionSubmittedModal = steps => {
   const {showModal} = useContext(ModalContext);
-
-  const buttonProps = {
-    height: '48px',
-    style: {
-      fontSize: '12px',
-      fontWeight: '600',
-      lineHeight: '18px',
-      margin: '0 5px'
-    }
-  };
+  const {containerStyle, buttonProps} = TRANSACTION_MODAL_STYLE;
 
   return useCallback(
     transfer => {
@@ -119,7 +136,7 @@ export const useTransactionSubmittedModal = steps => {
           ],
           buttonProps
         },
-        containerStyle: transactionModalContainerStyle
+        containerStyle
       });
     },
     [showModal]
@@ -128,19 +145,37 @@ export const useTransactionSubmittedModal = steps => {
 
 export const useErrorModal = () => {
   const {showModal} = useContext(ModalContext);
+  const {buttonProps, containerStyle} = MODAL_HEADER_WITH_ICON_STYLE;
 
   return useCallback(
     (title, text) => {
       showModal({
         header: {
-          title
+          components: [
+            {
+              path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
+              props: {
+                title,
+                icon: AlertIcon
+              }
+            }
+          ]
         },
         body: {
-          text
+          components: [
+            {
+              path: 'UI/Modal/ErrorModal/ErrorModal',
+              props: {
+                text
+              }
+            }
+          ]
         },
         footer: {
-          withButtons: true
+          withButtons: true,
+          buttonProps
         },
+        containerStyle,
         type: ModalType.ERROR
       });
     },
@@ -150,33 +185,34 @@ export const useErrorModal = () => {
 
 export const useOnboardingModal = () => {
   const {showModal} = useContext(ModalContext);
+  const {titleTxt} = useOnboardingModalTranslation();
+  const {buttonProps, containerStyle} = MODAL_HEADER_WITH_ICON_STYLE;
 
   return useCallback(() => {
     showModal({
       header: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/OnboardingModalHeader/OnboardingModalHeader'
+            path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
+            props: {
+              icon: WarningIcon,
+              title: titleTxt
+            }
           }
         ]
       },
       body: {
         components: [
           {
-            path: 'UI/Modal/OnboardingModal/OnboardingModalBody/OnboardingModalBody'
+            path: 'UI/Modal/OnboardingModal/OnboardingModal'
           }
         ]
       },
       footer: {
         withButtons: true,
-        buttonProps: {
-          height: '52px'
-        }
+        buttonProps
       },
-      containerStyle: {
-        width: '466px',
-        padding: '24px'
-      }
+      containerStyle
     });
   }, [showModal]);
 };
