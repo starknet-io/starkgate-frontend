@@ -18,9 +18,7 @@
     "format:scripts": "eslint --fix **/*.{js,jsx}",
     "format:styles": "stylelint --fix **/*.{css,scss}",
     "format:prettier": "prettier --write **/*.{js,jsx,css,scss,yaml,yml,md}",
-    "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier",
-    "release": "semantic-release",
-    "release:dry": "semantic-release --no-ci --dry-run"
+    "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier"
   },
   "husky": {
     "hooks": {
@@ -83,11 +81,6 @@
     "@babel/plugin-transform-react-jsx": "^7.16.0",
     "@babel/preset-flow": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
-    "@semantic-release/changelog": "^6.0.0",
-    "@semantic-release/commit-analyzer": "^9.0.1",
-    "@semantic-release/git": "^10.0.0",
-    "@semantic-release/npm": "^9.0.1",
-    "@semantic-release/release-notes-generator": "^10.0.2",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -112,7 +105,6 @@
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.7.2",
     "sass-loader": "^12.1.0",
-    "semantic-release": "^19.0.2",
     "stylelint": "^14.1.0",
     "stylelint-config-css-modules": "^4.1.0",
     "stylelint-config-prettier": "^9.0.3",

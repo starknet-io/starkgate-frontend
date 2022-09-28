@@ -69,18 +69,6 @@ The appropriate files are loading according to the `REACT_APP_ENV` value.\
 
 > Note: each file can be overridden on a local environment using matching `.env.[ENV].local` file.
 
-## Wallet Support
-
-`WIP`
-
-## Tokens Support
-
-`WIP`
-
-## Project Structure
-
-`WIP`
-
 ## Contributing
 
 Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull
@@ -93,4 +81,4 @@ the [tags on this repository](https://github.com/starkware-libs/starkgate-fronte
 
 ## License
 
-`WIP`
+Please read [LICENSE](./LICENSE).
