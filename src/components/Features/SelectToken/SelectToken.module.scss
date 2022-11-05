@@ -1,0 +1,38 @@
+@import '../../../index';
+
+.selectToken {
+  padding: 0 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+
+  .background {
+    content: '';
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .loadingContainer {
+    margin: 50px auto;
+  }
+
+  .title {
+    display: flex;
+    white-space: pre;
+
+    .network {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}

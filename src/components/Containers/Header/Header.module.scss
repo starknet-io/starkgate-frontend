@@ -1,0 +1,51 @@
+@import '../../../index';
+
+.header {
+  height: #{$--header-height}px;
+  border-bottom: 1px solid transparent;
+  justify-content: space-between;
+  background: $--color-dark-slate-blue;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .left {
+    padding: 16px 24px;
+    display: flex;
+    align-items: flex-start;
+
+    .logo {
+      transition: 0.3s ease-in-out;
+      cursor: pointer;
+      margin: auto;
+
+      svg {
+        width: 141px;
+        height: 28px;
+      }
+    }
+
+    .chain {
+      transition: 0.3s ease-in-out;
+      color: $--color-gainsboro;
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.6;
+      text-transform: capitalize;
+    }
+  }
+
+  .right {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: row;
+
+    > div,
+    > button {
+      margin-left: 24px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../../index';
+
+.tab {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: $--color-white;
+  cursor: pointer;
+
+  &.isActive {
+    color: $--color-gainsboro-1;
+  }
+
+  &:hover {
+    color: $--color-light-steel-blue;
+  }
+}

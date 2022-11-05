@@ -1,0 +1,103 @@
+@import '../../index';
+
+.terms {
+  overflow: auto;
+  line-height: 1.7;
+  margin: auto;
+  width: 76.6%;
+
+  .titleContainer {
+    padding-top: 60px;
+
+    .lastRevised {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 8px;
+    }
+
+    .title {
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 44px;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .text {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    a {
+      text-decoration: none;
+    }
+
+    b {
+      letter-spacing: 0.5px;
+    }
+
+    ol {
+      padding-left: 20px;
+
+      li {
+        margin: 24px 0;
+
+        &::marker {
+          font-size: 18px;
+          font-weight: bold;
+          font-weight: 700;
+        }
+
+        h2 {
+          font-size: 18px;
+          font-weight: 700;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+}
+
+.acceptButtonContainer {
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+  height: 72px;
+  background: $--color-space-cadet;
+  bottom: 0;
+  display: flex;
+
+  .content {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 76.6%;
+
+    > div,
+    button {
+      margin: 8px;
+    }
+
+    button {
+      border-width: 0;
+      padding: 8px 36px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    .text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: $--color-auro-metal-saurus;
+
+      a {
+        font-weight: 600;
+        color: $--color-white;
+        text-decoration: none;
+      }
+    }
+  }
+}

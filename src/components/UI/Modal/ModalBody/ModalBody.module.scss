@@ -1,0 +1,27 @@
+@import '../../../../index';
+
+.modalBody {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.03em;
+  color: $--color-granite-gray;
+  white-space: break-spaces;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: inherit;
+  overflow-wrap: break-word;
+
+  & > * {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  &.error {
+    color: $--color-jasper;
+  }
+}

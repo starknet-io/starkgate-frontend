@@ -1,0 +1,40 @@
+@import '../../../index';
+
+.accountAddress {
+  background: $--color-indigo;
+  color: $--color-gainsboro;
+  padding: 8px 16px;
+  border-radius: 7px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .address {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  svg {
+    cursor: pointer;
+
+    &:hover {
+      path {
+        stroke: $--color-very-light-azure;
+      }
+    }
+  }
+}
+
+.copiedMsg {
+  opacity: 0;
+  transition: 0.3s ease-in-out;
+  color: $--color-dodger-blue;
+  font-size: 13px;
+  float: right;
+  text-transform: capitalize;
+
+  &.copied {
+    opacity: 1;
+  }
+}

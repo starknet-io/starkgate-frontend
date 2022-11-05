@@ -1,0 +1,11 @@
+@import '../../../index';
+
+.networkTitle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: $--color-white;
+  text-transform: capitalize;
+  padding: 4px;
+}

@@ -1,0 +1,43 @@
+@import '../../../index';
+
+.tokenBalance {
+  color: $--color-toolbox;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: right;
+  letter-spacing: 0.01em;
+  position: absolute;
+  right: 0;
+  bottom: 16px;
+
+  .balanceRow {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .balance {
+      display: flex;
+      color: $--color-white;
+
+      .loading {
+        margin: auto;
+      }
+
+      .symbol {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &.loading {
+    .balanceRow {
+      .balance {
+        .symbol {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

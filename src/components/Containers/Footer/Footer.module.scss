@@ -1,0 +1,23 @@
+@import '../../../index';
+
+.footer {
+  font-size: 13px;
+  height: #{$--footer-height}px;
+  border-top: 1px solid transparent;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: transparent;
+
+  .copyright {
+    color: $--color-orange-soda;
+    font-size: 12px;
+    line-height: 24px;
+  }
+}

@@ -1,0 +1,25 @@
+@import '../../index';
+
+.bridge {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .bridgeMenu {
+    display: flex;
+    flex-direction: column;
+    background: $--color-space-cadet;
+    border-radius: 16px;
+    padding: 16px;
+    width: 432px;
+    min-width: max-content;
+    max-height: 650px;
+    margin: auto;
+    transition: 0.3s ease-in-out;
+  }
+}

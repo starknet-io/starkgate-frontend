@@ -1,0 +1,31 @@
+@import '../../../index';
+
+.accountWalletButton {
+  border-width: 1px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 17px;
+  padding: 10px 5px 10px 7px;
+
+  .networkLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 4px 7px;
+    background: $--color-indigo;
+    border: 1px solid $--color-light-steel-blue;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+}
+
+.connectWalletButton {
+  padding: 12px 16px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  border-width: 0;
+}

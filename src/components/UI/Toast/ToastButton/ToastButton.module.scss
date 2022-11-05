@@ -1,0 +1,21 @@
+.toastButtons {
+  display: flex;
+  align-items: center;
+}
+
+.toastButton {
+  cursor: pointer;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  display: flex;
+
+  svg {
+    padding-left: 8px;
+  }
+
+  &:not(:first-child) {
+    margin-left: 12px;
+  }
+}

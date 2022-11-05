@@ -1,0 +1,29 @@
+@import '../../../index';
+
+.fullScreenContainer {
+  left: 0;
+  right: 0;
+  position: absolute;
+  top: 0;
+  bottom: #{$--footer-height}px;
+  color: $--color-white;
+  overflow: auto;
+  text-shadow: 1px 1px $--color-black;
+  transition: 0.3s ease-in-out;
+
+  a {
+    color: $--color-very-light-azure;
+
+    &:hover {
+      color: $--color-dodger-blue;
+    }
+
+    &:visited {
+      color: $--color-ube;
+
+      &:hover {
+        color: $--color-ceil;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import '../../../index';
+
+.backButton {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: capitalize;
+  color: $--color-light-steel-blue;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  svg {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    color: $--color-ceil;
+
+    svg {
+      path {
+        fill: $--color-ceil;
+      }
+    }
+  }
+}

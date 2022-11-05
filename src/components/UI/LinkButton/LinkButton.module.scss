@@ -1,0 +1,33 @@
+@import '../../../index';
+
+.linkButton {
+  color: $--color-dodger-blue;
+  padding: 0 8px;
+  line-height: 20px;
+  border-radius: 5px;
+  border: 1px solid $--color-dodger-blue;
+  font-size: 12px;
+  text-transform: capitalize;
+  display: inline-block;
+  cursor: pointer;
+
+  &.isDisabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  svg {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    color: $--color-very-light-azure;
+    border-color: $--color-very-light-azure;
+
+    svg {
+      path {
+        fill: $--color-very-light-azure;
+      }
+    }
+  }
+}

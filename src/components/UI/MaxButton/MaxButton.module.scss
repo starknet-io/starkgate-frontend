@@ -1,0 +1,17 @@
+@import '../../../index';
+
+.maxButton {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  border: 1px solid $--color-dark-blue-gray;
+  border-radius: 4px;
+  padding: 2px 16px;
+  color: $--color-dark-blue-gray;
+  cursor: pointer;
+  z-index: 1;
+  margin: 0 8px;
+  // TODO: Temporary disable the max button until estimateGas logic will be added
+  pointer-events: none;
+}

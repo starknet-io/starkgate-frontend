@@ -1,0 +1,25 @@
+.networkSwap {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 2px));
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  svg {
+    transition: 0.2s ease-in-out;
+    margin: auto;
+    height: 100%;
+    display: flex;
+  }
+
+  &.flipped {
+    svg {
+      transform: scale(1, -1);
+    }
+  }
+
+  &:hover {
+    filter: brightness(1.4);
+  }
+}

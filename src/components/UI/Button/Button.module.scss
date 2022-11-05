@@ -1,0 +1,44 @@
+@import '../../../index';
+
+.button {
+  font-family: $--primary-font;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  border: 1px solid;
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 20px 15px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .icon {
+    &.right {
+      margin-left: 8px;
+    }
+  }
+
+  &.isDisabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  &.isLoading {
+    pointer-events: none;
+  }
+
+  &.hasText {
+    img,
+    svg {
+      margin-right: 8px;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@import '../../../../index';
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  & > * {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .container {
+    svg {
+      cursor: pointer;
+      float: right;
+    }
+  }
+
+  &.error {
+    color: $--color-jasper;
+  }
+}
