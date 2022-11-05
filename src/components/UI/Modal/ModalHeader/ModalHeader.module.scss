@@ -1,0 +1,19 @@
+@import '../../../../index';
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  .container {
+    svg {
+      cursor: pointer;
+      float: right;
+    }
+  }
+
+  &.error {
+    color: $--color-error;
+  }
+}

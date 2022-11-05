@@ -1,0 +1,18 @@
+@import '../../../../index';
+
+.modalBody {
+  padding: 25px 0;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.03em;
+  color: $--color-omega;
+  white-space: break-spaces;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: inherit;
+  overflow-wrap: break-word;
+
+  &.error {
+    color: $--color-error;
+  }
+}

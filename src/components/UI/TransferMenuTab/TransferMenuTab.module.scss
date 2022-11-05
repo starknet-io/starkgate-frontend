@@ -1,0 +1,21 @@
+@import '../../../index';
+
+.transferMenuTab {
+  background: $--color-alpha-1;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: $--color-white;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &.isActive {
+    background: $--color-alpha-4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+}

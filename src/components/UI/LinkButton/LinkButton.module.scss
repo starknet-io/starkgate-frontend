@@ -1,0 +1,35 @@
+@import '../../../index';
+
+.linkButton {
+  color: $--color-gamma-1;
+  padding: 3px 10px;
+  border-radius: 7px;
+  border-color: $--color-gamma-1;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 12px;
+  text-transform: capitalize;
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px 0 10px 10px;
+
+  &.isDisabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  svg {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    color: $--color-gamma;
+    border-color: $--color-gamma;
+
+    svg {
+      path {
+        fill: $--color-gamma;
+      }
+    }
+  }
+}

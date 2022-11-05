@@ -1,0 +1,42 @@
+@import '../../../index';
+
+input {
+  &.input {
+    font-family: $--primary-font;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-size: 15px;
+    line-height: 24px;
+    outline: none;
+    color: $--color-white;
+    transition: all 0.3s ease-out;
+    display: inline-block;
+    max-width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+
+    &.isDisabled {
+      pointer-events: none;
+      opacity: 0.8;
+    }
+  }
+}
+
+input::input-placeholder {
+  opacity: 0.5;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}

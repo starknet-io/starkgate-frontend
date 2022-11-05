@@ -1,0 +1,12 @@
+.modalMessage {
+  font-size: 15px;
+
+  &.transferMessage {
+    margin-top: 20px;
+  }
+
+  &.refreshMessage {
+    margin-top: 30px;
+    text-align: center;
+  }
+}

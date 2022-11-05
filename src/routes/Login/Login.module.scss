@@ -1,0 +1,18 @@
+@import '../../index';
+
+.login {
+  .download {
+    margin: 30px;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: $--color-white-1;
+
+    span {
+      cursor: pointer;
+      color: $--color-beta;
+      text-decoration: underline;
+    }
+  }
+}

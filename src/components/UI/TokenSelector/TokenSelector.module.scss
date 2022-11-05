@@ -1,0 +1,20 @@
+@import '../../../index';
+
+.tokenSelector {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 15px;
+  color: $--color-alpha-6;
+  text-transform: capitalize;
+  cursor: pointer;
+  padding: 10px 5px 10px 15px;
+  background: $--color-alpha-5;
+  border-radius: 7px;
+  transition: 0.3s ease-in-out;
+
+  &:hover {
+    color: $--color-alpha-6-hover;
+    background: $--color-alpha-5-hover;
+  }
+}

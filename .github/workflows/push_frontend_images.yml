@@ -1,0 +1,45 @@
+name: Docker build tag and push frontend images to GCR workflow.
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  push-frontend-image:
+    uses: ./.github/workflows/gcr_push_workflow.yml
+    with:
+      image_name: us.gcr.io/starkware-dev/starknet/starkgate/frontend
+      branch_name: ${{ github.event.base_ref }}
+      dockerfile: Dockerfile.frontend
+    secrets:
+      gcp_token: ${{ secrets.STARKGATE_SA }}
+
+  deploy_devnet:
+    if: github.event.base_ref == 'refs/heads/dev'
+    needs: [push-frontend-image]
+    uses: ./.github/workflows/helm_upgrade_workflow.yml
+    with:
+      app_name: starkgate
+      namespace_name: starkgate-devnet
+      values_file: deployment/development.yml
+      env_file: .env.testing
+    secrets:
+      gcp_token: ${{ secrets.STARKGATE_SA }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  deploy_testnet:
+    if: github.event.base_ref == 'refs/heads/master'
+    needs: [push-frontend-image]
+    uses: ./.github/workflows/helm_upgrade_workflow.yml
+    with:
+      app_name: starkgate
+      namespace_name: starkgate-goerli
+      values_file: deployment/testing.yml
+      env_file: .env.testing
+      image_tag: ${{ github.ref_name }}-goerli
+    secrets:
+      gcp_token: ${{ secrets.STARKGATE_SA }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

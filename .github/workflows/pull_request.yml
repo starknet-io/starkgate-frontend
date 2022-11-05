@@ -1,0 +1,37 @@
+name: Pull request workflow
+
+on: pull_request
+
+jobs:
+  lint:
+    name: Find linting problems in your JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install node_modules
+        run: yarn
+
+      - name: Run ESLint check
+        run: yarn run lint
+
+  test:
+    name: Running unit tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install node_modules
+        run: yarn
+
+      - name: Run tests
+        run: yarn run test --passWithNoTests

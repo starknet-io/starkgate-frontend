@@ -1,0 +1,27 @@
+@import '../../../../index';
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 100000;
+
+  .container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: $--color-white;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px 40px;
+    overflow: auto;
+
+    &.error {
+      border: 1px solid $--color-error;
+    }
+  }
+}

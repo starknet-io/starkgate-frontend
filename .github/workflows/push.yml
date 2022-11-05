@@ -1,0 +1,31 @@
+name: Push workflow
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+
+jobs:
+  release-version:
+    name: Releasing a version
+    runs-on: ubuntu-latest
+    if: ${{ !startsWith(github.event.head_commit.message, 'release') || (github.ref_name == 'master' && !startsWith(github.event.head_commit.message, 'release')) }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.USER_TOKEN }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install node_modules
+        run: yarn
+
+      - name: Run release script
+        run: yarn run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.USER_TOKEN }}
+          GH_TOKEN: ${{ secrets.USER_TOKEN }}

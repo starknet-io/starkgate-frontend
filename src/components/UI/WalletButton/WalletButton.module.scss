@@ -1,0 +1,17 @@
+.walletButton {
+  border-width: 2px;
+
+  &.mobile {
+    width: 80px;
+
+    img {
+      margin-right: 0;
+    }
+  }
+
+  &.laptop,
+  .tablet {
+    width: 150px;
+    font-size: 16px;
+  }
+}

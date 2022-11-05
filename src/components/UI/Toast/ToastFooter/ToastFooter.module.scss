@@ -1,0 +1,17 @@
+@import '../../../../index';
+
+.toastFooter {
+  margin-bottom: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.transferLogLink {
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 18px;
+  color: $--color-omega;
+  width: 114px;
+  text-decoration: underline;
+  align-self: flex-end;
+}
