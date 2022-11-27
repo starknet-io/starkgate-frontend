@@ -8,7 +8,6 @@
     "build": "react-scripts build",
     "build:mainnet": "GENERATE_SOURCEMAP=false env-cmd -f .env.mainnet yarn run build",
     "build:goerli": "GENERATE_SOURCEMAP=false env-cmd -f .env.goerli yarn run build",
-    "build:devnet": "env-cmd -f .env.devnet yarn run build",
     "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
