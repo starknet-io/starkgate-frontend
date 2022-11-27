@@ -16,7 +16,15 @@ export const SearchToken = ({tokens, onSearchResults}) => {
   };
 
   useEffect(() => {
-    const results = tokens.filter(token => token.name.toLowerCase().includes(searchTerm));
+    const results = tokens.filter(token => {
+      const {name, symbol} = token;
+      const searchTermValue = searchTerm.toLowerCase();
+
+      return (
+        name.toLowerCase().includes(searchTermValue) ||
+        symbol.toLowerCase().includes(searchTermValue)
+      );
+    });
     onSearchResults(results);
   }, [searchTerm]);
 
