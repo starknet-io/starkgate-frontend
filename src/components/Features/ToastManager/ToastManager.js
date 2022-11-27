@@ -4,6 +4,7 @@ import {
   isRejected,
   NetworkType
 } from '@starkware-industries/commons-js-enums';
+import {usePrevious} from '@starkware-industries/commons-js-hooks';
 import {getCookie, getFullTime, setCookie} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
@@ -16,10 +17,11 @@ import {
   HIDE_ELEMENT_COOKIE_DURATION_DAYS
 } from '../../../config/constants';
 import {ActionType, Breakpoint, isMobile, ToastType} from '../../../enums';
-import {useCompleteTransferToL1, usePrevious} from '../../../hooks';
+import {useCompleteTransferToL1} from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useIsL1, useIsL2} from '../../../providers/TransferProvider';
 import {useTransfersLog} from '../../../providers/TransfersLogProvider';
+import {useAccountHash} from '../../../providers/WalletsProvider';
 import {CompleteTransferToL1Toast, ToastBody, TransferToast, Bullet} from '../../UI';
 import {AlphaDisclaimerToast} from '../../UI/Toast/AlphaDisclaimerToast/AlphaDisclaimerToast';
 import styles from './ToastManager.module.scss';
@@ -37,6 +39,13 @@ export const ToastManager = () => {
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
   const {breakpoint} = useBreakpoint(Breakpoint);
+  const accountHash = useAccountHash();
+
+  useEffect(() => {
+    if (!accountHash) {
+      clearToasts();
+    }
+  }, [accountHash]);
 
   useEffect(() => {
     const alphaDisclaimerCookie = getCookie(ALPHA_DISCLAIMER_COOKIE_NAME);
@@ -46,8 +55,10 @@ export const ToastManager = () => {
   }, [breakpoint]);
 
   useDeepCompareEffect(() => {
-    renderToasts();
-  }, [transfers]);
+    if (accountHash) {
+      renderToasts();
+    }
+  }, [transfers, accountHash]);
 
   useEffect(() => {
     return () => clearToasts();

@@ -101,15 +101,6 @@ body {
   max-height: 7px;
 }
 
-.MuiStep-root {
-  .MuiSvgIcon-root {
-    &.Mui-completed,
-    &.Mui-active {
-      color: $--color-space-cadet !important;
-    }
-  }
-}
-
 .MuiLinearProgress-root {
   background-color: rgba($--color-orange-soda, 0.3) !important;
 

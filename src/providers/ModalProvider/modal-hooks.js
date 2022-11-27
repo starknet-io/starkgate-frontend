@@ -4,7 +4,7 @@ import {useCallback, useContext} from 'react';
 import {ReactComponent as AlertIcon} from '../../assets/svg/icons/alert-circle.svg';
 import {ReactComponent as WarningIcon} from '../../assets/svg/icons/warning-circle.svg';
 import {ModalType} from '../../components/UI';
-import {useOnboardingModalTranslation} from '../../hooks';
+import {useOnboardingModalTranslation, useBlockedAddressModalTranslation} from '../../hooks';
 import {ModalContext} from './modal-context';
 
 const TRANSACTION_MODAL_STYLE = {
@@ -18,7 +18,7 @@ const TRANSACTION_MODAL_STYLE = {
       fontSize: '12px',
       fontWeight: '600',
       lineHeight: '18px',
-      margin: '0 5px'
+      margin: '8px 8px'
     }
   }
 };
@@ -238,6 +238,47 @@ export const useLoginModal = () => {
           width: '464px'
         },
         exitable: true
+      });
+    },
+    [showModal]
+  );
+};
+
+export const useBlockedAddressModal = () => {
+  const {showModal} = useContext(ModalContext);
+  const {titleTxt, closeButtonTxt} = useBlockedAddressModalTranslation();
+  const {buttonProps, containerStyle} = MODAL_HEADER_WITH_ICON_STYLE;
+
+  return useCallback(
+    account => {
+      showModal({
+        header: {
+          components: [
+            {
+              path: 'UI/Modal/ModalHeaderWithIcon/ModalHeaderWithIcon',
+              props: {
+                icon: WarningIcon,
+                title: titleTxt,
+                subtitle: account
+              }
+            }
+          ]
+        },
+        body: {
+          components: [
+            {
+              path: 'UI/Modal/BlockedAddressModal/BlockedAddressModal'
+            }
+          ]
+        },
+        footer: {
+          withButtons: true,
+          buttonProps: {
+            ...buttonProps,
+            text: closeButtonTxt
+          }
+        },
+        containerStyle
       });
     },
     [showModal]

@@ -18,8 +18,7 @@ export const LogoutButton = ({onClick, isDisabled}) => {
       style={{
         margin: '0',
         width: '100%',
-        borderRadius: '7px',
-        fontSize: '16px'
+        borderRadius: '7px'
       }}
       text={logoutBtnTxt}
       onClick={onClick}

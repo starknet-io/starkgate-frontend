@@ -50,4 +50,4 @@ export * from './NetworkWalletButton/NetworkWalletButton';
 export * from './MainMenuButton/MainMenuButton';
 export * from './ChainSelect/ChainSelect';
 export * from './MenuBackground/MenuBackground';
-export * from './ReadMore/ReadMore';
+export * from './Link/Link';

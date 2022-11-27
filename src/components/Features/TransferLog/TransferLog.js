@@ -17,7 +17,7 @@ import {LinkButton} from '../../UI/LinkButton/LinkButton';
 import styles from './TransferLog.module.scss';
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
-  const {VOYAGER_TX_URL, ETHERSCAN_TX_URL} = useEnvs();
+  const {STARKSCAN_TX_URL, STARKSCAN_ETH_TX_URL} = useEnvs();
   const {symbol, timestamp, name, amount, status, l1hash, l2hash} = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
@@ -43,7 +43,7 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
       <LinkButton
         isDisabled={!l1hash}
         text={`${NetworkType.L1} Tx`}
-        url={ETHERSCAN_TX_URL(l1hash)}
+        url={STARKSCAN_ETH_TX_URL(l1hash)}
         onClick={onTxClick}
       />
     );
@@ -55,10 +55,10 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
         isDisabled={
           !l2hash ||
           !status ||
-          TransactionStatusStep[status] < TransactionStatusStep[TransactionStatus.PENDING]
+          TransactionStatusStep[status] < TransactionStatusStep[TransactionStatus.RECEIVED]
         }
         text={`${NetworkType.L2} Tx`}
-        url={VOYAGER_TX_URL(l2hash)}
+        url={STARKSCAN_TX_URL(l2hash)}
         onClick={onTxClick}
       />
     );
@@ -98,10 +98,13 @@ const CompleteTransferButton = ({onClick}) => {
       colorBackground="transparent"
       colorBorder={colorOrangeSoda}
       colorText={colorOrangeSoda}
-      height={10}
       style={{
         fontSize: '12px',
-        padding: '14px'
+        padding: '0 8px',
+        lineHeight: '18px',
+        fontWeight: '400',
+        borderRadius: '5px',
+        margin: '0'
       }}
       text={completeTransferBtnTxt}
       onClick={onClick}

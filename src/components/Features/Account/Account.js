@@ -1,3 +1,4 @@
+import {addAddressPadding} from '@starkware-industries/commons-js-libs/starknet';
 import {evaluate, findIndexById} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -5,14 +6,13 @@ import React from 'react';
 import {
   useAccountTracking,
   useCompleteTransferToL1,
-  useConstants,
   useEnvs,
   useAccountTranslation
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
-import {useWallets} from '../../../providers/WalletsProvider';
+import {useAccountHash, useWallets} from '../../../providers/WalletsProvider';
 import {
   AccountAddress,
   BackButton,
@@ -26,7 +26,7 @@ import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 
 export const Account = ({transferId}) => {
-  const {titleTxt} = useAccountTranslation();
+  const {titleTxt, btnTxt} = useAccountTranslation();
   const [
     trackTxLinkClick,
     trackAccountLinkClick,
@@ -34,16 +34,16 @@ export const Account = ({transferId}) => {
     trackCompleteTransferClick,
     trackAddressCopied
   ] = useAccountTracking();
-  const {ETHERSCAN_ACCOUNT_URL, VOYAGER_ACCOUNT_URL} = useEnvs();
-  const {ETHERSCAN, VOYAGER} = useConstants();
+  const {ETHERSCAN_ACCOUNT_URL, STARKSCAN_ACCOUNT_URL} = useEnvs();
   const {showSourceMenu} = useMenu();
   const {account, resetWallet} = useWallets();
   const {isL1, isL2, fromNetwork} = useTransfer();
   const transfers = useAccountTransfersLog(account);
   const completeTransferToL1 = useCompleteTransferToL1();
+  const accountHash = useAccountHash();
 
   const renderTransfers = () => {
-    return transfers.length
+    return accountHash && transfers.length
       ? transfers.map((transfer, index) => (
           <TransferLog
             key={index}
@@ -65,26 +65,30 @@ export const Account = ({transferId}) => {
     resetWallet();
   };
 
+  const renderExplorers = () => {
+    const explorersL1 = [{text: btnTxt, url: ETHERSCAN_ACCOUNT_URL(account)}];
+    const explorersL2 = [{text: btnTxt, url: STARKSCAN_ACCOUNT_URL(account)}];
+    const explorers = isL1 ? explorersL1 : explorersL2;
+
+    return (
+      <div className={styles.linkButtons}>
+        {explorers.map(({text, url}) => (
+          <LinkButton key={text} text={text} url={url} onClick={trackAccountLinkClick} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Menu>
       <div className={styles.accountMenu}>
         <BackButton onClick={() => showSourceMenu()} />
         <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
-        <AccountAddress address={account} onClick={trackAddressCopied} />
-        {isL1 && (
-          <LinkButton
-            text={ETHERSCAN}
-            url={ETHERSCAN_ACCOUNT_URL(account)}
-            onClick={trackAccountLinkClick}
-          />
-        )}
-        {isL2 && (
-          <LinkButton
-            text={VOYAGER}
-            url={VOYAGER_ACCOUNT_URL(account)}
-            onClick={trackAccountLinkClick}
-          />
-        )}
+        <AccountAddress
+          address={isL2 ? addAddressPadding(account) : account}
+          onClick={trackAddressCopied}
+        />
+        {renderExplorers()}
         <TransferLogContainer
           transferIndex={findIndexById(transfers, transferId)}
           onShowTransfers={trackViewTransfersLog}

@@ -91,12 +91,20 @@
       font-weight: 400;
       font-size: 16px;
       line-height: 24px;
-      color: $--color-auro-metal-saurus;
+      color: $--color-light-steel-blue;
 
       a {
         font-weight: 600;
         color: $--color-white;
         text-decoration: none;
+      }
+
+      &.disabled {
+        color: $--color-auro-metal-saurus;
+
+        a {
+          color: $--color-light-steel-blue;
+        }
       }
     }
   }

@@ -2386,15 +2386,20 @@
   resolved "https://registry.yarnpkg.com/@splitbee/web/-/web-0.3.0.tgz#676ebe877b6d82a10ece6527a07f70b1994d242e"
   integrity sha512-jNPDKg0GQGa4jCaBc6JQsv0NHmBA80WCwZE49nFyhcbo32WF0GyqXeice7ZApy7OUHI16bAUAzm4MOQw3gvxfQ==
 
-"@starkware-industries/commons-js-enums@1.1.0-dev.3":
-  version "1.1.0-dev.3"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.1.0-dev.3.tgz#42f25129c91d31d90730f56c42f4e872e3291ae3"
-  integrity sha512-wghtEEr//0q04JKgZFnzxsMAQKntRdNsFPJI8Pnu8K9zBVzICsDR0fkph4r20wTdtwVvCFi2U3+MoY1a7NFpGg==
+"@starkware-industries/commons-js-enums@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-enums/-/commons-js-enums-1.1.0.tgz#f661378a75132e8fe514684252fe38603206d035"
+  integrity sha512-vb9RMhl3cPXBVzJNLdgCsHaxWQ1DM9Y/jMNYmnZcsIGNVZTPLHIGvfydfvH2UTbcx3sdczyvDrwrIYewuYLz1g==
 
-"@starkware-industries/commons-js-libs@1.2.0-dev.4":
-  version "1.2.0-dev.4"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.2.0-dev.4.tgz#1b7ef0d1e4f12ea09fad9a0f66cea1e12583bed9"
-  integrity sha512-oXqcuumdGY1nAY9qby4VMHyAe7GfcgLWjYKnseOB2wNRiZVnflqvjLEHXVPafWLRNdH2Rn86WA7ScCHKbC7s5g==
+"@starkware-industries/commons-js-hooks@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-hooks/-/commons-js-hooks-1.0.0.tgz#f554eec73f266a90bebdd0d8a9d2723046fb8b45"
+  integrity sha512-wBkhifM27jVPWFELB7K7JZE4ZH4XI5Nxs2is3yijbREANukTzYZghNsUllGhIU6mahAHC4xoWHtjg8r7+H12rQ==
+
+"@starkware-industries/commons-js-libs@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-libs/-/commons-js-libs-1.2.1.tgz#9b164a7a935b49b954d22f9f639cd6920608d11b"
+  integrity sha512-vRkxJjEbAJ3aXQLInvQnusReo03M28XBOc7l1iQmKNY21MlMUTl1IpsIMukRAE1kQp56m4xVOj+t0i4mfBaqfQ==
   dependencies:
     "@metamask/onboarding" "^1.0.1"
     get-starknet "^1.4.4"
@@ -2403,14 +2408,12 @@
     web3-eth-contract "^1.7.5"
     web3-utils "^1.7.5"
 
-"@starkware-industries/commons-js-utils@1.0.0-dev.5":
-  version "1.0.0-dev.5"
-  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-utils/-/commons-js-utils-1.0.0-dev.5.tgz#75215f58498728dd6dd99c9883a9528803d07552"
-  integrity sha512-4Oy8D3rFGYZQppZye9A/Vhr86kVCjL2yuUP9xUPiGRLlFZUg+t/3D9Ph7Ij4Ph6C1OUTuy2neBs8nV3GdqC6cA==
+"@starkware-industries/commons-js-utils@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@starkware-industries/commons-js-utils/-/commons-js-utils-1.1.0.tgz#30b7d0f345cbd073bc6dd2e79c2c0e22b6f9b5e7"
+  integrity sha512-XNXMPw2RKofFbyvlBe2zW9Vjvps2OoYaWVMbzM1lpqoLiOsYkpr/tYSQm7s71YNgcKCOBIP3L1bPlHZ/Oliylg==
   dependencies:
     "@normalizex/ethjs-unit" "^0.1.8"
-    "@starkware-industries/commons-js-enums" "1.1.0-dev.3"
-    "@starkware-industries/commons-js-libs" "1.2.0-dev.4"
     "@types/uuid" "^8.3.4"
     axios "^0.26.0"
     js-logger "^1.6.1"

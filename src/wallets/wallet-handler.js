@@ -5,7 +5,7 @@ import {
   getBrowserName
 } from '@starkware-industries/commons-js-utils';
 
-import strings from '../config/strings';
+import translations from '../config/translations';
 
 export class WalletHandler {
   constructor(config) {
@@ -17,7 +17,7 @@ export class WalletHandler {
     const isBrowserSupported = isChrome() || isFirefox() || isEdge();
 
     if (!isBrowserSupported) {
-      throw new Error(getPropertyPath(strings, 'modals.login.unsupportedBrowserTxt'));
+      throw new Error(getPropertyPath(translations, 'modals.login.unsupportedBrowserTxt'));
     }
     return true;
   }

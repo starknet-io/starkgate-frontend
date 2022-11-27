@@ -1,5 +1,5 @@
-import {useMemo} from 'react';
+import {useFontsGeneric} from '@starkware-industries/commons-js-hooks';
 
 import fonts from '../styles/fonts.module.scss';
 
-export const useFonts = () => useMemo(() => fonts, []);
+export const useFonts = () => useFontsGeneric(fonts);
