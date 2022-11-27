@@ -1,4 +1,9 @@
-import {getPropertyPath, isChrome, isFirefox} from '@starkware-industries/commons-js-utils';
+import {
+  getPropertyPath,
+  isChrome,
+  isFirefox,
+  getBrowserName
+} from '@starkware-industries/commons-js-utils';
 
 import strings from '../config/strings';
 
@@ -8,7 +13,9 @@ export class WalletHandler {
   }
 
   isBrowserSupported() {
-    const isBrowserSupported = isChrome() || isFirefox();
+    const isEdge = () => getBrowserName() === 'Edge';
+    const isBrowserSupported = isChrome() || isFirefox() || isEdge();
+
     if (!isBrowserSupported) {
       throw new Error(getPropertyPath(strings, 'modals.login.unsupportedBrowserTxt'));
     }
