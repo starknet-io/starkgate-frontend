@@ -1,8 +1,9 @@
+import {useLogger} from '@starkware-industries/commons-js-hooks';
 import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 
-import {useAccountChange, useBridgeContractAPI, useConstants, useLogger} from '../../hooks';
+import {useAccountChange, useBridgeContractAPI, useConstants} from '../../hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '../../hooks/useTokenBalance';
 import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
 import {TokensContext} from './tokens-context';

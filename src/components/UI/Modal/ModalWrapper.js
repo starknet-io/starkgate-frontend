@@ -15,9 +15,14 @@ import {ModalText} from './ModalText/ModalText';
 
 export const ModalWrapper = () => {
   const modal = useModal();
-  const handleOnClose = useHideModal();
 
   const {withHeader, header, body, footer} = modal;
+  const hideModal = useHideModal();
+
+  const handleOnClose = () => {
+    footer.onClick && footer.onClick();
+    hideModal();
+  };
 
   const getComponents = components => {
     return components

@@ -1,7 +1,7 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
 import {useMemo} from 'react';
 
-import Wallets from '../config/wallets.js';
+import Wallets from '../config/wallets';
 import {GetStarknetWallet, MetaMask} from '../wallets';
 import {WalletHandler} from '../wallets/wallet-handler';
 
@@ -23,6 +23,7 @@ const configMap = {
 export const useWalletHandlerProvider = network => {
   return useMemo(() => {
     const {wallets, registry} = configMap[network];
+
     return wallets
       .map(walletConfig => {
         const {id} = walletConfig;

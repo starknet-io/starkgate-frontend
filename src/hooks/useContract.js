@@ -1,3 +1,4 @@
+import {useContract} from '@starkware-industries/commons-js-hooks';
 import {createContractL1, createContractL2} from '@starkware-industries/commons-js-utils';
 import {useCallback, useMemo} from 'react';
 
@@ -13,20 +14,6 @@ import Tokens from '../config/tokens';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {useEnvs} from './useEnvs';
-
-const cache = {};
-
-export const useContract = (abi, getContractHandler) => {
-  return useCallback(
-    address => {
-      if (!cache[address]) {
-        cache[address] = getContractHandler(address, abi);
-      }
-      return cache[address];
-    },
-    [abi, getContractHandler]
-  );
-};
 
 export const useTokenContract = () => {
   const getL1TokenContract = useL1TokenContract();

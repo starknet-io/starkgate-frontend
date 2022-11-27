@@ -2,6 +2,7 @@ import {createTheme, ThemeProvider} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import CollapseIcon from '../../../assets/svg/icons/collapse.svg';
 import SelectedIcon from '../../../assets/svg/icons/selected.svg';
 import {useColors, useFonts} from '../../../hooks';
 
@@ -22,33 +23,27 @@ export const SourceSelectTheme = ({children}) => {
           root: {
             padding: '4px',
             fontSize: '14px',
+            fontWeight: '600',
+            fontFamily: primaryFont,
             color: colorWhite,
-            cursor: 'pointer',
             transition: '0.3s ease-in-out',
             '&:hover': {
               backgroundColor: colorDarkSlateBlue
             }
           },
-          notchedOutline: {
-            border: 0
-          }
-        }
-      },
-      MuiSelect: {
-        styleOverrides: {
-          select: {
+          input: {
             padding: 0,
             paddingRight: '8px !important',
-            fontFamily: primaryFont,
             display: 'flex',
             alignItems: 'center',
-            fontWeight: '600'
+            '&:after': {
+              content: `url(${CollapseIcon})`,
+              paddingLeft: '8px',
+              lineHeight: '0'
+            }
           },
-
-          icon: {
-            position: 'initial',
-            transform: 'scale(1.216)',
-            marginRight: '8px'
+          notchedOutline: {
+            border: 0
           }
         }
       },
@@ -97,7 +92,8 @@ export const SourceSelectTheme = ({children}) => {
             padding: '4px',
             borderRadius: '8px',
             margin: '8px 0',
-            '&.Mui-selected, &:hover': {
+            backgroundColor: `${colorSpaceCadet} !important`,
+            '&:hover': {
               backgroundColor: `${colorSpaceCadet2} !important`
             },
             '&.Mui-selected:after': {

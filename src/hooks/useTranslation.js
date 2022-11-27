@@ -1,12 +1,9 @@
-import {getPropertyPath} from '@starkware-industries/commons-js-utils';
-import {useMemo} from 'react';
+import {chainPath, useTranslation} from '@starkware-industries/commons-js-hooks';
 
-import Strings from '../config/strings';
-
-export const useTranslation = path => useMemo(() => getTranslation(path), [path]);
+import translations from '../config/translations';
 
 export const useContainersTranslation = path => {
-  return useTranslation(chainPath('containers', path));
+  return useTranslation(translations, chainPath('containers', path));
 };
 
 export const useHeaderTranslation = path => {
@@ -18,7 +15,7 @@ export const useFooterTranslation = () => {
 };
 
 export const useMenusTranslation = path => {
-  return useTranslation(chainPath('menus', path));
+  return useTranslation(translations, chainPath('menus', path));
 };
 
 export const useAccountTranslation = path => {
@@ -42,7 +39,7 @@ export const useProvidersTranslation = path => {
 };
 
 export const useToastsTranslation = path => {
-  return useTranslation(chainPath('toasts', path));
+  return useTranslation(translations, chainPath('toasts', path));
 };
 
 export const useCompleteTransferToastTranslation = () => {
@@ -54,7 +51,7 @@ export const usePendingTransferToastTranslation = () => {
 };
 
 export const useModalsTranslation = path => {
-  return useTranslation(chainPath('modals', path));
+  return useTranslation(translations, chainPath('modals', path));
 };
 
 export const useLoginTranslation = path => {
@@ -77,8 +74,12 @@ export const useOnboardingModalTranslation = () => {
   return useModalsTranslation('onboarding');
 };
 
+export const useBlockedAddressModalTranslation = () => {
+  return useModalsTranslation('blockedAddress');
+};
+
 export const useScreensTranslation = path => {
-  return useTranslation(chainPath('screens', path));
+  return useTranslation(translations, chainPath('screens', path));
 };
 
 export const useFaqTranslation = () => {
@@ -100,9 +101,3 @@ export const useTransferLogTranslation = () => {
 export const useTabsTranslation = () => {
   return useHeaderTranslation('tabs');
 };
-
-const chainPath = (basePath, constitutivePath) => {
-  return constitutivePath ? `${basePath}.${constitutivePath}` : basePath;
-};
-
-const getTranslation = path => getPropertyPath(Strings, path);

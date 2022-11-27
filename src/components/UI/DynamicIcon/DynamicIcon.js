@@ -1,7 +1,6 @@
+import {useFetchData} from '@starkware-industries/commons-js-hooks';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef} from 'react';
-
-import {useFetchData} from '../../../hooks';
 
 export const DynamicIcon = ({path, size}) => {
   const ImportedIconRef = useRef(null);

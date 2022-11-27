@@ -62,7 +62,8 @@ export const TrackEvent = {
    */
   LOGIN: {
     WALLET_CLICK: 'LOGIN_MODAL/wallet_click',
-    LOGIN_ERROR: 'LOGIN_MODAL/login_error'
+    LOGIN_ERROR: 'LOGIN_MODAL/login_error',
+    BLOCKED_ADDRESS: 'LOGIN_MODAL/blocked_address'
   },
 
   /**

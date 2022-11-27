@@ -2,21 +2,23 @@ import {createTheme, ThemeProvider} from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import CollapseIcon from '../../../assets/svg/icons/collapse.svg';
+import SelectedIcon from '../../../assets/svg/icons/selected.svg';
 import {useColors, useFonts} from '../../../hooks';
 
 export const ChainSelectTheme = ({children}) => {
-  const {colorWhite, colorDarkSlateBlue, colorToolbox} = useColors();
+  const {colorWhite, colorSpaceCadet, colorSpaceCadet2} = useColors();
   const {primaryFont} = useFonts();
   const theme = createTheme({
     components: {
       MuiOutlinedInput: {
         styleOverrides: {
           root: {
+            width: '127px',
             margin: '0 16px',
             fontSize: '14px',
             fontWeight: '500',
             lineHeight: '20px',
-            padding: '8px 16px',
             fontFamily: primaryFont,
             color: colorWhite,
             borderRadius: '8px',
@@ -28,27 +30,27 @@ export const ChainSelectTheme = ({children}) => {
             }
           },
           input: {
-            padding: '0',
-            paddingRight: '16px !important'
-          }
-        }
-      },
-      MuiSelect: {
-        styleOverrides: {
-          icon: {
-            position: 'initial',
-            width: '16px'
+            padding: '8px 16px !important',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            '&:after': {
+              content: `url(${CollapseIcon})`,
+              paddingLeft: '12px',
+              transform: 'scale(1.3)',
+              lineHeight: '0'
+            }
           }
         }
       },
       MuiPaper: {
         styleOverrides: {
           root: {
-            transform: 'translate(5px, 12px) !important',
-            border: `1px solid ${colorWhite}`,
+            boxShadow: 'none',
             borderRadius: '8px',
-            backgroundColor: colorDarkSlateBlue,
-            color: colorWhite
+            backgroundColor: colorSpaceCadet,
+            color: colorWhite,
+            marginTop: '4px'
           }
         }
       },
@@ -62,14 +64,24 @@ export const ChainSelectTheme = ({children}) => {
       MuiMenuItem: {
         styleOverrides: {
           root: {
+            fontFamily: primaryFont,
             fontSize: '14px',
             fontWeight: '500',
             lineHeight: '20px',
-            padding: '8px 12px 8px 16px',
-            fontFamily: primaryFont,
-            backgroundColor: colorDarkSlateBlue,
-            '&.Mui-selected': {
-              backgroundColor: `${colorToolbox} !important`
+            padding: '4px 8px',
+            borderRadius: '8px',
+            margin: '8px',
+            backgroundColor: `${colorSpaceCadet} !important`,
+            '&:hover': {
+              backgroundColor: `${colorSpaceCadet2} !important`
+            },
+            '&.Mui-selected:after': {
+              content: `url(${SelectedIcon})`,
+              position: 'absolute',
+              right: '12px'
+            },
+            '& .MuiTouchRipple-root': {
+              display: 'none'
             }
           }
         }

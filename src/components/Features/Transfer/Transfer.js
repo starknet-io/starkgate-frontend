@@ -27,9 +27,10 @@ import {
   NetworkSwap,
   TokenInput,
   TransferButton,
-  LoginWalletButton,
   MenuBackground,
-  ReadMore
+  LinkType,
+  Link,
+  LoginWalletButton
 } from '../../UI';
 import styles from './Transfer.module.scss';
 
@@ -179,7 +180,6 @@ export const Transfer = ({onNetworkSwap}) => {
           <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
           {isLoggedIn ? (
             <TransferButton
-              hasInputError={hasInputError}
               isDisabled={isButtonDisabled || bridgeIsFull}
               onClick={onTransferClick}
             />
@@ -197,13 +197,18 @@ Transfer.propTypes = {
 };
 
 const BridgeIsFullError = () => {
-  const {bridgeIsFullErrorMsg} = useTransferTranslation();
+  const {bridgeIsFullErrorMsg, readMoreTxt} = useTransferTranslation();
   const {STARKGATE_ALPHA_LIMITATIONS_URL} = useConstants();
 
   return (
     <Fragment>
-      {bridgeIsFullErrorMsg}
-      <ReadMore openInNewTab={true} url={STARKGATE_ALPHA_LIMITATIONS_URL} />
+      {bridgeIsFullErrorMsg}{' '}
+      <Link
+        className={styles.bridgeIsFullReadMore}
+        link={STARKGATE_ALPHA_LIMITATIONS_URL}
+        text={readMoreTxt}
+        type={LinkType.URL}
+      />
     </Fragment>
   );
 };
