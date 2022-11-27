@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 
   .modalHeaderWithIcon {
     font-weight: 500;
@@ -10,7 +10,13 @@
     line-height: 32px;
     margin: 20px 0 -10px 0;
     color: $--color-dark-jungle-green;
-    float: left;
     width: 100%;
+  }
+
+  .subtitle {
+    margin-top: 16px;
+    color: $--color-auro-metal-saurus;
+    font-size: 14px;
+    line-height: 20px;
   }
 }

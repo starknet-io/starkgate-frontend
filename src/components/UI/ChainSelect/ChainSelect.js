@@ -1,10 +1,8 @@
-import {Select, MenuItem, FormControl} from '@mui/material';
+import {Select, MenuItem} from '@mui/material';
 import {ChainInfo, ChainType} from '@starkware-industries/commons-js-enums';
 import {openInNewTab} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 
-import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
-import {ReactComponent as SelectedIcon} from '../../../assets/svg/icons/selected.svg';
 import {APP_URL_GOERLI, APP_URL_MAINNET} from '../../../config/constants';
 import {useEnvs} from '../../../hooks';
 import {ChainSelectTheme} from './ChainSelect.theme';
@@ -25,11 +23,6 @@ export const ChainSelect = () => {
       return (
         <MenuItem key={chainName} value={chainName}>
           {ChainInfo.L2[chainName].CHAIN}
-          {chainName === SUPPORTED_L2_CHAIN_ID && (
-            <div style={{paddingLeft: '20px'}}>
-              <SelectedIcon />
-            </div>
-          )}
         </MenuItem>
       );
     });
@@ -37,16 +30,14 @@ export const ChainSelect = () => {
 
   return (
     <ChainSelectTheme>
-      <FormControl size={'small'}>
-        <Select
-          IconComponent={CollapseIcon}
-          renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
-          value={SUPPORTED_L2_CHAIN_ID}
-          onChange={handleChange}
-        >
-          {renderItems()}
-        </Select>
-      </FormControl>
+      <Select
+        IconComponent={''}
+        renderValue={chainName => ChainInfo.L2[chainName].CHAIN}
+        value={SUPPORTED_L2_CHAIN_ID}
+        onChange={handleChange}
+      >
+        {renderItems()}
+      </Select>
     </ChainSelectTheme>
   );
 };

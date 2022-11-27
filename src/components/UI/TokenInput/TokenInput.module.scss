@@ -19,7 +19,7 @@
     padding: 0;
   }
 
-  &:hover {
+  &:not(.disable):hover {
     background: $--color-indigo;
   }
 

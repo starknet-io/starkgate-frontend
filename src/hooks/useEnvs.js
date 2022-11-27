@@ -1,5 +1,5 @@
-import {useMemo} from 'react';
+import {useEnvsGeneric} from '@starkware-industries/commons-js-hooks';
 
 import * as envs from '../config/envs.js';
 
-export const useEnvs = () => useMemo(() => envs, []);
+export const useEnvs = () => useEnvsGeneric(envs);

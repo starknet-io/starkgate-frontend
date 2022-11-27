@@ -1,9 +1,10 @@
+import {useLogger} from '@starkware-industries/commons-js-hooks';
 import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
 import {promiseHandler} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useCallback, useState} from 'react';
 
-import {useAccountChange, useEnvs, useLogger} from '../../hooks';
+import {useAccountChange, useEnvs} from '../../hooks';
 import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {

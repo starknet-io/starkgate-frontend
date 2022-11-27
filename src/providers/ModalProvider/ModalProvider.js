@@ -8,6 +8,7 @@ export const ModalProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const showModal = payload => {
+    hideModal();
     dispatch({
       type: actions.SHOW_MODAL,
       payload

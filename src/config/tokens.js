@@ -55,8 +55,8 @@ export default {
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '0x659a00c33263d9254Fed382dE81349426C795BB6',
-        [ChainType.L1.GOERLI]: '0xd8beAa22894Cd33F24075459cFba287a10a104E4'
+        [ChainType.L1.MAIN]: '0x9F96fE0633eE838D0298E8b8980E6716bE81388d',
+        [ChainType.L1.GOERLI]: '0xaB00D7EE6cFE37cCCAd006cEC4Db6253D7ED3a22'
       },
       tokenAddress: {
         [ChainType.L1.MAIN]: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
@@ -135,8 +135,8 @@ export default {
       symbol: 'DAI',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '0x001108cdbe5d82737b9057590adaf97d34e74b5452f0628161d237746b6fe69e',
-        [ChainType.L2.GOERLI]: '0x0278f24c3e74cbf7a375ec099df306289beb0605a346277d200b791a7f811a19'
+        [ChainType.L2.MAIN]: '0x075ac198e734e289a6892baa8dd14b21095f13bf8401900f5349d5569c3f6e60',
+        [ChainType.L2.GOERLI]: '0x057b7fe4e59d295de5e7955c373023514ede5b972e872e9aa5dcdf563f5cfacb'
       },
       tokenAddress: {
         [ChainType.L2.MAIN]: '0x00da114221cb83fa859dbdb4c44beeaa0bb37c7537ad5ae66fe5e0efd20e6eb3',

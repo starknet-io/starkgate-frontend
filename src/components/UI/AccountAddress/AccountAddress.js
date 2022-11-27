@@ -1,9 +1,10 @@
+import {useAnimation} from '@starkware-industries/commons-js-hooks';
 import {shortenAddress, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useRef} from 'react';
 
 import {ReactComponent as CopyIcon} from '../../../assets/svg/icons/copy.svg';
-import {useAccountTranslation, useAnimation} from '../../../hooks';
+import {useAccountTranslation} from '../../../hooks';
 import styles from './AccountAddress.module.scss';
 
 const COPIED_ANIMATION_TIMEOUT_INTERVAL = 1000;

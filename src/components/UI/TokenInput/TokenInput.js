@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
-import {MaxButton} from '../MaxButton/MaxButton';
+// import {MaxButton} from '../MaxButton/MaxButton';
 import {TokenSelector} from '../TokenSelector/TokenSelector';
 import {Input} from '../index';
 import styles from './TokenInput.module.scss';
@@ -20,7 +20,13 @@ export const TokenInput = ({
   const {inputPlaceholderTxt} = useTransferTranslation();
 
   return (
-    <div className={toClasses(styles.tokenInput, hasError && styles.hasError)}>
+    <div
+      className={toClasses(
+        styles.tokenInput,
+        hasError && styles.hasError,
+        isInputDisabled && styles.disable
+      )}
+    >
       <Input
         isDisabled={isInputDisabled}
         placeholder={inputPlaceholderTxt}
@@ -32,7 +38,7 @@ export const TokenInput = ({
         value={value}
         onChange={onInputChange}
       />
-      <MaxButton onClick={onMaxClick} />
+      {/* <MaxButton onClick={onMaxClick} /> */}
       <TokenSelector tokenData={tokenData} onClick={onTokenSelect} />
     </div>
   );

@@ -1,3 +1,4 @@
+import {toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -54,7 +55,7 @@ const AcceptButton = ({isDisabled}) => {
   const [, trackAcceptClick] = useTermsTracking();
   const {acceptBtnTxt} = useTermsTranslation();
   const {acceptTerms} = useTerms();
-  const {colorDodgerBlue, colorBrilliantAzure, colorWhite} = useColors();
+  const {colorBrilliantAzure, colorWhite, colorBrightNavyBlue, colorLapizLazuli} = useColors();
   const {account: accountL1} = useL1Wallet();
   const {account: accountL2} = useL2Wallet();
   const navigate = useNavigate();
@@ -70,15 +71,15 @@ const AcceptButton = ({isDisabled}) => {
     <div className={styles.acceptButtonContainer}>
       <div className={styles.content}>
         <Button
-          colorBackground={colorBrilliantAzure}
-          colorBackgroundHover={colorDodgerBlue}
-          colorBorder={colorDodgerBlue}
+          colorBackground={isDisabled ? colorLapizLazuli : colorBrilliantAzure}
+          colorBackgroundHover={colorBrightNavyBlue}
+          colorBorder={colorBrightNavyBlue}
           colorText={colorWhite}
           isDisabled={isDisabled}
           text={acceptBtnTxt}
           onClick={accept}
         />
-        <div className={styles.text}>
+        <div className={toClasses(styles.text, isDisabled && styles.disabled)}>
           By clicking the &#34;I Accept&#34; button, you are accepting our{' '}
           <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
             Terms of Service

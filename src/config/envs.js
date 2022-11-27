@@ -19,5 +19,12 @@ export const VOYAGER_URL = env.REACT_APP_VOYAGER_URL;
 export const VOYAGER_TX_URL = tx => evaluate(`${VOYAGER_URL}/tx/{{tx}}`, {tx});
 export const VOYAGER_ACCOUNT_URL = contract =>
   evaluate(`${VOYAGER_URL}/contract/{{contract}}`, {contract});
+export const STARKSCAN_URL = env.REACT_APP_STARKSCAN_URL;
+export const STARKSCAN_TX_URL = tx => evaluate(`${STARKSCAN_URL}/tx/{{tx}}`, {tx});
+export const STARKSCAN_ETH_TX_URL = tx => evaluate(`${STARKSCAN_URL}/eth-tx/{{tx}}`, {tx});
+export const STARKSCAN_ACCOUNT_URL = contract =>
+  evaluate(`${STARKSCAN_URL}/contract/{{contract}}`, {contract});
 export const LOCAL_STORAGE_TRANSFERS_LOG_KEY = env.REACT_APP_LOCAL_STORAGE_TRANSFERS_LOG_KEY;
 export const LOCAL_STORAGE_ACCEPT_TERMS_KEY = env.REACT_APP_LOCAL_STORAGE_ACCEPT_TERMS;
+export const API_ENDPOINT_URL = env.REACT_APP_API_ENDPOINT_URL;
+export const ENABLE_SCREENING = env.REACT_APP_ENABLE_SCREENING !== 'false';
