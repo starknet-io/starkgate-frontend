@@ -3,17 +3,16 @@ import React from 'react';
 import {Navigate, Route, Routes} from 'react-router-dom';
 
 import styles from './App.module.scss';
-import {TrackEvent} from './analytics';
 import {ReactComponent as DiscordIcon} from './assets/svg/icons/discord.svg';
 import {Footer, Header} from './components/Containers';
 import {StyledBackground} from './components/UI';
 import {SideButton} from './components/UI/SideButton/SideButton';
-import {useConstants, useTracking} from './hooks';
+import {useConstants, useDiscordTabTracking} from './hooks';
 import {useApp} from './providers/AppProvider';
 import {Bridge, Faq, ProtectedRoute, Terms} from './routes';
 
 export const App = () => {
-  const [trackDiscordClick] = useTracking(TrackEvent.DISCORD_TAB_CLICK);
+  const [trackDiscordClick] = useDiscordTabTracking();
   const {DISCORD_LINK_URL} = useConstants();
   const {isAcceptTerms, isScrollActive} = useApp();
 

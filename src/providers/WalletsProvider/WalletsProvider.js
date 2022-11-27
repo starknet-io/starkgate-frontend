@@ -1,17 +1,16 @@
-import {WalletStatus} from '@starkware-industries/commons-js-enums';
 import {calcAccountHash} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useReducer, useState} from 'react';
-import {useWallet} from 'use-wallet';
 
+import {useEnvs, useEthereumWallet, useStarknetWallet} from '../../hooks';
 import {WalletsContext} from './wallets-context';
-import {useStarknetWallet} from './wallets-hooks';
 import {actions, initialState, reducer} from './wallets-reducer';
 
 export const WalletsProvider = ({children}) => {
+  const {ENABLE_SCREENING} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountHash, setAccountHash] = useState('');
-  const walletL1 = useWallet();
+  const walletL1 = useEthereumWallet({enableScreening: ENABLE_SCREENING});
   const walletL2 = useStarknetWallet();
 
   const {account: accountL1, status: statusL1, error: errorL1} = walletL1;
@@ -22,18 +21,14 @@ export const WalletsProvider = ({children}) => {
   }, [accountL2, statusL2, errorL2]);
 
   useEffect(() => {
-    // To support serializable object in the store
-    const serializedError = statusL1 === WalletStatus.ERROR ? {...errorL1} : null;
-    updateWalletL1({
-      ...walletL1,
-      error: serializedError,
-      isConnected: walletL1.isConnected()
-    });
+    updateWalletL1(walletL1);
   }, [accountL1, statusL1, errorL1]);
 
   useEffect(() => {
     if (accountL1 && accountL2) {
       setAccountHash(calcAccountHash(accountL1, accountL2));
+    } else if (accountHash) {
+      setAccountHash('');
     }
   }, [accountL1, accountL2]);
 

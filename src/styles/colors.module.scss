@@ -41,11 +41,14 @@ $--color-dark-blue-gray: #65668c;
 $--color-brilliant-azure: #4295f7;
 $--color-international-orange-aerospace: #ff4f0a;
 $--color-dark-jungle-green: #101828;
+$--color-bright-navy-blue: #287adb;
+$--color-lapis-lazuli: #3467a3;
 
 :export {
   colorBlack: $--color-black;
   colorWhite: $--color-white;
   colorGainsboro: $--color-gainsboro;
+  colorGainsboro1: $--color-gainsboro-1;
   colorSpaceCadet: $--color-space-cadet;
   colorSpaceCadet2: $--color-space-cadet-2;
   colorOrangeSoda: $--color-orange-soda;
@@ -62,7 +65,9 @@ $--color-dark-jungle-green: #101828;
   colorVeryLightAzure: $--color-very-light-azure;
   colorDodgerBlue: $--color-dodger-blue;
   colorFlame: $--color-flame;
+  colorInternationalOrangeAerospace: $--color-international-orange-aerospace;
   colorDarkBlueGray: $--color-dark-blue-gray;
   colorBrilliantAzure: $--color-brilliant-azure;
-  colorInternationalOrangeAerospace: $--color-international-orange-aerospace;
+  colorBrightNavyBlue: $--color-bright-navy-blue;
+  colorLapizLazuli: $--color-lapis-lazuli;
 }

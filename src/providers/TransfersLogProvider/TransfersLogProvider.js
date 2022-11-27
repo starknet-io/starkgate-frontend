@@ -5,6 +5,7 @@ import {
   SelectorName,
   TransactionHashPrefix
 } from '@starkware-industries/commons-js-enums';
+import {useLogger} from '@starkware-industries/commons-js-hooks';
 import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
 import {hash} from '@starkware-industries/commons-js-libs/starknet';
 import {
@@ -18,7 +19,7 @@ import PropTypes from 'prop-types';
 import React, {useReducer} from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
-import {useAccountChange, useEnvs, useLogger, useStarknetContract} from '../../hooks';
+import {useAccountChange, useEnvs, useStarknetContract} from '../../hooks';
 import {useBlockHash} from '../BlockHashProvider';
 import {useTokens} from '../TokensProvider';
 import {useAccountHash, useL2Wallet} from '../WalletsProvider';
@@ -105,7 +106,7 @@ export const TransfersLogProvider = ({children}) => {
         contract: starknetContract,
         eventName: EventName.L1.LOG_MESSAGE_TO_L2,
         filter: {
-          from_address: depositEvent.address,
+          fromAddress: depositEvent.address,
           selector: hash.getSelectorFromName(SelectorName.HANDLE_DEPOSIT)
         },
         options: {
@@ -124,14 +125,14 @@ export const TransfersLogProvider = ({children}) => {
     const messageToL2Event = await getMessageToL2(transfer.event);
     if (messageToL2Event) {
       logger.log('Found L2 message. calculating L2 transaction hash...', {messageToL2Event});
-      const {to_address, from_address, selector, payload, nonce} = messageToL2Event.returnValues;
+      const {toAddress, fromAddress, selector, payload, nonce} = messageToL2Event.returnValues;
       delete transfer.event;
       return {
         ...transfer,
         l2hash: getTransactionHash(
           TransactionHashPrefix.L1_HANDLER,
-          from_address,
-          to_address,
+          fromAddress,
+          toAddress,
           selector,
           payload,
           chainIdL2,

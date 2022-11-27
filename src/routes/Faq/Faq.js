@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {TrackEvent} from '../../analytics';
 import {ReactComponent as MinusCircle} from '../../assets/svg/icons/minus-circle.svg';
 import {ReactComponent as PlusCircle} from '../../assets/svg/icons/plus-circle.svg';
 import {FullScreenContainer} from '../../components/UI';
 import Faqs from '../../config/faqs';
-import {useTracking, useFaqTranslation} from '../../hooks';
+import {useFaqTracking, useFaqTranslation} from '../../hooks';
 import styles from './Faq.module.scss';
 
 export const Faq = () => {
-  const [trackFaqScreen] = useTracking(TrackEvent.FAQ_SCREEN);
+  const [trackFaqScreen] = useFaqTracking();
 
   useEffect(() => {
     trackFaqScreen();

@@ -2,27 +2,26 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useTransferTranslation} from '../../../hooks';
+import {useAmount} from '../../../providers/TransferProvider';
 import {MainMenuButton} from '../index';
 
-export const TransferButton = ({isDisabled, hasInputError, ...props}) => {
-  const {transferBtnTxt, disabledTransferBtnTxt} = useTransferTranslation();
+export const TransferButton = ({isDisabled, ...props}) => {
+  const {transferBtnTxt, amountBtnTxt} = useTransferTranslation();
+  const [amount] = useAmount();
 
-  const textAndStyle =
-    isDisabled && !hasInputError
-      ? {
-          text: disabledTransferBtnTxt,
-          style: {
-            textTransform: 'none'
-          }
+  const textAndStyle = !amount
+    ? {
+        text: amountBtnTxt,
+        style: {
+          textTransform: 'none'
         }
-      : {
-          text: transferBtnTxt
-        };
-
+      }
+    : {
+        text: transferBtnTxt
+      };
   return <MainMenuButton isDisabled={isDisabled} {...textAndStyle} {...props} />;
 };
 
 TransferButton.propTypes = {
-  isDisabled: PropTypes.bool,
-  hasInputError: PropTypes.bool
+  isDisabled: PropTypes.bool
 };

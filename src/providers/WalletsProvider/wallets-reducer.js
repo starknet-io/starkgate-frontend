@@ -9,7 +9,6 @@ export const actions = {
 
 const initialWalletState = {
   account: '',
-  isConnected: false,
   status: WalletStatus.DISCONNECTED,
   chainName: '',
   chainId: null,

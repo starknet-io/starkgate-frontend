@@ -1,7 +1,6 @@
 import {Select, MenuItem, ListSubheader} from '@mui/material';
 import React from 'react';
 
-import {ReactComponent as CollapseIcon} from '../../../assets/svg/icons/collapse.svg';
 import {categories, sources, depositConfig, withdrawConfig} from '../../../config/sources';
 import {useSource} from '../../../providers/SourceProvider';
 import {useIsL1} from '../../../providers/TransferProvider';
@@ -41,7 +40,7 @@ export const SourceSelect = () => {
 
   return (
     <SourceSelectTheme>
-      <Select IconComponent={CollapseIcon} value={source} onChange={handleChange}>
+      <Select IconComponent={''} value={source} onChange={handleChange}>
         {renderSources()}
       </Select>
     </SourceSelectTheme>

@@ -1,4 +1,5 @@
 import {ChainInfo, NetworkType} from '@starkware-industries/commons-js-enums';
+import {addAddressPadding} from '@starkware-industries/commons-js-libs/starknet';
 import React from 'react';
 
 import {useEnvs} from '../../../hooks';
@@ -13,7 +14,7 @@ export const StarknetWalletButton = () => {
 
   return (
     <NetworkWalletButton
-      account={account}
+      account={addAddressPadding(account)}
       chain={ChainInfo.L2[SUPPORTED_L2_CHAIN_ID].NAME}
       error={error}
       logoPath={config?.logoPath || ''}

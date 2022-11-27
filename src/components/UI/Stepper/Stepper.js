@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './Stepper.module.scss';
+import {StepperTheme} from './Stepper.theme';
 
 const Stepper = ({steps, activeStep}) => {
   return (
-    <div className={styles.stepper}>
-      <MuiStepper alternativeLabel activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={index}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </MuiStepper>
-    </div>
+    <StepperTheme>
+      <div className={styles.stepper}>
+        <MuiStepper alternativeLabel activeStep={activeStep}>
+          {steps.map((label, index) => (
+            <Step key={index}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </MuiStepper>
+      </div>
+    </StepperTheme>
   );
 };
 
