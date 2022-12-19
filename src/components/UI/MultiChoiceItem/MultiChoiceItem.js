@@ -20,10 +20,15 @@ export const MultiChoiceItem = ({
   size = CircleLogoSize.MEDIUM,
   isDisabled = false,
   isLoading,
+  error,
   onClick
 }) => (
   <div
-    className={toClasses(styles.multiChoiceItem, isDisabled && styles.isDisabled)}
+    className={toClasses(
+      styles.multiChoiceItem,
+      isDisabled && styles.isDisabled,
+      error && styles.error
+    )}
     onClick={onClick}
   >
     <div className={styles.container}>
@@ -50,5 +55,6 @@ MultiChoiceItem.propTypes = {
   size: PropTypes.number,
   isDisabled: PropTypes.bool,
   isLoading: PropTypes.bool,
+  error: PropTypes.object,
   onClick: PropTypes.func
 };

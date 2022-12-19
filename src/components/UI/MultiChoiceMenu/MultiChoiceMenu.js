@@ -18,7 +18,7 @@ export const MultiChoiceMenu = ({title, description, choices, error, footer}) =>
           {error && (
             <>
               <br />
-              <Alert title={error.message} type={AlertType.ERROR} />
+              <Alert message={error.message} title={error.name} type={AlertType.ERROR} />
             </>
           )}
         </div>

@@ -2,10 +2,10 @@ import {getCookie, setCookie} from '@starkware-industries/commons-js-utils';
 import React, {useEffect} from 'react';
 
 import {setUser} from '../../analytics';
-import {Account, SelectToken, ToastManager, Source} from '../../components/Features';
+import {Account, SelectToken, Source, ToastManager} from '../../components/Features';
 import {HIDE_ELEMENT_COOKIE_DURATION_DAYS, ONBOARDING_COOKIE_NAME} from '../../config/constants';
 import {MenuType} from '../../enums';
-import {useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
+import {useAccountChange, useIsMaxTotalBalanceExceeded, useMenuTracking} from '../../hooks';
 import {useLogin} from '../../providers/AppProvider';
 import {useMenu} from '../../providers/MenuProvider';
 import {useOnboardingModal} from '../../providers/ModalProvider';
@@ -23,13 +23,15 @@ export const Bridge = () => {
   const selectedToken = useSelectedToken();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
   const {isLoggedIn} = useLogin();
+  useAccountChange(accountHash => {
+    accountHash && setUser({accountL1, accountL2});
+  }, []);
 
   useEffect(() => {
     trackMenu(menu);
   }, [menu]);
 
   useEffect(() => {
-    setUser({accountL1, accountL2});
     maybeShowOnboardingModal();
   }, []);
 

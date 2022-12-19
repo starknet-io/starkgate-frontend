@@ -1,5 +1,5 @@
 import {WalletStatus} from '@starkware-industries/commons-js-enums';
-import {evaluate, shortenAddress} from '@starkware-industries/commons-js-utils';
+import {evaluate, shortenAddress, toClasses} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -17,7 +17,7 @@ export const WalletButton = ({account, chain, network, logoPath, status, onClick
   return status === WalletStatus.CONNECTED ? (
     <AccountWalletButton account={account} chain={chain} logoPath={logoPath} onClick={onClick} />
   ) : (
-    <ConnectWalletButton network={network} onClick={onClick} />
+    <ConnectWalletButton network={network} status={status} onClick={onClick} />
   );
 };
 
@@ -56,16 +56,18 @@ AccountWalletButton.propTypes = {
   onClick: PropTypes.func
 };
 
-const ConnectWalletButton = ({onClick, network}) => {
+const ConnectWalletButton = ({onClick, network, status}) => {
   const {colorOrangeSoda, colorFlame, colorWhite} = useColors();
-  const {connectWalletBtnTxt} = useHeaderTranslation();
+  const {connectWalletBtnTxt, connectingWalletBtnTxt} = useHeaderTranslation();
+  const connecting = status === WalletStatus.CONNECTING;
+
   return (
     <Button
-      className={styles.connectWalletButton}
+      className={toClasses(styles.connectWalletButton, styles[status])}
       colorBackground={colorOrangeSoda}
       colorBackgroundHover={colorFlame}
       colorText={colorWhite}
-      text={evaluate(connectWalletBtnTxt, {network})}
+      text={evaluate(connecting ? connectingWalletBtnTxt : connectWalletBtnTxt, {network})}
       onClick={onClick}
     />
   );
@@ -73,7 +75,8 @@ const ConnectWalletButton = ({onClick, network}) => {
 
 ConnectWalletButton.propTypes = {
   onClick: PropTypes.func,
-  network: PropTypes.string
+  network: PropTypes.string,
+  status: PropTypes.string
 };
 
 const ChainLabel = ({chain}) => {

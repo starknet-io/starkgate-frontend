@@ -1,4 +1,5 @@
 import splitbee from '@splitbee/web';
+import {ChainType} from '@starkware-industries/commons-js-enums';
 import {
   getLogger,
   getUrlParameter,
@@ -11,7 +12,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 import {App} from './App';
 import {ModalWrapper} from './components/UI';
-import {ENV} from './config/envs';
+import {ENV, SUPPORTED_L1_CHAIN_ID} from './config/envs';
 import './index.scss';
 import {AppProviders} from './providers';
 
@@ -24,6 +25,10 @@ if (ENV !== 'development') {
 if (ENV === 'development' || getUrlParameter('debugApp')) {
   setLogLevel(getLogger().DEBUG);
 }
+
+document.title += `StarkGate ${
+  SUPPORTED_L1_CHAIN_ID === ChainType.L1.GOERLI ? 'Goerli' : ''
+} Alpha`;
 
 ReactDOM.render(
   <BrowserRouter>

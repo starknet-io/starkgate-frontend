@@ -1,5 +1,5 @@
 import {useContract} from '@starkware-industries/commons-js-hooks';
-import {createContractL1, createContractL2} from '@starkware-industries/commons-js-utils';
+import {createContractL2} from '@starkware-industries/commons-js-utils';
 import {useCallback, useMemo} from 'react';
 
 import {
@@ -14,6 +14,7 @@ import Tokens from '../config/tokens';
 import {useTransfer} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {useEnvs} from './useEnvs';
+import {useWeb3} from './useWeb3';
 
 export const useTokenContract = () => {
   const getL1TokenContract = useL1TokenContract();
@@ -43,6 +44,11 @@ export const useTokenBridgeContract = () => {
   );
 };
 
+const useCreateContractL1 = () => {
+  const web3 = useWeb3();
+  return useCallback((address, abi) => web3 && new web3.eth.Contract(abi, address), [web3]);
+};
+
 export const useL2TokenContract = () => {
   const getContract = useContract(L2_ERC20_ABI, createContractL2);
 
@@ -50,12 +56,14 @@ export const useL2TokenContract = () => {
 };
 
 export const useL1TokenContract = () => {
+  const createContractL1 = useCreateContractL1();
   const getContract = useContract(L1_ERC20_ABI, createContractL1);
 
   return useCallback(tokenAddress => getContract(tokenAddress), [getContract]);
 };
 
 export const useStarknetContract = () => {
+  const createContractL1 = useCreateContractL1();
   const {STARKNET_CONTRACT_ADDRESS} = useEnvs();
   const getContract = useContract(L1_MESSAGING_ABI, createContractL1);
 
@@ -69,6 +77,7 @@ export const useL2TokenBridgeContract = () => {
 };
 
 export const useL1TokenBridgeContract = () => {
+  const createContractL1 = useCreateContractL1();
   const getTokenBridgeContract = useContract(L1_ERC20_BRIDGE_ABI, createContractL1);
   const getDAIBridgeContract = useContract(L1_DAI_BRIDGE_ABI, createContractL1);
   const getEthBridgeContract = useContract(L1_ETH_BRIDGE_ABI, createContractL1);

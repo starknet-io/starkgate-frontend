@@ -8,6 +8,10 @@
   border-radius: 8px;
   overflow-x: auto;
 
+  &.error {
+    border: 1px solid $--color-jasper;
+  }
+
   &:not(:last-child) {
     margin-bottom: 8px;
   }

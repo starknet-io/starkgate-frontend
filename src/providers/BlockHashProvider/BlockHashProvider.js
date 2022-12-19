@@ -1,6 +1,6 @@
 import {useLogger} from '@starkware-industries/commons-js-hooks';
-import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
 import {promiseHandler} from '@starkware-industries/commons-js-utils';
+import {getStarknet} from 'get-starknet';
 import PropTypes from 'prop-types';
 import React, {useCallback, useState} from 'react';
 
@@ -9,8 +9,8 @@ import {BlockHashContext} from './block-hash-context';
 
 export const BlockHashProvider = ({children}) => {
   const logger = useLogger(BlockHashProvider.displayName);
+  const [blockHash, setBlockHash] = useState('');
   const {POLL_BLOCK_NUMBER_INTERVAL} = useEnvs();
-  const [blockHash, setBlockHash] = useState();
 
   const fetchBlockHash = useCallback(async () => {
     const [response] = await promiseHandler(getStarknet().provider.getBlock());
@@ -19,16 +19,18 @@ export const BlockHashProvider = ({children}) => {
     }
   }, []);
 
-  useAccountChange(() => {
-    logger.log('Starting blockHash fetching');
-    fetchBlockHash();
-    const intervalId = setInterval(() => {
+  useAccountChange(accountHash => {
+    if (accountHash) {
+      logger.log('Starting block hash fetching');
       fetchBlockHash();
-    }, POLL_BLOCK_NUMBER_INTERVAL);
-    return () => {
-      logger.log('Stopping blockHash fetching');
-      clearInterval(intervalId);
-    };
+      const intervalId = setInterval(() => {
+        fetchBlockHash();
+      }, POLL_BLOCK_NUMBER_INTERVAL);
+      return () => {
+        logger.log('Stopping block hash fetching');
+        clearInterval(intervalId);
+      };
+    }
   });
 
   return <BlockHashContext.Provider value={blockHash}>{children}</BlockHashContext.Provider>;

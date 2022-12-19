@@ -6,17 +6,17 @@ import {
   TransactionHashPrefix
 } from '@starkware-industries/commons-js-enums';
 import {useLogger} from '@starkware-industries/commons-js-hooks';
-import {getStarknet} from '@starkware-industries/commons-js-libs/get-starknet';
-import {hash} from '@starkware-industries/commons-js-libs/starknet';
 import {
-  getStorageItem,
-  setStorageItem,
-  getTransactionHash,
   getPastEvents,
-  promiseHandler
+  getStorageItem,
+  getTransactionHash,
+  promiseHandler,
+  setStorageItem
 } from '@starkware-industries/commons-js-utils';
+import {getStarknet} from 'get-starknet';
 import PropTypes from 'prop-types';
-import React, {useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
+import {hash} from 'starknet';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {useAccountChange, useEnvs, useStarknetContract} from '../../hooks';
@@ -36,10 +36,14 @@ export const TransfersLogProvider = ({children}) => {
   const starknetContract = useStarknetContract();
   const accountHash = useAccountHash();
 
-  useAccountChange(() => {
-    const storedTransfers = getTransfersFromStorage();
-    logger.log('Extract transfers from local storage', storedTransfers);
-    setTransfers(storedTransfers);
+  useAccountChange(accountHash => {
+    if (accountHash) {
+      const storedTransfers = getTransfersFromStorage();
+      logger.log('Extract transfers from local storage', storedTransfers);
+      setTransfers(storedTransfers);
+    } else {
+      resetTransfers();
+    }
   });
 
   useDeepCompareEffect(() => {
@@ -49,7 +53,7 @@ export const TransfersLogProvider = ({children}) => {
     }
   }, [transfers]);
 
-  useAccountChange(() => {
+  useEffect(() => {
     const checkTransfers = async () => {
       logger.log('Block hash updated. Checking transfers...', {blockHash});
       if (!blockHash) {
@@ -71,7 +75,7 @@ export const TransfersLogProvider = ({children}) => {
       }
     };
 
-    checkTransfers();
+    blockHash && checkTransfers();
   }, [blockHash]);
 
   const checkTransaction = async transfer => {
@@ -175,6 +179,12 @@ export const TransfersLogProvider = ({children}) => {
     dispatch({
       type: actions.SET_TRANSFERS,
       transfers
+    });
+  };
+
+  const resetTransfers = () => {
+    dispatch({
+      type: actions.RESET_TRANSFERS
     });
   };
 
