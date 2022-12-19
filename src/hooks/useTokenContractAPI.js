@@ -1,5 +1,4 @@
 import {TransactionStatus} from '@starkware-industries/commons-js-enums';
-import {web3} from '@starkware-industries/commons-js-libs/web3';
 import {
   callContractL1,
   sendTransactionL1,
@@ -13,12 +12,14 @@ import {useCallback} from 'react';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {useL1TokenContract, useL2TokenContract} from './useContract';
+import {useWeb3} from './useWeb3';
 
 export const useTokenContractAPI = () => {
   const selectedToken = useSelectedToken();
   const getL1TokenContract = useL1TokenContract();
   const getL2TokenContract = useL2TokenContract();
   const {account: accountL1} = useL1Wallet();
+  const web3 = useWeb3();
 
   const approve = useCallback(
     async ({spender, value}) => {
@@ -46,13 +47,18 @@ export const useTokenContractAPI = () => {
     [selectedToken, getL1TokenContract]
   );
 
-  const balanceOfEth = useCallback(async account => {
-    const [balance, error] = await promiseHandler(web3.eth.getBalance(account));
-    if (error) {
-      return Promise.reject(error);
-    }
-    return parseFromDecimals(balance);
-  }, []);
+  const balanceOfEth = useCallback(
+    async account => {
+      if (web3) {
+        const [balance, error] = await promiseHandler(web3.eth.getBalance(account));
+        if (error) {
+          return Promise.reject(error);
+        }
+        return parseFromDecimals(balance);
+      }
+    },
+    [web3]
+  );
 
   const balanceOfL1 = useCallback(
     async ({account, token}) => {

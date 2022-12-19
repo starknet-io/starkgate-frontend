@@ -1,10 +1,12 @@
-import {NetworkType} from '@starkware-industries/commons-js-enums';
-import {useCallback, useContext} from 'react';
+import {NetworkType, WalletStatus} from '@starkware-industries/commons-js-enums';
+import {usePrevious} from '@starkware-industries/commons-js-hooks';
+import {useCallback, useContext, useEffect} from 'react';
 
 import {ReactComponent as AlertIcon} from '../../assets/svg/icons/alert-circle.svg';
 import {ReactComponent as WarningIcon} from '../../assets/svg/icons/warning-circle.svg';
 import {ModalType} from '../../components/UI';
 import {useOnboardingModalTranslation, useBlockedAddressModalTranslation} from '../../hooks';
+import {useL2Wallet} from '../WalletsProvider';
 import {ModalContext} from './modal-context';
 
 const TRANSACTION_MODAL_STYLE = {
@@ -218,7 +220,16 @@ export const useOnboardingModal = () => {
 };
 
 export const useLoginModal = () => {
-  const {showModal} = useContext(ModalContext);
+  const {showModal, show} = useContext(ModalContext);
+  const prevShow = usePrevious(show);
+  const {status, resetWallet} = useL2Wallet();
+
+  useEffect(() => {
+    // reset L2 wallet if the user closed the modal on connecting
+    if (prevShow && !show && status === WalletStatus.CONNECTING) {
+      resetWallet();
+    }
+  }, [show, status]);
 
   return useCallback(
     (networkName = NetworkType.L1) => {

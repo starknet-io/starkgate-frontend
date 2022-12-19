@@ -1,6 +1,6 @@
 import {ChainInfo, NetworkType} from '@starkware-industries/commons-js-enums';
-import {addAddressPadding} from '@starkware-industries/commons-js-libs/starknet';
 import React from 'react';
+import {addAddressPadding} from 'starknet';
 
 import {useEnvs} from '../../../hooks';
 import {useIsL2} from '../../../providers/TransferProvider';

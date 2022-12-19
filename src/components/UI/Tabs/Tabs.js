@@ -8,7 +8,7 @@ export const Tabs = ({tabs}) => {
   return tabs.map((tab, index) => {
     return (
       <Fragment key={tab.text}>
-        <Tab isActive={tab.isActive} text={tab.text} onClick={tab.onClick} />
+        <Tab {...tab} />
         {index !== tabs.length - 1 && <Divider />}
       </Fragment>
     );

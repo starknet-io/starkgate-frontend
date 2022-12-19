@@ -51,12 +51,6 @@ export const sources = {
       path: 'icons/card'
     }
   },
-  ftx: {
-    label: 'FTX',
-    icon: {
-      path: 'exchanges/ftx'
-    }
-  },
   coinbase: {
     label: 'Coinbase',
     icon: {
@@ -159,7 +153,6 @@ export const depositConfig = {
     card: ['banxa', 'ramp']
   },
   exchanges: {
-    ftx: ['layerswap'],
     coinbase: ['layerswap'],
     okx: ['layerswap'],
     huobi: ['layerswap'],
@@ -176,7 +169,6 @@ export const withdrawConfig = {
     other_chains: ['orbiter']
   },
   exchanges: {
-    ftx: ['layerswap'],
     coinbase: ['layerswap'],
     okx: ['layerswap'],
     huobi: ['layerswap'],

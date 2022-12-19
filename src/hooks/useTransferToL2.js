@@ -1,12 +1,13 @@
 import {EventName} from '@starkware-industries/commons-js-enums';
 import {useLogger} from '@starkware-industries/commons-js-hooks';
-import {constants} from '@starkware-industries/commons-js-libs/starknet';
 import {promiseHandler, addToken} from '@starkware-industries/commons-js-utils';
 import {useCallback} from 'react';
+import {constants} from 'starknet';
 
 import {ActionType, stepOf, TransferError, TransferStep, TransferToL2Steps} from '../enums';
 import {useL2Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
+import {useTransfersLog} from '../providers/TransfersLogProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {isEth} from '../utils';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
@@ -28,6 +29,7 @@ export const useTransferToL2 = () => {
   const progressOptions = useTransferProgress();
   const getL2Token = useL2Token();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
+  const {addTransfer} = useTransfersLog();
 
   return useCallback(
     async amount => {
@@ -61,7 +63,7 @@ export const useTransferToL2 = () => {
       const onDeposit = event => {
         logger.log('Deposit event dispatched', event);
         trackSuccess(event.transactionHash);
-        handleData({
+        const transferData = {
           type: ActionType.TRANSFER_TO_L2,
           sender: accountL1,
           recipient: accountL2,
@@ -70,7 +72,9 @@ export const useTransferToL2 = () => {
           symbol,
           amount,
           event
-        });
+        };
+        addTransfer(transferData);
+        handleData(transferData);
       };
 
       const maybeAddToken = async () => {

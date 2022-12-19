@@ -4,7 +4,9 @@ export default {
       chainTxt: 'Goerli testnet',
       accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
+      connectingWalletBtnTxt: 'Connecting {{network}} Wallet...',
       tabs: {
+        discoverAppsTxt: 'Discover apps',
         termsTxt: 'Terms',
         faqTxt: 'FAQ'
       }
@@ -76,8 +78,7 @@ export default {
     login: {
       titleTxt: 'Connect {{networkName}} Wallet',
       unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
-      unsupportedBrowserTxt:
-        "Note - The current version of StarkGate (Alpha) doesn't support your browser. Use Chrome or Firefox to connect."
+      installTxt: 'Install {{wallet}}'
     },
     transactionSubmitted: {
       titleTxt: 'Transaction sent',

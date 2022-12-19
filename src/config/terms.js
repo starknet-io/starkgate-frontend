@@ -5,7 +5,8 @@ import {
   STARKNET_DOCS_URL,
   STARKGATE_MAIL_ADDRESS,
   STARKGATE_CONTRACTS_REPO_URL,
-  STARKNET_SITE_URL
+  STARKNET_PRIVACY_POLICY_URL,
+  STARKNET_TERMS_URL
 } from './constants';
 
 const appUrl = window.location.origin;
@@ -39,10 +40,13 @@ export default (
           By entering, connecting to, accessing or using the Site, Interface and/or the Bridge, you
           acknowledge that you have read and understood the following Terms of Service
           (collectively, the &#34;<b>Terms</b>&#34;), and the terms of our <b>Privacy Policy</b>{' '}
-          available at `${STARKNET_SITE_URL}/privacy-policy/` and you agree to be bound by them and
-          to comply with all applicable laws and regulations regarding your use of the Site,
-          Interface and the Bridge, and you acknowledge that these Terms constitute a binding and
-          enforceable legal contract between StarkWare and you.{' '}
+          available at{' '}
+          <a href={STARKNET_PRIVACY_POLICY_URL} rel="noreferrer" target="_blank">
+            {STARKNET_PRIVACY_POLICY_URL}
+          </a>{' '}
+          and you agree to be bound by them and to comply with all applicable laws and regulations
+          regarding your use of the Site, Interface and the Bridge, and you acknowledge that these
+          Terms constitute a binding and enforceable legal contract between StarkWare and you.{' '}
           <b>
             IF YOU DO NOT AGREE TO THESE TERMS, PLEASE DO NOT ENTER, CONNECT TO, ACCESS OR USE THE
             SITE, INTERFACE AND/OR BRIDGE IN ANY MANNER.
@@ -53,9 +57,11 @@ export default (
             THE BRIDGE OPERATES IN PART ON STARKNET, A PERMISSIONLESS DECENTRALIZED VALIDITY -ROLLUP
             THAT OPERATES AS AN L2 NETWORK OVER ETHEREUM. WHEN YOU USE THE BRIDGE, YOU ARE ALSO
             USING STARKNET TO SCALE YOUR ETHEREUM TRANSACTIONS. BY USING THE BRIDGE, YOU ACKNOWLEDGE
-            AND AGREE THAT YOU HAVE READ, AND AGREE TO, THE STARKNET TERMS OF USE LOCATED AT `$
-            {STARKNET_SITE_URL}/terms/`, WHICH WILL APPLY TO ANY USE BY YOU OF THE BRIDGE AND/OR OF
-            STARKNET.
+            AND AGREE THAT YOU HAVE READ, AND AGREE TO, THE STARKNET TERMS OF USE LOCATED AT{' '}
+            <a href={STARKNET_TERMS_URL} rel="noreferrer" target="_blank">
+              {STARKNET_TERMS_URL}
+            </a>{' '}
+            , WHICH WILL APPLY TO ANY USE BY YOU OF THE BRIDGE AND/OR OF STARKNET.
           </b>
         </p>
         <p>

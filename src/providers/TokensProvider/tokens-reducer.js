@@ -2,7 +2,8 @@ import {SUPPORTED_L1_CHAIN_ID, SUPPORTED_L2_CHAIN_ID, SUPPORTED_TOKENS} from '..
 import Tokens from '../../config/tokens';
 
 export const actions = {
-  UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN'
+  UPDATE_TOKEN: 'Tokens/UPDATE_TOKEN',
+  RESET_TOKENS: 'Tokens/RESET_TOKENS'
 };
 
 const tokens = [
@@ -35,6 +36,9 @@ export const reducer = (state, action) => {
       clonedTokens[index] = newToken;
       return clonedTokens;
     }
+
+    case actions.RESET_TOKENS:
+      return initialState;
 
     default:
       return state;

@@ -3,7 +3,8 @@ import {generateId} from '@starkware-industries/commons-js-utils';
 export const actions = {
   SET_TRANSFERS: 'TransfersLog/SET_TRANSFERS',
   ADD_TRANSFER: 'TransfersLog/ADD_TRANSFER',
-  UPDATE_TRANSFERS: 'TransfersLog/UPDATE_TRANSFERS'
+  UPDATE_TRANSFERS: 'TransfersLog/UPDATE_TRANSFERS',
+  RESET_TRANSFERS: 'TransfersLog/RESET_TRANSFERS'
 };
 
 export const initialState = [];
@@ -28,6 +29,10 @@ export const reducer = (state, action) => {
         }
       });
       return transfers;
+    }
+
+    case actions.RESET_TRANSFERS: {
+      return initialState;
     }
 
     default:

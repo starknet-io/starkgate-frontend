@@ -2,77 +2,107 @@ import {
   ChainInfo,
   ChainType,
   WalletErrorType,
+  WalletIdL2,
   WalletStatus
 } from '@starkware-industries/commons-js-enums';
+import {useLogger} from '@starkware-industries/commons-js-hooks';
+import {setCookie} from '@starkware-industries/commons-js-utils';
 import {
   connect as getStarknetWallet,
   disconnect as resetStarknetWallet,
   getStarknet
-} from '@starkware-industries/commons-js-libs/get-starknet';
+} from 'get-starknet';
 import {useState} from 'react';
 
+import {useConstants} from './useConstants';
 import {useEnvs} from './useEnvs';
 
 export const useStarknetWallet = () => {
-  const {AUTO_CONNECT, SUPPORTED_L2_CHAIN_ID} = useEnvs();
+  const logger = useLogger('useStarknetWallet');
+  const {CONNECTED_L2_WALLET_ID_COOKIE_NAME} = useConstants();
+  const {SUPPORTED_L2_CHAIN_ID} = useEnvs();
   const [error, setError] = useState(null);
   const [account, setAccount] = useState('');
   const [chainId, setChainId] = useState('');
   const [chainName, setChainName] = useState('');
   const [status, setStatus] = useState(WalletStatus.DISCONNECTED);
+  const [config, setConfig] = useState(null);
 
-  const connect = async walletConfig => {
-    try {
-      const wallet = await getStarknetWallet({
-        modalOptions: {
-          theme: 'dark'
+  const connect = async ({autoConnect} = {}) => {
+    const doConnect = async () => {
+      logger.log('connect');
+      try {
+        setStatus(WalletStatus.CONNECTING);
+        const wallet = await getStarknetWallet({
+          modalOptions: {
+            theme: 'dark'
+          },
+          ...(autoConnect ? {showList: false} : {})
+        });
+        if (!wallet) {
+          logger.warn('empty wallet');
+          setStatus(WalletStatus.DISCONNECTED);
+          reset();
+          return;
         }
-      });
-      if (!wallet) {
-        return;
+        const enabled = await wallet
+          .enable({showModal: !autoConnect})
+          .then(address => address?.length && address[0]);
+        if (enabled) {
+          logger.log('connect success');
+          updateAccount();
+          addAccountChangedListener();
+        }
+      } catch (ex) {
+        logger.error('connect failed');
+        setStatus(WalletStatus.ERROR);
+        setError({
+          name: WalletErrorType.CONNECTION_REJECTED_ERROR,
+          message: ex.message
+        });
       }
-      setStatus(WalletStatus.CONNECTING);
-      const enabled = await wallet
-        .enable(!AUTO_CONNECT && {showModal: true})
-        .then(address => address?.length && address[0]);
-      if (enabled) {
-        updateAccount();
-        addAccountChangedListener();
-        return {
-          ...walletConfig,
-          name: wallet.name || walletConfig.name,
-          logoPath: wallet.icon || walletConfig.logoPath
-        };
-      }
-    } catch {
-      setStatus(WalletStatus.ERROR);
+    };
+
+    if (![WalletStatus.CONNECTED, WalletStatus.CONNECTING].includes(status)) {
+      await doConnect();
     }
   };
 
   const reset = () => {
+    logger.log('reset');
     const disconnected = resetStarknetWallet({clearLastWallet: true, clearDefaultWallet: true});
     if (disconnected) {
       setStatus(WalletStatus.DISCONNECTED);
       setAccount('');
+      setConfig(null);
+      setCookie(CONNECTED_L2_WALLET_ID_COOKIE_NAME, '');
     }
   };
 
   const addAccountChangedListener = () => {
     getStarknet().on('accountsChanged', () => {
+      setStatus(WalletStatus.DISCONNECTED);
       updateAccount();
     });
   };
 
   const updateAccount = () => {
     const chainId = getCurrentChainId();
-    setChainId(chainId);
-    setChainName(ChainInfo.L2[chainId].NAME);
+    const {selectedAddress, name, icon} = getStarknet();
+    setConfig({
+      id: WalletIdL2.GSW,
+      name,
+      logoPath: icon
+    });
     if (chainId === SUPPORTED_L2_CHAIN_ID) {
-      const {selectedAddress} = getStarknet();
+      setChainId(chainId);
+      setChainName(ChainInfo.L2[chainId].NAME);
       setAccount(selectedAddress);
       setStatus(selectedAddress ? WalletStatus.CONNECTED : WalletStatus.DISCONNECTED);
       setError(null);
+      setCookie(CONNECTED_L2_WALLET_ID_COOKIE_NAME, WalletIdL2.GSW);
     } else {
+      setAccount(null);
       setStatus(WalletStatus.ERROR);
       setError({name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR});
     }
@@ -95,6 +125,7 @@ export const useStarknetWallet = () => {
     chainName,
     status,
     error,
+    config,
     connect,
     reset
   };

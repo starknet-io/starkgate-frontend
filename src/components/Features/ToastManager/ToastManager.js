@@ -4,7 +4,7 @@ import {
   isRejected,
   NetworkType
 } from '@starkware-industries/commons-js-enums';
-import {usePrevious} from '@starkware-industries/commons-js-hooks';
+import {usePrevious, useDidMountEffect} from '@starkware-industries/commons-js-hooks';
 import {getCookie, getFullTime, setCookie} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect} from 'react';
@@ -41,10 +41,8 @@ export const ToastManager = () => {
   const {breakpoint} = useBreakpoint(Breakpoint);
   const accountHash = useAccountHash();
 
-  useEffect(() => {
-    if (!accountHash) {
-      clearToasts();
-    }
+  useDidMountEffect(() => {
+    clearToasts();
   }, [accountHash]);
 
   useEffect(() => {
@@ -58,11 +56,7 @@ export const ToastManager = () => {
     if (accountHash) {
       renderToasts();
     }
-  }, [transfers, accountHash]);
-
-  useEffect(() => {
-    return () => clearToasts();
-  }, []);
+  }, [transfers]);
 
   const renderToasts = () => {
     transfers.forEach(transfer => {

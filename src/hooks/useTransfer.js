@@ -6,14 +6,12 @@ import {
 } from '../providers/ModalProvider';
 import {useTokens} from '../providers/TokensProvider';
 import {useAmount} from '../providers/TransferProvider';
-import {useTransfersLog} from '../providers/TransfersLogProvider';
 
 export const useTransfer = steps => {
   const showProgressModal = useProgressModal(steps);
   const showErrorModal = useErrorModal();
   const hideModal = useHideModal();
   const showTransactionSubmittedModal = useTransactionSubmittedModal(steps);
-  const {addTransfer, updateTransfers} = useTransfersLog();
   const {updateTokenBalance} = useTokens();
   const [, , clearAmount] = useAmount();
 
@@ -27,7 +25,6 @@ export const useTransfer = steps => {
   };
 
   const handleData = transfer => {
-    transfer.id ? updateTransfers(transfer) : addTransfer(transfer);
     showTransactionSubmittedModal(transfer);
     updateTokenBalance(transfer.symbol);
     clearAmount();

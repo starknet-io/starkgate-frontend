@@ -10,11 +10,13 @@ export const WalletsProvider = ({children}) => {
   const {ENABLE_SCREENING} = useEnvs();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [accountHash, setAccountHash] = useState('');
-  const walletL1 = useEthereumWallet({enableScreening: ENABLE_SCREENING});
+  const walletL1 = useEthereumWallet({
+    enableScreening: ENABLE_SCREENING
+  });
   const walletL2 = useStarknetWallet();
 
-  const {account: accountL1, status: statusL1, error: errorL1} = walletL1;
-  const {account: accountL2, status: statusL2, error: errorL2} = walletL2;
+  const {account: accountL1, status: statusL1, error: errorL1, config: configL1} = walletL1;
+  const {account: accountL2, status: statusL2, error: errorL2, config: configL2} = walletL2;
 
   useEffect(() => {
     updateWalletL2(walletL2);
@@ -32,24 +34,27 @@ export const WalletsProvider = ({children}) => {
     }
   }, [accountL1, accountL2]);
 
+  useEffect(() => {
+    setWalletConfigL1(configL1);
+  }, [configL1]);
+
+  useEffect(() => {
+    setWalletConfigL2(configL2);
+  }, [configL2]);
+
   const connectWalletL1 = async walletConfig => {
-    const {connectorId} = walletConfig;
-    return walletL1.connect(connectorId).then(() => setWalletConfigL1(walletConfig));
+    return walletL1.connect(walletConfig);
   };
 
   const resetWalletL1 = () => {
-    setWalletConfigL1(null);
     return walletL1.reset();
   };
 
-  const connectWalletL2 = async walletConfig => {
-    return walletL2
-      .connect(walletConfig)
-      .then(chosenWalletConfig => setWalletConfigL2(chosenWalletConfig));
+  const connectWalletL2 = async params => {
+    return walletL2.connect(params);
   };
 
   const resetWalletL2 = () => {
-    setWalletConfigL2(null);
     return walletL2.reset();
   };
 

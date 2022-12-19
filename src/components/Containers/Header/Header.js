@@ -1,8 +1,10 @@
-import {toClasses} from '@starkware-industries/commons-js-utils';
+import {openInNewTab, toClasses} from '@starkware-industries/commons-js-utils';
 import React from 'react';
 import {useLocation} from 'react-router-dom';
 
 import {ReactComponent as StarkGateLogo} from '../../../assets/img/starkgate.svg';
+import {ReactComponent as LinkIcon} from '../../../assets/svg/icons/link.svg';
+import {STARKNET_ECOSYSTEM_URL} from '../../../config/constants';
 import {useTabsTranslation} from '../../../hooks';
 import {useApp} from '../../../providers/AppProvider';
 import {useMenu} from '../../../providers/MenuProvider';
@@ -15,11 +17,16 @@ export const Header = () => {
   const {showSourceMenu} = useMenu();
   const {navigateToRoute, isAcceptTerms} = useApp();
   const {pathname} = useLocation();
-  const {termsTxt, faqTxt} = useTabsTranslation();
+  const {discoverAppsTxt, termsTxt, faqTxt} = useTabsTranslation();
   const {selectDefaultSource} = useSource();
   const [, swapToL1] = useIsL1();
 
   const tabs = [
+    {
+      text: discoverAppsTxt,
+      icon: <LinkIcon />,
+      onClick: () => openInNewTab(STARKNET_ECOSYSTEM_URL)
+    },
     {
       text: termsTxt,
       isActive: pathname === '/terms',

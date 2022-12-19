@@ -12,6 +12,7 @@ import {
   TransferToL1Steps
 } from '../enums';
 import {useSelectedToken} from '../providers/TransferProvider';
+import {useTransfersLog} from '../providers/TransfersLogProvider';
 import {useL1Wallet, useL2Wallet} from '../providers/WalletsProvider';
 import {useBridgeContractAPI} from './useBridgeContractAPI';
 import {useCompleteTransferToL1Tracking, useTransferToL1Tracking} from './useTracking';
@@ -27,6 +28,7 @@ export const useTransferToL1 = () => {
   const selectedToken = useSelectedToken();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL1Steps);
   const progressOptions = useTransferProgress();
+  const {addTransfer} = useTransfersLog();
 
   return useCallback(
     async amount => {
@@ -55,6 +57,16 @@ export const useTransferToL1 = () => {
         );
         logger.log('Calling initiate withdraw');
         const {transaction_hash: l2hash} = await sendInitiateWithdraw();
+        const transferData = {
+          type: ActionType.TRANSFER_TO_L1,
+          sender: accountL2,
+          recipient: accountL1,
+          name,
+          symbol,
+          amount,
+          l2hash
+        };
+        addTransfer(transferData);
         logger.log('Tx hash received', {l2hash});
         handleProgress(
           progressOptions.initiateWithdraw(
@@ -67,15 +79,7 @@ export const useTransferToL1 = () => {
         await waitForTransaction(l2hash, TransactionStatus.RECEIVED);
         logger.log('Done', {l2hash});
         trackSuccess(l2hash);
-        handleData({
-          type: ActionType.TRANSFER_TO_L1,
-          sender: accountL2,
-          recipient: accountL1,
-          name,
-          symbol,
-          amount,
-          l2hash
-        });
+        handleData(transferData);
       } catch (ex) {
         logger.error(ex.message, ex);
         trackError(ex);
@@ -104,6 +108,7 @@ export const useCompleteTransferToL1 = () => {
   const {account: accountL1, config: configL1} = useL1Wallet();
   const {handleProgress, handleData, handleError} = useTransfer(CompleteTransferToL1Steps);
   const progressOptions = useTransferProgress();
+  const {updateTransfers} = useTransfersLog();
 
   return useCallback(
     async transfer => {
@@ -141,7 +146,9 @@ export const useCompleteTransferToL1 = () => {
         logger.log('Withdrawal event dispatched', event);
         const {transactionHash: l1hash} = event;
         trackSuccess(l1hash);
-        handleData({...transfer, l1hash});
+        const transferData = {...transfer, l1hash};
+        updateTransfers(transferData);
+        handleData(transferData);
       };
 
       try {

@@ -1,109 +1,69 @@
-import {
-  ChainInfo,
-  LoginErrorType,
-  NetworkType,
-  WalletErrorType,
-  WalletStatus
-} from '@starkware-industries/commons-js-enums';
-import {useDidMountEffect} from '@starkware-industries/commons-js-hooks';
+import {NetworkType, WalletStatus} from '@starkware-industries/commons-js-enums';
+import {useDidMountEffect, useLogger} from '@starkware-industries/commons-js-hooks';
 import {evaluate} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {
-  useEnvs,
-  useLoginTracking,
-  useLoginTranslation,
-  useWalletHandlerProvider
-} from '../../../../hooks';
+import {useLoginTracking, useLoginTranslation, useWalletHandlers} from '../../../../hooks';
 import {useLogin} from '../../../../providers/AppProvider';
 import {useHideModal} from '../../../../providers/ModalProvider';
-import {useLoginWallet, useWalletsStatus} from '../../../../providers/WalletsProvider';
+import {useWalletsStatus} from '../../../../providers/WalletsProvider';
 import {MultiChoiceMenu} from '../../index';
 
-const AUTO_CONNECT_TIMEOUT_DURATION = 100;
-
 const LoginModal = ({networkName}) => {
-  const {titleTxt, unsupportedChainIdTxt} = useLoginTranslation();
-  const [trackWalletClick, trackLoginError] = useLoginTracking();
-  const {AUTO_CONNECT, SUPPORTED_L1_CHAIN_ID} = useEnvs();
+  const logger = useLogger('LoginModal');
   const [error, setError] = useState(null);
+  const {titleTxt} = useLoginTranslation();
+  const [trackWalletClick, trackLoginError] = useLoginTracking();
   const {statusL1, statusL2} = useWalletsStatus();
   const [network, setNetwork] = useState(networkName || NetworkType.L1);
-  const {walletError, walletStatus, connectWallet} = useLoginWallet(network);
-  const walletHandlers = useWalletHandlerProvider(network);
+  const walletHandlers = useWalletHandlers(network);
   const {isLoggedIn} = useLogin();
   const hideModal = useHideModal();
+
+  useDidMountEffect(() => {
+    if (network === NetworkType.L2 && statusL2 === WalletStatus.CONNECTED) {
+      setNetwork(NetworkType.L1);
+    }
+
+    if (network === NetworkType.L1 && statusL1 === WalletStatus.CONNECTED) {
+      setNetwork(NetworkType.L2);
+    }
+  }, [statusL1, statusL2]);
 
   useEffect(() => {
     isLoggedIn && hideModal();
   }, [isLoggedIn]);
 
-  useDidMountEffect(() => {
-    if (statusL1 !== WalletStatus.CONNECTED) {
-      network !== NetworkType.L1 && setNetwork(NetworkType.L1);
-    } else if (statusL2 !== WalletStatus.CONNECTED) {
-      network !== NetworkType.L2 && setNetwork(NetworkType.L2);
+  useEffect(() => {
+    const walletHandler = walletHandlers.find(({error}) => !!error);
+    if (walletHandler) {
+      const {error} = walletHandler;
+      logger.log('set wallet error', error);
+      setError(error);
+    } else {
+      setError(null);
     }
-  }, [statusL1, statusL2]);
+  }, [walletHandlers]);
 
   useEffect(() => {
-    walletError ? handleWalletError(walletError) : setError(null);
-  }, [walletError]);
-
-  useEffect(() => {
-    let timeoutId;
     if (error) {
       trackLoginError(error);
-    } else if (!error && AUTO_CONNECT) {
-      if (walletHandlers.length > 0) {
-        timeoutId = setTimeout(
-          () => onWalletConnect(walletHandlers[0]),
-          AUTO_CONNECT_TIMEOUT_DURATION
-        );
-      }
     }
-    return () => clearTimeout(timeoutId);
-  }, [error, walletHandlers]);
+  }, [error]);
 
-  const onWalletConnect = walletHandler => {
-    const {config} = walletHandler;
-    const {name} = config;
+  const walletChoiceClick = async walletHandler => {
+    const {name} = walletHandler;
     trackWalletClick(name);
-    if (!walletHandler.isInstalled()) {
-      try {
-        return walletHandler.install();
-      } catch (ex) {
-        setError(ex);
-      }
-    } else {
-      return connectWallet(config);
-    }
-  };
-
-  const handleWalletError = error => {
-    if (error.name === WalletErrorType.CHAIN_UNSUPPORTED_ERROR) {
-      setError({
-        type: LoginErrorType.UNSUPPORTED_CHAIN_ID,
-        message: evaluate(unsupportedChainIdTxt, {
-          chainName: ChainInfo.L1[SUPPORTED_L1_CHAIN_ID].NAME
-        })
-      });
-    }
+    logger.log(`connect to ${name}`);
+    await walletHandler.connect();
   };
 
   const mapLoginWalletsToChoices = () => {
     return walletHandlers.map(walletHandler => {
-      const {
-        config: {id, description, name, logoPath}
-      } = walletHandler;
       return {
-        id,
-        description,
-        isLoading: walletStatus === WalletStatus.CONNECTING,
-        logoPath,
-        name,
-        onClick: () => onWalletConnect(walletHandler)
+        ...walletHandler,
+        onClick: () => walletChoiceClick(walletHandler)
       };
     });
   };

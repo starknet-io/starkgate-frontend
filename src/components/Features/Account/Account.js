@@ -1,18 +1,19 @@
-import {addAddressPadding} from '@starkware-industries/commons-js-libs/starknet';
+import {useLogger} from '@starkware-industries/commons-js-hooks';
 import {evaluate, findIndexById} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {addAddressPadding} from 'starknet';
 
 import {
   useAccountTracking,
+  useAccountTranslation,
   useCompleteTransferToL1,
-  useEnvs,
-  useAccountTranslation
+  useEnvs
 } from '../../../hooks';
 import {useMenu} from '../../../providers/MenuProvider';
 import {useTransfer} from '../../../providers/TransferProvider';
 import {useAccountTransfersLog} from '../../../providers/TransfersLogProvider';
-import {useAccountHash, useWallets} from '../../../providers/WalletsProvider';
+import {useWallets} from '../../../providers/WalletsProvider';
 import {
   AccountAddress,
   BackButton,
@@ -26,6 +27,7 @@ import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 
 export const Account = ({transferId}) => {
+  const logger = useLogger('Account');
   const {titleTxt, btnTxt} = useAccountTranslation();
   const [
     trackTxLinkClick,
@@ -40,10 +42,15 @@ export const Account = ({transferId}) => {
   const {isL1, isL2, fromNetwork} = useTransfer();
   const transfers = useAccountTransfersLog(account);
   const completeTransferToL1 = useCompleteTransferToL1();
-  const accountHash = useAccountHash();
+
+  useEffect(() => {
+    if (!account) {
+      showSourceMenu();
+    }
+  }, [account]);
 
   const renderTransfers = () => {
-    return accountHash && transfers.length
+    return transfers.length
       ? transfers.map((transfer, index) => (
           <TransferLog
             key={index}
@@ -61,6 +68,7 @@ export const Account = ({transferId}) => {
   };
 
   const handleLogout = () => {
+    logger.log(`logout ${fromNetwork} wallet`);
     showSourceMenu();
     resetWallet();
   };

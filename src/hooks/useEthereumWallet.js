@@ -1,12 +1,16 @@
 import {WalletStatus} from '@starkware-industries/commons-js-enums';
+import {useLogger} from '@starkware-industries/commons-js-hooks';
+import {setCookie} from '@starkware-industries/commons-js-utils';
 import {useEffect, useState} from 'react';
 import {useWallet} from 'use-wallet';
 
+import {CONNECTED_L1_WALLET_ID_COOKIE_NAME} from '../config/constants';
 import {useBlockedAddressModal, useErrorModal} from '../providers/ModalProvider';
 import {useScreening} from './useScreening';
 import {useLoginTracking} from './useTracking';
 
 export const useEthereumWallet = ({enableScreening}) => {
+  const logger = useLogger('useEthereumWallet');
   const [wallet, setWallet] = useState({
     error: null,
     account: '',
@@ -14,15 +18,17 @@ export const useEthereumWallet = ({enableScreening}) => {
     chainName: '',
     status: WalletStatus.DISCONNECTED
   });
+
   const {
     account,
     status,
     error,
     chainId,
-    reset,
+    reset: resetWallet,
     networkName: chainName,
     connect: connectWallet
   } = useWallet();
+
   const {
     isScreening,
     blocked,
@@ -33,6 +39,7 @@ export const useEthereumWallet = ({enableScreening}) => {
   const showErrorModal = useErrorModal();
   const isBlockedOrError = blocked || screeningError;
   const isUnblocked = !isScreening && !isBlockedOrError;
+  const [config, setConfig] = useState(null);
 
   useEffect(() => {
     if (enableScreening) {
@@ -74,6 +81,12 @@ export const useEthereumWallet = ({enableScreening}) => {
     }
   }, [status, isScreening]);
 
+  useEffect(() => {
+    if (status === WalletStatus.CONNECTED) {
+      setCookie(CONNECTED_L1_WALLET_ID_COOKIE_NAME, config.id);
+    }
+  }, [status]);
+
   const updateWallet = (customValues = {}) => {
     setWallet(prevWallet => ({
       ...prevWallet,
@@ -86,10 +99,19 @@ export const useEthereumWallet = ({enableScreening}) => {
     }));
   };
 
+  const reset = () => {
+    logger.log('reset');
+    setConfig(null);
+    setCookie(CONNECTED_L1_WALLET_ID_COOKIE_NAME, '');
+    return resetWallet();
+  };
+
   const connect = async walletConfig => {
+    logger.log('connect', walletConfig);
     const {connectorId} = walletConfig;
+    setConfig(walletConfig);
     return connectWallet(connectorId);
   };
 
-  return {...wallet, connect, reset};
+  return {...wallet, config, connect, reset};
 };

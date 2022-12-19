@@ -20,9 +20,13 @@ export const TokensProvider = ({children}) => {
   const {maxDeposit: fetchMaxDeposit, maxTotalBalance: fetchMaxTotalBalance} =
     useBridgeContractAPI();
 
-  useAccountChange(() => {
-    fetchTokensData(tokens.filter(t => t.isL1));
-    fetchTokensBalance(tokens);
+  useAccountChange(accountHash => {
+    if (accountHash) {
+      fetchTokensData(tokens.filter(t => t.isL1));
+      fetchTokensBalance(tokens);
+    } else {
+      resetTokens();
+    }
   });
 
   const updateTokenBalance = symbol => {
@@ -83,6 +87,12 @@ export const TokensProvider = ({children}) => {
         index,
         props
       }
+    });
+  };
+
+  const resetTokens = () => {
+    dispatch({
+      type: actions.RESET_TOKENS
     });
   };
 

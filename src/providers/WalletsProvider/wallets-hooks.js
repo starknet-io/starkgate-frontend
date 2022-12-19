@@ -4,26 +4,19 @@ import {useCallback, useContext} from 'react';
 import {useTransfer} from '../TransferProvider';
 import {WalletsContext} from './wallets-context';
 
-export const useWallets = () => {
-  const wallets = useContext(WalletsContext);
+export const useWallets = network => {
+  const walletL1 = useL1Wallet();
+  const walletL2 = useL2Wallet();
   const {isL1} = useTransfer();
 
-  const connectWallet = useCallback(
-    walletConfig => {
-      return isL1 ? wallets.connectWalletL1(walletConfig) : wallets.connectWalletL2(walletConfig);
-    },
-    [isL1, wallets]
-  );
-
-  const resetWallet = useCallback(() => {
-    return isL1 ? wallets.resetWalletL1() : wallets.resetWalletL2();
-  }, [isL1, wallets]);
-
-  return {
-    ...(isL1 ? wallets.walletL1 : wallets.walletL2),
-    connectWallet,
-    resetWallet
+  const getWallet = () => {
+    if (network) {
+      return network === NetworkType.L1 ? walletL1 : walletL2;
+    }
+    return isL1 ? walletL1 : walletL2;
   };
+
+  return getWallet();
 };
 
 export const useAccountHash = () => {
@@ -39,8 +32,13 @@ export const useL1Wallet = () => {
     [wallets]
   );
 
+  const resetWallet = useCallback(() => {
+    return wallets.resetWalletL1();
+  }, [wallets]);
+
   return {
     connectWallet,
+    resetWallet,
     ...wallets.walletL1
   };
 };
@@ -48,26 +46,16 @@ export const useL1Wallet = () => {
 export const useL2Wallet = () => {
   const wallets = useContext(WalletsContext);
 
-  const connectWallet = useCallback(
-    walletConfig => wallets.connectWalletL2(walletConfig),
-    [wallets]
-  );
+  const connectWallet = useCallback(params => wallets.connectWalletL2(params), [wallets]);
+
+  const resetWallet = useCallback(() => {
+    return wallets.resetWalletL2();
+  }, [wallets]);
 
   return {
     connectWallet,
+    resetWallet,
     ...wallets.walletL2
-  };
-};
-
-export const useLoginWallet = network => {
-  const walletL1 = useL1Wallet();
-  const walletL2 = useL2Wallet();
-  const {error, status, connectWallet} = network === NetworkType.L1 ? walletL1 : walletL2;
-
-  return {
-    walletError: error,
-    walletStatus: status,
-    connectWallet
   };
 };
 

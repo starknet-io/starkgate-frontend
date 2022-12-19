@@ -1,6 +1,7 @@
 @import '../../../index';
 
 .tab {
+  display: flex;
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
@@ -11,7 +12,21 @@
     color: $--color-gainsboro-1;
   }
 
+  svg {
+    margin-left: 8px;
+
+    path {
+      stroke: $--color-white;
+    }
+  }
+
   &:hover {
     color: $--color-light-steel-blue;
+
+    svg {
+      path {
+        stroke: $--color-light-steel-blue;
+      }
+    }
   }
 }
