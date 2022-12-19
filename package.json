@@ -60,6 +60,7 @@
     "@mui/styles": "^5.5.0",
     "@splitbee/web": "^0.3.0",
     "@starkware-industries/commons-js-enums": "^1.2.0",
+    "@starkware-industries/commons-js-hooks": "^1.0.0",
     "@starkware-industries/commons-js-utils": "^1.2.0",
     "get-starknet": "1.5.0",
     "react": "^17.0.2",
