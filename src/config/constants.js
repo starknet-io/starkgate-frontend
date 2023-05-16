@@ -28,3 +28,6 @@ export const APP_URL_MAINNET = 'https://starkgate.starknet.io';
 export const STARKGATE_ALPHA_LIMITATIONS_URL = `${STARKGATE_DOCS_URL}/#starkgate_alpha_limitations`;
 export const STARKGATE_COMPLIANCE_MAIL_ADDRESS = 'compliance@starkware.co';
 export const STARKNET_ECOSYSTEM_URL = 'https://starknet-ecosystem.com';
+export const SPACESHARD_MAINNET_RELAYER_URL_MAINNET = 'https://starkgate.spaceshard.io/v1/gas-cost';
+export const SPACESHARD_TESTNET_RELAYER_URL_GOERLI =
+  'https://starkgate-testnet.spaceshard.io/v1/gas-cost';

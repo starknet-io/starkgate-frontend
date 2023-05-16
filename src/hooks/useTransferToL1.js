@@ -31,7 +31,7 @@ export const useTransferToL1 = () => {
   const {addTransfer} = useTransfersLog();
 
   return useCallback(
-    async amount => {
+    async (amount, relayerAddress, gasCost) => {
       const {name, symbol} = selectedToken;
 
       const sendInitiateWithdraw = () => {
@@ -43,7 +43,9 @@ export const useTransferToL1 = () => {
         });
         return initiateWithdraw({
           recipient: accountL1,
-          amount
+          amount,
+          relayerAddress,
+          gasCost
         });
       };
 

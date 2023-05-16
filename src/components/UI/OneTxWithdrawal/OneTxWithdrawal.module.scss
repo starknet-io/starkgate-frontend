@@ -1,0 +1,17 @@
+@import '../../../index';
+
+.description {
+  height: 100%;
+  margin: 8px 0;
+  padding: 16px 12px;
+  color: $--color-white;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.oneTxWithdrawal{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 8px;
+}
