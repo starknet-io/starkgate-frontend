@@ -14,6 +14,7 @@ import {useL1Token} from '../providers/TokensProvider';
 import {useSelectedToken} from '../providers/TransferProvider';
 import {useL1Wallet} from '../providers/WalletsProvider';
 import {isDai} from '../utils';
+import {GasFeeTokenAddress} from '../utils/oneTxWithdrawal';
 import {
   useL1TokenBridgeContract,
   useL2TokenBridgeContract,
@@ -112,7 +113,7 @@ export const useBridgeContractAPI = () => {
   );
 
   const initiateWithdraw = useCallback(
-    async ({recipient, amount}) => {
+    async ({recipient, amount, relayerAddress, gasCost}) => {
       const {bridgeAddress, tokenAddress, decimals, symbol} = selectedToken;
       const bridge = getL2BridgeContract(bridgeAddress);
       const token = getL2TokenContract(tokenAddress);
@@ -138,6 +139,18 @@ export const useBridgeContractAPI = () => {
           }
         }
       ];
+
+      if (relayerAddress) {
+        console.log("Pay the relayer", Number(gasCost), parseFromDecimals(gasCost, 18))
+        transactions.push({
+          contract: getL2TokenContract(GasFeeTokenAddress),
+          method: 'transfer',
+          args: {
+            user: parseToFelt(relayerAddress),
+            amount: parseToUint256(parseFromDecimals(gasCost, 18))
+          }
+        });
+      }
       return sendTransactionL2(transactions);
     },
     [selectedToken, getL2BridgeContract, getL2TokenContract]

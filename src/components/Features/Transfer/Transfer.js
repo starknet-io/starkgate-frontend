@@ -1,8 +1,21 @@
 import {NetworkType} from '@starkware-industries/commons-js-enums';
-import {afterDecimal, evaluate, isNegative, isZero} from '@starkware-industries/commons-js-utils';
+import {useFetchData} from '@starkware-industries/commons-js-hooks';
+import {
+  afterDecimal,
+  createHttpClient,
+  evaluate,
+  isNegative,
+  isZero,
+  parseFromDecimals,
+  promiseHandler
+} from '@starkware-industries/commons-js-utils';
 import PropTypes from 'prop-types';
 import React, {Fragment, useEffect, useState} from 'react';
 
+import {
+  SPACESHARD_MAINNET_RELAYER_URL_MAINNET,
+  SPACESHARD_TESTNET_RELAYER_URL_GOERLI
+} from '../../../config/constants';
 import {
   useConstants,
   useTransferToL1,
@@ -20,6 +33,8 @@ import {
   useBridgeIsFull,
   useTransfer
 } from '../../../providers/TransferProvider';
+import {useL1Wallet} from '../../../providers/WalletsProvider';
+import {getTimestamp} from '../../../utils/timestamp';
 import {
   Loading,
   LoadingSize,
@@ -32,6 +47,7 @@ import {
   Link,
   LoginWalletButton
 } from '../../UI';
+import {OneTxWithdrawal} from '../../UI/OneTxWithdrawal/OneTxWithdrawal';
 import styles from './Transfer.module.scss';
 
 export const Transfer = ({onNetworkSwap}) => {
@@ -57,6 +73,32 @@ export const Transfer = ({onNetworkSwap}) => {
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
   const {isLoggedIn} = useLogin();
+  const [floorTimestamp, setFloorTimestamp] = useState(getTimestamp());
+  const [useOneTxWithdrawal, setUseOneTxWithdrawal] = useState(false);
+  const {chainId} = useL1Wallet();
+
+  console.log(chainId);
+
+  const fetchGasCostData = useFetchData(async () => {
+    if (!isL1 && selectedToken) {
+      const httpClient = createHttpClient({
+        baseURL:
+          chainId === 1
+            ? SPACESHARD_MAINNET_RELAYER_URL_MAINNET
+            : SPACESHARD_TESTNET_RELAYER_URL_GOERLI
+      });
+
+      const {bridgeAddress} = selectedToken;
+      const timestamp = Math.floor(new Date().getTime() / 1000);
+      // await sleep(3);
+      const [result] = await promiseHandler(httpClient.get(`/${bridgeAddress}/${timestamp}`));
+      console.log(result);
+      if (result) {
+        return result.data.result;
+      }
+      return null;
+    }
+  }, [selectedToken, isL1, floorTimestamp]);
 
   useEffect(() => {
     if (!selectedToken) {
@@ -77,6 +119,16 @@ export const Transfer = ({onNetworkSwap}) => {
       }
     }
   }, [amount, selectedToken, isL1, bridgeIsFull]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const ftimestamp = getTimestamp();
+      if (floorTimestamp < ftimestamp) {
+        setFloorTimestamp(ftimestamp);
+      }
+    }, 30 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const validateAmount = () => {
     let errorMsg = '';
@@ -115,7 +167,14 @@ export const Transfer = ({onNetworkSwap}) => {
     setAmount(event.target.value);
   };
 
-  const onTransferClick = async () => (isL1 ? transferToL2(amount) : transferToL1(amount));
+  const onTransferClick = async () =>
+    isL1
+      ? transferToL2(amount)
+      : transferToL1(
+          amount,
+          useOneTxWithdrawal ? fetchGasCostData.data.relayerAddress : null,
+          fetchGasCostData.data.gasCost
+        );
 
   const onRefreshTokenBalanceClick = () => {
     updateTokenBalance(selectedToken.symbol);
@@ -178,6 +237,13 @@ export const Transfer = ({onNetworkSwap}) => {
           <MenuBackground>{isL1 ? renderL1Network() : renderL2Network()}</MenuBackground>
           <NetworkSwap isFlipped={isL2} onClick={onNetworkSwap} />
           <MenuBackground>{isL1 ? renderL2Network() : renderL1Network()}</MenuBackground>
+          {!isL1 && fetchGasCostData.data && (
+            <OneTxWithdrawal
+              gasCost={parseFromDecimals(fetchGasCostData.data.gasCost, 18)}
+              useOneTxWithdrawal={useOneTxWithdrawal}
+              setUseOneTxWithdrawal={setUseOneTxWithdrawal}
+            ></OneTxWithdrawal>
+          )}
           {isLoggedIn ? (
             <TransferButton
               isDisabled={isButtonDisabled || bridgeIsFull}
