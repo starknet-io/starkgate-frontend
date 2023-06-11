@@ -1,0 +1,102 @@
+{
+  "name": "@starkgate/web",
+  "version": "1.14.1",
+  "homepage": "./",
+  "type": "module",
+  "scripts": {
+    "prebuild": "pnpm run clean",
+    "build": "vite build",
+    "clean": "rm -rf ./dist",
+    "dev": "vite --port 5300",
+    "format": "pnpm sort-package-json && pnpm run '/^format:.*/'",
+    "format:prettier": "prettier --write **/*.{js,cjs,jsx,css,scss,yaml,yml,md}",
+    "format:scripts": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
+    "format:styles": "stylelint --fix **/*.{css,scss}",
+    "lint": "pnpm run '/^lint:.*/'",
+    "lint:prettier": "prettier --check **/*.{js,cjs,jsx,css,scss}",
+    "lint:scripts": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:styles": "stylelint **/*.{css,scss}",
+    "preview": "vite preview",
+    "test": "echo \"No tests found\""
+  },
+  "browserslist": {
+    "production": [
+      "chrome >= 67",
+      "edge >= 79",
+      "firefox >= 68",
+      "opera >= 54",
+      "safari >= 14"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@flyyer/use-googlefonts": "^0.4.2",
+    "@headlessui/react": "^1.5.0",
+    "@metamask/onboarding": "^1.0.1",
+    "@mui/material": "^5.5.3",
+    "@mui/styles": "^5.5.0",
+    "@splitbee/web": "^0.3.0",
+    "@starkgate/shared": "workspace:*",
+    "@starkware-webapps/enums": "workspace:*",
+    "@starkware-webapps/http-client": "workspace:*",
+    "@starkware-webapps/js-logger": "workspace:*",
+    "@starkware-webapps/ui": "workspace:*",
+    "@starkware-webapps/utils": "workspace:*",
+    "@starkware-webapps/utils-browser": "workspace:*",
+    "@starkware-webapps/web3-utils": "workspace:*",
+    "@tanstack/react-query": "^4.27.0",
+    "@tanstack/react-query-devtools": "^4.27.0",
+    "get-starknet": "^1.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "6",
+    "starknet": "^4.22.0",
+    "use-breakpoint": "^3.0.1",
+    "use-deep-compare-effect": "^1.8.1",
+    "use-wallet": "^0.13.6",
+    "web3": "^1.8.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@starkware-webapps/tsconfig": "workspace:*",
+    "@types/react": "^17.0.53",
+    "@types/react-dom": "^17.0.19",
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint": "^8.15.0",
+    "eslint-config-react-custom": "workspace:*",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.4",
+    "prop-types": "^15.8.1",
+    "rollup-plugin-re": "^1.0.7",
+    "sass": "^1.58.3",
+    "stylelint": "^14.1.0",
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "^24.0.0",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-prettier": "^2.0.0",
+    "stylelint-scss": "^4.0.0",
+    "typescript": "^4.7.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dynamic-import": "^1.2.7",
+    "vite-plugin-html-env": "^1.2.7",
+    "vite-plugin-svgr": "^2.4.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "ethereumjs-abi": "^0.6.8"
+    }
+  }
+}

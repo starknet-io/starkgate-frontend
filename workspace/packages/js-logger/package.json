@@ -1,0 +1,37 @@
+{
+  "name": "@starkware-webapps/js-logger",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "pnpm run clean",
+    "build": "pnpm run prebuild && vite build",
+    "clean": "rm -rf ./dist",
+    "dev": "pnpm run prebuild && vite build --watch --mode development",
+    "format": "sort-package-json && prettier --write \"**/*.+(ts|js|cjs|json|md|html|yml)\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "echo \"No tests found\""
+  },
+  "dependencies": {
+    "js-logger": "^1.6.1"
+  },
+  "devDependencies": {
+    "@starkware-webapps/tsconfig": "workspace:*",
+    "eslint": "^8.15.0",
+    "eslint-config-ts": "workspace:*",
+    "typescript": "^4.7.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^2.0.1"
+  }
+}

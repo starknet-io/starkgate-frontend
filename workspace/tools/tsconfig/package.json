@@ -1,0 +1,17 @@
+{
+  "name": "@starkware-webapps/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "base.json",
+    "node.json",
+    "react.json"
+  ],
+  "scripts": {
+    "format": "sort-package-json && prettier --write \"**.+(ts|js|json|md|html|yml)\""
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.14.1"
+  }
+}

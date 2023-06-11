@@ -1,0 +1,49 @@
+@import '../../../index';
+
+.transferLog {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 8px;
+  position: relative;
+
+  & > * {
+    margin: 2px;
+  }
+
+  .dataRow {
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+      display: flex;
+    }
+
+    .label {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+    }
+
+    .data {
+      color: $--color-toolbox;
+      height: 16px;
+
+      &.error {
+        color: $--color-jasper;
+      }
+    }
+  }
+
+  .linksRow {
+    display: flex;
+    justify-content: flex-end;
+
+    & > * {
+      margin-left: 4px;
+    }
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $--color-indigo;
+  }
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Uint256",
+    "size": 2,
+    "type": "struct",
+    "members": [
+      {
+        "name": "low",
+        "type": "felt",
+        "offset": 0
+      },
+      {
+        "name": "high",
+        "type": "felt",
+        "offset": 1
+      }
+    ]
+  },
+  {
+    "name": "constructor",
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "governor_address",
+        "type": "felt"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "get_governor",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "res",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "name": "get_l1_bridge",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "res",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "name": "get_l2_token",
+    "type": "function",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "res",
+        "type": "felt"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "name": "set_l1_bridge",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "l1_bridge_address",
+        "type": "felt"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "set_l2_token",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "l2_token_address",
+        "type": "felt"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "initiate_withdraw",
+    "type": "function",
+    "inputs": [
+      {
+        "name": "l1_recipient",
+        "type": "felt"
+      },
+      {
+        "name": "amount",
+        "type": "Uint256"
+      }
+    ],
+    "outputs": []
+  },
+  {
+    "name": "handle_deposit",
+    "type": "l1_handler",
+    "inputs": [
+      {
+        "name": "from_address",
+        "type": "felt"
+      },
+      {
+        "name": "account",
+        "type": "felt"
+      },
+      {
+        "name": "amount_low",
+        "type": "felt"
+      },
+      {
+        "name": "amount_high",
+        "type": "felt"
+      }
+    ],
+    "outputs": []
+  }
+]

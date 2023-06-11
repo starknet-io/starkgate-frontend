@@ -1,0 +1,54 @@
+{
+  "name": "@starkware-webapps/web3-utils",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "pnpm run clean",
+    "build": "pnpm run prebuild && vite build",
+    "clean": "rm -rf ./dist",
+    "dev": "pnpm run prebuild && vite build --watch --mode development",
+    "docs:generate": "typedoc",
+    "docs:watch": "typedoc --watch",
+    "format": "sort-package-json && prettier --write \"**/*.+(ts|js|cjs|json|md|html|yml)\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "echo \"No tests found\""
+  },
+  "dependencies": {
+    "@normalizex/ethjs-unit": "^0.1.8",
+    "@starkware-industries/starkware-crypto-utils": "^0.0.2"
+  },
+  "devDependencies": {
+    "@starkware-webapps/enums": "workspace:*",
+    "@starkware-webapps/tsconfig": "workspace:*",
+    "@starkware-webapps/utils": "workspace:*",
+    "eslint": "^8.15.0",
+    "eslint-config-ts": "workspace:*",
+    "starknet": "^4.9.0",
+    "typedoc": "^0.23.10",
+    "typedoc-plugin-markdown": "^3.13.4",
+    "typescript": "^4.7.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^2.0.1",
+    "web3": "^1.8.1",
+    "web3-eth-contract": "^1.8.1",
+    "web3-utils": "^1.8.1"
+  },
+  "peerDependencies": {
+    "@starkware-webapps/enums": "workspace:*",
+    "@starkware-webapps/utils": "workspace:*",
+    "starknet": "^4.9.0",
+    "web3": "^1.8.1"
+  }
+}

@@ -1,123 +1,44 @@
 {
-  "name": "starkgate-frontend",
-  "version": "1.11.0",
-  "homepage": "./",
+  "private": true,
+  "workspaces": [
+    "workspace/apps/**/*",
+    "workspace/packages/*",
+    "workspace/tools/*",
+    "workspace/pipeline/*"
+  ],
   "scripts": {
-    "prebuild": "yarn run clean",
-    "build": "react-scripts build",
-    "build:goerli": "GENERATE_SOURCEMAP=false env-cmd -f .env.goerli yarn run build",
-    "build:mainnet": "GENERATE_SOURCEMAP=false env-cmd -f .env.mainnet yarn run build",
-    "clean": "rm -rf ./dist",
-    "eject": "react-scripts eject",
-    "format": "yarn run -s format:scripts & yarn run -s format:styles & yarn run -s format:prettier",
-    "format:prettier": "prettier --write **/*.{js,jsx,css,scss,yaml,yml,md}",
-    "format:scripts": "eslint --fix **/*.{js,jsx}",
-    "format:styles": "stylelint --fix **/*.{css,scss}",
-    "lint": "yarn run -s lint:scripts & yarn run -s lint:styles & yarn run -s lint:prettier",
-    "lint:prettier": "prettier --check **/*.{js,jsx,css,scss}",
-    "lint:scripts": "eslint **/*.{js,jsx}",
-    "lint:styles": "stylelint **/*.{css,scss}",
-    "start": "ESLINT_NO_DEV_ERRORS=true react-scripts start",
-    "test": "react-scripts test --env=jsdom"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.{js,jsx}": [
-      "prettier --write",
-      "eslint --fix",
-      "git add"
-    ],
-    "**/*.{css,scss}": [
-      "prettier --write",
-      "stylelint --fix",
-      "git add"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      "chrome >= 67",
-      "edge >= 79",
-      "firefox >= 68",
-      "opera >= 54",
-      "safari >= 14"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "dependencies": {
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
-    "@headlessui/react": "^1.5.0",
-    "@metamask/onboarding": "^1.0.1",
-    "@mui/material": "^5.5.3",
-    "@mui/styles": "^5.5.0",
-    "@splitbee/web": "^0.3.0",
-    "@starkware-industries/commons-js-enums": "^1.2.0",
-    "@starkware-industries/commons-js-hooks": "^1.0.0",
-    "@starkware-industries/commons-js-utils": "^1.2.0",
-    "get-starknet": "1.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-hot-toast": "^2.2.0",
-    "react-router": "^6.3.0",
-    "react-router-dom": "6",
-    "react-scripts": "4.0.3",
-    "starknet": "4.9.0",
-    "use-breakpoint": "^3.0.1",
-    "use-deep-compare-effect": "^1.8.1",
-    "use-wallet": "^0.13.6",
-    "web3": "^1.8.1"
+    "prebuild": "turbo run prebuild",
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev --parallel",
+    "dev:apps": "node ./scripts/dev-apps.js",
+    "dev:apps:starkgate/web": "pnpm run dev:apps starkgate/web",
+    "format": "sort-package-json && prettier --write \"**.+(js|json|md|yaml)\" && turbo run format --parallel",
+    "lint": "turbo run lint",
+    "npkill": "npkill",
+    "pack": "turbo run pack",
+    "pipeline": "pipeline"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/eslint-plugin": "^7.14.5",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/plugin-syntax-flow": "^7.16.0",
-    "@babel/plugin-transform-react-jsx": "^7.16.0",
-    "@babel/preset-flow": "^7.16.0",
-    "@babel/preset-react": "^7.16.0",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
-    "env-cmd": "^10.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^8.0.3",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^25.3.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-testing-library": "^5.0.1",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.1.2",
-    "node-sass": "^6.0.1",
-    "postcss": "^8.4.4",
-    "prettier": "^2.5.1",
-    "prettier-stylelint": "^0.4.2",
-    "prop-types": "^15.7.2",
-    "sass-loader": "^12.1.0",
-    "stylelint": "^14.1.0",
-    "stylelint-config-css-modules": "^4.1.0",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^24.0.0",
-    "stylelint-config-standard-scss": "^3.0.0",
-    "stylelint-prettier": "^2.0.0",
-    "stylelint-scss": "^4.0.0"
+    "@changesets/cli": "^2.26.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "eslint-config-base": "workspace:*",
+    "npkill": "^0.10.0",
+    "prettier": "^2.8.4",
+    "sort-package-json": "^2.4.1",
+    "turbo": "1.9.3"
   },
+  "packageManager": "pnpm@8.3.1",
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=16.0.0"
+  },
+  "pnpm": {
+    "neverBuiltDependencies": [
+      "node-hid",
+      "usb"
+    ],
+    "overrides": {
+      "ethereumjs-abi": "0.6.8"
+    }
   }
 }

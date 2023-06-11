@@ -1,0 +1,35 @@
+@import '../../../../index';
+
+.modal {
+  background: rgba(52, 64, 84, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  backdrop-filter: blur(20px);
+  z-index: 1;
+
+  .container {
+    top: 50%;
+    left: 50%;
+    position: relative;
+    transform: translate(-50%, -50%);
+    background: $--color-white;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px 40px;
+    min-height: 80px;
+    overflow: auto;
+
+    & > * {
+      &:not(:first-child) {
+        margin-top: 8px;
+      }
+    }
+
+    &.error {
+      border: 1px solid $--color-jasper;
+    }
+  }
+}

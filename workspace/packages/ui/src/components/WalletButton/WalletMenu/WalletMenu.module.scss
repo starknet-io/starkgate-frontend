@@ -1,0 +1,57 @@
+@import '@styles';
+
+.walletMenu {
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: #{$--header-height}px;
+  background: $--color-space-cadet;
+  border: 1px solid $--color-indigo;
+  box-shadow: 0 12px 16px -4px rgba(16, 24, 40, 0.08), 0 4px 6px -2px rgba(16, 24, 40, 0.03);
+  border-radius: 8px;
+  padding: 7px 10px;
+  z-index: 99999;
+  transition: 0.3s ease-in-out;
+
+  .items {
+    background: $--color-indigo;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 8px 16px;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    & div:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    .left {
+      display: inherit;
+      margin-right: 25px;
+      pointer-events: none;
+
+      .address {
+        color: $--color-white;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        margin-left: 10px;
+      }
+    }
+
+    .right {
+      display: inherit;
+      margin-left: 25px;
+    }
+  }
+
+  &.isOpen {
+    opacity: 1;
+    pointer-events: all;
+  }
+}

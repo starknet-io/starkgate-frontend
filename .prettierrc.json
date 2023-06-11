@@ -2,9 +2,7 @@
   "arrowParens": "avoid",
   "bracketSpacing": false,
   "embeddedLanguageFormatting": "auto",
-  "htmlWhitespaceSensitivity": "css",
   "insertPragma": false,
-  "jsxSingleQuote": false,
   "printWidth": 100,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
@@ -14,7 +12,10 @@
   "tabWidth": 2,
   "trailingComma": "none",
   "useTabs": false,
-  "importOrder": ["^[./]"],
-  "experimentalBabelParserPluginsList": ["jsx"],
-  "importOrderSeparation": true
+  "importOrder": ["^@(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "htmlWhitespaceSensitivity": "css",
+  "jsxSingleQuote": false,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

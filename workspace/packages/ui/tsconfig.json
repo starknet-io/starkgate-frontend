@@ -1,0 +1,15 @@
+{
+  "extends": "@starkware-webapps/tsconfig/react.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "src",
+    "paths": {
+      "@components": ["components"],
+      "@containers": ["containers"],
+      "@providers": ["providers"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

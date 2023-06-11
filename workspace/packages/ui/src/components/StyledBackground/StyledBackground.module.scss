@@ -1,0 +1,14 @@
+@import '@styles';
+
+.styledBackground {
+  .image {
+    position: absolute;
+    top: #{$--header-height}px;
+    bottom: #{$--header-height}px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - #{$--header-height}px);
+    object-fit: cover;
+    filter: brightness(1.2);
+  }
+}

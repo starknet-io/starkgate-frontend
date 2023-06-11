@@ -1,0 +1,12 @@
+@import '@styles';
+
+.modalFooter {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+
+  button {
+    flex: 40%;
+  }
+}

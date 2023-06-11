@@ -1,0 +1,10 @@
+$--header-height: 72;
+$--footer-height: 50;
+$--scroll-width: 7;
+$--main-offset: $--header-height + $--footer-height + 2;
+$--breakpoint-mobile: 480px;
+
+:export {
+  mainOffset: $--main-offset;
+  scrollWidth: $--scroll-width;
+}

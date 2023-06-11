@@ -1,0 +1,22 @@
+@import '@styles';
+
+.container {
+  width: 100%;
+  margin-bottom: 12px;
+
+  .modalHeaderWithIcon {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 32px;
+    margin: 20px 0 -10px 0;
+    color: $--color-dark-jungle-green;
+    width: 100%;
+  }
+
+  .subtitle {
+    margin-top: 16px;
+    color: $--color-auro-metal-saurus;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
