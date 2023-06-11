@@ -1,0 +1,23 @@
+{
+  "name": "eslint-config-ts",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "format": "sort-package-json && prettier --write \"**.+(ts|js|json|md|html|yml)\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "eslint": "^8.15.0",
+    "eslint-config-base": "workspace:*",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "typescript": "^4.9.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

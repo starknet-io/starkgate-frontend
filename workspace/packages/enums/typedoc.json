@@ -1,0 +1,5 @@
+{
+  "entryPoints": ["./src/index.ts"],
+  "name": "@starkware-webapps/enums",
+  "includeVersion": true
+}

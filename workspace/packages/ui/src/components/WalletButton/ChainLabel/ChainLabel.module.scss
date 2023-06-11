@@ -1,0 +1,19 @@
+@import '@styles';
+
+.chainLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 4px 7px;
+  background: $--color-indigo;
+  border: 1px solid $--color-light-steel-blue;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+
+  @media only screen and (max-width: $--breakpoint-mobile) {
+    display: none;
+  }
+}

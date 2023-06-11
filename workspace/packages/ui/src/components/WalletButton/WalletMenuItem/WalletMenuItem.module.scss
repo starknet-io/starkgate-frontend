@@ -1,0 +1,34 @@
+@import '@styles';
+
+.walletMenuItem {
+  cursor: pointer;
+  border-radius: 8px;
+  background: $--color-space-cadet;
+  width: 32px;
+  height: 32px;
+  transition: 0.3s ease-in-out;
+  display: flex;
+  padding: 1px 8px;
+
+  svg {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: $--color-white;
+  }
+
+  &.disable {
+    pointer-events: none;
+
+    svg {
+      opacity: 0.4;
+    }
+  }
+
+  &:hover {
+    svg {
+      color: $--color-very-light-azure;
+    }
+  }
+}

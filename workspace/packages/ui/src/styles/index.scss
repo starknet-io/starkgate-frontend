@@ -1,0 +1,20 @@
+@import 'colors.module';
+@import 'fonts.module';
+@import 'vars.module';
+
+.wrap {
+  width: 1024px;
+  margin: auto;
+}
+
+.center {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,49 @@
+@import '../../../../index';
+
+.fastWithdrawalDisclaimer {
+  display: flex;
+  margin-top: 16px;
+  color: $--color-raptures-light;
+  border: 1px solid $--color-orange-soda;
+  border-radius: 12px;
+  padding: 12px 16px;
+
+  .disclaimerIcon {
+    svg path {
+      stroke: $--color-raptures-light;
+    }
+  }
+
+  .disclaimerText {
+    margin-left: 14px;
+
+    .disclaimerTitle {
+      line-height: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .disclaimerMessage {
+      line-height: 18px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .disclaimerLearnMore {
+      line-height: 20px;
+      font-size: 12px;
+      color: $--color-raptures-light;
+      font-weight: 600;
+      display: flex;
+
+      svg {
+        padding-left: 8px;
+
+        path {
+          stroke: $--color-raptures-light;
+        }
+      }
+    }
+  }
+}

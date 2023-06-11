@@ -1,0 +1,16 @@
+@import '@styles';
+
+.sideButton {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: $--color-orange-soda;
+  padding: 16px 8px;
+  border-radius: 8px 0 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}

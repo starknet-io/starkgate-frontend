@@ -1,0 +1,15 @@
+@import '../../../index';
+
+.toastManager {
+  margin-top: #{$--header-height}px;
+}
+
+.fastIndication {
+  display: flex;
+  margin-left: 8px;
+
+  .fastIndicationText {
+    color: $--color-orange-soda;
+    margin-left: 4px;
+  }
+}

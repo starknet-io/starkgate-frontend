@@ -1,0 +1,49 @@
+@import '@styles';
+
+.transactionLogItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 8px;
+  position: relative;
+
+  .left {
+    display: flex;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    .links {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 4px 0;
+    }
+  }
+
+  .label {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+
+  .data {
+    color: $--color-toolbox;
+    height: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &.error {
+      color: $--color-jasper;
+    }
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $--color-indigo;
+  }
+}

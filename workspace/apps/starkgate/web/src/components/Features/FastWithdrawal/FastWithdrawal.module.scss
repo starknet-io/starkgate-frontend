@@ -1,0 +1,15 @@
+@import '../../../index';
+
+.fastWithdrawal {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+
+  &.disabled {
+    opacity: 0.5;
+
+    & * {
+      pointer-events: none !important;
+    }
+  }
+}

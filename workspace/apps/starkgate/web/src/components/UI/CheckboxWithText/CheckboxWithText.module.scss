@@ -1,0 +1,24 @@
+@import '../../../index';
+
+.checkboxWithText {
+  display: flex;
+  align-items: center;
+
+  &.disabled {
+    opacity: 0.5;
+
+    & * {
+      pointer-events: none !important;
+    }
+  }
+}
+
+.message {
+  font-size: 12px;
+  line-height: 18px;
+  color: $--color-white;
+}
+
+.readMore {
+  color: $--color-very-light-azure;
+}
