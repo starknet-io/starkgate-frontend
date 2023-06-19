@@ -42,7 +42,8 @@ export const translations = {
         viewMoreTxt: 'View more',
         viewLessTxt: 'View less',
         transferLog: {
-          completeTransferBtnTxt: 'Complete transfer'
+          completeTransferBtnTxt: 'Complete transfer',
+          waitingToBeCompletedMsg: 'Waiting to be completed by SpaceShard'
         }
       }
     },

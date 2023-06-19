@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useColors, useEnvs, useTransferLogTranslation} from '@hooks';
 import {useTransfer} from '@providers';
-import {isDeposit, isWithdrawal} from '@starkgate/shared';
+import {isDeposit, isPendingWithdrawal} from '@starkgate/shared';
 import {
   NetworkType,
   TransactionStatus,
@@ -29,11 +29,11 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     l2TxStatus,
     l1TxHash,
     l2TxHash,
-    customData,
-    fastWithdrawal
+    autoWithdrawal
   } = transfer;
   const [sign, setSign] = useState('');
   const {action, isL1} = useTransfer();
+  const {waitingToBeCompletedMsg} = useTransferLogTranslation();
 
   useEffect(() => {
     setSign(type === action ? '-' : '+');
@@ -41,19 +41,20 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
 
   const renderTransferStatus = () => {
     return (
-      <div className={toClasses(styles.data, isRejected(l2TxStatus) && styles.error)}>
-        {!isOnChain(l2TxStatus)
-          ? TransactionStatusFriendlyMessage[l2TxStatus || TransactionStatus.NOT_RECEIVED]
-          : ''}
+      <div
+        className={toClasses(styles.data, styles.status, isRejected(l2TxStatus) && styles.error)}
+      >
+        {isOnChain(l2TxStatus)
+          ? autoWithdrawal
+            ? waitingToBeCompletedMsg
+            : ''
+          : TransactionStatusFriendlyMessage[l2TxStatus || TransactionStatus.NOT_RECEIVED]}
       </div>
     );
   };
 
   const renderL1TxButton = () => {
-    return !l1TxHash &&
-      isL1 &&
-      isWithdrawal(type) &&
-      ((!fastWithdrawal && isOnChain(l2TxStatus)) || (fastWithdrawal && customData)) ? (
+    return isL1 && isPendingWithdrawal(transfer) ? (
       <CompleteTransferButton onClick={onCompleteTransferClick} />
     ) : (
       <LinkButton

@@ -69,11 +69,11 @@ export const Tokens = {
       symbol: 'rETH',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xcf58536D6Fab5E59B654228a5a4ed89b13A876C2',
         [ChainType.L1.GOERLI]: '0xD2ef821C56B20a7451dbbEd1ec003De6C44F8dC0'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0xae78736Cd615f374D3085123A210448E74Fc6393',
         [ChainType.L1.GOERLI]: '0x178E141a0E3b34152f73Ff610437A7bf9B83267A'
       }
     },
@@ -82,11 +82,11 @@ export const Tokens = {
       symbol: 'wstETH',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x82596004A4566fB1E47886EA34fB94F695ea8d6c',
         [ChainType.L1.GOERLI]: '0x190c98506a5396A30CA759A139F3Fb59EF519A5D'
       },
       tokenAddress: {
-        [ChainType.L1.MAIN]: '',
+        [ChainType.L1.MAIN]: '0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0',
         [ChainType.L1.GOERLI]: '0x6320cD32aA674d2898A68ec82e869385Fc5f7E2f'
       }
     },
@@ -196,11 +196,11 @@ export const Tokens = {
         [ChainType.L2.GOERLI]: true
       },
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x0078da8023b3c08e5a41540a34f7c385fd4f4540d5668f1be3ede0d3bb1b9d4d',
         [ChainType.L2.GOERLI]: '0x00214e168720c6eed858066bea070afa828512e83edcfc28846f0e87221f77f6'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x0319111a5037cbec2b3e638cc34a3474e2d2608299f3e62866e9cc683208c610',
         [ChainType.L2.GOERLI]: '0x002133188109385fedaac0b1bf9de1134e271b88efcd21e2ea0dac460639fbe2'
       }
     },
@@ -209,11 +209,11 @@ export const Tokens = {
       symbol: 'wstETH',
       decimals: 18,
       bridgeAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x03073e7ab30ee00e2da9cf96e4a5490c8e00bdf018df1ff5f3679c30ef1cb014',
         [ChainType.L2.GOERLI]: '0x0399a6011b666888d647665fd65d6dcc7c2690c72d4c4454cae987f19f6ef609'
       },
       tokenAddress: {
-        [ChainType.L2.MAIN]: '',
+        [ChainType.L2.MAIN]: '0x05ef98e7dc5865f49bcec200df508d27669b3ef7f9d2439decd127350359f291',
         [ChainType.L2.GOERLI]: '0x0335bc6e1cf6d9527da4f8044c505906ad6728aeeddfba8d7000b01b32ffe66b'
       }
     },

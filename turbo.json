@@ -1,1 +1,125 @@
-{"globalEnv":["npm_package_name","npm_package_version"],"pipeline":{"@starkgate/web#lint":{"outputs":[],"cache":true,"dependsOn":[],"inputs":[],"outputMode":"full","env":["NETLIFY"],"persistent":false},"build":{"outputs":["dist/**"],"cache":true,"dependsOn":["^build","prebuild"],"inputs":[],"outputMode":"full","env":[],"persistent":false},"clean":{"outputs":[],"cache":true,"dependsOn":[],"inputs":[],"outputMode":"full","env":[],"persistent":false},"dev":{"outputs":[],"cache":false,"dependsOn":[],"inputs":[],"outputMode":"full","env":[],"persistent":true},"format":{"outputs":[],"cache":true,"dependsOn":[],"inputs":[],"outputMode":"full","env":[],"persistent":false},"lint":{"outputs":[],"cache":true,"dependsOn":["^lint"],"inputs":[],"outputMode":"full","env":[],"persistent":false},"pack":{"outputs":[],"cache":true,"dependsOn":["build","lint","test"],"inputs":[],"outputMode":"full","env":[],"persistent":false},"prebuild":{"outputs":[],"cache":true,"dependsOn":[],"inputs":[],"outputMode":"full","env":[],"persistent":false},"test":{"outputs":[],"cache":true,"dependsOn":["build"],"inputs":[],"outputMode":"full","env":[],"persistent":false}},"remoteCache":{}}
+{
+  "globalEnv": [
+    "npm_package_name",
+    "npm_package_version"
+  ],
+  "globalPassThroughEnv": null,
+  "globalDotEnv": null,
+  "pipeline": {
+    "@starkgate/web#lint": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [
+        "NETLIFY"
+      ],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "build": {
+      "outputs": [
+        "dist/**"
+      ],
+      "cache": true,
+      "dependsOn": [
+        "^build",
+        "prebuild"
+      ],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "clean": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "dev": {
+      "outputs": [],
+      "cache": false,
+      "dependsOn": [],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": true,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "format": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "lint": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [
+        "^lint"
+      ],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "pack": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [
+        "build",
+        "lint",
+        "test"
+      ],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "prebuild": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    },
+    "test": {
+      "outputs": [],
+      "cache": true,
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [],
+      "outputMode": "full",
+      "persistent": false,
+      "env": [],
+      "passThroughEnv": null,
+      "dotEnv": null
+    }
+  },
+  "remoteCache": {}
+}

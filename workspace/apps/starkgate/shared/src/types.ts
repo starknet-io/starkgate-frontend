@@ -36,6 +36,7 @@ export type TransferLog = {
   l2TxStatus: TransactionStatus;
   l2TxTimestamp: number;
   fastWithdrawal?: boolean;
+  autoWithdrawal?: boolean;
   customData?: object;
 };
 
@@ -46,10 +47,12 @@ export const isPendingWithdrawal = ({
   l1TxHash,
   l2TxStatus,
   fastWithdrawal,
+  autoWithdrawal,
   customData
 }: TransferLog) => {
   return (
     isWithdrawal(type) &&
+    !autoWithdrawal &&
     !l1TxHash &&
     ((!fastWithdrawal && isOnChain(l2TxStatus)) || (fastWithdrawal && customData))
   );

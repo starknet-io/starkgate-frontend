@@ -31,6 +31,10 @@
       &.error {
         color: $--color-jasper;
       }
+
+      &.status {
+        font-size: 10px;
+      }
     }
   }
 

@@ -49,6 +49,8 @@
     "@starkware-webapps/enums": "workspace:*",
     "@starkware-webapps/utils": "workspace:*",
     "starknet": "^4.9.0",
-    "web3": "^1.8.1"
+    "web3": "^1.8.1",
+    "web3-eth-contract": "^1.8.1",
+    "web3-utils": "^1.8.1"
   }
 }

@@ -1,10 +1,19 @@
-## 1.14.0
+# @starkgate/web
+
+## 1.14.2
+
+### Patch Changes
+
+- 5f526da: Fixed an issue where users can still complete an auto withdrawal transaction on L1 by themselves and thus pay for the transaction twice.
+- 12a8fad: Enable rETH and wstETH on mainnet
 
 ## 1.14.1
 
 ### Patch Changes
 
 - 392c6d4: Fixed an issue where the auto withdrawal got stuck
+
+## 1.14.0
 
 ### Minor Changes
 
