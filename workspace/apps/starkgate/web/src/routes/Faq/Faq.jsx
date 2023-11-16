@@ -55,7 +55,7 @@ const Question = ({faq}) => {
           {!isOpen && <PlusCircle height={20} width={20} onClick={toggleShow} />}
           {isOpen && <MinusCircle height={20} width={20} onClick={toggleShow} />}
         </div>
-        <div className={styles.question}>{faq.question}</div>
+        <div className={styles.question} onClick={toggleShow}>{faq.question}</div>
       </div>
       {isOpen && <div className={styles.answer}>{faq.answer}</div>}
       <div className={styles.divider} />
