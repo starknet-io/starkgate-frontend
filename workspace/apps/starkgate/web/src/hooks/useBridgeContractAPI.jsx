@@ -1,136 +1,120 @@
-import {getStarknet} from 'get-starknet';
+import {BigNumber} from 'ethers';
 import {useCallback} from 'react';
-import {SequencerProvider, number} from 'starknet';
+import {num} from 'starknet';
 
-import {RELAYER_CONTRACT_ADDRESS, SUPPORTED_L2_CHAIN_ID} from '@config/envs';
+import {RELAYER_CONTRACT_ADDRESS} from '@config/envs';
 import {
   useConstants,
-  useDaiTeleportGatewayContract,
   useEnvs,
   useGasCost,
   useL1TokenBridgeContract,
-  useL2EthTokenContract,
-  useL2TokenBridgeContract,
-  useL2TokenContract,
+  useSendEthereumTransaction,
   useTeleportOracleAuthContract
 } from '@hooks';
-import {useL1Token, useL1Wallet, useL2Token, useSelectedToken} from '@providers';
-import {ChainType} from '@starkware-webapps/enums';
+import {useL1Token, useL2Token, useSelectedToken, useWallets} from '@providers';
+import {Tokens} from '@starkgate/shared';
 import {promiseHandler} from '@starkware-webapps/utils';
 import {
-  callContractL1,
   parseFromDecimals,
   parseToDecimals,
   parseToFelt,
   parseToUint256,
-  sendTransactionL1,
   sendTransactionL2
 } from '@starkware-webapps/web3-utils';
 import {isDai} from '@utils';
 
-const networkMap = {
-  [ChainType.L2.MAIN]: 'mainnet-alpha',
-  [ChainType.L2.GOERLI]: 'goerli-alpha'
-};
-
-const sequencerProvider = new SequencerProvider({
-  network: networkMap[SUPPORTED_L2_CHAIN_ID]
-});
+const {hexToDecimalString} = num;
 
 export const useBridgeContractAPI = () => {
-  const {account: accountL1} = useL1Wallet();
+  const {ethereumAccount, getStarknetSigner, getStarknetProvider} = useWallets();
+  const sendEthereumTransaction = useSendEthereumTransaction();
   const selectedToken = useSelectedToken();
   const getL1BridgeContract = useL1TokenBridgeContract();
-  const getL2BridgeContract = useL2TokenBridgeContract();
-  const getL2TokenContract = useL2TokenContract();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const {DAI_TELEPORT_TARGET_DOMAIN} = useEnvs();
   const {TELEPORT_FEE_MULTIPLIER} = useConstants();
-  const daiTeleportGatewayContract = useDaiTeleportGatewayContract();
-  const teleportOracleAuthContract = useTeleportOracleAuthContract();
-  const ethToken = useL2EthTokenContract();
+  const getTeleportOracleAuthContract = useTeleportOracleAuthContract();
   const fetchGasCost = useGasCost();
+  const {SUPPORTED_L2_CHAIN_ID, DAI_TELEPORT_GATEWAY_CONTRACT_ADDRESS, DAI_TELEPORT_TARGET_DOMAIN} =
+    useEnvs();
 
-  const estimateMessageFee = async (recipient, amount) => {
-    const {hexToDecimalString} = number;
-    const {bridgeAddress: l1bridgeAddress, decimals, symbol} = selectedToken;
-    const {low, high} = parseToUint256(amount, decimals);
-    const payload = [recipient, low, high];
-    isDai(symbol) && payload.push(hexToDecimalString(accountL1));
-    const {bridgeAddress: l2bridgeAddress} = getL2Token(symbol);
-    // TODO use get-starknet().provider once sequencer provider will be supported
-    const {overall_fee: estimatedFee} = await sequencerProvider.estimateMessageFee({
-      from_address: l1bridgeAddress,
-      to_address: l2bridgeAddress,
-      entry_point_selector: 'handle_deposit',
-      payload
-    });
-    return Number(estimatedFee);
-  };
+  const estimateMessageFee = useCallback(
+    async (recipient, amount) => {
+      const provider = getStarknetProvider();
+      const {bridgeAddress: l1bridgeAddress, decimals, symbol} = selectedToken;
+      const {low, high} = parseToUint256(amount, decimals);
+      const payload = [recipient, low, high];
+      isDai(symbol) && payload.push(hexToDecimalString(ethereumAccount));
+      const {bridgeAddress: l2bridgeAddress} = getL2Token(symbol);
+      const {overall_fee: estimatedFee} = await provider.estimateMessageFee({
+        from_address: l1bridgeAddress,
+        to_address: l2bridgeAddress,
+        entry_point_selector: 'handle_deposit',
+        payload
+      });
+      return Number(estimatedFee);
+    },
+    [selectedToken, getStarknetProvider, ethereumAccount, getL2Token]
+  );
 
   const deposit = useCallback(
-    async ({recipient, amount, emitter}) => {
+    async ({recipient, amount}) => {
       const {bridgeAddress, decimals} = selectedToken;
-      const contract = getL1BridgeContract(bridgeAddress);
+      const contract = await getL1BridgeContract(bridgeAddress);
       const estimatedL2Fee = await estimateMessageFee(recipient, amount);
-
-      return sendTransactionL1(
+      return await sendEthereumTransaction({
         contract,
-        'deposit',
-        [parseToDecimals(amount, decimals), recipient],
-        {from: accountL1, value: estimatedL2Fee},
-        emitter
-      );
+        method: 'deposit(uint256,uint256)',
+        args: [parseToDecimals(amount, decimals), recipient],
+        transaction: {
+          from: ethereumAccount,
+          value: BigNumber.from(estimatedL2Fee).toString()
+        }
+      });
     },
-    [selectedToken, accountL1, getL1BridgeContract]
+    [selectedToken, ethereumAccount, getL1BridgeContract, sendEthereumTransaction]
   );
 
   const depositEth = useCallback(
-    async ({recipient, amount, emitter}) => {
+    async ({recipient, amount}) => {
       const {bridgeAddress} = selectedToken;
-      const contract = getL1BridgeContract(bridgeAddress);
+      const contract = await getL1BridgeContract(bridgeAddress);
       const parsedAmount = parseToDecimals(amount);
       const estimatedL2Fee = await estimateMessageFee(recipient, amount);
-
-      return sendTransactionL1(
+      return await sendEthereumTransaction({
         contract,
-        'deposit',
-        [parsedAmount, recipient],
-        {
-          from: accountL1,
-          value: Number(parsedAmount) + estimatedL2Fee
-        },
-        emitter
-      );
+        method: 'deposit(uint256,uint256)',
+        args: [parsedAmount, recipient],
+        transaction: {
+          from: ethereumAccount,
+          value: BigNumber.from(parsedAmount).add(estimatedL2Fee).toString()
+        }
+      });
     },
-    [selectedToken, accountL1, getL1BridgeContract]
+    [selectedToken, ethereumAccount, getL1BridgeContract, sendEthereumTransaction]
   );
 
   const withdraw = useCallback(
-    ({recipient, amount, symbol, emitter}) => {
+    async ({recipient, amount, symbol}) => {
       const {bridgeAddress, decimals} = symbol ? getL1Token(symbol) : selectedToken;
-      const contract = getL1BridgeContract(bridgeAddress);
-
-      return sendTransactionL1(
+      const contract = await getL1BridgeContract(bridgeAddress);
+      return await sendEthereumTransaction({
         contract,
-        'withdraw',
-        [parseToDecimals(amount, decimals), recipient],
-        {
-          from: recipient
-        },
-        emitter
-      );
+        method: 'withdraw(uint256,address)',
+        args: [parseToDecimals(amount, decimals), recipient],
+        transaction: {
+          from: ethereumAccount
+        }
+      });
     },
-    [selectedToken, getL1BridgeContract, getL1Token]
+    [selectedToken, getL1BridgeContract, getL1Token, sendEthereumTransaction]
   );
 
   const maxDeposit = useCallback(
     async token => {
       const {bridgeAddress, decimals} = token || selectedToken;
-      const contract = getL1BridgeContract(bridgeAddress);
-
-      const [maxDeposit, error] = await promiseHandler(callContractL1(contract, 'maxDeposit'));
+      const contract = await getL1BridgeContract(bridgeAddress);
+      const [maxDeposit, error] = await promiseHandler(contract.maxDeposit());
       if (error) {
         return Promise.reject(error);
       }
@@ -142,10 +126,10 @@ export const useBridgeContractAPI = () => {
   const maxTotalBalance = useCallback(
     async token => {
       const {bridgeAddress, decimals, symbol} = token || selectedToken;
-      const contract = getL1BridgeContract(bridgeAddress);
+      const contract = await getL1BridgeContract(bridgeAddress);
 
       const [maxTotalBalance, error] = await promiseHandler(
-        callContractL1(contract, isDai(symbol) ? 'ceiling' : 'maxTotalBalance')
+        isDai(symbol) ? contract.ceiling() : contract.maxTotalBalance()
       );
       if (error) {
         return Promise.reject(error);
@@ -158,17 +142,17 @@ export const useBridgeContractAPI = () => {
   const initiateWithdraw = useCallback(
     async ({recipient, amount, autoWithdrawal}) => {
       const {bridgeAddress, tokenAddress, decimals, symbol} = selectedToken;
-      const bridge = getL2BridgeContract(bridgeAddress);
-      const token = getL2TokenContract(tokenAddress);
+      const ethTokenAddress = Tokens.L2.ETH.tokenAddress[SUPPORTED_L2_CHAIN_ID];
       const gasCost = await (autoWithdrawal ? fetchGasCost() : Promise.resolve(0));
+      const signer = await getStarknetSigner();
       const transactions = [
         ...(isDai(symbol)
           ? [
               {
-                contract: token,
+                address: tokenAddress,
                 method: 'increaseAllowance',
                 args: {
-                  spender: bridge.address,
+                  spender: bridgeAddress,
                   amount: parseToUint256(amount, decimals)
                 }
               }
@@ -177,7 +161,7 @@ export const useBridgeContractAPI = () => {
         ...(autoWithdrawal
           ? [
               {
-                contract: ethToken,
+                address: ethTokenAddress,
                 method: 'transfer',
                 args: {
                   user: parseToFelt(RELAYER_CONTRACT_ADDRESS),
@@ -187,7 +171,7 @@ export const useBridgeContractAPI = () => {
             ]
           : []),
         {
-          contract: bridge,
+          address: bridgeAddress,
           method: 'initiate_withdraw',
           args: {
             l1Recipient: parseToFelt(recipient),
@@ -195,26 +179,26 @@ export const useBridgeContractAPI = () => {
           }
         }
       ];
-      return sendTransactionL2(getStarknet().account, transactions);
+      return sendTransactionL2(signer, transactions);
     },
-    [selectedToken, getL2BridgeContract, getL2TokenContract, ethToken, fetchGasCost]
+    [selectedToken, fetchGasCost, getStarknetSigner]
   );
 
   const initiateTeleport = useCallback(
     async ({recipient, amount}) => {
       const {tokenAddress, decimals} = selectedToken;
-      const token = getL2TokenContract(tokenAddress);
+      const signer = await getStarknetSigner();
       const transactions = [
         {
-          contract: token,
+          address: tokenAddress,
           method: 'increaseAllowance',
           args: {
-            spender: daiTeleportGatewayContract.address,
+            spender: DAI_TELEPORT_GATEWAY_CONTRACT_ADDRESS,
             amount: parseToUint256(amount, decimals)
           }
         },
         {
-          contract: daiTeleportGatewayContract,
+          address: DAI_TELEPORT_GATEWAY_CONTRACT_ADDRESS,
           method: 'initiate_teleport',
           args: {
             target_domain: DAI_TELEPORT_TARGET_DOMAIN,
@@ -224,37 +208,37 @@ export const useBridgeContractAPI = () => {
           }
         }
       ];
-      return sendTransactionL2(getStarknet().account, transactions);
+      return sendTransactionL2(signer, transactions);
     },
-    [selectedToken, getL2BridgeContract, getL2TokenContract]
+    [selectedToken, getStarknetSigner]
   );
 
   const teleportThreshold = useCallback(async () => {
-    const [threshold, error] = await promiseHandler(
-      callContractL1(teleportOracleAuthContract, 'threshold')
-    );
+    const teleportOracleAuthContract = await getTeleportOracleAuthContract();
+    const [threshold, error] = await promiseHandler(teleportOracleAuthContract.threshold());
     if (error) {
       return Promise.reject(error);
     }
     return threshold;
-  }, [teleportOracleAuthContract]);
+  }, [getTeleportOracleAuthContract]);
 
   const requestMint = useCallback(
-    async ({amount, customData, emitter}) => {
+    async ({amount, customData}) => {
+      const teleportOracleAuthContract = await getTeleportOracleAuthContract();
       const {decimals} = selectedToken;
       const maxFeePercentage = parseToDecimals(
         (TELEPORT_FEE_MULTIPLIER * amount).toFixed(decimals),
         decimals
       );
-      return sendTransactionL1(
-        teleportOracleAuthContract,
-        'requestMint',
-        [customData.teleportGUID, customData.signatures, maxFeePercentage, '0x0'],
-        {from: accountL1},
-        emitter
+      return teleportOracleAuthContract.requestMint(
+        customData.teleportGUID,
+        customData.signatures,
+        maxFeePercentage,
+        '0x0',
+        {from: ethereumAccount}
       );
     },
-    [teleportOracleAuthContract, accountL1]
+    [getTeleportOracleAuthContract, ethereumAccount]
   );
   return {
     deposit,

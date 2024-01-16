@@ -1,5 +1,92 @@
 # @starkgate/web
 
+## 1.21.0
+
+### Minor Changes
+
+- f12f63e9: StarkGate's UI now increases the gas_estimate by +15% for L1 transactions (Deposit, Withdrawal and Approve)
+- b6623fdd: Dynamic Update: Upgraded to v1.
+
+### Patch Changes
+
+- a292f160: We have removed the "Alpha" pop-up disclaimer.
+
+## 1.20.0
+
+### Minor Changes
+
+- 9c0e024d: \* Updated Logo: Introduced the new StarkGate logo.
+  - Dynamic Update: Upgraded to version 0.19.
+  - External Bridges: Added Rhino for deposit and withdrawal functionalities.
+  - Bug Fix: Resolved an issue preventing the sending of Google Analytics events.
+  - Improved main page title and meta data for enhanced search results.
+  - Ensured unique Title and Meta descriptions for each page.
+
+## 1.19.0
+
+### Minor Changes
+
+- 4243d43: Due to the deprecation of the feeder gateway, this update introduces management of RPC providers, prioritizing BlastAPI as our primary provider, followed by Chainstack and Infura, to enhance control and optimize our services, moving away from reliance on traditional wallet providers.
+
+## 1.18.0
+
+### Minor Changes
+
+- 0496c1d5: Expanded automatic withdrawal capabilities to include additional tokens: DAI, rETH, wstETH, R, FRAX, FXS, and sfrxETH.
+- 0496c1d5: Modified the Terms of Use acceptance process: Users now encounter a disclaimer during the "Connect Wallet" flow, where they must acknowledge acceptance of the terms before proceeding. The full Terms of Use are accessible via a link from the disclaimer.
+- b592daaa: Introduced UNI token integration within StarkGate.
+
+## 1.17.0
+
+### Minor Changes
+
+- 15a17e3c: Added tokens support - LUSD, R, FRAX, FXS and sfrxETH.
+
+### Patch Changes
+
+- f179552f: Added an error message to the Transfer Log for a case where the log gets an error and temporily has no information to show.
+
+## 1.16.1
+
+### Patch Changes
+
+- bcf2e258: Fixed an issue in the Transfer Log where the collapse arrow appears, indicating that the log has information, when in fact no transfers have taken place and there is no information to show.
+- 043becc0: Bump Dynamic version to 0.18.15
+
+## 1.16.0
+
+### Minor Changes
+
+- ae422cac: Enable users to select which block explorer they want to use for inspecting their transactions.
+
+### Patch Changes
+
+- 6e26712a: Fixed a bug where approve tx throws an error by MetaMask
+- 4850b77a: Bump dynamic version to 0.18.12
+
+## 1.15.0
+
+### Minor Changes
+
+- 37edbf5: Integrate Dynamic SDK (a multi-chain wallet adapter) for our application login flow.
+
+### Patch Changes
+
+- db42006: Fix an issue where the transfer log sign is incorrect.
+
+## 1.14.4
+
+### Patch Changes
+
+- 7cfd51a: Update the mainnet wstETH addresses and display it back to the UI
+
+## 1.14.3
+
+### Patch Changes
+
+- 12c0ec4: Fixed a bug where pending withdrawals are not displayed when the user is only connected to L1 wallet.
+- 6e89d16: Upgrade to `get-starknet` _v3_
+
 ## 1.14.2
 
 ### Patch Changes

@@ -1,42 +1,36 @@
 import {useCallback} from 'react';
 
-import {useL1TokenContract, useL2TokenContract, useWeb3} from '@hooks';
-import {useL1Wallet, useSelectedToken} from '@providers';
-import {TransactionStatus} from '@starkware-webapps/enums';
+import {useL1TokenContract, useSendEthereumTransaction} from '@hooks';
+import {useEthereumWallet, useSelectedToken, useStarknetWallet} from '@providers';
 import {promiseHandler} from '@starkware-webapps/utils';
-import {
-  callContractL1,
-  callContractL2,
-  parseFromDecimals,
-  parseFromUint256,
-  sendTransactionL1
-} from '@starkware-webapps/web3-utils';
+import {parseFromDecimals, parseFromUint256} from '@starkware-webapps/web3-utils';
 
 export const useTokenContractAPI = () => {
   const selectedToken = useSelectedToken();
   const getL1TokenContract = useL1TokenContract();
-  const getL2TokenContract = useL2TokenContract();
-  const {account: accountL1} = useL1Wallet();
-  const web3 = useWeb3();
+  const {ethereumAccount, getEthereumProvider} = useEthereumWallet();
+  const {getStarknetProvider} = useStarknetWallet();
+  const sendEthereumTransaction = useSendEthereumTransaction();
 
   const approve = useCallback(
     async ({spender, value}) => {
       const {tokenAddress} = selectedToken;
-      const contract = getL1TokenContract(tokenAddress);
-
-      return sendTransactionL1(contract, 'approve', [spender, value], {from: accountL1});
+      const contract = await getL1TokenContract(tokenAddress);
+      return await sendEthereumTransaction({
+        contract,
+        method: 'approve',
+        transaction: {from: ethereumAccount},
+        args: [spender, value]
+      });
     },
-    [selectedToken, accountL1, getL1TokenContract]
+    [selectedToken, ethereumAccount, getL1TokenContract, sendEthereumTransaction]
   );
 
   const allowance = useCallback(
     async ({owner, spender}) => {
       const {tokenAddress, decimals} = selectedToken;
-      const contract = getL1TokenContract(tokenAddress);
-
-      const [allow, error] = await promiseHandler(
-        callContractL1(contract, 'allowance', [owner, spender])
-      );
+      const contract = await getL1TokenContract(tokenAddress);
+      const [allow, error] = await promiseHandler(contract.allowance(owner, spender));
       if (error) {
         return Promise.reject(error);
       }
@@ -47,25 +41,23 @@ export const useTokenContractAPI = () => {
 
   const balanceOfEth = useCallback(
     async account => {
-      if (web3) {
-        const [balance, error] = await promiseHandler(web3.eth.getBalance(account));
+      const provider = await getEthereumProvider();
+      if (provider) {
+        const [balance, error] = await promiseHandler(provider.getBalance(account));
         if (error) {
           return Promise.reject(error);
         }
         return parseFromDecimals(balance);
       }
     },
-    [web3]
+    [getEthereumProvider]
   );
 
   const balanceOfL1 = useCallback(
     async ({account, token}) => {
       const {tokenAddress, decimals} = token || selectedToken;
-      const contract = getL1TokenContract(tokenAddress);
-
-      const [balance, error] = await promiseHandler(
-        callContractL1(contract, 'balanceOf', [account])
-      );
+      const contract = await getL1TokenContract(tokenAddress);
+      const [balance, error] = await promiseHandler(contract.balanceOf(account));
       if (error) {
         return Promise.reject(error);
       }
@@ -76,20 +68,25 @@ export const useTokenContractAPI = () => {
 
   const balanceOfL2 = useCallback(
     async ({account, token}) => {
+      const provider = getStarknetProvider();
       const {tokenAddress, decimals} = token || selectedToken;
-      const contract = getL2TokenContract(tokenAddress);
-
-      const [{balance}, error] = await promiseHandler(
-        callContractL2(contract, 'balanceOf', account, {
-          blockIdentifier: TransactionStatus.PENDING.toLowerCase()
+      const [response, error] = await promiseHandler(
+        provider.callContract({
+          contractAddress: tokenAddress,
+          entrypoint: 'balanceOf',
+          calldata: [account]
         })
       );
       if (error) {
         return Promise.reject(error);
       }
-      return parseFromUint256(balance, decimals);
+      const {
+        result: [low, high]
+      } = response;
+
+      return parseFromUint256({low, high}, decimals);
     },
-    [selectedToken, getL2TokenContract]
+    [selectedToken, getStarknetProvider]
   );
 
   return {

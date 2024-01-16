@@ -9,14 +9,22 @@ import styles from './TransferLogContainer.module.scss';
 
 export const TransferLogContainer = ({
   transferIndex,
+  isError,
   isLoading,
   onShowTransfers,
   onScrollEnd,
   children
 }) => {
   const {resetMenuProps} = useMenu();
-  const {titleTxt, singleOverviewTxt, overviewTxt, emptyMsgTxt, viewMoreTxt, viewLessTxt} =
-    useTransferLogContainerTranslation();
+  const {
+    titleTxt,
+    singleOverviewTxt,
+    overviewTxt,
+    errorMsgTxt,
+    emptyMsgTxt,
+    viewMoreTxt,
+    viewLessTxt
+  } = useTransferLogContainerTranslation();
   const [showChildren, setShowChildren] = useState(false);
 
   const toggleShowChildren = () => {
@@ -33,6 +41,9 @@ export const TransferLogContainer = ({
   };
 
   const renderChildren = () => {
+    if (isError) {
+      return <div className={styles.error}>{errorMsgTxt}</div>;
+    }
     if (!children) {
       return <div className={styles.empty}>{emptyMsgTxt}</div>;
     }
@@ -58,7 +69,7 @@ export const TransferLogContainer = ({
     <div className={styles.transferLogContainer}>
       <div className={styles.title}>
         {titleTxt}
-        <CollapseExpand isCollapsed={showChildren} onClick={toggleShowChildren} />
+        {children && <CollapseExpand isCollapsed={showChildren} onClick={toggleShowChildren} />}
       </div>
       {isLoading ? <Loading type={LoadingType.LINEAR} /> : renderChildren()}
     </div>
@@ -67,6 +78,7 @@ export const TransferLogContainer = ({
 
 TransferLogContainer.propTypes = {
   transferIndex: PropTypes.number,
+  isError: PropTypes.bool,
   isLoading: PropTypes.bool,
   onShowTransfers: PropTypes.func,
   onScrollEnd: PropTypes.func,

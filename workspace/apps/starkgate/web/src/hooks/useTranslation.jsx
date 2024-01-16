@@ -1,6 +1,10 @@
 import {translations} from '@config/translations';
 import {chainPath, useTranslation} from '@starkware-webapps/ui';
 
+export const useHeadTranslation = path => {
+  return useTranslation(chainPath('head', path), translations);
+};
+
 export const useContainersTranslation = path => {
   return useTranslation(chainPath('containers', path), translations);
 };
@@ -73,10 +77,6 @@ export const useProgressModalTranslation = () => {
   return useModalsTranslation('progress');
 };
 
-export const useOnboardingModalTranslation = () => {
-  return useModalsTranslation('onboarding');
-};
-
 export const useBlockedAddressModalTranslation = () => {
   return useModalsTranslation('blockedAddress');
 };
@@ -103,4 +103,12 @@ export const useTransferLogTranslation = () => {
 
 export const useTabsTranslation = () => {
   return useHeaderTranslation('tabs');
+};
+
+export const useComponentsTranslation = path => {
+  return useTranslation(chainPath('components', path), translations);
+};
+
+export const useBlockExplorerComponentTranslation = () => {
+  return useComponentsTranslation('blockExplorer');
 };

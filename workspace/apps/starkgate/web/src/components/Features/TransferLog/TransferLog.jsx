@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
-import {useColors, useEnvs, useTransferLogTranslation} from '@hooks';
+import {useColors, useTransferLogTranslation} from '@hooks';
 import {useTransfer} from '@providers';
 import {isDeposit, isPendingWithdrawal} from '@starkgate/shared';
 import {
-  NetworkType,
   TransactionStatus,
   TransactionStatusFriendlyMessage,
   isOnChain,
@@ -13,12 +12,11 @@ import {
 } from '@starkware-webapps/enums';
 import {getFullTime} from '@starkware-webapps/utils';
 import {toClasses} from '@starkware-webapps/utils-browser';
-import {Button, CircleLogo, CircleLogoSize, LinkButton} from '@ui';
+import {BlockExplorer, Button, CircleLogo, CircleLogoSize} from '@ui';
 
 import styles from './TransferLog.module.scss';
 
 export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
-  const {STARKSCAN_TX_URL, STARKSCAN_ETH_TX_URL} = useEnvs();
   const {
     type,
     symbol,
@@ -57,21 +55,16 @@ export const TransferLog = ({transfer, onCompleteTransferClick, onTxClick}) => {
     return isL1 && isPendingWithdrawal(transfer) ? (
       <CompleteTransferButton onClick={onCompleteTransferClick} />
     ) : (
-      <LinkButton
-        isDisabled={!l1TxHash}
-        text={`${NetworkType.L1} Tx`}
-        url={STARKSCAN_ETH_TX_URL(l1TxHash)}
-        onClick={onTxClick}
-      />
+      <BlockExplorer isDisabled={!l1TxHash} isL1={true} tx={l1TxHash} onClick={onTxClick} />
     );
   };
 
   const renderL2TxButton = () => {
     return (
-      <LinkButton
+      <BlockExplorer
         isDisabled={!l2TxHash || !l2TxStatus}
-        text={`${NetworkType.L2} Tx`}
-        url={STARKSCAN_TX_URL(l2TxHash)}
+        isL1={false}
+        tx={l2TxHash}
         onClick={onTxClick}
       />
     );

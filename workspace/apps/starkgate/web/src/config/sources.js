@@ -138,16 +138,31 @@ export const providers = [
         }
       }
     }
+  },
+  {
+    id: 'rhinofi',
+    logoPath: 'providers/rhinofi',
+    label: 'Rhino.fi',
+    link: {
+      [ChainType.L1.MAIN]: {
+        url: 'https://app.rhino.fi/bridge/',
+        qsParams: {
+          token: 'ETH',
+          chainOut: 'STARKNET',
+          chain: 'ETHEREUM'
+        }
+      }
+    }
   }
 ];
 
 export const depositConfig = {
   chains: {
     [NetworkType.L1]: [],
-    polygon: ['orbiter', 'layerswap'],
-    arbitrum: ['orbiter', 'layerswap'],
-    optimism: ['orbiter', 'layerswap'],
-    other_chains: ['orbiter', 'layerswap']
+    polygon: ['orbiter', 'layerswap', 'rhinofi'],
+    arbitrum: ['orbiter', 'layerswap', 'rhinofi'],
+    optimism: ['orbiter', 'layerswap', 'rhinofi'],
+    other_chains: ['orbiter', 'layerswap', 'rhinofi']
   },
   fiat: {
     card: ['banxa', 'ramp']
@@ -163,10 +178,10 @@ export const depositConfig = {
 export const withdrawConfig = {
   chains: {
     [NetworkType.L1]: [],
-    polygon: ['orbiter', 'layerswap'],
-    arbitrum: ['orbiter', 'layerswap'],
-    optimism: ['orbiter', 'layerswap'],
-    other_chains: ['orbiter', 'layerswap']
+    polygon: ['orbiter', 'layerswap', 'rhinofi'],
+    arbitrum: ['orbiter', 'layerswap', 'rhinofi'],
+    optimism: ['orbiter', 'layerswap', 'rhinofi'],
+    other_chains: ['orbiter', 'layerswap', 'rhinofi']
   },
   exchanges: {
     coinbase: ['layerswap'],

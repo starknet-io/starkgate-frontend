@@ -1,6 +1,6 @@
 import {useContext, useMemo} from 'react';
 
-import {useTransfer} from '@providers';
+import {useTransfer, useWallets} from '@providers';
 import {isDeposit} from '@starkgate/shared';
 
 import {TransferLogContext} from './transfer-log-context';
@@ -26,13 +26,15 @@ export const useTransfers = () => {
     pendingWithdrawalsQuery: {data: withdrawals, isFetching: isFetchingWithdrawals}
   } = useContext(TransferLogContext);
 
+  const {ethereumAccount, starknetAccount} = useWallets();
+
   const doneFetching = !!(
     !isFetchingL1 &&
     !isFetchingL2 &&
     !isFetchingWithdrawals &&
-    transfersL1 &&
-    transfersL2 &&
-    withdrawals
+    (transfersL1 || !ethereumAccount) &&
+    (transfersL2 || !starknetAccount) &&
+    (withdrawals || !ethereumAccount)
   );
 
   return useMemo(() => {

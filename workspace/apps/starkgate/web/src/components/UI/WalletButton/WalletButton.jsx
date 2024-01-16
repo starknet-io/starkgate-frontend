@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {useColors, useHeaderTranslation} from '@hooks';
-import {isConnected, isConnecting} from '@starkware-webapps/enums';
 import {evaluate, shortenAddress} from '@starkware-webapps/utils';
-import {toClasses} from '@starkware-webapps/utils-browser';
 import {Button, DynamicIcon} from '@ui';
 
 import styles from './WalletButton.module.scss';
@@ -15,11 +13,11 @@ export const WalletButtonIconSize = {
   LARGE: 30
 };
 
-export const WalletButton = ({account, chain, network, logoPath, status, onClick}) => {
-  return isConnected(status) ? (
+export const WalletButton = ({account, chain, network, logoPath, isConnected, onClick}) => {
+  return isConnected ? (
     <AccountWalletButton account={account} chain={chain} logoPath={logoPath} onClick={onClick} />
   ) : (
-    <ConnectWalletButton network={network} status={status} onClick={onClick} />
+    <ConnectWalletButton network={network} onClick={onClick} />
   );
 };
 
@@ -28,7 +26,7 @@ WalletButton.propTypes = {
   chain: PropTypes.string,
   network: PropTypes.string,
   logoPath: PropTypes.string,
-  status: PropTypes.string,
+  isConnected: PropTypes.bool,
   onClick: PropTypes.func
 };
 
@@ -58,18 +56,17 @@ AccountWalletButton.propTypes = {
   onClick: PropTypes.func
 };
 
-const ConnectWalletButton = ({onClick, network, status}) => {
+const ConnectWalletButton = ({onClick, network}) => {
   const {colorOrangeSoda, colorFlame, colorWhite} = useColors();
-  const {connectWalletBtnTxt, connectingWalletBtnTxt} = useHeaderTranslation();
-  const connecting = isConnecting(status);
+  const {connectWalletBtnTxt} = useHeaderTranslation();
 
   return (
     <Button
-      className={toClasses(styles.connectWalletButton, styles[status])}
+      className={styles.connectWalletButton}
       colorBackground={colorOrangeSoda}
       colorBackgroundHover={colorFlame}
       colorText={colorWhite}
-      text={evaluate(connecting ? connectingWalletBtnTxt : connectWalletBtnTxt, {network})}
+      text={evaluate(connectWalletBtnTxt, {network})}
       onClick={onClick}
     />
   );
@@ -77,8 +74,7 @@ const ConnectWalletButton = ({onClick, network, status}) => {
 
 ConnectWalletButton.propTypes = {
   onClick: PropTypes.func,
-  network: PropTypes.string,
-  status: PropTypes.string
+  network: PropTypes.string
 };
 
 const ChainLabel = ({chain}) => {

@@ -1,27 +1,31 @@
 import PropTypes from 'prop-types';
-import {useEffect} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {addAddressPadding} from 'starknet';
 
-import {useAccountTracking, useAccountTranslation, useCompleteTransferToL1, useEnvs} from '@hooks';
-import {useMenu, useTransfer, useTransferLog, useWallets} from '@providers';
+import {TransferLog} from '@features';
+import {
+  useAccountTracking,
+  useAccountTranslation,
+  useColors,
+  useCompleteTransferToL1
+} from '@hooks';
+import {useMenu, useTransfer, useTransferLog, useWallet} from '@providers';
 import {useLogger} from '@starkware-webapps/ui';
 import {evaluate, findIndexById} from '@starkware-webapps/utils';
 import {
   AccountAddress,
   BackButton,
-  LinkButton,
-  LogoutButton,
+  BlockExplorer,
+  Button,
   Menu,
   MenuTitle,
   TransferLogContainer
 } from '@ui';
 
-import {TransferLog} from '../TransferLog/TransferLog';
 import styles from './Account.module.scss';
 
 export const Account = ({transferId}) => {
   const logger = useLogger('Account');
-  const {titleTxt, btnTxt} = useAccountTranslation();
   const [
     trackTxLinkClick,
     trackAccountLinkClick,
@@ -29,12 +33,15 @@ export const Account = ({transferId}) => {
     trackCompleteTransferClick,
     trackAddressCopied
   ] = useAccountTracking();
-  const {ETHERSCAN_ACCOUNT_URL, STARKSCAN_ACCOUNT_URL} = useEnvs();
+  const {titleTxt, logoutBtnTxt} = useAccountTranslation();
+  const {colorIndigo, colorWhite} = useColors();
   const {showSourceMenu} = useMenu();
-  const {account, resetWallet} = useWallets();
+  const {account, logout} = useWallet();
   const {isL1, isL2, fromNetwork} = useTransfer();
   const completeTransferToL1 = useCompleteTransferToL1();
-  const {transfers, fetchNextPage, isLoading} = useTransferLog();
+  const {transfers, fetchNextPage, isLoading, error} = useTransferLog();
+  const [isDisconnecting, setIsDisconnecting] = useState();
+  const address = useMemo(() => (isL2 ? addAddressPadding(account) : account), [account]);
 
   useEffect(() => {
     !account && showSourceMenu();
@@ -42,9 +49,9 @@ export const Account = ({transferId}) => {
 
   const renderTransfers = () => {
     return transfers.length
-      ? transfers.map((transfer, index) => (
+      ? transfers.map(transfer => (
           <TransferLog
-            key={index}
+            key={transfer.id}
             transfer={transfer}
             onCompleteTransferClick={() => onCompleteTransferClick(transfer)}
             onTxClick={trackTxLinkClick}
@@ -58,24 +65,12 @@ export const Account = ({transferId}) => {
     completeTransferToL1(transfer);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     logger.log(`logout ${fromNetwork} wallet`);
+    setIsDisconnecting(true);
+    await logout();
+    setIsDisconnecting(false);
     showSourceMenu();
-    resetWallet();
-  };
-
-  const renderExplorers = () => {
-    const explorersL1 = [{text: btnTxt, url: ETHERSCAN_ACCOUNT_URL(account)}];
-    const explorersL2 = [{text: btnTxt, url: STARKSCAN_ACCOUNT_URL(account)}];
-    const explorers = isL1 ? explorersL1 : explorersL2;
-
-    return (
-      <div className={styles.linkButtons}>
-        {explorers.map(({text, url}) => (
-          <LinkButton key={text} text={text} url={url} onClick={trackAccountLinkClick} />
-        ))}
-      </div>
-    );
   };
 
   return (
@@ -83,12 +78,10 @@ export const Account = ({transferId}) => {
       <div className={styles.accountMenu}>
         <BackButton onClick={() => showSourceMenu()} />
         <MenuTitle text={evaluate(titleTxt, {network: fromNetwork})} />
-        <AccountAddress
-          address={isL2 ? addAddressPadding(account) : account}
-          onClick={trackAddressCopied}
-        />
-        {renderExplorers()}
+        <AccountAddress address={address} onClick={trackAddressCopied} />
+        <BlockExplorer account={address} isL1={isL1} onClick={trackAccountLinkClick} />
         <TransferLogContainer
+          isError={!!error && !transfers.length}
           isLoading={isLoading}
           transferIndex={findIndexById(transfers, transferId)}
           onScrollEnd={fetchNextPage}
@@ -96,7 +89,20 @@ export const Account = ({transferId}) => {
         >
           {renderTransfers()}
         </TransferLogContainer>
-        <LogoutButton onClick={handleLogout} />
+        <Button
+          colorBackground={colorIndigo}
+          colorBorder={colorIndigo}
+          colorText={colorWhite}
+          height={50}
+          isLoading={isDisconnecting}
+          style={{
+            margin: '0',
+            width: '100%',
+            borderRadius: '7px'
+          }}
+          text={logoutBtnTxt}
+          onClick={handleLogout}
+        />
       </div>
     </Menu>
   );

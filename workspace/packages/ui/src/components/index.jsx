@@ -18,5 +18,6 @@ export * from './CircleLogo/CircleLogo';
 export * from './Logo/Logo';
 export * from './Modal';
 export * from './WalletButton';
+export * from './TextSwitch';
 export * from './Checkbox/Checkbox';
 export {default as translations} from './translations';

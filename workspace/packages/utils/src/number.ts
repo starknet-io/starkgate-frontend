@@ -12,3 +12,7 @@ export const isZero = (num: number): boolean => {
 export const isNegative = (num: number): boolean => {
   return Math.sign(num) === -1;
 };
+
+export const generateRandomNumber = (max = 10_000_000) => {
+  return Math.floor(Math.random() * max);
+};

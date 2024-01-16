@@ -42,10 +42,10 @@ export const TextFieldTheme = ({error, children}) => {
       MuiInputBase: {
         styleOverrides: {
           root: {
+            background: colorIndigo,
             marginTop: '18px'
           },
           input: {
-            background: colorIndigo,
             color: colorWhite,
             padding: '10px 12px',
             borderRadius: '8px',

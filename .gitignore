@@ -1,4 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+	# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 node_modules
@@ -33,7 +33,26 @@ yarn-error.log*
 # turbo
 .turbo
 
-# WebStorm
+# IDE
 .idea
+.vscode
 
 .history
+
+# Vite
+**/vite.config.ts.timestamp-*
+
+# run-rs
+data
+
+# mocha
+coverage/
+.nyc_output/
+
+# building tests as part of build
+.mocharc.buildtests.js
+tsconfig.buildtests.json
+
+# autoenv
+.in
+.out

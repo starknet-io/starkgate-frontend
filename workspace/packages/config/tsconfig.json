@@ -1,6 +1,7 @@
 {
   "extends": "@starkware-webapps/tsconfig/base.json",
   "compilerOptions": {
+    "declarationDir": "dist/types",
     "outDir": "dist"
   },
   "include": ["src"],

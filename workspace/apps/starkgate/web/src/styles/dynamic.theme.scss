@@ -1,0 +1,73 @@
+body {
+  --BASE_1: #171543;
+  --BASE_2: #2a2852;
+  --BASE_3: #363564;
+  --BASE_4: #33315a;
+  --BASE_5: linear-gradient(180deg, #2c2c55 0%, #0f0d2c 100%);
+  --TEXT_BASE: 255, 255, 255;
+  --TEXT_PRIMARY: rgb(var(--TEXT_BASE), 95%);
+  --TEXT_SECONDARY: rgb(var(--TEXT_BASE), 55%);
+  --TEXT_TERTIARY: rgb(var(--TEXT_BASE), 40%);
+  --TEXT_LINK: #69a5ff;
+  --CONNECTION_GREEN_1: #46ffbc;
+  --CONNECTION_GREEN_2: rgba(70, 255, 188, 0.1);
+  --ERROR_1: #ff6a6a;
+  --ERROR_2: rgba(255, 106, 106, 0.2);
+  --OVERLAY: rgba(0, 0, 0, 0.56);
+  --HOVER: rgba(255, 255, 255, 0.12);
+  --LOADING_ANIMATION_GRADIENT: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  --dynamic-base-1: var(--BASE_1);
+  --dynamic-base-2: var(--BASE_2);
+  --dynamic-base-3: var(--BASE_3);
+  --dynamic-base-4: var(--BASE_4);
+  --dynamic-base-5: var(--BASE_5);
+  --dynamic-connection-green: var(--CONNECTION_GREEN_1);
+  --dynamic-hover: var(--HOVER);
+  --dynamic-error-1: var(--ERROR_1);
+  --dynamic-error-2: var(--ERROR_2);
+  --dynamic-footer-border-top: var(--BASE_4) 0.0625rem solid;
+  --dynamic-footer-background-color: var(--BASE_1);
+  --dynamic-footer-text-color: var(--TEXT_PRIMARY);
+  --dynamic-loading-animation-gradient: var(--LOADING_ANIMATION_GRADIENT);
+  --dynamic-overlay: var(--OVERLAY);
+  --dynamic-shadow-up-1: 0 --px-to-rem(-8) --px-to-rem(48) --px-to-rem(-8) rgba(109, 121, 165, 0.16);
+  --dynamic-text-link: var(--TEXT_LINK);
+  --dynamic-text-primary: var(--TEXT_PRIMARY);
+  --dynamic-text-secondary: var(--TEXT_SECONDARY);
+  --dynamic-text-tertiary: var(--TEXT_TERTIARY);
+  --dynamic-badge-background: var(--BASE_3);
+  --dynamic-badge-color: var(--TEXT_SECONDARY);
+  --dynamic-search-bar-background: var(--BASE_2);
+  --dynamic-search-bar-background-hover: var(--BASE_2);
+  --dynamic-search-bar-background-focus: var(--BASE_2);
+  --dynamic-search-bar-border: --px-to-rem(1) solid var(--BASE_3);
+  --dynamic-search-bar-border-hover: --px-to-rem(1) solid var(--BASE_4);
+  --dynamic-search-bar-border-focus: --px-to-rem(1) solid var(--BASE_4);
+  --dynamic-footer-border: --px-to-rem(1) solid var(--BASE_4);
+  --dynamic-wallet-list-tile-background: var(--BASE_3);
+  --dynamic-wallet-list-tile-background-hover: var(--BASE_4);
+  --dynamic-connect-button-background: var(--BASE_1);
+  --dynamic-connect-button-color: var(--TEXT_PRIMARY);
+  --dynamic-connect-button-border: --px-to-rem(1) solid var(--BASE_4);
+  --dynamic-connect-button-color-hover: var(--TEXT_PRIMARY);
+  --dynamic-connect-button-border-hover: --px-to-rem(1) solid var(--BASE_4);
+  --dynamic-tooltip-color: var(--TEXT_PRIMARY);
+  --dynamic-tooltip-text-color: var(--BASE_1);
+  --dynamic-modal-backdrop-background: rgba(52, 64, 84, 0.6);
+  --dynamic-modal-backdrop-filter: blur(20px);
+  --dynamic-button-primary-background: var(--BASE_2);
+  --dynamic-button-primary-border: var(--BASE_4);
+}
+
+[data-dynamic-theme-brand='bold'] {
+  --dynamic-footer-text-color: var(--TEXT_PRIMARY);
+}
+
+[data-dynamic-theme-brand='subtle'] {
+  --dynamic-footer-arrow-color: var(--TEXT_TERTIARY);
+  --dynamic-footer-icon-color: var(--TEXT_TERTIARY);
+}

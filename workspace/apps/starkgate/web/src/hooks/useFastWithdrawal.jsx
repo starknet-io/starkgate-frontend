@@ -1,11 +1,13 @@
 import {useCallback} from 'react';
-import {number} from 'starknet';
+import {num} from 'starknet';
 
 import {fetchAttestations} from '@api';
 import {useBridgeContractAPI, useConstants} from '@hooks';
 import {useL2Tokens} from '@providers';
 import {isConsumed, isOnChain} from '@starkware-webapps/enums';
 import {useLogger} from '@starkware-webapps/ui';
+
+const {toBigInt} = num;
 
 export const useFastWithdrawal = () => {
   const logger = useLogger('useFastWithdrawal');
@@ -28,10 +30,9 @@ export const useFastWithdrawal = () => {
   );
 
   const getSignatures = useCallback(attestations => {
-    const {toBN} = number;
     const signatures = attestations
       .map(at => at.signatures.ethereum)
-      .sort((a, b) => (toBN(`0x${a.signer}`).lt(toBN(`0x${b.signer}`)) ? -1 : 1))
+      .sort((a, b) => (toBigInt(`0x${a.signer}`).lt(toBigInt(`0x${b.signer}`)) ? -1 : 1))
       .map(eth => eth.signature);
     return `0x${signatures.join('')}`;
   }, []);

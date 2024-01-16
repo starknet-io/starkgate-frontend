@@ -21,6 +21,7 @@ export const ChainSelect = () => {
 
   const renderItems = () => {
     return Object.values(ChainType.L2).map(chainName => {
+      if (ChainInfo.L2[chainName].DISABLED) return null;
       return (
         <MenuItem key={chainName} value={chainName}>
           {ChainInfo.L2[chainName].CHAIN}

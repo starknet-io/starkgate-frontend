@@ -1,10 +1,25 @@
 export const translations = {
+  head: {
+    title: {
+      bridge: {
+        goerli: 'Testnet Goerli StarkGate: Bridge Assets from Ethereum to Starknet',
+        main: 'StarkGate: Bridge Assets from Ethereum to Starknet'
+      },
+      faq: {
+        goerli: "Testnet Goerli StarkGate FAQ: Learn More About Starknet's Bridge to Ethereum",
+        main: "StarkGate FAQ: Learn More About Starknet's Bridge to Ethereum"
+      },
+      terms: {
+        goerli: 'Testnet Goerli StarkGate Terms of Service',
+        main: 'StarkGate Terms of Service'
+      }
+    }
+  },
   containers: {
     header: {
       chainTxt: 'Goerli testnet',
       accountWalletBtnTxt: '{{address}}',
       connectWalletBtnTxt: 'Connect {{network}} Wallet',
-      connectingWalletBtnTxt: 'Connecting {{network}} Wallet...',
       tabs: {
         discoverAppsTxt: 'Discover apps',
         termsTxt: 'Terms',
@@ -38,6 +53,8 @@ export const translations = {
         titleTxt: 'Transfer log',
         singleOverviewTxt: 'recent transfer',
         overviewTxt: 'recent transfers',
+        errorMsgTxt:
+          'We are temporarily unable to show information about your transfers. Please check again in a few minutes.',
         emptyMsgTxt: 'Transfers will appear here...',
         viewMoreTxt: 'View more',
         viewLessTxt: 'View less',
@@ -69,7 +86,8 @@ export const translations = {
       inputPlaceholderTxt: '0.00',
       transferBtnTxt: 'Transfer',
       amountBtnTxt: 'Enter an amount',
-      loginWalletButtonTxt: 'Connect Wallet',
+      loginWalletsButtonTxt: 'Connect Wallets',
+      loginWalletButtonTxt: 'Connect {{networkName}} Wallet',
       readMoreTxt: 'read more',
       enableAutoWithdrawal: 'Use the automatic withdrawal service by SpaceShard',
       autoWithdrawalUnavailable: 'The automatic withdrawal service is temporarily not available',
@@ -89,15 +107,14 @@ export const translations = {
       bodyTxt: 'For the best experience, please use a desktop or laptop.'
     },
     login: {
-      titleTxt: 'Connect {{networkName}} Wallet',
-      unsupportedChainIdTxt: 'Please select {{chainName}} in your wallet',
-      installTxt: 'Install {{wallet}}'
+      termsDisclaimer: {
+        text: 'By connecting a wallet, you agree to our',
+        link: 'Terms of Service.'
+      }
     },
     transactionSubmitted: {
       l1TxTitleTxt: 'Transaction sent',
       l2TxTitleTxt: 'Transaction is being processed on Starknet',
-      btnTxt: 'View on {{explorer}}',
-      transferAlertTitle: 'This is an Alpha version',
       transferToL1Txt: 'Please come back in ~12h to complete the withdrawal on Ethereum',
       transferToL2Txt: 'Your transaction has been successfully sent to Starknet!',
       transferToL2AlertTxt:
@@ -131,18 +148,6 @@ export const translations = {
       errorTitle: 'Transaction error',
       limitationErrorTitle: 'Limitation error'
     },
-    onboarding: {
-      titleTxt: 'Before takeoff, a few important notes!',
-      subtitleTxt: 'While using StarkGate Alpha:',
-      bulletsTxt: [
-        'Use Google Chrome or Mozilla Firefox',
-        'Refrain from switching browsers',
-        'Do not refresh the page while the transfer is being processed',
-        'Do not delete the local storage of the browser'
-      ],
-      incognitoTxt:
-        'The current StarkGate Alpha version <b>does not</b> support browsing in incognito mode.'
-    },
     blockedAddress: {
       titleTxt: 'Blocked Address',
       descriptionTxt:
@@ -151,11 +156,6 @@ export const translations = {
     }
   },
   toasts: {
-    alphaDisclaimerNotice: {
-      titleTxt: 'Starknet Alpha',
-      bodyTxt:
-        'This is an ALPHA version of Starknet, and its Bridge. As such, delays may occur, and catastrophic bugs may lurk. Thanks, OGs, for trying it at this early stage.'
-    },
     transferLogLink: 'View on Transfer Log',
     pendingTransfer: {
       pendingTxt: 'Waiting for transaction to be accepted on Starknet',
@@ -169,6 +169,11 @@ export const translations = {
       dismissBtnTxt: 'Dismiss',
       completeTransferBtnTxt: 'Complete Transfer',
       fastIndicationTxt: 'Fast Withdrawal'
+    }
+  },
+  components: {
+    blockExplorer: {
+      btnTxt: 'View on {{explorer}}'
     }
   }
 };

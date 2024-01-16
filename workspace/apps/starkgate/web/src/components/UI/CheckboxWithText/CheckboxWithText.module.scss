@@ -4,21 +4,22 @@
   display: flex;
   align-items: center;
 
-  &.disabled {
+  .disabled {
     opacity: 0.5;
 
     & * {
       pointer-events: none !important;
     }
   }
-}
 
-.message {
-  font-size: 12px;
-  line-height: 18px;
-  color: $--color-white;
-}
+  .message {
+    font-size: 12px;
+    line-height: 18px;
+    white-space: break-spaces;
+    color: $--color-white;
+  }
 
-.readMore {
-  color: $--color-very-light-azure;
+  .readMore {
+    color: $--color-very-light-azure;
+  }
 }

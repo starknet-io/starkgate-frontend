@@ -12,6 +12,7 @@ const tokens = [
     .map(t => ({
       ...t,
       isL1: true,
+      escrowAddress: t.escrowAddress?.[SUPPORTED_L1_CHAIN_ID],
       bridgeAddress: t.bridgeAddress?.[SUPPORTED_L1_CHAIN_ID],
       tokenAddress: t.tokenAddress?.[SUPPORTED_L1_CHAIN_ID]
     })),

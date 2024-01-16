@@ -1,41 +1,28 @@
-import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, {useEffect} from 'react';
 
-import {useColors, useTermsTracking, useTermsTranslation} from '@hooks';
-import {useL1Wallet, useL2Wallet, useTerms} from '@providers';
-import {toClasses} from '@starkware-webapps/utils-browser';
-import {Button, FullScreenContainer} from '@ui';
+import {useEnvs, useHeadTranslation, useTermsTracking, useTermsTranslation, useTitle} from '@hooks';
+import {FullScreenContainer} from '@ui';
 
 import styles from './Terms.module.scss';
 import TermsOfUse from './TermsOfUse';
 
 export const Terms = () => {
   const [trackTermsScreen] = useTermsTracking();
-  const containerRef = useRef();
-  const {isAcceptTerms} = useTerms();
-  const [isAcceptButtonEnabled, setIsAcceptButtonEnabled] = useState(false);
+  const titles = useHeadTranslation('title.terms');
+
+  const {CHAIN} = useEnvs();
+  useTitle(titles[CHAIN]);
 
   useEffect(() => {
     trackTermsScreen();
   }, []);
 
-  const onScroll = () => {
-    if (containerRef.current) {
-      const {scrollTop, scrollHeight, clientHeight} = containerRef.current;
-      if (Math.ceil(scrollTop + clientHeight) >= scrollHeight) {
-        setIsAcceptButtonEnabled(true);
-      }
-    }
-  };
-
   return (
-    <FullScreenContainer ref={containerRef} onScroll={onScroll}>
+    <FullScreenContainer>
       <div className={styles.terms}>
         <Header />
         <div className={styles.text}>{TermsOfUse}</div>
       </div>
-      {!isAcceptTerms && <AcceptButton isDisabled={!isAcceptButtonEnabled} />}
     </FullScreenContainer>
   );
 };
@@ -49,47 +36,4 @@ const Header = () => {
       <div className={styles.title}>{titleTxt}</div>
     </div>
   );
-};
-
-const AcceptButton = ({isDisabled}) => {
-  const [, trackAcceptClick] = useTermsTracking();
-  const {acceptBtnTxt} = useTermsTranslation();
-  const {acceptTerms} = useTerms();
-  const {colorBrilliantAzure, colorWhite, colorBrightNavyBlue, colorLapizLazuli} = useColors();
-  const {account: accountL1} = useL1Wallet();
-  const {account: accountL2} = useL2Wallet();
-  const navigate = useNavigate();
-  const appUrl = window.location.origin;
-
-  const accept = () => {
-    trackAcceptClick({accountL1, accountL2});
-    acceptTerms();
-    navigate('/');
-  };
-
-  return (
-    <div className={styles.acceptButtonContainer}>
-      <div className={styles.content}>
-        <Button
-          colorBackground={isDisabled ? colorLapizLazuli : colorBrilliantAzure}
-          colorBackgroundHover={colorBrightNavyBlue}
-          colorBorder={colorBrightNavyBlue}
-          colorText={colorWhite}
-          isDisabled={isDisabled}
-          text={acceptBtnTxt}
-          onClick={accept}
-        />
-        <div className={toClasses(styles.text, isDisabled && styles.disabled)}>
-          By clicking the &#34;I Accept&#34; button, you are accepting our{' '}
-          <a href={`${appUrl}/terms`} rel="noreferrer" target="_blank">
-            Terms of Service
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-AcceptButton.propTypes = {
-  isDisabled: PropTypes.bool
 };

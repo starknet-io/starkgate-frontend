@@ -1,7 +1,6 @@
 import {createRequire} from 'module';
 import {resolve} from 'path';
 import {defineConfig} from 'vite';
-import dts from 'vite-plugin-dts';
 import svgr from 'vite-plugin-svgr';
 
 import react from '@vitejs/plugin-react';
@@ -28,14 +27,7 @@ export default ({mode}: ViteConfigInput) => {
         {find: '@providers', replacement: resolve(__dirname, 'src/providers')}
       ]
     },
-    plugins: [
-      react(),
-      svgr(),
-      dts({
-        insertTypesEntry: true,
-        outputDir: 'dist/types'
-      })
-    ],
+    plugins: [react(), svgr()],
     css: {
       modules: {
         localsConvention: 'camelCase',
@@ -43,6 +35,7 @@ export default ({mode}: ViteConfigInput) => {
       }
     },
     build: {
+      emptyOutDir: false,
       lib: {
         entry: resolve(__dirname, 'src/index.jsx'),
         name: 'WebAppsUI',

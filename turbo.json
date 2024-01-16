@@ -1,125 +1,32 @@
 {
-  "globalEnv": [
-    "npm_package_name",
-    "npm_package_version"
-  ],
-  "globalPassThroughEnv": null,
-  "globalDotEnv": null,
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["npm_package_version", "npm_package_name"],
   "pipeline": {
-    "@starkgate/web#lint": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [
-        "NETLIFY"
-      ],
-      "passThroughEnv": null,
-      "dotEnv": null
-    },
     "build": {
-      "outputs": [
-        "dist/**"
-      ],
-      "cache": true,
-      "dependsOn": [
-        "^build",
-        "prebuild"
-      ],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
+      "dependsOn": ["prebuild", "ts-declarations", "^build"],
+      "outputs": ["dist/**"]
     },
-    "clean": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
-    },
+    "clean": {},
     "dev": {
-      "outputs": [],
       "cache": false,
-      "dependsOn": [],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": true,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
+      "persistent": true
     },
-    "format": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
-    },
+    "format": {},
     "lint": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [
-        "^lint"
-      ],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
+      "dependsOn": ["^lint"]
     },
     "pack": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [
-        "build",
-        "lint",
-        "test"
-      ],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
+      "dependsOn": ["lint", "build", "test"]
     },
-    "prebuild": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
-    },
+    "prebuild": {},
     "test": {
-      "outputs": [],
-      "cache": true,
-      "dependsOn": [
-        "build"
-      ],
-      "inputs": [],
-      "outputMode": "full",
-      "persistent": false,
-      "env": [],
-      "passThroughEnv": null,
-      "dotEnv": null
+      "dependsOn": ["build"]
+    },
+    "ts-declarations": {
+      "dependsOn": ["prebuild", "^ts-declarations", "^build"]
+    },
+    "@starkgate/web#lint": {
+      "env": ["NETLIFY"]
     }
-  },
-  "remoteCache": {}
+  }
 }

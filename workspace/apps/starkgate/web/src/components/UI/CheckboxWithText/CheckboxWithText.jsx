@@ -12,8 +12,8 @@ export const CheckboxWithText = ({checked, disabled, message, linkTxt, linkUrl, 
   const {colorOrangeSoda} = useColors();
 
   return (
-    <div className={toClasses(styles.checkboxWithText, disabled && styles.disabled)}>
-      <div style={{margin: '0 8px 0 0'}}>
+    <div className={styles.checkboxWithText}>
+      <div className={disabled ? styles.disabled : ''} style={{margin: '0 8px 0 0'}}>
         <Checkbox
           backgroundColor={colorOrangeSoda}
           checked={checked}
@@ -22,16 +22,14 @@ export const CheckboxWithText = ({checked, disabled, message, linkTxt, linkUrl, 
           onChange={onChange}
         />
       </div>
-      <div className={styles.message}>
-        {message}{' '}
-        <Link
-          className={toClasses(styles.message, styles.readMore)}
-          link={linkUrl}
-          openInNewTab={true}
-          text={linkTxt}
-          type={LinkType.URL}
-        />
-      </div>
+      <div className={toClasses(styles.message, disabled && styles.disabled)}>{message} </div>
+      <Link
+        className={toClasses(styles.message, styles.readMore)}
+        link={linkUrl}
+        openInNewTab={true}
+        text={linkTxt}
+        type={LinkType.URL}
+      />
     </div>
   );
 };

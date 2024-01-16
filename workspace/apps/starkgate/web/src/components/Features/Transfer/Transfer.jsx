@@ -17,10 +17,10 @@ import {
   useIsL2,
   useL1Token,
   useL2Token,
-  useLogin,
   useMenu,
   useTokens,
-  useTransfer
+  useTransfer,
+  useWalletLogin
 } from '@providers';
 import {NetworkType} from '@starkware-webapps/enums';
 import {afterDecimal, evaluate, isNegative, isZero} from '@starkware-webapps/utils';
@@ -61,7 +61,7 @@ export const Transfer = ({onNetworkSwap}) => {
   const transferToL1 = useTransferToL1();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const {isLoggedIn} = useLogin();
+  const {isConnected} = useWalletLogin();
   const {ENABLE_AUTO_WITHDRAWAL, ENABLE_FAST_WITHDRAWAL} = useEnvs();
 
   useEffect(() => {
@@ -168,7 +168,7 @@ export const Transfer = ({onNetworkSwap}) => {
       <>
         <TokenInput
           hasError={hasInputError}
-          isInputDisabled={bridgeIsFull || !isLoggedIn}
+          isInputDisabled={bridgeIsFull || !isConnected}
           tokenData={selectedToken}
           value={amount}
           onInputChange={onInputChange}
@@ -198,7 +198,7 @@ export const Transfer = ({onNetworkSwap}) => {
           {ENABLE_FAST_WITHDRAWAL && selectedToken.fastWithdrawal && (
             <FastWithdrawal checked={fastWithdrawal} disabled={isButtonDisabled} />
           )}
-          {isLoggedIn ? (
+          {isConnected ? (
             <TransferButton
               isDisabled={isButtonDisabled || bridgeIsFull}
               onClick={onTransferClick}

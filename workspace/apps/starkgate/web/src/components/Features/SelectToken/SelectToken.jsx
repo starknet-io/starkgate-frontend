@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import L1Logo from '@assets/svg/chains/ethereum.svg';
 import L2Logo from '@assets/svg/chains/starknet.svg';
 import {useColors, useSelectTokenTracking, useSelectTokenTranslation} from '@hooks';
-import {useLogin, useMenu, useTokens, useTransfer} from '@providers';
+import {useMenu, useTokens, useTransfer, useWalletLogin} from '@providers';
 import {BackButton, Menu, MenuTitle, RefreshIcon, SearchToken, SelectTokenList} from '@ui';
 
 import styles from './SelectToken.module.scss';
@@ -16,8 +16,8 @@ export const SelectToken = () => {
   const {showSourceMenu} = useMenu();
   const {isL1, fromNetwork} = useTransfer();
   const {selectToken} = useTransfer();
+  const {isConnected} = useWalletLogin();
   const [searchTokens, setSearchTokens] = useState(tokens);
-  const {isLoggedIn} = useLogin();
 
   useEffect(() => {
     setSearchTokens(tokens);
@@ -38,7 +38,7 @@ export const SelectToken = () => {
           <MenuTitle text={titleTxt} />
           <div className={styles.network}>
             <MenuTitle color={colorOrangeSoda} text={fromNetwork} />
-            {isLoggedIn && <RefreshIcon onClick={updateTokenBalance} />}
+            {isConnected && <RefreshIcon onClick={updateTokenBalance} />}
           </div>
         </div>
         <SearchToken

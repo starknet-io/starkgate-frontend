@@ -1,5 +1,5 @@
-import {getStarknet} from 'get-starknet';
 import {useCallback} from 'react';
+import {TransactionExecutionStatus} from 'starknet';
 
 import {
   CompleteTransferToL1Steps,
@@ -15,19 +15,17 @@ import {
   useTransferProgress,
   useTransferToL1Tracking
 } from '@hooks';
-import {useL1Wallet, useL2Wallet, useSelectedToken, useTransferLog} from '@providers';
+import {useSelectedToken, useTransferLog, useWallets} from '@providers';
 import {TransferType} from '@starkgate/shared';
-import {EventName, TransactionStatus} from '@starkware-webapps/enums';
 import {useLogger} from '@starkware-webapps/ui';
-import {waitForTransaction} from '@starkware-webapps/web3-utils';
+import {promiseHandler} from '@starkware-webapps/utils';
 
 export const useTransferToL1 = () => {
   const logger = useLogger('useTransferToL1');
   const [trackInitiated, trackSuccess, trackError, , trackAutoWithdrawal] =
     useTransferToL1Tracking();
   const {initiateWithdraw, initiateTeleport} = useBridgeContractAPI();
-  const {account: accountL1} = useL1Wallet();
-  const {account: accountL2, config: configL2} = useL2Wallet();
+  const {ethereumAccount, getStarknetProvider, starknetAccount, starknetWalletName} = useWallets();
   const selectedToken = useSelectedToken();
   const {handleProgress, handleData, handleError} = useTransfer(TransferToL1Steps);
   const progressOptions = useTransferProgress();
@@ -35,11 +33,12 @@ export const useTransferToL1 = () => {
   return useCallback(
     async (amount, autoWithdrawal, fastWithdrawal) => {
       const {name, symbol} = selectedToken;
+      const provider = getStarknetProvider();
 
       const sendInitiateWithdraw = () => {
         const trackData = {
-          fromAddress: accountL2,
-          toAddress: accountL1,
+          fromAddress: starknetAccount,
+          toAddress: ethereumAccount,
           amount,
           symbol
         };
@@ -51,11 +50,11 @@ export const useTransferToL1 = () => {
             });
         return fastWithdrawal
           ? initiateTeleport({
-              recipient: accountL1,
+              recipient: ethereumAccount,
               amount
             })
           : initiateWithdraw({
-              recipient: accountL1,
+              recipient: ethereumAccount,
               amount,
               autoWithdrawal
             });
@@ -65,7 +64,7 @@ export const useTransferToL1 = () => {
         logger.log('TransferToL1 called');
         handleProgress(
           progressOptions.waitForConfirm(
-            configL2.name,
+            starknetWalletName,
             stepOf(TransferStep.CONFIRM_TX, TransferToL1Steps)
           )
         );
@@ -73,8 +72,8 @@ export const useTransferToL1 = () => {
         const {transaction_hash: l2TxHash} = await sendInitiateWithdraw();
         const transferData = {
           type: TransferType.WITHDRAWAL,
-          sender: accountL2,
-          recipient: accountL1,
+          sender: starknetAccount,
+          recipient: ethereumAccount,
           l2TxTimestamp: new Date().getTime(),
           name,
           symbol,
@@ -92,7 +91,9 @@ export const useTransferToL1 = () => {
           )
         );
         logger.log('Waiting for tx to be received on L2');
-        await waitForTransaction(getStarknet().provider, l2TxHash, TransactionStatus.RECEIVED);
+        await provider.waitForTransaction(l2TxHash, {
+          successStates: [TransactionExecutionStatus.SUCCEEDED]
+        });
         logger.log('Done', {l2TxHash});
         trackSuccess({l2TxHash, fastWithdrawal, autoWithdrawal});
         handleData(transferData);
@@ -104,15 +105,16 @@ export const useTransferToL1 = () => {
     },
     [
       initiateWithdraw,
-      accountL1,
-      accountL2,
-      configL2,
+      ethereumAccount,
+      starknetAccount,
+      starknetWalletName,
       handleData,
       handleError,
       handleProgress,
       logger,
       progressOptions,
-      selectedToken
+      selectedToken,
+      getStarknetProvider
     ]
   );
 };
@@ -121,7 +123,7 @@ export const useCompleteTransferToL1 = () => {
   const logger = useLogger('useCompleteTransferToL1');
   const [trackInitiated, trackSuccess, trackError] = useCompleteTransferToL1Tracking();
   const {withdraw, requestMint} = useBridgeContractAPI();
-  const {account: accountL1, config: configL1} = useL1Wallet();
+  const {ethereumAccount, ethereumWalletName} = useWallets();
   const {handleProgress, handleData, handleError} = useTransfer(CompleteTransferToL1Steps);
   const progressOptions = useTransferProgress();
   const {refetch} = useTransferLog();
@@ -130,35 +132,27 @@ export const useCompleteTransferToL1 = () => {
     async transfer => {
       const {symbol, amount, l2TxHash, customData, fastWithdrawal} = transfer;
 
-      const sendWithdrawal = () => {
+      const sendWithdrawal = async () => {
         trackInitiated({
-          toAddress: accountL1,
+          toAddress: ethereumAccount,
           l2TxHash,
           amount,
           symbol,
           fastWithdrawal
         });
-        if (fastWithdrawal) {
-          logger.log('Calling requestMint');
-          return requestMint({
-            amount,
-            customData,
-            emitter: onTransactionHash
-          });
-        } else {
-          logger.log('Calling withdraw');
-          return withdraw({
-            recipient: accountL1,
-            symbol,
-            amount,
-            emitter: onTransactionHash
-          });
-        }
-      };
-
-      const onTransactionHash = (error, transactionHash) => {
+        const withdrawalHandler = fastWithdrawal
+          ? requestMint({
+              amount,
+              customData
+            })
+          : withdraw({
+              recipient: ethereumAccount,
+              symbol,
+              amount
+            });
+        const [tx, error] = await promiseHandler(withdrawalHandler);
         if (!error) {
-          logger.log('Tx signed', {transactionHash});
+          logger.log('Tx signed', {transactionHash: tx.hash});
           handleProgress(
             progressOptions.withdraw(
               amount,
@@ -166,12 +160,13 @@ export const useCompleteTransferToL1 = () => {
               stepOf(TransferStep.WITHDRAW, CompleteTransferToL1Steps)
             )
           );
+          return tx;
         }
+        throw error;
       };
 
-      const onWithdrawal = event => {
-        logger.log('Withdrawal event dispatched', event);
-        const {transactionHash: l1TxHash} = event;
+      const handleWithdrawalSuccess = receipt => {
+        const {transactionHash: l1TxHash} = receipt;
         trackSuccess({l1TxHash});
         const transferData = {...transfer, l1TxHash};
         handleData(transferData);
@@ -182,12 +177,14 @@ export const useCompleteTransferToL1 = () => {
         logger.log('CompleteTransferToL1 called');
         handleProgress(
           progressOptions.waitForConfirm(
-            configL1.name,
+            ethereumWalletName,
             stepOf(TransferStep.CONFIRM_TX, CompleteTransferToL1Steps)
           )
         );
-        const receipt = await sendWithdrawal();
-        onWithdrawal(receipt.events[fastWithdrawal ? 0 : EventName.L1.LOG_WITHDRAWAL]);
+        const tx = await sendWithdrawal();
+        const receipt = await tx.wait();
+        logger.log('Withdrawal tx mined', {receipt});
+        handleWithdrawalSuccess(receipt);
       } catch (ex) {
         trackError({error: ex});
         logger.error(ex?.message, ex);
@@ -196,8 +193,8 @@ export const useCompleteTransferToL1 = () => {
     },
     [
       withdraw,
-      accountL1,
-      configL1,
+      ethereumAccount,
+      ethereumWalletName,
       handleData,
       handleError,
       handleProgress,

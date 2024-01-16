@@ -1,15 +1,8 @@
-import {useCallback, useContext, useEffect} from 'react';
+import {useCallback, useContext} from 'react';
 
 import {ReactComponent as AlertIcon} from '@assets/svg/icons/alert-circle.svg';
 import {ReactComponent as WarningIcon} from '@assets/svg/icons/warning-circle.svg';
-import {
-  useBlockedAddressModalTranslation,
-  useOnboardingModalTranslation,
-  useUnsupportedModalTranslation
-} from '@hooks';
-import {useL2Wallet} from '@providers';
-import {NetworkType, isConnecting} from '@starkware-webapps/enums';
-import {usePrevious} from '@starkware-webapps/ui';
+import {useBlockedAddressModalTranslation, useUnsupportedModalTranslation} from '@hooks';
 import {ModalSize, ModalType} from '@ui';
 
 import {ModalContext} from './modal-context';
@@ -24,7 +17,8 @@ const importComponent = modulePath => modules[`../../components/UI/${modulePath}
 const TRANSACTION_MODAL_STYLE = {
   containerStyle: {
     width: '495px',
-    padding: '32px'
+    padding: '32px',
+    overflow: 'hidden'
   },
   buttonProps: {
     height: '48px',
@@ -154,8 +148,7 @@ export const useTransactionSubmittedModal = steps => {
                 'Modal/TransactionSubmittedModal/TransactionSubmittedModalButton'
               ),
               props: {
-                transfer,
-                buttonProps
+                transfer
               }
             }
           ],
@@ -227,76 +220,6 @@ export const useErrorModal = () => {
         size,
         containerStyle,
         type: ModalType.ERROR
-      });
-    },
-    [showModal]
-  );
-};
-
-export const useOnboardingModal = () => {
-  const {showModal} = useContext(ModalContext);
-  const {titleTxt} = useOnboardingModalTranslation();
-  const {buttonProps, containerStyle} = MODAL_HEADER_WITH_ICON_STYLE;
-
-  return useCallback(() => {
-    showModal({
-      header: {
-        components: [
-          {
-            import: importComponent('Modal/ModalHeaderWithIcon/ModalHeaderWithIcon'),
-            props: {
-              icon: WarningIcon,
-              title: titleTxt
-            }
-          }
-        ]
-      },
-      body: {
-        components: [
-          {
-            import: importComponent('Modal/OnboardingModal/OnboardingModal')
-          }
-        ]
-      },
-      footer: {
-        withButtons: true,
-        buttonProps
-      },
-      containerStyle
-    });
-  }, [showModal]);
-};
-
-export const useLoginModal = () => {
-  const {showModal, show} = useContext(ModalContext);
-  const prevShow = usePrevious(show);
-  const {status, resetWallet} = useL2Wallet();
-
-  useEffect(() => {
-    // reset L2 wallet if the user closed the modal on connecting
-    if (prevShow && !show && isConnecting(status)) {
-      resetWallet();
-    }
-  }, [show, status]);
-
-  return useCallback(
-    (networkName = NetworkType.L1) => {
-      showModal({
-        withHeader: false,
-        body: {
-          components: [
-            {
-              import: importComponent('Modal/LoginModal/LoginModal'),
-              props: {networkName}
-            }
-          ]
-        },
-        containerStyle: {
-          background: 'unset',
-          boxShadow: 'unset',
-          width: '464px'
-        },
-        exitable: true
       });
     },
     [showModal]

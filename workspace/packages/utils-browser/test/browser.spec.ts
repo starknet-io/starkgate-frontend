@@ -1,28 +1,4 @@
-import {buildDynamicURL, getCookie, setCookie} from '../src';
-
-describe('buildDynamicURL', () => {
-  it('should build dynamic url without dynamicQsValues', () => {
-    expect(
-      buildDynamicURL('https://starkware.banxa.com/', {
-        walletAddress: '0x123456789'
-      })
-    ).toEqual('https://starkware.banxa.com/?walletAddress=0x123456789');
-  });
-
-  it('should build dynamic url with dynamicQsValues', () => {
-    expect(
-      buildDynamicURL(
-        'https://starkware.banxa.com/',
-        {
-          walletAddress: '{{accountL2}}'
-        },
-        {
-          accountL2: '0x123456789'
-        }
-      )
-    ).toEqual('https://starkware.banxa.com/?walletAddress=0x123456789');
-  });
-});
+import {getCookie, setCookie} from '../src';
 
 describe('getCookie', () => {
   beforeAll(() => {

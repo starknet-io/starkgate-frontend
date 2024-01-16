@@ -4,7 +4,6 @@ export * from './ToastButton/ToastButton';
 export * from './ToastHeader/ToastHeader';
 export * from './ToastSeparator/ToastSeparator';
 export * from './CompleteTransferToL1Toast/CompleteTransferToL1Toast';
-export * from './AlphaDisclaimerToast/AlphaDisclaimerToast';
 export * from './TransferToast/TransferToast';
 export * from './ErrorToast/ErrorToast';
 export * from './CallToActionToast/CallToActionToast';

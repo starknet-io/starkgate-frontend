@@ -71,10 +71,10 @@ export const TrackEventType = {
    * Terms screen
    */
   TERMS_SCREEN: 'terms_screen',
-  TERMS: {
-    ACCEPT_CLICK: 'terms_screen/accept_click'
-  },
 
+  /**
+   * FAQ screen
+   */
   FAQ_SCREEN: 'faq_screen',
 
   /**

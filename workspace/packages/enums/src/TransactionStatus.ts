@@ -1,10 +1,10 @@
 export enum TransactionStatus {
-  REJECTED = 'REJECTED',
   NOT_RECEIVED = 'NOT_RECEIVED',
   RECEIVED = 'RECEIVED',
-  PENDING = 'PENDING',
   ACCEPTED_ON_L2 = 'ACCEPTED_ON_L2',
-  ACCEPTED_ON_L1 = 'ACCEPTED_ON_L1'
+  ACCEPTED_ON_L1 = 'ACCEPTED_ON_L1',
+  REJECTED = 'REJECTED',
+  REVERTED = 'REVERTED'
 }
 
 export const TransactionStatusFriendlyMessage: {
@@ -13,9 +13,9 @@ export const TransactionStatusFriendlyMessage: {
   [TransactionStatus.REJECTED]: 'Invalid transaction',
   [TransactionStatus.NOT_RECEIVED]: 'Waiting to be accepted on L2',
   [TransactionStatus.RECEIVED]: 'Waiting to be accepted on L2',
-  [TransactionStatus.PENDING]: 'Accepted on L2',
   [TransactionStatus.ACCEPTED_ON_L2]: 'Accepted on L2',
-  [TransactionStatus.ACCEPTED_ON_L1]: 'Proved and accepted on L1'
+  [TransactionStatus.ACCEPTED_ON_L1]: 'Proved and accepted on L1',
+  [TransactionStatus.REVERTED]: 'Transaction reverted'
 };
 
 export const TransactionPendingStatuses: Array<TransactionStatus> = [
@@ -29,8 +29,7 @@ export const TransactionCompletedStatuses: Array<TransactionStatus> = [
 ];
 
 export const TransactionConsumedStatuses: Array<TransactionStatus> = [
-  TransactionStatus.ACCEPTED_ON_L2,
-  TransactionStatus.PENDING
+  TransactionStatus.ACCEPTED_ON_L2
 ];
 
 export enum TransactionStatusStep {

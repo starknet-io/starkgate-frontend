@@ -2,10 +2,10 @@ import React from 'react';
 
 import {depositConfig, providers, sources, withdrawConfig} from '@config/sources';
 import {useEnvs, useProvidersTranslation, useSourceTranslation} from '@hooks';
-import {useIsL1, useL2Wallet, useSource} from '@providers';
+import {useIsL1, useSource, useStarknetWallet} from '@providers';
 import {ChainType} from '@starkware-webapps/enums';
-import {evaluate} from '@starkware-webapps/utils';
-import {buildDynamicURL, openInNewTab} from '@starkware-webapps/utils-browser';
+import {buildDynamicURL, evaluate} from '@starkware-webapps/utils';
+import {openInNewTab} from '@starkware-webapps/utils-browser';
 import {
   Badge,
   ChoiceItemType,
@@ -23,9 +23,9 @@ export const ProvidersMenu = () => {
   const {fromTxt, toTxt} = useSourceTranslation();
   const {source} = useSource();
   const {descriptionTxt} = useProvidersTranslation();
-  const {account: accountL2} = useL2Wallet();
+  const {starknetAccount} = useStarknetWallet();
   const dynamicQsValues = {
-    accountL2
+    starknetAccount
   };
 
   const getDescription = () => {

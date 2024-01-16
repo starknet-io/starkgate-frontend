@@ -1,7 +1,7 @@
 import {GOOGLE_MEASURE_ID} from '@config/envs';
 
 export const track = (event, data) => {
-  window.gtag('event', `starkgate/${event}`, data);
+  window.gtag('event', `${APP_NAME}/${event}`, data);
 };
 
 export const setUser = data => {

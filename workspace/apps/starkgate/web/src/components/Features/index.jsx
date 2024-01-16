@@ -7,3 +7,4 @@ export * from './Source/Source';
 export * from './ProvidersMenu/ProvidersMenu';
 export * from './AutoWithdrawal/AutoWithdrawal';
 export * from './FastWithdrawal/FastWithdrawal';
+export * from './WalletButtons/WalletButtons';

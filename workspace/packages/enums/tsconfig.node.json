@@ -1,6 +1,7 @@
 {
   "extends": "@starkware-webapps/tsconfig/node.json",
   "compilerOptions": {
+    "composite": true,
     "module": "ESNext"
   },
   "include": ["vite.config.ts"]

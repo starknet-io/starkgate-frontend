@@ -1,13 +1,16 @@
 import {useCallback} from 'react';
 
 import {useSelectedToken, useTransfer} from '@providers';
+import {isDai} from '@utils';
 
 import {useL1TokenBalance} from './useTokenBalance';
 
 export const useIsMaxTotalBalanceExceeded = () => {
-  const selectedToken = useSelectedToken();
-  const getTokenBridgeBalance = useL1TokenBalance(selectedToken?.bridgeAddress);
   const {isL1} = useTransfer();
+  const selectedToken = useSelectedToken();
+  const getTokenBridgeBalance = useL1TokenBalance(
+    isDai(selectedToken?.symbol) ? selectedToken?.escrowAddress : selectedToken?.bridgeAddress
+  );
 
   return useCallback(
     async (amount = 0) => {

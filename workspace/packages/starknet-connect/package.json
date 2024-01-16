@@ -1,0 +1,46 @@
+{
+  "name": "@starkware-webapps/starknet-connect",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "pnpm run clean",
+    "build": "vite build",
+    "clean": "rm -rf ./dist",
+    "dev": "pnpm run prebuild && vite build --watch --mode development",
+    "format": "sort-package-json && prettier --write \"**/*.+(ts|js|cjs|json|md|html|yml)\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "pretest": "pnpm run prebuild && tsc",
+    "test": "ts-mocha",
+    "ts-declarations": "tsc --emitDeclarationOnly"
+  },
+  "devDependencies": {
+    "@starkware-webapps/tsconfig": "workspace:*",
+    "@starkware-webapps/utils": "workspace:*",
+    "@types/chai": "^4.3.9",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.8.10",
+    "@types/sinon": "^10.0.16",
+    "chai": "^4.3.10",
+    "eslint": "^8.15.0",
+    "eslint-config-ts": "workspace:*",
+    "mocha": "^10.2.0",
+    "sinon": "^15.2.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^5.3.3",
+    "vite": "^4.2.0"
+  },
+  "peerDependencies": {
+    "starknet": "5.25.0"
+  }
+}

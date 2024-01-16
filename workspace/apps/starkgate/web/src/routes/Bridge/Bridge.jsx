@@ -3,29 +3,33 @@ import React, {useEffect} from 'react';
 import {setUser} from '@analytics';
 import {MenuType} from '@enums';
 import {Account, SelectToken, Source, ToastManager} from '@features';
-import {useAccountChange, useIsMaxTotalBalanceExceeded, useMenuTracking} from '@hooks';
 import {
-  useBridgeIsFull,
-  useL1Wallet,
-  useL2Wallet,
-  useLogin,
-  useMenu,
-  useSelectedToken
-} from '@providers';
+  useAccountChange,
+  useEnvs,
+  useHeadTranslation,
+  useIsMaxTotalBalanceExceeded,
+  useMenuTracking,
+  useTitle
+} from '@hooks';
+import {useBridgeIsFull, useMenu, useSelectedToken, useWalletLogin, useWallets} from '@providers';
 
 import styles from './Bridge.module.scss';
 
 export const Bridge = () => {
   const trackMenu = useMenuTracking();
   const {menu, menuProps} = useMenu();
-  const {account: accountL1} = useL1Wallet();
-  const {account: accountL2} = useL2Wallet();
+  const {ethereumAccount, starknetAccount} = useWallets();
+  const {isConnected} = useWalletLogin();
   const {lockBridge, unlockBridge} = useBridgeIsFull();
   const selectedToken = useSelectedToken();
   const isMaxTotalBalanceExceeded = useIsMaxTotalBalanceExceeded();
-  const {isLoggedIn} = useLogin();
+  const titles = useHeadTranslation('title.bridge');
+
+  const {CHAIN} = useEnvs();
+  useTitle(titles[CHAIN]);
+
   useAccountChange(accountHash => {
-    accountHash && setUser({accountL1, accountL2});
+    accountHash && setUser({ethereumAccount, starknetAccount});
   }, []);
 
   useEffect(() => {
@@ -38,8 +42,8 @@ export const Bridge = () => {
       exceeded ? lockBridge() : unlockBridge();
     }
 
-    isLoggedIn && maybeLockBridge();
-  }, [isMaxTotalBalanceExceeded, selectedToken, isLoggedIn]);
+    isConnected && maybeLockBridge();
+  }, [isMaxTotalBalanceExceeded, selectedToken, isConnected]);
 
   const renderMenu = () => {
     switch (menu) {

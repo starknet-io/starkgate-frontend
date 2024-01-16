@@ -32,7 +32,7 @@ export const useLoginTracking = () => {
 };
 
 export const useTermsTracking = () => {
-  return useTracking(track, [TrackEventType.TERMS_SCREEN, ...Object.values(TrackEventType.TERMS)]);
+  return useTracking(track, TrackEventType.TERMS_SCREEN);
 };
 
 export const useTransferTracking = () => {

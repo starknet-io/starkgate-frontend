@@ -44,18 +44,15 @@ describe('parseToUint256', () => {
   it('should parse to uint256', () => {
     expect(parseToUint256('100')).toEqual({
       high: '0x0',
-      low: '0x56bc75e2d63100000',
-      type: 'struct'
+      low: '0x56bc75e2d63100000'
     });
     expect(parseToUint256('10000')).toEqual({
       high: '0x0',
-      low: '0x21e19e0c9bab2400000',
-      type: 'struct'
+      low: '0x21e19e0c9bab2400000'
     });
     expect(parseToUint256('10000000')).toEqual({
       high: '0x0',
-      low: '0x84595161401484a000000',
-      type: 'struct'
+      low: '0x84595161401484a000000'
     });
   });
 });

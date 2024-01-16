@@ -1,33 +1,21 @@
 import PropTypes from 'prop-types';
-import {useEffect} from 'react';
 import {Toaster, toast} from 'react-hot-toast';
-import useBreakpoint from 'use-breakpoint';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 import {ReactComponent as FastIcon} from '@assets/svg/icons/fast.svg';
-import {ALPHA_DISCLAIMER_COOKIE_NAME, HIDE_ELEMENT_COOKIE_DURATION_DAYS} from '@config/constants';
-import {Breakpoint, ToastType, isMobile} from '@enums';
+import {ToastType} from '@enums';
 import {useCompleteTransferToL1, useCompleteTransferToastTranslation} from '@hooks';
-import {useIsL1, useIsL2, useL1Wallet, useMenu, useTransfers} from '@providers';
+import {useEthereumWallet, useIsL1, useIsL2, useMenu, useTransfers} from '@providers';
 import {isDeposit, isPendingWithdrawal} from '@starkgate/shared';
 import {NetworkType, isConsumed, isRejected} from '@starkware-webapps/enums';
 import {useDidMountEffect, usePrevious} from '@starkware-webapps/ui';
 import {getFullTime} from '@starkware-webapps/utils';
-import {getCookie, setCookie} from '@starkware-webapps/utils-browser';
-import {
-  AlphaDisclaimerToast,
-  Bullet,
-  CompleteTransferToL1Toast,
-  ToastBody,
-  TransferToast
-} from '@ui';
+import {Bullet, CompleteTransferToL1Toast, ToastBody, TransferToast} from '@ui';
 
 import styles from './ToastManager.module.scss';
 
 let toastsMap = {};
 let toastsDismissed = {};
-
-const ALPHA_DISCLAIMER_TOAST_ID = 'alphaDisclaimer';
 
 export const ToastManager = () => {
   const transfers = useTransfers();
@@ -36,22 +24,14 @@ export const ToastManager = () => {
   const {showAccountMenu} = useMenu();
   const [, swapToL1] = useIsL1();
   const [, swapToL2] = useIsL2();
-  const {breakpoint} = useBreakpoint(Breakpoint);
-  const {account: accountL1} = useL1Wallet();
-
-  useEffect(() => {
-    const alphaDisclaimerCookie = getCookie(ALPHA_DISCLAIMER_COOKIE_NAME);
-    if (!alphaDisclaimerCookie) {
-      showAlphaDisclaimerToast();
-    }
-  }, [breakpoint]);
+  const {ethereumAccount} = useEthereumWallet();
 
   useDidMountEffect(() => {
     clearToasts();
-  }, [accountL1]);
+  }, [ethereumAccount]);
 
   useDeepCompareEffect(() => {
-    accountL1 && renderToasts();
+    ethereumAccount && renderToasts();
   }, [transfers]);
 
   const renderToasts = () => {
@@ -70,24 +50,15 @@ export const ToastManager = () => {
     if (isChanged && isRejected(l2TxStatus)) {
       return showRejectedTransferToast(transfer);
     }
-    if (isPendingWithdrawal(transfer) && l1Address?.toLowerCase() === accountL1?.toLowerCase()) {
+    if (
+      isPendingWithdrawal(transfer) &&
+      l1Address?.toLowerCase() === ethereumAccount?.toLowerCase()
+    ) {
       return showCompleteTransferToL1Toast(transfer);
     }
     if (l1TxHash && isToastRendered(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1)) {
       return dismissToast(transfer.id, ToastType.COMPLETE_TRANSFER_TO_L1);
     }
-  };
-
-  const onAlphaDisclaimerDismiss = () => {
-    setCookie(ALPHA_DISCLAIMER_COOKIE_NAME, true, HIDE_ELEMENT_COOKIE_DURATION_DAYS);
-    toast.dismiss(ALPHA_DISCLAIMER_TOAST_ID);
-  };
-
-  const showAlphaDisclaimerToast = () => {
-    toast.custom(t => <AlphaDisclaimerToast t={t} onDismiss={onAlphaDisclaimerDismiss} />, {
-      position: isMobile(breakpoint) ? 'bottom-center' : 'bottom-right',
-      id: ALPHA_DISCLAIMER_TOAST_ID
-    });
   };
 
   const showConsumedTransferToast = transfer => {

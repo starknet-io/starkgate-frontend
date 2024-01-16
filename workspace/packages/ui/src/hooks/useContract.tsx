@@ -1,21 +1,15 @@
 import {useCallback} from 'react';
-import {Contract as StarknetContract} from 'starknet';
-import {Contract as EthereumContract} from 'web3-eth-contract';
-import {AbiItem} from 'web3-utils';
 
-export const cache: {[address: string]: EthereumContract | StarknetContract} = {};
+export const cache: {[address: string]: any} = {};
 
 export const useContract = (
-  abi: AbiItem[],
-  createContractHandler: (
-    contractAddress: string,
-    abi: AbiItem[]
-  ) => EthereumContract | StarknetContract
+  abi: Record<string, any>,
+  createContractHandler: (contractAddress: string, abi: Record<string, any>) => any
 ) => {
   return useCallback(
-    (contractAddress: string) => {
+    async (contractAddress: string) => {
       if (!cache[contractAddress]) {
-        cache[contractAddress] = createContractHandler(contractAddress, abi);
+        cache[contractAddress] = await createContractHandler(contractAddress, abi);
       }
       return cache[contractAddress];
     },

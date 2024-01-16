@@ -40,6 +40,7 @@ module.exports = {
     ],
     'scss/at-import-partial-extension': null,
     'scss/comment-no-empty': null,
+    'scss/operator-no-newline-after': null,
     'scss/double-slash-comment-empty-line-before': null,
     'prettier/prettier': [
       true,

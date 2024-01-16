@@ -6,7 +6,7 @@ export const AppContext = createContext({
   ...initialState,
   isScrollActive: false,
   navigateToRoute: () => ({}),
-  acceptTerms: () => ({}),
   login: () => ({}),
-  logout: () => ({})
+  logout: () => ({}),
+  selectBlockExplorer: blockExplorer => blockExplorer
 });

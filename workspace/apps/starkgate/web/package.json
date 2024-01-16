@@ -1,6 +1,6 @@
 {
   "name": "@starkgate/web",
-  "version": "1.14.2",
+  "version": "1.21.0",
   "homepage": "./",
   "type": "module",
   "scripts": {
@@ -34,6 +34,11 @@
     ]
   },
   "dependencies": {
+    "@dynamic-labs/ethereum": "^1.0.4",
+    "@dynamic-labs/ethers-v5": "^1.0.4",
+    "@dynamic-labs/sdk-react-core": "^1.0.4",
+    "@dynamic-labs/starknet": "^1.0.4",
+    "@dynamic-labs/wallet-book": "^1.0.4",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@flyyer/use-googlefonts": "^0.4.2",
@@ -41,35 +46,34 @@
     "@metamask/onboarding": "^1.0.1",
     "@mui/material": "^5.5.3",
     "@mui/styles": "^5.5.0",
-    "@splitbee/web": "^0.3.0",
     "@starkgate/shared": "workspace:*",
     "@starkware-webapps/enums": "workspace:*",
     "@starkware-webapps/http-client": "workspace:*",
     "@starkware-webapps/js-logger": "workspace:*",
+    "@starkware-webapps/starknet-connect": "workspace:*",
     "@starkware-webapps/ui": "workspace:*",
     "@starkware-webapps/utils": "workspace:*",
     "@starkware-webapps/utils-browser": "workspace:*",
     "@starkware-webapps/web3-utils": "workspace:*",
     "@tanstack/react-query": "^4.27.0",
     "@tanstack/react-query-devtools": "^4.27.0",
-    "get-starknet": "^1.5.0",
+    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.2.0",
     "react-router": "^6.3.0",
     "react-router-dom": "6",
-    "starknet": "^4.22.0",
+    "starknet": "5.25.0",
     "use-breakpoint": "^3.0.1",
-    "use-deep-compare-effect": "^1.8.1",
-    "use-wallet": "^0.13.6",
-    "web3": "^1.8.1"
+    "use-deep-compare-effect": "^1.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@starkware-webapps/tsconfig": "workspace:*",
     "@types/react": "^17.0.53",
     "@types/react-dom": "^17.0.19",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.15.0",
     "eslint-config-react-custom": "workspace:*",
     "postcss": "^8.4.21",
@@ -84,19 +88,14 @@
     "stylelint-config-standard-scss": "^3.0.0",
     "stylelint-prettier": "^2.0.0",
     "stylelint-scss": "^4.0.0",
-    "typescript": "^4.7.3",
-    "vite": "^4.1.0",
+    "typescript": "^5.3.3",
+    "vite": "^4.2.0",
     "vite-plugin-dynamic-import": "^1.2.7",
     "vite-plugin-html-env": "^1.2.7",
     "vite-plugin-svgr": "^2.4.0"
   },
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "ethereumjs-abi": "^0.6.8"
-    }
   }
 }

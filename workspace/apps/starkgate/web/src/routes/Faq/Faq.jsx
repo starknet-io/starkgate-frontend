@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 
 import {ReactComponent as MinusCircle} from '@assets/svg/icons/minus-circle.svg';
 import {ReactComponent as PlusCircle} from '@assets/svg/icons/plus-circle.svg';
-import {useFaqTracking, useFaqTranslation} from '@hooks';
+import {useEnvs, useFaqTracking, useFaqTranslation, useHeadTranslation, useTitle} from '@hooks';
 import {FullScreenContainer} from '@ui';
 
 import styles from './Faq.module.scss';
@@ -11,6 +11,10 @@ import Faqs from './Faqs';
 
 export const Faq = () => {
   const [trackFaqScreen] = useFaqTracking();
+  const titles = useHeadTranslation('title.faq');
+
+  const {CHAIN} = useEnvs();
+  useTitle(titles[CHAIN]);
 
   useEffect(() => {
     trackFaqScreen();

@@ -1,16 +1,13 @@
-import {ChainType, isL1Testnet} from '@starkware-webapps/enums';
-import {evaluate} from '@starkware-webapps/utils';
+import {evaluate, mergeDeep} from '@starkware-webapps/utils';
+import {toEthereumChainId, toStarknetChainId} from '@starkware-webapps/web3-utils';
 
-const env = {...import.meta.env, ...window['__env__']};
+const env = mergeDeep({}, import.meta.env, window['__env__']);
 
 export const {DEV} = env;
-export const AUTO_CONNECT = import.meta.env.VITE_APP_AUTO_CONNECT === 'true';
-export const POLL_BLOCK_NUMBER_INTERVAL = Number(env.VITE_APP_POLL_BLOCK_NUMBER_INTERVAL);
 export const SUPPORTED_TOKENS = env.VITE_APP_SUPPORTED_TOKENS.split(',');
-export const SUPPORTED_L1_CHAIN_ID = Number(env.VITE_APP_SUPPORTED_CHAIN_ID);
-export const SUPPORTED_L2_CHAIN_ID = isL1Testnet(SUPPORTED_L1_CHAIN_ID)
-  ? ChainType.L2.GOERLI
-  : ChainType.L2.MAIN;
+export const CHAIN = env.VITE_APP_CHAIN;
+export const SUPPORTED_L1_CHAIN_ID = toEthereumChainId(env.VITE_APP_CHAIN);
+export const SUPPORTED_L2_CHAIN_ID = toStarknetChainId(env.VITE_APP_CHAIN);
 export const STARKNET_CONTRACT_ADDRESS = env.VITE_APP_STARKNET_CONTRACT_ADDRESS;
 export const ETHERSCAN_URL = env.VITE_APP_ETHERSCAN_URL;
 export const ETHERSCAN_TX_URL = tx => evaluate(`${ETHERSCAN_URL}/tx/{{tx}}`, {tx});
@@ -25,7 +22,10 @@ export const STARKSCAN_TX_URL = tx => evaluate(`${STARKSCAN_URL}/tx/{{tx}}`, {tx
 export const STARKSCAN_ETH_TX_URL = tx => evaluate(`${STARKSCAN_URL}/eth-tx/{{tx}}`, {tx});
 export const STARKSCAN_ACCOUNT_URL = contract =>
   evaluate(`${STARKSCAN_URL}/contract/{{contract}}`, {contract});
-export const LOCAL_STORAGE_ACCEPT_TERMS_KEY = env.VITE_APP_LOCAL_STORAGE_ACCEPT_TERMS;
+export const VIEWBLOCK_URL = env.VITE_APP_VIEWBLOCK_URL;
+export const VIEWBLOCK_TX_URL = tx => evaluate(VIEWBLOCK_URL, {path: `tx/${tx}`});
+export const VIEWBLOCK_ACCOUNT_URL = contract =>
+  evaluate(VIEWBLOCK_URL, {path: `contract/${contract}`});
 export const API_ENDPOINT_URL = env.VITE_APP_API_ENDPOINT_URL;
 export const SCREENING_SERVICE_URL = evaluate(`${API_ENDPOINT_URL}`, {
   service: env.VITE_APP_SCREENING_SERVICE_NAME
@@ -45,3 +45,8 @@ export const ATTESTATIONS_ORACLE_URL = env.VITE_APP_ATTESTATIONS_ORACLE_URL;
 export const GOOGLE_MEASURE_ID = env.VITE_APP_GOOGLE_MEASURE_ID;
 export const RELAYER_CONTRACT_ADDRESS = env.VITE_APP_RELAYER_CONTRACT_ADDRESS;
 export const RELAYER_GAS_COST_URL = env.VITE_APP_RELAYER_GAS_COST_URL;
+export const DYNAMIC_ENV_ID = env.VITE_APP_DYNAMIC_ENV_ID;
+export const RPC_PROVIDER_INFURA_API_KEY = env.VITE_APP_RPC_PROVIDER_INFURA_API_KEY;
+export const RPC_PROVIDER_BLAST_API_KEY = env.VITE_APP_RPC_PROVIDER_BLAST_API_KEY;
+export const RPC_PROVIDER_CHAINSTACK_API_KEY = env.VITE_APP_RPC_PROVIDER_CHAINSTACK_API_KEY;
+export const ETHEREUM_GAS_MULTIPLIER = Number(env.VITE_APP_ETHEREUM_GAS_MULTIPLIER || 1.15);

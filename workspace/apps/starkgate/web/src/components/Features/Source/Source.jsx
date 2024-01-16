@@ -5,7 +5,8 @@ import {useSourceTranslation, useTransferTracking} from '@hooks';
 import {useIsL1, useIsL2, useSource, useTransfer} from '@providers';
 import {TransferType, isDeposit, isWithdrawal} from '@starkgate/shared';
 import {isL1Network} from '@starkware-webapps/enums';
-import {Menu, SourceMenuTab} from '@ui';
+import {TextSwitch} from '@starkware-webapps/ui';
+import {Menu} from '@ui';
 
 import styles from './Source.module.scss';
 
@@ -17,7 +18,7 @@ export const Source = () => {
   const {depositTxt, withdrawTxt} = useSourceTranslation();
   const {source, selectDefaultSource} = useSource();
 
-  const tabs = [
+  const switchTabs = [
     {
       text: depositTxt,
       isActive: isDeposit(action),
@@ -46,18 +47,10 @@ export const Source = () => {
     }
   };
 
-  const renderTabs = () => {
-    return tabs.map((tab, index) => {
-      return (
-        <SourceMenuTab key={index} isActive={tab.isActive} text={tab.text} onClick={tab.onClick} />
-      );
-    });
-  };
-
   return (
     <Menu>
       <div className={styles.source}>
-        <div className={styles.tabsContainer}>{renderTabs()}</div>
+        <TextSwitch tabs={switchTabs} />
         {isL1Network(source) ? <Transfer onNetworkSwap={onNetworkSwap} /> : <ProvidersMenu />}
       </div>
     </Menu>

@@ -8,13 +8,8 @@ import {Alert, AlertType, ModalText} from '@ui';
 import styles from './TransactionSubmittedModalBody.module.scss';
 
 const TransactionSubmittedModalBody = ({transfer}) => {
-  const {
-    completeTransferToL1Txt,
-    transferToL1Txt,
-    transferToL2Txt,
-    transferToL2AlertTxt,
-    transferAlertTitle
-  } = useTransactionSubmittedModalTranslation();
+  const {completeTransferToL1Txt, transferToL1Txt, transferToL2Txt, transferToL2AlertTxt} =
+    useTransactionSubmittedModalTranslation();
   const {colorIris} = useColors();
   const {type, l2TxHash, l1TxHash, fastWithdrawal, autoWithdrawal} = transfer;
   const isTransferCompleted = l1TxHash && l2TxHash;
@@ -34,9 +29,7 @@ const TransactionSubmittedModalBody = ({transfer}) => {
   return (
     <div className={styles.transactionSubmittedModalBody}>
       <ModalText style={textStyle}>{textMessage}</ModalText>
-      {isDeposit(type) && (
-        <Alert message={transferToL2AlertTxt} title={transferAlertTitle} type={AlertType.WARNING} />
-      )}
+      {isDeposit(type) && <Alert title={transferToL2AlertTxt} type={AlertType.WARNING} />}
     </div>
   );
 };

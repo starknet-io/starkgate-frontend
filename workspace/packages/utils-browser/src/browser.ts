@@ -1,6 +1,6 @@
-import {evaluate, isObject, mergeDeep, promiseHandler} from '@starkware-webapps/utils';
+import {isObject, mergeDeep, promiseHandler} from '@starkware-webapps/utils';
 
-export const openInNewTab = (url: string) => {
+export const openInNewTab = (url: string | URL) => {
   window.open(url, '_blank')?.focus();
 };
 
@@ -22,9 +22,11 @@ export const setParam = (key: string, val: string) => {
   }
 };
 
-export const deleteParam = (key: string) => {
+export const deleteParam = (...keys: string[]) => {
   const url = new URL(window.location.href);
-  url.searchParams.delete(key);
+
+  keys.forEach(key => url.searchParams.delete(key));
+
   window.history.pushState('', '', url.toString());
 };
 
@@ -72,29 +74,6 @@ export const setCookie = (name: string, value: any, days?: number) => {
   document.cookie = `${name}=${JSON.stringify(cookieVal)}${expires}; path=/`;
 };
 
-export const buildDynamicURL = (
-  url: string,
-  qsParams: {[key: string]: string},
-  dynamicQsValues: {[key: string]: any} = {}
-) => {
-  let dynamicUrl = url;
-  const keys = Object.keys(qsParams);
-  if (keys.length) {
-    dynamicUrl += '?';
-  }
-  keys.forEach(key => {
-    const param = qsParams[key];
-    // check if the param is not evaluated param OR the param is a key in dynamicQsValues object
-    if (!/.*\{\{.+}}.*/.test(param) || dynamicQsValues[param.replace(/[{}]/g, '')]) {
-      dynamicUrl += `${key}=${param}&`;
-    }
-  });
-  if (dynamicUrl.slice(-1) === '?' || dynamicUrl.slice(-1) === '&') {
-    dynamicUrl = dynamicUrl.slice(0, -1);
-  }
-  return evaluate(dynamicUrl, dynamicQsValues);
-};
-
 export const copyToClipboard = async (text: string): Promise<boolean> => {
   const cb = navigator?.clipboard;
   const [, error] = await promiseHandler(cb?.writeText(text));
@@ -106,8 +85,73 @@ export const printPackageInfo = (name: string, version: string, color: string) =
   console.log(`%c ${name} v${version}`, `color: ${color || '#ff98f9'};  font-size: large`);
 };
 
-export const redirect = (url: string, queryParams: {[key: string]: string} = {}) => {
-  const queryString =
-    Object.keys(queryParams).length > 0 ? `?${new URLSearchParams(queryParams).toString()}` : '';
-  window.location.replace(url + queryString);
+function isValidQueryParam(entry: [string, string | undefined]): entry is [string, string] {
+  return entry[1] !== undefined;
+}
+
+export const redirect = (url: string, queryParams: Record<string, string | undefined> = {}) => {
+  const queryEntries = Object.entries(queryParams).filter(isValidQueryParam);
+  const separator = url.includes('?') ? '&' : '?';
+  window.location.replace(
+    `${url}${
+      queryEntries.length > 0 ? `${separator}${new URLSearchParams(queryEntries).toString()}` : ''
+    }`
+  );
+};
+
+export const loadScriptAsync = (src: string): Promise<void> =>
+  new Promise((resolve, reject) => {
+    // Create the script tag
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+
+    // Event listener to resolve the promise when script is loaded
+    script.onload = () => {
+      resolve();
+    };
+
+    // Error handling
+    script.onerror = () => reject(new Error('Script failed to load'));
+
+    // Append the script to the document head
+    document.head.appendChild(script);
+  });
+
+export const loadGoogleRecaptcha = async (siteKey: string): Promise<void> => {
+  return await loadScriptAsync(`https://www.google.com/recaptcha/api.js?render=${siteKey}`);
+};
+
+export const loadGoogleAnalytics = (trackingId: string): Promise<void> =>
+  new Promise((resolve, reject) => {
+    // Check if gtag function is already defined
+    window.gtag =
+      window.gtag ||
+      function (...args: any[]) {
+        (window.dataLayer = window.dataLayer || []).push(args);
+      };
+
+    // If script is already loaded, resolve immediately
+    if (window.dataLayer) {
+      resolve();
+      return;
+    }
+
+    // Assuming promiseHandler and loadScriptAsync are asynchronous functions
+    promiseHandler(loadScriptAsync(`https://www.googletagmanager.com/gtag/js?id=${trackingId}`))
+      .then(([, error]) => {
+        if (error) {
+          reject(error);
+        } else {
+          window.gtag('js', new Date());
+          window.gtag('config', trackingId);
+          resolve();
+        }
+      })
+      .catch(reject);
+  });
+
+export const scrollElementToView = (elementId: string) => {
+  const elementToScroll = elementId ? document.getElementById(elementId) : null;
+  elementToScroll?.scrollIntoView({behavior: 'smooth'});
 };

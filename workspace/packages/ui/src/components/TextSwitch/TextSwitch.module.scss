@@ -1,0 +1,63 @@
+@import '@styles';
+
+.textSwitchTab {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 4px 30px;
+  color: rgba($--color-white, 0.5);
+  width: calc(100% / var(--tabs-count));
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  .textSwitchTabText {
+    z-index: 0;
+  }
+
+  &:hover {
+    color: $--color-white;
+  }
+
+  &.isActive {
+    color: $--color-white;
+  }
+}
+
+.textSwitch {
+  display: flex;
+  background: $--color-space-cadet-1;
+  border-radius: 8px;
+  padding: 6px var(--inline-padding);
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &::before {
+    content: '';
+    border-radius: 4px;
+    top: 4px;
+    left: calc(
+      ((100% - (var(--inline-padding) * 2)) / var(--tabs-count)) * var(--active-tab-index) +
+        var(--inline-padding)
+    );
+    position: absolute;
+    background: $--color-dark-slate-blue;
+    z-index: 0;
+    width: calc((100% - 16px) / var(--tabs-count));
+    height: calc(100% - 8px);
+    transition: 0.15s linear;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

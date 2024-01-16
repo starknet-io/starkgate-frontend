@@ -5,6 +5,7 @@ import dynamicImport from 'vite-plugin-dynamic-import';
 import VitePluginHtmlEnv from 'vite-plugin-html-env';
 import svgr from 'vite-plugin-svgr';
 
+import {NodeGlobalsPolyfillPlugin} from '@esbuild-plugins/node-globals-polyfill';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(({mode}: ConfigEnv) => {
@@ -40,6 +41,15 @@ export default defineConfig(({mode}: ConfigEnv) => {
         ]
       })
     ],
+    optimizeDeps: {
+      esbuildOptions: {
+        plugins: [
+          NodeGlobalsPolyfillPlugin({
+            process: true
+          })
+        ]
+      }
+    },
     resolve: {
       alias: [
         {find: '@analytics', replacement: resolve(__dirname, 'src/analytics')},
@@ -55,11 +65,13 @@ export default defineConfig(({mode}: ConfigEnv) => {
         {find: '@utils', replacement: resolve(__dirname, 'src/utils')},
         {find: '@containers', replacement: resolve(__dirname, 'src/components/Containers')},
         {find: '@ui', replacement: resolve(__dirname, 'src/components/UI')},
-        {find: '@features', replacement: resolve(__dirname, 'src/components/Features')}
+        {find: '@features', replacement: resolve(__dirname, 'src/components/Features')},
+        {find: 'stream', replacement: 'stream-browserify'}
       ]
     },
     define: {
       global: 'window',
+      'process.env': {},
       APP_VERSION: JSON.stringify(process.env.npm_package_version),
       APP_NAME: JSON.stringify(process.env.npm_package_name)
     },

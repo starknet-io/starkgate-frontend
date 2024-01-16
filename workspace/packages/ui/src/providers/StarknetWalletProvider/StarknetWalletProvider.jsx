@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useReducer} from 'react';
 
 import {useConstants, useTranslation} from '@hooks';
-import {ChainInfo, ChainTypeL2, WalletErrorType, WalletStatus} from '@starkware-webapps/enums';
+import {ChainInfo, WalletErrorType, WalletStatus} from '@starkware-webapps/enums';
 import {evaluate} from '@starkware-webapps/utils';
 import {getCookie, setCookie} from '@starkware-webapps/utils-browser';
+import {toStarknetChainId} from '@starkware-webapps/web3-utils';
 
 import {StarknetWalletContext} from './starknet-wallet-context';
 import {actions, initialState, reducer} from './starknet-wallet-reducer';
@@ -12,7 +13,7 @@ import {actions, initialState, reducer} from './starknet-wallet-reducer';
 export const StarknetWalletProvider = ({
   autoConnect,
   getLibrary,
-  chainIds = [ChainTypeL2.GOERLI],
+  chain = 'goerli',
   options = {},
   children
 }) => {
@@ -90,18 +91,17 @@ export const StarknetWalletProvider = ({
   };
 
   const updateAccount = async () => {
-    const {id, selectedAddress, name, icon, provider} = await getStarknet();
-    if (provider) {
-      const {baseUrl} = provider.provider || provider;
-      const chainId = getCurrentChainId(baseUrl);
-      const supportedChainId = chainIds.find(id => id === chainId);
-      if (supportedChainId) {
+    const {id, selectedAddress, name, icon, account} = await getStarknet();
+    if (account?.provider) {
+      const walletChainId = await account.provider.getChainId();
+      const chainId = toStarknetChainId(chain);
+      if (walletChainId === chainId) {
         updateWallet({
-          account: selectedAddress,
+          account: selectedAddress || '',
           status: selectedAddress ? WalletStatus.CONNECTED : WalletStatus.DISCONNECTED,
           error: null,
           chainId,
-          chainName: ChainInfo.L2[supportedChainId].NAME,
+          chainName: ChainInfo.L2[chainId].NAME,
           config: {
             name,
             logoPath: icon
@@ -114,21 +114,11 @@ export const StarknetWalletProvider = ({
           error: {
             name: WalletErrorType.CHAIN_UNSUPPORTED_ERROR,
             message: evaluate(UNSUPPORTED_CHAIN_TXT, {
-              chains: chainIds.map(id => ChainInfo.L2[id].NAME).join(', ')
+              chain: ChainInfo.L2[chainId].NAME
             })
           }
         });
       }
-    }
-  };
-
-  const getCurrentChainId = baseUrl => {
-    if (baseUrl.includes('alpha-mainnet.starknet.io')) {
-      return ChainTypeL2.MAIN;
-    } else if (baseUrl.includes('alpha4.starknet.io')) {
-      return ChainTypeL2.GOERLI;
-    } else if (baseUrl.match(/^https?:\/\/localhost.*/)) {
-      return 'localhost';
     }
   };
 
@@ -155,7 +145,7 @@ export const StarknetWalletProvider = ({
 StarknetWalletProvider.propTypes = {
   autoConnect: PropTypes.bool,
   getLibrary: PropTypes.func,
-  chainIds: PropTypes.array,
+  chain: PropTypes.string,
   options: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

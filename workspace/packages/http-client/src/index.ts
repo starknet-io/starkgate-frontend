@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 
 import {mergeDeep} from '@starkware-webapps/utils';
 
@@ -9,7 +9,7 @@ const DEFAULT_CONFIG: AxiosRequestConfig = {
 };
 
 export const createHttpClient = (config: AxiosRequestConfig = {}) => {
-  return axios.create(mergeDeep(DEFAULT_CONFIG, config));
+  return axios.create(mergeDeep({}, DEFAULT_CONFIG, config));
 };
 
 export const parseHttpClientError = (error: AxiosError) => {
@@ -29,4 +29,10 @@ export const parseHttpClientError = (error: AxiosError) => {
   return {title, message, code};
 };
 
+export const isHttpError = (error: unknown): error is HttpError => {
+  return axios.isAxiosError(error);
+};
+
 export type HttpResponse = AxiosResponse;
+export type HttpError = AxiosError;
+export type HttpClient = AxiosInstance;

@@ -3,21 +3,17 @@ import React, {useReducer} from 'react';
 
 import {useAccountChange, useBridgeContractAPI, useConstants} from '@hooks';
 import {useL1TokenBalance, useL2TokenBalance} from '@hooks/useTokenBalance';
+import {TokensContext, actions, initialState, reducer, useWallets} from '@providers';
 import {useLogger} from '@starkware-webapps/ui';
 import {promiseHandler} from '@starkware-webapps/utils';
-
-import {useL1Wallet, useL2Wallet} from '../WalletsProvider';
-import {TokensContext} from './tokens-context';
-import {actions, initialState, reducer} from './tokens-reducer';
 
 export const TokensProvider = ({children}) => {
   const logger = useLogger(TokensProvider.displayName);
   const {FETCH_TOKEN_BALANCE_MAX_RETRY} = useConstants();
   const [tokens, dispatch] = useReducer(reducer, initialState);
-  const {account: accountL1} = useL1Wallet();
-  const {account: accountL2} = useL2Wallet();
-  const getL1TokenBalance = useL1TokenBalance(accountL1);
-  const getL2TokenBalance = useL2TokenBalance(accountL2);
+  const {ethereumAccount, starknetAccount} = useWallets();
+  const getL1TokenBalance = useL1TokenBalance(ethereumAccount);
+  const getL2TokenBalance = useL2TokenBalance(starknetAccount);
   const {maxDeposit: fetchMaxDeposit, maxTotalBalance: fetchMaxTotalBalance} =
     useBridgeContractAPI();
 
