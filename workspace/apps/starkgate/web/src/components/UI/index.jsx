@@ -53,3 +53,4 @@ export * from './Link/Link';
 export * from './Image/Image';
 export * from './SideButton/SideButton';
 export * from './TermsDisclaimer/TermsDisclaimer';
+export * from './JumbToTop/JumbToTop';
