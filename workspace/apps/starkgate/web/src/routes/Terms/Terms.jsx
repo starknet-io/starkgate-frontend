@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 
+
 import {useEnvs, useHeadTranslation, useTermsTracking, useTermsTranslation, useTitle} from '@hooks';
-import {FullScreenContainer} from '@ui';
+import {FullScreenContainer, JumbToTop} from '@ui';
 
 import styles from './Terms.module.scss';
 import TermsOfUse from './TermsOfUse';
@@ -22,6 +23,7 @@ export const Terms = () => {
       <div className={styles.terms}>
         <Header />
         <div className={styles.text}>{TermsOfUse}</div>
+        <JumpToTop />
       </div>
     </FullScreenContainer>
   );
