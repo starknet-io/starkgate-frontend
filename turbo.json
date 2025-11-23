@@ -1,32 +1,55 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["npm_package_version", "npm_package_name"],
+  "globalEnv": [
+    "npm_package_version",
+    "npm_package_name",
+    "NODE_ENV",
+    "CI"
+  ],
   "pipeline": {
     "build": {
       "dependsOn": ["prebuild", "ts-declarations", "^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "lib/**"]
     },
-    "clean": {},
+    "clean": {
+      "cache": false,
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "format": {},
+    "format": {
+      "outputs": []
+    },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "outputs": []
     },
-    "pack": {
-      "dependsOn": ["lint", "build", "test"]
-    },
-    "prebuild": {},
     "test": {
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": ["coverage/**"]
+    },
+    "prebuild": {
+      "outputs": []
     },
     "ts-declarations": {
-      "dependsOn": ["prebuild", "^ts-declarations", "^build"]
+      # TS declarations only need preceding steps or dependencies' declarations, 
+      # not necessarily the full 'build' of the dependency itself.
+      "dependsOn": ["prebuild", "^ts-declarations"], 
+      # Assuming declarations output to 'dist' or a specific type folder
+      "outputs": ["dist/types/**", "*.d.ts"] 
     },
+    "pack": {
+      # Only depends on 'build' for the compiled artifacts. 
+      # Removed 'lint' and 'test' for faster packing cycles.
+      "dependsOn": ["build"],
+      "outputs": ["*.tgz"]
+    },
+    # Specialized task (placed last for readability)
     "@starkgate/web#lint": {
-      "env": ["NETLIFY"]
+      "env": ["NETLIFY"],
+      "outputs": []
     }
   }
 }
