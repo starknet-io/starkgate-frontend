@@ -32,7 +32,7 @@ export const useBridgeContractAPI = () => {
   const getL1BridgeContract = useL1TokenBridgeContract();
   const getL1Token = useL1Token();
   const getL2Token = useL2Token();
-  const {TELEPORT_FEE_MULTIPLIER} = useConstants();
+  const {TELEPORT_FEE_MULTIPLIER_BPS, BPS_DENOMINATOR} = useConstants();
   const getTeleportOracleAuthContract = useTeleportOracleAuthContract();
   const fetchGasCost = useGasCost();
   const {SUPPORTED_L2_CHAIN_ID, DAI_TELEPORT_GATEWAY_CONTRACT_ADDRESS, DAI_TELEPORT_TARGET_DOMAIN} =
@@ -52,7 +52,12 @@ export const useBridgeContractAPI = () => {
         entry_point_selector: 'handle_deposit',
         payload
       });
-      return Number(estimatedFee);
+      // Returned as the raw decimal string, never as a `Number`. `overall_fee` is a wei amount
+      // and any value above ~0.009 ETH (1e16 wei) already exceeds Number.MAX_SAFE_INTEGER, so
+      // coercing it to a double silently rounds it — and the rounded value is then handed to
+      // ethers v5, which rejects integers above the safe range outright, turning a rounding
+      // bug into a transaction that fails on-chain.
+      return estimatedFee;
     },
     [selectedToken, getStarknetProvider, ethereumAccount, getL2Token]
   );
@@ -87,7 +92,10 @@ export const useBridgeContractAPI = () => {
         args: [parsedAmount, recipient],
         transaction: {
           from: ethereumAccount,
-          value: BigNumber.from(parsedAmount).add(estimatedL2Fee).toString()
+          // Both operands are wrapped in `BigNumber.from`: mixing a BigNumber with a raw JS number
+          // coerces the number to a double first, which reintroduces the precision loss the
+          // string return type above exists to avoid.
+          value: BigNumber.from(parsedAmount).add(BigNumber.from(estimatedL2Fee)).toString()
         }
       });
     },
@@ -226,10 +234,16 @@ export const useBridgeContractAPI = () => {
     async ({amount, customData}) => {
       const teleportOracleAuthContract = await getTeleportOracleAuthContract();
       const {decimals} = selectedToken;
-      const maxFeePercentage = parseToDecimals(
-        (TELEPORT_FEE_MULTIPLIER * amount).toFixed(decimals),
-        decimals
-      );
+      // The max fee is computed with integer arithmetic from basis points:
+//
+//   fee = (amount_in_base_units * TELEPORT_FEE_MULTIPLIER_BPS) / 10_000n
+//
+// Both operands are BigInt, so the result is exact and truncates predictably toward zero.
+// The previous float expression, `(0.0001 * amount).toFixed(decimals)`, routed the decimal
+// amount through an IEEE-754 double and produced a value that could be slightly larger
+// than the intended fee — and that value is passed straight to the on-chain `requestMint`.
+const amountInBaseUnits = BigInt(parseToDecimals(amount, decimals));
+const maxFeePercentage = ((amountInBaseUnits * TELEPORT_FEE_MULTIPLIER_BPS) / BPS_DENOMINATOR).toString();
       return teleportOracleAuthContract.requestMint(
         customData.teleportGUID,
         customData.signatures,

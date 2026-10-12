@@ -23,7 +23,7 @@ import {
   useWalletLogin
 } from '@providers';
 import {NetworkType} from '@starkware-webapps/enums';
-import {afterDecimal, evaluate, isNegative, isZero} from '@starkware-webapps/utils';
+import {afterDecimal, compareDecimalStrings, evaluate, isNegative, isZero, minDecimalString} from '@starkware-webapps/utils';
 import {
   Link,
   LinkType,
@@ -42,6 +42,7 @@ import styles from './Transfer.module.scss';
 export const Transfer = ({onNetworkSwap}) => {
   const {
     insufficientBalanceErrorMsg,
+    invalidValueErrorMsg,
     maxDepositErrorMsg,
     tooManyDigitsErrorMsg,
     negativeValueErrorMsg
@@ -88,13 +89,26 @@ export const Transfer = ({onNetworkSwap}) => {
     let errorMsg = '';
     const {decimals, balance, maxDeposit, symbol} = selectedToken;
 
+    // Balances and caps are exact decimal strings (e.g. "1000000000000000000.5").
+    // They are compared with an exact decimal-string comparator rather than `Number()`:
+    // IEEE-754 doubles lose precision past 2^53-1 / ~15 significant digits, which can make
+    // an amount strictly greater than the balance or the cap compare as smaller and slip
+    // through validation.
+    const amountVsBalance = compareDecimalStrings(amount, String(balance));
+    const amountVsMaxDeposit = isL1 ? compareDecimalStrings(amount, String(maxDeposit)) : 1;
+
     if (afterDecimal(amount) > decimals) {
       errorMsg = tooManyDigitsErrorMsg;
     } else if (isNegative(amount)) {
       errorMsg = negativeValueErrorMsg;
-    } else if (Number(amount) > Number(balance)) {
+    } else if (amountVsBalance === null) {
+      // Unparseable input is rejected outright rather than being treated as zero.
+      errorMsg = invalidValueErrorMsg;
+    } else if (amountVsBalance > 0) {
       errorMsg = insufficientBalanceErrorMsg;
-    } else if (isL1 && Number(amount) > Number(maxDeposit)) {
+    } else if (amountVsMaxDeposit === null) {
+      errorMsg = invalidValueErrorMsg;
+    } else if (amountVsMaxDeposit > 0) {
       errorMsg = evaluate(maxDepositErrorMsg, {maxDeposit, symbol});
     }
 
@@ -111,7 +125,13 @@ export const Transfer = ({onNetworkSwap}) => {
     const {balance, maxDeposit} = selectedToken;
     try {
       trackMaxClick();
-      setAmount(String(Math.min(balance, isL1 ? Number(maxDeposit) : Infinity)));
+      // `Math.min` is not used here: it would coerce both decimal strings through a double
+      // and can return a value that differs from the on-chain balance.
+      if (isL1) {
+        setAmount(minDecimalString(String(balance), String(maxDeposit)) ?? String(balance));
+      } else {
+        setAmount(String(balance));
+      }
     } catch (ex) {
       setAmount(balance);
     }

@@ -13,7 +13,7 @@ import {
 import {useSelectedToken, useWallets} from '@providers';
 import {TransferType} from '@starkgate/shared';
 import {useLogger} from '@starkware-webapps/ui';
-import {promiseHandler} from '@starkware-webapps/utils';
+import {compareDecimalStrings, promiseHandler} from '@starkware-webapps/utils';
 import {isEth} from '@utils';
 
 export const useTransferToL2 = () => {
@@ -97,7 +97,14 @@ export const useTransferToL2 = () => {
               spender: bridgeAddress
             });
             logger.log('Current allow value', {allow});
-            if (Number(allow) < Number(amount)) {
+            // Exact decimal-string comparison: an ERC-20 allowance is a u256 and routinely exceeds
+            // the 15-17 significant digits an IEEE-754 double holds, so comparing through
+            // `Number()` can decide that a sufficient allowance is insufficient (an extra
+            // approval tx) or, conversely, that an insufficient one is sufficient.
+            // A null result means one side was not a parseable decimal string; treat it as
+            // "needs approval" so the safe branch is taken.
+            const allowanceCoversAmount = compareDecimalStrings(String(allow), String(amount));
+            if (allowanceCoversAmount === null || allowanceCoversAmount < 0) {
               logger.log('Allow value is smaller then amount, sending approve tx...', {amount});
               const tx = await approve({
                 spender: bridgeAddress,
